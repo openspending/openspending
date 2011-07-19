@@ -27,7 +27,8 @@ setup(
         "mock==0.7.2"
     ],
 
-    packages=find_packages(),
+    packages=find_packages('.packageroot'),
+    package_dir={'': '.packageroot'},
     namespace_packages=['openspending'],
 
     test_suite='nose.collector',
