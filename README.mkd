@@ -1,0 +1,20 @@
+# OpenSpending
+
+## Developer installation
+
+Install the application and copy configuration templates.
+
+    $ virtualenv --no-site-packages pyenv
+    $ source pyenv/bin/activate
+    $ pip install -e .
+    $ hash -r # (or rehash in zsh)
+    $ cp development.ini_tmpl development.ini
+    $ cp test.ini_tmpl test.ini
+
+Run the tests
+
+    $ nosetests
+
+Run the application
+
+    $ paster serve --reload development.ini

@@ -1,0 +1,15 @@
+#
+# openspending - Pylons testing environment configuration
+#
+# The %(here)s variable will be replaced with the parent directory of this file
+#
+[DEFAULT]
+debug = true
+
+[server:main]
+use = egg:Paste#http
+host = 127.0.0.1
+port = 5000
+
+[app:main]
+use = config:development.ini

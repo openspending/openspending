@@ -1,0 +1,70 @@
+#
+# openspending - Pylons configuration
+#
+# The %(here)s variable will be replaced with the parent directory of this file
+#
+[DEFAULT]
+debug = true
+
+[server:main]
+use = egg:Paste#http
+host = 0.0.0.0
+port = 5000
+
+[app:main]
+use = egg:openspending
+full_stack = true
+static_files = true
+
+cache_dir = %(here)s/.pylons_data
+beaker.session.key = openspending.ui
+beaker.session.secret = ${app_instance_secret}
+app_instance_uuid = ${app_instance_uuid}
+
+# ################### #
+# OpenSpending config # 
+# ################### #
+
+# Sandbox mode: all users are admins by default
+openspending.sandbox_mode = true
+
+# Numerous site-configurable strings
+# openspending.site_title = OpenSpending ETL
+# openspending.site_slogan = Extract, Transform, Load
+# openspending.site_logo = /images/datastore-logo.png
+# openspending.wiki_link = http://wiki.openspending.org/
+# openspending.blog_link = http://wheredoesmymoneygo.org/blog/
+# openspending.api_link = http://wiki.openspending.org/API
+# openspending.lists_link = http://lists.okfn.org/mailman/listinfo/openspending-discuss
+# openspending.forum_link =
+
+# Mongo
+openspending.mongodb.host = localhost
+openspending.mongodb.database = openspending_dev
+
+# Solr
+openspending.solr.url = http://localhost:8983/solr
+
+# Logging configuration:
+#   http://wiki.pylonshq.com/display/pylonsdocs/Logging
+[loggers]
+keys = root
+
+[handlers]
+keys = console
+
+[formatters]
+keys = generic
+
+[logger_root]
+level = INFO
+handlers = console
+
+[handler_console]
+class = StreamHandler
+args = (sys.stderr,)
+level = NOTSET
+formatter = generic
+
+[formatter_generic]
+format = %(asctime)s %(levelname)-5.5s [%(name)s] %(message)s
