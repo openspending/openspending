@@ -35,12 +35,12 @@ setup(
 
     zip_safe=False,
 
-    paster_plugins=['PasteScript', 'Pylons'],
-    entry_points="""
-    [paste.app_factory]
-    main = openspending.ui.middleware:make_app
-
-    [paste.app_install]
-    main = pylons.util:PylonsInstaller
-    """,
+    entry_points={
+        'paste.app_factory': [
+            'main = openspending.ui.config.middleware:make_app'
+        ],
+        'paste.app_install': [
+            'main = pylons.util:PylonsInstaller'
+        ]
+    }
 )
