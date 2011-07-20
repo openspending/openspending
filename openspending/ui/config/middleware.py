@@ -113,7 +113,7 @@ def make_app(global_conf, full_stack=True, static_files=True, **app_conf):
         static_parsers = [static_app, app]
 
         # Configurable extra static file paths
-        extra_public_paths = config.get('extra_public_paths')
+        extra_public_paths = config.get('openspending.extra_public_paths')
         if extra_public_paths:
             static_parsers = [StaticURLParser(public_path.strip(),
                                               cache_max_age=max_age) \

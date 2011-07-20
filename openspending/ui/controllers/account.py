@@ -25,7 +25,7 @@ class AccountController(BaseController):
         return render('account/login.html')
 
     def register(self):
-        if config.get('sandbox_mode') == 'true':
+        if config.get('openspending.sandbox_mode') == 'true':
             default_roles = ["user", "admin"]
         else:
             default_roles = ["user"]

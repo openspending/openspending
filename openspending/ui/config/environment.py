@@ -81,7 +81,7 @@ def load_environment(global_conf, app_conf):
 
     ## redo template setup to use genshi.search_path (so remove std template setup)
     template_paths = [paths['templates'][0]]
-    extra_template_paths = config.get('extra_template_paths')
+    extra_template_paths = config.get('openspending.extra_template_paths')
     if extra_template_paths:
         # must be first for them to override defaults
         template_paths = extra_template_paths.split(' ') + template_paths
@@ -100,8 +100,6 @@ def load_environment(global_conf, app_conf):
         template_paths, auto_reload=True, callback=template_loaded)
 
     init_mongo(config)
-
-    import celerypylons # side effect: set os.environ["CELERY_LOADER"] to Pylons Celery Loader
 
     # CONFIGURATION OPTIONS HERE (note: all config options will override
     # any Pylons config options)

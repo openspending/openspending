@@ -163,7 +163,7 @@ class Cube(object):
         from paste.deploy.converters import asbool
         from pylons.decorators.cache import create_cache_key
         from pylons import config, cache
-        cache_enabled = asbool(config.get('cache_enabled', 'False'))
+        cache_enabled = asbool(config.get('openspending.cache_enabled', 'False'))
         # TODO: factor this into its own module
         if not cache_enabled:
             return self._query(*args, **kwargs)

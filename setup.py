@@ -19,7 +19,6 @@ setup(
         "python-dateutil==1.5",
         "solrpy==0.9.4",
         "pyutilib.component.core==4.3.1",
-        "celery-pylons==2.1.4dev",
         "Babel==0.9.6",
         "ckanclient==0.7",
         "colander==0.9.3",
@@ -45,6 +44,13 @@ setup(
         ],
         'paste.app_install': [
             'main = pylons.util:PylonsInstaller'
+        ],
+        'paste.paster_command': [
+            'db = openspending.command:DbCommand',
+            'graph = openspending.command:GraphCommand',
+            'removeentries = openspending.command:RemoveEntriesCommand',
+            'solr = openspending.command:SolrCommand',
+            'grantadmin = openspending.command:GrantAdminCommand'
         ]
     }
 )

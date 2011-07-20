@@ -10,10 +10,10 @@ from openspending.ui.config.environment import load_environment
 # in command descriptions
 command.optparse.OptionParser.format_description = lambda self, d: self.description
 
-log = logging.getLogger('openspending.ui')
+log = logging.getLogger('openspending')
 
 class OpenSpendingCommand(command.Command):
-    group_name = 'openspending.ui'
+    group_name = 'openspending'
 
     @classmethod
     def standard_parser(cls, *args, **kwargs):

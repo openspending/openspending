@@ -71,9 +71,9 @@ def entity_slug(entity):
 
 
 def static(url):
-    static_path = config.get("openspending.ui.static_path", "/")
+    static_path = config.get("openspending.static_path", "/")
     url_ = "%s%s" % (static_path, url)
-    version = config.get("openspending.ui.static_cache_version", "")
+    version = config.get("openspending.static_cache_version", "")
     if version:
         url_ = "%s?%s" % (url_, version)
     return url_

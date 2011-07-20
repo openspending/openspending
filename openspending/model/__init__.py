@@ -17,7 +17,7 @@ from model import Model, default_mapping
 
 def init_mongo(config):
     host = config.get('openspending.mongodb.host', 'localhost')
-    port = config.get('mongodb.port', 27017)
+    port = config.get('openspending.mongodb.port', 27017)
     mongo.make_connection(host, port)
     mongo.db_name = config.get('openspending.mongodb.database', 'openspending')
     init_serverside_js()

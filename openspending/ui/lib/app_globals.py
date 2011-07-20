@@ -11,34 +11,37 @@ class Globals(object):
     """
 
     def __init__(self):
-        self.site_title = config.get('openspending.ui.site_title', 'Data Store')
+        self.site_title = config.get(
+            'openspending.site_title',
+            'OpenSpending'
+        )
         self.site_slogan = config.get(
-            'openspending.ui.site_slogan',
-            'Ever wondered what your taxes get spent on?'
+            'openspending.site_slogan',
+            'Mapping the money.'
         )
         self.site_logo = config.get(
-            'openspending.ui.site_logo',
+            'openspending.site_logo',
             '/images/datastore-logo.png'
         )
-
-        self.default_dataset = config.get('openspending.ui.default_dataset', u'cra')
-        self.banner_headline = config.get('openspending.ui.banner_headline', '')
-
+        self.default_dataset = config.get(
+            'openspending.default_dataset',
+            'cra'
+        )
         self.wiki_link = config.get(
-            'openspending.ui.wiki_link',
+            'openspending.wiki_link',
             'http://wiki.openspending.org'
         )
         self.blog_link = config.get(
-            'openspending.ui.blog_link',
+            'openspending.blog_link',
             'http://wheredoesmymoneygo.org/blog/'
         )
         self.api_link = config.get(
-            'openspending.ui.api_link',
+            'openspending.api_link',
             'http://wiki.openspending.org/API'
         )
         self.lists_link = config.get(
-            'openspending.ui.lists_link',
-            'http://lists.okfn.org/mailman/listinfo/openspending.ui-discuss'
+            'openspending.lists_link',
+            'http://lists.okfn.org/mailman/listinfo/openspending-discuss'
         )
-        self.forum_link = config.get('openspending.ui.forum_link')
+        self.forum_link = config.get('openspending.forum_link')
 
