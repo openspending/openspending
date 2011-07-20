@@ -109,7 +109,7 @@ class DatasetController(BaseController, RestAPIMixIn):
 
     @requires("admin")
     def dropdb(self):
-        if config.get('sandbox_mode') != 'true':
+        if config.get('openspending.sandbox_mode') != 'true':
             abort(403, "Deleting the database is not permitted unless in sandbox mode")
             return
 
