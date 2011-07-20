@@ -1,0 +1,85 @@
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:py="http://genshi.edgewall.org/"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  py:strip=""
+  >
+
+  <!--! Herein can be found generic helper methods for a whole bunch of common
+        templating issues -->
+
+  <span py:def="currency_symbols(currency)">
+    <py:if test="">&ndash;</py:if>
+  </span>
+
+  <div py:def="entries_page(page)">
+    <table>
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Spender</th>
+          <th>Recipient</th>
+          <th class="num">Amount</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr py:for="entry in page">
+          <td>${entry.get('time.unparsed')}</td>
+          <td>
+            <a py:if="entry.get('from.id')" href="${h.url_from_solr_doc(entry, 'entity', prefix='from.', action='view')}">${entry.get('from.label')}</a></td>
+          <td>
+            <a py:if="entry.get('to.id')" href="${h.url_from_solr_doc(entry, 'entity', prefix='to.', action='view')}">${entry.get('to.label')}</a></td>
+          <td class="num">
+            ${h.format_number_with_commas(
+                entry.get('amount'))}
+            ${entry.get('currency')}
+          </td>
+          <td><a href="${h.entry_url(entry)}">full entry &raquo;</a></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th colspan="6">
+            ${page.pager()}
+          </th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div py:def="view_panel(viewstate)" class="view-panel last">
+
+    <script>
+      $(document).ready(function() { 
+        $("#_time_select").change(function() {
+          $("#_time_form").submit();
+        });
+      }); 
+    </script>
+
+    <form id="_time_form" action="?" method="GET">
+      <input type="hidden" name="_view" value="${viewstate.view.name}" />
+      <select name="_time" py:if="hasattr(c, 'times')" id="_time_select">
+        <py:for each="time in c.times">
+          <option py:if="hasattr(c, 'time') and time==c.time" selected="selected" value="${time}">${time}</option>
+          <option py:if="(not hasattr(c, 'time')) or time!=c.time" value="${time}">${time}</option>
+        </py:for>
+      </select>
+    </form>
+    
+    <ul> 
+      <li py:for="name, data in viewstate.available_views.items()">
+        <py:if test="name==viewstate.view.name">
+          <strong>${data.get('label')}</strong>      
+        </py:if>
+        <py:if test="name!=viewstate.view.name">
+          <a href="?_view=${name}">${data.get('label')}</a>
+        </py:if>
+      </li>
+    </ul>
+
+  </div>
+
+</html>

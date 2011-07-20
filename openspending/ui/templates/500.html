@@ -1,0 +1,27 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+
+  <py:def function="nav_class">nav-home</py:def>
+  <py:def function="page_title">500 - Server Error</py:def>
+
+  <div py:def="content" id="innercontent">
+    <h1>498&hellip; 499&hellip;</h1>
+    <div style="position:fixed;bottom:-5px;right:0px;margin:0;">
+      <div style="background-color:#fff; width:200px; padding:30px; margin:0; border:1px solid #333;text-align:center;">
+        <h1 style="font-size:72pt;margin:0;">500!</h1>
+        <p style="margin:0;">It's a Server Error!</p>
+      </div>
+      <img src="${h.static('img/thecount.png')}" alt="The Count counts 500"/>
+    </div>
+    <p>Sorry for that, we are on it.</p>
+    <p style="font-size:8pt">Original image by <a href="http://www.flickr.com/photos/jpasden/4795652307/sizes/o/in/photostream/">sinosplice</a> licensed under <a href="http://creativecommons.org/licenses/by-nc/2.0/">CC-BY-NC 2.0</a>.</p>
+ 
+
+  </div>
+
+  <xi:include href="layout.html" />
+
+</html>
+
+

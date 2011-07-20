@@ -1,0 +1,69 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  py:strip="">
+
+  <py:def function="nav_class">nav-dataset</py:def>
+
+  <py:def function="page_title">Explore ${c.dataset.get('label')}</py:def>
+
+  <py:def function="optional_head">
+    <link type="text/css" href="${h.static('js/libs/jqueryui-1.8.11/css/ui-lightness/jquery-ui-1.8.11.custom.css')}" rel="stylesheet" /> 
+    <link rel="stylesheet" href="${h.static('css/explorer.css')}" type="text/css"/>
+
+    <script type="text/javascript" src="${h.static('js/libs/jquery.json-2.2.js')}"></script>
+    <script type="text/javascript" src="${h.static('js/libs/jqueryui-1.8.11/jquery-ui-1.8.11.js')}"></script>
+
+    <script src="${h.static('js/libs/json2.js')}"></script> 
+    <script src="${h.static('js/libs/underscore-min.js')}"></script> 
+    <script src="${h.static('js/libs/backbone-min.js')}"></script> 
+
+    <script type="text/javascript" src="http://bitbucket.org/okfn/openspendingjs/raw/tip/lib/vendor/jquery.history.js"></script> 
+    <script type="text/javascript" src="http://bitbucket.org/okfn/openspendingjs/raw/tip/lib/vendor/jquery.tooltip.min.js"></script> 
+    <script type="text/javascript" src="http://bitbucket.org/okfn/openspendingjs/raw/tip/lib/vendor/raphael.js"></script> 
+    <script type="text/javascript" src="http://bitbucket.org/okfn/openspendingjs/raw/tip/lib/vendor/vis4.js"></script> 
+    <script type="text/javascript" src="http://bitbucket.org/okfn/openspendingjs/raw/tip/lib/vendor/Tween.js"></script> 
+    <script type="text/javascript" src="http://bitbucket.org/okfn/openspendingjs/raw/tip/app/bubbletree/bubbletree.min.js"></script> 
+
+    <script type="text/javascript" src="http://bitbucket.org/okfn/openspendingjs/raw/tip/lib/utils/utils.js"></script> 
+    <script type="text/javascript" src="http://bitbucket.org/okfn/openspendingjs/raw/tip/lib/datastore.js"></script> 
+    <script type="text/javascript" src="http://bitbucket.org/okfn/openspendingjs/raw/tip/lib/model.js"></script> 
+    <script type="text/javascript" src="http://bitbucket.org/okfn/openspendingjs/raw/tip/lib/aggregator.js"></script> 
+
+    <!--
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/jquery-ui.min.js"></script>
+    -->
+
+    <!-- our scripts -->
+    <link rel="stylesheet" type="text/css" href="http://bitbucket.org/okfn/openspendingjs/raw/tip/app/bubbletree/css/style.tooltips.css" />
+    
+    <!-- this app -->
+    <script type="text/javascript" src="http://bitbucket.org/okfn/openspendingjs/raw/tip/app/explorer-v2/js/explorer.js"></script>
+
+  <script type="text/javascript">
+jQuery(document).ready(function($) {
+  var datasetId = '${c.dataset.name}';
+  var config = {
+    endpoint: '/',
+    target: '#content',
+    dataset: datasetId
+  };
+  var explorer = new OpenSpending.App.Explorer(config);
+  explorer.initialize();
+});
+  </script>
+    <style type="text/css">
+      #controls-vis-type {
+        display: none;
+      }
+    </style>
+  </py:def>
+
+
+  <div py:def="content">
+    <h2 id="page-top">Explore ${c.dataset.label}</h2>
+
+ </div>
+
+  <xi:include href="../layout.html" />
+</html>

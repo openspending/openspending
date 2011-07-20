@@ -1,0 +1,34 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+
+  <py:def function="nav_class">nav-account</py:def>
+
+  <py:def function="page_title">Settings for: ${c.account_name}</py:def>
+  
+  <div py:def="content">
+    <div class="span-24 last">
+      <h2>My Profile</h2>
+      <form class="basic settings" id="settings" action="/settings" method="POST">
+        <label for="fullname">Fullname</label>
+        <input name="fullname" />
+        <label for="email">E-Mail</label>
+        <input name="email" />
+        <label for="password1">Password</label>
+        <input name="password1" type="password" autocomplete="off" />
+        <label for="password2">Password (repeat)</label>
+        <input name="password2" type="password" autocomplete="off" />
+
+        <span class="labelpad">&nbsp;</span>
+        <input value="Save" type="submit" />
+      </form>
+    </div>
+  </div>
+
+  <xi:include href="../layout.html" />
+</html>
+
+
+
+
+

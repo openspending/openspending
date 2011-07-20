@@ -17,7 +17,7 @@ full_stack = true
 static_files = true
 
 cache_dir = %(here)s/.pylons_data
-beaker.session.key = openspending.ui
+beaker.session.key = openspending
 beaker.session.secret = ${app_instance_secret}
 app_instance_uuid = ${app_instance_uuid}
 

@@ -1,0 +1,73 @@
+.explorer {
+  min-height: 650px;
+}
+
+.loading {
+  margin-top: 2em;
+  font-size: 150%;
+  text-align: center;
+}
+
+#controls {
+  float: right;
+  width: 200px;
+  margin-top: 20px;
+}
+
+#controls > div{
+    margin-bottom: 1em;
+}
+
+#controls-year {
+  width: 80%;
+}
+
+.ui-slider-horizontal {
+  height: 3px;
+}
+
+.ui-slider-horizontal .ui-slider-handle {
+  height: 14px;
+  width: 4px;
+  margin-left: -0.1em;
+  top: -0.45em;
+}
+
+#breakdown-list {
+  margin-bottom:4px;
+}
+
+#breakdown-list li, #keys-list li {
+  cursor: move;
+}
+
+.bubbletree-wrapper { 
+	width: 700px; 
+	height: 100%; 
+	position: absolute; 
+}
+
+.bubbletree { 
+	background: #fff; 
+	position: relative; 
+	height: 100%; 
+	overflow: hidden; 
+}
+
+.bubbletree .label { 
+	position: absolute; 
+	color: #fff; 
+	text-align: center; 
+	cursor: default; 
+}
+
+.bubbletree .amount { 
+	font-family: Graublau, Georgia, sans-serif; 
+	font-size: 16px; 
+}
+
+.bubbletree .desc { 
+	font-family: sans-serif; 
+	font-size: 12px 
+}
+

@@ -1,0 +1,106 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  py:strip="">
+
+<div class="span-18">
+  <div class="search-form">
+    <form action="?" method="get">
+      <input class="search" name="q" value="${c.browser.q}" autocomplete="off" results="5" placeholder="Search..."/>
+      <input type="submit" value="Search" />
+
+      <div class="form-options">
+      </div>
+      <div class="form-help">
+        e.g. 'pensions', 'from:cabinet-office', 'to:capita'.
+        <a id="show-search-help-text">More help &raquo;</a>
+      </div>
+    </form>
+  </div>
+  <div class="search-help-text">
+    Try search in specific fields - such as the dimensions used 
+    to classify spending items. For example:
+    <ul>
+      <li>
+        Use <strong>from</strong> and <strong>to</strong>. Try 
+        <strong>from:cabinet-office</strong> to find all payments made by the 
+        Cabinet Office, or <strong>to:capita</strong> for payments made to the 
+        supplier Capita.
+      </li>
+      <li>
+        If you're interested in a particular dimension used to classify the 
+        spending, just use <strong>{key}:{search-term}</strong> to narrow down 
+        by that term - like <strong>cofog1:01</strong>.
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="span-6 last">
+  <div class="num-entries">
+    <span py:if="c.browser.num_results">
+      <b>${c.browser.num_results} entries</b> found.<br/>
+      Estimated total: <b><abbr title="Mean: ${h.format_number_with_commas(c.browser.stats.get('mean'))}; Standard Deviation: ${h.format_number_with_commas(c.browser.stats.get('stddev'))}">
+          ${h.format_number_with_commas(c.browser.stats.get('sum'))}.</abbr></b><br/>
+      <py:if test="c.browser.url">
+      <br/>Raw data:
+        <a href="${c.browser.url}.json">
+          <img src="${h.static('img/icons/json.png')}" alt="JSON" /></a>
+        <a href="${c.browser.url}.csv">
+          <img src="${h.static('img/icons/csv.png')}" alt="CSV" /></a>
+      </py:if>
+    </span>
+    <span py:if="c.browser.num_results==0">
+      <b>No entries with this property.</b>
+    </span>
+  </div>
+</div>
+<div class="span-18">
+  <xi:include href="_timegraph.html" />
+  ${entries_page(c.browser.page)}
+</div>
+<div class="span-6 last">
+  <py:for each="facet in c.browser.facets"
+  py:with="values = len(c.browser.facet_values(facet));
+           filter = 'filter-%s' % facet">
+    <table>
+      <thead>
+        <tr>
+          <th>
+            ${c.browser.facet_name(facet)}
+          </th>
+        </tr>
+      </thead>
+    </table>
+    <table class="facets" py:if="values>0 and not (filter in request.params)">
+      <tbody>
+        <tr py:for="value, count in
+          sorted(c.browser.facet_values(facet).items(), key=lambda (k,v): v*-1)">
+          <td width="5%" class="count">${count}</td>
+          <td>
+            <a href="${c.browser.state_url(add=(filter, value),
+              remove=('page', c.browser.page_number))}">${value}</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="facets" 
+      py:if="values==1 and filter in request.params"
+      py:with="value = c.browser.facet_values(facet).items()[0][0]">
+      <tbody py:if="(facet, value) in c.browser.filters">
+        <tr>
+          <td width="5%" class="count">
+            filter:
+          </td>
+          <td>
+            <b>
+              <a class="unfilter" href="${c.browser.state_url(remove=(filter, value))}">${value}</a>
+            </b>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </py:for>
+
+</div>
+</html>
+
+

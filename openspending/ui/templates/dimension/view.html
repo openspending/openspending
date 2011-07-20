@@ -1,0 +1,52 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+
+  <py:def function="nav_class">nav-dataset</py:def>
+
+  <py:def function="page_title">Dimension: ${c.meta.get('label')}</py:def>
+  
+  <div py:def="content">
+    <h2>
+      ${c.dataset.label}
+      <span py:if="'label' in c.meta">
+        &mdash; ${c.meta.get('label')}
+      </span>
+    </h2>
+
+    <div class="span-6">
+      <h3>Values</h3>
+      <div py:if="c.meta.get('description')">
+        ${h.markdown(c.meta.get('description'))}
+      </div>
+      <i>All figures are total financial involvement, not just funds received or spent.</i>
+    </div>
+
+    <div class="span-18 last">
+      <table>
+        <thead>
+          <tr>
+            <th>Value</th>
+            <th class="num">Sum (${c.dataset.get('currency')})</th>
+          </tr>
+        </thead>
+        <tbody> 
+          <tr py:for="(v, s) in c.page">
+            <td>${h.dimension_link(v)}</td>
+            <td class="num">${h.format_number_with_commas(s)}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th colspan="2">${c.page.pager()}</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="clearfix"></div>
+  </div>
+
+  <xi:include href="../layout.html" />
+</html>
+

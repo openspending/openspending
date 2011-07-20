@@ -1,0 +1,161 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+      xmlns:i18n="http://genshi.edgewall.org/i18n"
+      xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+
+  <py:def function="nav_class">nav-entry</py:def>
+
+  <py:def function="page_title">Entry Details</py:def>
+
+  <py:def function="primary_sidebar_extras">
+
+    <ul id="dashboard-submenu" class="flash-menu">
+      <li class="sharethis">
+        <span class="st_twitter_hcount" displayText="Tweet"></span>
+        <span class="st_facebook_hcount" displayText="Share"></span>
+        <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script><script type="text/javascript">stLight.options({publisher:'99b03eb4-c4cc-4604-89e9-a2ff6f595e17'});</script>
+      </li>
+      <li style="margin-top:10px;"><a href="#comments">Comment on this item &raquo;</a></li>
+    </ul>
+
+    <div style="clear: both;"></div>
+
+  </py:def>
+
+  <div py:def="content" class="entry-page">
+
+    <div class="flag-box">
+      <py:if test="c.account">
+        Flag this entry!
+        <form action="${h.entry_url(c.entry, action='flag')}" method="post" class="flag-form">
+          <ul>
+            <li py:for="flag, flag_name in h.flag.AVAILABLE_FLAGS.items()">
+              <py:choose test="h.flag.has_flagged(c.entry, flag, c.account)">
+                <label py:when="False"
+                       data-flagname="${flag_name}"
+                       data-flag="${flag}"
+                       data-flagcount="${h.flag.get_flag_for_entry(c.entry, flag)['count']}">
+
+                  <input type="checkbox" id="flag-${flag}" name="flag" value="${flag}"/>
+
+                  ${flag_name} (${h.flag.get_flag_for_entry(c.entry, flag)['count']})
+                </label>
+
+                <span py:when="True">
+                  ${flag_name} (${h.flag.get_flag_for_entry(c.entry, flag)['count']})
+                </span>
+              </py:choose>
+            </li>
+          </ul>
+          <input type="submit" value="Flag!"/>
+        </form>
+      </py:if>
+      <py:if test="not c.account">
+        <p><a href="/login">Please login to flag entries</a></p>
+        <ul>
+          <li py:for="flag, flag_name in h.flag.AVAILABLE_FLAGS.items()">
+            <span>
+              ${flag_name} (${h.flag.get_flag_for_entry(c.entry, flag)['count']})
+            </span>
+          </li>
+        </ul>
+      </py:if>
+    </div><!-- /.flag-box -->
+
+
+    <h2>Entry: Detailed View of Transaction</h2>
+    <p>
+      This is a single transaction of ${c.currency}
+      ${h.format_number_with_commas(c.amount)} on ${c.time.get('unparsed')} in
+      ${h.dataset_link(c.dataset)}.
+    </p>
+
+    <py:if test="c.custom_html">
+      ${Markup(c.custom_html)}
+    </py:if>
+
+    <div class="clearfix"></div>
+
+    <div class="entities">
+      <span>
+        ${c.desc.get('from', {}).get('label', 'Recipient')}:
+      </span>
+      <div>
+        <img src="${h.static('img/icons/arrow_left_12x12.png')}" />
+        ${h.entity_link(c.from_)}
+      </div>
+      <span>
+        ${c.desc.get('to', {}).get('label', 'Spender')}:
+      </span>
+      <div>
+        <img src="${h.static('img/icons/arrow_right_12x12.png')}" />
+        ${h.entity_link(c.to)}
+      </div>
+    </div><!-- /.entities -->
+
+    <div class="amount">
+      <div class="number">
+        <img src="${h.static('img/icons/cd_16x16.png')}" />
+        ${h.format_number_with_commas(c.amount)}
+        <div class="currency">${c.currency}</div>
+        <div class="date">
+          <img src="${h.static('img/icons/calendar_alt_stroke_16x16.png')}" />
+          ${c.time.get('unparsed')}
+        </div>
+      </div><!-- /.number -->
+    </div><!-- /.amount -->
+
+    <table width="100%">
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>Value</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr py:for="key, value in sorted(c.extras.items())">
+          <td py:choose="">
+            <py:when test="c.desc.get(key)">
+              <a href="${h.url_for(controller='dimension', action='view',
+                dataset=c.dataset.get('name'), dimension=key)}">
+                ${c.desc.get(key).get('label', key)}:
+              </a>
+            </py:when>
+            <py:otherwise>${key}:</py:otherwise>
+          </td>
+          <td py:choose="">
+            <py:when test="isinstance(value, dict)">
+              <py:if test="value.get('label') or value.get('name')">
+                    ${h.dimension_link(value)}
+              </py:if>
+            </py:when>
+            <py:otherwise>
+              ${h.render_value(value) if value else '&nbsp;'}
+            </py:otherwise>
+          </td>
+          <td>
+            <i>${c.desc.get(key, {}).get('description')}</i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <py:if test="c.entry.get('description')">
+      <h3>Notes:</h3>
+      <dd>${h.markdown(c.entry.get('description'))}</dd>
+    </py:if>
+
+    <div id="comments" class="comments"></div>
+
+    <div id="access" class="span-24 last">
+      Download a machine-readable version of this entry:
+      <a href="${url(controller='entry', action='view', id=c.id, format='json')}">
+        <img src="${h.static('img/icons/json.png')}" alt="JSON" />
+      </a>
+    </div>
+
+  </div><!-- /.content -->
+
+  <xi:include href="../layout.html" />
+</html>
+

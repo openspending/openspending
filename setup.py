@@ -12,7 +12,7 @@ setup(
     install_requires=[
         "Pylons==1.0",
         "Genshi==0.6",
-        "pymongo==1.11",
+        "pymongo==1.9",
         "repoze.who==2.0b1",
         "repoze.who-friendlyform==1.0.8",
         "Unidecode==0.04.7",
@@ -26,14 +26,18 @@ setup(
         "distribute==0.6.19",
         "mock==0.7.2"
     ],
+    setup_requires=[
+        "PasteScript==1.7.3"
+    ],
 
-    packages=find_packages('.packageroot'),
-    package_dir={'': '.packageroot'},
+    packages=find_packages(),
     namespace_packages=['openspending'],
 
     test_suite='nose.collector',
 
     zip_safe=False,
+
+    paster_plugins=['PasteScript', 'Pylons'],
 
     entry_points={
         'paste.app_factory': [

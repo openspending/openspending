@@ -1,0 +1,47 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+
+  <py:def function="nav_class">nav-account</py:def>
+
+  <py:def function="page_title">Login</py:def>
+  
+  <div py:def="content">
+    <div class="span-12">
+      <h2>Log in</h2>
+      <form class="basic login" id="login" action="/perform_login" method="POST">
+        <label for="login">Login</label>
+        <input name="login" />
+        <label for="password">Password</label>
+        <input name="password" type="password" />
+
+        <span class="labelpad">&nbsp;</span>
+        <input value="Login" type="submit" />
+      </form>
+    </div>
+    <div class="span-12 last">
+      <h2>Create an account</h2>
+      <form class="basic register" id="register" action="/register" method="POST">
+        <label for="name">Login</label>
+        <input name="name" />
+        <label for="fullname">Fullname</label>
+        <input name="fullname" />
+        <label for="email">E-Mail</label>
+        <input name="email" />
+        <label for="password1">Password</label>
+        <input name="password1" type="password" autocomplete="off" />
+        <label for="password2">Password (repeat)</label>
+        <input name="password2" type="password" autocomplete="off" />
+
+        <span class="labelpad">&nbsp;</span>
+        <input value="Login" type="submit" />
+      </form>
+    </div>
+  </div>
+
+  <xi:include href="../layout.html" />
+</html>
+
+
+
+

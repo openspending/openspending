@@ -1,0 +1,90 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+
+  <py:def function="nav_class">nav-validation</py:def>
+
+  <py:def function="page_title">Dataset Validation</py:def>
+  
+  <div py:def="content">
+    <h2>Dataset Validation – Step 1</h2>
+    <p>
+      OpenSpending has downloaded the first few rows of your dataset to
+      perform some integrity checking.     
+    </p>
+    <table>
+      <tr>
+        <td>Dataset ID</td>
+        <td>${c.package.get('name')}</td>
+      </tr>
+      <tr>
+        <td>Label</td>
+        <td>${c.package.get('title')}</td>
+      </tr>
+      <tr>
+        <td>Source URL</td>
+        <td>${c.resource.get('url')}</td>
+      </tr>
+      <tr>
+        <td>Currency</td>
+        <td>${c.package.get('extras', {}).get('currency', '(not given)')}</td>
+      </tr>
+    </table>
+    <div py:if="c.csv_errors" class="error">
+      <p>The following errors occured during testing of the first five lines of
+      the file. They need to be corrected before the import can proceed.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Line</th>
+            <th>Column</th>
+            <th>Value</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody>
+        <py:for each="error in c.csv_errors">
+        <tr>
+          <td width="5%">${error.line_number}</td>
+          <td width="10%">${error.key}</td>
+          <td>${error.value}</td>
+          <td>${error.message}</td>
+        </tr>
+        </py:for>
+        </tbody>
+      </table>
+      </div>
+    <div py:if="c.csv_warnings" class="notice">
+      <table>
+        <thead>
+          <tr>
+            <th>Line</th>
+            <th>Column</th>
+            <th>Value</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody>
+        <py:for each="error in c.csv_warnings">
+        <tr>
+          <td width="5%">${error.line_number}</td>
+          <td width="10%">${error.key}</td>
+          <td>${error.value}</td>
+          <td>${error.message}</td>
+        </tr>
+        </py:for>
+        </tbody>
+      </table>
+      </div>
+    <form py:if="not c.csv_errors" class="basic"
+      action="${h.url_for(controller='sources', action='mapping_form',
+      package=c.package.get('name'), resource=c.resource.get('id'))}"
+      method="get">
+      <input type="submit" value="Next: Map the data"/>
+    </form>
+    </div>
+    
+
+  <xi:include href="../layout.html" />
+</html>
+

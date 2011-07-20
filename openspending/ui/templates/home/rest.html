@@ -1,0 +1,36 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+
+  <py:def function="nav_class">nav-api</py:def>
+
+  <py:def function="page_title">REST API</py:def>
+
+  <div py:def="content">
+    <h2>The Store's REST API</h2>
+    
+    <p>This API returns JSON versions of the store's domain objects.
+    The URLs are generally the same as the URLs used by the web interface for
+    the same objects, but with "/api/rest" prepended.
+    </p>
+
+    <p>
+    Here are some examples:</p>
+
+    <ul>
+      <li py:for="u in c.urls">
+        <a href="${u}">${u}</a>
+      </li>
+    </ul>
+    
+    <p>The JSON response generally contains the same information as the
+    corresponding web page, but in more detail.</p>
+
+    <p i18n:msg="jsonpcb">A JSONP object is returned if a <var>callback</var> parameter is
+    supplied (usually by appending "?callback=myfun" or
+    similar).</p>
+  </div>
+
+  <xi:include href="../layout.html" />
+</html>
+

@@ -1,0 +1,55 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+
+  <py:def function="nav_class">nav-source</py:def>
+
+  <py:def function="page_title">Package Sources</py:def>
+  
+  <div py:def="content">
+    <h2>OpenSpending packages in CKAN</h2>
+    <p>
+    Below are a list of source datasets that are part of the 
+    <a
+      href="http://ckan.net/group/${c.group.get('name')}">${c.group.get('title')}</a> 
+    group on CKAN. To add further sources, <a
+      href="http://ckan.net/package/new">create a data package</a>
+    on CKAN and add it to the group.
+    </p>
+    <p>
+      <strong>Note:</strong> 
+      to facilitate the import, set the 'currency' extra on 
+      your package to a valid ISO currency abbreviation.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Package</th>
+          <th>Resource</th>
+          <th>Format</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <py:for each="pkg in c.packages">
+          <tr py:for="res in pkg.get('resources', [])">
+            <py:choose test="">
+              <py:when test="res.get('position')==0">
+                <td><a href="${pkg.get('ckan_url')}">${pkg.get('title')}</a></td>
+              </py:when>
+              <py:otherwise>
+                <td></td>
+              </py:otherwise>
+            </py:choose>
+            <td>${res.get('description')}</td>
+            <td>${res.get('format')}</td>
+            <td><a href="${h.url_for(controller='sources', action='mapping_form', package=pkg.get('name'),
+                resource=res.get('id'))}">import</a></td>
+          </tr>
+        </py:for>
+      </tbody>
+    </table>
+  </div>
+
+  <xi:include href="../layout.html" />
+</html>

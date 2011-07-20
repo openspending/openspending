@@ -1,0 +1,14 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+
+  <py:def function="nav_class">nav-home</py:def>
+  <py:def function="page_title">${c.code}</py:def>
+
+  <div py:def="content" id="innercontent">
+   ${c.message}
+  </div>
+
+  <xi:include href="layout.html" />
+
+</html>
