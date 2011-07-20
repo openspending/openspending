@@ -1,0 +1,10 @@
+{ "_id" : { "$oid" : "4e26c41aa4a4939374917dfc" }, "dataset" : "cra", "description" : "The entity that the money was paid from.", "key" : "from", "label" : "Paid by" }
+{ "_id" : { "$oid" : "4e26c41aa4a4939374917dfd" }, "dataset" : "cra", "description" : "The entity that the money was paid to.", "key" : "to", "label" : "Paid to" }
+{ "_id" : { "$oid" : "4e26c41aa4a4939374917dfe" }, "dataset" : "cra", "description" : "The accounting period in which the spending happened.", "key" : "time", "label" : "Time" }
+{ "_id" : { "$oid" : "4e26c41aa4a4939374917dff" }, "dataset" : "cra", "description" : "", "key" : "pog", "label" : "Programme Object Group" }
+{ "_id" : { "$oid" : "4e26c41aa4a4939374917e00" }, "dataset" : "cra", "description" : "Capital (one-off investment) or Current (on-going running costs)", "key" : "cap_or_cur", "label" : "Capital/Current" }
+{ "_id" : { "$oid" : "4e26c41aa4a4939374917e01" }, "dataset" : "cra", "description" : "Central government, local government or public corporation", "key" : "cg_lg_or_pc", "label" : "CG, LG or PC" }
+{ "_id" : { "$oid" : "4e26c41aa4a4939374917e02" }, "dataset" : "cra", "description" : "Geographical (NUTS) area for which money was spent", "key" : "region", "label" : "Geographic Region" }
+{ "_id" : { "$oid" : "4e26c41aa4a4939374917e03" }, "dataset" : "cra", "description" : "Classification Of Function Of Government, level 1", "key" : "cofog1", "label" : "COFOG level 1" }
+{ "_id" : { "$oid" : "4e26c41aa4a4939374917e04" }, "dataset" : "cra", "description" : "Classification Of Function Of Government, level 2", "key" : "cofog2", "label" : "COFOG level 2" }
+{ "_id" : { "$oid" : "4e26c41aa4a4939374917e05" }, "dataset" : "cra", "description" : "Classification Of Function Of Government, level 3", "key" : "cofog3", "label" : "COFOG level 3" }

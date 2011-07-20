@@ -1,0 +1,8 @@
+{ "_id" : { "$oid" : "4e26c41aa4a4939374917e06" }, "description" : "A dummy entity to be the recipient of final government spending", "label" : "Society (the General Public)", "name" : "society" }
+{ "_id" : { "$oid" : "4e26c41aa4a4939374917e07" }, "description" : "", "label" : "Department for Work and Pensions", "name" : "Dept032" }
+{ "_id" : { "$oid" : "4e26c41aa4a4939374917e0b" }, "description" : "", "label" : "Department of Health", "name" : "Dept033" }
+{ "_id" : { "$oid" : "4e26c41aa4a4939374917e0d" }, "description" : "", "label" : "Department for Innovation, Universities and Skills", "name" : "Dept063" }
+{ "_id" : { "$oid" : "4e26c41aa4a4939374917e0f" }, "description" : "", "label" : "Department for Transport", "name" : "Dept004" }
+{ "_id" : { "$oid" : "4e26c41aa4a4939374917e12" }, "description" : "", "label" : "Ministry of Justice", "name" : "Dept047" }
+{ "_id" : { "$oid" : "4e26c41aa4a4939374917e14" }, "description" : "", "label" : "Department for Children, Schools and Families", "name" : "Dept022" }
+{ "_id" : { "$oid" : "4e26c41aa4a4939374917e16" }, "description" : "", "label" : "ENG_HRA", "name" : "999" }
