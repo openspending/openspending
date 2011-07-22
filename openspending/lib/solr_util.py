@@ -95,9 +95,7 @@ class _Stub(object):
     def numFound(self):
         return len(self.results)
 
-def drop_index(dataset_name=None):
-    default_dataset = unicode(config.get('openspending.default_dataset', u'cra'))
-    dataset_name = dataset_name or default_dataset
+def drop_index(dataset_name):
     solr = get_connection()
     solr.delete_query('dataset:%s' % dataset_name)
     solr.commit()
