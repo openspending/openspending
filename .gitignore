@@ -2,3 +2,5 @@
 /*.ini
 /*.egg-info
 /.pylons_data
+/solr/conf
+/solr/data
