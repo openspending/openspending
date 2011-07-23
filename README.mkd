@@ -18,3 +18,7 @@ Run the tests
 Run the application
 
     $ paster serve --reload development.ini
+
+## Issue tracking
+
+Please raise issues at <http://trac.openspending.org/>.
