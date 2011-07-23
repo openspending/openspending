@@ -21,6 +21,8 @@ def make_map():
     # likely stay at the top, ensuring it can always be resolved
     map.connect('/error/{action}', controller='error')
     map.connect('/error/{action}/{id}', controller='error')
+    # The ErrorTestController is used to test our custom error pages.
+    map.connect('/_error_test/{action}', controller='error_test')
 
     # CUSTOM ROUTES HERE
     for plugin in routing_plugins:

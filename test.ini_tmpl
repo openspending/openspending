@@ -1,5 +1,5 @@
 #
-# openspending-etl-ui - Pylons testing environment configuration
+# openspending-ui - Pylons testing environment configuration
 #
 # The %(here)s variable will be replaced with the parent directory of this file
 #
@@ -14,3 +14,4 @@ port = 5001
 [app:main]
 use = config:development.ini
 set openspending.mongodb.database = openspending_test
+set debug = False
