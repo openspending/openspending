@@ -1,4 +1,4 @@
-from mongo import Base, dictproperty
+from mongo import dictproperty
 from changeset import Revisioned
 
 class Dataset(Revisioned):
