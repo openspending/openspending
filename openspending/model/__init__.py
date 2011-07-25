@@ -12,8 +12,6 @@ from entry import Entry
 from entity import Entity
 from account import Account
 from changeset import Changeset, ChangeObject
-from model import Model, default_mapping
-
 
 def init_mongo(config):
     host = config.get('openspending.mongodb.host', 'localhost')
