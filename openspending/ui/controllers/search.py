@@ -2,7 +2,8 @@ import logging
 
 from pylons import request, tmpl_context as c
 
-from openspending.plugins import PluginImplementations, ISolrSearch
+from openspending.plugins.core import PluginImplementations
+from openspending.plugins.interfaces import ISolrSearch
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.helpers import url_for
 from openspending.ui.lib.browser import Browser

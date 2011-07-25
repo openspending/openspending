@@ -12,7 +12,8 @@ from genshi.filters import HTMLFormFiller
 
 from openspending import model
 from openspending.ui import i18n
-from openspending.plugins import PluginImplementations, IGenshiStreamFilter, IRequest
+from openspending.plugins.core import PluginImplementations
+from openspending.plugins.interfaces import IGenshiStreamFilter, IRequest
 
 import logging
 log = logging.getLogger(__name__)

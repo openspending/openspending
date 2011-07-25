@@ -5,7 +5,8 @@ from pylons.controllers.util import abort
 from pylons.i18n import _
 
 from openspending import model
-from openspending.plugins import PluginImplementations, IClassifierController
+from openspending.plugins.core import PluginImplementations
+from openspending.plugins.interfaces import IClassifierController
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.views import handle_request
 from openspending.ui.lib.helpers import url_for

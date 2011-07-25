@@ -9,7 +9,8 @@ from openspending import logic
 from openspending.lib.util import deep_get
 from openspending.logic.dimension import dataset_dimensions
 from openspending.model import Base, Entry
-from openspending.plugins import PluginImplementations, IEntryController
+from openspending.plugins.core import PluginImplementations
+from openspending.plugins.interfaces import IEntryController
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.browser import Browser
 from openspending.ui.lib.restapi import RestAPIMixIn

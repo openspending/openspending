@@ -8,7 +8,8 @@ from pylons.i18n import _
 
 from openspending import model
 from openspending import logic
-from openspending.plugins import PluginImplementations, IDatasetController
+from openspending.plugins.core import PluginImplementations
+from openspending.plugins.interfaces import IDatasetController
 from openspending.lib import json
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render

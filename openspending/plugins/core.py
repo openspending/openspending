@@ -21,7 +21,7 @@ __all__ = [
 log = logging.getLogger(__name__)
 
 # Entry point group.
-PLUGINS_ENTRY_POINT_GROUP = "openspending.plugins"
+PLUGINS_ENTRY_POINT_GROUP = __name__
 
 class PluginNotFoundException(Exception):
     """

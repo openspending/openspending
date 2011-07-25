@@ -30,7 +30,7 @@ setup(
     ],
 
     packages=find_packages(),
-    namespace_packages=['openspending'],
+    namespace_packages=['openspending', 'openspending.plugins'],
 
     test_suite='nose.collector',
 

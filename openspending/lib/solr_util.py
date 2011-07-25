@@ -12,7 +12,8 @@ from pymongo.objectid import ObjectId
 from solr import SolrConnection
 
 from openspending import model
-from openspending.plugins import PluginImplementations, ISolrSearch
+from openspending.plugins.core import PluginImplementations
+from openspending.plugins.interfaces import ISolrSearch
 
 log = logging.getLogger(__name__)
 

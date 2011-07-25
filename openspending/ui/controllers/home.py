@@ -6,7 +6,8 @@ from pylons.controllers.util import redirect
 from pylons.i18n import _
 
 from openspending import model
-from openspending.plugins import PluginImplementations, IDatasetController
+from openspending.plugins.core import PluginImplementations
+from openspending.plugins.interfaces import IDatasetController
 from openspending.ui.i18n import set_session_locale
 from openspending.ui.lib import views
 from openspending.ui.lib.base import BaseController, render

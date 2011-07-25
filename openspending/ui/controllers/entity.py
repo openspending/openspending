@@ -8,7 +8,8 @@ from pylons.controllers.util import abort, redirect
 from pylons.i18n import _
 
 from openspending import model
-from openspending.plugins import PluginImplementations, IEntityController
+from openspending.plugins.core import PluginImplementations
+from openspending.plugins.interfaces import IEntityController
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.browser import Browser
 from openspending.ui.lib.helpers import entity_slug, entity_url

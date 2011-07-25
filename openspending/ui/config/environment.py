@@ -12,7 +12,7 @@ from webhelpers import markdown
 
 from openspending.model import init_mongo
 
-from openspending.plugins import PluginImplementations
+from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IConfigurable, IConfigurer
 
 from openspending.ui.config.routing import make_map

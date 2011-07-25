@@ -7,7 +7,8 @@ refer to the routes manual at http://routes.groovie.org/docs/
 from pylons import config
 from routes import Mapper
 
-from openspending.plugins import PluginImplementations, IRoutes
+from openspending.plugins.core import PluginImplementations
+from openspending.plugins.interfaces import IRoutes
 
 routing_plugins = PluginImplementations(IRoutes)
 
