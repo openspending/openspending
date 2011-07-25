@@ -71,12 +71,6 @@ openspending.ckan_api_key = your_ckan_api_key
 # Plugins (space-delimited list)
 # openspending.plugins =
 
-# Extra template paths (space-delimited list)
-# openspending.extra_template_paths =
-
-# Extra public paths (space-delimited list)
-# openspending.extra_public_paths =
-
 # Cubes cache enabled?
 # openspending.cache_enabled = False
 
