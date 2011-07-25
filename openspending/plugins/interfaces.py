@@ -42,6 +42,7 @@ class IRoutes(Interface):
         :param map: Routes map object
         """
 
+
 class IRequest(Interface):
     """
     Plugin into the lifecycle of a request.
@@ -73,6 +74,7 @@ class IGenshiStreamFilter(Interface):
         """
         return stream
 
+
 class IDatasetController(Interface):
     """ Set controller variables for datasets. """
 
@@ -81,6 +83,7 @@ class IDatasetController(Interface):
 
     def read(self, c, request, response, entity):
         pass
+
 
 class IEntryController(Interface):
     """ Set controller variables for entries. """
@@ -91,6 +94,7 @@ class IEntryController(Interface):
     def read(self, c, request, response, entity):
         pass
 
+
 class IEntityController(Interface):
     """ Set controller variables for entities. """
 
@@ -99,6 +103,7 @@ class IEntityController(Interface):
 
     def read(self, c, request, response, entity):
         pass
+
 
 class IClassifierController(Interface):
     """ Set controller variables for classifiers. """
@@ -126,6 +131,7 @@ class IConfigurable(Interface):
         """
         Called by load_environment
         """
+
 
 class IConfigurer(Interface):
     """

@@ -4,24 +4,24 @@ Provides plugin services to OpenSpending
 
 import logging
 from inspect import isclass
-from itertools import chain
 from pkg_resources import iter_entry_points
-from pyutilib.component.core import PluginGlobals, ExtensionPoint as PluginImplementations, implements
-from pyutilib.component.core import SingletonPlugin as _pca_SingletonPlugin
-from pyutilib.component.core import Plugin as _pca_Plugin
-from pyutilib.component.core import PluginEnvironment
+
+from pyutilib.component.core import (
+    PluginGlobals, ExtensionPoint as PluginImplementations, implements,
+    SingletonPlugin as _pca_SingletonPlugin, Plugin as _pca_Plugin,
+    PluginEnvironment
+)
 
 __all__ = [
     'PluginImplementations', 'implements',
     'PluginNotFoundException', 'Plugin', 'SingletonPlugin',
-    'load', 'load_all', 'unload', 'unload_all',
-    'reset'
+    'load', 'load_all', 'unload', 'unload_all', 'reset'
 ]
 
 log = logging.getLogger(__name__)
 
 # Entry point group.
-PLUGINS_ENTRY_POINT_GROUP = __name__
+PLUGINS_ENTRY_POINT_GROUP = "openspending.plugins"
 
 class PluginNotFoundException(Exception):
     """
