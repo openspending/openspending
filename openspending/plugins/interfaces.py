@@ -143,3 +143,10 @@ class IConfigurer(Interface):
         Called by load_environment
         """
 
+
+class IMiddleware(Interface):
+    """Modify the app middleware stack."""
+
+    def configure(self, app):
+        """Called by ``openspending.ui.config.middleware:make_app``"""
+        return app
