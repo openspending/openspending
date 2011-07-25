@@ -1,5 +1,6 @@
 from mongo import dictproperty
 from changeset import Revisioned
+from genshi.template import TextTemplate
 
 class Dataset(Revisioned):
 
@@ -27,3 +28,20 @@ class Dataset(Revisioned):
     @classmethod
     def distinct_regions(cls):
         return Dataset.c.distinct("regions")
+
+    def render_entry_custom_html(self, entry):
+        return self._render_custom_html(self.entry_custom_html, entry)
+
+    def _render_custom_html(self, tpl, obj):
+        if tpl:
+            tpl = TextTemplate(tpl)
+
+            d = dict(obj)
+            if '_id' in d:
+                d['id'] = str(d.pop('_id'))
+
+            ctx = {'entry': d}
+            stream = tpl.generate(**ctx)
+            return stream.render()
+        else:
+            return None

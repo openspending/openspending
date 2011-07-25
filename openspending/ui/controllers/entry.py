@@ -28,13 +28,13 @@ class EntryController(BaseController, RestAPIMixIn):
         c.id = c.entry.get('_id')
         c.from_ = c.entry.get('from')
         c.to = c.entry.get('to')
-        c.dataset = c.entry.get('dataset')
+        c.dataset = c.entry.dataset
         c.currency = c.entry.get('currency', c.dataset.get('currency')).upper()
         c.amount = c.entry.get('amount')
         c.time = c.entry.get('time')
         c.flags = c.entry.get("flags")
 
-        c.custom_html = c.entry.render_custom_html()
+        c.custom_html = c.dataset.render_entry_custom_html(c.entry)
 
         excluded_keys = ('time', 'amount', 'currency', 'from',
             'to', 'dataset', '_id', 'classifiers', 'name',

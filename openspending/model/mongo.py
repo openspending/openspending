@@ -37,6 +37,16 @@ def dictproperty(name):
     getter = lambda self: self.get(name)
     return property(getter, setter)
 
+def relationalproperty(name, cls):
+    def setter(self, value):
+        self[name] = value
+    def getter(self):
+        d = self.get(name)
+        if d:
+            return cls.find_one({'_id': d.id})
+        else:
+            return d
+    return property(getter, setter)
 
 class Base(dict):
 
