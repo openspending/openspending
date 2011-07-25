@@ -45,7 +45,7 @@ class SingletonPlugin(_pca_SingletonPlugin):
     same singleton instance.
     """
 
-def _get_service(plugin):
+def _get_services(plugin):
     """
     Return a service (ie an instance of a plugin class).
 
@@ -56,20 +56,20 @@ def _get_service(plugin):
 
     if isinstance(plugin, basestring):
         try:
-            (plugin,) = iter_entry_points(
+            plugins = iter_entry_points(
                 group=PLUGINS_ENTRY_POINT_GROUP,
                 name=plugin
             )
         except ValueError:
             raise PluginNotFoundException(plugin)
 
-        return plugin.load()()
+        return [plugin.load()() for p in plugins]
 
     elif isinstance(plugin, _pca_Plugin):
-        return plugin
+        return [plugin]
 
     elif isclass(plugin) and issubclass(plugin, _pca_Plugin):
-        return plugin()
+        return [plugin()]
 
     else:
         raise TypeError("Expected a plugin name, class or instance", plugin)
@@ -99,9 +99,12 @@ def load(plugin):
     """
     Load a single plugin, given a plugin name, class or instance
     """
-    service = _get_service(plugin)
-    service.activate()
-    return service
+    services = _get_services(plugin)
+
+    for s in services:
+        s.activate()
+
+    return services
 
 def unload_all():
     """
@@ -115,9 +118,12 @@ def unload(plugin):
     """
     Unload a single plugin, given a plugin name, class or instance
     """
-    service = _get_service(plugin)
-    service.deactivate()
-    return service
+    services = _get_services(plugin)
+
+    for s in services:
+        s.activate()
+
+    return services
 
 def find_plugins(config):
     """
