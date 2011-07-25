@@ -12,10 +12,10 @@ from webhelpers import markdown
 
 from openspending.model import init_mongo
 
-from openspending.plugins.core import PluginImplementations
+from openspending.plugins import core as plugins
 from openspending.plugins.interfaces import IConfigurable, IConfigurer
 
-from openspending.ui.config.routing import make_map
+from openspending.ui.config import routing
 from openspending.ui.lib import app_globals
 from openspending.ui.lib import helpers
 
@@ -68,23 +68,19 @@ def load_environment(global_conf, app_conf):
 
     # Initialize config with the basic options
     config.init_app(global_conf, app_conf, package='openspending.ui', paths=paths)
-    # plugins.load_all(config)
-    # for plugin in PluginImplementations(IConfigurer):
-        # plugin.configure(config)
 
-    config['routes.map'] = make_map()
+    plugins.load_all(config)
+
+    # Allow plugins implementing IConfigurer to modify the config.
+    for plugin in plugins.PluginImplementations(IConfigurer):
+        plugin.configure(config)
+
+    config['routes.map'] = routing.make_map()
     config['pylons.app_globals'] = app_globals.Globals()
     config['pylons.h'] = helpers
 
     # set log level in markdown
     markdown.logger.setLevel(logging.WARN)
-
-    ## redo template setup to use genshi.search_path (so remove std template setup)
-    template_paths = [paths['templates'][0]]
-    extra_template_paths = config.get('openspending.extra_template_paths')
-    if extra_template_paths:
-        # must be first for them to override defaults
-        template_paths = extra_template_paths.split(' ') + template_paths
 
     # Translator (i18n)
     config['openspending.ui.translations'] = MultiDomainTranslator([config.get('lang', 'en')])
@@ -93,18 +89,13 @@ def load_environment(global_conf, app_conf):
         translator.setup(template)
 
     # Create the Genshi TemplateLoader
-    # config['pylons.app_globals'].genshi_loader = TemplateLoader(
-    #    paths['templates'], auto_reload=True)
-    # tmpl_options["genshi.loader_callback"] = template_loaded
     config['pylons.app_globals'].genshi_loader = TemplateLoader(
-        template_paths, auto_reload=True, callback=template_loaded)
+        search_path=paths['templates'],
+        auto_reload=True,
+        callback=template_loaded
+    )
 
     init_mongo(config)
-
-    # CONFIGURATION OPTIONS HERE (note: all config options will override
-    # any Pylons config options)
-    for plugin in PluginImplementations(IConfigurable):
-        plugin.configure(config)
 
     # Configure ckan
     import openspending.lib.ckan as ckan
@@ -114,4 +105,7 @@ def load_environment(global_conf, app_conf):
     import openspending.lib.solr_util as solr
     solr.configure(config)
 
+    # Plugin configuration.
+    for plugin in plugins.PluginImplementations(IConfigurable):
+        plugin.configure(config)
 

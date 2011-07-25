@@ -13,20 +13,21 @@ from pylons.wsgiapp import PylonsApp
 from routes.middleware import RoutesMiddleware
 
 from repoze.who.middleware import PluggableAuthenticationMiddleware
-from repoze.who.interfaces import IIdentifier
-from repoze.who.interfaces import IChallenger
+from repoze.who.interfaces import IIdentifier, IChallenger
 from repoze.who.plugins.basicauth import BasicAuthPlugin
 from repoze.who.plugins.auth_tkt import AuthTktCookiePlugin
 from repoze.who.plugins.redirector import RedirectorPlugin
 from repoze.who.plugins.htpasswd import HTPasswdPlugin
-from repoze.who.classifiers import default_request_classifier
-from repoze.who.classifiers import default_challenge_decider
+from repoze.who.classifiers import (default_request_classifier,
+                                    default_challenge_decider)
 from repoze.who.plugins.friendlyform import FriendlyFormPlugin
 
+from openspending.plugins import core as plugins
+from openspending.plugins.interfaces import IMiddleware
+
 from openspending.ui.config.environment import load_environment
-from openspending.ui.lib.authenticator import UsernamePasswordAuthenticator
-from openspending.ui.lib.authenticator import ApiKeyAuthenticator
-from openspending import model
+from openspending.ui.lib.authenticator import (UsernamePasswordAuthenticator,
+                                               ApiKeyAuthenticator)
 
 def make_app(global_conf, full_stack=True, static_files=True, **app_conf):
     """Create a Pylons WSGI application and return it
@@ -106,20 +107,18 @@ def make_app(global_conf, full_stack=True, static_files=True, **app_conf):
     app = RegistryManager(app)
 
     if asbool(static_files):
-        max_age = None if  asbool(config['debug']) else 3600
+        max_age = None if asbool(config['debug']) else 3600
+
         # Serve static files
-        static_app = StaticURLParser(config['pylons.paths']['static_files'],
-                        cache_max_age=max_age)
+        static_app = StaticURLParser(
+            config['pylons.paths']['static_files'],
+            cache_max_age=max_age
+        )
         static_parsers = [static_app, app]
-
-        # Configurable extra static file paths
-        extra_public_paths = config.get('openspending.extra_public_paths')
-        if extra_public_paths:
-            static_parsers = [StaticURLParser(public_path.strip(),
-                                              cache_max_age=max_age) \
-                              for public_path in \
-                              extra_public_paths.split(' ')] + static_parsers
-
         app = Cascade(static_parsers)
+
+    # Plugin middleware
+    for plugin in plugins.PluginImplementations(IMiddleware):
+        app = plugin.configure(app)
 
     return app
