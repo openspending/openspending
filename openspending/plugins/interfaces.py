@@ -147,6 +147,6 @@ class IConfigurer(Interface):
 class IMiddleware(Interface):
     """Modify the app middleware stack."""
 
-    def configure(self, app):
+    def setup_middleware(self, app):
         """Called by ``openspending.ui.config.middleware:make_app``"""
         return app

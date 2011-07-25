@@ -119,6 +119,6 @@ def make_app(global_conf, full_stack=True, static_files=True, **app_conf):
 
     # Plugin middleware
     for plugin in plugins.PluginImplementations(IMiddleware):
-        app = plugin.configure(app)
+        app = plugin.setup_middleware(app)
 
     return app
