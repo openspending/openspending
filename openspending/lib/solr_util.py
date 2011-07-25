@@ -159,8 +159,7 @@ def build_index(dataset_name=None):
             solr.add_many(buf)
             solr.commit()
             total += increment
-            log.info("Committing 500 entries to index, total: %s", total)
+            log.info("Indexed %d entries", total)
             buf = []
     solr.add_many(buf)
     solr.commit()
-    log.info("Indexed %s entries", total)

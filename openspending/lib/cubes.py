@@ -56,9 +56,9 @@ class Cube(object):
         aggregates cells based on the dimensions of the cube and
         saves them into a mongodb collection in the cubes namespace.
         """
-        log.info(("compute cube for dataset '%s', cube name: '%s', "
-                  "dimensions: '%s'") %
-                 (self.dataset.name, self.name, ', '.join(self.dimensions)))
+        log.debug("compute cube for dataset '%s', cube name: '%s', " \
+                  "dimensions: '%s'",
+                  self.dataset.name, self.name, ', '.join(self.dimensions))
         begin = time.time()
 
         # query fields: We query for all fields, but handle the date
@@ -157,7 +157,7 @@ class Cube(object):
 
         self.dataset['cubes'][self.name]['num_cells'] = len(cells)
         self.dataset.save()
-        log.info("Done. Took: %ss" % int(time.time() - begin))
+        log.debug("Done. Took: %ds", int(time.time() - begin))
 
     def query(self, *args, **kwargs):
         from paste.deploy.converters import asbool
