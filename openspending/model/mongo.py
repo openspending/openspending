@@ -1,3 +1,4 @@
+from pymongo import errors
 from pymongo import Connection
 from pymongo.database import Database
 from bson.dbref import DBRef
@@ -30,22 +31,10 @@ class classproperty(property):
     def __get__(self, cls, owner):
         return self.fget.__get__(None, owner)()
 
-
 def dictproperty(name):
     def setter(self, value):
         self[name] = value
     getter = lambda self: self.get(name)
-    return property(getter, setter)
-
-def relationalproperty(name, cls):
-    def setter(self, value):
-        self[name] = value
-    def getter(self):
-        d = self.get(name)
-        if d:
-            return cls.find_one({'_id': d.id})
-        else:
-            return d
     return property(getter, setter)
 
 class Base(dict):
