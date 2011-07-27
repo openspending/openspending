@@ -1,5 +1,5 @@
 from . import Dataset
-from .mongo import dictproperty, relationalproperty
+from .mongo import dictproperty
 from .changeset import Revisioned
 
 class Entry(Revisioned):
@@ -12,4 +12,4 @@ class Entry(Revisioned):
     currency = dictproperty('currency')
 
     flags = dictproperty('flags')
-    dataset = relationalproperty('dataset', Dataset)
+    dataset = dictproperty('dataset')
