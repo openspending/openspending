@@ -1,6 +1,7 @@
 from bson.dbref import DBRef
 
 from openspending import logic
+from openspending import mongo
 from openspending import model
 from openspending.model import Classifier, Dataset, Entry
 from openspending.test import DatabaseTestCase, helpers as h
@@ -34,15 +35,14 @@ class TestEntry(DatabaseTestCase):
         self._make_entry(name='two', region="Region 2", region2="Region 3",
                          dataset=testdataset)
 
-        db = model.mongo.db()
-        h.assert_true('compute_distincts' in db.system_js.list())
+        h.assert_true('compute_distincts' in mongo.db.system_js.list())
 
         # compute a distincts collection
-        db.system_js.compute_distincts('testdataset')
-        h.assert_true('distincts__testdataset' in db.collection_names())
+        mongo.db.system_js.compute_distincts('testdataset')
+        h.assert_true('distincts__testdataset' in mongo.db.collection_names())
 
         # test the distincts collection manually
-        distinct_regions = db.distincts__testdataset.find({
+        distinct_regions = mongo.db.distincts__testdataset.find({
             'value.keys': u'region'
         }).distinct('_id')
         h.assert_equal(sorted(distinct_regions), [u'Region 1', u'Region 2'])
@@ -57,14 +57,13 @@ class TestEntry(DatabaseTestCase):
         self._make_entry(name='two', region="Region 2", region2="Region 3",
                          dataset=testdataset)
 
-        db = model.mongo.db()
-        h.assert_true('compute_distincts' in db.system_js.list())
+        h.assert_true('compute_distincts' in mongo.db.system_js.list())
 
         # compute a distincts collection
-        h.assert_true('distincts__testdataset' not in db.collection_names())
+        h.assert_true('distincts__testdataset' not in mongo.db.collection_names())
 
         distincts = logic.entry.distinct('region', dataset_name='testdataset')
-        h.assert_true('distincts__testdataset' in db.collection_names())
+        h.assert_true('distincts__testdataset' in mongo.db.collection_names())
         h.assert_equal(sorted(distincts), [u'Region 1', u'Region 2'])
 
     def test_distinct(self):

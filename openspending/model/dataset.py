@@ -1,8 +1,7 @@
-from mongo import dictproperty
-from changeset import Revisioned
+from .base import Base, dictproperty
 from genshi.template import TextTemplate
 
-class Dataset(Revisioned):
+class Dataset(Base):
 
     id = dictproperty('_id')
     name = dictproperty('name')

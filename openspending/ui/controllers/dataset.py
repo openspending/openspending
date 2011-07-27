@@ -114,6 +114,6 @@ class DatasetController(BaseController, RestAPIMixIn):
             abort(403, "Deleting the database is not permitted unless in sandbox mode")
             return
 
-        from openspending.model import mongo
+        from openspending import mongo
         mongo.drop_collections()
         return render('dataset/dropdb.html')

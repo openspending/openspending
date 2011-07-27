@@ -1,8 +1,6 @@
-from . import Dataset
-from .mongo import dictproperty
-from .changeset import Revisioned
+from .base import Base, dictproperty
 
-class Entry(Revisioned):
+class Entry(Base):
 
     id = dictproperty('_id')
     name = dictproperty('name')

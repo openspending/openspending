@@ -1,3 +1,4 @@
+from openspending import mongo
 from openspending import model
 
 def _aggregation_query_spec(dataset, include_spec):
@@ -55,12 +56,12 @@ def _aggregation_query(dataset, include_spec, fields=None, as_class=None):
         fields = set(fields + ['amount'])
 
     if as_class is None:
-        as_class = model.mongo.db().connection.document_class
+        as_class = mongo.db.connection.document_class
 
     return model.Entry.c.find(spec=query_spec, fields=fields,
                               as_class=as_class)
 
 
 def update_distincts(dataset_name):
-    db = model.mongo.db()
+    db = mongo.db
     db.system_js.compute_distincts(dataset_name)

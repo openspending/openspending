@@ -62,7 +62,7 @@ def clean_all():
     clean_solr()
 
 def clean_db():
-    from openspending.model import mongo
+    from openspending import mongo
     mongo.drop_collections()
 
 def clean_solr():

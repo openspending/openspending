@@ -1,8 +1,6 @@
-from mongo import dictproperty
-from changeset import Revisioned
+from .base import Base, dictproperty
 
-
-class Dimension(Revisioned):
+class Dimension(Base):
 
     id = dictproperty('_id')
     coll = dictproperty('collection')

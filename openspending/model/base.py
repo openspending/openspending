@@ -1,31 +1,7 @@
-from pymongo import errors
-from pymongo import Connection
-from pymongo.database import Database
 from bson.dbref import DBRef
 from pymongo.objectid import ObjectId
 
-connection = None
-db_name = None
-
-def make_connection(host, port):
-    global connection
-    connection = Connection(host, port)
-    connection.document_class = Base
-
-def db():
-    return Database(connection, db_name)
-
-def drop_db():
-    connection.drop_database(db_name)
-
-def drop_collections():
-    """
-    Drop all app collections from the database. This is far faster than
-    simply calling mongo.drop_db.
-    """
-    for name in db().collection_names():
-        if name not in ['system.indexes', 'system.js']:
-            db().drop_collection(name)
+from openspending import mongo
 
 class classproperty(property):
     def __get__(self, cls, owner):
@@ -49,7 +25,7 @@ class Base(dict):
     @classproperty
     @classmethod
     def c(cls):
-        return db()[cls.collection_name]
+        return mongo.db[cls.collection_name]
 
     @classmethod
     def find(cls, *args, **kwargs):

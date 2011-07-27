@@ -1,6 +1,6 @@
 import uuid
 
-from mongo import Base, dictproperty
+from .base import Base, dictproperty
 
 
 class Account(Base):
@@ -14,7 +14,7 @@ class Account(Base):
     def __init__(self, *args, **kwargs):
         self.api_key = str(uuid.uuid4())
         super(Account, self).__init__(*args, **kwargs)
-    
+
     @classmethod
     def by_name(cls, name):
         return cls.find_one({'name': name})

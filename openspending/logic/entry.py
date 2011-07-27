@@ -2,9 +2,10 @@
 '''
 from logging import getLogger
 
+from openspending import mongo
+from openspending.model import Dataset, Entry
 from openspending.lib.aggregator import update_distincts
 from openspending.ui.lib.browser import Browser
-from openspending.model import Dataset, Entry, mongo
 
 log = getLogger(__name__)
 
@@ -82,12 +83,11 @@ def distinct(key, dataset_name=None, **query):
 
     if not direct_mongo_query:
         collection_name = 'distincts__%s' % dataset_name
-        db = mongo.db()
 
-        if collection_name not in db.collection_names():
+        if collection_name not in mongo.db.collection_names():
             # We need to create the distincts collection first
             update_distincts(dataset_name)
-        distincts_collection = db[collection_name]
+        distincts_collection = mongo.db[collection_name]
         log.info('use distincts collection %s' % collection_name)
         return distincts_collection.find({'value.keys': key}).distinct('_id')
 
@@ -99,19 +99,17 @@ def distinct(key, dataset_name=None, **query):
 
 def used_keys(dataset_name):
     collection_name = 'distincts__%s' % dataset_name
-    db = mongo.db()
-    if collection_name not in db.collection_names():
+    if collection_name not in mongo.db.collection_names():
         update_distincts(dataset_name)
-    db[collection_name].distinct('value')
+    mongo.db[collection_name].distinct('value')
 
 
 def distinct_count(key, dataset_name):
     assert ('.' not in key or key.startswith('time.'))
     collection_name = 'distincts__%s' % dataset_name
-    db = mongo.db()
-    if collection_name not in db.collection_names():
+    if collection_name not in mongo.db.collection_names():
         update_distincts(dataset_name)
-    db[collection_name].find({'values': key})
+    mongo.db[collection_name].find({'values': key})
 
 
 def count(dataset_name=None, **query):

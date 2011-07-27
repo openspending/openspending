@@ -1,9 +1,9 @@
 from openspending import model
 from openspending.test import DatabaseTestCase, helpers as h
 
-class TestModel(model.mongo.Base):
-    id = model.mongo.dictproperty('_id')
-    name = model.mongo.dictproperty('name')
+class TestModel(model.base.Base):
+    id = model.base.dictproperty('_id')
+    name = model.base.dictproperty('name')
 
 class TestBase(DatabaseTestCase):
     def setup(self):

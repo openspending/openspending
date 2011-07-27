@@ -1,4 +1,4 @@
-from openspending.model import mongo
+from openspending import mongo
 from openspending.test import DatabaseTestCase, helpers as h
 from openspending.lib.cubes import Cube
 from openspending.lib.util import deep_get
@@ -67,7 +67,7 @@ class TestCube(LoaderTestCase):
         cube = Cube.configure_default_cube(cra)
         cube.compute()
 
-        h.assert_true('cubes.cra.default' in mongo.db().collection_names())
+        h.assert_true('cubes.cra.default' in mongo.db.collection_names())
 
     def test_default_dimensons(self):
         # test the dimensions for a default cube.
@@ -111,7 +111,7 @@ class TestCube(LoaderTestCase):
         cube = Cube.configure_default_cube(loader.dataset)
         cube.compute()
 
-        cube_collection = mongo.db()[cube.collection_name]
+        cube_collection = mongo.db[cube.collection_name]
         h.assert_equal(cube_collection.find().count(), 1)
         cube_from = cube_collection.find_one()['from']
         h.assert_equal(cube_from['name'], cube_from['_id'])

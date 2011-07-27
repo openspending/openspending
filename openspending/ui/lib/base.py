@@ -11,6 +11,7 @@ from pylons.controllers.util import abort
 from genshi.filters import HTMLFormFiller
 
 from openspending import model
+from openspending import mongo
 from openspending.ui import i18n
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IGenshiStreamFilter, IRequest
@@ -61,7 +62,7 @@ class BaseController(WSGIController):
         try:
             return WSGIController.__call__(self, environ, start_response)
         finally:
-            model.mongo.connection.end_request()
+            mongo.connection.end_request()
             log.debug("Request to %s took %sms" % (request.path,
                int((time() - begin) * 1000)))
 

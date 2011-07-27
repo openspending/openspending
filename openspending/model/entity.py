@@ -1,10 +1,9 @@
-from mongo import *
-from changeset import Revisioned
+from .base import Base, dictproperty
 
-class Entity(Revisioned):
-    
+class Entity(Base):
+
     id = dictproperty('_id')
     name = dictproperty('name')
     label = dictproperty('label')
-    
-    
+
+

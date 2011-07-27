@@ -6,6 +6,7 @@ import math
 from collections import defaultdict
 from types import NoneType
 
+from openspending import mongo
 from openspending import model
 from openspending.lib.aggregator import _aggregation_query
 from openspending.lib.util import deep_get
@@ -47,7 +48,7 @@ class Cube(object):
         self.cube_description = self._cube_description()
         self.collection_name = 'cubes.%s.%s' % (dataset.name, cube_name)
         self.dimensions = self._cube_dimensions()
-        self.db = model.mongo.db()
+        self.db = mongo.db
         self.simpletypes = (str, unicode, int, float, NoneType)
 
     def compute(self):

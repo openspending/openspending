@@ -15,19 +15,14 @@ import sys
 
 from paste.deploy import appconfig
 
+from openspending import mongo
 from helpers import clean_all
 
 __all__ = ['TestCase', 'DatabaseTestCase']
 
 here_dir = os.getcwd()
 config = appconfig('config:test.ini', relative_to=here_dir)
-
-import openspending.model as model
-
-# Clear everything before any tests are run.
-def setup_module():
-    model.init_mongo(config)
-    clean_all()
+mongo.configure(config)
 
 class TestCase(object):
     def setup(self):
