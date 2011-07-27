@@ -1,3 +1,4 @@
+from pymongo import errors
 from pymongo import Connection
 from pymongo.database import Database
 from bson.dbref import DBRef
