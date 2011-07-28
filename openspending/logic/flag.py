@@ -1,8 +1,9 @@
 import datetime
 
-from openspending.model import Entry, Account
+from openspending.model import Entry, account
 
-AVAILABLE_FLAGS = {"interesting": "Interesting",
+AVAILABLE_FLAGS = {
+    "interesting": "Interesting",
     "erroneous": "Erroneous"
 }
 
@@ -32,23 +33,18 @@ def get_flag_for_entry(entry, flag_name):
             {"flags.%s" % flag_name: get_flag_template()}})
     return entry['flags'].get(flag_name)
 
-def inc_flag(entry, flag_name, account):
+def inc_flag(entry, flag_name, acc):
     if flag_name not in AVAILABLE_FLAGS:
         raise KeyError("Unknown flag!")
-    if has_flagged(entry, flag_name, account):
+    if has_flagged(entry, flag_name, acc):
         return False
     Entry.c.update({"_id": entry.id}, {"$inc": {"flags.%s.count" %
         flag_name: 1}, "$push": {"flags.%s.flaggings" % flag_name: {
             "time": datetime.datetime.now(),
-            "account": account.id}}
+            "account": acc['_id']}}
         })
-    Account.c.update({"_id": account.id}, {"$push": {"flags": {
-            "time": datetime.datetime.now(),
-            "type": "entry",
-            "id": entry.id,
-            "flag": flag_name
-            }}
-        })
+    account.add_flag(acc, entry, flag_name)
+
     return True
 
 def has_flagged(entry, flag_name, account):

@@ -7,7 +7,6 @@ from pylons.i18n import _
 from openspending.lib import json
 from openspending.lib.csvexport import write_csv
 from openspending.ui.lib.jsonp import to_jsonp
-from openspending.model import Changeset
 
 class RestAPIMixIn(object):
 
@@ -74,9 +73,6 @@ class RestAPIMixIn(object):
         resource.update(data)
 
         save_kwargs = {}
-        if getattr(resource, "is_revisioned", False):
-            cs = Changeset(author=account.email)
-            save_kwargs["changeset"] = cs
         resource.save(**save_kwargs)
 
         return resource

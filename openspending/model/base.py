@@ -120,3 +120,21 @@ class Base(dict):
                     index_form[ck] = v
             index_form[k] = v
         return index_form
+
+def q(obj):
+    """Return a query spec identifying the given object"""
+    return {'_id': obj['_id']}
+
+def create(collection, doc):
+    """Insert a row into the specified collection using ``doc``"""
+    return mongo.db[collection].insert(doc, manipulate=True)
+
+def update(collection, obj, doc):
+    return mongo.db[collection].update(q(obj), doc, upsert=True)
+
+def find(collection, spec):
+    return mongo.db[collection].find(spec)
+
+def find_one_by(collection, key, value):
+    """Find one object from the specified collection where key=value"""
+    return mongo.db[collection].find_one({key: value})

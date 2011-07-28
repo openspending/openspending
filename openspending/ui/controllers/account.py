@@ -10,7 +10,7 @@ from pylons.i18n import _
 
 from repoze.who.api import get_api
 
-from openspending import model
+from openspending.model import account
 from openspending.ui.lib.account import Register, Settings
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.authz import requires
@@ -35,26 +35,27 @@ class AccountController(BaseController):
             try:
                 schema = Register()
                 values = request.params
-                account = schema.deserialize(values)
-                exists = model.Account.find_one({"name": account['name']})
+                acc = schema.deserialize(values)
+                exists = account.find_one_by('name', acc['name'])
                 if exists:
                     raise colander.Invalid(
                         Register.name,
                         _("Login name already exists, please choose a "
                           "different one"))
-                if not account['password1'] == account['password2']:
+                if not acc['password1'] == acc['password2']:
                     raise colander.Invalid(Register.password1, _("Passwords \
                         don't match!"))
-                password = account['password1']
-                account['password_hash'] = \
-                    generate_password_hash(password)
-                del account['password1']
-                del account['password2']
-                account['_roles'] = default_roles
-                model.Account.c.insert(account)
+                password = acc['password1']
+                acc['password_hash'] = generate_password_hash(password)
+                del acc['password1']
+                del acc['password2']
+                acc['roles'] = default_roles
+                account.create(acc)
                 who_api = get_api(request.environ)
-                authenticated, headers = who_api.login(
-                    {"login": account['name'], "password": password})
+                authenticated, headers = who_api.login({
+                    "login": acc['name'],
+                    "password": password
+                })
                 response.headers.extend(headers)
                 return redirect("/")
             except colander.Invalid, i:
@@ -79,8 +80,7 @@ class AccountController(BaseController):
                     data['password_hash'] = generate_password_hash(password)
                 del data['password1']
                 del data['password2']
-                model.Account.c.update({"name": c.account_name},
-                                       {"$set": data})
+                account.update(c.account, {"$set": data})
                 h.flash_success(_("Your settings have been updated."))
             except colander.Invalid, i:
                 errors = i.asdict()
