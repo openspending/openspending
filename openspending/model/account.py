@@ -37,12 +37,3 @@ def add_role(obj, rolename):
     """Add ``rolename`` to the set of roles possessed by this account"""
     return update(obj, {'$addToSet': {'roles': rolename}})
 
-def add_flag(obj, entry, flag_name):
-    """Add a note of a flagging on an account"""
-    flag = {
-        'time': datetime.datetime.now(),
-        'type': 'entry',
-        '_id': entry['_id'],
-        'flag': flag_name
-    }
-    return update(obj, {'$push': {'flags': flag}})

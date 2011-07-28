@@ -5,10 +5,9 @@ from pylons.controllers.util import abort, redirect
 from pylons.i18n import _
 from routes import url_for
 
-from openspending import logic
 from openspending.lib.util import deep_get
 from openspending.logic.dimension import dataset_dimensions
-from openspending.model import Entry, Dataset
+from openspending.model import Entry, Dataset, flag
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IEntryController
 from openspending.ui.lib.base import BaseController, render
@@ -72,7 +71,7 @@ class EntryController(BaseController, RestAPIMixIn):
         flag_name = request.params.get("flag", None)
         result = False
         try:
-            result = logic.flag.inc_flag(entry, flag_name, c.account)
+            result = flag.inc_flag(entry, flag_name, c.account)
         except KeyError:
             abort(400, _("Unknown Flag"))
         if not result:

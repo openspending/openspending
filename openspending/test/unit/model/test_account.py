@@ -55,16 +55,3 @@ class TestAccount(DatabaseTestCase):
         account.add_role({'_id': _id}, 'admin')
         from_db = account.get(_id)
         h.assert_equal(from_db['roles'], ['admin'])
-
-    def test_account_add_flag(self):
-        entry = {'_id': 'entryid'}
-        _id = account.create(make_account())
-        account.add_flag({'_id': _id}, entry, 'flagname')
-        flags_from_db = account.get(_id)['flags']
-        h.assert_equal(len(flags_from_db), 1)
-        flag = flags_from_db[0]
-        h.assert_equal(flag['type'], 'entry')
-        h.assert_equal(flag['_id'], 'entryid')
-        h.assert_equal(flag['flag'], 'flagname')
-        delta = datetime.datetime.now() - flag['time']
-        h.assert_less(delta.seconds, 10)
