@@ -69,7 +69,6 @@ class TestEntityController(ControllerTestCase):
 
         dataset = model.Dataset(name='testdataset')
         dataset.save()
-        dataset_ref_dict = dataset.to_ref_dict()
 
         entity = self._make_one(name="Test Entity", label="Test Entity Label")
         entity_ref_dict = entity.to_ref_dict()
@@ -78,9 +77,8 @@ class TestEntityController(ControllerTestCase):
                  'label': 'Test Entry Label',
                  'from': entity_ref_dict,
                  'to': entity_ref_dict,
-                 'amount': 10.0,
-                 'dataset': dataset_ref_dict}
-        _id = model.entry.create(entry)
+                 'amount': 10.0}
+        _id = model.entry.create(entry, dataset)
 
         h.clean_and_reindex_solr()
 

@@ -14,8 +14,10 @@ def make_entry(name='testentry', region='testregion', amount=1.0,
     if dataset is None:
         dataset = make_dataset()
 
-    _id = model.entry.create(dict(name=name, region=region, amount=amount,
-                                  dataset=dataset, **kwargs))
+    _id = model.entry.create(
+        dict(name=name, region=region, amount=amount, **kwargs),
+        dataset
+    )
     entry = model.entry.get(_id)
     return entry
 

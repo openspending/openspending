@@ -20,6 +20,10 @@ base.init_model_module(__name__, collection)
 #   currency
 #   flags
 
+def create(doc, dataset):
+    doc['dataset'] = dataset.to_ref_dict()
+    return base.create(collection, doc)
+
 def get_dataset(obj):
     return Dataset.find_one({'_id': obj['dataset']['_id']})
 

@@ -30,10 +30,12 @@ class TestFlag(DatabaseTestCase):
         model.flag.get_flag_for_entry(entry, 'somethingelse')
 
     def test_inc_flag_on_entry(self):
+        dataset = model.Dataset({'_id': 'datasetid', 'name': 'datasetname'})
+        dataset.save()
         entry = {'_id': 'entryid'}
         account = {'_id': 'accountid'}
 
-        _id = model.entry.create(entry)
+        _id = model.entry.create(entry, dataset)
         model.account.create(account)
 
         model.flag.inc_flag(entry, 'interesting', account)
@@ -47,10 +49,12 @@ class TestFlag(DatabaseTestCase):
         h.assert_less(delta.seconds, 10)
 
     def test_inc_flag_on_account(self):
+        dataset = model.Dataset({'_id': 'datasetid', 'name': 'datasetname'})
+        dataset.save()
         entry = {'_id': 'entryid'}
         account = {'_id': 'accountid'}
 
-        model.entry.create(entry)
+        model.entry.create(entry, dataset)
         _id = model.account.create(account)
 
         model.flag.inc_flag(entry, 'interesting', account)
