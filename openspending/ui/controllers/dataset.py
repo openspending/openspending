@@ -48,7 +48,7 @@ class DatasetController(BaseController, RestAPIMixIn):
 
         # TODO: make this a method
         entry_query = self._entry_q(dataset)
-        c.num_entries = logic.entry.count(**entry_query)
+        c.num_entries = model.entry.find(**entry_query).count()
         c.template = 'dataset/view.html'
 
         handle_request(request, c, c.dataset)

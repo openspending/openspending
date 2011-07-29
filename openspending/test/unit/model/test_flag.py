@@ -1,60 +1,61 @@
 import datetime
 
-from openspending.model import account, Entry, flag
+from openspending import model
 from openspending.test import DatabaseTestCase, helpers as h
 
 class TestFlag(DatabaseTestCase):
 
     def test_get_flag_for_entry_noflags(self):
-        ent = {'_id': 'entryid'}
-        from_db = flag.get_flag_for_entry(ent, 'interesting')
+        entry = {'_id': 'entryid'}
+        from_db = model.flag.get_flag_for_entry(entry, 'interesting')
         h.assert_equal(from_db['count'], 0)
         h.assert_equal(len(from_db['flaggings']), 0)
 
     def test_get_flag_for_entry_flags_noflag(self):
-        ent = {'_id': 'entryid', 'flags': {}}
-        from_db = flag.get_flag_for_entry(ent, 'interesting')
+        entry = {'_id': 'entryid', 'flags': {}}
+        from_db = model.flag.get_flag_for_entry(entry, 'interesting')
         h.assert_equal(from_db['count'], 0)
         h.assert_equal(len(from_db['flaggings']), 0)
 
     def test_get_flag_for_entry(self):
         f = {'count': 1, 'flaggings': [{}]}
-        ent = {'_id': 'entryid', 'flags': {'interesting': f}}
-        from_db = flag.get_flag_for_entry(ent, 'interesting')
+        entry = {'_id': 'entryid', 'flags': {'interesting': f}}
+        from_db = model.flag.get_flag_for_entry(entry, 'interesting')
         h.assert_equal(from_db['count'], 1)
         h.assert_equal(len(from_db['flaggings']), 1)
 
     @h.raises(KeyError)
     def test_get_unknown_flag(self):
-        ent = {'_id': 'entryid'}
-        flag.get_flag_for_entry(ent, 'somethingelse')
+        entry = {'_id': 'entryid'}
+        model.flag.get_flag_for_entry(entry, 'somethingelse')
 
     def test_inc_flag_on_entry(self):
-        ent = {'_id': 'entryid'}
-        acc = {'_id': 'accountid'}
+        entry = {'_id': 'entryid'}
+        account = {'_id': 'accountid'}
 
-        Entry(ent).save()
-        account.create(acc)
+        _id = model.entry.create(entry)
+        model.account.create(account)
 
-        flag.inc_flag(ent, 'interesting', acc)
+        model.flag.inc_flag(entry, 'interesting', account)
 
-        flobj = Entry.find_one({'_id': ent['_id']})['flags']['interesting']
-        h.assert_equal(len(flobj['flaggings']), 1)
-        f = flobj['flaggings'][0]
-        h.assert_equal(f['account'], 'accountid')
-        delta = datetime.datetime.now() - f['time']
+        f = model.entry.get(_id)['flags']['interesting']
+
+        h.assert_equal(len(f['flaggings']), 1)
+        flag = f['flaggings'][0]
+        h.assert_equal(flag['account'], 'accountid')
+        delta = datetime.datetime.now() - flag['time']
         h.assert_less(delta.seconds, 10)
 
     def test_inc_flag_on_account(self):
-        ent = {'_id': 'entryid'}
-        acc = {'_id': 'accountid'}
+        entry = {'_id': 'entryid'}
+        account = {'_id': 'accountid'}
 
-        Entry(ent).save()
-        _id = account.create(acc)
+        model.entry.create(entry)
+        _id = model.account.create(account)
 
-        flag.inc_flag(ent, 'interesting', acc)
+        model.flag.inc_flag(entry, 'interesting', account)
 
-        from_db = account.get(_id)['flags']
+        from_db = model.account.get(_id)['flags']
         h.assert_equal(len(from_db), 1)
         f = from_db[0]
         h.assert_equal(f['type'], 'entry')

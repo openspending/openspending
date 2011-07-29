@@ -15,7 +15,7 @@ log = logging.getLogger(__name__)
 
 
 class Cube(object):
-    '''A cube that preaggregates :class:`openspending.model.Entry` entries.
+    '''A cube that preaggregates entries.
 
     Cubes are tied to datasets. It can be used if it is defined
     for the dataset::
@@ -74,9 +74,7 @@ class Cube(object):
             query_dimensions = query_dimensions - used_time_dimensions
             additional_dimensions.append('time')
         query_dimensions = query_dimensions.union(additional_dimensions)
-        cursor = _aggregation_query(self.dataset, {},
-                                    fields=list(query_dimensions),
-                                    as_class=dict)
+        cursor = _aggregation_query(self.dataset, {}, fields=list(query_dimensions))
 
         cells = {}
         for row in cursor:

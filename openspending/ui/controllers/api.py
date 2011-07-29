@@ -19,7 +19,7 @@ def statistic_normalize(dataset, result, per, statistic):
     for drilldown in result['drilldown']:
         per_value = drilldown.get(per)
         if not per_value in values:
-            entry = model.Entry.find_one({'dataset.name': dataset.name,
+            entry = model.entry.find_one({'dataset.name': dataset.name,
                                           per: per_value})
             values[per_value] = entry.get(statistic, 0.0) if entry else 0.0
         if values[per_value]: # skip division by zero oppprtunities

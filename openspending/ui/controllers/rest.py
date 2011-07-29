@@ -18,6 +18,6 @@ class RestController(BaseController):
             url(controller='dataset', action='view', id=dataset_.id,
                 format='json'),
             url(controller='entry', action='view',
-                id=model.Entry.find_one().id, format='json')]
+                id=model.entry.find_one()['_id'], format='json')]
 
         return render('home/rest.html')

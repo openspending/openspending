@@ -104,7 +104,11 @@ class RestAPIMixIn(object):
         if id is None:
             abort(404, _('Sorry, there is no %s with code %r') %
                   (self.model.__name__.lower(), id))
-        result = self.model.by_id(id)
+        # FIXME/HACK remove this when model is fully converted.
+        try:
+            result = self.model.by_id(id)
+        except AttributeError:
+            result = self.model.get(id)
         if not result:
             abort(404, _('Sorry, there is no %s with code %r') %
                   (self.model.__name__.lower(), id))
@@ -129,7 +133,11 @@ class RestAPIMixIn(object):
             result = list(self.model.find(filters))
             return result
         else:
-            result = self.model.by_id(name)
+            # FIXME/HACK remove this when model is fully converted.
+            try:
+                result = self.model.by_id(name) # by_*id*(*name*) WTF!!??
+            except AttributeError:
+                result = self.model.get(name) # sigh...
             if not result:
                 abort(404)
         return result

@@ -5,8 +5,9 @@ import logging
 from collections import defaultdict
 from pylons.decorators.cache import beaker_cache
 
+from openspending import mongo
+from openspending import model
 from openspending.lib.cubes import Cube, find_cube
-from openspending.model import Dataset, Entry
 
 log = logging.getLogger(__name__)
 
@@ -21,10 +22,10 @@ class View(object):
         self.drilldown = drilldown
         self.cuts = cuts
 
-    def apply_to(self, obj, filters):
+    def apply_to(self, obj, filter):
         """
         Applies the view to all entities in the same collection of
-        ``obj``(``obj.c``) that match the query ``filter``.
+        ``obj`` that match the query ``filter``.
 
         ``obj``
             a model object (instance of :class:`openspending.model.Base`)
@@ -32,9 +33,11 @@ class View(object):
             a :term:`mongodb query spec`
         """
         data = self.pack()
-        obj.c.update(filters,
-                     {'$set': {'views.' + self.name: data}},
-                     multi=True)
+        mongo.db[obj.collection].update(
+            filter,
+            {'$set': {'views.%s' % self.name: data}},
+            multi=True
+        )
 
     @classmethod
     def by_name(cls, obj, name):
@@ -78,7 +81,7 @@ class View(object):
         :meth:`pack`). Internal mehtod, no API.
 
         """
-        dataset = Dataset.find_one({'name': data.get('dataset')})
+        dataset = model.Dataset.find_one({'name': data.get('dataset')})
         return cls(dataset, name, data.get('label'), data.get('dimension'),
                    drilldown=data.get('drilldown'),
                    cuts=data.get('cuts', {}))
@@ -169,7 +172,7 @@ class ViewState(object):
 
 @beaker_cache(key='cache_default', type='dbm', invalidate_on_startup=True)
 def times(dataset, time_axis):
-    return sorted(Entry.find({'dataset.name': dataset}).distinct(time_axis))
+    return sorted(model.entry.find({'dataset.name': dataset}).distinct(time_axis))
 
 
 def handle_request(request, c, obj):

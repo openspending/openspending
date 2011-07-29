@@ -5,6 +5,8 @@ from . import base
 
 collection = 'account'
 
+base.init_model_module(__name__, collection)
+
 # account objects probably have the following fields
 #   _id
 #   name
@@ -13,27 +15,12 @@ collection = 'account'
 #   password_hash
 #   api_key
 
-def get(_id):
-    """Get the account with _id ``_id``"""
-    return base.find_one_by(collection, '_id', _id)
-
-def find(spec):
-    return base.find(collection, spec)
-
-def find_one_by(key, value):
-    """Find one account where ``key``==``value``"""
-    return base.find_one_by(collection, key, value)
-
 def create(doc):
-    """Create a new account ``doc``"""
+    """Create an account. Autogenerates an api_key"""
     doc['api_key'] = str(uuid.uuid4())
     return base.create(collection, doc)
 
-def update(obj, doc):
-    """Update object ``obj`` using ``doc``"""
-    return base.update(collection, obj, doc)
-
 def add_role(obj, rolename):
     """Add ``rolename`` to the set of roles possessed by this account"""
-    return update(obj, {'$addToSet': {'roles': rolename}})
+    return base.update(collection, obj, {'$addToSet': {'roles': rolename}})
 

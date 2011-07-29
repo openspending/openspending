@@ -32,8 +32,7 @@ class EntityController(BaseController, RestAPIMixIn):
         try:
             oid = ObjectId(id)
         except InvalidId:
-            abort(404, _('Sorry, there is no %s with code %r') %
-                  (self.model.__name__.lower(), id))
+            abort(404, _('Sorry, there is no entity with code %r') % id)
 
         if format == 'html':
             # validate the slug and redirect to the current url if the slug
@@ -45,14 +44,13 @@ class EntityController(BaseController, RestAPIMixIn):
 
         return super(EntityController, self).view(id, format)
 
-    def _entry_q(self, entity):
-        return model.Entry.find({'entities': entity.id})
-
     def _make_browser(self):
         url = entity_url(c.entity, action='entries')
         c.browser = Browser(request.params, url=url)
-        c.browser.filter_by("(+to.id:%s OR +from.id:%s)" % (c.entity.id,
-                                                            c.entity.id))
+        c.browser.filter_by(
+            "(+to.id:%(_id)s OR +from.id:%(_id)s)" % {'_id': c.entity.id}
+        )
+        print c.entity.id
         c.browser.facet_by_dimensions()
 
     def _view_html(self, entity):
@@ -62,7 +60,7 @@ class EntityController(BaseController, RestAPIMixIn):
         if c.view is None:
             self._make_browser()
 
-        c.num_entries = self._entry_q(c.entity).count()
+        c.num_entries = model.entry.find({'entities': entity.id}).count()
         c.template = 'entity/view.html'
 
         for item in self.extensions:

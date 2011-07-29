@@ -65,10 +65,10 @@ class TestEntityController(ControllerTestCase):
     def test_browser_for_entity(self):
         h.skip_if_stubbed_solr()
 
-        from openspending.model import Dataset, Entry
+        from openspending import model
 
-        dataset = Dataset(name='testdataset')
-        Dataset.c.save(dataset, manipulate=True)
+        dataset = model.Dataset(name='testdataset')
+        dataset.save()
         dataset_ref_dict = dataset.to_ref_dict()
 
         entity = self._make_one(name="Test Entity", label="Test Entity Label")
@@ -80,7 +80,7 @@ class TestEntityController(ControllerTestCase):
                  'to': entity_ref_dict,
                  'amount': 10.0,
                  'dataset': dataset_ref_dict}
-        Entry.c.save(entry)
+        _id = model.entry.create(entry)
 
         h.clean_and_reindex_solr()
 

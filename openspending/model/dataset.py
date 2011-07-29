@@ -35,11 +35,7 @@ class Dataset(Base):
         if tpl:
             tpl = TextTemplate(tpl)
 
-            d = dict(obj)
-            if '_id' in d:
-                d['id'] = str(d.pop('_id'))
-
-            ctx = {'entry': d}
+            ctx = {'entry': obj}
             stream = tpl.generate(**ctx)
             return stream.render()
         else:

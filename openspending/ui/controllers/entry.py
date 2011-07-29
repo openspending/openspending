@@ -5,9 +5,9 @@ from pylons.controllers.util import abort, redirect
 from pylons.i18n import _
 from routes import url_for
 
+from openspending import model
 from openspending.lib.util import deep_get
 from openspending.logic.dimension import dataset_dimensions
-from openspending.model import Entry, Dataset, flag
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IEntryController
 from openspending.ui.lib.base import BaseController, render
@@ -19,8 +19,7 @@ log = logging.getLogger(__name__)
 class EntryController(BaseController, RestAPIMixIn):
 
     extensions = PluginImplementations(IEntryController)
-
-    model = Entry
+    model = model.entry
 
     def _view_html(self, entry):
         c.entry = entry
@@ -28,7 +27,7 @@ class EntryController(BaseController, RestAPIMixIn):
         c.id = c.entry.get('_id')
         c.from_ = c.entry.get('from')
         c.to = c.entry.get('to')
-        c.dataset = Dataset.find_one({'_id': c.entry.dataset['_id']})
+        c.dataset = model.entry.get_dataset(entry)
         c.currency = c.entry.get('currency', c.dataset.get('currency')).upper()
         c.amount = c.entry.get('amount')
         c.time = c.entry.get('time')
@@ -63,9 +62,9 @@ class EntryController(BaseController, RestAPIMixIn):
         return render(c.template)
 
     def flag(self, id):
-        entry = Entry.by_id(id)
+        entry = model.entry.get(id)
         if not entry:
-            abort(404, _('Sorry, there is no entry with code %r') % id)
+            abort(404, _('Sorry, there is no entry with id %r') % id)
         if not c.account:
             abort(403, _('You need to have an account'))
         flag_name = request.params.get("flag", None)

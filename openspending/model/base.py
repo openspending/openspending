@@ -1,5 +1,7 @@
+import sys
+
 from bson.dbref import DBRef
-from pymongo.objectid import ObjectId
+from pymongo.objectid import ObjectId, InvalidId
 
 from openspending import mongo
 
@@ -38,10 +40,10 @@ class Base(dict):
         return cls.c.find_one(*args, **kwargs)
 
     @classmethod
-    def by_id(cls, id):
-        fl = [{'name': id}, {'_id': id}]
+    def by_id(cls, _id):
+        fl = [{'name': _id}, {'_id': _id}]
         try:
-            fl.append({'_id': ObjectId(id)})
+            fl.append({'_id': ObjectId(_id)})
         except:
             pass
         return cls.find_one({'$or': fl})
@@ -94,47 +96,76 @@ class Base(dict):
     def save(self, **kwargs):
         self.c.save(self)
 
-    def to_query_dict(self, sep='.'):
-        """ Flatten down a dictionary with some smartness. """
-        def _flatten(orig):
-            flat = {}
-            for k, v in orig.items():
-                if isinstance(v, dict):
-                    for sk, sv in _flatten(v).items():
-                        flat[k + sep + sk] = sv
-                else:
-                    flat[k] = v
-            return flat
-        return _flatten(self)
+class ModelWrapper(object):
+    def __init__(self, wrapped, collection):
+        self.wrapped = wrapped
+        self.collection = collection
 
-    def to_index_dict(self):
-        query_form = self.to_query_dict()
-        index_form = {}
-        for k, v in query_form.items():
-            k = k.replace('$', '')
-            if k.endswith('._id'):
-                k = k.replace('._id', '.id')
-            if k.endswith('.name'):
-                ck = k.replace('.name', '')
-                if not ck in query_form.keys():
-                    index_form[ck] = v
-            index_form[k] = v
-        return index_form
+    def __getattr__(self, name):
+        try:
+            return getattr(self.wrapped, name)
+        except AttributeError:
+            exc_info = sys.exc_info() # save the original error raised
+            try:
+                fn_in_base = globals()[name]
+            except KeyError:
+                # Raise the original AttributeError, not this KeyError
+                raise exc_info[0], exc_info[1], exc_info[2]
+            finally:
+                # Delete exception info to prevent creating a cycle that
+                # the garbage collector won't like
+                del exc_info
+
+            def _model_curry(*args, **kwargs):
+                return fn_in_base(self.collection, *args, **kwargs)
+
+            return _model_curry
+
+    def __repr__(self):
+        return '<ModelWrapper for %s (%s)>' % (self.wrapped.__name__, self.collection)
+
+def init_model_module(name, collection):
+    sys.modules[name] = ModelWrapper(sys.modules[name], collection)
 
 def q(obj):
     """Return a query spec identifying the given object"""
-    return {'_id': obj['_id']}
+    _q = {'_id': obj['_id']}
+    try:
+        _q = {'$or': [_q, {'_id': ObjectId(obj['_id'])}]}
+    except InvalidId:
+        pass
+
+    return _q
+
+def get(collection, _id):
+    """Get object in ``collection`` with _id ``_id``"""
+    return mongo.db[collection].find_one(q({'_id': _id}))
+
+def find(collection, spec=None, **kwargs):
+    """Find objects from ``collection`` matching ``spec``"""
+    return mongo.db[collection].find(spec, **kwargs)
+
+def find_one(collection, spec=None):
+    """Find one object from ``collection`` matching ``spec``"""
+    return mongo.db[collection].find_one(spec)
+
+def find_one_by(collection, key, value):
+    """Find one object from ``collection`` where ``key`` == ``value``"""
+    return mongo.db[collection].find_one({key: value})
+
+def remove(collection, spec):
+    """Remove objects from ``collection`` which match ``spec``"""
+    return mongo.db[collection].remove(spec)
 
 def create(collection, doc):
-    """Insert a row into the specified collection using ``doc``"""
+    """Insert a row into ``collection`` using ``doc``"""
     return mongo.db[collection].insert(doc, manipulate=True)
 
 def update(collection, obj, doc):
+    """Update object ``obj`` in ``collection`` using ``doc``"""
     return mongo.db[collection].update(q(obj), doc, upsert=True)
 
-def find(collection, spec):
-    return mongo.db[collection].find(spec)
+def save(collection, to_save):
+    """Save document ``to_save`` to collection ``collection``"""
+    return mongo.db[collection].save(to_save, manipulate=True)
 
-def find_one_by(collection, key, value):
-    """Find one object from the specified collection where key=value"""
-    return mongo.db[collection].find_one({key: value})

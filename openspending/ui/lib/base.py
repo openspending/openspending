@@ -67,8 +67,6 @@ class BaseController(WSGIController):
                int((time() - begin) * 1000)))
 
     def __before__(self, action, **params):
-        #from pprint import pprint
-        #pprint(request.environ)
         account_name = request.environ.get('REMOTE_USER', None)
         if account_name:
             c.account = model.account.find_one_by('name', account_name)

@@ -23,7 +23,7 @@ class ClassifierController(BaseController, RestAPIMixIn):
     model = model.Classifier
 
     def _entry_q(self, classifier):
-        return model.Entry.find({'classifiers': c.classifier.id})
+        return model.entry.find({'classifiers': c.classifier.id})
 
     def _make_browser(self):
         url = url_for(controller='classifier', action='entries',

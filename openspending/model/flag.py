@@ -1,7 +1,6 @@
 import datetime
 
-from .entry import Entry
-from .import account
+from .. import model
 
 AVAILABLE_FLAGS = {
     "interesting": "Interesting",
@@ -13,31 +12,28 @@ def get_flag_for_entry(entry, flag_name):
 
     if 'flags' not in entry:
         entry['flags'] = _get_default_flags()
-        Entry.c.update(
-            {'_id': entry['_id']},
-            {'$set': {'flags': entry['flags']}}
-        )
+        model.entry.update(entry, {'$set': {'flags': entry['flags']}})
 
     if flag_name not in entry['flags']:
         entry['flags'][flag_name] = _get_flag_template()
-        Entry.c.update(
-            {'_id': entry['_id']},
+        model.entry.update(
+            entry,
             {'$set': {'flags.%s' % flag_name: entry['flags'][flag_name]}}
         )
 
     return entry['flags'][flag_name]
 
-def inc_flag(entry, flag_name, acc):
+def inc_flag(entry, flag_name, account):
     _chk_flag(flag_name)
 
-    if has_flagged(entry, flag_name, acc):
+    if has_flagged(entry, flag_name, account):
         return False
 
     tstamp = datetime.datetime.now()
 
     ent_flag = {
         'time': tstamp,
-        'account': acc['_id']
+        'account': account['_id']
     }
     acc_flag = {
         'time': tstamp,
@@ -46,21 +42,23 @@ def inc_flag(entry, flag_name, acc):
         'flag': flag_name
     }
 
-    Entry.c.update(
-        {'_id': entry['_id']},
+    model.entry.update(
+        entry,
         {
             '$inc': {'flags.%s.count' % flag_name: 1},
             '$push': {'flags.%s.flaggings' % flag_name: ent_flag}
         }
     )
-    account.update(acc, {'$push': {'flags': acc_flag}})
+    model.account.update(account, {'$push': {'flags': acc_flag}})
 
     return True
 
-def has_flagged(entry, flag_name, acc):
+def has_flagged(entry, flag_name, account):
     if flag_name not in AVAILABLE_FLAGS:
         return False
-    return any((x['account'] == acc['_id'] for x in get_flag_for_entry(entry, flag_name)['flaggings']))
+
+    return any((x['account'] == account['_id']
+                for x in get_flag_for_entry(entry, flag_name)['flaggings']))
 
 def _chk_flag(flag_name):
     if flag_name not in AVAILABLE_FLAGS:

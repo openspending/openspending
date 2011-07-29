@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 
 from .base import OpenSpendingCommand
-from openspending.model import Dataset, Entry
+from openspending import model
 
 try:
     import networkx as nx
@@ -34,15 +34,15 @@ class GraphCommand(OpenSpendingCommand):
             ew = edges.get((f, t), 0.0)
             edges[(f, t)] = ew + w
 
-        for entry in Entry.find({"dataset.name": dataset_name}):
+        for entry in model.entry.find({"dataset.name": dataset_name}):
             to = entry.get('to')
             if to.get('name') not in g:
                 g.add_node(to.get('name'), label=to.get('label'),
-                    type='entity', country=to.get('country', ''))
+                           type='entity', country=to.get('country', ''))
             from_ = entry.get('from')
             if from_.get('name') not in g:
                 g.add_node(from_.get('name'), label=from_.get('label'),
-                    type='entity', country=from_.get('country', ''))
+                           type='entity', country=from_.get('country', ''))
             _edge(from_.get('name'), to.get('name'), entry.get('amount'))
             for k, v in entry.items():
                 if k in ['time', 'dataset', 'from', 'to'] or not isinstance(v, dict):
@@ -52,7 +52,7 @@ class GraphCommand(OpenSpendingCommand):
                     if isinstance(v.get('ref'), dict):
                         _type = v.get('ref').get('$ref')
                     g.add_node(v.get('name'), label=v.get('label', v.get('name')),
-                            type=_type)
+                               type=_type)
                 #_edge(v.get('name'), to.get('name'), entry.get('amount'))
                 #_edge(from_.get('name'), v.get('name'), entry.get('amount'))
         for (f, t), w in edges.items():

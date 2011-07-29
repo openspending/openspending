@@ -23,7 +23,7 @@ class TestRestController(ControllerTestCase):
         assert '"name": "cra"' in response, response
 
     def test_entry(self):
-        example = model.Entry.find_one({
+        example = model.entry.find_one({
             'dataset.name': self.cra.name,
             'from.name': 'Dept047'
         })
@@ -31,7 +31,7 @@ class TestRestController(ControllerTestCase):
         response = self.app.get(url(controller='entry',
                                     action='view',
                                     format='json',
-                                    id=str(example.id)))
+                                    id=str(example['_id'])))
 
         assert '"_id":' in response, response
         assert '"cofog1":' in response, response
