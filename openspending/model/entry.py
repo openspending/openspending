@@ -5,6 +5,7 @@ from ..lib.aggregator import update_distincts
 
 from .dataset import Dataset
 from . import base
+from . import classifier as m_classifier
 
 log = getLogger(__name__)
 
@@ -117,12 +118,11 @@ def classify_entry(entry, classifier, name):
 
     return:``None``
     '''
-    if classifier is None:
-        return
-    entry[name] = classifier.to_ref_dict()
-    entry['classifiers'] = list(set(entry.get('classifiers', []) +
-                                    [classifier.id]))
-
+    entry[name] = m_classifier.get_ref_dict(classifier)
+    if 'classifiers' not in entry:
+        entry['classifiers'] = []
+    if classifier['_id'] not in entry['classifiers']:
+        entry['classifiers'].append(classifier['_id'])
 
 def entitify_entry(entry, entity, name):
     '''Update the *entry* to use the *entity* for the

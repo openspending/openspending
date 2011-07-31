@@ -99,3 +99,23 @@ class TestEntry(DatabaseTestCase):
         make_entry(name='three', foo=False)
         distincts = model.entry.distinct('name', foo=True)
         h.assert_equal(distincts, ['one', 'two'])
+
+    def test_classify_entry(self):
+        entry = {
+            'name': 'Test Entry',
+            'amount': 1000.00
+        }
+        classifier = {
+            '_id': 123,
+            'name': 'support-transparency',
+            'taxonomy': 'Good Reasons',
+            'label': 'Support Transparency Initiatives'
+        }
+
+        model.entry.classify_entry(entry, classifier, name='reason')
+        h.assert_equal(entry.keys(), ['reason', 'amount', 'name', 'classifiers'])
+        h.assert_equal(entry['classifiers'], [classifier['_id']])
+        h.assert_equal(entry['reason']['label'], 'Support Transparency Initiatives')
+        h.assert_equal(entry['reason']['name'], 'support-transparency')
+        h.assert_equal(entry['reason']['taxonomy'], 'Good Reasons')
+        h.assert_true(isinstance(entry['reason']['ref'], mongo.DBRef))

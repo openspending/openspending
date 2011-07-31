@@ -2,6 +2,7 @@ import os.path
 from pkg_resources import resource_listdir, resource_stream
 
 from pymongo import Connection, errors
+from bson import DBRef
 
 connection = None
 db = None

@@ -124,6 +124,9 @@ class ModelWrapper(object):
     def __repr__(self):
         return '<ModelWrapper for %s (%s)>' % (self.wrapped.__name__, self.collection)
 
+class ModelError(Exception):
+    pass
+
 def init_model_module(name, collection):
     sys.modules[name] = ModelWrapper(sys.modules[name], collection)
 
