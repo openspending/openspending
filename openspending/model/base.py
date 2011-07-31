@@ -172,3 +172,6 @@ def save(collection, to_save):
     """Save document ``to_save`` to collection ``collection``"""
     return mongo.db[collection].save(to_save, manipulate=True)
 
+def distinct(collection, key):
+    """Get a list of distinct values for ``key`` among all documents in ``collection``"""
+    return mongo.db[collection].distinct(key)
