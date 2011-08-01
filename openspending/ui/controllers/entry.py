@@ -7,7 +7,6 @@ from routes import url_for
 
 from openspending import model
 from openspending.lib.util import deep_get
-from openspending.logic.dimension import dataset_dimensions
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IEntryController
 from openspending.ui.lib.base import BaseController, render
@@ -42,7 +41,7 @@ class EntryController(BaseController, RestAPIMixIn):
         c.extras = {}
         if c.dataset:
             dataset_name = c.dataset["name"]
-            dimensions = dataset_dimensions(dataset_name)
+            dimensions = model.dimension.get_dataset_dimensions(dataset_name)
             c.desc = dict([(d.get('key'), d) for d in dimensions])
             for key in c.entry:
                 if key in c.desc and \

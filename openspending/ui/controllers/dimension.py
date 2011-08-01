@@ -5,10 +5,7 @@ from pylons.controllers.util import abort
 from pylons.i18n import _
 
 from openspending.lib.cubes import find_cube
-from openspending.logic.dimension import dataset_dimensions
-from openspending.logic.entry import distinct
 from openspending import model
-from openspending.model import Dimension
 from openspending.ui.lib.jsonp import to_jsonp
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.page import Page
@@ -24,7 +21,7 @@ class DimensionController(BaseController):
         c.dataset = model.dataset.find_one_by('name', dataset)
         if not c.dataset:
             abort(404, _('Sorry, there is no dataset named %s') % dataset)
-        c.dimensions = dataset_dimensions(c.dataset['name'])
+        c.dimensions = model.dimension.get_dataset_dimensions(c.dataset['name'])
         c.dimensions = [d for d in c.dimensions if d['key'] not in ENTRY_FIELDS]
         if format == 'json':
             return to_jsonp(list(c.dimensions))
@@ -36,8 +33,8 @@ class DimensionController(BaseController):
             abort(404, _('Sorry, there is no dataset named %s') % dataset)
         if dimension in ENTRY_FIELDS or "." in dimension:
             abort(400, _('This is not a dimension'))
-        c.meta = Dimension.find_one({"dataset": c.dataset['name'],
-                                     "key": dimension})
+        c.meta = model.dimension.find_one({"dataset": c.dataset['name'],
+                                           "key": dimension})
         if c.meta is None:
             c.meta = {}
 

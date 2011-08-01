@@ -29,7 +29,7 @@ function(dataset_name) {
 
 
     var _map = function() {
-        // the same keys are used in openspending.logic.entry.distinct
+        // the same keys are used in openspending.model.entry.distinct
         var known = ['_id', 'name', 'amount', '_aggregation',
                      'classifiers', 'entities', 'currency'];
 

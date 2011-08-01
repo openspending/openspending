@@ -3,7 +3,7 @@ from . import account
 from . import classifier
 from . import entry
 from . import dataset
-from .dimension import Dimension
+from . import dimension
 from .entity import Entity
 
 

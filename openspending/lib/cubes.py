@@ -376,15 +376,14 @@ class Cube(object):
         Return the dimensions of this cube.
 
         Raises: :exc:`ValueError` if one of the dimensions of
-        for the cube does not exist as a :class:`openspending.ui.mode.Dimension`
-        object in the *dimension* collection in the database.
+        for the cube does not exist as an object in the *dimension* collection
+        in the database.
 
         Returns: A `list` of dimensions (`str`)
         '''
         cube_dimensions = set(self.cube_description['dimensions'])
         # validate against dimensions of dataset.
-        dimension_objects = model.Dimension.c.find(
-            {'dataset': self.dataset['name']}, as_class=dict)
+        dimension_objects = model.dimension.find({'dataset': self.dataset['name']})
         dimension_keys = [dimension['key'] for dimension in dimension_objects]
         possible_dimensions = set(['from', 'to', 'dataset', 'year', 'month'] +
                                   dimension_keys).difference(['name', 'label'])
@@ -407,8 +406,7 @@ class Cube(object):
         Returns: A :class:`Cube` object
         '''
 
-        dimensions = model.Dimension.c.find({'dataset': dataset['name']},
-                                            as_class=dict)
+        dimensions = model.dimension.find({'dataset': dataset['name']})
         dimensions = [dimension['key'] for dimension in dimensions]
         dimensions.extend(['from', 'to', 'year'])
         if dataset['time_axis'] in ['time.from.month', 'time.from.day']:

@@ -7,7 +7,6 @@ from pylons.controllers.util import abort
 from pylons.i18n import _
 
 from openspending import model
-from openspending import logic
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IDatasetController
 from openspending.lib import json
@@ -84,7 +83,7 @@ class DatasetController(BaseController, RestAPIMixIn):
         c.dataset = model.dataset.get(id)
         c.keys_meta = dict([(k.key, {"label": k.label,
                 "description": k.get("description", "")})
-                for k in model.Dimension.find({"dataset": c.dataset['name']})])
+                for k in model.dimension.find({"dataset": c.dataset['name']})])
         if "breakdownKeys" in c.dataset:
             c.breakdown_keys = c.dataset["breakdownKeys"]
         else:
