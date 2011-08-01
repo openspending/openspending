@@ -65,7 +65,7 @@ class DimensionController(BaseController):
             c.values = [(d.get(dimension), d.get('amount')) for d in items]
         else:
             abort(403, "none")
-            items = distinct(dimension, dataset_name=c.dataset.name)
+            items = distinct(dimension, dataset_name=c.dataset['name'])
             c.values = [(i, 0.0) for i in items]
 
         if format == 'json':

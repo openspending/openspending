@@ -4,10 +4,10 @@
 
   <py:def function="nav_class">nav-dataset</py:def>
 
-  <py:def function="page_title">${c.dataset.get('label')}</py:def>
-  
+  <py:def function="page_title">${c.dataset['label'])}</py:def>
+
   <div py:def="content">
-    <h2 class="page-title">${c.dataset.label}: Entries</h2>
+    <h2 class="page-title">${c.dataset['label']}: Entries</h2>
 
     <xi:include href="../_browser.html" />
   </div>

@@ -72,14 +72,14 @@
       <div id="main">
         <div id="dataset">
           <div id="search" class="span-7 last">
-            <form method="get" action="${url(controller='dataset', action='entries', id=c.dataset.name) if c.dataset else '/search'}">
+            <form method="get" action="${url(controller='dataset', action='entries', id=c.dataset['name']) if c.dataset else '/search'}">
               <input type="text" class="textinput" name="q" value="${c.browser.q if hasattr(c, 'browser') else ''}" />
               <input type="submit" value="${_('Search')}" class=""/>
             </form>
           </div>
           <ul id="dataset-menu">
             <li id="dataset-select">
-              <a py:if="c.dataset" href="${h.dataset_url(c.dataset)}">${c.dataset.label} &raquo;</a>
+              <a py:if="c.dataset" href="${h.dataset_url(c.dataset)}">${c.dataset['label']} &raquo;</a>
               <a py:if="not c.dataset" href="${url(controller='dataset', action='index')}">(select a dataset)</a>
               <ul>
                 <li py:for="dataset in c.datasets" py:if="not c.dataset or c.dataset['_id'] != dataset['_id']">
@@ -89,11 +89,11 @@
               </ul>
             </li>
             <py:if test="c.dataset">
-              <li><a href="${url(controller='dataset', action='entries', id=c.dataset.name)}">Search</a></li>
+              <li><a href="${url(controller='dataset', action='entries', id=c.dataset['name'])}">Search</a></li>
               <!--li><a href="${url(controller='dataset', action='explorer',
-                id=c.dataset.name)}">Explore</a></li-->
-              <li><a href="${url(controller='dimension', action='view', dataset=c.dataset.get('name'), dimension='from')}">Spenders</a></li>
-              <li><a href="${url(controller='dimension', action='view', dataset=c.dataset.get('name'), dimension='to')}">Recipients</a></li>
+                id=c.dataset['name'])}">Explore</a></li-->
+              <li><a href="${url(controller='dimension', action='view', dataset=c.dataset['name'], dimension='from')}">Spenders</a></li>
+              <li><a href="${url(controller='dimension', action='view', dataset=c.dataset['name'], dimension='to')}">Recipients</a></li>
             </py:if>
           </ul>
         </div>

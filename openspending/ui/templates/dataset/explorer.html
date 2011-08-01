@@ -42,7 +42,7 @@
 
   <script type="text/javascript">
 jQuery(document).ready(function($) {
-  var datasetId = '${c.dataset.name}';
+  var datasetId = '${c.dataset["name"]}';
   var config = {
     endpoint: '/',
     target: '#content',
@@ -61,7 +61,7 @@ jQuery(document).ready(function($) {
 
 
   <div py:def="content">
-    <h2 id="page-top">Explore ${c.dataset.label}</h2>
+    <h2 id="page-top">Explore ${c.dataset['label']}</h2>
 
  </div>
 

@@ -84,7 +84,7 @@ class DatasetController(BaseController, RestAPIMixIn):
         c.dataset = model.dataset.get(id)
         c.keys_meta = dict([(k.key, {"label": k.label,
                 "description": k.get("description", "")})
-                for k in model.Dimension.find({"dataset": c.dataset.name})])
+                for k in model.Dimension.find({"dataset": c.dataset['name']})])
         if "breakdownKeys" in c.dataset:
             c.breakdown_keys = c.dataset["breakdownKeys"]
         else:
