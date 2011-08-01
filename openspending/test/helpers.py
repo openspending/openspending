@@ -3,7 +3,7 @@ import pkg_resources as _pkg_resources
 from openspending.lib import json
 
 from nose.tools import *
-from mock import Mock, patch
+from mock import MagicMock, Mock, patch
 
 class FixtureImportError(Exception):
     pass
