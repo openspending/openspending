@@ -6,6 +6,7 @@ from ..lib.aggregator import update_distincts
 from . import base
 from . import classifier as _m_classifier
 from . import dataset as _m_dataset
+from . import entity as _m_entity
 
 log = getLogger(__name__)
 
@@ -110,7 +111,7 @@ def classify_entry(entry, classifier, name):
     ``entry``
         An entry ``dict``
     ``classifier``
-        A :class:`openspending.model.Classifier` object
+        A dict-like ``classifier`` object
     ``name``
         This is the key where the value of the classifier
         will be saved. This my be the same as classifier['name'].
@@ -130,15 +131,15 @@ def entitify_entry(entry, entity, name):
     ``entry``
         An entry ``dict``
     ``entity``
-        A :class:`openspending.model.Entity` object
+        A dict-like ``entity`` object
     ``name``
         This is the key where the value of the entity
         will be saved. This my be the same as entity['name'].
 
     return:``None``
     '''
-    if entity is None:
-        return
-    entry[name] = entity.to_ref_dict()
-    entry['entities'] = list(set(entry.get('entities', []) +
-                                 [entity.id]))
+    entry[name] = _m_entity.get_ref_dict(entity)
+    if 'entities' not in entry:
+        entry['entities'] = []
+    if entity['_id'] not in entry['entities']:
+        entry['entities'].append(entity['_id'])

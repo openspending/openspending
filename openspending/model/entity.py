@@ -1,9 +1,10 @@
-from .base import Base, dictproperty
+from . import base
 
-class Entity(Base):
+collection = 'entity'
 
-    id = dictproperty('_id')
-    name = dictproperty('name')
-    label = dictproperty('label')
+base.init_model_module(__name__, collection)
 
-
+# entity objects probably have the following fields
+#   _id
+#   name
+#   label

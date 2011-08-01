@@ -5,10 +5,10 @@
   
   <py:def function="nav_class">nav-entity</py:def>
 
-  <py:def function="page_title" i18n:msg="view_entity">${c.entity.label}</py:def>
+  <py:def function="page_title" i18n:msg="view_entity">${c.entity['label']}</py:def>
 
   <div py:def="content">
-    <h2>${c.entity.label}</h2>
+    <h2>${c.entity['label']}</h2>
     
     <py:if test="hasattr(c, 'viewstate')">
       ${view_panel(c.viewstate)}
@@ -45,7 +45,7 @@
     <div id="comments" class="comments">
     </div>
     <div id="access" class="span-24 last">
-      Download a machine-readable version of <i>${c.entity.label}</i>: 
+      Download a machine-readable version of <i>${c.entity['label']}</i>: 
       <a href="${h.entity_url(c.entity, action='view', format='json')}"><img src="${h.static('img/icons/json.png')}" alt="JSON" /></a>
     </div>
   </div>

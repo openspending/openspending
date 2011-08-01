@@ -24,7 +24,7 @@ class EntityController(BaseController, RestAPIMixIn):
 
     extensions = PluginImplementations(IEntityController)
 
-    model = model.Entity
+    model = model.entity
 
     def view(self, id, slug='', format='html'):
         # abort if we have no ObjectId. We don't want to
@@ -48,9 +48,8 @@ class EntityController(BaseController, RestAPIMixIn):
         url = entity_url(c.entity, action='entries')
         c.browser = Browser(request.params, url=url)
         c.browser.filter_by(
-            "(+to.id:%(_id)s OR +from.id:%(_id)s)" % {'_id': c.entity.id}
+            "(+to.id:%(_id)s OR +from.id:%(_id)s)" % {'_id': c.entity['_id']}
         )
-        print c.entity.id
         c.browser.facet_by_dimensions()
 
     def _view_html(self, entity):
@@ -60,7 +59,7 @@ class EntityController(BaseController, RestAPIMixIn):
         if c.view is None:
             self._make_browser()
 
-        c.num_entries = model.entry.find({'entities': entity.id}).count()
+        c.num_entries = model.entry.find({'entities': entity['_id']}).count()
         c.template = 'entity/view.html'
 
         for item in self.extensions:
@@ -69,7 +68,7 @@ class EntityController(BaseController, RestAPIMixIn):
         return render(c.template)
 
     def entries(self, id, format='html'):
-        c.entity = model.Entity.by_id(id)
+        c.entity = model.entity.get(id)
         if not c.entity:
             abort(404, _('Sorry, there is no entity named %r') % id)
 

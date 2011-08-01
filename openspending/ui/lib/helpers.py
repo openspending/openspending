@@ -58,7 +58,7 @@ def entity_slug(entity):
     '''generate an ascii slug for an entity.
 
     ``entity``
-        A :class:`openspending.model.Entity` object
+        A dict-like ``entity`` object
 
     Returns: `str`
     '''

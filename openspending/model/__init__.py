@@ -4,6 +4,5 @@ from . import classifier
 from . import entry
 from . import dataset
 from . import dimension
-from .entity import Entity
-
+from . import entity
 
