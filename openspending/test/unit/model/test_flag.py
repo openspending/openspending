@@ -32,16 +32,13 @@ class TestFlag(DatabaseTestCase):
     def test_inc_flag_on_entry(self):
         model.dataset.create({'_id': 'datasetid', 'name': 'datasetname'})
         dataset = model.dataset.get('datasetid')
-        entry = {'_id': 'entryid'}
-        account = {'_id': 'accountid'}
-
-        _id = model.entry.create(entry, dataset)
-        model.account.create(account)
+        entry = model.entry.create({'_id': 'entryid'}, dataset)
+        account = model.account.create({'_id': 'accountid'})
 
         model.flag.inc_flag(entry, 'interesting', account)
 
-        f = model.entry.get(_id)['flags']['interesting']
-
+        entry = model.entry.get('entryid') # sync with db
+        f = entry['flags']['interesting']
         h.assert_equal(len(f['flaggings']), 1)
         flag = f['flaggings'][0]
         h.assert_equal(flag['account'], 'accountid')
@@ -49,19 +46,17 @@ class TestFlag(DatabaseTestCase):
         h.assert_less(delta.seconds, 10)
 
     def test_inc_flag_on_account(self):
-        model.dataset.create({'_id': 'datasetid', 'name': 'datasetname'})
-        dataset = model.dataset.get('datasetid')
-        entry = {'_id': 'entryid'}
-        account = {'_id': 'accountid'}
-
-        model.entry.create(entry, dataset)
-        _id = model.account.create(account)
+        dataset = model.dataset.create({'_id': 'datasetid',
+                                        'name': 'datasetname'})
+        entry = model.entry.create({'_id': 'entryid'}, dataset)
+        account = model.account.create({'_id': 'accountid'})
 
         model.flag.inc_flag(entry, 'interesting', account)
 
-        from_db = model.account.get(_id)['flags']
-        h.assert_equal(len(from_db), 1)
-        f = from_db[0]
+        account = model.account.get('accountid')
+        f_all = account['flags']
+        h.assert_equal(len(f_all), 1)
+        f = f_all[0]
         h.assert_equal(f['type'], 'entry')
         h.assert_equal(f['_id'], 'entryid')
         h.assert_equal(f['flag'], 'interesting')

@@ -42,14 +42,14 @@ class TestBase(TestCase):
         q = base.q({'_id': 'some_id', 'foo': 'bar'})
         h.assert_equal(q, {'_id': 'some_id'})
 
-    # FIXME: create should return the model object, leaving insert to return
-    # only the id.
     def test_create(self):
         self.mock_collection.insert.return_value = 'foo_id'
+        self.mock_collection.find_one.return_value = {'_id': 'foo_id', 'foo': 'bar'}
         res = base.create('test', {'foo': 'bar'})
-        h.assert_equal(res, 'foo_id')
+        h.assert_equal(res, {'_id': 'foo_id', 'foo': 'bar'})
         self.mock_collection.insert.assert_called_with({'foo': 'bar'},
                                                        manipulate=True)
+        self.mock_collection.find_one.assert_called_with({'_id': 'foo_id'})
 
     def test_distinct(self):
         self.mock_collection.distinct.return_value = ['bar', 'baz']
@@ -84,6 +84,12 @@ class TestBase(TestCase):
         h.assert_equal(res['foo'], 'bar')
         h.assert_equal(res['ref'], mongo.DBRef('test', 'foo_id'))
 
+    def test_insert(self):
+        self.mock_collection.insert.return_value = 'foo_id'
+        res = base.insert('test', {'foo': 'bar'})
+        h.assert_equal(res, 'foo_id')
+        self.mock_collection.insert.assert_called_with({'foo': 'bar'},
+                                                           manipulate=True)
     def test_remove(self):
         self.mock_collection.remove.return_value = None
         h.assert_equal(base.remove('test', {'foo': 'bar'}), None)

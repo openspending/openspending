@@ -11,8 +11,7 @@ class TestEntityController(ControllerTestCase):
     def _make_one(self, name, **kwargs):
         entity = kwargs
         entity['name'] = name
-        new_id = model.entity.create(entity)
-        return model.entity.get(new_id)
+        return model.entity.create(entity)
 
     def test_404_with_name(self):
         entity = self._make_one(name='Test Entity')
@@ -42,7 +41,7 @@ class TestEntityController(ControllerTestCase):
                                     id=str(entity['_id']),
                                     slug='test-entity-label',
                                     action='view'))
-        
+
         h.assert_equal(response._status, '200 OK')
         h.assert_true('Test Entity Label' in response)
         json_name = '%s.json' % entity['_id']
@@ -63,18 +62,17 @@ class TestEntityController(ControllerTestCase):
     def test_browser_for_entity(self):
         h.skip_if_stubbed_solr()
 
-        _id = model.dataset.create({'name': 'testdataset'})
-        dataset = model.dataset.get(_id)
+        dataset = model.dataset.create({'name': 'testdataset'})
 
         entity = self._make_one(name="Test Entity", label="Test Entity Label")
         entity_ref_dict = model.entity.get_ref_dict(entity)
 
-        entry = {'name': 'Test Entry',
-                 'label': 'Test Entry Label',
-                 'from': entity_ref_dict,
-                 'to': entity_ref_dict,
-                 'amount': 10.0}
-        _id = model.entry.create(entry, dataset)
+        entry = model.entry.create({'name': 'Test Entry',
+                                    'label': 'Test Entry Label',
+                                    'from': entity_ref_dict,
+                                    'to': entity_ref_dict,
+                                    'amount': 10.0},
+                                   dataset)
 
         h.clean_and_reindex_solr()
 

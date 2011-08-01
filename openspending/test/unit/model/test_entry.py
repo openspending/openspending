@@ -3,20 +3,17 @@ from openspending import model
 from openspending.test import DatabaseTestCase, helpers as h
 
 def make_dataset(name='testdataset'):
-    dataset = model.dataset.find_one(name)
-    if dataset is None:
-        _id = model.dataset.create({'name': name})
-        dataset = model.dataset.get(_id)
-    return dataset
+    dataset = model.dataset.find_one_by('name', name)
+    return dataset if dataset else model.dataset.create({'name': name})
 
 def make_entry(name='testentry', region='testregion', amount=1.0,
                dataset=None, **kwargs):
     if dataset is None:
         dataset = make_dataset()
 
-    _id = model.entry.create(dict(name=name, region=region, amount=amount, **kwargs),
-                             dataset)
-    entry = model.entry.get(_id)
+    entry = model.entry.create(dict(name=name, region=region,
+                                    amount=amount, **kwargs),
+                               dataset)
     return entry
 
 

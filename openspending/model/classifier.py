@@ -38,15 +38,16 @@ def create(doc):
     """
     check_rest_suffix(doc['name'])
     query = {'name': doc['name'], 'taxonomy': doc['taxonomy']}
+    curs = base.find(collection, query)
 
-    if base.find(collection, query).count() > 1:
+    if curs.count() > 1:
         raise base.ModelError(
             "Ambiguous classifier name (%(name)s) in taxonomy '%(taxonomy)s'!"
             % doc
         )
-
-    if '_id' in doc:
-        mongo.db[collection].update(query, {"$set": doc})
-        return doc['_id']
+    elif curs.count() == 1:
+        _id = curs[0]['_id']
+        base.update(collection, query, {"$set": doc})
+        return base.get(collection, _id)
     else:
         return base.create(collection, doc)

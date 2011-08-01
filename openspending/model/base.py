@@ -51,8 +51,11 @@ def q(obj):
     return _q
 
 def create(collection, doc):
-    """Insert a row into ``collection`` using ``doc``"""
-    return mongo.db[collection].insert(doc, manipulate=True)
+    """\
+    Insert a row into ``collection`` using ``doc``. Return the created
+    document.\
+    """
+    return get(collection, insert(collection, doc))
 
 def distinct(collection, key):
     """Get a list of distinct values for ``key`` among all documents in ``collection``"""
@@ -83,6 +86,10 @@ def get_ref_dict(collection, doc):
     d = doc.copy()
     d['ref'] = mongo.DBRef(collection, d['_id'])
     return d
+
+def insert(collection, doc):
+    """Insert a row into ``collection`` using ``doc``"""
+    return mongo.db[collection].insert(doc, manipulate=True)
 
 def remove(collection, spec):
     """Remove objects from ``collection`` which match ``spec``"""

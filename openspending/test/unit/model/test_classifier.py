@@ -14,18 +14,15 @@ def make_classifier():
 class TestClassifier(DatabaseTestCase):
 
     def test_create(self):
-        _id = model.classifier.create(make_classifier())
-        classifier = model.classifier.get(_id)
+        classifier = model.classifier.create(make_classifier())
         h.assert_equal(classifier['name'], 'classifier_foo')
 
     def test_create_does_not_delete_attributes_in_existing(self):
         c = make_classifier()
         c['extra'] = 'value'
 
-        _id = model.classifier.create(c)
-        classifier = model.classifier.get(_id)
+        classifier = model.classifier.create(c)
         h.assert_equal(classifier['extra'], 'value')
 
-        _id = model.classifier.create(c)
-        classifier = model.classifier.get(_id)
+        classifier = model.classifier.create(make_classifier())
         h.assert_equal(classifier['extra'], 'value')

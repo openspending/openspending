@@ -22,9 +22,8 @@ class TestEntryController(ControllerTestCase):
 
         # use the existing 'pog' dimensions and stuff a ref to an entity
         # in there.
-        pog_entity_id = model.entity.create({'name': 'pog-entity',
-                                             'label': 'Test Pog Entity'})
-        pog_entity = model.entity.get(pog_entity_id)
+        pog_entity = model.entity.create({'name': 'pog-entity',
+                                          'label': 'Test Pog Entity'})
         model.entry.entitify_entry(entry, pog_entity, 'pog')
         model.entry.save(entry)
 

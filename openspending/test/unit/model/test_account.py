@@ -1,7 +1,5 @@
-import datetime
-
 from openspending import mongo
-from openspending.model import account
+from openspending import model
 from openspending.test import DatabaseTestCase, helpers as h
 
 def make_account():
@@ -14,12 +12,11 @@ def make_account():
 class TestAccount(DatabaseTestCase):
 
     def test_account_create_gives_api_key(self):
-        _id = account.create(make_account())
-        acc = account.get(_id)
-        h.assert_equal(len(acc['api_key']), 36)
+        account = model.account.create(make_account())
+        h.assert_equal(len(account['api_key']), 36)
 
     def test_account_add_role(self):
-        _id = account.create(make_account())
-        account.add_role({'_id': _id}, 'admin')
-        from_db = account.get(_id)
-        h.assert_equal(from_db['roles'], ['admin'])
+        account = model.account.create(make_account())
+        model.account.add_role(account, 'admin')
+        account = model.account.get(account['_id'])
+        h.assert_equal(account['roles'], ['admin'])
