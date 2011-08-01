@@ -102,20 +102,17 @@ class RestAPIMixIn(object):
 
     def _get_by_id(self, id):
         if id is None:
-            abort(404, _('Sorry, there is no %s with code %r') %
-                  (self.model.__name__.lower(), id))
-        # FIXME/HACK remove this when model is fully converted.
-        try:
-            result = self.model.by_id(id)
-        except AttributeError:
-            result = self.model.get(id)
+            self._object_not_found(id)
+
+        result = self.model.get(id)
+
         if not result:
-            abort(404, _('Sorry, there is no %s with code %r') %
-                  (self.model.__name__.lower(), id))
+            self._object_not_found(id)
+
         return result
 
-    def _filter(self, query, name=None):
-        if name is None:
+    def _filter(self, query, id=None):
+        if id is None:
             filters = {}
             if hasattr(self.model, "default_filters"):
                 for key, value in self.model.default_filters.items():
@@ -133,13 +130,9 @@ class RestAPIMixIn(object):
             result = list(self.model.find(filters))
             return result
         else:
-            # FIXME/HACK remove this when model is fully converted.
-            try:
-                result = self.model.by_id(name) # by_*id*(*name*) WTF!!??
-            except AttributeError:
-                result = self.model.get(name) # sigh...
+            result = self.model.get(id)
             if not result:
-                abort(404)
+                self._object_not_found(id)
         return result
 
     def _view_csv(self, result):
@@ -152,3 +145,8 @@ class RestAPIMixIn(object):
     def _view_json(self, result):
         return to_jsonp(result)
     _index_json = _view_json
+
+
+    def _object_not_found(self, id):
+        abort(404, _('Sorry, there is no %s with code %r') %
+              (self.model.__name__.lower(), id))
