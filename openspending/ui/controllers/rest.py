@@ -11,11 +11,11 @@ log = logging.getLogger(__name__)
 class RestController(BaseController):
 
     def index(self):
-        dataset_ = model.Dataset.find_one()
+        dataset_ = model.dataset.find_one()
         c.urls = [
-            url(controller='dataset', action='view', id=dataset_.name,
+            url(controller='dataset', action='view', id=dataset_['name'],
                 format='json'),
-            url(controller='dataset', action='view', id=dataset_.id,
+            url(controller='dataset', action='view', id=dataset_['_id'],
                 format='json'),
             url(controller='entry', action='view',
                 id=model.entry.find_one()['_id'], format='json')]

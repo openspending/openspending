@@ -107,6 +107,7 @@ class ModelWrapper(object):
         except AttributeError:
             exc_info = sys.exc_info() # save the original error raised
             try:
+                # First, try to find the attribute in base
                 fn_in_base = globals()[name]
             except KeyError:
                 # Raise the original AttributeError, not this KeyError
@@ -164,9 +165,11 @@ def create(collection, doc):
     """Insert a row into ``collection`` using ``doc``"""
     return mongo.db[collection].insert(doc, manipulate=True)
 
-def update(collection, obj, doc):
-    """Update object ``obj`` in ``collection`` using ``doc``"""
-    return mongo.db[collection].update(q(obj), doc, upsert=True)
+def update(collection, spec, doc, **kwargs):
+    """Update object(s) matching ``spec`` in ``collection`` using ``doc``"""
+    if '_id' in spec:
+        spec = q(spec)
+    return mongo.db[collection].update(spec, doc, **kwargs)
 
 def save(collection, to_save):
     """Save document ``to_save`` to collection ``collection``"""
@@ -175,3 +178,8 @@ def save(collection, to_save):
 def distinct(collection, key):
     """Get a list of distinct values for ``key`` among all documents in ``collection``"""
     return mongo.db[collection].distinct(key)
+
+def get_ref_dict(collection, doc):
+    d = doc.copy()
+    d['ref'] = mongo.DBRef(collection, d['_id'])
+    return d

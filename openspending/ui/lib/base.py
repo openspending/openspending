@@ -79,7 +79,7 @@ class BaseController(WSGIController):
         c.items_per_page = int(request.params.get('items_per_page', 20))
         c.state = session.get('state', {})
 
-        c.datasets = list(model.Dataset.find())
+        c.datasets = list(model.dataset.find())
         c.dataset = None
         self._detect_dataset_subdomain()
 
@@ -101,6 +101,6 @@ class BaseController(WSGIController):
             return
         dataset_name, domain = http_host.split('.', 1)
         for dataset in c.datasets:
-            if dataset.name.lower() == dataset_name:
+            if dataset['name'].lower() == dataset_name:
                 c.dataset = dataset
 

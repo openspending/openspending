@@ -140,13 +140,11 @@ def optimize():
     solr.optimize()
     solr.commit()
 
-def build_index(dataset_name=None):
+def build_index(dataset_name):
     solr = get_connection()
-    query = {}
-    if dataset_name:
-        dataset_ = model.Dataset.find_one({'name': dataset_name})
-        assert dataset_ is not None, "No such dataset: %s" % dataset_name
-        query = {'dataset.name': dataset_name}
+    dataset_ = model.dataset.find_one_by('name', dataset_name)
+    assert dataset_ is not None, "No such dataset: %s" % dataset_name
+    query = {'dataset.name': dataset_name}
     cur = model.entry.find(query)
     buf = []
     total = 0

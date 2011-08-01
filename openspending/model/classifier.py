@@ -50,8 +50,3 @@ def create(doc):
         return doc['_id']
     else:
         return base.create(collection, doc)
-
-def get_ref_dict(doc):
-    d = doc.copy()
-    d['ref'] = mongo.DBRef(collection, d['_id'])
-    return d

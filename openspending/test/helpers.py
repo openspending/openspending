@@ -76,8 +76,8 @@ def clean_and_reindex_solr():
     '''Clean Solr and reindex all entries in the database.'''
     clean_solr()
     from openspending.lib.solr_util import build_index
-    from openspending.model import Dataset
-    dataset_names = Dataset.c.distinct('name')
+    from openspending import model
+    dataset_names = model.dataset.distinct('name')
     for name in dataset_names:
         build_index(name)
 

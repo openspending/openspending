@@ -2,8 +2,8 @@
 from . import account
 from . import classifier
 from . import entry
+from . import dataset
 from .dimension import Dimension
-from .dataset import Dataset
 from .entity import Entity
 
 

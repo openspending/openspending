@@ -33,11 +33,11 @@ class EntryController(BaseController, RestAPIMixIn):
         c.time = c.entry.get('time')
         c.flags = c.entry.get("flags")
 
-        c.custom_html = c.dataset.render_entry_custom_html(c.entry)
+        c.custom_html = model.dataset.render_entry_custom_html(c.dataset, c.entry)
 
         excluded_keys = ('time', 'amount', 'currency', 'from',
-            'to', 'dataset', '_id', 'classifiers', 'name',
-            'classifier_ids', 'description')
+                         'to', 'dataset', '_id', 'classifiers', 'name',
+                         'classifier_ids', 'description')
 
         c.extras = {}
         if c.dataset:

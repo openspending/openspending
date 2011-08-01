@@ -6,7 +6,7 @@ class TestEntryController(ControllerTestCase):
     def setup(self):
         super(TestEntryController, self).setup()
         h.load_fixture('cra')
-        self.cra = model.Dataset.find_one({'name': 'cra'})
+        self.cra = model.dataset.find_one_by('name', 'cra')
 
     def test_view(self):
         t = model.entry.find_one()
@@ -43,8 +43,9 @@ class TestEntryController(ControllerTestCase):
     def test_entry_custom_html(self):
         tpl = '<a href="/custom/path/%s">%s</a>'
 
-        self.cra.entry_custom_html = tpl % ('${entry["_id"]}', '${entry["name"]}')
-        self.cra.save()
+        self.cra['entry_custom_html'] = tpl % ('${entry["_id"]}', '${entry["name"]}')
+
+        model.dataset.save(self.cra)
 
         t = model.entry.find_one()
 

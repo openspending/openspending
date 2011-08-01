@@ -24,10 +24,16 @@ class DatasetController(BaseController, RestAPIMixIn):
 
     extensions = PluginImplementations(IDatasetController)
 
-    model = model.Dataset
+    model = model.dataset
+
+    def view(self, id, format="html"):
+        # The routing passes "id", but it's actually a name.
+        d = model.dataset.find_one_by('name', id)
+        _id = d['_id'] if d else None
+        return self._view(id=_id, format=format)
 
     def _entry_q(self, dataset):
-        return  {'dataset.name': dataset.name}
+        return  {'dataset.name': dataset['name']}
 
     def _index_html(self, results):
         for item in self.extensions:
@@ -38,8 +44,8 @@ class DatasetController(BaseController, RestAPIMixIn):
 
     def _make_browser(self):
         url = h.url_for(controller='dataset', action='entries',
-                      id=c.dataset.name)
-        c.browser = Browser(request.params, dataset_name=c.dataset.name,
+                        id=c.dataset['name'])
+        c.browser = Browser(request.params, dataset_name=c.dataset['name'],
                             url=url)
         c.browser.facet_by_dimensions()
 
@@ -61,7 +67,7 @@ class DatasetController(BaseController, RestAPIMixIn):
         return render(c.template)
 
     def entries(self, id=None, format='html'):
-        c.dataset = model.Dataset.by_id(id)
+        c.dataset = model.dataset.get(id)
         if not c.dataset:
             abort(404, _('Sorry, there is no dataset named %r') % id)
         self._make_browser()
@@ -75,7 +81,7 @@ class DatasetController(BaseController, RestAPIMixIn):
         return render('dataset/entries.html')
 
     def explorer(self, id=None):
-        c.dataset = model.Dataset.by_id(id)
+        c.dataset = model.dataset.get(id)
         c.keys_meta = dict([(k.key, {"label": k.label,
                 "description": k.get("description", "")})
                 for k in model.Dimension.find({"dataset": c.dataset.name})])
@@ -89,7 +95,7 @@ class DatasetController(BaseController, RestAPIMixIn):
         return render('dataset/explorer.html')
 
     def timeline(self, id):
-        c.dataset = model.Dataset.by_id(id)
+        c.dataset = model.dataset.get(id)
         view = View.by_name(c.dataset, "default")
         viewstate = ViewState(c.dataset, view, None)
         data = []

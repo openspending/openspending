@@ -50,24 +50,24 @@
       </div>
     </py:with>
     <div id="page" class="container">
-	    <header>
-          <nav>
-            <a href="${g.blog_link}">Blog</a>
-            <a py:if="g.forum_link" href="${g.forum_link}">Forum</a>
-            <a href="${g.wiki_link}">About</a>
-            <a py:if="c.account is None" href="/login">Login or register</a>
-            <py:if test="c.account is not None">
-              <a href="/settings">My Profile</a>
-              <a href="/logout">Logout</a>
-            </py:if>
-          </nav>
-          <h1 id="site-title">
-            <a href="/">${g.site_title}</a>
-          </h1>
-          <div id="slogan" class="">
-              ${g.site_slogan}
-          </div>
-        </header>
+      <header>
+        <nav>
+          <a href="${g.blog_link}">Blog</a>
+          <a py:if="g.forum_link" href="${g.forum_link}">Forum</a>
+          <a href="${g.wiki_link}">About</a>
+          <a py:if="c.account is None" href="/login">Login or register</a>
+          <py:if test="c.account is not None">
+            <a href="/settings">My Profile</a>
+            <a href="/logout">Logout</a>
+          </py:if>
+        </nav>
+        <h1 id="site-title">
+          <a href="/">${g.site_title}</a>
+        </h1>
+        <div id="slogan" class="">
+          ${g.site_slogan}
+        </div>
+      </header>
 
       <div id="main">
         <div id="dataset">
@@ -82,7 +82,7 @@
               <a py:if="c.dataset" href="${h.dataset_url(c.dataset)}">${c.dataset.label} &raquo;</a>
               <a py:if="not c.dataset" href="${url(controller='dataset', action='index')}">(select a dataset)</a>
               <ul>
-                <li py:for="dataset in c.datasets" py:if="not c.dataset or c.dataset.id != dataset.id">
+                <li py:for="dataset in c.datasets" py:if="not c.dataset or c.dataset['_id'] != dataset['_id']">
                   <a href="${h.dataset_url(dataset)}">${dataset.get('label')}</a>
                 </li>
                 <li><a href="http://link/to/etl/instance">Import additional data...</a></li>
@@ -93,9 +93,9 @@
               <!--li><a href="${url(controller='dataset', action='explorer',
                 id=c.dataset.name)}">Explore</a></li-->
               <li><a href="${url(controller='dimension', action='view', dataset=c.dataset.get('name'), dimension='from')}">Spenders</a></li>
-	  		  <li><a href="${url(controller='dimension', action='view', dataset=c.dataset.get('name'), dimension='to')}">Recipients</a></li>
+              <li><a href="${url(controller='dimension', action='view', dataset=c.dataset.get('name'), dimension='to')}">Recipients</a></li>
             </py:if>
-		  </ul>
+          </ul>
         </div>
         <div id="content">
           ${content()}

@@ -3,10 +3,10 @@ from openspending import model
 from openspending.test import DatabaseTestCase, helpers as h
 
 def make_dataset(name='testdataset'):
-    dataset = model.Dataset.find_one(name)
+    dataset = model.dataset.find_one(name)
     if dataset is None:
-        dataset = model.Dataset(name=name)
-        dataset.save()
+        _id = model.dataset.create({'name': name})
+        dataset = model.dataset.get(_id)
     return dataset
 
 def make_entry(name='testentry', region='testregion', amount=1.0,
@@ -14,10 +14,8 @@ def make_entry(name='testentry', region='testregion', amount=1.0,
     if dataset is None:
         dataset = make_dataset()
 
-    _id = model.entry.create(
-        dict(name=name, region=region, amount=amount, **kwargs),
-        dataset
-    )
+    _id = model.entry.create(dict(name=name, region=region, amount=amount, **kwargs),
+                             dataset)
     entry = model.entry.get(_id)
     return entry
 
@@ -40,9 +38,8 @@ class TestEntry(DatabaseTestCase):
         h.assert_true('distincts__testdataset' in mongo.db.collection_names())
 
         # test the distincts collection manually
-        distinct_regions = mongo.db.distincts__testdataset.find({
-            'value.keys': u'region'
-        }).distinct('_id')
+        coll = mongo.db.distincts__testdataset
+        distinct_regions = coll.find({'value.keys': 'region'}).distinct('_id')
         h.assert_equal(sorted(distinct_regions), [u'Region 1', u'Region 2'])
 
         distincts = model.entry.distinct('region', dataset_name='testdataset')

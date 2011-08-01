@@ -60,8 +60,6 @@ class TestCube(LoaderTestCase):
         return cube
 
     def test_compute_cube(self):
-        from openspending.model import Dataset
-
         cra = h.load_fixture('cra')
 
         cube = Cube.configure_default_cube(cra)

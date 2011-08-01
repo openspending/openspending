@@ -3,9 +3,9 @@ from logging import getLogger
 from .. import mongo
 from ..lib.aggregator import update_distincts
 
-from .dataset import Dataset
 from . import base
-from . import classifier as m_classifier
+from . import classifier as _m_classifier
+from . import dataset as _m_dataset
 
 log = getLogger(__name__)
 
@@ -22,11 +22,11 @@ base.init_model_module(__name__, collection)
 #   flags
 
 def create(doc, dataset):
-    doc['dataset'] = dataset.to_ref_dict()
+    doc['dataset'] = _m_dataset.get_ref_dict(dataset)
     return base.create(collection, doc)
 
 def get_dataset(obj):
-    return Dataset.find_one({'_id': obj['dataset']['_id']})
+    return _m_dataset.find_one({'_id': obj['dataset']['_id']})
 
 def to_query_dict(obj, sep='.'):
     """ Flatten down a dictionary with some smartness. """
@@ -63,8 +63,8 @@ def distinct(key, dataset_name=None, **query):
 
     ``key``
         The key of the field for which the distinct will be returned
-    ``dataset``
-        A dataset name or a :class:`openspending.model.Dataset` object
+    ``dataset_name``
+        A dataset name
     ``**query``
         Parameters for an *AND* query. Only the *key* values objects
         matching these queries will be counted. If you want to query
@@ -83,8 +83,7 @@ def distinct(key, dataset_name=None, **query):
         (key in not_aggregated_keys)):
         direct_mongo_query = True
     else:
-        dataset = Dataset.c.find_one({'name': dataset_name},
-                                     as_class=dict)
+        dataset = _m_dataset.find_one_by('name', dataset_name)
         if not dataset:
             raise ValueError('Dataset "%s" does not exist' % dataset_name)
 
@@ -118,7 +117,7 @@ def classify_entry(entry, classifier, name):
 
     return:``None``
     '''
-    entry[name] = m_classifier.get_ref_dict(classifier)
+    entry[name] = _m_classifier.get_ref_dict(classifier)
     if 'classifiers' not in entry:
         entry['classifiers'] = []
     if classifier['_id'] not in entry['classifiers']:

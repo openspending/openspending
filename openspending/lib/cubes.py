@@ -35,7 +35,7 @@ class Cube(object):
         """
         Arguments:
         ``dataset``
-            A :class:`openspending.model.Dataset` object
+            A dict-like ``dataset`` object
         ``cube_name``
             The name of the cube
 
@@ -46,7 +46,7 @@ class Cube(object):
         self.dataset = dataset
         self.name = cube_name
         self.cube_description = self._cube_description()
-        self.collection_name = 'cubes.%s.%s' % (dataset.name, cube_name)
+        self.collection_name = 'cubes.%s.%s' % (dataset['name'], cube_name)
         self.dimensions = self._cube_dimensions()
         self.db = mongo.db
         self.simpletypes = (str, unicode, int, float, NoneType)
@@ -59,7 +59,7 @@ class Cube(object):
         """
         log.debug("compute cube for dataset '%s', cube name: '%s', " \
                   "dimensions: '%s'",
-                  self.dataset.name, self.name, ', '.join(self.dimensions))
+                  self.dataset['name'], self.name, ', '.join(self.dimensions))
         begin = time.time()
 
         # query fields: We query for all fields, but handle the date
@@ -155,7 +155,7 @@ class Cube(object):
         #    collection.ensure_index([(dimension, DESCENDING)])
 
         self.dataset['cubes'][self.name]['num_cells'] = len(cells)
-        self.dataset.save()
+        model.dataset.save(self.dataset)
         log.debug("Done. Took: %ds", int(time.time() - begin))
 
     def query(self, *args, **kwargs):
@@ -340,7 +340,7 @@ class Cube(object):
         cubes = self.dataset.get('cubes', {})
         if self.name not in cubes:
             raise AssertionError('cube "%s" not allowed for dataset "%s"' %
-                                 (self.name, self.dataset.name))
+                                 (self.name, self.dataset['name']))
         return cubes[self.name]
 
     def _cut_query_spec(self, cuts):
@@ -364,7 +364,7 @@ class Cube(object):
             if key.split('.')[0] not in self.dimensions:
                 raise KeyError(('Dimension "%s" not allowed for cube "%s" '
                                 'in dataset "%s". Allowed Dimensions: %s') %
-                               (key, self.name, self.dataset.name,
+                               (key, self.name, self.dataset['name'],
                                 self.dimensions))
 
             spec = query_spec.setdefault(key, {'$in': []})
@@ -384,7 +384,7 @@ class Cube(object):
         cube_dimensions = set(self.cube_description['dimensions'])
         # validate against dimensions of dataset.
         dimension_objects = model.Dimension.c.find(
-            {'dataset': self.dataset.name}, as_class=dict)
+            {'dataset': self.dataset['name']}, as_class=dict)
         dimension_keys = [dimension['key'] for dimension in dimension_objects]
         possible_dimensions = set(['from', 'to', 'dataset', 'year', 'month'] +
                                   dimension_keys).difference(['name', 'label'])
@@ -402,12 +402,12 @@ class Cube(object):
         *dataset* and the name 'default' and returns the cube.
 
         ``dataset``
-            A :class:`openspending.model.Dataset` object
+            A dict-like ``dataset`` object
 
         Returns: A :class:`Cube` object
         '''
 
-        dimensions = model.Dimension.c.find({'dataset': dataset.name},
+        dimensions = model.Dimension.c.find({'dataset': dataset['name']},
                                             as_class=dict)
         dimensions = [dimension['key'] for dimension in dimensions]
         dimensions.extend(['from', 'to', 'year'])
@@ -478,9 +478,9 @@ def find_cube(dataset, dimensions):
     Find a cube for the *dataset* that contains the *dimensions*.
 
     ``dataset``
-        A :class:`openspending.model.Dataset` object.
+        A dict-like ``dataset`` object
     ``dimensions``
-        A `list` of dimensions.
+        A `list` of dimensions
 
     Returns:
     A :class:`Cube` object if a fitting cube is found or `None` if no

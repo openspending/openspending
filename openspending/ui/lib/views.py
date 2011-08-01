@@ -81,7 +81,7 @@ class View(object):
         :meth:`pack`). Internal mehtod, no API.
 
         """
-        dataset = model.Dataset.find_one({'name': data.get('dataset')})
+        dataset = model.dataset.find_one_by('name', data.get('dataset'))
         return cls(dataset, name, data.get('label'), data.get('dimension'),
                    drilldown=data.get('drilldown'),
                    cuts=data.get('cuts', {}))

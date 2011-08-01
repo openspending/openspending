@@ -67,8 +67,8 @@ class TestEntityController(ControllerTestCase):
 
         from openspending import model
 
-        dataset = model.Dataset(name='testdataset')
-        dataset.save()
+        _id = model.dataset.create({'name': 'testdataset'})
+        dataset = model.dataset.get(_id)
 
         entity = self._make_one(name="Test Entity", label="Test Entity Label")
         entity_ref_dict = entity.to_ref_dict()

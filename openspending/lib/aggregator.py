@@ -6,7 +6,7 @@ def _aggregation_query_spec(dataset, include_spec):
     Converts strings to int and float if possible.
     '''
     query_spec = include_spec
-    query_spec['dataset._id'] = dataset.id
+    query_spec['dataset._id'] = dataset['_id']
     for key, value in query_spec.items():
         # Todo: this needs to go into REST controller!
         if isinstance(value, basestring):
@@ -32,7 +32,7 @@ def _aggregation_query(dataset, include_spec, fields=None):
     a list of *fields*.
 
     ``dataset``
-        A :class:`openspending.model.Dataset` object
+        A dict-like ``dataset`` object
     ``include_spec``
         A dict with a (partial) mongodb query spec.
     ``fields``
