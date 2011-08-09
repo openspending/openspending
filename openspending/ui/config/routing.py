@@ -42,6 +42,12 @@ def make_map():
 
     map.connect('search', '/search', controller='search', action='index')
 
+    map.connect('/dataset.{format}', controller='dataset', action='index')
+    map.connect('/dataset', controller='dataset', action='index')
+
+    map.connect('/dataset/{name}.{format}', controller='dataset', action='view')
+    map.connect('/dataset/{name}', controller='dataset', action='view')
+
     map.connect('/dataset/{dataset}/dimension.{format}',
                 controller='dimension', action='index')
     map.connect('/dataset/{dataset}/dimension',
@@ -51,17 +57,6 @@ def make_map():
     map.connect('/dataset/{dataset}/dimension/{dimension}',
                 controller='dimension', action='view')
 
-    map.connect('/dataset', controller='dataset', action='index')
-
-    map.connect('/dataset.json', controller='dataset', action='index',
-                format='json')
-    map.connect('/dataset.csv', controller='dataset', action='index',
-                format='csv')
-    map.connect('/dataset/{name}.json', controller='dataset', action='view',
-                format='json')
-    map.connect('/dataset/{name}.html', controller='dataset', action='view',
-                format='html')
-    map.connect('/dataset/{name}', controller='dataset', action='view')
     map.connect('/dataset/{name}/{action}.{format}', controller='dataset')
     map.connect('/dataset/{name}/{action}', controller='dataset')
 
