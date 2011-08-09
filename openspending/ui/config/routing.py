@@ -58,13 +58,13 @@ def make_map():
                 format='json')
     map.connect('/dataset.csv', controller='dataset', action='index',
                 format='csv')
-    map.connect('/dataset/{id}.json', controller='dataset', action='view',
+    map.connect('/dataset/{name}.json', controller='dataset', action='view',
                 format='json')
-    map.connect('/dataset/{id}.html', controller='dataset', action='view',
+    map.connect('/dataset/{name}.html', controller='dataset', action='view',
                 format='html')
-    map.connect('/dataset/{id}', controller='dataset', action='view')
-    map.connect('/dataset/{id}/{action}.{format}', controller='dataset')
-    map.connect('/dataset/{id}/{action}', controller='dataset')
+    map.connect('/dataset/{name}', controller='dataset', action='view')
+    map.connect('/dataset/{name}/{action}.{format}', controller='dataset')
+    map.connect('/dataset/{name}/{action}', controller='dataset')
 
     map.connect('/entity', controller='entity', action='index')
     map.connect('/entity/{id}.json', controller='entity', action='view',

@@ -15,10 +15,15 @@ class TestDatasetController(ControllerTestCase):
         assert 'cra' in response
 
     def test_view(self):
-        response = self.app.get(url(controller='dataset', action='view', id='cra'))
+        response = self.app.get(url(controller='dataset', action='view', name='cra'))
         assert '''Country Regional Analysis''' in response
 
-    def test_number_of_entries(self):
-        url_ = url(controller='dataset', action='view', id='cra')
+    def test_view_num_entries(self):
+        url_ = url(controller='dataset', action='view', name='cra')
         response = self.app.get(url_)
-        h.assert_equal(response.tmpl_context.num_entries, 36)
+        h.assert_true('36 entries' in response, "'36 entries' not in response!")
+
+    def test_entries_browser(self):
+        url_ = url(controller='dataset', action='entries', name='cra')
+        response = self.app.get(url_)
+        h.assert_true('36 entries' in response, "'36 entries' not in response!")
