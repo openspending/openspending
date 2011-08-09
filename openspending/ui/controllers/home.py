@@ -48,9 +48,6 @@ class HomeController(BaseController):
 
         return render(c.template)
 
-    def govspending(self):
-        return render('home/25kspending.html')
-
     def getinvolved(self):
         return render('home/getinvolved.html')
 
