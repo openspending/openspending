@@ -124,7 +124,6 @@ class Browser(object):
     @property
     def stats(self):
         return self.results.get('stats').get('stats_fields').get('amount')
-        #return {"sum": 0, "mean": 0, "stddev": 0}
 
     @property
     def page(self):
