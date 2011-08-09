@@ -16,7 +16,7 @@ class GrantAdminCommand(OpenSpendingCommand):
         from openspending.model import account
 
         username = self.args[0]
-        a = account.find_by('name', username)
+        a = account.find_one_by('name', username)
 
         if a is None:
             print "Account `%s' not found." % username
