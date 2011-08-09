@@ -5,10 +5,10 @@
   
   <py:def function="nav_class">nav-entity</py:def>
 
-  <py:def function="page_title" i18n:msg="view_entity">${c.entity.label} - Entries</py:def>
+  <py:def function="page_title" i18n:msg="view_entity">${c.entity['label']} - Entries</py:def>
    
   <div py:def="content">
-    <h2>${c.entity.label}: Entries</h2>
+    <h2>${c.entity['label']}: Entries</h2>
 
     <xi:include href="../_browser.html" />
   </div>

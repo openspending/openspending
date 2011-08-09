@@ -5,10 +5,8 @@ from pylons.controllers.util import abort, redirect
 from pylons.i18n import _
 from routes import url_for
 
-from openspending import logic
+from openspending import model
 from openspending.lib.util import deep_get
-from openspending.logic.dimension import dataset_dimensions
-from openspending.model import Entry, Dataset
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IEntryController
 from openspending.ui.lib.base import BaseController, render
@@ -20,8 +18,7 @@ log = logging.getLogger(__name__)
 class EntryController(BaseController, RestAPIMixIn):
 
     extensions = PluginImplementations(IEntryController)
-
-    model = Entry
+    model = model.entry
 
     def _view_html(self, entry):
         c.entry = entry
@@ -29,22 +26,22 @@ class EntryController(BaseController, RestAPIMixIn):
         c.id = c.entry.get('_id')
         c.from_ = c.entry.get('from')
         c.to = c.entry.get('to')
-        c.dataset = Dataset.find_one({'_id': c.entry.dataset['_id']})
+        c.dataset = model.entry.get_dataset(entry)
         c.currency = c.entry.get('currency', c.dataset.get('currency')).upper()
         c.amount = c.entry.get('amount')
         c.time = c.entry.get('time')
         c.flags = c.entry.get("flags")
 
-        c.custom_html = c.dataset.render_entry_custom_html(c.entry)
+        c.custom_html = model.dataset.render_entry_custom_html(c.dataset, c.entry)
 
         excluded_keys = ('time', 'amount', 'currency', 'from',
-            'to', 'dataset', '_id', 'classifiers', 'name',
-            'classifier_ids', 'description')
+                         'to', 'dataset', '_id', 'classifiers', 'name',
+                         'classifier_ids', 'description')
 
         c.extras = {}
         if c.dataset:
             dataset_name = c.dataset["name"]
-            dimensions = dataset_dimensions(dataset_name)
+            dimensions = model.dimension.get_dataset_dimensions(dataset_name)
             c.desc = dict([(d.get('key'), d) for d in dimensions])
             for key in c.entry:
                 if key in c.desc and \
@@ -64,15 +61,15 @@ class EntryController(BaseController, RestAPIMixIn):
         return render(c.template)
 
     def flag(self, id):
-        entry = Entry.by_id(id)
+        entry = model.entry.get(id)
         if not entry:
-            abort(404, _('Sorry, there is no entry with code %r') % id)
+            abort(404, _('Sorry, there is no entry with id %r') % id)
         if not c.account:
             abort(403, _('You need to have an account'))
         flag_name = request.params.get("flag", None)
         result = False
         try:
-            result = logic.flag.inc_flag(entry, flag_name, c.account)
+            result = flag.inc_flag(entry, flag_name, c.account)
         except KeyError:
             abort(400, _("Unknown Flag"))
         if not result:

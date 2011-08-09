@@ -10,7 +10,7 @@ from pylons import config
 import pylons
 from webhelpers import markdown
 
-from openspending.model import init_mongo
+from openspending import mongo
 
 from openspending.plugins import core as plugins
 from openspending.plugins.interfaces import IConfigurable, IConfigurer
@@ -95,7 +95,7 @@ def load_environment(global_conf, app_conf):
         callback=template_loaded
     )
 
-    init_mongo(config)
+    mongo.configure(config)
 
     # Configure ckan
     import openspending.lib.ckan as ckan

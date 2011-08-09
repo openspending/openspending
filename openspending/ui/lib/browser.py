@@ -7,7 +7,6 @@ from openspending.lib import solr_util as solr
 from openspending.lib.csvexport import write_csv
 from openspending.ui.lib import jsonp
 from openspending.ui.lib.page import Page
-from openspending.logic.dimension import dataset_dimensions
 
 FILTER_PREFIX = "filter-"
 DIMENSION_LABEL = ".label_facet"
@@ -19,8 +18,8 @@ class Browser(object):
         self.url = url
         self.dataset_name = dataset_name
         if dataset_name is not None:
-            self.dimensions = dataset_dimensions(self.dataset_name,
-                facets_only=True)
+            self.dimensions = model.dimension.get_dataset_dimensions(self.dataset_name,
+                                                                     facets_only=True)
         else:
             self.dimensions = [{'key': 'to', 'label': 'Recipient'},
                                {'key': 'from', 'label': 'Spender'}]
@@ -184,7 +183,7 @@ class Browser(object):
     @property
     def entities(self):
         ids = map(lambda i: ObjectId(i.get('_id')), self.items)
-        return list(model.Entry.find({"_id": {"$in": ids}}))
+        return list(model.entry.find({"_id": {"$in": ids}}))
 
     def to_jsonp(self):
         return jsonp.to_jsonp({

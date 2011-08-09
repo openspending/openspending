@@ -15,9 +15,9 @@ from webhelpers.pylonslib import Flash as _Flash
 from webhelpers.text import truncate
 
 from openspending import model
+from openspending.model import flag
 from openspending.lib import json
 from openspending.lib.util import slugify
-from openspending.logic import flag
 from openspending.ui.lib.authz import have_role
 from openspending.ui.lib.jsonp import to_jsonp, to_json
 
@@ -58,7 +58,7 @@ def entity_slug(entity):
     '''generate an ascii slug for an entity.
 
     ``entity``
-        A :class:`openspending.model.Entity` object
+        A dict-like ``entity`` object
 
     Returns: `str`
     '''

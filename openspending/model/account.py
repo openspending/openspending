@@ -1,25 +1,26 @@
+import datetime
 import uuid
 
-from mongo import Base, dictproperty
+from . import base
 
+collection = 'account'
 
-class Account(Base):
-    id = dictproperty('_id')
-    name = dictproperty('name')
-    label = dictproperty('label')
-    email = dictproperty('email')
-    password_hash = dictproperty('password_hash')
-    api_key = dictproperty('api_key')
+base.init_model_module(__name__, collection)
 
-    def __init__(self, *args, **kwargs):
-        self.api_key = str(uuid.uuid4())
-        super(Account, self).__init__(*args, **kwargs)
-    
-    @classmethod
-    def by_name(cls, name):
-        return cls.find_one({'name': name})
+# account objects probably have the following fields
+#   _id
+#   name
+#   label
+#   email
+#   password_hash
+#   api_key
 
-    @classmethod
-    def by_api_key(cls, api_key):
-        return cls.c.find_one({'api_key': api_key})
+def create(doc):
+    """Create an account. Autogenerates an api_key"""
+    doc['api_key'] = str(uuid.uuid4())
+    return base.create(collection, doc)
+
+def add_role(obj, rolename):
+    """Add ``rolename`` to the set of roles possessed by this account"""
+    return base.update(collection, obj, {'$addToSet': {'roles': rolename}})
 

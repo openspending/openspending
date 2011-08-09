@@ -20,17 +20,17 @@ class ClassifierController(BaseController, RestAPIMixIn):
 
     extensions = PluginImplementations(IClassifierController)
 
-    model = model.Classifier
+    model = model.classifier
 
     def _entry_q(self, classifier):
-        return model.Entry.find({'classifiers': c.classifier.id})
+        return model.entry.find({'classifiers': c.classifier['_id']})
 
     def _make_browser(self):
         url = url_for(controller='classifier', action='entries',
-                taxonomy=c.classifier.taxonomy,
-                name=c.classifier.name)
+                taxonomy=c.classifier['taxonomy'],
+                name=c.classifier['name'])
         c.browser = Browser(request.params, url=url)
-        c.browser.filter_by("+classifiers:%s" % c.classifier.id)
+        c.browser.filter_by("+classifiers:%s" % c.classifier['_id'])
         c.browser.facet_by_dimensions()
 
     def view_by_taxonomy_name(self, taxonomy, name, format="html"):
@@ -55,7 +55,7 @@ class ClassifierController(BaseController, RestAPIMixIn):
         return render(c.template)
 
     def entries(self, taxonomy, name, format='html'):
-        c.classifier = model.Classifier.find_one({'taxonomy': taxonomy,
+        c.classifier = model.classifier.find_one({'taxonomy': taxonomy,
                                                   'name': name})
         if not c.classifier:
             abort(404, _('Sorry, there is no such classifier'))

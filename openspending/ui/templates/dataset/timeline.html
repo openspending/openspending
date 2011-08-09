@@ -8,16 +8,16 @@
   <py:def function="page_title">Timeline ${c.dataset.get('label')}</py:def>
 
   <py:def function="optional_head">
-    <link type="text/css" href="${h.static('js/libs/jqueryui-1.8.11/css/ui-lightness/jquery-ui-1.8.11.custom.css')}" rel="stylesheet" /> 
+    <link type="text/css" href="${h.static('js/libs/jqueryui-1.8.11/css/ui-lightness/jquery-ui-1.8.11.custom.css')}" rel="stylesheet" />
 
 
     <script type="text/javascript" src="${h.static('js/libs/jquery.json-2.2.js')}"></script>
     <script type="text/javascript" src="${h.static('js/libs/jqueryui-1.8.11/jquery-ui-1.8.11.js')}"></script>
 
-    <script src="${h.static('js/libs/json2.js')}"></script> 
-    <script src="${h.static('js/libs/underscore-min.js')}"></script> 
-    <script src="${h.static('js/libs/backbone-min.js')}"></script> 
-    
+    <script src="${h.static('js/libs/json2.js')}"></script>
+    <script src="${h.static('js/libs/underscore-min.js')}"></script>
+    <script src="${h.static('js/libs/backbone-min.js')}"></script>
+
 
     <!--
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/jquery-ui.min.js"></script>
@@ -46,7 +46,7 @@
 
 
   <div py:def="content">
-    <h2 id="page-top">Timeline ${c.dataset.label}</h2>
+    <h2 id="page-top">Timeline ${c.dataset['label']}</h2>
     <div id="vis">
     </div>
  </div>

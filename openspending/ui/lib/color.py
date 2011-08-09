@@ -2,7 +2,7 @@ import random
 
 from pylons.decorators.cache import beaker_cache
 
-from openspending.model.mongo import db
+from openspending.mongo import db
 
 DEFAULT_COLOR = "#607890"
 
@@ -12,7 +12,7 @@ def parent_color(obj):
         return obj.get('color')
     if 'parent' in obj and obj.get('parent'):
         try:
-            parent = db().dereference(obj.get('parent'))
+            parent = db.dereference(obj.get('parent'))
             return parent_color(parent)
         except:
             pass

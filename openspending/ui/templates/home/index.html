@@ -17,7 +17,7 @@
  <div py:def="content">
    <div id="above-fold">
       <div py:if="c.dataset" id='centerpiece' class="span-18">
-        <h2>Featured Dataset: ${c.dataset.label}</h2>
+        <h2>Featured Dataset: ${c.dataset['label']}</h2>
         <div class="span-18" id="vis"></div>
       </div>
 

@@ -1,10 +1,10 @@
-from mongo import *
-from changeset import Revisioned
+from . import base
 
-class Entity(Revisioned):
-    
-    id = dictproperty('_id')
-    name = dictproperty('name')
-    label = dictproperty('label')
-    
-    
+collection = 'entity'
+
+base.init_model_module(__name__, collection)
+
+# entity objects probably have the following fields
+#   _id
+#   name
+#   label

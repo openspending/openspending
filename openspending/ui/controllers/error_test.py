@@ -2,7 +2,7 @@
 ErrorTestController is used solely in functional testing of the custom error
 documents.
 """
-from openspending.etl.ui.lib.base import BaseController, abort
+from openspending.ui.lib.base import BaseController, abort
 
 class ErrorTestController(BaseController):
     def not_found(self):

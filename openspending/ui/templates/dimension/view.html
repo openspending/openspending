@@ -8,7 +8,7 @@
   
   <div py:def="content">
     <h2>
-      ${c.dataset.label}
+      ${c.dataset['label']}
       <span py:if="'label' in c.meta">
         &mdash; ${c.meta.get('label')}
       </span>

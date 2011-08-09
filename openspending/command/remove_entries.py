@@ -16,8 +16,8 @@ class RemoveEntriesCommand(OpenSpendingCommand):
         super(RemoveEntriesCommand, self).command()
         self._check_args_length(1)
 
-        from openspending.model import Entry
+        from openspending import model
 
         log.info("Deleting all entries in dataset: %s" % dataset_name)
-        errors = Entry.c.remove({"dataset.name": self.args[0]})
+        errors = model.entry.remove({"dataset.name": self.args[0]})
         log.info("Errors: %s" % errors)

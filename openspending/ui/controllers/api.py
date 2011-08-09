@@ -19,7 +19,7 @@ def statistic_normalize(dataset, result, per, statistic):
     for drilldown in result['drilldown']:
         per_value = drilldown.get(per)
         if not per_value in values:
-            entry = model.Entry.find_one({'dataset.name': dataset.name,
+            entry = model.entry.find_one({'dataset.name': dataset['name'],
                                           per: per_value})
             values[per_value] = entry.get(statistic, 0.0) if entry else 0.0
         if values[per_value]: # skip division by zero oppprtunities
@@ -59,9 +59,9 @@ class ApiController(BaseController):
 
     @jsonpify
     def aggregate(self):
-        dataset_name = request.params.get('dataset',
-                request.params.get('slice'))
-        dataset = model.Dataset.by_id(dataset_name)
+        dataset_name = request.params.get('dataset', request.params.get('slice'))
+        dataset = model.dataset.find_one_by('name', dataset_name)
+
         if dataset is None:
             abort(400, "Dataset %s not found" % dataset_name)
 
@@ -99,7 +99,7 @@ class ApiController(BaseController):
                 for k, v in translated_result.items()]
         return {'results': translated_result,
                 'metadata': {
-                    'dataset': dataset.name,
+                    'dataset': dataset['name'],
                     'include': cuts,
                     'dates': map(unicode, dates),
                     'axes': drilldowns,
