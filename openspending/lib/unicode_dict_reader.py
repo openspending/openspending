@@ -8,9 +8,9 @@ class EmptyCSVError(Exception):
 
 
 class UnicodeDictReader(object):
-    def __init__(self, file_or_str, encoding='utf8', **kwargs):
+    def __init__(self, fp, encoding='utf8', **kwargs):
         self.encoding = encoding
-        self.reader = csv.DictReader(file_or_str, **kwargs)
+        self.reader = csv.DictReader(fp, **kwargs)
 
         if not self.reader.fieldnames:
             raise EmptyCSVError("No fieldnames in CSV reader: empty file?")
