@@ -1,6 +1,6 @@
 from nose.tools import *
 from nose.plugins.skip import SkipTest
-from mock import MagicMock, Mock, patch
+from mock import Mock, patch, MagicMock
 
 import pkg_resources as _pkg_resources
 
@@ -64,28 +64,4 @@ def skip_if_stubbed_solr():
 def skip(*args, **kwargs):
     raise SkipTest(*args, **kwargs)
 
-def mock_ckan(registry):
-    '''
-    Return a mock CKANClient that can be monkeypatched into the code while
-    testing.
-    '''
-    class MockCKANClient(object):
-        pass
 
-    ckan = MockCKANClient()
-
-    def mock_group_entity_get(name, *args, **kwargs):
-        def in_group(p):
-            return name in registry[p].get('groups', [])
-
-        packages = filter(in_group, registry.keys())
-
-        return {'packages': packages}
-
-    def mock_package_entity_get(name, *args, **kwargs):
-        return registry[name]
-
-    ckan.group_entity_get = Mock(side_effect=mock_group_entity_get)
-    ckan.package_entity_get = Mock(side_effect=mock_package_entity_get)
-
-    return ckan
