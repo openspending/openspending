@@ -181,7 +181,8 @@ class Browser(object):
 
     @property
     def entities(self):
-        ids = map(lambda i: ObjectId(i.get('_id')), self.items)
+        ids = map(lambda x: model.base.q(x)['$or'], self.items)
+        ids = [id['_id'] for sub in ids for id in sub]
         return list(model.entry.find({"_id": {"$in": ids}}))
 
     def to_jsonp(self):
