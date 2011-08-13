@@ -1,3 +1,7 @@
+import csv
+import json
+from StringIO import StringIO
+
 from bson import ObjectId
 from webob.exc import HTTPNotFound, HTTPMovedPermanently
 
@@ -6,12 +10,72 @@ from openspending.ui.controllers.entity import EntityController
 from openspending.ui.test import ControllerTestCase, url, helpers as h
 
 class TestEntityController(ControllerTestCase):
-    '''mixed unit and functional tests for EntityController'''
+
+    def setup(self):
+        super(TestEntityController, self).setup()
+        h.load_fixture('cra')
+        self.ent = model.entity.find_one_by('name', 'Dept063')
 
     def _make_one(self, name, **kwargs):
         entity = kwargs
         entity['name'] = name
         return model.entity.create(entity)
+
+    def test_view_noslug(self):
+        # Should respond with 301 to URL with slug
+        self.app.get(url(controller='entity', action='view',
+                         id=self.ent['_id'], status=301))
+
+    def test_view(self):
+        response = self.app.get(url(controller='entity', action='view',
+                                    id=self.ent['_id']))
+        response = response.follow() # expect one redirect
+        h.assert_true('Department for Innovation, Universities and Skills' in response,
+                      "'Department for Innovation, Universities and Skills' not in response!")
+
+    def test_view_not_objectid(self):
+        ent = model.entity.create({'_id': 'foobar',
+                                   'name': 'foobar',
+                                   'label': 'Foo Bar'})
+        response = self.app.get(url(controller='entity', action='view',
+                                    id='foobar', format='json'))
+        obj = json.loads(response.body)
+        h.assert_true('Foo Bar' in response,
+                      "'Foo Bar' not in response!")
+
+    def test_view_json(self):
+        response = self.app.get(url(controller='entity', action='view',
+                                    id=self.ent['_id'], format='json'))
+        obj = json.loads(response.body)
+        h.assert_equal(obj['label'], 'Department for Innovation, Universities and Skills')
+
+    def test_view_csv(self):
+        response = self.app.get(url(controller='entity', action='view',
+                                    id=self.ent['_id'], format='csv'))
+        r = csv.DictReader(StringIO(response.body))
+        obj = [l for l in r]
+        h.assert_equal(len(obj), 1)
+        h.assert_equal(obj[0]['label'], 'Department for Innovation, Universities and Skills')
+
+    def test_entries(self):
+        dius = model.entity.find_one_by('name', 'Dept063')
+        response = self.app.get(url(controller='entity', action='entries',
+                                    id=self.ent['_id']))
+
+    def test_entries_json(self):
+        dius = model.entity.find_one_by('name', 'Dept063')
+        response = self.app.get(url(controller='entity', action='entries',
+                                    id=self.ent['_id'], format='json'))
+        obj = json.loads(response.body)
+        # TODO: test some content rather than simply asserting 200
+
+    def test_entries_csv(self):
+        dius = model.entity.find_one_by('name', 'Dept063')
+        response = self.app.get(url(controller='entity', action='entries',
+                                    id=self.ent['_id'], format='csv'))
+        r = csv.DictReader(StringIO(response.body))
+        obj = [l for l in r]
+        # TODO: test some content rather than simply asserting 200
 
     def test_404_with_name(self):
         entity = self._make_one(name='Test Entity')

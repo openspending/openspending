@@ -27,19 +27,16 @@ class EntityController(BaseController, RestAPIMixIn):
     model = model.entity
 
     def view(self, id, slug='', format='html'):
-        # abort if we have no ObjectId. We don't want to
-        # lookup by name.
-        try:
-            oid = ObjectId(id)
-        except InvalidId:
-            abort(404, _('Sorry, there is no entity with code %r') % id)
+        obj = model.entity.get(id)
+
+        if not obj:
+            abort(404, _('Sorry, there is no entity with id %r') % id)
 
         if format == 'html':
             # validate the slug and redirect to the current url if the slug
             # changed (e.g. fixed typo) with 301 - moved permanently
-            entity = self._get_by_id(oid)
-            if slug != entity_slug(entity):
-                url = entity_url(entity)
+            if slug != entity_slug(obj):
+                url = entity_url(obj)
                 redirect(url, code=301)
 
         return super(EntityController, self).view(id, format)
