@@ -1,6 +1,7 @@
 from urllib import urlencode
 from bson.objectid import ObjectId
 
+from openspending import mongo
 from openspending import model
 from openspending.lib import json
 from openspending.lib import solr_util as solr
@@ -181,8 +182,14 @@ class Browser(object):
 
     @property
     def entities(self):
-        ids = map(lambda x: model.base.q(x)['$or'], self.items)
-        ids = [id['_id'] for sub in ids for id in sub]
+        def _ids(obj):
+            r = [obj['_id']]
+            try:
+                r.append(ObjectId(obj['_id']))
+            except mongo.InvalidId:
+                pass
+            return r
+        ids = [id for sub in map(_ids, self.items) for id in sub]
         return list(model.entry.find({"_id": {"$in": ids}}))
 
     def to_jsonp(self):
