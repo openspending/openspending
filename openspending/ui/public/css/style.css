@@ -97,7 +97,7 @@ button {  width: auto; overflow: visible; }
    code.flickr.com/blog/2008/11/12/on-ui-quality-the-little-things-client-side-image-resizing/ */
 .ie7 img { -ms-interpolation-mode: bicubic; }
 
-
+.ie7 .clearfix { clear: both; }
 
 /* 
  * Non-semantic helper classes 
@@ -108,12 +108,17 @@ button {  width: auto; overflow: visible; }
   clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
   clip: rect(1px, 1px, 1px, 1px); }
 .invisible { visibility: hidden; }
+
+/*
 .clearfix:before, .clearfix:after {
   content: "\0020"; display: block; height: 0; visibility: hidden;	
 } 
 .clearfix:after { clear: both; }
 .clearfix { zoom: 1; }
-
+*/
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { *zoom: 1; }
 
 
 
@@ -174,8 +179,8 @@ h3 {
 	color: #999;
 	background: -webkit-gradient(linear, left top, left bottom, from(#f1f1f1), to(#e0e0e0));
 	background: -moz-linear-gradient(top,  #f1f1f1,  #e0e0e0);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f1f1', endColorstr='#e0e0e0');
-    min-height: 2.9em;
+	/*filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f1f1', endColorstr='#e0e0e0');*/
+  min-height: 2.9em;
 }
 
 #dataset #search {
@@ -185,13 +190,16 @@ h3 {
 #dataset ul#dataset-menu {
   margin: 0em 0em 0em 0em;
   padding-left: 1em;
+  padding-top: 0.8em;
   list-style: none; 
 }
 
 #dataset ul#dataset-menu li {
   padding-top: 0.9em;
   padding-bottom: 0.7em;
-  display: inline-block;
+  zoom: 1;
+	display:inline;
+  /*display: inline-block;*/
 }
 
 #dataset ul#dataset-menu li a {
@@ -241,7 +249,7 @@ h3 {
 	box-shadow: 0 1px 2px #ddd;
 	background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#fff));
 	background: -moz-linear-gradient(top,  #eee,  #fff);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#eee', endColorstr='#fff');
+	/*filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#eee', endColorstr='#fff');*/
 }
 #search input[type=text] {
 }
@@ -256,7 +264,7 @@ h3 {
 	color:  #fff;
 	background: -webkit-gradient(linear, left top, left bottom, from(#aaa), to(#999));
 	background: -moz-linear-gradient(top,  #aaa,  #999);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#aaa', endColorstr='#999');
+	/*filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#aaa', endColorstr='#999');*/
 }
 
 #search input[type=submit]:hover {
@@ -265,7 +273,7 @@ h3 {
 	color:  #fff;
 	background: -webkit-gradient(linear, left top, left bottom, from(#999), to(#777));
 	background: -moz-linear-gradient(top,  #999,  #777);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#999', endColorstr='#777');
+	/*filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#999', endColorstr='#777');*/
 }
 
 .pager {
@@ -334,7 +342,7 @@ table {
 table thead th {
 	background: -webkit-gradient(linear, left top, left bottom, from(#f1f1f1), to(#e0e0e0));
 	background: -moz-linear-gradient(top,  #f1f1f1,  #e0e0e0);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f1f1', endColorstr='#e0e0e0');
+	/*filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f1f1', endColorstr='#e0e0e0');*/
 }
 
 table tfoot td {
@@ -429,8 +437,8 @@ header #slogan {
 }
 
 #main {
-    margin-top: 0.5em;
-  	clear: both;
+  margin-top: 0.5em;
+  clear: both;
 	background-color: #fff;
 	padding-bottom: 2em;
 	-webkit-box-shadow: 5px 5px 20px #bbb;
@@ -455,7 +463,9 @@ footer ul.credits {
 
 footer ul li {
 	font-weight: bold;
-	display: inline-block;
+  zoom: 1;
+	display:inline;
+	/*display: inline-block;*/
 	margin-top: 0.5em;
 	margin-right: 2em;
 }
@@ -528,8 +538,8 @@ div#timegraph {
 div.view-panel {
     border-top: 1px solid #e0e0e0;
   	background: -webkit-gradient(linear, left top, left bottom, from(#f1f1f1), to(#e0e0e0));
-	background: -moz-linear-gradient(top,  #f1f1f1,  #e0e0e0);
-	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f1f1', endColorstr='#e0e0e0');
+  	background: -moz-linear-gradient(top,  #f1f1f1,  #e0e0e0);
+	  /*filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f1f1', endColorstr='#e0e0e0');*/
     padding-left: 10px; 
     padding-right: 10px;
     margin-left: -10px;
@@ -800,7 +810,7 @@ form.basic input[type=submit]:active {
   pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
   thead { display: table-header-group; } /* css-discuss.incutio.com/wiki/Printing_Tables */ 
   tr, img { page-break-inside: avoid; }
-  @page { margin: 0.5cm; }
+  /*@page { margin: 0.5cm; }*/
   p, h2, h3 { orphans: 3; widows: 3; }
   h2, h3{ page-break-after: avoid; }
 }
