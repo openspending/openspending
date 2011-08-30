@@ -26,7 +26,7 @@ setup(
         "mock==0.7.2"
     ],
     setup_requires=[
-        "PasteScript==1.7.4.1"
+        "PasteScript==1.7.4.2"
     ],
 
     packages=find_packages(),
