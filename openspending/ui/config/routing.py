@@ -47,6 +47,7 @@ def make_map():
 
     map.connect('/dataset/{name}.{format}', controller='dataset', action='view')
     map.connect('/dataset/{name}', controller='dataset', action='view')
+    map.connect('/dataset/bubbles/{name}/{breakdown_field}/{drilldown_fields}', controller='dataset', action='bubbles')
 
     map.connect('/dataset/{dataset}/dimension.{format}',
                 controller='dimension', action='index')

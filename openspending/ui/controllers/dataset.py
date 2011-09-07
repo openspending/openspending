@@ -16,6 +16,7 @@ from openspending.ui.lib.browser import Browser
 from openspending.ui.lib.restapi import RestAPIMixIn
 from openspending.ui.lib.views import View, ViewState, handle_request
 from openspending.ui.lib.authz import requires
+from openspending.ui.lib.color import rgb_rainbow
 
 log = logging.getLogger(__name__)
 
@@ -29,6 +30,34 @@ class DatasetController(BaseController, RestAPIMixIn):
         d = model.dataset.find_one_by('name', name)
         _id = d['_id'] if d else None
         return self._view(id=_id, format=format)
+
+    def bubbles(self, name, breakdown_field, drilldown_fields, format="html"):
+        c.drilldown_fields = json.dumps(drilldown_fields.split(','))
+        dataset = name
+        c.dataset = model.dataset.find_one_by('name', name)
+        c.dataset_name = name
+
+        # TODO: make this a method
+        c.template = 'dataset/view_bubbles.html'
+
+        curs = model.entry.find({'dataset.name':name})# , {breakdown_field: True})
+        breakdown_names = list(set([ i[breakdown_field]['name'] for i in curs ]))
+                                
+        count = len(breakdown_names)
+
+        styles = [ s for s in rgb_rainbow(count) ]
+        breakdown_styles = dict([ (breakdown_names[n], styles[n]) for n in range(0, count) ])
+        c.breakdown_styles = [ "'%s' : { color: '%s' }," % (k, v) for k, v in breakdown_styles.iteritems() ]
+        c.breakdown_field = breakdown_field
+
+        handle_request(request, c, c.dataset)
+        if c.view is None:
+            self._make_browser()
+
+        if hasattr(c, 'time'):
+            delattr(c, 'time') # disable treemap(!)
+
+        return render(c.template)
 
     def _entry_q(self, dataset):
         return  {'dataset.name': dataset['name']}
