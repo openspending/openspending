@@ -21,4 +21,4 @@ Run the application
 
 ## Issue tracking
 
-Please raise issues at <http://trac.openspending.org/>.
+Please report bugs and submit feature requests at https://github.com/okfn/openspending/issues.
