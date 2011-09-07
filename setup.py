@@ -20,7 +20,6 @@ setup(
         "solrpy==0.9.4",
         "pyutilib.component.core==4.3.1",
         "Babel==0.9.6",
-        "ckanclient==0.7",
         "colander==0.9.3",
         "distribute>=0.6.10",
         "mock==0.7.2"
