@@ -1,5 +1,6 @@
 import csv
 import re
+from hashlib import sha1
 from unidecode import unidecode
 
 def dict_intersection(o, d):
@@ -57,3 +58,7 @@ def slugify(text, delimiter='-'):
     for word in SLUG_RE.split(text.lower()):
         result.extend(unidecode(word).split())
     return unicode(delimiter.join(result))
+
+def hash_values(iterable):
+    """Return a cryptographic hash of an iterable."""
+    return sha1(''.join(sha1(val).hexdigest() for val in iterable)).hexdigest()
