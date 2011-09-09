@@ -115,7 +115,7 @@ class Cube(object):
                         if not subdict.get('name'):
                             # create a name so we can rely on it,
                             # e.g. in queries
-                            subdict['name'] = subdict['_id']
+                            subdict['name'] = str(subdict['_id'])
 
                         new_cell[key] = subdict
                     elif isinstance(value, self.simpletypes):
