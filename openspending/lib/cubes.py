@@ -394,15 +394,7 @@ class Cube(object):
             else:
                 cell_keys.append(value)
 
-        def hack_to_bytearray(value):
-            if value is None:
-                return ''
-            try:
-                return bytearray(value, 'utf8')
-            except:
-                return bytearray(str(value), 'utf8')
-
-        return util.hash_values(map(hack_to_bytearray, cell_keys))
+        return util.hash_values(map(str, cell_keys))
 
     @classmethod
     def configure_default_cube(cls, dataset):
