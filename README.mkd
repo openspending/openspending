@@ -4,10 +4,8 @@
 
 Install the application and copy configuration templates.
 
-    $ virtualenv --no-site-packages pyenv
+    $ pip install -E pyenv -e .
     $ source pyenv/bin/activate
-    $ pip install -e .
-    $ hash -r # (or rehash in zsh)
     $ cp development.ini_tmpl development.ini
     $ cp test.ini_tmpl test.ini
 
