@@ -394,7 +394,7 @@ class Cube(object):
             else:
                 cell_keys.append(value)
 
-        return util.hash_values(map(str, cell_keys))
+        return util.hash_values(map(lambda x: unicode(x).encode('utf8'), cell_keys))
 
     @classmethod
     def configure_default_cube(cls, dataset):
