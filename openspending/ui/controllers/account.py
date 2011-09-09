@@ -4,7 +4,7 @@ import logging
 
 import colander
 
-from pylons import request, response, tmpl_context as c
+from pylons import app_globals, request, response, tmpl_context as c
 from pylons.controllers.util import redirect
 from pylons.i18n import _
 
@@ -25,7 +25,7 @@ class AccountController(BaseController):
         return render('account/login.html')
 
     def register(self):
-        if config.get('openspending.sandbox_mode') == 'true':
+        if app_globals.sandbox_mode:
             default_roles = ["user", "admin"]
         else:
             default_roles = ["user"]
