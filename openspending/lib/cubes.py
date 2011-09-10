@@ -74,7 +74,6 @@ class Cube(object):
             query_dimensions = query_dimensions - used_time_dimensions
             additional_dimensions.append('time')
         query_dimensions = query_dimensions.union(additional_dimensions)
-        cursor = _aggregation_query(self.dataset, {}, fields=list(query_dimensions))
 
         # remove a collection if there is one
         if self.is_computed():
@@ -122,18 +121,22 @@ class Cube(object):
             new_cell['num_entries'] = 1
             return new_cell
 
+        try:
+            cursor = _aggregation_query(self.dataset, {}, fields=list(query_dimensions))
 
-        for row in cursor:
-            cell_id = self._cell_id_for_row(row, query_dimensions)
-            cell = collection.find_one({'_id': cell_id})
+            for row in cursor:
+                cell_id = self._cell_id_for_row(row, query_dimensions)
+                cell = collection.find_one({'_id': cell_id})
 
-            if cell is None:
-                collection.insert(make_new_cell(cell_id))
-            else:
-                collection.update({'_id': cell_id}, {'$inc': {
-                    'amount': row.get('amount', 0.0),
-                    'num_entries': 1
-                }})
+                if cell is None:
+                    collection.insert(make_new_cell(cell_id))
+                else:
+                    collection.update({'_id': cell_id}, {'$inc': {
+                                'amount': row.get('amount', 0.0),
+                                'num_entries': 1
+                                }})
+        finally:
+            del(cursor)
 
         #for dimension in query_dimensions.union(used_time_dimensions):
         #    collection.ensure_index([(dimension, ASCENDING)])
