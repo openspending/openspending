@@ -81,51 +81,54 @@ class Cube(object):
             self.db.drop_collection(self.collection_name)
         collection = self.db[self.collection_name]
 
-        for row in cursor:
+        def make_new_cell(cell_id):
+            new_cell = {'_id': cell_id}
+            for key in query_dimensions:
+                # handle dates especially, collect year and month
+                if key == 'time':
+                    if 'year' in used_time_dimensions:
+                        value = int(util.deep_get(row, 'time.from.year'))
+                        new_cell['year'] = value
+                    if 'month' in used_time_dimensions:
+                        value = int(util.deep_get(row, 'time.from.month')[-2:])
+                        new_cell['month'] = value
+                    continue
 
+                value = util.deep_get(row, key)
+                if isinstance(value, dict):
+                    from_day = util.deep_get(value, 'from.day')
+                    if from_day:
+                        new_cell[key] = row[key]
+                        continue
+
+                if isinstance(value, dict):
+                    subdict = {}
+                    for subkey in ('name', 'label', 'color',
+                                   '_id', 'ref', 'taxonomy'):
+                        if subkey in value:
+                            subdict[subkey] = value[subkey]
+                    if not subdict.get('name'):
+                        # create a name so we can rely on it,
+                        # e.g. in queries
+                        subdict['name'] = subdict['_id']
+
+                    new_cell[key] = subdict
+                elif isinstance(value, self.simpletypes):
+                    new_cell[key] = value
+            # if the row has no amount set 0.0
+            amount = row.get('amount')
+            new_cell['amount'] = amount and amount or 0.0
+            # new_cell['entries'] = [row['_id']]
+            new_cell['num_entries'] = 1
+            return new_cell
+
+
+        for row in cursor:
             cell_id = self._cell_id_for_row(row, query_dimensions)
             cell = collection.find_one({'_id': cell_id})
 
             if cell is None:
-                new_cell = {'_id': cell_id}
-                for key in query_dimensions:
-                    # handle dates especially, collect year and month
-                    if key == 'time':
-                        if 'year' in used_time_dimensions:
-                            value = int(util.deep_get(row, 'time.from.year'))
-                            new_cell['year'] = value
-                        if 'month' in used_time_dimensions:
-                            value = int(util.deep_get(row, 'time.from.month')[-2:])
-                            new_cell['month'] = value
-                        continue
-
-                    value = util.deep_get(row, key)
-                    if isinstance(value, dict):
-                        from_day = util.deep_get(value, 'from.day')
-                        if from_day:
-                            new_cell[key] = row[key]
-                            continue
-
-                    if isinstance(value, dict):
-                        subdict = {}
-                        for subkey in ('name', 'label', 'color',
-                                       '_id', 'ref', 'taxonomy'):
-                            if subkey in value:
-                                subdict[subkey] = value[subkey]
-                        if not subdict.get('name'):
-                            # create a name so we can rely on it,
-                            # e.g. in queries
-                            subdict['name'] = subdict['_id']
-
-                        new_cell[key] = subdict
-                    elif isinstance(value, self.simpletypes):
-                        new_cell[key] = value
-                # if the row has no amount set 0.0
-                amount = row.get('amount')
-                new_cell['amount'] = amount and amount or 0.0
-                # new_cell['entries'] = [row['_id']]
-                new_cell['num_entries'] = 1
-                collection.insert(new_cell)
+                collection.insert(make_new_cell(cell_id))
             else:
                 collection.update({'_id': cell_id}, {'$inc': {
                     'amount': row.get('amount', 0.0),
