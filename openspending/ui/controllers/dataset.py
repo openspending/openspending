@@ -30,9 +30,6 @@ class DatasetController(BaseController, RestAPIMixIn):
         _id = d['_id'] if d else None
         return self._view(id=_id, format=format)
 
-    def _entry_q(self, dataset):
-        return  {'dataset.name': dataset['name']}
-
     def _index_html(self, results):
         for item in self.extensions:
             item.index(c, request, response, results)
@@ -50,9 +47,7 @@ class DatasetController(BaseController, RestAPIMixIn):
     def _view_html(self, dataset):
         c.dataset = dataset
 
-        # TODO: make this a method
-        entry_query = self._entry_q(dataset)
-        c.num_entries = model.entry.find(**entry_query).count()
+        c.num_entries = model.entry.find({'dataset.name': dataset['name']}).count()
         c.template = 'dataset/view.html'
 
         handle_request(request, c, c.dataset)
