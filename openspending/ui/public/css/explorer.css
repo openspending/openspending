@@ -41,33 +41,33 @@
   cursor: move;
 }
 
-.bubbletree-wrapper { 
-	width: 700px; 
-	height: 100%; 
-	position: absolute; 
+.bubbletree-wrapper {
+  width: 700px;
+  height: 100%;
+  position: absolute;
 }
 
-.bubbletree { 
-	background: #fff; 
-	position: relative; 
-	height: 100%; 
-	overflow: hidden; 
+.bubbletree {
+  background: #fff;
+  position: relative;
+  height: 100%;
+  overflow: hidden;
 }
 
-.bubbletree .label { 
-	position: absolute; 
-	color: #fff; 
-	text-align: center; 
-	cursor: default; 
+.bubbletree .label {
+  position: absolute;
+  color: #fff;
+  text-align: center;
+  cursor: default;
 }
 
-.bubbletree .amount { 
-	font-family: Graublau, Georgia, sans-serif; 
-	font-size: 16px; 
+.bubbletree .amount {
+  font-family: Graublau, Georgia, sans-serif;
+  font-size: 16px;
 }
 
-.bubbletree .desc { 
-	font-family: sans-serif; 
-	font-size: 12px 
+.bubbletree .desc {
+  font-family: sans-serif;
+  font-size: 12px
 }
 
