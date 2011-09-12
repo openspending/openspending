@@ -1,0 +1,24 @@
+#######################
+### Common settings ###
+#######################
+
+# The pip reqirements file relative to your project root directory.
+# (Optional, but most likely needed for all but the simplest projects)
+# Example: "requirements.txt"
+PIP_REQUIREMENTS=""
+
+# A space separated list of extra packages to be installed. 
+# This will be passed to the system package manager, normally apt-get.
+# Example: "subversion libjpeg-dev"
+EXTRA_PACKAGES=""
+
+################################
+### Python-specific settings ###
+################################
+
+# The command used to run this project's tests. If specified, this setting 
+# will override MANAGE_COMMAND.
+# Example: "./runmytests.py"
+# (Will attempt to auto-detect if blank)
+TEST_COMMAND="python ./setup.py nosetests --with-pylons=test_continuous.ini"
+

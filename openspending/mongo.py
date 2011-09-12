@@ -10,7 +10,7 @@ db = None
 
 def configure(config):
     host = config.get('openspending.mongodb.host', 'localhost')
-    port = config.get('openspending.mongodb.port', 27017)
+    port = int(config.get('openspending.mongodb.port', 27017))
     db_name = config.get('openspending.mongodb.database', 'openspending')
     establish_connection(host, port, db_name)
     _init_serverside_js()

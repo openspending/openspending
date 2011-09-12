@@ -1,5 +1,6 @@
 /pyenv
 /*.ini
+!/test_continuous.ini
 /*.egg-info
 *.pyc
 /.pylons_data

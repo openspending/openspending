@@ -27,6 +27,7 @@ class TestEntityController(ControllerTestCase):
                          id=self.ent['_id'], status=301))
 
     def test_view(self):
+        h.skip_if_stubbed_solr()
         response = self.app.get(url(controller='entity', action='view',
                                     id=self.ent['_id']))
         response = response.follow() # expect one redirect
@@ -58,11 +59,13 @@ class TestEntityController(ControllerTestCase):
         h.assert_equal(obj[0]['label'], 'Department for Innovation, Universities and Skills')
 
     def test_entries(self):
+        h.skip_if_stubbed_solr()
         dius = model.entity.find_one_by('name', 'Dept063')
         response = self.app.get(url(controller='entity', action='entries',
                                     id=self.ent['_id']))
 
     def test_entries_json(self):
+        h.skip_if_stubbed_solr()
         dius = model.entity.find_one_by('name', 'Dept063')
         response = self.app.get(url(controller='entity', action='entries',
                                     id=self.ent['_id'], format='json'))
@@ -70,6 +73,7 @@ class TestEntityController(ControllerTestCase):
         # TODO: test some content rather than simply asserting 200
 
     def test_entries_csv(self):
+        h.skip_if_stubbed_solr()
         dius = model.entity.find_one_by('name', 'Dept063')
         response = self.app.get(url(controller='entity', action='entries',
                                     id=self.ent['_id'], format='csv'))
