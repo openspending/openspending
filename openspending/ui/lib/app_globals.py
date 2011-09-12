@@ -44,4 +44,10 @@ class Globals(object):
             'http://lists.okfn.org/mailman/listinfo/openspending-discuss'
         )
         self.forum_link = config.get('openspending.forum_link')
+        self.sandbox_mode = _parse_bool(config.get(
+            'openspending.sandbox_mode',
+            'False'
+        ))
 
+def _parse_bool(s):
+    return s.lower() in ("yes", "true", "on", "t", "1")

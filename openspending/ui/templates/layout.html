@@ -88,7 +88,7 @@
                 <li py:for="dataset in c.datasets" py:if="not c.dataset or c.dataset['_id'] != dataset['_id']">
                   <a href="${h.dataset_url(dataset)}">${dataset.get('label')}</a>
                 </li>
-                <li><a href="http://link/to/etl/instance">Import additional data...</a></li>
+                <li py:if="g.sandbox_mode"><a href="http://etl.sandbox.openspending.org">Import additional data...</a></li>
               </ul>
             </li>
             <py:if test="c.dataset">

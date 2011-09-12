@@ -42,7 +42,7 @@ class DatasetController(BaseController, RestAPIMixIn):
 
         curs = model.entry.find({'dataset.name':name})# , {breakdown_field: True})
         breakdown_names = list(set([ i[breakdown_field]['name'] for i in curs ]))
-                                
+
         count = len(breakdown_names)
 
         styles = [ s for s in rgb_rainbow(count) ]
@@ -79,9 +79,7 @@ class DatasetController(BaseController, RestAPIMixIn):
     def _view_html(self, dataset):
         c.dataset = dataset
 
-        # TODO: make this a method
-        entry_query = self._entry_q(dataset)
-        c.num_entries = model.entry.find(**entry_query).count()
+        c.num_entries = model.entry.find({'dataset.name': dataset['name']}).count()
         c.template = 'dataset/view.html'
 
         handle_request(request, c, c.dataset)

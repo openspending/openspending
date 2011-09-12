@@ -57,9 +57,9 @@ class Cube(object):
         aggregates cells based on the dimensions of the cube and
         saves them into a mongodb collection in the cubes namespace.
         """
-        log.debug("compute cube for dataset '%s', cube name: '%s', " \
-                  "dimensions: '%s'",
-                  self.dataset['name'], self.name, ', '.join(self.dimensions))
+        log.info("Computing cube '%s'...", self.name)
+        log.debug(" dataset: '%s'\n  dimensions: '%s'",
+                  self.dataset['name'], ', '.join(self.dimensions))
         begin = time.time()
 
         # query fields: We query for all fields, but handle the date
@@ -400,6 +400,7 @@ class Cube(object):
             else:
                 cell_keys.append(value)
 
+<<<<<<< HEAD
         def hack_to_bytearray(value):
             if value is None:
                 return ''
@@ -409,6 +410,9 @@ class Cube(object):
                 return bytearray(str(value), 'utf8')
 
         return util.hash_values(map(hack_to_bytearray, cell_keys))
+=======
+        return util.hash_values(map(lambda x: unicode(x).encode('utf8'), cell_keys))
+>>>>>>> release/0.10
 
     @classmethod
     def configure_default_cube(cls, dataset):
