@@ -60,7 +60,7 @@ def _setup_cache(cache_expire, cache_private):
         if cache_private:
             response.headers["Cache-Control"] = 'private, max-age=%d' % cache_expire
         else:
-            response.headers["Cache-Control"] = 'public, max-age=0, s-max-age=%d' % cache_expire
+            response.headers["Cache-Control"] = 'public, max-age=0, s-maxage=%d' % cache_expire
 
 class BaseController(WSGIController):
 
