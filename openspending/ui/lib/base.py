@@ -2,7 +2,7 @@
 
 Provides the BaseController class for subclassing.
 """
-from time import time
+from time import time, gmtime, strftime
 
 from pylons.controllers import WSGIController
 from pylons.templating import literal, cached_template, pylons_globals
@@ -85,6 +85,13 @@ class BaseController(WSGIController):
 
         for item in self.items:
             item.before(request, c)
+
+        if not app_globals.debug:
+            # Set up appropriate cache-headers
+            del response.headers["Pragma"]
+            del response.headers["Cache-Control"]
+            response.headers["Last-Modified"] = strftime("%a, %d %b %Y %H:%M:%S GMT", gmtime())
+            response.cache_expires(seconds=3600)
 
     def __after__(self):
         for item in self.items:
