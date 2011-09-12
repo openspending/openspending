@@ -140,25 +140,7 @@ class Cube(object):
         model.dataset.save(self.dataset)
         log.debug("Done. Took: %ds", int(time.time() - begin))
 
-    def query(self, *args, **kwargs):
-        from paste.deploy.converters import asbool
-        from pylons.decorators.cache import create_cache_key
-        from pylons import config, cache
-        cache_enabled = asbool(config.get('openspending.cache_enabled', 'False'))
-        # TODO: factor this into its own module
-        if not cache_enabled:
-            return self._query(*args, **kwargs)
-        query_cache = cache.get_cache('cubes_query')
-        _id = kwargs.copy()
-        _id.update({'args': args})
-        _id.update({'collection': self.collection_name})
-        def run():
-            return self._query(**kwargs)
-        key = repr(create_cache_key(self._query, _id))
-        return query_cache.get_value(key=key, createfunc=run,
-            type="dbm", expiretime=3600)
-
-    def _query(self, drilldowns=None, cuts=None, page=1, pagesize=10000,
+    def query(self, drilldowns=None, cuts=None, page=1, pagesize=10000,
               order=None):
         '''
         Query the cube for a subset of cells based on cuts and drilldowns.

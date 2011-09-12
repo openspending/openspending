@@ -5,8 +5,8 @@ Provides the BaseController class for subclassing.
 from time import time, gmtime, strftime
 
 from pylons.controllers import WSGIController
-from pylons.templating import literal, cached_template, pylons_globals
-from pylons import tmpl_context as c, request, config, app_globals, session
+from pylons.templating import literal, pylons_globals
+from pylons import tmpl_context as c, request, response, config, app_globals, session
 from pylons.controllers.util import abort
 from genshi.filters import HTMLFormFiller
 
@@ -19,35 +19,48 @@ from openspending.plugins.interfaces import IGenshiStreamFilter, IRequest
 import logging
 log = logging.getLogger(__name__)
 
-def render(template_name, form_fill=None, form_errors={}, extra_vars=None,
-           cache_key=None, cache_type=None, cache_expire=None,
+def render(template_name,
+           extra_vars=None,
+           form_fill=None, form_errors={},
+           cache_expire=3600, cache_private=False,
            method='xhtml'):
-    # Create a render callable for the cache function
-    def render_template():
-        # Pull in extra vars if needed
-        globs = extra_vars or {}
 
-        # Second, get the globals
-        globs.update(pylons_globals())
-        globs['g'] = app_globals
-        globs['_form_errors'] = form_errors
+    _setup_cache(cache_expire, cache_private)
 
-        # Grab a template reference
-        template = globs['app_globals'].genshi_loader.load(template_name)
-        stream = template.generate(**globs)
-        if form_fill is not None:
-            filler = HTMLFormFiller(data=form_fill)
-            stream = stream | filler
+    # Pull in extra vars if needed
+    globs = extra_vars or {}
 
-        for item in PluginImplementations(IGenshiStreamFilter):
-            stream = item.filter(stream)
+    # Second, get the globals
+    globs.update(pylons_globals())
+    globs['g'] = app_globals
+    globs['_form_errors'] = form_errors
 
-        return literal(stream.render(method=method, encoding=None))
+    # Grab a template reference
+    template = globs['app_globals'].genshi_loader.load(template_name)
 
-    return cached_template(template_name, render_template, cache_key=cache_key,
-                           cache_type=cache_type, cache_expire=cache_expire,
-                           ns_options=('method'), method=method)
+    stream = template.generate(**globs)
 
+    if form_fill is not None:
+        filler = HTMLFormFiller(data=form_fill)
+        stream = stream | filler
+
+    for item in PluginImplementations(IGenshiStreamFilter):
+        stream = item.filter(stream)
+
+    return literal(stream.render(method=method, encoding=None))
+
+def _setup_cache(cache_expire, cache_private):
+    del response.headers["Pragma"]
+
+    if app_globals.debug or request.method not in ('HEAD', 'GET'):
+        response.headers["Cache-Control"] = 'no-cache, no-store, max-age=0'
+    else:
+        response.headers["Last-Modified"] = strftime("%a, %d %b %Y %H:%M:%S GMT", gmtime())
+
+        if cache_private:
+            response.headers["Cache-Control"] = 'private, max-age=%d, must-revalidate' % cache_expire
+        else:
+            response.headers["Cache-Control"] = 'public, max-age=0, s-max-age=%d, proxy-revalidate' % cache_expire
 
 class BaseController(WSGIController):
 
@@ -85,13 +98,6 @@ class BaseController(WSGIController):
 
         for item in self.items:
             item.before(request, c)
-
-        if not app_globals.debug:
-            # Set up appropriate cache-headers
-            del response.headers["Pragma"]
-            del response.headers["Cache-Control"]
-            response.headers["Last-Modified"] = strftime("%a, %d %b %Y %H:%M:%S GMT", gmtime())
-            response.cache_expires(seconds=3600)
 
     def __after__(self):
         for item in self.items:
