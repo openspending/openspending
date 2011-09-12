@@ -123,9 +123,9 @@ class TestEntityController(ControllerTestCase):
                                     action='view',
                                     format='json'))
         h.assert_equal(response._status, '200 OK')
-        h.assert_equal(response._headers['Content-Type'], 'application/json')
-        h.assert_true('"name": "Test Entity",' in response._body,
-                      'json fragment not found. got: %s' % response._body)
+        h.assert_equal(response.headers['Content-Type'], 'application/json')
+        h.assert_true('"name": "Test Entity",' in response.body,
+                      'json fragment not found. got: %s' % response.body)
 
     def test_browser_for_entity(self):
         h.skip_if_stubbed_solr()
