@@ -1,4 +1,5 @@
 from pylons import config
+from paste.deploy.converters import asbool
 
 class Globals(object):
     """\
@@ -11,6 +12,8 @@ class Globals(object):
     """
 
     def __init__(self):
+        self.debug = asbool(config.get('debug', False))
+
         self.site_title = config.get(
             'openspending.site_title',
             'OpenSpending'
@@ -44,10 +47,7 @@ class Globals(object):
             'http://lists.okfn.org/mailman/listinfo/openspending-discuss'
         )
         self.forum_link = config.get('openspending.forum_link')
-        self.sandbox_mode = _parse_bool(config.get(
+        self.sandbox_mode = asbool(config.get(
             'openspending.sandbox_mode',
-            'False'
+            False
         ))
-
-def _parse_bool(s):
-    return s.lower() in ("yes", "true", "on", "t", "1")
