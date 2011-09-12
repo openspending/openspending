@@ -23,7 +23,6 @@ class TestSearch(DatabaseTestCase):
     def test_search(self):
         q = 'cofog1_ws:foobar'
         query = self.solr.query(q, rows=10, sort='score desc, amount desc')
-        print query.results
         assert query.numFound == 1, query.numFound
 
     def test_search_load(self):

@@ -4,6 +4,8 @@ from datetime import datetime
 from bson.dbref import DBRef
 from bson.objectid import ObjectId
 
+from openspending import model
+
 def write_csv(entries, response):
     response.content_type = 'text/csv'
 
@@ -14,7 +16,7 @@ def write_csv(entries, response):
     rows = []
     for entry in entries:
         d = {}
-        for k, v in entry.to_query_dict().items():
+        for k, v in model.entry.to_query_dict(entry).items():
             if isinstance(v, (list, tuple, dict, DBRef)):
                 continue
             elif isinstance(v, ObjectId):

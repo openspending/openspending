@@ -1,47 +1,33 @@
-from mongo import dictproperty
-from changeset import Revisioned
 from genshi.template import TextTemplate
 
-class Dataset(Revisioned):
+from . import base
 
-    id = dictproperty('_id')
-    name = dictproperty('name')
-    label = dictproperty('label')
-    description = dictproperty('description')
-    currency = dictproperty('currency')
-    entry_custom_html = dictproperty('entry_custom_html')
+collection = 'dataset'
 
-    def get_regions(self):
-        if not "regions" in self:
-            self["regions"] = []
-        return self["regions"]
+base.init_model_module(__name__, collection)
 
-    def add_region(self, region):
-        regions = set(self.get_regions())
-        regions.add(region)
-        self["regions"] = list(regions)
+# dataset objects probably have the following fields
+#   _id
+#   name
+#   label
+#   description
+#   currency
+#   entry_custom_html
 
-    @classmethod
-    def find_by_region(cls, region):
-        return Dataset.find({"regions": region})
+def render_entry_custom_html(doc, entry):
+    """Render dataset ``doc``'s custom html for entry ``entry``"""
+    custom_html = doc.get('entry_custom_html')
+    if custom_html:
+        return _render_custom_html(custom_html, 'entry', entry)
+    else:
+        return None
 
-    @classmethod
-    def distinct_regions(cls):
-        return Dataset.c.distinct("regions")
+def _render_custom_html(tpl, name, obj):
+    if tpl:
+        tpl = TextTemplate(tpl)
 
-    def render_entry_custom_html(self, entry):
-        return self._render_custom_html(self.entry_custom_html, entry)
-
-    def _render_custom_html(self, tpl, obj):
-        if tpl:
-            tpl = TextTemplate(tpl)
-
-            d = dict(obj)
-            if '_id' in d:
-                d['id'] = str(d.pop('_id'))
-
-            ctx = {'entry': d}
-            stream = tpl.generate(**ctx)
-            return stream.render()
-        else:
-            return None
+        ctx = {name: obj}
+        stream = tpl.generate(**ctx)
+        return stream.render()
+    else:
+        return None

@@ -1,6 +1,7 @@
 /pyenv
 /*.ini
 /*.egg-info
+*.pyc
 /.pylons_data
 /solr/conf
 /solr/data

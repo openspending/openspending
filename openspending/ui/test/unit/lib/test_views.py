@@ -7,7 +7,7 @@ class TestViews(DatabaseTestCase):
     def setup(self):
         super(TestViews, self).setup()
         h.load_fixture('cra')
-        self.dataset = model.Dataset.find_one()
+        self.dataset = model.dataset.find_one_by('name', 'cra')
 
     def get_view(self, name='test_view', **kwargs):
 
@@ -21,33 +21,32 @@ class TestViews(DatabaseTestCase):
     def test_create_view(self):
         view = self.get_view("test_create_view")
 
-        assert view.dataset == self.dataset
-        assert view.name == "test_create_view"
+        h.assert_equal(view.dataset, self.dataset)
+        h.assert_equal(view.name, "test_create_view")
 
     def test_apply_view(self):
         view = self.get_view("test_apply_view")
 
-        view.apply_to(model.Entry, {"region": u'ENGLAND_South West'})
+        view.apply_to(model.entry, {"region": u'ENGLAND_South West'})
 
-        soc = model.Entry.find_one({"region": u'ENGLAND_South West'})
+        soc = model.entry.find_one({"region": u'ENGLAND_South West'})
 
-        assert soc.get('views').get('test_apply_view') is not None, soc.get('views')
-        assert soc.get('views').get('test_apply_view').get('label')==view.label
+        v = soc['views']['test_apply_view']
+        h.assert_equal(v['label'], view.label)
 
-        not_soc = model.Entry.find_one(
-            {"region": {"$ne": u'ENGLAND_South West'}})
+        not_soc = model.entry.find_one({"region": {"$ne": u'ENGLAND_South West'}})
 
         assert not 'views' in not_soc or not_soc.get('views').get('test0') is None
 
     def test_by_name(self):
         view = self.get_view("test1", cuts={"foo": "Hello"})
-        view.apply_to(model.Entry, {'region': u'ENGLAND_South West'})
+        view.apply_to(model.entry, {'region': u'ENGLAND_South West'})
 
-        soc = model.Entry.find_one({'region': u'ENGLAND_South West'})
+        soc = model.entry.find_one({'region': u'ENGLAND_South West'})
 
         loaded = View.by_name(soc, 'test1')
-        assert loaded.label==view.label, loaded
-        assert loaded.cuts==view.cuts, loaded.cuts
+        h.assert_equal(loaded.label, view.label)
+        h.assert_equal(loaded.cuts, view.cuts)
 
         h.assert_raises(ValueError, View.by_name, soc, 'not-there')
 

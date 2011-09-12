@@ -7,7 +7,6 @@ from pylons.controllers.util import abort
 from pylons.i18n import _
 
 from openspending import model
-from openspending import logic
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IDatasetController
 from openspending.lib import json
@@ -24,10 +23,12 @@ class DatasetController(BaseController, RestAPIMixIn):
 
     extensions = PluginImplementations(IDatasetController)
 
-    model = model.Dataset
+    model = model.dataset
 
-    def _entry_q(self, dataset):
-        return  {'dataset.name': dataset.name}
+    def view(self, name, format="html"):
+        d = model.dataset.find_one_by('name', name)
+        _id = d['_id'] if d else None
+        return self._view(id=_id, format=format)
 
     def _index_html(self, results):
         for item in self.extensions:
@@ -38,17 +39,15 @@ class DatasetController(BaseController, RestAPIMixIn):
 
     def _make_browser(self):
         url = h.url_for(controller='dataset', action='entries',
-                      id=c.dataset.name)
-        c.browser = Browser(request.params, dataset_name=c.dataset.name,
+                        name=c.dataset['name'])
+        c.browser = Browser(request.params, dataset_name=c.dataset['name'],
                             url=url)
         c.browser.facet_by_dimensions()
 
     def _view_html(self, dataset):
         c.dataset = dataset
 
-        # TODO: make this a method
-        entry_query = self._entry_q(dataset)
-        c.num_entries = logic.entry.count(**entry_query)
+        c.num_entries = model.entry.find({'dataset.name': dataset['name']}).count()
         c.template = 'dataset/view.html'
 
         handle_request(request, c, c.dataset)
@@ -60,10 +59,10 @@ class DatasetController(BaseController, RestAPIMixIn):
 
         return render(c.template)
 
-    def entries(self, id=None, format='html'):
-        c.dataset = model.Dataset.by_id(id)
+    def entries(self, name, format='html'):
+        c.dataset = model.dataset.find_one_by('name', name)
         if not c.dataset:
-            abort(404, _('Sorry, there is no dataset named %r') % id)
+            abort(404, _('Sorry, there is no dataset named %r') % name)
         self._make_browser()
 
         if format == 'json':
@@ -74,11 +73,11 @@ class DatasetController(BaseController, RestAPIMixIn):
 
         return render('dataset/entries.html')
 
-    def explorer(self, id=None):
-        c.dataset = model.Dataset.by_id(id)
+    def explorer(self, name=None):
+        c.dataset = model.dataset.find_one_by('name', name)
         c.keys_meta = dict([(k.key, {"label": k.label,
                 "description": k.get("description", "")})
-                for k in model.Dimension.find({"dataset": c.dataset.name})])
+                for k in model.dimension.find({"dataset": c.dataset['name']})])
         if "breakdownKeys" in c.dataset:
             c.breakdown_keys = c.dataset["breakdownKeys"]
         else:
@@ -88,8 +87,8 @@ class DatasetController(BaseController, RestAPIMixIn):
         c.breakdown_keys_json = json.dumps(c.breakdown_keys)
         return render('dataset/explorer.html')
 
-    def timeline(self, id):
-        c.dataset = model.Dataset.by_id(id)
+    def timeline(self, name):
+        c.dataset = model.dataset.find_one_by('name', name)
         view = View.by_name(c.dataset, "default")
         viewstate = ViewState(c.dataset, view, None)
         data = []
@@ -107,13 +106,3 @@ class DatasetController(BaseController, RestAPIMixIn):
         c.data = json.dumps(data)
         c.meta = json.dumps(meta)
         return render('dataset/timeline.html')
-
-    @requires("admin")
-    def dropdb(self):
-        if config.get('openspending.sandbox_mode') != 'true':
-            abort(403, "Deleting the database is not permitted unless in sandbox mode")
-            return
-
-        from openspending.model import mongo
-        mongo.drop_collections()
-        return render('dataset/dropdb.html')

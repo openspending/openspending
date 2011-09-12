@@ -1,24 +1,28 @@
-from openspending.model import Classifier
+from openspending import model
 from openspending.test import DatabaseTestCase, helpers as h
 
 def make_classifier():
-    return Classifier(name='classifier_foo',
-                      label='Foo Classifier',
-                      level='1',
-                      taxonomy='class.foo',
-                      description='Denotes the foo property.',
-                      parent='class')
+    return {
+        'name': 'classifier_foo',
+        'label': 'Foo Classifier',
+        'level': '1',
+        'taxonomy': 'class.foo',
+        'description': 'Denotes the foo property.',
+        'parent': 'class'
+    }
 
 class TestClassifier(DatabaseTestCase):
 
-    def setup(self):
-        super(TestClassifier, self).setup()
-        self.cla = make_classifier()
-        self.cla.save()
+    def test_create(self):
+        classifier = model.classifier.create(make_classifier())
+        h.assert_equal(classifier['name'], 'classifier_foo')
 
-    def test_classifier_properties(self):
-        h.assert_equal(self.cla.label, 'Foo Classifier')
-        h.assert_equal(self.cla.level, '1')
-        h.assert_equal(self.cla.taxonomy, 'class.foo')
-        h.assert_equal(self.cla.description, 'Denotes the foo property.')
-        h.assert_equal(self.cla.parent, 'class')
+    def test_create_does_not_delete_attributes_in_existing(self):
+        c = make_classifier()
+        c['extra'] = 'value'
+
+        classifier = model.classifier.create(c)
+        h.assert_equal(classifier['extra'], 'value')
+
+        classifier = model.classifier.create(make_classifier())
+        h.assert_equal(classifier['extra'], 'value')

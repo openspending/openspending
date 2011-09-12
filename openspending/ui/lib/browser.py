@@ -1,13 +1,13 @@
 from urllib import urlencode
 from bson.objectid import ObjectId
 
+from openspending import mongo
 from openspending import model
 from openspending.lib import json
 from openspending.lib import solr_util as solr
 from openspending.lib.csvexport import write_csv
 from openspending.ui.lib import jsonp
 from openspending.ui.lib.page import Page
-from openspending.logic.dimension import dataset_dimensions
 
 FILTER_PREFIX = "filter-"
 DIMENSION_LABEL = ".label_facet"
@@ -19,8 +19,8 @@ class Browser(object):
         self.url = url
         self.dataset_name = dataset_name
         if dataset_name is not None:
-            self.dimensions = dataset_dimensions(self.dataset_name,
-                facets_only=True)
+            self.dimensions = model.dimension.get_dataset_dimensions(self.dataset_name,
+                                                                     facets_only=True)
         else:
             self.dimensions = [{'key': 'to', 'label': 'Recipient'},
                                {'key': 'from', 'label': 'Spender'}]
@@ -125,7 +125,6 @@ class Browser(object):
     @property
     def stats(self):
         return self.results.get('stats').get('stats_fields').get('amount')
-        #return {"sum": 0, "mean": 0, "stddev": 0}
 
     @property
     def page(self):
@@ -183,8 +182,15 @@ class Browser(object):
 
     @property
     def entities(self):
-        ids = map(lambda i: ObjectId(i.get('_id')), self.items)
-        return list(model.Entry.find({"_id": {"$in": ids}}))
+        def _ids(obj):
+            r = [obj['_id']]
+            try:
+                r.append(ObjectId(obj['_id']))
+            except mongo.InvalidId:
+                pass
+            return r
+        ids = [id for sub in map(_ids, self.items) for id in sub]
+        return list(model.entry.find({"_id": {"$in": ids}}))
 
     def to_jsonp(self):
         return jsonp.to_jsonp({

@@ -7,7 +7,6 @@ from pylons.i18n import _
 from openspending.lib import json
 from openspending.lib.csvexport import write_csv
 from openspending.ui.lib.jsonp import to_jsonp
-from openspending.model import Changeset
 
 class RestAPIMixIn(object):
 
@@ -74,9 +73,6 @@ class RestAPIMixIn(object):
         resource.update(data)
 
         save_kwargs = {}
-        if getattr(resource, "is_revisioned", False):
-            cs = Changeset(author=account.email)
-            save_kwargs["changeset"] = cs
         resource.save(**save_kwargs)
 
         return resource
@@ -106,16 +102,17 @@ class RestAPIMixIn(object):
 
     def _get_by_id(self, id):
         if id is None:
-            abort(404, _('Sorry, there is no %s with code %r') %
-                  (self.model.__name__.lower(), id))
-        result = self.model.by_id(id)
+            self._object_not_found(id)
+
+        result = self.model.get(id)
+
         if not result:
-            abort(404, _('Sorry, there is no %s with code %r') %
-                  (self.model.__name__.lower(), id))
+            self._object_not_found(id)
+
         return result
 
-    def _filter(self, query, name=None):
-        if name is None:
+    def _filter(self, query, id=None):
+        if id is None:
             filters = {}
             if hasattr(self.model, "default_filters"):
                 for key, value in self.model.default_filters.items():
@@ -133,9 +130,9 @@ class RestAPIMixIn(object):
             result = list(self.model.find(filters))
             return result
         else:
-            result = self.model.by_id(name)
+            result = self.model.get(id)
             if not result:
-                abort(404)
+                self._object_not_found(id)
         return result
 
     def _view_csv(self, result):
@@ -148,3 +145,8 @@ class RestAPIMixIn(object):
     def _view_json(self, result):
         return to_jsonp(result)
     _index_json = _view_json
+
+
+    def _object_not_found(self, id):
+        abort(404, _('Sorry, there is no %s with code %r') %
+              (self.model.__name__.lower(), id))

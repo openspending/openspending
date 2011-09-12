@@ -44,7 +44,7 @@ class Api2Controller(BaseController):
 
     def _dataset(self, params, errors):
         dataset_name = params.get('dataset')
-        dataset = model.Dataset.find_one({'name': dataset_name})
+        dataset = model.dataset.find_one_by('name', dataset_name)
         if dataset is None:
             errors.append('no dataset with name "%s"' % dataset_name)
             return

@@ -13,18 +13,13 @@ class GrantAdminCommand(OpenSpendingCommand):
         super(GrantAdminCommand, self).command()
         self._check_args_length(1)
 
-        from openspending.model.account import Account
+        from openspending.model import account
 
         username = self.args[0]
-        account = Account.by_name(username)
+        a = account.find_one_by('name', username)
 
-        if account is None:
+        if a is None:
             print "Account `%s' not found." % username
             return False
 
-        roles = set(account["_roles"])
-
-        roles |= set([u'admin'])
-        account["_roles"] = list(roles)
-
-        Account.save(account)
+        account.add_role(a, 'admin')

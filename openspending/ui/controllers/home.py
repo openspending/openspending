@@ -25,10 +25,10 @@ class HomeController(BaseController):
         # subdomain override:
         if hasattr(c, 'dataset') and c.dataset:
             redirect(url(controller='dataset', action='view',
-                id=c.dataset.name))
-        featured_dataset = config.get("openspending.default_dataset", "cra")
-        c.datasets = list(model.Dataset.find())
-        c.dataset = filter(lambda x: x.name == featured_dataset, c.datasets)
+                         name=c.dataset['name']))
+        featured_dataset = config.get("openspending.default_dataset")
+        c.datasets = list(model.dataset.find())
+        c.dataset = filter(lambda x: x['name'] == featured_dataset, c.datasets)
         if c.dataset:
             c.dataset = c.dataset[0]
         elif c.datasets:
@@ -39,8 +39,7 @@ class HomeController(BaseController):
         c.template = 'home/index.html'
 
         if c.dataset:
-            # TODO: make this a method
-            c.num_entries = model.Entry.find({"dataset.name": c.dataset.name}).count()
+            c.num_entries = model.entry.find({"dataset.name": c.dataset['name']}).count()
 
             views.handle_request(request, c, c.dataset)
 
@@ -49,11 +48,11 @@ class HomeController(BaseController):
 
         return render(c.template)
 
-    def govspending(self):
-        return render('home/25kspending.html')
-
     def getinvolved(self):
         return render('home/getinvolved.html')
+
+    def reporterror(self):
+        return render('home/reporterror.html')
 
     def locale(self):
         return_to = request.params.get('return_to', '/')

@@ -24,35 +24,29 @@ class EntityController(BaseController, RestAPIMixIn):
 
     extensions = PluginImplementations(IEntityController)
 
-    model = model.Entity
+    model = model.entity
 
     def view(self, id, slug='', format='html'):
-        # abort if we have no ObjectId. We don't want to
-        # lookup by name.
-        try:
-            oid = ObjectId(id)
-        except InvalidId:
-            abort(404, _('Sorry, there is no %s with code %r') %
-                  (self.model.__name__.lower(), id))
+        obj = model.entity.get(id)
+
+        if not obj:
+            abort(404, _('Sorry, there is no entity with id %r') % id)
 
         if format == 'html':
             # validate the slug and redirect to the current url if the slug
             # changed (e.g. fixed typo) with 301 - moved permanently
-            entity = self._get_by_id(oid)
-            if slug != entity_slug(entity):
-                url = entity_url(entity)
+            if slug != entity_slug(obj):
+                url = entity_url(obj)
                 redirect(url, code=301)
 
         return super(EntityController, self).view(id, format)
 
-    def _entry_q(self, entity):
-        return model.Entry.find({'entities': entity.id})
-
     def _make_browser(self):
         url = entity_url(c.entity, action='entries')
         c.browser = Browser(request.params, url=url)
-        c.browser.filter_by("(+to.id:%s OR +from.id:%s)" % (c.entity.id,
-                                                            c.entity.id))
+        c.browser.filter_by(
+            "(+to.id:%(_id)s OR +from.id:%(_id)s)" % {'_id': c.entity['_id']}
+        )
         c.browser.facet_by_dimensions()
 
     def _view_html(self, entity):
@@ -62,7 +56,7 @@ class EntityController(BaseController, RestAPIMixIn):
         if c.view is None:
             self._make_browser()
 
-        c.num_entries = self._entry_q(c.entity).count()
+        c.num_entries = model.entry.find({'entities': entity['_id']}).count()
         c.template = 'entity/view.html'
 
         for item in self.extensions:
@@ -71,7 +65,7 @@ class EntityController(BaseController, RestAPIMixIn):
         return render(c.template)
 
     def entries(self, id, format='html'):
-        c.entity = model.Entity.by_id(id)
+        c.entity = model.entity.get(id)
         if not c.entity:
             abort(404, _('Sorry, there is no entity named %r') % id)
 

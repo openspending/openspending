@@ -77,7 +77,7 @@ def _get_service(plugin):
 
 def load_all(config):
     """
-    Load all plugins listed in the 'ckan.plugins' config directive.
+    Load all plugins listed in the 'openspending.plugins' config directive.
     """
     plugins = find_plugins(config)
     # PCA default behaviour is to activate SingletonPlugins at import time. We

@@ -31,8 +31,8 @@ def make_map():
 
     map.connect('/', controller='home', action='index')
 
-    map.connect('/25kspending', controller='home', action='govspending')
     map.connect('/getinvolved', controller='home', action='getinvolved')
+    map.connect('/reporterror', controller='home', action='reporterror')
     map.connect('/locale', controller='home', action='locale')
 
     map.connect('/login', controller='account', action='login')
@@ -43,6 +43,12 @@ def make_map():
 
     map.connect('search', '/search', controller='search', action='index')
 
+    map.connect('/dataset.{format}', controller='dataset', action='index')
+    map.connect('/dataset', controller='dataset', action='index')
+
+    map.connect('/dataset/{name}.{format}', controller='dataset', action='view')
+    map.connect('/dataset/{name}', controller='dataset', action='view')
+
     map.connect('/dataset/{dataset}/dimension.{format}',
                 controller='dimension', action='index')
     map.connect('/dataset/{dataset}/dimension',
@@ -52,42 +58,23 @@ def make_map():
     map.connect('/dataset/{dataset}/dimension/{dimension}',
                 controller='dimension', action='view')
 
-    map.connect('/dataset', controller='dataset', action='index')
-
-    map.connect('/dataset.json', controller='dataset', action='index',
-                format='json')
-    map.connect('/dataset.csv', controller='dataset', action='index',
-                format='csv')
-    map.connect('/dataset/{id}.json', controller='dataset', action='view',
-                format='json')
-    map.connect('/dataset/{id}.html', controller='dataset', action='view',
-                format='html')
-    map.connect('/dataset/{id}', controller='dataset', action='view')
-    map.connect('/dataset/{id}/{action}.{format}', controller='dataset')
-    map.connect('/dataset/{id}/{action}', controller='dataset')
+    map.connect('/dataset/{name}/{action}.{format}', controller='dataset')
+    map.connect('/dataset/{name}/{action}', controller='dataset')
 
     map.connect('/entity', controller='entity', action='index')
-    map.connect('/entity/{id}.json', controller='entity', action='view',
-                format='json')
-    map.connect('/entity/{id}.html', controller='entity', action='view',
-                format='html')
+    map.connect('/entity/{id}.{format}', controller='entity', action='view')
+    map.connect('/entity/{id}', controller='entity', action='view')
     map.connect('/entity/{id}/entries.{format}', controller='entity',
                 action='entries')
     map.connect('/entity/{id}/entries', controller='entity', action='entries')
     map.connect('/entity/{id}/{slug}', controller='entity', action='view')
 
-    map.connect('/classifier/{id}.json', controller='classifier',
-                action='view', format='json')
-    map.connect('/classifier/{id}.html', controller='classifier',
-                action='view', format='html')
+    map.connect('/classifier/{id}.{format}', controller='classifier',
+                action='view')
     map.connect('/classifier/{id}', controller='classifier', action='view')
 
-    map.connect('/classifier/{taxonomy}/{name}.json',
-                controller='classifier', action='view_by_taxonomy_name',
-                format='json')
-    map.connect('/classifier/{taxonomy}/{name}.html',
-                controller='classifier', action='view_by_taxonomy_name',
-                format='html')
+    map.connect('/classifier/{taxonomy}/{name}.{format}',
+                controller='classifier', action='view_by_taxonomy_name')
     map.connect('/classifier/{taxonomy}/{name}',
                 controller='classifier', action='view_by_taxonomy_name')
     map.connect('/classifier/{taxonomy}/{name}/view',

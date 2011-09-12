@@ -6,15 +6,16 @@ import math
 from collections import defaultdict
 from types import NoneType
 
+from openspending import mongo
 from openspending import model
+from openspending.lib import util
 from openspending.lib.aggregator import _aggregation_query
-from openspending.lib.util import deep_get
 
 log = logging.getLogger(__name__)
 
 
 class Cube(object):
-    '''A cube that preaggregates :class:`openspending.model.Entry` entries.
+    '''A cube that preaggregates entries.
 
     Cubes are tied to datasets. It can be used if it is defined
     for the dataset::
@@ -34,7 +35,7 @@ class Cube(object):
         """
         Arguments:
         ``dataset``
-            A :class:`openspending.model.Dataset` object
+            A dict-like ``dataset`` object
         ``cube_name``
             The name of the cube
 
@@ -45,9 +46,9 @@ class Cube(object):
         self.dataset = dataset
         self.name = cube_name
         self.cube_description = self._cube_description()
-        self.collection_name = 'cubes.%s.%s' % (dataset.name, cube_name)
+        self.collection_name = 'cubes.%s.%s' % (dataset['name'], cube_name)
         self.dimensions = self._cube_dimensions()
-        self.db = model.mongo.db()
+        self.db = mongo.db
         self.simpletypes = (str, unicode, int, float, NoneType)
 
     def compute(self):
@@ -56,9 +57,9 @@ class Cube(object):
         aggregates cells based on the dimensions of the cube and
         saves them into a mongodb collection in the cubes namespace.
         """
-        log.debug("compute cube for dataset '%s', cube name: '%s', " \
-                  "dimensions: '%s'",
-                  self.dataset.name, self.name, ', '.join(self.dimensions))
+        log.info("Computing cube '%s'...", self.name)
+        log.debug(" dataset: '%s'\n  dimensions: '%s'",
+                  self.dataset['name'], ', '.join(self.dimensions))
         begin = time.time()
 
         # query fields: We query for all fields, but handle the date
@@ -73,48 +74,34 @@ class Cube(object):
             query_dimensions = query_dimensions - used_time_dimensions
             additional_dimensions.append('time')
         query_dimensions = query_dimensions.union(additional_dimensions)
-        cursor = _aggregation_query(self.dataset, {},
-                                    fields=list(query_dimensions),
-                                    as_class=dict)
+        cursor = _aggregation_query(self.dataset, {}, fields=list(query_dimensions))
 
-        cells = {}
+        # remove a collection if there is one
+        if self.is_computed():
+            self.db.drop_collection(self.collection_name)
+        collection = self.db[self.collection_name]
+
         for row in cursor:
-            cell_key_values = []
-            for dimension in query_dimensions:
-                value = deep_get(row, dimension)
-                if isinstance(value, dict):
-                    from_day = deep_get(value, 'from.day')
-                    if from_day:
-                        value = (from_day, deep_get(value, 'to.day'))
-                    elif '_id' in value:
-                        value = str(value['_id'])
-                    elif 'name' in value:
-                        value = value['name']
-                cell_key_values.append(value)
-            cell_key = tuple(cell_key_values)
 
-            try:
-                cell = cells.get(cell_key, None)
-            except TypeError:
-                raise AssertionError("Value must be hash()able: %s" %
-                                     repr(cell_key))
+            cell_id = self._cell_id_for_row(row, query_dimensions)
+            cell = collection.find_one({'_id': cell_id})
 
             if cell is None:
-                new_cell = {}
+                new_cell = {'_id': cell_id}
                 for key in query_dimensions:
                     # handle dates especially, collect year and month
                     if key == 'time':
                         if 'year' in used_time_dimensions:
-                            value = int(deep_get(row, 'time.from.year'))
+                            value = int(util.deep_get(row, 'time.from.year'))
                             new_cell['year'] = value
                         if 'month' in used_time_dimensions:
-                            value = int(deep_get(row, 'time.from.month')[-2:])
+                            value = int(util.deep_get(row, 'time.from.month')[-2:])
                             new_cell['month'] = value
                         continue
 
-                    value = deep_get(row, key)
+                    value = util.deep_get(row, key)
                     if isinstance(value, dict):
-                        from_day = deep_get(value, 'from.day')
+                        from_day = util.deep_get(value, 'from.day')
                         if from_day:
                             new_cell[key] = row[key]
                             continue
@@ -128,7 +115,7 @@ class Cube(object):
                         if not subdict.get('name'):
                             # create a name so we can rely on it,
                             # e.g. in queries
-                            subdict['name'] = subdict['_id']
+                            subdict['name'] = str(subdict['_id'])
 
                         new_cell[key] = subdict
                     elif isinstance(value, self.simpletypes):
@@ -138,25 +125,19 @@ class Cube(object):
                 new_cell['amount'] = amount and amount or 0.0
                 # new_cell['entries'] = [row['_id']]
                 new_cell['num_entries'] = 1
-                cells[cell_key] = new_cell
+                collection.insert(new_cell)
             else:
-                cell['amount'] += row.get('amount', 0.0)
-                cell['num_entries'] += 1
-                # cell['entries'].append(row['_id'])
-
-        # remove a collection if there is one
-        if self.is_computed():
-            self.db.drop_collection(self.collection_name)
-        collection = self.db[self.collection_name]
-        for cell in cells.itervalues():
-            collection.insert(cell)
+                collection.update({'_id': cell_id}, {'$inc': {
+                    'amount': row.get('amount', 0.0),
+                    'num_entries': 1
+                }})
 
         #for dimension in query_dimensions.union(used_time_dimensions):
         #    collection.ensure_index([(dimension, ASCENDING)])
         #    collection.ensure_index([(dimension, DESCENDING)])
 
-        self.dataset['cubes'][self.name]['num_cells'] = len(cells)
-        self.dataset.save()
+        self.dataset['cubes'][self.name]['num_cells'] = collection.find().count()
+        model.dataset.save(self.dataset)
         log.debug("Done. Took: %ds", int(time.time() - begin))
 
     def query(self, *args, **kwargs):
@@ -307,7 +288,7 @@ class Cube(object):
         '''
         if order is not None:
             for (dimension, direction) in reversed(order):
-                key_getter = lambda cell: deep_get(cell, dimension)
+                key_getter = lambda cell: util.deep_get(cell, dimension)
                 cells = sorted(cells, key=key_getter, reverse=direction)
         return cells
 
@@ -341,7 +322,7 @@ class Cube(object):
         cubes = self.dataset.get('cubes', {})
         if self.name not in cubes:
             raise AssertionError('cube "%s" not allowed for dataset "%s"' %
-                                 (self.name, self.dataset.name))
+                                 (self.name, self.dataset['name']))
         return cubes[self.name]
 
     def _cut_query_spec(self, cuts):
@@ -365,7 +346,7 @@ class Cube(object):
             if key.split('.')[0] not in self.dimensions:
                 raise KeyError(('Dimension "%s" not allowed for cube "%s" '
                                 'in dataset "%s". Allowed Dimensions: %s') %
-                               (key, self.name, self.dataset.name,
+                               (key, self.name, self.dataset['name'],
                                 self.dimensions))
 
             spec = query_spec.setdefault(key, {'$in': []})
@@ -377,15 +358,14 @@ class Cube(object):
         Return the dimensions of this cube.
 
         Raises: :exc:`ValueError` if one of the dimensions of
-        for the cube does not exist as a :class:`openspending.ui.mode.Dimension`
-        object in the *dimension* collection in the database.
+        for the cube does not exist as an object in the *dimension* collection
+        in the database.
 
         Returns: A `list` of dimensions (`str`)
         '''
         cube_dimensions = set(self.cube_description['dimensions'])
         # validate against dimensions of dataset.
-        dimension_objects = model.Dimension.c.find(
-            {'dataset': self.dataset.name}, as_class=dict)
+        dimension_objects = model.dimension.find({'dataset': self.dataset['name']})
         dimension_keys = [dimension['key'] for dimension in dimension_objects]
         possible_dimensions = set(['from', 'to', 'dataset', 'year', 'month'] +
                                   dimension_keys).difference(['name', 'label'])
@@ -396,6 +376,26 @@ class Cube(object):
                              (str(not_existing), str(possible_dimensions)))
         return cube_dimensions
 
+    def _cell_id_for_row(self, row, query_dimensions):
+        cell_keys = []
+
+        for dimension in query_dimensions:
+            value = util.deep_get(row, dimension)
+
+            if isinstance(value, dict):
+                from_day = util.deep_get(value, 'from.day')
+                if from_day:
+                    cell_keys.append(from_day)
+                    cell_keys.append(util.deep_get(value, 'to.day'))
+                elif '_id' in value:
+                    cell_keys.append(value['_id'])
+                elif 'name' in value:
+                    cell_keys.append(value['name'])
+            else:
+                cell_keys.append(value)
+
+        return util.hash_values(map(lambda x: unicode(x).encode('utf8'), cell_keys))
+
     @classmethod
     def configure_default_cube(cls, dataset):
         '''
@@ -403,13 +403,12 @@ class Cube(object):
         *dataset* and the name 'default' and returns the cube.
 
         ``dataset``
-            A :class:`openspending.model.Dataset` object
+            A dict-like ``dataset`` object
 
         Returns: A :class:`Cube` object
         '''
 
-        dimensions = model.Dimension.c.find({'dataset': dataset.name},
-                                            as_class=dict)
+        dimensions = model.dimension.find({'dataset': dataset['name']})
         dimensions = [dimension['key'] for dimension in dimensions]
         dimensions.extend(['from', 'to', 'year'])
         if dataset['time_axis'] in ['time.from.month', 'time.from.day']:
@@ -479,9 +478,9 @@ def find_cube(dataset, dimensions):
     Find a cube for the *dataset* that contains the *dimensions*.
 
     ``dataset``
-        A :class:`openspending.model.Dataset` object.
+        A dict-like ``dataset`` object
     ``dimensions``
-        A `list` of dimensions.
+        A `list` of dimensions
 
     Returns:
     A :class:`Cube` object if a fitting cube is found or `None` if no

@@ -37,12 +37,12 @@ class DbCommand(OpenSpendingCommand):
 
     def _cmd_drop(self):
         self._check_args_length(1)
-        from openspending.model.mongo import drop_db
+        from openspending.mongo import drop_db
         drop_db()
 
     def _cmd_dropcollections(self):
         self._check_args_length(1)
-        from openspending.model.mongo import drop_collections
+        from openspending.mongo import drop_collections
         drop_collections()
 
     def _cmd_dropdataset(self):
@@ -52,8 +52,7 @@ class DbCommand(OpenSpendingCommand):
 
         log.warn("Dropping dataset '%s'", ds_name)
 
-        from openspending.model import mongo
-        db = mongo.db()
+        from openspending.mongo import db
 
         log.info("Removing entries for dataset %s", ds_name)
         db.entry.remove({'dataset.name': ds_name})
