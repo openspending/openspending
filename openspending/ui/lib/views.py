@@ -3,6 +3,7 @@ This module implements views on the database.
 '''
 import logging
 from collections import defaultdict
+
 from pylons.decorators.cache import beaker_cache
 
 from openspending import mongo
@@ -170,7 +171,7 @@ class ViewState(object):
         return self._aggregates
 
 
-@beaker_cache(key='cache_default', type='dbm', invalidate_on_startup=True)
+@beaker_cache(invalidate_on_startup=True, cache_response=False)
 def times(dataset, time_axis):
     return sorted(model.entry.find({'dataset.name': dataset}).distinct(time_axis))
 

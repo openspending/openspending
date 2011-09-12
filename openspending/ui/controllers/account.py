@@ -84,8 +84,10 @@ class AccountController(BaseController):
                 h.flash_success(_("Your settings have been updated."))
             except colander.Invalid, i:
                 errors = i.asdict()
-        return render('account/settings.html', form_fill=values,
-                form_errors=errors)
+        return render('account/settings.html',
+                      form_fill=values,
+                      form_errors=errors,
+                      cache_private=True)
 
     def after_login(self):
         if c.account is not None:
