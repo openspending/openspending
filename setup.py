@@ -11,6 +11,7 @@ setup(
 
     install_requires=[
         "Pylons==1.0",
+        "WebOb==1.0", # Explicitly specify WebOb 1.0, as with 1.1 integration with Pylons is broken -- https://gist.github.com/1214075
         "Genshi==0.6",
         "pymongo==1.11",
         "repoze.who==2.0b1",
