@@ -19,6 +19,9 @@ PIP_REQUIREMENTS=""
 # Disable coverage
 DISABLE_COVERAGE=1
 
+# Disable jslint
+DISABLE_JSLINT=1
+
 # The command used to run this project's tests. If specified, this setting
 # will override MANAGE_COMMAND.
 # Example: "./runmytests.py"
