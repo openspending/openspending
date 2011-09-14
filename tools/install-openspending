@@ -1,40 +1,35 @@
 #!/bin/bash
 
-set -e
+set -eu
 
 #proxy='--proxy=localhost:3128'
+proxy=''
+hub=ssh://github.com/okfn/
 
-function install_deps {
-	pip $proxy install -e .
+function setup_config {
 	hash -r
 	cp development.ini{_tmpl,}
 	cp test.ini{_tmpl,}
 }
 
-function make_env {
-	env_name=$1
-	virtualenv --no-site-packages $env_name
-}
-
-function use_env {
-	env_name=$1
-	cd $env_name
-	. bin/activate
-	mkdir -p src
-	cd src
-}
-
 function setup_repo {
-	repo=$1
-	git clone ssh://git@github.com/okfn/${repo}.git
-	( cd $repo ; install_deps )
+	local env_name=$1
+	local repo=$2
+
+	git clone ${hub}/${repo}.git
+	pip $proxy install -E $env_name -e $repo
+	( cd $repo ; setup_config )
 }
 
-env_name=$1
-make_env $env_name
-use_env $env_name
+env_name=pyenv
+if [ -d "$env_name" ]; then
+	echo $env_name already exists, bailing.
+	exit 1
+fi
 
-setup_repo openspending
-setup_repo openspending.etl
+setup_repo $env_name openspending
+setup_repo $env_name openspending.etl
 
 ( cd openspending.etl ; ln -s .packageroot/openspending.etl.egg-info . )
+
+git clone ${hub}/openspending.plugins.treemap
