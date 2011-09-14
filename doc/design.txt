@@ -1,0 +1,67 @@
+The Process
+===========
+
+  1. Find data
+
+  2. Register data
+
+    2.1 [Optional] Cache data
+
+  3. Clean data
+
+  4. Normalize data (put in standard model)
+
+  5. WUI to data
+
+    5.1 Visualizations
+    5.2 Search
+    5.3 Other Analyses (e.g. written?)
+
+
+Domain Model (in a Perfect World)
+=================================
+
+This sets out how the domain model for the "standardized" data would look in a "perfect world".
+
+The basic domain objects are:
+
+    Account - i.e. something that can receive resources
+    Entry - a movement from one account to another
+
+Often we shall wish to aggregate Accounts. For example, suppose we have an Account for each police officer then in order to work out the total spent on police officer wages we need to aggregate across all entries into those Accounts. (NB: strictly we are interested not in an Account per se but flows of money -- as recorded by entries -- into that Account. It is easier however to elide this distinction and talk of aggregating across accounts). 
+
+To do this end accounts can be tagged (or classified). So we have a new domain object Tag with a many relationship to Accounts:
+
+    Tag
+
+        oo    oo  
+    Tag <>----<> Account
+
+When aggregating we usually want to avoid double-counting, that is no Account appears twice in our count -- equivalent to no Account being tagged with two different tags (of the tags being used in this aggregation).
+
+A set of tags that satisfies this property will be called "valid" and if every Account has a tag then the set is "complete".
+
+Note that we may often wish to consider sets of groups of tags. To avoid confusion we shall adopt the term Classifier for a defined group of tags. Classifier essentially provide us with a particular "dataset" of the Account e.g. the Classifier consisting of the tags "north-west" and "police" might correspond to expenditure on policing in the "north-west".
+
+Remark 1: It is important that Accounts are atomized to the most minimal level needed for aggregation. For example suppose we wish to aggregate by region and project. Then (to do things perfectly) each account must fall both within a single project and within a single region.
+
+
+Aside: Problem of Reverse Engineering
+-------------------------------------
+
+This is a problem regarding data: we usually receive data in already aggregated form. For example we have data on expenditure by region or expenditure by function or department. These aggregations correspond to particular datasets of the underlying data. As one would expect, it is usually impossible to re-create the underlying data given these aggregate "datasets".
+
+
+Data Discovery and Processing
+=============================
+
+Need to think about the earlier stages of the process involving data acquistion and cleaning.
+
+Rough domain model (not necessarily for formal implementation but to give an overview of how things would work):
+
+    Source (url(s), description, type: source)
+    Processed - processed material created by us
+    Processed m2m Source - association of processed material to source
+      * might we want to have processed derive from other processed ...
+ 
+
