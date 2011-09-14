@@ -1,9 +1,7 @@
-from openspending import mongo
+from openspending import model, mongo
 from openspending.test import DatabaseTestCase, helpers as h
 from openspending.lib.cubes import Cube
 from openspending.lib.util import deep_get
-
-h.skip("Need to replace LoaderTestCase")
 
 def assert_order(result, keys, expect):
     if isinstance(keys, basestring):
@@ -20,47 +18,19 @@ def assert_order(result, keys, expect):
                      'Not the expected order. result: %s, expected: %s' %
                      (result, expect))
 
-class TestCube(LoaderTestCase):
+class TestCube(DatabaseTestCase):
 
     def _make_cube(self):
-        loader = self._make_loader()
-        loader.create_dimension('name', 'Name', '')
-        loader.create_dimension('label', 'Label', '')
-        loader.create_dimension('from', 'From', '')
+        h.load_fixture('cube_test')
+        ds = model.dataset.find_one()
 
-        from_entity_a = self._make_entity(loader, name="a")
-        from_entity_b = self._make_entity(loader, name="b")
-        from_entity_c = self._make_entity(loader, name="c")
-
-        to_entity_a = self._make_entity(loader, name="a")
-        to_entity_b = self._make_entity(loader, name="b")
-        to_entity_c = self._make_entity(loader, name="c")
-
-        self._make_entry(loader, **{'name': '_',
-                                    'from': from_entity_a,
-                                    'to': to_entity_b})
-        self._make_entry(loader, **{'name': '__',
-                                    'from': from_entity_a,
-                                    'to': to_entity_b})
-        self._make_entry(loader, **{'name': '___',
-                                    'from': from_entity_b,
-                                    'to': to_entity_c})
-        self._make_entry(loader, **{'name': '____',
-                                    'from': from_entity_b,
-                                    'to': to_entity_b})
-        self._make_entry(loader, **{'name': '_____',
-                                    'from': from_entity_c,
-                                    'to': to_entity_a})
-        self._make_entry(loader, **{'name': '______',
-                                    'from': from_entity_c,
-                                    'to': to_entity_b})
-
-        cube = Cube.configure_default_cube(loader.dataset)
+        cube = Cube.configure_default_cube(ds)
         cube.compute()
         return cube
 
     def test_compute_cube(self):
-        cra = h.load_fixture('cra')
+        h.load_fixture('cra')
+        cra = model.dataset.find_one()
 
         cube = Cube.configure_default_cube(cra)
         cube.compute()
@@ -93,20 +63,11 @@ class TestCube(LoaderTestCase):
 
     def test_fallback_for_missing_entity_name(self):
         # We use the objectid of an entity as a fallback value for 'name'
-        loader = self._make_loader()
-        loader.create_dimension('name', 'Name', '')
-        loader.create_dimension('label', 'Label', '')
-        loader.create_dimension('from', 'From', '')
 
-        from_entity = self._make_entity(loader, name="",
-                                        label='Entity w/o name')
-        entry = {'name': 'Entry',
-                 'label': 'Entry Label',
-                 'from': from_entity,
-                 'time': {'from': {'year': 2009,
-                                   'day': 20090101}}}
-        self._make_entry(loader, **entry)
-        cube = Cube.configure_default_cube(loader.dataset)
+        h.load_fixture('cube_test_missing_name')
+        ds = model.dataset.find_one()
+
+        cube = Cube.configure_default_cube(ds)
         cube.compute()
 
         cube_collection = mongo.db[cube.collection_name]

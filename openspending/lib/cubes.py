@@ -5,7 +5,6 @@ import math
 
 from collections import defaultdict
 from types import NoneType
-from pylons.decorators.cache import beaker_cache
 
 from openspending import mongo
 from openspending import model
@@ -70,7 +69,7 @@ class Cube(object):
         # If we specify cubes, we do it with 'year' (and maybe 'month')
         query_dimensions = set(self.dimensions)
         used_time_dimensions = query_dimensions.intersection(['year', 'month'])
-        additional_dimensions = ['amount']
+        additional_dimensions = []
         if used_time_dimensions:
             query_dimensions = query_dimensions - used_time_dimensions
             additional_dimensions.append('time')
@@ -147,11 +146,6 @@ class Cube(object):
         model.dataset.save(self.dataset)
         log.debug("Done. Took: %ds", int(time.time() - begin))
 
-    # FIXME: This (beaker caching) is a short-term fix for this method's
-    # appalling performance issues. Cube computation and pre-aggregation
-    # should *by definition* mean we don't have to loop through all
-    # entries in a dataset.
-    @beaker_cache(cache_response=False)
     def query(self, drilldowns=None, cuts=None, page=1, pagesize=10000,
               order=None):
         '''
