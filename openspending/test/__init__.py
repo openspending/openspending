@@ -10,9 +10,6 @@ in the root of the repository, while in an active virtualenv. See
 doc/install.rst for more information.
 """
 
-import os
-import sys
-
 from pylons import config
 
 from openspending import mongo
