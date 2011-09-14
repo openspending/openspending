@@ -31,6 +31,8 @@ def _aggregation_query(dataset, include_spec, fields=None):
     contained in the *dict*s can be limited by passing
     a list of *fields*.
 
+    The cursor will not timeout; the consumer is responsible for closing it.
+
     ``dataset``
         A dict-like ``dataset`` object
     ``include_spec``
@@ -50,7 +52,7 @@ def _aggregation_query(dataset, include_spec, fields=None):
     if fields is not None:
         fields = set(fields + ['amount'])
 
-    return model.entry.find(spec=query_spec, fields=fields)
+    return model.entry.find(spec=query_spec, fields=fields, timeout=False)
 
 
 def update_distincts(dataset_name):

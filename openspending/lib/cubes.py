@@ -5,7 +5,6 @@ import math
 
 from collections import defaultdict
 from types import NoneType
-from pylons.decorators.cache import beaker_cache
 
 from openspending import mongo
 from openspending import model
@@ -70,68 +69,74 @@ class Cube(object):
         # If we specify cubes, we do it with 'year' (and maybe 'month')
         query_dimensions = set(self.dimensions)
         used_time_dimensions = query_dimensions.intersection(['year', 'month'])
-        additional_dimensions = ['amount']
+        additional_dimensions = []
         if used_time_dimensions:
             query_dimensions = query_dimensions - used_time_dimensions
             additional_dimensions.append('time')
         query_dimensions = query_dimensions.union(additional_dimensions)
-        cursor = _aggregation_query(self.dataset, {}, fields=list(query_dimensions))
 
         # remove a collection if there is one
         if self.is_computed():
             self.db.drop_collection(self.collection_name)
         collection = self.db[self.collection_name]
 
-        for row in cursor:
+        def make_new_cell(cell_id):
+            new_cell = {'_id': cell_id}
+            for key in query_dimensions:
+                # handle dates especially, collect year and month
+                if key == 'time':
+                    if 'year' in used_time_dimensions:
+                        value = int(util.deep_get(row, 'time.from.year'))
+                        new_cell['year'] = value
+                    if 'month' in used_time_dimensions:
+                        value = int(util.deep_get(row, 'time.from.month')[-2:])
+                        new_cell['month'] = value
+                    continue
 
-            cell_id = self._cell_id_for_row(row, query_dimensions)
-            cell = collection.find_one({'_id': cell_id})
-
-            if cell is None:
-                new_cell = {'_id': cell_id}
-                for key in query_dimensions:
-                    # handle dates especially, collect year and month
-                    if key == 'time':
-                        if 'year' in used_time_dimensions:
-                            value = int(util.deep_get(row, 'time.from.year'))
-                            new_cell['year'] = value
-                        if 'month' in used_time_dimensions:
-                            value = int(util.deep_get(row, 'time.from.month')[-2:])
-                            new_cell['month'] = value
+                value = util.deep_get(row, key)
+                if isinstance(value, dict):
+                    from_day = util.deep_get(value, 'from.day')
+                    if from_day:
+                        new_cell[key] = row[key]
                         continue
 
-                    value = util.deep_get(row, key)
-                    if isinstance(value, dict):
-                        from_day = util.deep_get(value, 'from.day')
-                        if from_day:
-                            new_cell[key] = row[key]
-                            continue
+                if isinstance(value, dict):
+                    subdict = {}
+                    for subkey in ('name', 'label', 'color',
+                                   '_id', 'ref', 'taxonomy'):
+                        if subkey in value:
+                            subdict[subkey] = value[subkey]
+                    if not subdict.get('name'):
+                        # create a name so we can rely on it,
+                        # e.g. in queries
+                        subdict['name'] = subdict['_id']
 
-                    if isinstance(value, dict):
-                        subdict = {}
-                        for subkey in ('name', 'label', 'color',
-                                       '_id', 'ref', 'taxonomy'):
-                            if subkey in value:
-                                subdict[subkey] = value[subkey]
-                        if not subdict.get('name'):
-                            # create a name so we can rely on it,
-                            # e.g. in queries
-                            subdict['name'] = str(subdict['_id'])
+                    new_cell[key] = subdict
+                elif isinstance(value, self.simpletypes):
+                    new_cell[key] = value
+            # if the row has no amount set 0.0
+            amount = row.get('amount')
+            new_cell['amount'] = amount and amount or 0.0
+            # new_cell['entries'] = [row['_id']]
+            new_cell['num_entries'] = 1
+            return new_cell
 
-                        new_cell[key] = subdict
-                    elif isinstance(value, self.simpletypes):
-                        new_cell[key] = value
-                # if the row has no amount set 0.0
-                amount = row.get('amount')
-                new_cell['amount'] = amount and amount or 0.0
-                # new_cell['entries'] = [row['_id']]
-                new_cell['num_entries'] = 1
-                collection.insert(new_cell)
-            else:
-                collection.update({'_id': cell_id}, {'$inc': {
-                    'amount': row.get('amount', 0.0),
-                    'num_entries': 1
-                }})
+        try:
+            cursor = _aggregation_query(self.dataset, {}, fields=list(query_dimensions))
+
+            for row in cursor:
+                cell_id = self._cell_id_for_row(row, query_dimensions)
+                cell = collection.find_one({'_id': cell_id})
+
+                if cell is None:
+                    collection.insert(make_new_cell(cell_id))
+                else:
+                    collection.update({'_id': cell_id}, {'$inc': {
+                                'amount': row.get('amount', 0.0),
+                                'num_entries': 1
+                                }})
+        finally:
+            del(cursor)
 
         #for dimension in query_dimensions.union(used_time_dimensions):
         #    collection.ensure_index([(dimension, ASCENDING)])
@@ -141,11 +146,6 @@ class Cube(object):
         model.dataset.save(self.dataset)
         log.debug("Done. Took: %ds", int(time.time() - begin))
 
-    # FIXME: This (beaker caching) is a short-term fix for this method's
-    # appalling performance issues. Cube computation and pre-aggregation
-    # should *by definition* mean we don't have to loop through all
-    # entries in a dataset.
-    @beaker_cache(cache_response=False)
     def query(self, drilldowns=None, cuts=None, page=1, pagesize=10000,
               order=None):
         '''

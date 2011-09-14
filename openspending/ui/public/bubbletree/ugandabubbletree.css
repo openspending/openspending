@@ -1,0 +1,254 @@
+body {
+	font-family: "Trebuchet MS";
+	font-size:16px;
+}
+#topbanner a {
+	text-decoration:none;
+	color:#ffffff;
+}
+#topbanner ul, #topbanner li {
+	margin: 0;
+	padding: 0;
+	text-decoration:none;
+	list-style-type:none;
+}
+#topbanner li {
+	float:left;
+	margin-right:5px;
+	color:#ffffff;
+}
+#topbanner li a {
+	padding: 0px 5px 0px 5px;
+
+}
+#topbanner li.selected a, #topbanner li a:hover {
+	background-color:#ffffff;
+	color:#000000;
+}
+#topbanner {
+	clear:both;
+	height:26px;
+	background-color:#D1DCE8;
+	border-bottom:2px solid #ffffff;
+}
+.topbanner-left {
+	margin-top:4px;
+	float:left;
+	height:20px;
+	margin-left:4px;
+}
+.topbanner-right {
+	margin-top:4px;
+	float:right;
+	height:20px;
+}
+.bubbletree-wrapper { 
+	width: 100%; 
+	height: 100%; 
+	position: absolute; 
+}
+
+.bubbletree { 
+	background: #fff; 
+	position: relative; 
+	height: 100%; 
+	overflow: hidden; 
+}
+
+.bubbletree .label { 
+	position: absolute; 
+	color: #fff; 
+	text-align: center; 
+	cursor: default; 
+
+}
+
+.bubbletree .amount { 
+	font-family: "Trebuchet MS";
+	font-size: 16px; 
+}
+
+.bubbletree .desc { 
+	font-family: sans-serif; 
+	font-size: 12px;
+}
+
+
+.bubbletree .label2 { 
+	position: absolute; 
+	color: #666; 
+	text-align: center; 
+	cursor: default; 
+	font-size: 12px;
+	font-family: sans-serif;
+	margin-top:5px;
+}
+
+.bubbletree .label2 span {
+	background: #D1DCE8;
+}
+
+.loading {
+	z-index: 1000;
+	position: absolute;
+	width: 700px;
+	height: 400px;
+}
+
+@font-face {
+	font-family: Graublau;
+	src: url("GraublauWeb.otf") format("opentype");
+}	
+
+
+html, body { 
+	background: #fff; 
+	margin: 0; 
+	height: 100%; 
+	width: 100%; 
+	padding: 0; 
+	overflow: hidden; 
+}
+
+#header {
+	font-family: "Trebuchet MS";
+	width: 200px;
+	position: absolute;
+	color: #555555;
+	bottom: 20px;
+	right: 20px;
+	z-index: 1000;
+	text-align: left;
+}
+#header a {
+	border-bottom:2px dashed #ffffff;
+	color: #555555;
+	text-decoration:none;
+}
+#header a:hover {
+	color:#000;
+}
+#legend {
+	top:20px;
+	right:20px;
+	position: absolute;
+	width: 200px;
+	font-family: "Trebuchet MS";
+	z-index: 1000;
+	font-size: 20px;
+}
+#legend ul, #legend ul li {
+	list-style-type:none;
+	margin-left:0px;
+	padding-left:0px;
+	margin-bottom:2px;
+	color:#ffffff;
+}
+
+#legend .aid {
+	padding:4px;
+	background-color:#A1218D;
+}
+#legend .gou {
+	padding:4px;
+	background-color:#4183B0;
+
+}
+#legend .bs {
+	padding:4px;
+	background-color:#005187;
+
+}
+.amount, .desc {
+	color:#000000;
+}
+
+#menu {
+	font-family: "Trebuchet MS";
+	width: 150px;
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	font-size: 20px;
+	z-index: 1000;
+}
+
+#menu select { 
+	font-family: "Trebuchet MS";
+	font-size: 14px; 
+} 
+
+#header .title {
+	font-size: 32px;
+}
+#header .subtitle {
+	font-size: 17px;
+}
+.bubbletree {
+	background-color:#D1DCE8;
+}
+
+.bubbletree-wrapper .tooltip { 
+	max-width: 220px; 
+	border: 1px solid #999; 
+	position: absolute; 
+	background: #fff; 
+	z-index: 9999;
+	box-shadow: 3px 3px 0px rgba(0,0,0,.2); 
+	border-radius: 2px;
+	font-family: sans-serif; 
+	font-size: 13px; 
+	padding: 4px;
+}
+
+.bubbletree-wrapper .tooltip .header {
+	padding: 6px;
+}
+
+.bubbletree-wrapper .tooltip .header .icon {
+	width: 38px;
+	height: 38px;
+	float: left;
+	background: #600;
+	border-radius: 19px;
+	margin-right: 8px;
+}
+
+.bubbletree .tooltip svg {
+	width: 100px; height: 100px; fill: black; display: block; position: relative; visibility: visible; 
+	z-index: 10000;
+}
+
+.bubbletree .tooltip svg path {
+	fill-opacity: 1; visiblity: visible;
+}
+
+.bubbletree-wrapper .tooltip .row {
+	clear: both;
+	border-top: 1px solid #999; padding: 6px;
+}
+
+
+#tooltip {
+	position: absolute;
+	z-index: 3000;
+	background-color: #fff;
+	padding: 5px;
+
+	border: 1px solid #999;
+	box-shadow: 3px 3px 0px rgba(0,0,0,.2); 
+	border-radius: 2px;
+	font-family: sans-serif; 
+	font-size: 13px; 
+	padding: 4px;	
+	max-width: 200px;
+}
+
+#tooltip .amount {
+	font-weight: bold;
+}
+
+#tooltip h3, #tooltip div { margin: 0; }
+
+p#vtip #vtipArrow { position: absolute; top: -10px; left: 5px }
+

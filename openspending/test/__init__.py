@@ -10,18 +10,13 @@ in the root of the repository, while in an active virtualenv. See
 doc/install.rst for more information.
 """
 
-import os
-import sys
-
-from paste.deploy import appconfig
+from pylons import config
 
 from openspending import mongo
-from helpers import clean_all
+from .helpers import clean_all
 
 __all__ = ['TestCase', 'DatabaseTestCase']
 
-here_dir = os.getcwd()
-config = appconfig('config:test.ini', relative_to=here_dir)
 mongo.configure(config)
 
 class TestCase(object):

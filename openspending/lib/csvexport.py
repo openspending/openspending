@@ -1,10 +1,9 @@
 import csv
 
 from datetime import datetime
-from bson.dbref import DBRef
-from bson.objectid import ObjectId
 
 from openspending import model
+from openspending.mongo import DBRef, ObjectId
 
 def write_csv(entries, response):
     response.content_type = 'text/csv'
@@ -23,11 +22,10 @@ def write_csv(entries, response):
                 v = str(v)
             elif isinstance(v, datetime):
                 v = v.isoformat()
-            d[k] = unicode(v).encode('utf-8')
+            d[unicode(k).encode('utf8')] = unicode(v).encode('utf8')
         keys.update(d.keys())
         rows.append(d)
 
-    writer = csv.DictWriter(response, sorted(keys), dialect='excel',
-                            delimiter=',')
-    writer.writerow(dict(zip(keys, keys)))
+    writer = csv.DictWriter(response, sorted(keys))
+    writer.writeheader()
     writer.writerows(rows)

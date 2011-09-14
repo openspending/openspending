@@ -10,6 +10,9 @@ setup(
     url='http://github.com/okfn/openspending',
 
     install_requires=[
+        "WebOb==1.0.8", # Explicitly specify WebOb 1.0.8, as with 1.1
+                        # integration with Pylons is broken:
+                        # see https://gist.github.com/1214075
         "Pylons==1.0",
         "Genshi==0.6",
         "pymongo==1.11",
@@ -22,13 +25,16 @@ setup(
         "Babel==0.9.6",
         "colander==0.9.3",
         "distribute>=0.6.10",
-        "mock==0.7.2"
+        "mock==0.7.2",
+        "sphinx==1.0.7"
     ],
     setup_requires=[
-        "PasteScript==1.7.4.2"
+        "PasteScript==1.7.4.2",
+        "nose==1.1.2"
     ],
 
     packages=find_packages(),
+    include_package_data=True,
     namespace_packages=['openspending', 'openspending.plugins'],
 
     test_suite='nose.collector',

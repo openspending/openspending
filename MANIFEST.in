@@ -1,0 +1,3 @@
+recursive-include openspending/ui/public *
+recursive-include openspending/ui/templates *
+recursive-include openspending/model/serverside_js *
