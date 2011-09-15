@@ -1,81 +1,76 @@
-from __future__ import absolute_import
-
-from .base import OpenSpendingCommand
-
 import logging
 log = logging.getLogger(__name__)
 
-class DbCommand(OpenSpendingCommand):
-    summary = "Interface to common database operations."
-    usage = "<subcommand> [args, ...]"
-    description = """\
-                  Recognized subcommands:
-                    drop:                 Drop database
-                    dropcollections:      Drop collections
-                    dropdataset <name>:   Drop non-shared data for dataset <name>
-                    loadexample <name>:   Load test fixture <name> into database
-                  """
+from openspending import mongo
+from openspending.test.helpers import load_fixture
 
-    parser = OpenSpendingCommand.standard_parser()
+def drop():
+    log.warn("Dropping database")
+    mongo.drop_db()
+    return 0
 
-    def command(self):
-        super(DbCommand, self).command()
+def drop_collections():
+    log.warn("Dropping collections from database")
+    mongo.drop_collections()
+    return 0
 
-        cmd = self.args[0] if len(self.args) > 0 else None
+def drop_dataset(name):
+    log.warn("Dropping dataset '%s'", name)
 
-        if cmd == 'drop':
-            self._cmd_drop()
-        elif cmd == 'dropcollections':
-            self._cmd_dropcollections()
-        elif cmd == 'dropdataset':
-            self._cmd_dropdataset()
-        elif cmd == 'loadexample':
-            self._cmd_loadexample()
-        else:
-            DbCommand.parser.print_help()
-            return 1
+    log.info("Removing entries for dataset %s", name)
+    mongo.db.entry.remove({'dataset.name': name})
 
-    def _cmd_drop(self):
-        self._check_args_length(1)
-        from openspending.mongo import drop_db
-        drop_db()
+    log.info("Removing dimensions for dataset %s", name)
+    mongo.db.dimension.remove({'dataset': name})
 
-    def _cmd_dropcollections(self):
-        self._check_args_length(1)
-        from openspending.mongo import drop_collections
-        drop_collections()
+    log.info("Removing distincts for dataset %s", name)
+    mongo.db['distincts__%s' % name].drop()
 
-    def _cmd_dropdataset(self):
-        self._check_args_length(2)
+    log.info("Removing cubes for dataset %s", name)
+    cubes = filter(lambda x: x.startswith('cubes.%s.' % name),
+                   mongo.db.collection_names())
+    for c in cubes:
+        mongo.db[c].drop()
 
-        ds_name = self.args[1]
+    log.info("Removing dataset object for dataset %s", name)
+    mongo.db.dataset.remove({'name': name})
+    return 0
 
-        log.warn("Dropping dataset '%s'", ds_name)
+def load_example(name):
+    # TODO: separate the concepts of example/development data and test
+    #       fixtures.
+    load_fixture(name)
+    return 0
 
-        from openspending.mongo import db
+def _drop(args):
+    return drop()
 
-        log.info("Removing entries for dataset %s", ds_name)
-        db.entry.remove({'dataset.name': ds_name})
+def _drop_collections(args):
+    return drop_collections()
 
-        log.info("Removing dimensions for dataset %s", ds_name)
-        db.dimension.remove({'dataset': ds_name})
+def _drop_dataset(args):
+    return drop_dataset(args.name)
 
-        log.info("Removing distincts for dataset %s", ds_name)
-        db['distincts__%s' % ds_name].drop()
+def _load_example(args):
+    return load_example(args.name)
 
-        log.info("Removing cubes for dataset %s", ds_name)
-        cubes = filter(lambda x: x.startswith('cubes.%s.' % ds_name),
-                       db.collection_names())
-        for c in cubes:
-            db[c].drop()
+def configure_parser(subparsers):
+    parser = subparsers.add_parser('db', help='Database operations')
+    sp = parser.add_subparsers(title='subcommands')
 
-        log.info("Removing dataset object for dataset %s", ds_name)
-        db.dataset.remove({'name': ds_name})
+    p = sp.add_parser('drop', help='Drop database')
+    p.set_defaults(func=_drop)
 
-    def _cmd_loadexample(self):
-        self._check_args_length(2)
-        # TODO: separate the concepts of example/development data and test
-        #       fixtures.
-        from openspending.ui.tests.helpers import load_fixture
-        fixture_name = self.args[1]
-        load_fixture(fixture_name)
+    p = sp.add_parser('dropcollections',
+                      help='Drop collections within database')
+    p.set_defaults(func=_drop_collections)
+
+    p = sp.add_parser('dropdataset',
+                      help='Drop a dataset from the database')
+    p.add_argument('name')
+    p.set_defaults(func=_drop_dataset)
+
+    p = sp.add_parser('loadexample',
+                      help='Load an example dataset into the database')
+    p.add_argument('name')
+    p.set_defaults(func=_load_example)
