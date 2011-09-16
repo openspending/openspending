@@ -16,16 +16,18 @@ from routes.util import URLGenerator
 from webtest import TestApp
 import pylons.test
 
-from openspending.test import TestCase, DatabaseTestCase
+from openspending.test import TestCase, DatabaseTestCase, setup_package as root_setup_package
 
 __all__ = [
     'environ', 'url', 'TestCase', 'DatabaseTestCase', 'ControllerTestCase'
 ]
 
-# Invoke websetup with the current config file
-SetupCommand('setup-app').run([config['__file__']])
-
 environ = {}
+
+def setup_package():
+    root_setup_package()
+    # Invoke websetup with the current config file
+    SetupCommand('setup-app').run([config['__file__']])
 
 class ControllerTestCase(DatabaseTestCase):
     def __init__(self, *args, **kwargs):

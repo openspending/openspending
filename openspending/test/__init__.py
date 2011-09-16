@@ -17,7 +17,8 @@ from .helpers import clean_all
 
 __all__ = ['TestCase', 'DatabaseTestCase']
 
-mongo.configure(config)
+def setup_package():
+    mongo.configure(config)
 
 class TestCase(object):
     def setup(self):
