@@ -36,9 +36,7 @@ class TestApiController(ControllerTestCase):
             'dataset': 'cra',
             'breakdown-region': 'yes',
         })
-        print u
         response = self.app.get(u)
-        print response, str(response)
         assert '"region"' in response, response
         assert '"ENGLAND_London"' in response, response
         assert valid_jsonp(response, callback)
@@ -49,9 +47,7 @@ class TestApiController(ControllerTestCase):
             'breakdown-region': 'yes',
             'per-population2006': 'region'
         })
-        print u
         response = self.app.get(u)
-        print response
         assert '"region"' in response, response
         assert '"ENGLAND_London"' in response, response
         assert '0.1' in response, response
@@ -62,7 +58,6 @@ class TestApiController(ControllerTestCase):
     #        'dataset': 'cra',
     #        'per-gdp_deflator2006': ''
     #    })
-    #    print u
     #    response = self.app.get(u)
     #    assert '"axes": []' in response, response
     #    assert '"2006"' in response, response
@@ -70,7 +65,6 @@ class TestApiController(ControllerTestCase):
 
     def test_mytax(self):
         u = url(controller='api', action='mytax', income=20000)
-        print u
         response = self.app.get(u)
         assert '"tax": ' in response, response
         assert '"explanation": ' in response, response
@@ -81,7 +75,6 @@ class TestApiController(ControllerTestCase):
         callback = randomjsonpcallback()
         u = url(controller='api', action='mytax', income=20000,
           callback=callback)
-        print u
         response = self.app.get(u)
         assert '"tax": ' in response, response
         assert '"explanation": ' in response, response
@@ -126,7 +119,7 @@ class TestApiSearch(ControllerTestCase):
 
     def test_search_02_query(self):
         response = self.app.get(url(controller='api', action='search',
-            q='Children'))
+                                    q='Children'))
         out = json.loads(str(response.body))['response']
         assert out['numFound'] == 7, out['numFound']
         exp_entity = 'Department for Children, Schools and Families'
@@ -135,6 +128,6 @@ class TestApiSearch(ControllerTestCase):
     def test_search_03_jsonpify(self):
         callback = 'mycallback'
         response = self.app.get(url(controller='api', action='search',
-            q='children', callback=callback))
+                                    q='children', callback=callback))
         assert response.body.startswith('%s({"responseHeader"'
                                         % callback), response.body
