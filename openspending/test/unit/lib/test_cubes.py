@@ -1,11 +1,9 @@
 from openspending import model, mongo
 from openspending.test import DatabaseTestCase, helpers as h
-from openspending.lib.cubes import Cube
+from openspending.lib.cubes import Cube, CubeDimensionError
 from openspending.lib.util import deep_get
 
 def assert_order(result, keys, expect):
-    if isinstance(keys, basestring):
-        keys = [keys]
     results = []
     for key in keys:
         results.append([deep_get(cell, key) for
@@ -15,8 +13,8 @@ def assert_order(result, keys, expect):
     else:
         result = zip(*results)
     h.assert_equal(result, expect,
-                     'Not the expected order. result: %s, expected: %s' %
-                     (result, expect))
+                   'Not the expected order. result: %s, expected: %s' %
+                   (result, expect))
 
 class TestCube(DatabaseTestCase):
 
@@ -36,6 +34,14 @@ class TestCube(DatabaseTestCase):
         cube.compute()
 
         h.assert_true('cubes.cra.default' in mongo.db.collection_names())
+
+    @h.raises(CubeDimensionError)
+    def test_wont_compute_with_amount(self):
+        h.load_fixture('cube_test_amount')
+        ds = model.dataset.find_one()
+
+        cube = Cube.configure_default_cube(ds)
+        cube.compute()
 
     def test_default_dimensons(self):
         # test the dimensions for a default cube.
@@ -82,11 +88,11 @@ class TestCube(DatabaseTestCase):
         # sort by from.name
         result = cube.query(drilldowns=['from', 'to'],
                             order=[['from.name', False]])
-        assert_order(result, 'from.name', ['a', 'b', 'b', 'c', 'c'])
+        assert_order(result, ['from.name'], ['a', 'b', 'b', 'c', 'c'])
         # sort by from.name (reverse)
         result = cube.query(drilldowns=['from', 'to'],
                             order=[['from.name', True]])
-        assert_order(result, 'from.name', ['c', 'c', 'b', 'b', 'a'])
+        assert_order(result, ['from.name'], ['c', 'c', 'b', 'b', 'a'])
 
         # sort by from.name and to.name
         result = cube.query(drilldowns=['from', 'to'],

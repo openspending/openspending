@@ -13,6 +13,8 @@ from openspending.lib.aggregator import _aggregation_query
 
 log = logging.getLogger(__name__)
 
+class CubeDimensionError(Exception):
+    pass
 
 class Cube(object):
     '''A cube that preaggregates entries.
@@ -68,6 +70,14 @@ class Cube(object):
         # add a dimension for time, others don't.
         # If we specify cubes, we do it with 'year' (and maybe 'month')
         query_dimensions = set(self.dimensions)
+
+        for inval in ('_id', 'amount'):
+            if inval in query_dimensions:
+                raise CubeDimensionError(
+                    "Not computing a cube including dimension '%s', as "
+                    "no aggregations would be performed" % inval
+                )
+
         used_time_dimensions = query_dimensions.intersection(['year', 'month'])
         additional_dimensions = []
         if used_time_dimensions:
@@ -83,7 +93,7 @@ class Cube(object):
         def make_new_cell(cell_id):
             new_cell = {'_id': cell_id}
             for key in query_dimensions:
-                # handle dates especially, collect year and month
+                # handle dates specially, collect year and month
                 if key == 'time':
                     if 'year' in used_time_dimensions:
                         value = int(util.deep_get(row, 'time.from.year'))
@@ -114,12 +124,11 @@ class Cube(object):
                     new_cell[key] = subdict
                 elif isinstance(value, self.simpletypes):
                     new_cell[key] = value
-            # if the row has no amount set 0.0
-            amount = row.get('amount')
-            new_cell['amount'] = amount and amount or 0.0
-            # new_cell['entries'] = [row['_id']]
+            new_cell['amount'] = row.get('amount', 0.0)
             new_cell['num_entries'] = 1
             return new_cell
+
+        cursor = None
 
         try:
             cursor = _aggregation_query(self.dataset, {}, fields=list(query_dimensions))
@@ -131,16 +140,11 @@ class Cube(object):
                 if cell is None:
                     collection.insert(make_new_cell(cell_id))
                 else:
-                    collection.update({'_id': cell_id}, {'$inc': {
-                                'amount': row.get('amount', 0.0),
-                                'num_entries': 1
-                                }})
+                    collection.update({'_id': cell_id},
+                                      {'$inc': {'amount': row.get('amount', 0.0),
+                                                'num_entries': 1}})
         finally:
             del(cursor)
-
-        #for dimension in query_dimensions.union(used_time_dimensions):
-        #    collection.ensure_index([(dimension, ASCENDING)])
-        #    collection.ensure_index([(dimension, DESCENDING)])
 
         self.dataset['cubes'][self.name]['num_cells'] = collection.find().count()
         model.dataset.save(self.dataset)

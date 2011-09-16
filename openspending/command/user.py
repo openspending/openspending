@@ -1,25 +1,24 @@
-from __future__ import absolute_import
+def grant_admin(username):
+    from openspending.model import account
 
-from .base import OpenSpendingCommand
+    a = account.find_one_by('name', username)
 
-# TODO: generalise
-class GrantAdminCommand(OpenSpendingCommand):
-    summary = "Grant admin access to given user."
-    usage = "<username>"
+    if a is None:
+        print "Account `%s' not found." % username
+        return 1
 
-    parser = OpenSpendingCommand.standard_parser()
+    account.add_role(a, 'admin')
 
-    def command(self):
-        super(GrantAdminCommand, self).command()
-        self._check_args_length(1)
+    return 0
 
-        from openspending.model import account
+def _grant_admin(args):
+    return grant_admin(args.username)
 
-        username = self.args[0]
-        a = account.find_one_by('name', username)
+def configure_parser(subparsers):
+    parser = subparsers.add_parser('user', help='User operations')
+    sp = parser.add_subparsers(title='subcommands')
 
-        if a is None:
-            print "Account `%s' not found." % username
-            return False
-
-        account.add_role(a, 'admin')
+    p = sp.add_parser('grantadmin',
+                      help='Grant admin privileges to given user')
+    p.add_argument('username')
+    p.set_defaults(func=_grant_admin)
