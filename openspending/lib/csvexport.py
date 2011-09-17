@@ -32,7 +32,7 @@ def write_csv(entries, response):
 
     if sys.version_info < (2,7):
         header = dict(zip(fields, fields))
-        self.writerow(header)
+        writer.writerow(header)
     else:
         writer.writeheader()
 
