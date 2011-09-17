@@ -1,4 +1,5 @@
 import csv
+import sys
 
 from datetime import datetime
 
@@ -26,6 +27,13 @@ def write_csv(entries, response):
         keys.update(d.keys())
         rows.append(d)
 
-    writer = csv.DictWriter(response, sorted(keys))
-    writer.writeheader()
+    fields = sorted(keys)
+    writer = csv.DictWriter(response, fields)
+
+    if sys.version_info < (2,7):
+        header = dict(zip(fields, fields))
+        self.writerow(header)
+    else:
+        writer.writeheader()
+
     writer.writerows(rows)
