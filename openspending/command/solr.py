@@ -1,3 +1,5 @@
+from openspending.lib import solr_util as solr
+
 def load(dataset):
     solr.build_index(dataset)
     return 0

@@ -80,6 +80,9 @@ openspending.ckan_api_key = your_ckan_api_key
 # Static file cache version
 # openspending.static_cache_version =
 
+# Directory containing migration modules
+# openspending.migrate_dir = %(here)s/migrate
+
 # Logging configuration:
 #   http://wiki.pylonshq.com/display/pylonsdocs/Logging
 [loggers]

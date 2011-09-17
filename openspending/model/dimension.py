@@ -4,6 +4,8 @@ collection = 'dimension'
 
 base.init_model_module(__name__, collection)
 
+DIMENSION_TYPES = ('entity', 'classifier')
+
 # dimension objects probably have the following fields
 #   _id
 #   label
@@ -16,6 +18,12 @@ def create(dataset_name, key, label, description=None, **kwargs):
                    "key": key,
                    "label": label,
                    "description": description})
+
+    t = kwargs.get("type")
+    if t not in DIMENSION_TYPES:
+        raise ValueError("Dimension type '%s' not in allowed dimension types!"
+                         % t)
+
     return base.update(collection,
                        {"dataset": dataset_name, "key": key},
                        kwargs,
