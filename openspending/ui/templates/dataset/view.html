@@ -47,6 +47,7 @@
     <div id="access" class="span-24 last">
       Download a machine-readable version of <i>${c.dataset['label']}</i> (metadata):
       <a href="${url(controller='dataset', action='view', name=c.dataset['name'], format='json')}"><img src="${h.static('img/icons/json.png')}" alt="JSON" /></a>
+      <a href="${url(controller='dataset', action='view', name=c.dataset['name'], format='csv')}"><img src="${h.static('img/icons/csv.png')}" alt="CSV" /></a>
     </div>
 
   </div>
