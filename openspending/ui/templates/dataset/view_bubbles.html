@@ -45,44 +45,10 @@
 
 
   <div py:def="content">
-    <h2 class="page-title">${c.dataset['label']}</h2>
-    <py:if test="hasattr(c, 'viewstate')">
-      ${view_panel(c.viewstate)}
-    </py:if>
 
 	<div class="bubbletree-wrapper">
 	  <div class="bubbletree"></div>
 	</div>
-
-    <div class="span-16">
-      <h3>Description</h3>
-      <div class="no-desc" py:if="not c.dataset.get('description')">
-        No description is available for ${c.dataset['label']}
-      </div>
-      ${h.markdown(c.dataset.get('description'))}
-    </div>
-    <div class="span-8 submenu last">
-      <h3>Research</h3>
-      <ul>
-        <li><a href="${url(controller='dimension', action='index', dataset=c.dataset['name'])}">Dimensions</a>: Explore the data model</li>
-        <!--li><a href="${url(controller='dataset', action='explorer',
-          name=c.dataset['name'])}">Explorer</a>: Dynamic data visualisations</li-->
-      </ul>
-    </div>
-    <div class="span-24 last">
-      <div id="detail" />
-    </div>
-	<!-- unconditional -->
-    <py:if test="c.view is None">
-	  <!-- c.view is None -->
-      <xi:include href="../_browser.html" />
-    </py:if>
-    <div id="comments" class="comments">
-    </div>
-    <div id="access" class="span-24 last">
-      Download a machine-readable version of <i>${c.dataset['label']}</i> (metadata):
-      <a href="${url(controller='dataset', action='view', name=c.dataset['name'], format='json')}"><img src="${h.static('img/icons/json.png')}" alt="JSON" /></a>
-    </div>
 
   </div>
 
