@@ -76,7 +76,8 @@ class TestDatasetController(ControllerTestCase):
 
     def test_entries_json(self):
         response = self.app.get(url(controller='dataset', action='entries',
-                                    name='cra', format='json'))
+                                    name='cra', format='json'),
+                                params={'limit': '20'})
         obj = json.loads(response.body)
         h.assert_equal(obj['facets'], {})
         h.assert_equal(obj['stats']['count'], 36)
@@ -85,7 +86,8 @@ class TestDatasetController(ControllerTestCase):
 
     def test_entries_csv(self):
         response = self.app.get(url(controller='dataset', action='entries',
-                                    name='cra', format='csv'))
+                                    name='cra', format='csv'),
+                                params={'limit': '20'})
         r = csv.DictReader(StringIO(response.body))
         obj = [l for l in r]
         h.assert_equal(len(obj), 20)

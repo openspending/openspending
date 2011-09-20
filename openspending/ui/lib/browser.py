@@ -48,8 +48,19 @@ class Browser(object):
 
     @property
     def rows(self):
-        if self._rows is None:
-            self._rows = 20
+        if self._rows is not None:
+            return self._rows
+
+        try:
+            r = int(self.args.get('limit'))
+        except TypeError:
+            r = None
+
+        if not r or r > 1000:
+            self._rows = 1000
+        else:
+            self._rows = r
+
         return self._rows
 
     @property
