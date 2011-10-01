@@ -1,5 +1,6 @@
 from openspending.lib import unicode_dict_reader as udr
-from openspending.test import TestCase, helpers as h
+
+from ... import TestCase, helpers as h
 
 class TestUnicodeDictReader(TestCase):
     def test_reads_simple_csv(self):

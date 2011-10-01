@@ -1,8 +1,8 @@
-from openspending.ui.test import ControllerTestCase, url, helpers as h
-
 from openspending import mongo
 from openspending.lib import json
 from openspending.ui.lib.helpers import classifier_url
+
+from .. import ControllerTestCase, url, helpers as h
 
 class TestClassifierController(ControllerTestCase):
 

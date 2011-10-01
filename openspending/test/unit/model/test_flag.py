@@ -1,7 +1,7 @@
 import datetime
 
 from openspending import model
-from openspending.test import DatabaseTestCase, helpers as h
+from ... import DatabaseTestCase, helpers as h
 
 class TestFlag(DatabaseTestCase):
 

@@ -1,5 +1,6 @@
 from openspending import model
-from openspending.ui.test import ControllerTestCase, url, helpers as h
+
+from .. import ControllerTestCase, url, helpers as h
 
 class TestEntryController(ControllerTestCase):
 

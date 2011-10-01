@@ -3,7 +3,7 @@ import tempfile
 import shutil
 
 from openspending import migration, mongo
-from openspending.test import DatabaseTestCase, helpers as h
+from .. import DatabaseTestCase, helpers as h
 
 class TestMigration(DatabaseTestCase):
     def setup(self):

@@ -7,7 +7,8 @@ from webob.exc import HTTPNotFound, HTTPMovedPermanently
 
 from openspending import model
 from openspending.ui.controllers.entity import EntityController
-from openspending.ui.test import ControllerTestCase, url, helpers as h
+
+from .. import ControllerTestCase, url, helpers as h
 
 class TestEntityController(ControllerTestCase):
 

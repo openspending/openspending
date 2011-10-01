@@ -1,2 +1,2 @@
-from openspending.test.helpers import *
+from ...test.helpers import *
 

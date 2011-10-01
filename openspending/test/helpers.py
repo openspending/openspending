@@ -2,15 +2,14 @@ from nose.tools import *
 from nose.plugins.skip import SkipTest
 from mock import Mock, patch, MagicMock
 
-import pkg_resources as _pkg_resources
+import os as _os
 
-from .. import model as _model
-from .. import mongo as _mongo
-from ..lib import solr_util as _solr
-from . import pymongodump as _pymongodump
+from openspending import model as _model
+from openspending import mongo as _mongo
+from openspending.lib import solr_util as _solr
+from openspending.vendor import pymongodump as _pymongodump
 
-class FixtureImportError(Exception):
-    pass
+TEST_ROOT = _os.path.dirname(__file__)
 
 def load_fixture(name):
     """
@@ -18,12 +17,9 @@ def load_fixture(name):
     """
     _pymongodump.restore(_mongo.db, fixture_path('%s.pickle' % name), drop=False)
 
-def _fixture_relpath(name):
-    return 'fixtures/%s' % name
-
 def fixture_file(name):
     """Return a file-like object pointing to a named fixture."""
-    return _pkg_resources.resource_stream(__name__, _fixture_relpath(name))
+    return open(fixture_path(name))
 
 def fixture_path(name):
     """
@@ -31,11 +27,7 @@ def fixture_path(name):
 
     Use fixture_file rather than this method wherever possible.
     """
-    return _pkg_resources.resource_filename(__name__, _fixture_relpath(name))
-
-def fixture_listdir(name):
-    """Return a directory listing for the named fixture."""
-    return _pkg_resources.resource_listdir(__name__, _fixture_relpath(name))
+    return _os.path.join(TEST_ROOT, 'fixtures', name)
 
 def clean_all():
     clean_db()

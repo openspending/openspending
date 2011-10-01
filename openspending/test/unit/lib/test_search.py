@@ -1,5 +1,6 @@
-from openspending.test import DatabaseTestCase, helpers as h
 from openspending.lib import solr_util as solr
+
+from ... import DatabaseTestCase, helpers as h
 
 class TestSearch(DatabaseTestCase):
 

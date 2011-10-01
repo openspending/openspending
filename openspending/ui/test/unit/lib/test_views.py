@@ -1,4 +1,4 @@
-from openspending.ui.test import DatabaseTestCase, helpers as h
+from ... import DatabaseTestCase, helpers as h
 
 from openspending import model
 from openspending.ui.lib.views import View

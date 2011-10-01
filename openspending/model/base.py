@@ -1,6 +1,6 @@
 import sys
 
-from openspending import mongo
+from .. import mongo
 
 class ModelWrapper(object):
     def __init__(self, wrapped, collection):

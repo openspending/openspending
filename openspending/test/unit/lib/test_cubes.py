@@ -1,7 +1,8 @@
 from openspending import model, mongo
-from openspending.test import DatabaseTestCase, helpers as h
 from openspending.lib.cubes import Cube, CubeDimensionError
 from openspending.lib.util import deep_get
+
+from ... import DatabaseTestCase, helpers as h
 
 def assert_order(result, keys, expect):
     results = []

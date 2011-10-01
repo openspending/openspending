@@ -26,6 +26,7 @@ class HomeController(BaseController):
         if hasattr(c, 'dataset') and c.dataset:
             redirect(url(controller='dataset', action='view',
                          name=c.dataset['name']))
+
         featured_dataset = config.get("openspending.default_dataset")
         c.datasets = list(model.dataset.find())
         c.dataset = filter(lambda x: x['name'] == featured_dataset, c.datasets)

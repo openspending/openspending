@@ -1,5 +1,5 @@
 from openspending.lib import json
-from openspending.ui.test import ControllerTestCase, url, helpers as h
+from .. import ControllerTestCase, url, helpers as h
 
 class TestApi2Controller(ControllerTestCase):
     def setup(self):

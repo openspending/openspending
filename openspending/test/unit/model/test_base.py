@@ -1,7 +1,8 @@
 from openspending import mongo
 from openspending.model import base
 from openspending.model.base import ModelWrapper
-from openspending.test import TestCase, helpers as h
+
+from ... import TestCase, helpers as h
 
 class TestBase(TestCase):
 

@@ -2,7 +2,7 @@ import csv
 import json
 from StringIO import StringIO
 
-from openspending.ui.test import ControllerTestCase, url, helpers as h
+from .. import ControllerTestCase, url, helpers as h
 
 class TestDimensionController(ControllerTestCase):
 

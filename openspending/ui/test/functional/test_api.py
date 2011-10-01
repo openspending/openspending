@@ -1,7 +1,7 @@
 from openspending.lib import json
 from openspending.lib import solr_util as solr
 
-from openspending.ui.test import ControllerTestCase, url, helpers as h
+from .. import ControllerTestCase, url, helpers as h
 
 class TestApiController(ControllerTestCase):
     def setup(self):

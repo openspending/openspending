@@ -1,6 +1,6 @@
 from openspending import mongo
 from openspending import model
-from openspending.test import DatabaseTestCase, helpers as h
+from ... import DatabaseTestCase, helpers as h
 
 def make_dataset(name='testdataset'):
     dataset = model.dataset.find_one_by('name', name)

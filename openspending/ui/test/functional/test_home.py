@@ -1,4 +1,4 @@
-from openspending.ui.test import ControllerTestCase, url
+from .. import ControllerTestCase, url
 
 class TestHomeController(ControllerTestCase):
 

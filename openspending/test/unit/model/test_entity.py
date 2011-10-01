@@ -1,3 +1,3 @@
-from openspending.test import helpers as h
+from ... import helpers as h
 
 h.skip("Not yet implemented.")

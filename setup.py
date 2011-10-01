@@ -1,9 +1,30 @@
+import os
 from setuptools import setup, find_packages
-from openspending.ui import __version__
+
+PKG_ROOT = '.'
+
+def files_in_pkgdir(pkg, dirname):
+    pkgdir = os.path.join(PKG_ROOT, *pkg.split('.'))
+    walkdir = os.path.join(pkgdir, dirname)
+    walkfiles = []
+    for dirpath, _, files in os.walk(walkdir):
+        fpaths = (os.path.relpath(os.path.join(dirpath, f), pkgdir)
+                  for f in files)
+        walkfiles += fpaths
+    return walkfiles
+
+def package_filter(pkg):
+    if pkg in ['openspending.test', 'openspending.test.helpers']:
+        return True
+    elif (pkg.startswith('openspending.test') or
+          pkg.startswith('openspending.ui.test')):
+        return False
+    else:
+        return True
 
 setup(
     name='openspending',
-    version=__version__,
+    version='0.10',
     description='OpenSpending',
     author='Open Knowledge Foundation',
     author_email='okfn-help at lists okfn org',
@@ -34,10 +55,15 @@ setup(
         "nose==1.1.2"
     ],
 
-    packages=find_packages(),
-    include_package_data=True,
+    packages=filter(package_filter, find_packages()),
     namespace_packages=['openspending', 'openspending.plugins'],
-
+    package_data={
+        'openspending.model': files_in_pkgdir('openspending.model', 'serverside_js'),
+        'openspending.ui': (
+            files_in_pkgdir('openspending.ui', 'public') +
+            files_in_pkgdir('openspending.ui', 'templates')
+        )
+    },
     test_suite='nose.collector',
 
     zip_safe=False,

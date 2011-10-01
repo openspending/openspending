@@ -1,4 +1,4 @@
-from openspending.ui.test import TestCase
+from ... import TestCase
 from openspending.ui.lib import helpers
 
 class TestFormatNumber(TestCase):
