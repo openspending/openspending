@@ -4,8 +4,6 @@ This module implements views on the database.
 import logging
 from collections import defaultdict
 
-from pylons.decorators.cache import beaker_cache
-
 from openspending import mongo
 from openspending import model
 from openspending.lib.cubes import Cube, find_cube
@@ -170,11 +168,8 @@ class ViewState(object):
                     key=lambda (k, v): v.get(self.time, 0))
         return self._aggregates
 
-
-@beaker_cache(invalidate_on_startup=True, cache_response=False)
 def times(dataset, time_axis):
     return sorted(model.entry.find({'dataset.name': dataset}).distinct(time_axis))
-
 
 def handle_request(request, c, obj):
     view_name = request.params.get('_view', 'default')

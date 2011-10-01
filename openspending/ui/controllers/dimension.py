@@ -2,6 +2,7 @@ import logging
 
 from pylons import request, tmpl_context as c
 from pylons.controllers.util import abort
+from pylons.decorators.cache import beaker_cache
 from pylons.i18n import _
 
 from openspending.lib.cubes import find_cube
@@ -17,6 +18,9 @@ PAGE_SIZE = 100
 
 class DimensionController(BaseController):
 
+    @beaker_cache(invalidate_on_startup=True,
+           cache_response=False,
+           query_args=True)
     def index(self, dataset, format='html'):
         c.dataset = model.dataset.find_one_by('name', dataset)
         if not c.dataset:
@@ -25,8 +29,12 @@ class DimensionController(BaseController):
         c.dimensions = [d for d in c.dimensions if d['key'] not in ENTRY_FIELDS]
         if format == 'json':
             return to_jsonp(list(c.dimensions))
-        return render('dimension/index.html')
+        else:
+            return render('dimension/index.html')
 
+    @beaker_cache(invalidate_on_startup=True,
+           cache_response=False,
+           query_args=True)
     def view(self, dataset, dimension, format='html'):
         c.dataset = model.dataset.find_one_by('name', dataset)
         if not c.dataset:

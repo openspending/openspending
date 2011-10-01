@@ -2,6 +2,8 @@ import csv
 import json
 from StringIO import StringIO
 
+from pylons import cache as pylons_cache
+
 from bson import ObjectId
 from webob.exc import HTTPNotFound, HTTPMovedPermanently
 
@@ -149,7 +151,7 @@ class TestEntityController(ControllerTestCase):
                          slug='test-entity-label', action='view')
         response = self.app.get(entity_url)
 
-        h.assert_equal(response._status, '200 OK')
+        h.assert_equal(response.status, '200 OK')
         h.assert_true('<b>1 entries</b> found.<br />' in response)
         h.assert_true('entries.json">' in response)
         h.assert_true('entries.csv">' in response)

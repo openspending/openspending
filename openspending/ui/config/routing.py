@@ -29,6 +29,12 @@ def make_map():
     for plugin in routing_plugins:
         plugin.before_map(map)
 
+    map.sub_domains = True
+    # Ignore the ``www`` sub-domain
+    map.sub_domains_ignore = ['www']
+
+    map.connect('/', controller='home', action='index_subdomain',
+                conditions={'sub_domain': True})
     map.connect('/', controller='home', action='index')
 
     map.connect('/getinvolved', controller='home', action='getinvolved')

@@ -1,6 +1,7 @@
 import logging
 
 from pylons import request, response, tmpl_context as c
+from pylons.decorators.cache import beaker_cache
 from pylons.controllers.util import abort
 from pylons.i18n import _
 
@@ -22,22 +23,37 @@ class ClassifierController(BaseController, RestAPIMixIn):
 
     model = model.classifier
 
-    def _entry_q(self, classifier):
-        return model.entry.find({'classifiers': c.classifier['_id']})
+    @beaker_cache(invalidate_on_startup=True,
+                  cache_response=False,
+                  query_args=True)
+    def view(self, *args, **kwargs):
+        return super(ClassifierController, self).view(*args, **kwargs)
 
-    def _make_browser(self):
-        url = url_for(controller='classifier', action='entries',
-                taxonomy=c.classifier['taxonomy'],
-                name=c.classifier['name'])
-        c.browser = Browser(request.params, url=url)
-        c.browser.filter_by("+classifiers:%s" % c.classifier['_id'])
-        c.browser.facet_by_dimensions()
-
+    @beaker_cache(invalidate_on_startup=True,
+                  cache_response=False,
+                  query_args=True)
     def view_by_taxonomy_name(self, taxonomy, name, format="html"):
         classifier = self._filter({"taxonomy": taxonomy, "name": name})
         if not classifier:
             abort(404)
         return self._handle_get(result=classifier[0], format=format)
+
+    @beaker_cache(invalidate_on_startup=True,
+                  cache_response=False,
+                  query_args=True)
+    def entries(self, taxonomy, name, format='html'):
+        c.classifier = model.classifier.find_one({'taxonomy': taxonomy,
+                                                  'name': name})
+        if not c.classifier:
+            abort(404, _('Sorry, there is no such classifier'))
+
+        self._make_browser()
+        if format == 'json':
+            return c.browser.to_jsonp()
+        elif format == 'csv':
+            c.browser.to_csv()
+        else:
+            return render('classifier/entries.html')
 
     def _view_html(self, classifier):
         c.classifier = classifier
@@ -54,16 +70,13 @@ class ClassifierController(BaseController, RestAPIMixIn):
 
         return render(c.template)
 
-    def entries(self, taxonomy, name, format='html'):
-        c.classifier = model.classifier.find_one({'taxonomy': taxonomy,
-                                                  'name': name})
-        if not c.classifier:
-            abort(404, _('Sorry, there is no such classifier'))
+    def _entry_q(self, classifier):
+        return model.entry.find({'classifiers': c.classifier['_id']})
 
-        self._make_browser()
-        if format == 'json':
-            return c.browser.to_jsonp()
-        elif format == 'csv':
-            c.browser.to_csv()
-            return
-        return render('classifier/entries.html')
+    def _make_browser(self):
+        url = url_for(controller='classifier', action='entries',
+                taxonomy=c.classifier['taxonomy'],
+                name=c.classifier['name'])
+        c.browser = Browser(request.params, url=url)
+        c.browser.filter_by("+classifiers:%s" % c.classifier['_id'])
+        c.browser.facet_by_dimensions()

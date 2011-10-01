@@ -1,6 +1,7 @@
 import logging
 
 from pylons import request, tmpl_context as c
+from pylons.decorators.cache import beaker_cache
 
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import ISolrSearch
@@ -16,6 +17,9 @@ class SearchController(BaseController):
 
     extensions = PluginImplementations(ISolrSearch)
 
+    @beaker_cache(invalidate_on_startup=True,
+           cache_response=False,
+           query_args=True)
     def index(self):
         url = url_for(controller='search', action='index')
         c.browser = Browser(request.params, url=url)

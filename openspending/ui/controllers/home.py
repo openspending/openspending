@@ -5,6 +5,7 @@ import subprocess
 
 from pylons import request, response, tmpl_context as c, url, config
 from pylons.controllers.util import redirect
+from pylons.decorators.cache import beaker_cache
 from pylons.i18n import _
 
 from openspending import model
@@ -22,12 +23,10 @@ class HomeController(BaseController):
 
     extensions = PluginImplementations(IDatasetController)
 
+    @beaker_cache(invalidate_on_startup=True,
+           cache_response=False,
+           query_args=True)
     def index(self):
-        # subdomain override:
-        if hasattr(c, 'dataset') and c.dataset:
-            redirect(url(controller='dataset', action='view',
-                         name=c.dataset['name']))
-
         featured_dataset = config.get("openspending.default_dataset")
         c.datasets = list(model.dataset.find())
         c.dataset = filter(lambda x: x['name'] == featured_dataset, c.datasets)
@@ -49,6 +48,17 @@ class HomeController(BaseController):
                 item.read(c, request, response, c.dataset)
 
         return render(c.template)
+
+    def index_subdomain(self):
+        if hasattr(c, 'dataset') and c.dataset:
+            redirect(url(controller='dataset',
+                         action='view',
+                         name=c.dataset['name'],
+                         sub_domain=None))
+        else:
+            redirect(url(controller='home',
+                         action='index',
+                         sub_domain=None))
 
     def getinvolved(self):
         return render('home/getinvolved.html')

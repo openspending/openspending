@@ -1,12 +1,9 @@
 import random
 
-from pylons.decorators.cache import beaker_cache
-
 from openspending.mongo import db
 
 DEFAULT_COLOR = "#607890"
 
-@beaker_cache(cache_response=False)
 def parent_color(obj):
     if 'color' in obj:
         return obj.get('color')
@@ -46,7 +43,6 @@ def _color_range(color, slices, var=70.0):
                             color_part(cv[1], n),
                             color_part(cv[2], n)))
 
-@beaker_cache(cache_response=False)
 def color_range(color, slices, var=70.0):
     colors = list(_color_range(color, slices, var=70.0))
     random.shuffle(colors)
