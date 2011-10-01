@@ -68,7 +68,8 @@ class TestCube(DatabaseTestCase):
         h.assert_equal(from_b[1]['amount'], 1000)
 
     def test_fallback_for_missing_entity_name(self):
-        # We use the objectid of an entity as a fallback value for 'name'
+        # We use the stringified objectid of an entity as a fallback
+        # value for 'name'
 
         h.load_fixture('cube_test_missing_name')
         ds = model.dataset.find_one()
@@ -79,7 +80,7 @@ class TestCube(DatabaseTestCase):
         cube_collection = mongo.db[cube.collection_name]
         h.assert_equal(cube_collection.find().count(), 1)
         cube_from = cube_collection.find_one()['from']
-        h.assert_equal(cube_from['name'], cube_from['_id'])
+        h.assert_equal(cube_from['name'], str(cube_from['_id']))
 
     def test_order(self):
         # test primary and secondary sort order
