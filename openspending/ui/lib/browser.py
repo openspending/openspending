@@ -148,6 +148,7 @@ class Browser(object):
                 self.results,
                 page=int(self.args.get('page', 1)),
                 item_count=self.num_results,
+                items_per_page=self.rows,
                 url=_url
             )
         return self._page
