@@ -56,8 +56,8 @@ class Browser(object):
         except TypeError:
             r = None
 
-        if not r or r > 1000:
-            self._rows = 1000
+        if not r or r > 100:
+            self._rows = 100
         else:
             self._rows = r
 
