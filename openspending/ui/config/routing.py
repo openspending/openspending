@@ -31,7 +31,7 @@ def make_map():
 
     map.sub_domains = True
     # Ignore the ``www`` sub-domain
-    map.sub_domains_ignore = ['www']
+    map.sub_domains_ignore = ['www', 'sandbox', 'staging']
 
     map.connect('/', controller='home', action='index_subdomain',
                 conditions={'sub_domain': True})
