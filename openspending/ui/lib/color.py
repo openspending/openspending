@@ -53,26 +53,26 @@ def color_range(color, slices, var=70.0):
     return colors
 
 def _hsv_to_rgb(h, s, v):
-	h_i = int(h * 6) % 6
-	f = h * 6 - h_i
-	p = v * (1 - s)
-	q = v * (1 - f * s)
-	t = v * (1 - (1 - f) * s)
+    h_i = int(h * 6) % 6
+    f = h * 6 - h_i
+    p = v * (1 - s)
+    q = v * (1 - f * s)
+    t = v * (1 - (1 - f) * s)
 
-	hack = [
-		( v, t, p ),
-		( q, v, p ),
-		( p, v, t ),
-		( p, q, v ),
-		( t, p, v ),
-		( v, p, q )
-		]
-	r, g, b = hack[h_i]
+    hack = [
+        ( v, t, p ),
+        ( q, v, p ),
+        ( p, v, t ),
+        ( p, q, v ),
+        ( t, p, v ),
+        ( v, p, q )
+        ]
+    r, g, b = hack[h_i]
 
-	return (int(r * 256), int(g * 256), int(b * 256))
+    return (int(r * 256), int(g * 256), int(b * 256))
 
 def rgb_rainbow(max):
-	for c in range(0, max):
-		idx = c / float(max)
-		r, g, b = _hsv_to_rgb(idx, 0.5, 0.95)
-    		yield tuple_to_hex((r, g, b))
+    for c in range(0, max):
+        idx = c / float(max)
+        r, g, b = _hsv_to_rgb(idx, 0.5, 0.95)
+        yield tuple_to_hex((r, g, b))
