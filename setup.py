@@ -1,6 +1,8 @@
 import os
 from setuptools import setup, find_packages
 
+from openspending.version import __version__
+
 PKG_ROOT = '.'
 
 def files_in_pkgdir(pkg, dirname):
@@ -24,7 +26,7 @@ def package_filter(pkg):
 
 setup(
     name='openspending',
-    version='0.10',
+    version=__version__,
     description='OpenSpending',
     author='Open Knowledge Foundation',
     author_email='okfn-help at lists okfn org',
