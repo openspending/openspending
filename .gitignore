@@ -7,3 +7,5 @@
 /solr/conf
 /solr/data
 /.noseids
+/linesman-enabled
+/sessions.db
