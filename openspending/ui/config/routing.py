@@ -5,10 +5,12 @@ may take precedent over the more generic routes. For more information
 refer to the routes manual at http://routes.groovie.org/docs/
 """
 from pylons import config
+from paste.deploy.converters import asbool
 from routes import Mapper
 
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IRoutes
+
 
 routing_plugins = PluginImplementations(IRoutes)
 
@@ -29,12 +31,14 @@ def make_map():
     for plugin in routing_plugins:
         plugin.before_map(map)
 
-    map.sub_domains = True
-    # Ignore the ``www`` sub-domain
-    map.sub_domains_ignore = ['www', 'sandbox', 'staging']
+    if not asbool(config.get('openspending.sandbox_mode', False)):
+        map.sub_domains = True
+        # Ignore the ``www`` sub-domain
+        map.sub_domains_ignore = ['www', 'sandbox', 'staging']
 
-    map.connect('/', controller='home', action='index_subdomain',
-                conditions={'sub_domain': True})
+        map.connect('/', controller='home', action='index_subdomain',
+                    conditions={'sub_domain': True})
+
     map.connect('/', controller='home', action='index')
 
     map.connect('/getinvolved', controller='home', action='getinvolved')
