@@ -101,6 +101,7 @@ def make_map():
 
     map.connect('/500', controller='error', action='render', code="500")
 
+    map.connect('/__version__', controller='home', action='version')
 
     for plugin in routing_plugins:
         plugin.after_map(map)

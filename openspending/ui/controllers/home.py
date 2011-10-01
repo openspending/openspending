@@ -1,5 +1,7 @@
 import logging
+import os
 import random
+import subprocess
 
 from pylons import request, response, tmpl_context as c, url, config
 from pylons.controllers.util import redirect
@@ -12,7 +14,6 @@ from openspending.ui.i18n import set_session_locale
 from openspending.ui.lib import views
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.helpers import flash_success, flash_error
-
 
 log = logging.getLogger(__name__)
 
@@ -67,3 +68,15 @@ class HomeController(BaseController):
         # hack to prevent next page being cached
         return_to += '__cache=%s' % int(random.random() * 100000000)
         redirect(return_to.encode('utf-8'))
+
+    def version(self):
+        cwd = os.path.dirname(__file__)
+        process = subprocess.Popen('git rev-parse --verify HEAD'.split(' '),
+                                   cwd=cwd,
+                                   stdout=subprocess.PIPE)
+        output = process.communicate()[0]
+        if process.returncode == 0:
+            return output
+        else:
+            import openspending.version
+            return openspending.version.__version__
