@@ -6,3 +6,4 @@
 /.pylons_data
 /solr/conf
 /solr/data
+/.noseids
