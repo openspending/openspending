@@ -83,7 +83,5 @@ class EntityController(BaseController, RestAPIMixIn):
         if format == 'json':
             return c.browser.to_jsonp()
         elif format == 'csv':
-            c.browser.to_csv()
-            return
-
+            return c.browser.to_csv()
         return render('entity/entries.html')

@@ -110,7 +110,7 @@ class DatasetController(BaseController, RestAPIMixIn):
         if format == 'json':
             return c.browser.to_jsonp()
         elif format == 'csv':
-            c.browser.to_csv()
+            return c.browser.to_csv()
         else:
             return self._entries_html()
 
