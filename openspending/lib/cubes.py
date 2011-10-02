@@ -6,12 +6,28 @@ import math
 from collections import defaultdict
 from types import NoneType
 
+from pylons import app_globals
+from pylons.decorators.cache import beaker_cache
+
 from openspending import mongo
 from openspending import model
 from openspending.lib import util
 from openspending.lib.aggregator import _aggregation_query
 
 log = logging.getLogger(__name__)
+
+# Workaround to prevent the absence of beaker causing problems in the
+# test environment.
+def _cache(*args, **kwargs):
+    try:
+        # NB: this is *not* a no-op. Due to pylons' StackedObjectProxy
+        #     magic, this will raise a TypeError if we're not actually
+        #     in the middle of a request.
+        getattr(app_globals, 'cache', None)
+    except TypeError:
+        return lambda x: x
+    else:
+        return beaker_cache(*args, **kwargs)
 
 class CubeDimensionError(Exception):
     pass
@@ -150,6 +166,7 @@ class Cube(object):
         model.dataset.save(self.dataset)
         log.debug("Done. Took: %ds", int(time.time() - begin))
 
+    @_cache(invalidate_on_startup=True, cache_response=False)
     def query(self, drilldowns=None, cuts=None, page=1, pagesize=10000,
               order=None):
         '''

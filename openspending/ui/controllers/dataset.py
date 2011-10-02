@@ -4,7 +4,6 @@ import logging
 
 from pylons import request, response, tmpl_context as c
 from pylons.controllers.util import abort
-from pylons.decorators.cache import beaker_cache
 from pylons.i18n import _
 
 from openspending import model
@@ -27,17 +26,11 @@ class DatasetController(BaseController, RestAPIMixIn):
 
     model = model.dataset
 
-    @beaker_cache(invalidate_on_startup=True,
-                  cache_response=False,
-                  query_args=True)
     def view(self, name, format="html"):
         d = model.dataset.find_one_by('name', name)
         _id = d['_id'] if d else None
         return self._view(id=_id, format=format)
 
-    @beaker_cache(invalidate_on_startup=True,
-                  cache_response=False,
-                  query_args=True)
     def bubbles(self, name, breakdown_field, drilldown_fields, format="html"):
         c.drilldown_fields = json.dumps(drilldown_fields.split(','))
         dataset = name
@@ -69,9 +62,6 @@ class DatasetController(BaseController, RestAPIMixIn):
     def _entry_q(self, dataset):
         return  {'dataset.name': dataset['name']}
 
-    @beaker_cache(invalidate_on_startup=True,
-                  cache_response=False,
-                  query_args=True)
     def _index_html(self, results):
         for item in self.extensions:
             item.index(c, request, response, results)
@@ -90,16 +80,16 @@ class DatasetController(BaseController, RestAPIMixIn):
         c.dataset = dataset
 
         c.num_entries = model.entry.find({'dataset.name': dataset['name']}).count()
-        c.template = 'dataset/view.html'
 
         handle_request(request, c, c.dataset)
+
         if c.view is None:
             self._make_browser()
 
         for item in self.extensions:
             item.read(c, request, response, c.dataset)
 
-        return render(c.template)
+        return render('dataset/view.html')
 
     def entries(self, name, format='html'):
         c.dataset = model.dataset.find_one_by('name', name)
@@ -114,9 +104,6 @@ class DatasetController(BaseController, RestAPIMixIn):
         else:
             return self._entries_html()
 
-    @beaker_cache(invalidate_on_startup=True,
-                  cache_response=False,
-                  query_args=True)
     def _entries_html(self):
         return render('dataset/entries.html')
 
