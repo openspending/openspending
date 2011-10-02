@@ -55,7 +55,7 @@ def slugify(text, delimiter='-'):
     used in urls or as a name.
     '''
     result = []
-    for word in SLUG_RE.split(text.lower()):
+    for word in SLUG_RE.split(str(text).lower()):
         result.extend(unidecode(word).split())
     return unicode(delimiter.join(result))
 

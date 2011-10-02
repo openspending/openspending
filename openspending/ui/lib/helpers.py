@@ -298,7 +298,7 @@ def format_number_with_commas(number):
     '''
     if number is None:
         return "-"
-    s = '%d' % number
+    s = str(int(number))
     groups = []
     while s and s[-1].isdigit():
         groups.append(s[-3:])
