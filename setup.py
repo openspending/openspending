@@ -41,7 +41,7 @@ setup(
         "pymongo==2.0.1",
         "repoze.who==2.0",
         "repoze.who-friendlyform==1.0.8",
-        "Unidecode==0.04.7",
+        "Unidecode==0.04.9",
         "python-dateutil==1.5",
         "solrpy==0.9.4",
         "pyutilib.component.core==4.3.1",
