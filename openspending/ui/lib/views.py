@@ -148,7 +148,7 @@ class ViewState(object):
             if self.view.drilldown is None:
                 return []
             res = defaultdict(dict)
-            drilldowns = []
+            drilldowns = {}
             cube = find_cube(self.view.dataset, self.view.full_dimensions)
             if cube is None:
                 log.warn("Run-time has view without cube: %s",
@@ -157,10 +157,12 @@ class ViewState(object):
             results = cube.query(['year', self.view.drilldown], self.cuts)
             for entry in results.get('drilldown'):
                 d = entry.get(self.view.drilldown)
-                if not d in drilldowns:
-                    drilldowns.append(d)
-                res[drilldowns.index(d)][str(entry.get('year'))] = \
-                        entry.get('amount')
+                # Get a hashable key for the drilldown
+                key = d['_id'] if isinstance(d, dict) else d
+                # Store a reference to this drilldown
+                drilldowns[key] = d
+                # Store drilldown value for this year
+                res[key][str(entry.get('year'))] = entry.get('amount')
             self._aggregates = [(drilldowns[k], v) for k, v in res.items()]
             # sort aggregations by time
             if self.time is not None:
