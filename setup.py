@@ -39,7 +39,7 @@ setup(
         "Pylons==1.0",
         "Genshi==0.6",
         "pymongo==2.0.1",
-        "repoze.who==2.0b1",
+        "repoze.who==2.0",
         "repoze.who-friendlyform==1.0.8",
         "Unidecode==0.04.7",
         "python-dateutil==1.5",
