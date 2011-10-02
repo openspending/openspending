@@ -69,7 +69,7 @@ class ClassifierController(BaseController):
         if format == 'json':
             return c.browser.to_jsonp()
         elif format == 'csv':
-            c.browser.to_csv()
+            return c.browser.to_csv()
         else:
             return render('classifier/entries.html')
 
@@ -84,7 +84,7 @@ class ClassifierController(BaseController):
         for dimension in c.dataset.dimensions:
             if isinstance(dimension, model.CompoundDimension) and \
                     dimension.taxonomy == c.classifier['taxonomy']:
-                dimensions.append('%s:%s' % (dimension.name, 
+                dimensions.append('%s:%s' % (dimension.name,
                                              c.classifier['name']))
         c.browser.filter_by("+(%s)" % ' OR '.join(dimensions))
         c.browser.facet_by_dimensions()

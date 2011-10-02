@@ -34,7 +34,7 @@ class DatasetController(BaseController):
 
         c.results = results
         if format == 'json':
-            return to_jsonp(map(lambda d: d.as_dict(), 
+            return to_jsonp(map(lambda d: d.as_dict(),
                                 results))
         elif format == 'csv':
             results = map(lambda d: d.as_dict(), results)
