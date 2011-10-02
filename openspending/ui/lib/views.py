@@ -166,8 +166,9 @@ class ViewState(object):
             self._aggregates = [(drilldowns[k], v) for k, v in res.items()]
             # sort aggregations by time
             if self.time is not None:
-                self._aggregates = sorted(self._aggregates, reverse=True,
-                    key=lambda (k, v): v.get(self.time, 0))
+                self._aggregates = sorted(self._aggregates,
+                                          reverse=True,
+                                          key=lambda (k, v): v.get(self.time, 0))
         return self._aggregates
 
 def times(dataset, time_axis):
