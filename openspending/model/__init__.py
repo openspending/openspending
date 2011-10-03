@@ -18,3 +18,5 @@ def init_model(engine):
                           bind=engine)
     db.engine = engine
     db.session = orm.scoped_session(sm)
+
+
