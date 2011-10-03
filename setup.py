@@ -60,7 +60,7 @@ setup(
     packages=filter(package_filter, find_packages()),
     namespace_packages=['openspending', 'openspending.plugins'],
     package_data={
-        'openspending.model': files_in_pkgdir('openspending.model', 'serverside_js'),
+        'openspending.model': files_in_pkgdir('openspending.model'),
         'openspending.ui': (
             files_in_pkgdir('openspending.ui', 'public') +
             files_in_pkgdir('openspending.ui', 'templates')

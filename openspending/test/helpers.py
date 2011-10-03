@@ -32,7 +32,8 @@ def clean_all():
     clean_solr()
 
 def clean_db():
-    _mongo.drop_collections()
+    _model.meta.session.rollback()
+    _model.meta.metadata.drop_all()
 
 def clean_solr():
     '''Clean all entries from Solr.'''

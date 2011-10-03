@@ -2,10 +2,12 @@
 
 from sqlalchemy import MetaData
 from sqlalchemy import Table, Column, ForeignKey, Integer, Boolean
+from sqlalchemy import Unicode, UnicodeText, Float
 from sqlalchemy import or_, and_
+from sqlalchemy.orm import reconstructor
 
-from sqlalchemy.ext.declarative import declarative_base, DeclarativeMeta
 from sqlalchemy import orm
+from sqlalchemy import func, select
 
 
 # SQLAlchemy database engine.  Updated by model.init_model()
@@ -18,11 +20,10 @@ session = None
 # names, you'll need a metadata for each database
 metadata = MetaData()
 
-
 class Model(object):
     """Baseclass for custom user models."""
 
     query_class = orm.Query
     query = None
 
-Model = declarative_base(cls=Model, name='Model')
+

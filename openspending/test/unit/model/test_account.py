@@ -1,4 +1,3 @@
-from openspending import mongo
 from openspending import model
 
 from ... import DatabaseTestCase, helpers as h

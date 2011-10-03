@@ -12,15 +12,33 @@ doc/install.rst for more information.
 
 from pylons import config
 
-from openspending import mongo
-from .helpers import clean_all
+from openspending.model import meta, init_model
+from openspending.test.helpers import clean_all, clean_db
 
 __all__ = ['TestCase', 'DatabaseTestCase']
 
 def setup_package():
-    mongo.configure(config)
+    '''
+    Create a new, not scoped  global sqlalchemy session
+    and rebind it to a new root transaction to which we can roll
+    back. Otherwise :func:`adhocracy.model.init_model`
+    will create as scoped session and invalidates
+    the connection we need to begin a new root transaction.
+
+    Return: The new root `connection`
+    '''
+    from sqlalchemy import engine_from_config
+    from migrate.versioning.util import construct_engine
+    config['sqlalchemy.url'] = 'sqlite:///:memory:'
+    engine = engine_from_config(config, 'sqlalchemy.')
+    engine = construct_engine(engine)
+    init_model(engine)
+    connection = engine.connect()
+    #meta.session = Session(autoflush=True, bind=connection)
+    return connection
 
 class TestCase(object):
+
     def setup(self):
         pass
 
@@ -28,6 +46,10 @@ class TestCase(object):
         pass
 
 class DatabaseTestCase(TestCase):
+    
+    def setup(self):
+        meta.metadata.create_all(meta.engine)
+
     def teardown(self):
-        clean_all()
+        clean_db()
         super(DatabaseTestCase, self).teardown()

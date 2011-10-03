@@ -1,14 +1,11 @@
 """The application's model objects"""
-from . import account
-from . import classifier
-from . import entry
-from . import dataset
-from . import dimension
-from . import entity
-
 from sqlalchemy import orm
+from sqlalchemy.ext.declarative import declarative_base
 
 from openspending.model import meta as db
+from openspending.model.attribute import Attribute
+from openspending.model.dimension import ValueDimension, ComplexDimension, Metric
+from openspending.model.dataset import Dataset
 
 def init_model(engine):
     """ Initialize the SQLAlchemy driver and session maker. """
@@ -17,6 +14,9 @@ def init_model(engine):
     sm = orm.sessionmaker(autoflush=True,
                           bind=engine)
     db.engine = engine
+    db.metadata.bind = engine
     db.session = orm.scoped_session(sm)
+    db.Model = declarative_base(cls=db.Model, name='Model',
+            metadata=db.metadata)
 
 

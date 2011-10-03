@@ -3,7 +3,7 @@ import logging
 import os
 import re
 
-from openspending import mongo
+from openspending import model
 
 log = logging.getLogger(__name__)
 

@@ -8,12 +8,12 @@ from genshi.filters.i18n import Translator
 from pylons import config
 
 from sqlalchemy import engine_from_config
+from migrate.versioning.util import construct_engine
 
 import pylons
 from webhelpers import markdown
 
 from openspending.model import init_model
-from openspending import mongo
 
 from openspending.plugins import core as plugins
 from openspending.plugins.interfaces import IConfigurable, IConfigurer
@@ -97,9 +97,10 @@ def load_environment(global_conf, app_conf):
         auto_reload=True,
         callback=template_loaded
     )
-
+    
     # SQLAlchemy
     engine = engine_from_config(config, 'sqlalchemy.')
+    engine = construct_engine(engine)
     init_model(engine)
 
     # Configure Solr

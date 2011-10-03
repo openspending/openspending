@@ -3,7 +3,7 @@ import os
 
 from pylons import config
 
-from openspending import mongo
+from openspending.model import Dataset, meta as db
 from openspending import migration
 from openspending.test.helpers import load_fixture
 
@@ -11,34 +11,18 @@ log = logging.getLogger(__name__)
 
 def drop():
     log.warn("Dropping database")
-    mongo.drop_db()
+    db.metadata.drop_all()
     return 0
 
 def drop_collections():
     log.warn("Dropping collections from database")
-    mongo.drop_collections()
+    db.metadata.drop_all()
     return 0
 
 def drop_dataset(name):
     log.warn("Dropping dataset '%s'", name)
-
-    log.info("Removing entries for dataset %s", name)
-    mongo.db.entry.remove({'dataset.name': name})
-
-    log.info("Removing dimensions for dataset %s", name)
-    mongo.db.dimension.remove({'dataset': name})
-
-    log.info("Removing distincts for dataset %s", name)
-    mongo.db['distincts__%s' % name].drop()
-
-    log.info("Removing cubes for dataset %s", name)
-    cubes = filter(lambda x: x.startswith('cubes.%s.' % name),
-                   mongo.db.collection_names())
-    for c in cubes:
-        mongo.db[c].drop()
-
-    log.info("Removing dataset object for dataset %s", name)
-    mongo.db.dataset.remove({'name': name})
+    dataset = db.session.query(Dataset).filter_by(name=name).first()
+    dataset.drop()
     return 0
 
 def load_example(name):
