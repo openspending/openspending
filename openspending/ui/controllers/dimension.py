@@ -7,7 +7,7 @@ from pylons.i18n import _
 
 from openspending.lib.cubes import find_cube
 from openspending import model
-from openspending.ui.lib.jsonp import to_jsonp
+from openspending.lib.jsonexport import to_jsonp
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.page import Page
 
