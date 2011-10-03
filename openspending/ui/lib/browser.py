@@ -3,7 +3,7 @@ from urllib import urlencode
 from openspending.lib import json
 from openspending.lib import solr_util as solr
 from openspending.lib.csvexport import write_csv
-from openspending.ui.lib.jsonp import write_browser_json
+from openspending.lib.jsonexport import write_browser_json
 from openspending.ui.lib.page import Page
 
 FILTER_PREFIX = "filter-"
