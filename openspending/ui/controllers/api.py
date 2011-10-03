@@ -8,7 +8,7 @@ from openspending import model
 from openspending.lib import calculator
 from openspending.lib import solr_util as solr
 from openspending.ui.lib.base import BaseController
-from openspending.ui.lib.jsonp import jsonpify
+from openspending.lib.jsonexport import jsonpify
 import re
 
 log = logging.getLogger(__name__)
