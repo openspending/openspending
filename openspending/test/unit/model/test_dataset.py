@@ -13,13 +13,15 @@ def mock_dataset():
         'name': 'testdataset'
     }
 
-class TestDataset(DatabaseTestCase):
-
+class TestDatasetCustomHtml(DatabaseTestCase):
+    
+    @h.skip
     def test_render_entry_custom_html_none(self):
         e = mock_entry()
         d = mock_dataset()
         h.assert_equal(model.dataset.render_entry_custom_html(d, e), None)
 
+    @h.skip
     def test_render_entry_custom_html_plain_text(self):
         e = mock_entry()
         d = mock_dataset()
@@ -27,6 +29,7 @@ class TestDataset(DatabaseTestCase):
         h.assert_equal(model.dataset.render_entry_custom_html(d, e),
                        'No templating.')
 
+    @h.skip
     def test_render_entry_custom_html_genshi_template(self):
         e = mock_entry()
         d = mock_dataset()

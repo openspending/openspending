@@ -98,8 +98,6 @@ def load_environment(global_conf, app_conf):
         callback=template_loaded
     )
 
-    mongo.configure(config)
-
     # SQLAlchemy
     engine = engine_from_config(config, 'sqlalchemy.')
     init_model(engine)

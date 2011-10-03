@@ -5,9 +5,7 @@ from mock import Mock, patch, MagicMock
 import os as _os
 
 from openspending import model as _model
-from openspending import mongo as _mongo
 from openspending.lib import solr_util as _solr
-from openspending.vendor import pymongodump as _pymongodump
 
 TEST_ROOT = _os.path.dirname(__file__)
 

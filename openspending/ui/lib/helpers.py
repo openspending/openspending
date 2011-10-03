@@ -78,6 +78,27 @@ def static(url):
     return url_
 
 
+# TODO: moved here during openspending.model evacuation.
+def render_entry_custom_html(doc, entry):
+    """Render dataset ``doc``'s custom html for entry ``entry``"""
+    custom_html = doc.get('entry_custom_html')
+    if custom_html:
+        return _render_custom_html(custom_html, 'entry', entry)
+    else:
+        return None
+
+def _render_custom_html(tpl, name, obj):
+    if tpl:
+        tpl = TextTemplate(tpl)
+
+        ctx = {name: obj}
+        stream = tpl.generate(**ctx)
+        return stream.render()
+    else:
+        return None
+
+
+
 def classifier_url(classifier, **kwargs):
     if len(classifier.get('name', '')):
         return url_for(controller='classifier',

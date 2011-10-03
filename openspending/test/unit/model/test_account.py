@@ -12,10 +12,12 @@ def make_account():
 
 class TestAccount(DatabaseTestCase):
 
+    @h.skip
     def test_account_create_gives_api_key(self):
         account = model.account.create(make_account())
         h.assert_equal(len(account['api_key']), 36)
 
+    @h.skip
     def test_account_add_role(self):
         account = model.account.create(make_account())
         model.account.add_role(account, 'admin')
