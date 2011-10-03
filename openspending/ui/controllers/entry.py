@@ -30,7 +30,6 @@ class EntryController(BaseController, RestAPIMixIn):
         c.currency = c.entry.get('currency', c.dataset.get('currency')).upper()
         c.amount = c.entry.get('amount')
         c.time = c.entry.get('time')
-        c.flags = c.entry.get("flags")
 
         c.custom_html = model.dataset.render_entry_custom_html(c.dataset, c.entry)
 
@@ -50,31 +49,8 @@ class EntryController(BaseController, RestAPIMixIn):
 
         c.template = 'entry/view.html'
 
-        if 'departments' in c.dataset.get('name'):
-            c.show_foi = True
-        else:
-            c.show_foi = False
-
         for item in self.extensions:
             item.read(c, request, response, c.entry)
 
         return render(c.template)
-
-    def flag(self, id):
-        entry = model.entry.get(id)
-        if not entry:
-            abort(404, _('Sorry, there is no entry with id %r') % id)
-        if not c.account:
-            abort(403, _('You need to have an account'))
-        flag_name = request.params.get("flag", None)
-        result = False
-        try:
-            result = flag.inc_flag(entry, flag_name, c.account)
-        except KeyError:
-            abort(400, _("Unknown Flag"))
-        if not result:
-            abort(409, _("This account already flagged this entry"))
-        if request.headers.get("X-Requested-With", None) == "XMLHttpRequest":
-            return "{'status': 'OK'}"
-        return redirect(url_for(controller="entry", action="view", id=id))
 

@@ -23,45 +23,6 @@
 
   <div py:def="content" class="entry-page">
 
-    <div class="flag-box">
-      <py:if test="c.account">
-        Flag this entry!
-        <form action="${h.entry_url(c.entry, action='flag')}" method="post" class="flag-form">
-          <ul>
-            <li py:for="flag, flag_name in h.flag.AVAILABLE_FLAGS.items()">
-              <py:choose test="h.flag.has_flagged(c.entry, flag, c.account)">
-                <label py:when="False"
-                       data-flagname="${flag_name}"
-                       data-flag="${flag}"
-                       data-flagcount="${h.flag.get_flag_for_entry(c.entry, flag)['count']}">
-
-                  <input type="checkbox" id="flag-${flag}" name="flag" value="${flag}"/>
-
-                  ${flag_name} (${h.flag.get_flag_for_entry(c.entry, flag)['count']})
-                </label>
-
-                <span py:when="True">
-                  ${flag_name} (${h.flag.get_flag_for_entry(c.entry, flag)['count']})
-                </span>
-              </py:choose>
-            </li>
-          </ul>
-          <input type="submit" value="Flag!"/>
-        </form>
-      </py:if>
-      <py:if test="not c.account">
-        <p><a href="/login">Please login to flag entries</a></p>
-        <ul>
-          <li py:for="flag, flag_name in h.flag.AVAILABLE_FLAGS.items()">
-            <span>
-              ${flag_name} (${h.flag.get_flag_for_entry(c.entry, flag)['count']})
-            </span>
-          </li>
-        </ul>
-      </py:if>
-    </div><!-- /.flag-box -->
-
-
     <h2>Entry: Detailed View of Transaction</h2>
     <p>
       This is a single transaction of ${c.currency}

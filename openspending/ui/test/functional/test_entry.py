@@ -32,15 +32,6 @@ class TestEntryController(ControllerTestCase):
                                     id=str(entry['_id']), name=entry['name']))
         assert 'Test Pog Entity' in response
 
-    def test_foi(self):
-        t = model.entry.find_one()
-        response = self.app.get(url(controller='entry', action='view',
-                                    id=str(t['_id']), name=t['name']))
-
-        # For now, just check we AREN'T showing the FOI screen on CRA pages.
-        # TODO: more detailed testing.
-        assert not 'Make an FOI request' in response
-
     def test_entry_custom_html(self):
         tpl = '<a href="/custom/path/%s">%s</a>'
 

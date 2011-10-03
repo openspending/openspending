@@ -15,7 +15,6 @@ from webhelpers.pylonslib import Flash as _Flash
 from webhelpers.text import truncate
 
 from openspending import model
-from openspending.model import flag
 from openspending.lib import json
 from openspending.lib.util import slugify
 from openspending.ui.lib.authz import have_role
