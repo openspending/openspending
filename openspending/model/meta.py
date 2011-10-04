@@ -8,6 +8,7 @@ from sqlalchemy.orm import reconstructor
 
 from sqlalchemy import orm
 from sqlalchemy import func, select
+from sqlalchemy.ext.declarative import declarative_base
 
 
 # SQLAlchemy database engine.  Updated by model.init_model()
@@ -26,4 +27,6 @@ class Model(object):
     query_class = orm.Query
     query = None
 
+Model = declarative_base(cls=Model, name='Model',
+            metadata=metadata)
 
