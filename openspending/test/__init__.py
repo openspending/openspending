@@ -33,9 +33,6 @@ def setup_package():
     engine = engine_from_config(config, 'sqlalchemy.')
     engine = construct_engine(engine)
     init_model(engine)
-    connection = engine.connect()
-    #meta.session = Session(autoflush=True, bind=connection)
-    return connection
 
 class TestCase(object):
 
