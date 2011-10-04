@@ -24,6 +24,7 @@ class Attribute(object):
         if self.name in table.c:
             self.column = table.c[self.name]
             return
+        # TODO: fetch this from AttributeType system?
         types = {
             'string': db.UnicodeText,
             'constant': db.UnicodeText,
@@ -35,10 +36,11 @@ class Attribute(object):
         self.column.create(table)
 
     def load(self, bind, row):
+        # TODO: remove this dependency - but how?
         from openspending.etl.validation.types import attribute_type_by_name
         converter = attribute_type_by_name(self.datatype)
         value = converter.cast(row, self._data)
-        return {self.column.name: value.decode('utf-8') if value else None}
+        return {self.column.name: value if value else None}
 
     def __repr__(self):
         return "<Attribute(%s)>" % self.name

@@ -44,7 +44,7 @@ class TestDataset(DatabaseTestCase):
                 dim.source_column
         assert dim.label==SIMPLE_MODEL['mapping']['field']['label'], \
                 dim.label
-        assert dim.default==None, dim.default
+        assert dim.constant==None, dim.constant
         assert dim.dataset==self.ds, dim.dataset
         assert dim.datatype=='string', dim.datatype
         assert not hasattr(dim, 'table')
@@ -84,7 +84,7 @@ class TestDatasetLoad(DatabaseTestCase):
         resn = self.engine.execute(self.ds.table.select()).fetchall()
         assert len(resn)==6,resn
         row0 = resn[0]
-        assert row0['time']=='2010', row0.items()
+        assert row0['time']=='2010-01-01', row0.items()
         assert row0['amount']==200, row0.items()
         assert row0['field']=='foo', row0.items()
     

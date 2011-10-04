@@ -45,6 +45,7 @@ class TestCase(object):
 class DatabaseTestCase(TestCase):
     
     def setup(self):
+        setup_package()
         meta.metadata.create_all(meta.engine)
 
     def teardown(self):

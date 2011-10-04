@@ -62,9 +62,22 @@ class ComplexDimension(Dimension, TableHandler):
 
     def __init__(self, dataset, name, data):
         Dimension.__init__(self, dataset, name, data)
-        self.scheme = data.get('scheme', data.get('taxonomy', 'entity'))
+        self.taxonomy = data.get('taxonomy', 'entity')
+        
+        attributes =  data.get('fields', [])
+        # TODO: this needs to be done in validation!
+        names = [a['name'] for a in attributes]
+        if 'name' not in names and 'label' in names:
+            for a in attributes:
+                if a['name'] == 'label':
+                    a = a.copy()
+                    a['name'] = 'name'
+                    a['datatype'] = 'id'
+                    attributes.append(a)
+                    break
+
         self.attributes = []
-        for attr in data.get('attributes', data.get('fields', [])):
+        for attr in attributes:
             self.attributes.append(Attribute(self, attr))
 
     def join(self, from_clause):
@@ -92,7 +105,7 @@ class ComplexDimension(Dimension, TableHandler):
         raise KeyError()
 
     def generate(self, meta, entry_table):
-        self._ensure_table(meta, self.dataset.name + '_' + self.scheme)
+        self._ensure_table(meta, self.dataset.name + '_' + self.taxonomy)
         for attr in self.attributes:
             attr.generate(meta, self.table)
         fk = self.name + '_id'

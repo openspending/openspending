@@ -26,14 +26,14 @@ class TestComplexDimension(DatabaseTestCase):
         self.ds.generate()
         assert self.entity.name=='to', self.entity.name
         assert self.classifier.name=='function', self.classifier.name
-        assert self.entity.scheme=='entity', self.entity.scheme
-        assert self.classifier.scheme=='funny', self.classifier.scheme
+        assert self.entity.taxonomy=='entity', self.entity.taxonomy
+        assert self.classifier.taxonomy=='funny', self.classifier.taxonomy
         
     def test_generated_tables(self):
         assert not hasattr(self.entity, 'table'), self.entity
         self.ds.generate()
         assert hasattr(self.entity, 'table'), self.entity
-        assert self.entity.table.name=='test_' + self.entity.scheme, self.entity.table.name
+        assert self.entity.table.name=='test_' + self.entity.taxonomy, self.entity.table.name
         assert hasattr(self.entity, 'alias')
         assert self.entity.alias.name==self.entity.name, self.entity.alias.name
         cols = self.entity.table.c
@@ -45,7 +45,7 @@ class TestComplexDimension(DatabaseTestCase):
         assert_raises(KeyError, self.entity.__getitem__, 'field')
         assert self.entity['name'].name=='name'
         assert self.entity['name'].datatype=='string'
-        assert self.entity['const'].default=='true'
+        assert self.entity['const'].constant=='true'
 
     def test_attributes_exist_on_table(self):
         self.ds.generate()

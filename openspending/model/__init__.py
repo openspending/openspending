@@ -8,8 +8,8 @@ from openspending.model.dataset import Dataset
 
 def init_model(engine):
     """ Initialize the SQLAlchemy driver and session maker. """
-    if db.session is not None:
-        return
+    #if db.session is not None:
+    #    return
     sm = orm.sessionmaker(autoflush=True, bind=engine)
     db.engine = engine
     db.metadata.bind = engine

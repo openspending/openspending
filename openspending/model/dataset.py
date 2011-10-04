@@ -55,7 +55,7 @@ class Dataset(TableHandler, db.Model):
     def generate(self):
         """ Create the main entity table for this dataset. """
         self.bind = db.engine
-        self.meta = db.metadata
+        self.meta = db.MetaData()
         self.meta.bind = self.bind
 
         self._ensure_table(self.meta, self.name + '_entry')
