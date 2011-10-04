@@ -28,7 +28,6 @@ class HomeController(BaseController):
            query_args=True)
     def index(self):
         featured_dataset = config.get("openspending.default_dataset")
-        c.datasets = list(model.dataset.find())
         c.dataset = filter(lambda x: x['name'] == featured_dataset, c.datasets)
         if c.dataset:
             c.dataset = c.dataset[0]

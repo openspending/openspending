@@ -1,4 +1,3 @@
-from openspending import mongo
 from openspending.lib import json
 from openspending.ui.lib.helpers import classifier_url
 
@@ -12,7 +11,6 @@ class TestClassifierController(ControllerTestCase):
         super(TestClassifierController, self).setup()
         h.load_fixture('cra')
         h.clean_and_reindex_solr()
-        self.db = mongo.db
 
     def test_view_by_taxonomy_name_html(self):
         classifier = self.db['classifier'].find_one({'taxonomy': 'cofog',

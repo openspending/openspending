@@ -90,7 +90,7 @@ class BaseController(WSGIController):
         c.items_per_page = int(request.params.get('items_per_page', 20))
         c.state = session.get('state', {})
 
-        c.datasets = list(model.dataset.find())
+        c.datasets = model.meta.session.query(model.Dataset).all()
         c.dataset = None
         self._detect_dataset_subdomain()
 

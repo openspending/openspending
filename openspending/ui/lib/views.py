@@ -4,9 +4,7 @@ This module implements views on the database.
 import logging
 from collections import defaultdict
 
-from openspending import mongo
 from openspending import model
-from openspending.lib.cubes import Cube, find_cube
 
 log = logging.getLogger(__name__)
 

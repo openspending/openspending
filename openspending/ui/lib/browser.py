@@ -1,7 +1,5 @@
 from urllib import urlencode
-from bson.objectid import ObjectId
 
-from openspending import mongo
 from openspending import model
 from openspending.lib import json
 from openspending.lib import solr_util as solr

@@ -1,5 +1,4 @@
 from openspending import model
-from openspending.lib.cubes import Cube, CubeDimensionError
 from openspending.lib.util import deep_get
 
 from ... import DatabaseTestCase, helpers as h
