@@ -7,9 +7,10 @@ class Attribute(object):
         self.parent = parent
         self.name = data.get('name')
         self.source_column = data.get('column')
-        self.default = data.get('default', data.get('constant'))
+        self.default_value = data.get('default_value')
+        self.constant = data.get('constant')
         self.description = data.get('description')
-        self.datatype = data.get('datatype')
+        self.datatype = data.get('datatype', 'value')
 
     @property
     def selectable(self):
@@ -34,8 +35,9 @@ class Attribute(object):
         self.column.create(table)
 
     def load(self, bind, row):
-        value = row.get(self.source_column, self.default) if \
-                self.source_column else self.default
+        from openspending.etl.validation.types import attribute_type_by_name
+        converter = attribute_type_by_name(self.datatype)
+        value = converter.cast(row, self._data)
         return {self.column.name: value.decode('utf-8') if value else None}
 
     def __repr__(self):
