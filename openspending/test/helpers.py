@@ -19,7 +19,7 @@ def load_fixture(name):
     data = json.load(fh)
     fh.close()
     dataset = Dataset(data)
-    db.session.add(db)
+    db.session.add(dataset)
     db.session.commit()
     dataset.generate()
     fh = open(fixture_path('%s.csv' % name), 'r')

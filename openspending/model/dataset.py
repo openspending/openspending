@@ -1,3 +1,4 @@
+import math
 from collections import defaultdict
 
 from openspending.model import meta as db
@@ -273,6 +274,13 @@ class Dataset(TableHandler, db.Model):
                     result[key] = value
             drilldown.append(result)
         offset = ((page-1)*pagesize)
+
+        # do we really need all this:
+        summary['num_drilldowns'] = len(drilldown)
+        summary['page'] = page
+        summary['pages'] = int(math.ceil(len(drilldown)/float(pagesize)))
+        summary['pagesize'] = pagesize
+
         return {'drilldown': drilldown[offset:offset+pagesize],
                 'summary': summary}
 
@@ -280,4 +288,6 @@ class Dataset(TableHandler, db.Model):
         return "<Dataset(%s:%s:%s)>" % (self.name, self.dimensions,
                 self.measures)
 
-
+    @classmethod
+    def by_name(cls, name):
+        return db.session.query(cls).filter_by(name=name).first()

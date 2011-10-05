@@ -7,7 +7,6 @@ from pylons.controllers.util import abort
 from openspending import model
 from openspending.lib import calculator
 from openspending.lib import solr_util as solr
-from openspending.lib.cubes import find_cube
 from openspending.ui.lib.base import BaseController
 from openspending.ui.lib.jsonp import jsonpify
 import re
@@ -77,7 +76,7 @@ class ApiController(BaseController):
     def aggregate(self):
         dataset_name = request.params.get('dataset', request.params.get('slice'))
         dataset_name = dataset_aliases.get(dataset_name, dataset_name)
-        dataset = model.dataset.find_one_by('name', dataset_name)
+        dataset = model.Dataset.by_name(dataset_name)
 
         if dataset is None:
             abort(400, "Dataset %s not found" % dataset_name)
@@ -95,13 +94,8 @@ class ApiController(BaseController):
                 statistics.append((key, value))
             elif 'breakdown' == op:
                 drilldowns.append(key)
-        dimensions = set(drilldowns + [k for k, v in cuts] + \
-                ['year'] + [v for k, v in statistics])
-        cube = find_cube(dataset, dimensions)
-        if cube is None:
-            abort(400, "No matching data cube available with dimensions: %r" %
-                  dimensions)
-        result = cube.query(drilldowns + ['year'], cuts)
+        result = dataset.aggregate(drilldowns=drilldowns + ['time'], 
+                cuts=cuts)
         #TODO: handle statistics as key-values ??? what's the point?
         for k, v in statistics:
             result = statistic_normalize(dataset, result, v, k)
@@ -109,8 +103,8 @@ class ApiController(BaseController):
         translated_result = defaultdict(dict)
         for cell in result['drilldown']:
             key = tuple([cellget(cell, d) for d in drilldowns])
-            translated_result[key][cell['year']] = cell['amount']
-        dates = sorted(set([d['year'] for d in result['drilldown']]))
+            translated_result[key][cell['time']] = cell['amount']
+        dates = sorted(set([d['time'] for d in result['drilldown']]))
         # give a value (or 0) for each present date in sorted order
         translated_result = [(k, [v.get(d, 0.0) for d in dates]) \
                 for k, v in translated_result.items()]

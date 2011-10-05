@@ -1,7 +1,6 @@
 from pylons import config, request
 
 from openspending import model
-from openspending.lib.cubes import find_cube
 from openspending.ui.lib.jsonp import jsonpify
 from openspending.ui.lib.base import BaseController
 
@@ -23,20 +22,11 @@ class Api2Controller(BaseController):
         if errors:
             return {'errors': errors}
 
-        # find a suiteable cube
-        dimensions = set([cut[0] for cut in cuts] + drilldowns)
-        # we can e.g. cut on cofog1.name, but the dimension is cofog1
-        dimensions = [d.split('.')[0] for d in dimensions]
-        cube = find_cube(dataset, dimensions)
-
-        if cube is None:
-            return {'errors': ['We cannot aggregate with this combination '
-                               'of drilldowns and cuts']}
         try:
-            result = cube.query(drilldowns, cuts, page=page, pagesize=pagesize,
-                                order=order)
+            import ipdb; ipdb.set_trace()
+            result = dataset.aggregate(drilldowns=drilldowns, cuts=cuts, page=page, 
+                                       pagesize=pagesize, order=order)
         except ValueError:
-            # fixme: add task to compute the cube
             return {'errors': ['We cannot aggregate at the moment. '
                                'Please come back later.']}
 
@@ -44,7 +34,7 @@ class Api2Controller(BaseController):
 
     def _dataset(self, params, errors):
         dataset_name = params.get('dataset')
-        dataset = model.dataset.find_one_by('name', dataset_name)
+        dataset = model.Dataset.by_name(dataset_name)
         if dataset is None:
             errors.append('no dataset with name "%s"' % dataset_name)
             return
