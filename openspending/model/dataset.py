@@ -8,6 +8,14 @@ from openspending.model.dimension import Metric
 
 
 class Dataset(TableHandler, db.Model):
+    """ The dataset is the core entity of any access to data. All
+    requests to the actual data store are routed through it, as well
+    as data loading and model generation.
+
+    The dataset keeps an in-memory representation of the data model
+    (including all dimensions and measures) which can be used to 
+    generate necessary queries.
+    """
     __tablename__ = 'dataset'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -28,6 +36,12 @@ class Dataset(TableHandler, db.Model):
 
     @db.reconstructor
     def _load_model(self):
+        """ Construct the in-memory object representation of this
+        dataset's dimension and measures model.
+
+        This is called upon initialization and deserialization of
+        the dataset from the SQLAlchemy store.
+        """
         self.dimensions = []
         self.metrics = []
         for dim, data in self.data.get('mapping', {}).items():
@@ -53,7 +67,11 @@ class Dataset(TableHandler, db.Model):
         return self.dimensions + self.metrics
 
     def generate(self):
-        """ Create the main entity table for this dataset. """
+        """ Create the tables and columns necessary for this dataset
+        to keep data. Since this will also create references to these
+        tables and columns in the model representation, this needs to
+        be called even for access to the data, not just upon loading.
+        """
         self.bind = db.engine
         self.meta = db.MetaData()
         self.meta.bind = self.bind
@@ -64,24 +82,37 @@ class Dataset(TableHandler, db.Model):
         self.alias = self.table.alias('entry')
 
     def load(self, row):
+        """ Handle a single entry of data in the mapping source format, 
+        i.e. with all needed columns. This will propagate to all dimensions
+        and set values as appropriate. """
         entry = dict()
         for field in self.fields:
             entry.update(field.load(self.bind, row))
         self._upsert(self.bind, entry, ['id'])
 
     def load_all(self, rows):
+        """ Non-API. 
+        Mini-loader which does not replace a proper BaseImporter, consumes
+        an iterable and loads each item in sequence. 
+        """
         for row in rows:
             self.load(row)
         #bind.commit()
 
     def flush(self):
-        for field in self.fields:
-            field.flush(self.bind)
+        """ Delete all data from the dataset tables but leave the table
+        structure intact.
+        """
+        for dimension in self.dimensions:
+            dimension.flush(self.bind)
         self._flush(self.bind)
 
     def drop(self):
-        for field in self.fields:
-            field.drop(self.bind)
+        """ Drop all tables created as part of this dataset, i.e. by calling
+        ``generate()``. This will of course also delete the data itself.
+        """
+        for dimension in self.dimensions:
+            dimension.drop(self.bind)
         self._drop(self.bind)
 
     def key(self, key):
@@ -101,10 +132,15 @@ class Dataset(TableHandler, db.Model):
 
     def materialize(self, conditions="1=1", order_by=None):
         """ Generate a fully denormalized view of the entries on this 
-        table. """
+        table. This view is nested so that each dimension will be a hash
+        of its attributes. 
+
+        This is somewhat similar to the entries collection in the fully
+        denormalized schema before OpenSpending 0.11 (MongoDB).
+        """
         joins = self.alias
-        for f in self.fields:
-            joins = f.join(joins)
+        for d in self.dimensions:
+            joins = d.join(joins)
         query = db.select([f.selectable for f in self.fields], 
                        conditions, joins, order_by=order_by,
                        use_labels=True)
@@ -126,7 +162,56 @@ class Dataset(TableHandler, db.Model):
 
     def aggregate(self, metric='amount', drilldowns=None, cuts=None, 
             page=1, pagesize=10000, order=None):
+        """ Query the dataset for a subset of cells based on cuts and 
+        drilldowns. It returns a structure with a list of drilldown items 
+        and a summary about the slice cutted by the query.
 
+        ``measure``
+            The numeric unit to be aggregated over, defaults to ``amount``.
+        ``drilldowns``
+            Dimensions to drill down to. (type: `list`)
+        ``cuts``
+            Specification what to cut from the cube. This is a
+            `list` of `two-tuples` where the first item is the dimension
+            and the second item is the value to cut from. It is turned into
+            a query where multible cuts for the same dimension are combined
+            to an *OR* query and then the queries for the different
+            dimensions are combined to an *AND* query.
+        ``page``
+            Page the drilldown result and return page number *page*.
+            type: `int`
+        ``pagesize``
+            Page the drilldown result into page of size *pagesize*.
+            type: `int`
+        ``order``
+            Sort the result based on the dimension *sort_dimension*.
+            This may be `None` (*default*) or a `list` of two-`tuples`
+            where the first element is the *dimension* and the second
+            element is the order (`False` for ascending, `True` for
+            descending).
+            Type: `list` of two-`tuples`.
+
+        Raises:
+        :exc:`ValueError`
+            If a cube is not yet computed. Call :meth:`compute`
+            to compute the cube.
+        :exc:`KeyError`
+            If a drilldown, cut or order dimension is not part of this
+            cube or the order dimensions are not a subset of the drilldown
+            dimensions.
+
+        Returns: A `dict` containing the drilldown and the summary::
+
+          {"drilldown": [
+              {"num_entries": 5545,
+               "amount": 41087379002.0,
+               "cofog1": {"description": "",
+                          "label": "Economic affairs"}},
+              ... ]
+           "summary": {"amount": 7353306450299.0,
+                       "num_entries": 133612}}
+
+        """
         cuts = cuts or []
         drilldowns = drilldowns or []
         joins = self.alias
@@ -161,7 +246,6 @@ class Dataset(TableHandler, db.Model):
         query = db.select(fields, conditions, joins,
                        order_by=order_by or [metric + ' desc'],
                        group_by=group_by, use_labels=True)
-        #print query
         summary = {metric: 0.0, 'num_entries': 0}
         drilldown = []
         rp = self.bind.execute(query)

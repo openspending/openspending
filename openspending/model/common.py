@@ -25,6 +25,9 @@ class TableHandler(object):
     its management. """
 
     def _ensure_table(self, meta, name):
+        """ Create the given table if it does not exist, otherwise
+        reflect the current table schema from the database.
+        """
         if not meta.bind.has_table(name):
             self.table = db.Table(name, meta)
             col = db.Column('id', db.Integer, primary_key=True)
@@ -34,7 +37,13 @@ class TableHandler(object):
             self.table = db.Table(name, meta, autoload=True)
 
     def _upsert(self, bind, data, unique_columns):
-        key = db.and_(*[self.table.c[c]==data.get(c) for c in unique_columns])
+        """ Upsert a set of values into the table. This will 
+        query for the set of unique columns and either update an 
+        existing row or create a new one. In both cases, the ID
+        of the changed row will be returned. 
+        """
+        key = db.and_(*[self.table.c[c]==data.get(c) for \
+                c in unique_columns])
         q = self.table.update(key, data)
         if bind.execute(q).rowcount == 0:
             q = self.table.insert(data)
@@ -46,10 +55,12 @@ class TableHandler(object):
             return row['id']
 
     def _flush(self, bind):
+        """ Delete all rows in the table. """
         q = self.table.delete()
         bind.execute(q)
 
     def _drop(self, bind):
+        """ Drop the table and the local reference to it. """
         if bind.has_table(self.table.name):
             self.table.drop()
         del self.table

@@ -21,6 +21,9 @@ class Attribute(object):
         return self.parent.alias.c[self.column.name]
 
     def generate(self, meta, table):
+        """ Create the column on a given table, selecting the proper
+        data type from attribute metadata. 
+        """
         if self.name in table.c:
             self.column = table.c[self.name]
             return
@@ -36,6 +39,8 @@ class Attribute(object):
         self.column.create(table)
 
     def load(self, bind, row):
+        """ Load an attribute value but perform type conversion first.
+        """
         # TODO: remove this dependency - but how?
         from openspending.etl.validation.types import attribute_type_by_name
         converter = attribute_type_by_name(self.datatype)

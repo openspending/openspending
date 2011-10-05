@@ -4,6 +4,7 @@ from openspending.model.attribute import Attribute
 from openspending.model.common import TableHandler
 
 class Dimension(object):
+    """ A base class for dimensions. """
 
     def __init__(self, dataset, name, data):
         self._data = data
@@ -13,15 +14,21 @@ class Dimension(object):
         self.facet = data.get('facet')
 
     def join(self, from_clause):
+        """ Return the object to be joined in when this dimension
+        is part of a query. """
         return from_clause
 
     def flush(self, bind):
+        """ Only applies to dimensions with their own table. """
         pass
 
     def drop(self, bind):
+        """ Only applies to dimensions with their own table. """
         del self.column
 
     def __getitem__(self, name):
+        """ Only applies to dimensions with their own attributes. 
+        """
         raise KeyError()
 
     def __repr__(self):
@@ -37,20 +44,13 @@ class ValueDimension(Dimension, Attribute):
         return "<ValueDimension(%s)>" % self.name
 
 class Metric(Attribute):
+    """ A value on the facts table that can be subject to aggregation, 
+    and is specific to this one fact. """
 
     def __init__(self, dataset, name, data):
         Attribute.__init__(self, dataset, data)
         self.name = name
         self.label = data.get('label', name)
-
-    def join(self, from_clause):
-        return from_clause
-
-    def flush(self, bind):
-        pass
-
-    def drop(self, bind):
-        pass
 
     def __getitem__(self, name):
         raise KeyError()
@@ -59,11 +59,16 @@ class Metric(Attribute):
         return "<Metric(%s)>" % self.name
 
 class ComplexDimension(Dimension, TableHandler):
+    """ A compound dimension is an outer table on the star schema, i.e. an
+    associated table that is referenced from the fact table. It can have 
+    any number of attributes but in the case of OpenSpending it will not 
+    have sub-dimensions (i.e. snowflake schema).
+    """
 
     def __init__(self, dataset, name, data):
         Dimension.__init__(self, dataset, name, data)
         self.taxonomy = data.get('taxonomy', 'entity')
-        
+
         attributes =  data.get('fields', [])
         # TODO: this needs to be done in validation!
         names = [a['name'] for a in attributes]
@@ -81,6 +86,11 @@ class ComplexDimension(Dimension, TableHandler):
             self.attributes.append(Attribute(self, attr))
 
     def join(self, from_clause):
+        """ This will return a query fragment that can be used to establish
+        a join between the scheme table and the dimension, aliased to 
+        represent this dimension (i.e. there can be multiple joins to the 
+        same table from different dimensions).
+        """
         return from_clause.join(self.alias, self.alias.c.id==self.column_alias)
     
     def flush(self, bind):
@@ -92,6 +102,7 @@ class ComplexDimension(Dimension, TableHandler):
 
     @property
     def column_alias(self):
+        """ This an aliased pointer to the FK column on the fact table. """
         return self.dataset.alias.c[self.column.name]
 
     @property
@@ -105,6 +116,10 @@ class ComplexDimension(Dimension, TableHandler):
         raise KeyError()
 
     def generate(self, meta, entry_table):
+        """ Create the table and column associated with this dimension 
+        if it does not already exist and propagate this call to the 
+        associated attributes. 
+        """
         self._ensure_table(meta, self.dataset.name + '_' + self.taxonomy)
         for attr in self.attributes:
             attr.generate(meta, self.table)
@@ -117,6 +132,9 @@ class ComplexDimension(Dimension, TableHandler):
         self.alias = self.table.alias(self.name)
 
     def load(self, bind, row):
+        """ Load a row of data into this dimension by having the attributes
+        perform type casting and then upserting the values. 
+        """
         dim = dict()
         for attr in self.attributes:
             dim.update(attr.load(bind, row))
