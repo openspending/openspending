@@ -131,7 +131,8 @@ class Dataset(TableHandler, db.Model):
             return dimension.alias.c[attr_name]
         return self.alias.c[dimension.column.name]
 
-    def materialize(self, conditions="1=1", order_by=None):
+    def materialize(self, conditions="1=1", order_by=None, limit=None,
+            offset=None):
         """ Generate a fully denormalized view of the entries on this 
         table. This view is nested so that each dimension will be a hash
         of its attributes. 
@@ -144,7 +145,8 @@ class Dataset(TableHandler, db.Model):
             joins = d.join(joins)
         selects = [f.selectable for f in self.fields] + [self.alias.c.id]
         query = db.select(selects, conditions, joins, order_by=order_by,
-                          use_labels=True)
+                          use_labels=True, limit=limit, offset=offset)
+        print query
         rp = self.bind.execute(query)
         while True:
             row = rp.fetchone()

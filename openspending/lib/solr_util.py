@@ -120,6 +120,7 @@ def flatten_dict(data, sep='.'):
     return out 
 
 def extend_entry(entry, dataset):
+    entry['dataset'] = dataset.data.get('dataset', {})
     entry = flatten_dict(entry)
     entry['_id'] = dataset.name + '::' + unicode(entry['id'])
     for k, v in entry.items():
@@ -131,7 +132,10 @@ def extend_entry(entry, dataset):
             entry[k] = " ".join([unicode(vi) for vi in v])
         else:
             entry[k] = safe_unicode(entry[k])
-        if k.endswith(".label") or k.endswith(".name"):
+        if k.endswith(".name"):
+            vk = k[:len(k)-len(".name")]
+            entry[vk] = v
+        if k.endswith(".label"):
             entry[k + "_str"] = entry[k]
             entry[k + "_facet"] = entry[k]
     for item in PluginImplementations(ISolrSearch):

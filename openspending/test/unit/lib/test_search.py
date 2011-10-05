@@ -32,19 +32,19 @@ class TestSearch(DatabaseTestCase):
         assert query.numFound == 8, query.numFound
 
     def test_search_load_time(self):
-        q = 'time.from.year:2008'
+        q = 'time:2008-01-01'
         query = self.solr.query(q, rows=10)
         assert query.numFound == 6, query.numFound
 
-        q = 'time.from.parsed:[2008-01-01T00:00:00Z TO 2008-01-02T00:00:00Z]'
+        q = 'time:[2008-01-01T00:00:00Z TO 2008-01-02T00:00:00Z]'
         query = self.solr.query(q, rows=10)
         assert query.numFound == 6, query.numFound
 
     def test_stats(self):
         q = '*:*'
         query = self.solr.query(q, stats='true', stats_field='amount',
-                                stats_facet='time.from.year', rows=0)
+                                stats_facet='time', rows=0)
         amount = query.stats['stats_fields']['amount']
-        timeamount = amount['facets']['time.from.year']['2007']
+        timeamount = amount['facets']['time']['2007-01-01']
         assert timeamount['sum'] == -20300000.0, timeamount['sum']
         assert timeamount['mean'] == -4060000.0, timeamount['mean']
