@@ -34,16 +34,19 @@ class Dimension(object):
     def __repr__(self):
         return "<Dimension(%s)>" % self.name
 
-class ValueDimension(Dimension, Attribute):
+class AttributeDimension(Dimension, Attribute):
+    """ A simple dimension that does not create its own values table 
+    but keeps its values directly as columns on the facts table. 
+    """
 
     def __init__(self, dataset, name, data):
         Attribute.__init__(self, dataset, data)
         Dimension.__init__(self, dataset, name, data)
     
     def __repr__(self):
-        return "<ValueDimension(%s)>" % self.name
+        return "<AttributeDimension(%s)>" % self.name
 
-class Metric(Attribute):
+class Measure(Attribute):
     """ A value on the facts table that can be subject to aggregation, 
     and is specific to this one fact. """
 
@@ -58,7 +61,7 @@ class Metric(Attribute):
     def __repr__(self):
         return "<Metric(%s)>" % self.name
 
-class ComplexDimension(Dimension, TableHandler):
+class CompoundDimension(Dimension, TableHandler):
     """ A compound dimension is an outer table on the star schema, i.e. an
     associated table that is referenced from the fact table. It can have 
     any number of attributes but in the case of OpenSpending it will not 
@@ -142,7 +145,7 @@ class ComplexDimension(Dimension, TableHandler):
         return {self.column.name: pk}
 
     def __repr__(self):
-        return "<ComplexDimension(%s/%s:%s)>" % (self.scheme, self.name, 
+        return "<CompoundDimension(%s/%s:%s)>" % (self.scheme, self.name, 
                                                  self.attributes)
 
 

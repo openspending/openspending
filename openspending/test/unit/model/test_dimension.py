@@ -11,7 +11,7 @@ from openspending.test import DatabaseTestCase, helpers as h
 from openspending.model import meta as db
 from openspending.model import Dataset
 
-class TestComplexDimension(DatabaseTestCase):
+class TestCompoundDimension(DatabaseTestCase):
 
     def setup(self):
         self.engine = db.engine 

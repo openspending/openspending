@@ -3,8 +3,8 @@ from collections import defaultdict
 from openspending.model import meta as db
 
 from openspending.model.common import TableHandler, JSONType
-from openspending.model.dimension import ComplexDimension, ValueDimension
-from openspending.model.dimension import Metric
+from openspending.model.dimension import CompoundDimension, AttributeDimension
+from openspending.model.dimension import Measure
 
 
 class Dataset(TableHandler, db.Model):
@@ -43,19 +43,19 @@ class Dataset(TableHandler, db.Model):
         the dataset from the SQLAlchemy store.
         """
         self.dimensions = []
-        self.metrics = []
+        self.measures = []
         for dim, data in self.data.get('mapping', {}).items():
-            if data.get('type') == 'metric' or dim == 'amount':
-                self.metrics.append(Metric(self, dim, data))
+            if data.get('type') == 'measure' or dim == 'amount':
+                self.measures.append(Measure(self, dim, data))
                 continue
             elif data.get('type', 'value') == 'value':
-                dimension = ValueDimension(self, dim, data)
+                dimension = AttributeDimension(self, dim, data)
             else:
-                dimension = ComplexDimension(self, dim, data)
+                dimension = CompoundDimension(self, dim, data)
             self.dimensions.append(dimension)
 
     def __getitem__(self, name):
-        """ Access a field (dimension or metric) by name. """
+        """ Access a field (dimension or measure) by name. """
         for field in self.fields:
             if field.name == name:
                 return field
@@ -64,7 +64,7 @@ class Dataset(TableHandler, db.Model):
     @property
     def fields(self):
         """ Both the dimensions and metrics in this dataset. """
-        return self.dimensions + self.metrics
+        return self.dimensions + self.measures
 
     def generate(self):
         """ Create the tables and columns necessary for this dataset
@@ -160,7 +160,7 @@ class Dataset(TableHandler, db.Model):
                     result[field][attr] = v
             yield result
 
-    def aggregate(self, metric='amount', drilldowns=None, cuts=None, 
+    def aggregate(self, measure='amount', drilldowns=None, cuts=None, 
             page=1, pagesize=10000, order=None):
         """ Query the dataset for a subset of cells based on cuts and 
         drilldowns. It returns a structure with a list of drilldown items 
@@ -219,7 +219,7 @@ class Dataset(TableHandler, db.Model):
             joins = self[dimension.split('.')[0]].join(joins)
 
         group_by = []
-        fields = [db.func.sum(self.alias.c.amount).label(metric), 
+        fields = [db.func.sum(self.alias.c[measure]).label(measure), 
                   db.func.count(self.alias.c.id).label("entries")]
         for key in drilldowns:
             column = self.key(key)
@@ -244,9 +244,9 @@ class Dataset(TableHandler, db.Model):
             order_by.append(column.desc() if direction else column.asc())
 
         query = db.select(fields, conditions, joins,
-                       order_by=order_by or [metric + ' desc'],
+                       order_by=order_by or [measure + ' desc'],
                        group_by=group_by, use_labels=True)
-        summary = {metric: 0.0, 'num_entries': 0}
+        summary = {measure: 0.0, 'num_entries': 0}
         drilldown = []
         rp = self.bind.execute(query)
         while True:
@@ -255,8 +255,8 @@ class Dataset(TableHandler, db.Model):
                 break
             result = {}
             for key, value in row.items():
-                if key == metric:
-                    summary[metric] += value
+                if key == measure:
+                    summary[measure] += value
                 if key == 'entries':
                     summary['num_entries'] += value
                 if '_' in key:
@@ -278,6 +278,6 @@ class Dataset(TableHandler, db.Model):
 
     def __repr__(self):
         return "<Dataset(%s:%s:%s)>" % (self.name, self.dimensions,
-                self.metrics)
+                self.measures)
 
 

@@ -3,7 +3,8 @@ from sqlalchemy import orm
 
 from openspending.model import meta as db
 from openspending.model.attribute import Attribute
-from openspending.model.dimension import ValueDimension, ComplexDimension, Metric
+from openspending.model.dimension import AttributeDimension, \
+        CompoundDimension, Measure
 from openspending.model.dataset import Dataset
 
 def init_model(engine):

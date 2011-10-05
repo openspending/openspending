@@ -8,7 +8,8 @@ from openspending.test.unit.model.helpers import SIMPLE_MODEL, TEST_DATA
 from openspending.test import DatabaseTestCase, helpers as h
 
 from openspending.model import meta as db
-from openspending.model import Dataset, ValueDimension, ComplexDimension, Metric
+from openspending.model import Dataset, AttributeDimension, \
+        CompoundDimension, Measure
 
 class TestDataset(DatabaseTestCase):
 
@@ -26,13 +27,13 @@ class TestDataset(DatabaseTestCase):
 
     def test_load_model_dimensions(self):
         assert len(self.ds.dimensions)==4,self.ds.dimensions
-        assert isinstance(self.ds['time'], ValueDimension), self.ds['time']
-        assert isinstance(self.ds['field'], ValueDimension), self.ds['field']
-        assert isinstance(self.ds['to'], ComplexDimension), self.ds['to']
-        assert isinstance(self.ds['function'], ComplexDimension), \
+        assert isinstance(self.ds['time'], AttributeDimension), self.ds['time']
+        assert isinstance(self.ds['field'], AttributeDimension), self.ds['field']
+        assert isinstance(self.ds['to'], CompoundDimension), self.ds['to']
+        assert isinstance(self.ds['function'], CompoundDimension), \
             self.ds['function']
-        assert len(self.ds.metrics)==1,self.ds.metrics
-        assert isinstance(self.ds['amount'], Metric), self.ds['amount']
+        assert len(self.ds.measures)==1,self.ds.measures
+        assert isinstance(self.ds['amount'], Measure), self.ds['amount']
 
     def test_value_dimensions_as_attributes(self):
         self.ds.generate()
@@ -44,6 +45,8 @@ class TestDataset(DatabaseTestCase):
                 dim.source_column
         assert dim.label==SIMPLE_MODEL['mapping']['field']['label'], \
                 dim.label
+        assert dim.constant==None, dim.constant
+        assert dim.default_value==None, dim.default_value
         assert dim.constant==None, dim.constant
         assert dim.dataset==self.ds, dim.dataset
         assert dim.datatype=='string', dim.datatype
