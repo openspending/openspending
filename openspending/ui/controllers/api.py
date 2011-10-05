@@ -110,7 +110,7 @@ class ApiController(BaseController):
                 for k, v in translated_result.items()]
         return {'results': translated_result,
                 'metadata': {
-                    'dataset': dataset['name'],
+                    'dataset': dataset.name,
                     'include': cuts,
                     'dates': map(unicode, dates),
                     'axes': drilldowns,

@@ -15,7 +15,7 @@ class TestApi2Controller(ControllerTestCase):
         h.assert_equal(sorted(result.keys()), [u'drilldown', u'summary'])
         h.assert_equal(sorted(result['summary'].items()),
                          [(u'amount', -371500000.0),
-                          (u'num_drilldowns', 36),
+                          (u'num_drilldowns', 1),
                           (u'num_entries', 36),
                           (u'page', 1),
                           (u'pages', 1),
@@ -34,7 +34,7 @@ class TestApi2Controller(ControllerTestCase):
                                     dataset='cra', cut='year:2009'))
         h.assert_equal(response.status, '200 OK')
         result = json.loads(response.body)
-        h.assert_equal(result['summary']['num_drilldowns'], 7)
+        h.assert_equal(result['summary']['num_drilldowns'], 1)
         h.assert_equal(result['summary']['amount'], 57300000.0)
 
     def test_order(self):
@@ -45,17 +45,21 @@ class TestApi2Controller(ControllerTestCase):
                     result.append(item)
             return result
         response = self.app.get(url(controller='api2', action='aggregate',
-                                    dataset='cra', order='year:asc'))
+                                    dataset='cra', order='year:asc',
+                                    drilldown='year'))
         h.assert_equal(response.status, '200 OK')
         result = json.loads(response.body)
         order = [cell['year']  for cell in result['drilldown']]
         h.assert_equal(unique(order),
-                         [2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010])
+                         map(unicode, [2003, 2004, 2005, 2006, 2007, 2008, 2009,
+                             2010]))
 
         response = self.app.get(url(controller='api2', action='aggregate',
-                                    dataset='cra', order='year:desc'))
+                                    dataset='cra', order='year:desc',
+                                    drilldown='year'))
         h.assert_equal(response.status, '200 OK')
         result = json.loads(response.body)
         order = [cell['year']  for cell in result['drilldown']]
         h.assert_equal(unique(order),
-                         [2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003])
+                         map(unicode, [2010, 2009, 2008, 2007, 2006, 2005, 2004,
+                             2003]))

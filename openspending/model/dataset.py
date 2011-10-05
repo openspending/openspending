@@ -142,9 +142,9 @@ class Dataset(TableHandler, db.Model):
         joins = self.alias
         for d in self.dimensions:
             joins = d.join(joins)
-        query = db.select([f.selectable for f in self.fields], 
-                       conditions, joins, order_by=order_by,
-                       use_labels=True)
+        selects = [f.selectable for f in self.fields] + [self.alias.c.id]
+        query = db.select(selects, conditions, joins, order_by=order_by,
+                          use_labels=True)
         rp = self.bind.execute(query)
         while True:
             row = rp.fetchone()
@@ -215,33 +215,51 @@ class Dataset(TableHandler, db.Model):
         """
         cuts = cuts or []
         drilldowns = drilldowns or []
+        order = order or []
         joins = self.alias
-        for dimension in set(drilldowns + [k for k,v in cuts]):
-            joins = self[dimension.split('.')[0]].join(joins)
-
-        group_by = []
         fields = [db.func.sum(self.alias.c[measure]).label(measure), 
                   db.func.count(self.alias.c.id).label("entries")]
-        for key in drilldowns:
-            column = self.key(key)
-            if '.' in key or column.table == self.alias:
-                fields.append(column)
+        labels = {
+            # TODO: these are sqlite-specific, make a factory somewhere
+            'year': db.func.strftime("%Y", self['time'].column_alias).label('year'),
+            'month': db.func.strftime("%Y-%m", self['time'].column_alias).label('month'),
+            }
+        dimensions = set(drilldowns + [k for k,v in cuts] + [o[0] for o in order])
+        for dimension in dimensions:
+            if dimension in labels:
+                fields.append(labels[dimension])
             else:
-                fields.append(column.table)
+                joins = self[dimension.split('.')[0]].join(joins)
+
+        group_by = []
+        for key in drilldowns:
+            if key in labels:
+                column = labels[key]
+            else:
+                column = self.key(key)
+                if '.' in key or column.table == self.alias:
+                   fields.append(column)
+                else:
+                    fields.append(column.table)
             group_by.append(column)
-     
+
         conditions = db.and_()
         filters = defaultdict(set)
         for key, value in cuts:
-            column = self.key(key)
+            if key in labels:
+                column = labels[key]
+            else:
+                column = self.key(key)
             filters[column].add(value)
         for attr, values in filters.items():
             conditions.append(db.or_(*[attr==v for v in values]))
 
         order_by = []
-        for key, direction in order or []:
-            # TODO: handle case in which order criterion is not joined.
-            column = self.key(key)
+        for key, direction in order:
+            if key in labels:
+                column = labels[key]
+            else:
+                column = self.key(key)
             order_by.append(column.desc() if direction else column.asc())
 
         query = db.select(fields, conditions, joins,
@@ -257,9 +275,9 @@ class Dataset(TableHandler, db.Model):
             result = {}
             for key, value in row.items():
                 if key == measure:
-                    summary[measure] += value
+                    summary[measure] += value or 0
                 if key == 'entries':
-                    summary['num_entries'] += value
+                    summary['num_entries'] += value or 0
                 if '_' in key:
                     dimension, attribute = key.split('_', 1)
                     if dimension == 'entry':
@@ -290,4 +308,7 @@ class Dataset(TableHandler, db.Model):
 
     @classmethod
     def by_name(cls, name):
-        return db.session.query(cls).filter_by(name=name).first()
+        ds = db.session.query(cls).filter_by(name=name).first()
+        if ds is not None:
+            ds.generate()
+        return ds

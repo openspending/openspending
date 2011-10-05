@@ -23,7 +23,6 @@ class Api2Controller(BaseController):
             return {'errors': errors}
 
         try:
-            import ipdb; ipdb.set_trace()
             result = dataset.aggregate(drilldowns=drilldowns, cuts=cuts, page=page, 
                                        pagesize=pagesize, order=order)
         except ValueError:
@@ -65,10 +64,10 @@ class Api2Controller(BaseController):
                               cut_param)
                 return
             else:
-                try:
-                    value = float(value)
-                except:
-                    pass
+                #try:
+                #    value = float(value)
+                #except:
+                #    pass
                 result.append((dimension, value))
         return result
 
