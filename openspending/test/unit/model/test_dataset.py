@@ -110,6 +110,9 @@ class TestDatasetLoad(DatabaseTestCase):
         assert 'test_entity' not in tn, tn
         assert 'test_funny' not in tn, tn
 
+    def test_dataset_count(self):
+        self.ds.load_all(self.reader)
+        assert len(self.ds)==6,len(self.ds)
 
     def test_aggregate_simple(self):
         self.ds.load_all(self.reader)

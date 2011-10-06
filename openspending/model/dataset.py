@@ -307,6 +307,10 @@ class Dataset(TableHandler, db.Model):
         return "<Dataset(%s:%s:%s)>" % (self.name, self.dimensions,
                 self.measures)
 
+    def __len__(self):
+        rp = self.bind.execute(self.alias.count())
+        return rp.fetchone()[0]
+
     def as_dict(self):
         return self.data.get('dataset', {})
 
