@@ -60,6 +60,9 @@ class DatasetController(BaseController):
 
         if format == 'json':
             return to_jsonp(c.dataset.as_dict())
+        elif format == 'csv':
+            write_csv([c.dataset.as_dict()], response)
+            return
         else:
             return render('dataset/view.html')
 

@@ -26,7 +26,7 @@
     <h2>Entry: Detailed View of Transaction</h2>
     <p>
       This is a single transaction of ${c.currency}
-      ${h.format_number_with_commas(c.amount)} on ${c.time.get('unparsed')} in
+      ${h.format_number_with_commas(c.amount)} on ${c.time} in
       ${h.dataset_link(c.dataset)}.
     </p>
 
@@ -38,18 +38,18 @@
 
     <div class="entities">
       <span>
-        ${c.desc.get('from', {}).get('label', 'Recipient')}:
+        ${c.desc.get('from', {}).label or _('Recipient')}:
       </span>
       <div>
         <img src="${h.static('img/icons/arrow_left_12x12.png')}" />
-        ${h.entity_link(c.from_)}
+        ${h.dimension_link(c.from_)}
       </div>
       <span>
-        ${c.desc.get('to', {}).get('label', 'Spender')}:
+        ${c.desc.get('to', {}).label or _('Spender')}:
       </span>
       <div>
         <img src="${h.static('img/icons/arrow_right_12x12.png')}" />
-        ${h.entity_link(c.to)}
+        ${h.dimension_link(c.to)}
       </div>
     </div><!-- /.entities -->
 
@@ -60,7 +60,7 @@
         <div class="currency">${c.currency}</div>
         <div class="date">
           <img src="${h.static('img/icons/calendar_alt_stroke_16x16.png')}" />
-          ${c.time.get('unparsed')}
+          ${c.time}
         </div>
       </div><!-- /.number -->
     </div><!-- /.amount -->
@@ -78,8 +78,8 @@
           <td py:choose="">
             <py:when test="c.desc.get(key)">
               <a href="${h.url_for(controller='dimension', action='view',
-                dataset=c.dataset.get('name'), dimension=key)}">
-                ${c.desc.get(key).get('label', key)}:
+                dataset=c.dataset.name, dimension=key)}">
+                ${c.desc.get(key).label or c.desc.get(key).name}:
               </a>
             </py:when>
             <py:otherwise>${key}:</py:otherwise>
@@ -95,7 +95,7 @@
             </py:otherwise>
           </td>
           <td>
-            <i>${c.desc.get(key, {}).get('description')}</i>
+            <i>${c.desc.get(key).description}</i>
           </td>
         </tr>
       </tbody>
@@ -110,7 +110,7 @@
 
     <div id="access" class="span-24 last">
       Download a machine-readable version of this entry:
-      <a href="${url(controller='entry', action='view', id=c.id, format='json')}">
+      <a href="${url(controller='entry', action='view', dataset=c.dataset.name, id=c.id, format='json')}">
         <img src="${h.static('img/icons/json.png')}" alt="JSON" />
       </a>
     </div>

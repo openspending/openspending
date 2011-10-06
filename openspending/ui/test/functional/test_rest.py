@@ -17,9 +17,8 @@ class TestRestController(ControllerTestCase):
         response = self.app.get(url(controller='dataset',
                                     action='view',
                                     format='json',
-                                    name=self.cra.name))
+                                    dataset=self.cra.name))
 
-        assert '"_id":' in response, response
         assert '"name": "cra"' in response, response
 
     def test_entry(self):
@@ -32,7 +31,7 @@ class TestRestController(ControllerTestCase):
                                     format='json',
                                     id=str(example['id'])))
 
-        assert '"_id":' in response, response
+        assert '"id":' in response, response
         assert '"cofog1":' in response, response
         assert '"from":' in response, response
         assert '"Dept047"' in response, response

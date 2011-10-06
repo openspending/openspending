@@ -23,7 +23,7 @@ class DimensionController(BaseController):
         c.dataset = model.Dataset.by_name(dataset)
         if not c.dataset:
             abort(404, _('Sorry, there is no dataset named %s') % dataset)
-        c.dimensions = c.dataset.dimensions 
+        c.dimensions = c.dataset.dimensions
         if format == 'json':
             return to_jsonp([d.as_dict() for d in c.dimensions])
         else:
@@ -49,7 +49,7 @@ class DimensionController(BaseController):
         except:
             page = 1
         result = c.dataset.aggregate(drilldowns=[dimension], page=page, 
-                    pagesize=PAGE_SIZE, order=[('amount', True)])
+                    pagesize=PAGE_SIZE)
         items = result.get('drilldown', [])
         c.values = [(d.get(dimension), d.get('amount')) for d in items]
 

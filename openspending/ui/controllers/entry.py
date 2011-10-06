@@ -10,6 +10,8 @@ from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IEntryController
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.browser import Browser
+from openspending.lib.csvexport import write_csv
+from openspending.ui.lib.jsonp import to_jsonp
 from openspending.ui.lib import helpers as h
 
 log = logging.getLogger(__name__)
@@ -35,37 +37,48 @@ class EntryController(BaseController):
         else:
             return render('dataset/entries.html')
 
-    def _view_html(self, entry):
-        c.entry = entry
+    def view(self, dataset, id, format='html'):
+        c.dataset = model.Dataset.by_name(dataset)
+        if not c.dataset:
+            abort(404, _('Sorry, there is no dataset named %r') % dataset)
+        try:
+            id = int(id)
+        except:
+            abort(404, _('Sorry, there is no entry %r') % id)
+        entries = list(c.dataset.materialize(c.dataset.alias.c.id==id))
+        if not len(entries) == 1:
+            abort(404, _('Sorry, there is no entry %r') % id)
+        c.entry = entries.pop()
 
-        c.id = c.entry.get('_id')
+        c.id = c.entry.get('id')
         c.from_ = c.entry.get('from')
         c.to = c.entry.get('to')
-        c.dataset = model.entry.get_dataset(entry)
-        c.currency = c.entry.get('currency', c.dataset.get('currency')).upper()
+        c.currency = c.entry.get('currency', c.dataset.currency).upper()
         c.amount = c.entry.get('amount')
         c.time = c.entry.get('time')
 
-        c.custom_html = model.dataset.render_entry_custom_html(c.dataset, c.entry)
+        c.custom_html = h.render_entry_custom_html(c.dataset.as_dict(), 
+                                                   c.entry)
 
         excluded_keys = ('time', 'amount', 'currency', 'from',
-                         'to', 'dataset', '_id', 'classifiers', 'name',
-                         'classifier_ids', 'description')
+                         'to', 'dataset', 'id', 'name', 'description')
 
         c.extras = {}
         if c.dataset:
-            dataset_name = c.dataset["name"]
-            dimensions = model.dimension.get_dataset_dimensions(dataset_name)
-            c.desc = dict([(d.get('key'), d) for d in dimensions])
+            c.desc = dict([(d.name, d) for d in c.dataset.dimensions])
             for key in c.entry:
                 if key in c.desc and \
                         not key in excluded_keys:
                     c.extras[key] = c.entry[key]
 
-        c.template = 'entry/view.html'
-
         for item in self.extensions:
             item.read(c, request, response, c.entry)
 
-        return render(c.template)
+        if format == 'json':
+            return to_jsonp(c.entry)
+        elif format == 'csv':
+            write_csv([c.entry], response)
+            return
+        else:
+            return render('entry/view.html')
 

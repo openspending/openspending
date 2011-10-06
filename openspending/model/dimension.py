@@ -37,7 +37,10 @@ class Dimension(object):
         return "<Dimension(%s)>" % self.name
 
     def as_dict(self):
-        return self._data
+        # FIXME: legacy support
+        d = self._data.copy()
+        d['key'] = self.name
+        return d
 
 
 class AttributeDimension(Dimension, Attribute):

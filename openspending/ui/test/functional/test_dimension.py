@@ -31,8 +31,8 @@ class TestDimensionController(ControllerTestCase):
                                     action='index', format='json'))
         obj = json.loads(response.body)
         h.assert_equal(len(obj), 12)
-        h.assert_equal(obj[0]['key'], 'from')
-        h.assert_equal(obj[0]['label'], 'Paid by')
+        h.assert_equal(obj[0]['key'], 'cap_or_cur')
+        h.assert_equal(obj[0]['label'], 'CG, LG or PC')
 
     def test_index_csv(self):
         h.skip("CSV dimension index not yet implemented!")
