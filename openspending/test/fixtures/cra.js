@@ -2,7 +2,7 @@
   "dataset": {
     "model_rev": 1,
     "name": "cra",
-    "label": "UK Country Regional Analysis",
+    "label": "Country Regional Analysis v2009",
     "description": "The Country Regional Analysis published by HM Treasury (2010 version).\n\nSource data can be found in the [CKAN data package](http://ckan.net/package/ukgov-finances-cra)",
     "currency": "GBP",
     "unique_keys": ["name"]
@@ -15,8 +15,8 @@
         {"column": "from.label", "datatype": "string", "name": "label"},
         {"column": "from.description", "datatype": "string", "name": "description"}
       ],
-      "label": "Paid from",
-      "description": "The entity that the money was paid from"
+      "label": "Paid by",
+      "description": "The entity that the money was paid from."
     },
     "to": {
       "type": "entity",
