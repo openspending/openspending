@@ -11,6 +11,8 @@ class Dimension(object):
         self.dataset = dataset
         self.name = name
         self.label = data.get('label', name)
+        self.type = data.get('type', name)
+        self.description = data.get('description', name)
         self.facet = data.get('facet')
 
     def join(self, from_clause):
