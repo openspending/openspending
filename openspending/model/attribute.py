@@ -49,4 +49,6 @@ class Attribute(object):
 
     def __repr__(self):
         return "<Attribute(%s)>" % self.name
-
+    
+    def as_dict(self):
+        return self._data

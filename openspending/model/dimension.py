@@ -34,6 +34,10 @@ class Dimension(object):
     def __repr__(self):
         return "<Dimension(%s)>" % self.name
 
+    def as_dict(self):
+        return self._data
+
+
 class AttributeDimension(Dimension, Attribute):
     """ A simple dimension that does not create its own values table 
     but keeps its values directly as columns on the facts table. 
@@ -57,6 +61,11 @@ class Measure(Attribute):
 
     def __getitem__(self, name):
         raise KeyError()
+
+    def join(self, from_clause):
+        """ Return the object to be joined in when this dimension
+        is part of a query. """
+        return from_clause
 
     def __repr__(self):
         return "<Metric(%s)>" % self.name
@@ -145,8 +154,6 @@ class CompoundDimension(Dimension, TableHandler):
         return {self.column.name: pk}
 
     def __repr__(self):
-        return "<CompoundDimension(%s/%s:%s)>" % (self.scheme, self.name, 
+        return "<CompoundDimension(%s/%s:%s)>" % (self.taxonomy, self.name, 
                                                  self.attributes)
-
-
 

@@ -146,7 +146,6 @@ class Dataset(TableHandler, db.Model):
         selects = [f.selectable for f in self.fields] + [self.alias.c.id]
         query = db.select(selects, conditions, joins, order_by=order_by,
                           use_labels=True, limit=limit, offset=offset)
-        print query
         rp = self.bind.execute(query)
         while True:
             row = rp.fetchone()
@@ -307,6 +306,9 @@ class Dataset(TableHandler, db.Model):
     def __repr__(self):
         return "<Dataset(%s:%s:%s)>" % (self.name, self.dimensions,
                 self.measures)
+
+    def as_dict(self):
+        return self.data.get('dataset', {})
 
     @classmethod
     def by_name(cls, name):
