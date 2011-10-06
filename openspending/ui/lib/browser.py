@@ -12,16 +12,10 @@ DIMENSION_LABEL = ".label_facet"
 
 class Browser(object):
 
-    def __init__(self, args, dataset_name=None, url=None):
+    def __init__(self, args, dataset=None, url=None):
         self.args = args
         self.url = url
-        self.dataset_name = dataset_name
-        if dataset_name is not None:
-            self.dimensions = model.dimension.get_dataset_dimensions(self.dataset_name,
-                                                                     facets_only=True)
-        else:
-            self.dimensions = [{'key': 'to', 'label': 'Recipient'},
-                               {'key': 'from', 'label': 'Spender'}]
+        self.dataset = dataset
         self._rows = None
         self._results = None
         self._page = None
@@ -76,8 +70,8 @@ class Browser(object):
     def fq(self):
         filters = []
         filters.extend(self._filters)
-        if self.dataset_name is not None:
-            filters.append("+dataset.name:%s" % self.dataset_name)
+        if self.dataset is not None:
+            filters.append("+dataset:%s" % self.dataset.name)
         for field, value in self.filters:
             filters.append("+%s:\"%s\"" % (field, value))
         return filters
@@ -92,9 +86,11 @@ class Browser(object):
         return facet.capitalize().replace("_", " ")
 
     def facet_by_dimensions(self):
-        for dimension in self.dimensions:
-            key = dimension.get('key')
-            if dimension.get('type') != 'value':
+        if self.dataset is None:
+            return
+        for dimension in self.dataset.dimensions:
+            key = dimension.name
+            if dimension.type != 'value':
                 key += DIMENSION_LABEL
             self.facets.append(key)
 
@@ -138,7 +134,6 @@ class Browser(object):
     @property
     def page(self):
         if self._page is None:
-            from pylons import url
             def _url(page, **kwargs):
                 return self.state_url(('page', unicode(page)),
                                       ('page', unicode(self.page_number)))

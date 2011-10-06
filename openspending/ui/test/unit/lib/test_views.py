@@ -7,7 +7,7 @@ class TestViews(DatabaseTestCase):
     def setup(self):
         super(TestViews, self).setup()
         h.load_fixture('cra')
-        self.dataset = model.dataset.find_one_by('name', 'cra')
+        self.dataset = model.Dataset.by_name('cra')
 
     def get_view(self, name='test_view', **kwargs):
 

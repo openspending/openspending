@@ -24,17 +24,15 @@ class DatasetController(BaseController, RestAPIMixIn):
 
     extensions = PluginImplementations(IDatasetController)
 
-    model = model.dataset
+    model = model.Dataset
 
     def view(self, name, format="html"):
-        d = model.dataset.find_one_by('name', name)
-        _id = d['_id'] if d else None
-        return self._view(id=_id, format=format)
+        d = model.Dataset.by_name(name)
+        return self._view(dataset=d, format=format)
 
     def bubbles(self, name, breakdown_field, drilldown_fields, format="html"):
         c.drilldown_fields = json.dumps(drilldown_fields.split(','))
-        dataset = name
-        c.dataset = model.dataset.find_one_by('name', name)
+        c.dataset = model.Dataset.by_name(name)
         c.dataset_name = name
 
         # TODO: make this a method
@@ -60,7 +58,7 @@ class DatasetController(BaseController, RestAPIMixIn):
         return render(c.template)
 
     def _entry_q(self, dataset):
-        return  {'dataset.name': dataset['name']}
+        return  {'dataset': dataset.name}
 
     def _index_html(self, results):
         for item in self.extensions:
@@ -71,8 +69,8 @@ class DatasetController(BaseController, RestAPIMixIn):
 
     def _make_browser(self):
         url = h.url_for(controller='dataset', action='entries',
-                        name=c.dataset['name'])
-        c.browser = Browser(request.params, dataset_name=c.dataset['name'],
+                        name=c.dataset.name)
+        c.browser = Browser(request.params, dataset=c.dataset,
                             url=url)
         c.browser.facet_by_dimensions()
 
@@ -92,7 +90,7 @@ class DatasetController(BaseController, RestAPIMixIn):
         return render('dataset/view.html')
 
     def entries(self, name, format='html'):
-        c.dataset = model.dataset.find_one_by('name', name)
+        c.dataset = model.Dataset.by_name(name)
         if not c.dataset:
             abort(404, _('Sorry, there is no dataset named %r') % name)
         self._make_browser()
@@ -108,21 +106,17 @@ class DatasetController(BaseController, RestAPIMixIn):
         return render('dataset/entries.html')
 
     def explorer(self, name=None):
-        c.dataset = model.dataset.find_one_by('name', name)
-        c.keys_meta = dict([(k.key, {"label": k.label,
-                "description": k.get("description", "")})
-                for k in model.dimension.find({"dataset": c.dataset['name']})])
-        if "breakdownKeys" in c.dataset:
-            c.breakdown_keys = c.dataset["breakdownKeys"]
-        else:
-            c.breakdown_keys = c.keys_meta.keys()[:3]
-
+        c.dataset = model.Dataset.by_name(name)
+        c.keys_meta = dict([(d.name, {"label": d.label,
+                "description": d.description})
+                for d in c.dataset.dimensions])
+        c.breakdown_keys = c.keys_meta.keys()[:3]
         c.keys_meta_json = json.dumps(c.keys_meta)
         c.breakdown_keys_json = json.dumps(c.breakdown_keys)
         return render('dataset/explorer.html')
 
     def timeline(self, name):
-        c.dataset = model.dataset.find_one_by('name', name)
+        c.dataset = model.Dataset.by_name(name)
         view = View.by_name(c.dataset, "default")
         viewstate = ViewState(c.dataset, view, None)
         data = []
@@ -140,3 +134,4 @@ class DatasetController(BaseController, RestAPIMixIn):
         c.data = json.dumps(data)
         c.meta = json.dumps(meta)
         return render('dataset/timeline.html')
+
