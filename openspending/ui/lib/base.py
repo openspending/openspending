@@ -112,6 +112,6 @@ class BaseController(WSGIController):
             return
         dataset_name, domain = http_host.split('.', 1)
         for dataset in c.datasets:
-            if dataset['name'].lower() == dataset_name:
+            if dataset.name.lower() == dataset_name:
                 c.dataset = dataset
 
