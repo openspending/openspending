@@ -7,6 +7,7 @@ available to Controllers. This module is available to templates as 'h'.
 
 from pylons import config, url
 from routes import url_for
+from genshi.template import TextTemplate
 from webhelpers.html import escape, HTML, literal, url_escape
 from webhelpers.html.tags import *
 from webhelpers.markdown import markdown as _markdown
@@ -117,7 +118,7 @@ def dataset_url(dataset, **kwargs):
 
 def dataset_link(dataset, **kwargs):
     kwargs['class'] = 'dataset-link'
-    return link_to(dataset.get('label', dataset.name),
+    return link_to(dataset.label or dataset.name,
                    dataset_url(dataset),
                    **kwargs)
 
