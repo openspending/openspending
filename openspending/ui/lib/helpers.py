@@ -119,12 +119,12 @@ def classifier_link(classifier, **kwargs):
 
 def dataset_url(dataset, **kwargs):
     return url_for(controller='dataset',
-                   action='view', name=dataset.get('name'), **kwargs)
+                   action='view', name=dataset.name, **kwargs)
 
 
 def dataset_link(dataset, **kwargs):
     kwargs['class'] = 'dataset-link'
-    return link_to(dataset.get('label', dataset.get('name')),
+    return link_to(dataset.get('label', dataset.name),
                    dataset_url(dataset),
                    **kwargs)
 

@@ -4,20 +4,20 @@
 
   <py:def function="nav_class">nav-dataset</py:def>
 
-  <py:def function="page_title">Dimension: ${c.meta.get('label')}</py:def>
+  <py:def function="page_title">Dimension: ${c.dimension.label or c.dimension.name}</py:def>
   
   <div py:def="content">
     <h2>
-      ${c.dataset['label']}
-      <span py:if="'label' in c.meta">
-        &mdash; ${c.meta.get('label')}
+      ${c.dataset.label}
+      <span py:if="c.dimension.label">
+        &mdash; ${c.dimension.label}
       </span>
     </h2>
 
     <div class="span-6">
       <h3>Values</h3>
-      <div py:if="c.meta.get('description')">
-        ${h.markdown(c.meta.get('description'))}
+      <div py:if="c.dimension.description">
+        ${h.markdown(c.dimension.description)}
       </div>
       <i>All figures are total financial involvement, not just funds received or spent.</i>
     </div>
@@ -27,7 +27,7 @@
         <thead>
           <tr>
             <th>Value</th>
-            <th class="num">Sum (${c.dataset.get('currency')})</th>
+            <th class="num">Sum (${c.dataset.currency})</th>
           </tr>
         </thead>
         <tbody> 

@@ -4,19 +4,20 @@
 
   <py:def function="nav_class">nav-dataset</py:def>
 
-  <py:def function="page_title">Dimensions in ${c.dataset.get('label')}</py:def>
+  <py:def function="page_title">Dimensions in ${c.dataset.label}</py:def>
   
   <div py:def="content">
-    <h2>${c.dataset.get('label')}: Dimensions</h2>
-    <p>${c.dataset.get('label')} has the following dimensions:</p>
+    <h2>${c.dataset.label}: Dimensions</h2>
+    <p>${c.dataset.label} has the following dimensions:</p>
     <ul>
       <li py:for="dimension in c.dimensions">
         <a class="dimension-name" href="${url(controller='dimension',
-          action='view', dataset=c.dataset.get('name'), dimension=dimension.get('key'))}">
-            ${dimension.get('label')}
+          action='view', dataset=c.dataset.name,
+          dimension=dimension.name)}">
+            ${dimension.label or dimension.name}
         </a>
-        <div py:if="dimension.get('description')">
-            ${h.markdown(dimension.get('description'))}
+        <div py:if="dimension.description">
+            ${h.markdown(dimension.description)}
         </div>
       </li>
     </ul>
