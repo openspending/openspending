@@ -86,8 +86,6 @@ class Browser(object):
         return facet.capitalize().replace("_", " ")
 
     def facet_by_dimensions(self):
-        if self.dataset is None:
-            return
         for dimension in self.dataset.dimensions:
             key = dimension.name
             if dimension.type != 'value':
