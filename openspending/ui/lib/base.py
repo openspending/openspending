@@ -89,7 +89,7 @@ class BaseController(WSGIController):
     def __before__(self, action, **params):
         account_name = request.environ.get('REMOTE_USER', None)
         if account_name:
-            c.account = model.account.find_one_by('name', account_name)
+            c.account = model.Account.by_name(account_name)
         else:
             c.account = None
 
@@ -97,8 +97,6 @@ class BaseController(WSGIController):
 
         c.q = ''
         c.items_per_page = int(request.params.get('items_per_page', 20))
-        c.state = session.get('state', {})
-
         c.datasets = model.meta.session.query(model.Dataset).all()
         c.dataset = None
         self._detect_dataset_subdomain()
@@ -109,9 +107,6 @@ class BaseController(WSGIController):
     def __after__(self):
         for item in self.items:
             item.after(request, c)
-        if session.get('state', {}) != c.state:
-            session['state'] = c.state
-            session.save()
 
     def _detect_dataset_subdomain(self):
         http_host = request.environ.get('HTTP_HOST').lower()

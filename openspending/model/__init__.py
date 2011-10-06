@@ -6,6 +6,7 @@ from openspending.model.attribute import Attribute
 from openspending.model.dimension import AttributeDimension, \
         CompoundDimension, Measure, Dimension
 from openspending.model.dataset import Dataset
+from openspending.model.account import Account
 
 # shut up useless SA warning:
 import warnings
