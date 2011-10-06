@@ -8,7 +8,6 @@ from bson import ObjectId
 from webob.exc import HTTPNotFound, HTTPMovedPermanently
 
 from openspending import model
-from openspending.ui.controllers.entity import EntityController
 
 from .. import ControllerTestCase, url, helpers as h
 
