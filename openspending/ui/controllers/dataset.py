@@ -44,7 +44,7 @@ class DatasetController(BaseController):
             return render('dataset/index.html')
 
     def view(self, dataset, format='html'):
-        c.dataset = model.Dataset.by_name(dataset)
+        self._get_dataset(dataset)
         c.num_entries = len(c.dataset)
 
         handle_request(request, c, c.dataset)

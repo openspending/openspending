@@ -21,9 +21,7 @@ class EntryController(BaseController):
     extensions = PluginImplementations(IEntryController)
     
     def index(self, dataset, format='html'):
-        c.dataset = model.Dataset.by_name(dataset)
-        if not c.dataset:
-            abort(404, _('Sorry, there is no dataset named %r') % dataset)
+        self._get_dataset(dataset)
         url = h.url_for(controller='entry', action='index',
                     dataset=c.dataset.name)
         c.browser = Browser(c.dataset, request.params, url=url)
@@ -38,9 +36,7 @@ class EntryController(BaseController):
             return render('entry/index.html')
 
     def view(self, dataset, id, format='html'):
-        c.dataset = model.Dataset.by_name(dataset)
-        if not c.dataset:
-            abort(404, _('Sorry, there is no dataset named %r') % dataset)
+        self._get_dataset(dataset)
         try:
             id = int(id)
         except:

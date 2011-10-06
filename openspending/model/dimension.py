@@ -158,6 +158,18 @@ class CompoundDimension(Dimension, TableHandler):
         pk = self._upsert(bind, dim, ['name'])
         return {self.column.name: pk}
 
+    def members(self, conditions="1=1", limit=0, offset=0):
+        query = db.select([self.alias], conditions, 
+                          limit=limit, offset=offset)
+        rp = self.dataset.bind.execute(query)
+        while True:
+            row = rp.fetchone()
+            if row is None:
+                break
+            member = dict(row.items())
+            member['taxonomy'] = self.taxonomy
+            yield member
+
     def __repr__(self):
         return "<CompoundDimension(%s/%s:%s)>" % (self.taxonomy, self.name, 
                                                  self.attributes)
