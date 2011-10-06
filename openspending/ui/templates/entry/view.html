@@ -27,7 +27,7 @@
     <p>
       This is a single transaction of ${c.currency}
       ${h.format_number_with_commas(c.amount)} on ${c.time} in
-      ${h.dataset_link(c.dataset)}.
+      <a href="${h.dataset_url(c.dataset)}">${c.dataset.label or c.dataset.name}</a>.
     </p>
 
     <py:if test="c.custom_html">
@@ -42,14 +42,20 @@
       </span>
       <div>
         <img src="${h.static('img/icons/arrow_left_12x12.png')}" />
-        ${h.dimension_link(c.from_)}
+        <a py:if="c.from_"
+              href="${h.url_for(controller='classifier', action='view',
+              dataset=c.dataset.name, taxonomy='entity',
+              name=c.from_.get('name'))}">${h.render_value(c.from_)}</a>
       </div>
       <span>
         ${c.desc.get('to', {}).label or _('Spender')}:
       </span>
       <div>
         <img src="${h.static('img/icons/arrow_right_12x12.png')}" />
-        ${h.dimension_link(c.to)}
+        <a py:if="c.to"
+              href="${h.url_for(controller='classifier', action='view',
+              dataset=c.dataset.name, taxonomy='entity',
+              name=c.to.get('name'))}">${h.render_value(c.to)}</a>
       </div>
     </div><!-- /.entities -->
 
@@ -85,14 +91,7 @@
             <py:otherwise>${key}:</py:otherwise>
           </td>
           <td py:choose="">
-            <py:when test="isinstance(value, dict)">
-              <py:if test="value.get('label') or value.get('name')">
-                    ${h.dimension_link(value)}
-              </py:if>
-            </py:when>
-            <py:otherwise>
-              ${h.render_value(value) if value else '&nbsp;'}
-            </py:otherwise>
+            ${h.dimension_link(c.dataset.name, c.desc.get(key), value)}
           </td>
           <td>
             <i>${c.desc.get(key).description}</i>

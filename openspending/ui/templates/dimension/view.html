@@ -32,7 +32,7 @@
         </thead>
         <tbody> 
           <tr py:for="(v, s) in c.page">
-            <td>${h.dimension_link(v)}</td>
+            <td>${h.dimension_link(c.dataset.name, c.dimension, v)}</td>
             <td class="num">${h.format_number_with_commas(s)}</td>
           </tr>
         </tbody>

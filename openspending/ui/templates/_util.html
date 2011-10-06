@@ -28,9 +28,15 @@
         <tr py:for="entry in page">
           <td>${entry.get('time.unparsed')}</td>
           <td>
-            <a py:if="entry.get('from.id')" href="${h.url_from_solr_doc(entry, 'entity', prefix='from.', action='view')}">${entry.get('from.label')}</a></td>
+            <a py:if="entry.get('from.id')"
+              href="${h.url_for(controller='classifier', action='view',
+              dataset=dataset.name, taxonomy='entity',
+              name=entry.get('from.name'))}">${entry.get('from.label')}</a></td>
           <td>
-            <a py:if="entry.get('to.id')" href="${h.url_from_solr_doc(entry, 'entity', prefix='to.', action='view')}">${entry.get('to.label')}</a></td>
+            <a py:if="entry.get('to.id')" 
+              href="${h.url_for(controller='classifier', action='view',
+              dataset=dataset.name, taxonomy='entity',
+              name=entry.get('to.name'))}">${entry.get('to.label')}</a></td>
           <td class="num">
             ${h.format_number_with_commas(
                 entry.get('amount'))}

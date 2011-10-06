@@ -160,6 +160,10 @@ class Dataset(TableHandler, db.Model):
                 else:
                     if not field in result:
                         result[field] = dict()
+
+                        # TODO: backwards-compat?
+                        if isinstance(self[field], CompoundDimension):
+                            result[field]['taxonomy'] = self[field].taxonomy
                     result[field][attr] = v
             yield result
 
@@ -287,6 +291,11 @@ class Dataset(TableHandler, db.Model):
                     else:
                         if not dimension in result:
                             result[dimension] = {}
+
+                            # TODO: backwards-compat?
+                            if isinstance(self[dimension], CompoundDimension):
+                                result[dimension]['taxonomy'] = \
+                                        self[dimension].taxonomy
                         result[dimension][attribute] = value
                 else:
                     if key == 'entries':

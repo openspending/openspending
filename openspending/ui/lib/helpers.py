@@ -46,14 +46,6 @@ def render_value(value):
     return value
 
 
-def convert_search_result(result):
-    entry_id = result.get('id', '')
-    entry = model.Entry.c.find_one({'_id': entry_id})
-    if entry is None:
-        return result
-    return entry
-
-
 def entity_slug(entity):
     '''generate an ascii slug for an entity.
 
@@ -98,30 +90,19 @@ def _render_custom_html(tpl, name, obj):
     else:
         return None
 
+
 def classifier_url(dataset, classifier, **kwargs):
     return url_for(controller='classifier',
                    action='view',
                    dataset=dataset,
                    name=classifier.get('name'),
-                   taxonomy=classifier.get('taxonomy'), **kwargs)
-
-def classifier_link(classifier, **kwargs):
-    kwargs['class'] = 'classifier-link'
-    return link_to(classifier.get('label', classifier.get('name')),
-                   classifier_url(dataset, classifier),
+                   taxonomy=classifier.get('taxonomy'), 
                    **kwargs)
+
 
 def dataset_url(dataset, **kwargs):
     return url_for(controller='dataset',
                    action='view', dataset=dataset.name, **kwargs)
-
-
-def dataset_link(dataset, **kwargs):
-    kwargs['class'] = 'dataset-link'
-    return link_to(dataset.label or dataset.name,
-                   dataset_url(dataset),
-                   **kwargs)
-
 
 def entry_url(dataset, entry, **kwargs):
     kwargs.setdefault('action', 'view')
@@ -134,140 +115,12 @@ def entry_link(dataset, entry, **kwargs):
     return link_to(entry.get('label', entry.get('name', "(Unnamed)")),
                    entry_url(dataset, entry), **kwargs)
 
-url_functions = {'classifier': classifier_url,
-                 'entry': entry_url,
-                 'dataset': dataset_url}
 
-link_functions = {'classifier': classifier_link,
-                  'entry': entry_link,
-                  'dataset': dataset_link}
-
-
-def dimension_url(obj):
-    fallback = lambda o: '#'
-    return _gen_dimension(obj, url_functions, fallback)
-
-
-def dimension_link(obj):
-    return _gen_dimension(obj, link_functions, render_value)
-
-
-def _gen_dimension(obj, map, fallback):
-    '''
-    Function to generate links for denormalized
-    classifiers, entities, datasets or entries that
-    contain a DBRef.
-
-    Takes a dict *obj* which should contain a pymongo
-    :class:`bson.dbref.DBRef` object in the key 'ref'
-    and calls a function in the dictionary *map* based
-    on the collection the DBRef links to with the
-    dereferenced mongodb document as a parameter.
-
-    ``obj``
-        A ``dict`` with the denormalized values
-    ``map``
-        A ``dict`` where the keys are collection names
-        and the values are functions that accept the *obj*
-        as a parameter.
-    ``fallback``
-        A function that can be used as a fallback if no
-        function is found in *map*.
-
-    Return: The return value of one of the functions in *map*
-    or the retrn value of the fallback function.
-    '''
-    if not isinstance(obj, dict):
-        return fallback(obj)
-    ref = obj.get('ref', {})
-    if not isinstance(ref, dict):
-        ref = ref.as_doc()
-    return map.get(ref.get('$ref'), fallback)(obj)
-
-
-def url_from_solr_doc(solr_doc, model_type, prefix='', **kwargs):
-    '''
-    Helper to use the *_url() functions in this module with
-    documents returned by a solr query.
-
-    ``solr_doc``
-        A document returned by solr
-    ``model_type``
-        A model type. type: string ('entity', 'classifier',
-        'entry' or 'dataset')
-    ``prefix``
-        The prefix inside the solr doc. Solr docs are returned
-        as flat dictionary with a '.' as a seperator. E.g.
-        the dimension "from", which is a dict in mongodb,
-        will be returned as "from.id", "from.name", ...
-        The prefix for from is "from."
-    ``**kwargs``
-        Arguments that will be passed to the url function,
-        e.g. action or format.
-    '''
-    return _gen_from_solr_doc(solr_doc, model_type, prefix,
-                              url_functions, **kwargs)
-
-
-def link_from_solr_doc(solr_doc, model_type, prefix='', **kwargs):
-    '''
-    Helper to use the *_link() functions in this module with
-    documents returned by a solr query.
-
-    ``solr_doc``
-        A document returned by solr
-    ``model_type``
-        A model type. type: string ('entity', 'classifier',
-        'entry' or 'dataset')
-    ``prefix``
-        The prefix inside the solr doc. Solr docs are returned
-        as flat dictionary with a '.' as a seperator. E.g.
-        the dimension "from", which is a dict in mongodb,
-        will be returned as "from.id", "from.name", ...
-        The prefix for from is "from."
-    ``**kwargs``
-        Arguments that will be passed to the url function,
-        e.g. action or format.
-    '''
-    return _gen_from_solr_doc(solr_doc, model_type, prefix,
-                              link_functions, **kwargs)
-
-
-def _gen_from_solr_doc(solr_doc, model_type, prefix, functions, **kwargs):
-    '''
-    Helper to use the functions in this module with
-    documents returned by a solr query.
-
-    ``solr_doc``
-        A document returned by solr
-    ``model_type``
-        A model type. type: string ('entity', 'classifier',
-        'entry' or 'dataset')
-    ``prefix``
-        The prefix inside the solr doc. Solr docs are returned
-        as flat dictionary with a '.' as a seperator. E.g.
-        the dimension "from", which is a dict in mongodb,
-        will be returned as "from.id", "from.name", ...
-        The prefix for from is "from."
-    ``functions``
-        A ``dict`` where keys are model types and values are functions
-        to call with a dict (extracted from the solr document) and the
-        ***kwargs*.
-    ``**kwargs``
-        Arguments that will be passed to the url function,
-        e.g. action or format.
-    '''
-    obj = {}
-    attributes = (('id', '_id'),
-                  ('name', 'name'),
-                  ('label', 'label'))
-    for (source, target) in attributes:
-        obj[target] = solr_doc.get("%s%s" % (prefix, source), '')
-    function = functions.get(model_type, None)
-    if function is None:
-        return '#'
-    else:
-        return function(obj, **kwargs)
+def dimension_link(dataset, dimension, data):
+    text = render_value(data)
+    if isinstance(data, dict) and data['name']:
+        text = link_to(text, classifier_url(dataset, data))
+    return text
 
 
 def format_number(number):
