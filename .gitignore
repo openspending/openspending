@@ -9,3 +9,5 @@
 /.noseids
 /linesman-enabled
 /sessions.db
+openspending/test/fixtures/.DS_Store
+openspending.db

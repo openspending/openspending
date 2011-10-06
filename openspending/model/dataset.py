@@ -54,6 +54,7 @@ class Dataset(TableHandler, db.Model):
             else:
                 dimension = CompoundDimension(self, dim, data)
             self.dimensions.append(dimension)
+        self.generate()
 
     def __getitem__(self, name):
         """ Access a field (dimension or measure) by name. """
@@ -316,7 +317,4 @@ class Dataset(TableHandler, db.Model):
 
     @classmethod
     def by_name(cls, name):
-        ds = db.session.query(cls).filter_by(name=name).first()
-        if ds is not None:
-            ds.generate()
-        return ds
+        return db.session.query(cls).filter_by(name=name).first()

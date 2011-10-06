@@ -125,7 +125,7 @@ def dataset_link(dataset, **kwargs):
 
 def entry_url(dataset, entry, **kwargs):
     kwargs.setdefault('action', 'view')
-    return url_for(controller='entry', id=str(entry['_id']),
+    return url_for(controller='entry', id=str(entry['id']),
                    dataset=dataset, **kwargs)
 
 

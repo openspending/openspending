@@ -36,7 +36,6 @@ class TestDataset(DatabaseTestCase):
         assert isinstance(self.ds['amount'], Measure), self.ds['amount']
 
     def test_value_dimensions_as_attributes(self):
-        self.ds.generate()
         dim = self.ds['field']
         assert isinstance(dim.column.type, UnicodeText), dim.column
         assert 'field'==dim.column.name, dim.column
@@ -54,7 +53,6 @@ class TestDataset(DatabaseTestCase):
         assert not hasattr(dim, 'alias')
 
     def test_generate_db_entry_table(self):
-        self.ds.generate()
         assert self.ds.table.name=='test_entry', self.ds.table.name
         cols = self.ds.table.c
         assert 'id' in cols
@@ -79,7 +77,6 @@ class TestDatasetLoad(DatabaseTestCase):
         super(TestDatasetLoad, self).setup()
         self.ds = Dataset(SIMPLE_MODEL)
         self.engine = db.engine
-        self.ds.generate()
         self.reader = csv.DictReader(StringIO(TEST_DATA))
     
     def test_load_all(self):

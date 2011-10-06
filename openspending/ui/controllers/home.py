@@ -39,7 +39,7 @@ class HomeController(BaseController):
         c.template = 'home/index.html'
 
         if c.dataset:
-            c.num_entries = model.entry.find({"dataset.name": c.dataset['name']}).count()
+            c.num_entries = len(c.dataset)
 
             views.handle_request(request, c, c.dataset)
 
