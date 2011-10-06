@@ -35,7 +35,7 @@ class EntryController(BaseController):
             c.browser.to_csv()
             return
         else:
-            return render('dataset/entries.html')
+            return render('entry/index.html')
 
     def view(self, dataset, id, format='html'):
         c.dataset = model.Dataset.by_name(dataset)
