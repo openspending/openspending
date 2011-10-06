@@ -12,7 +12,6 @@ from openspending.ui.lib.page import Page
 
 log = logging.getLogger(__name__)
 
-ENTRY_FIELDS = ["time", "amount", "currency", "_id"]
 PAGE_SIZE = 100
 
 class DimensionController(BaseController):

@@ -5,7 +5,7 @@ import shutil
 from openspending import migration, mongo
 from .. import DatabaseTestCase, helpers as h
 
-class TestMigration(DatabaseTestCase):
+class TeXXstMigration(DatabaseTestCase):
     def setup(self):
         super(TestMigration, self).setup()
         migration.root = None

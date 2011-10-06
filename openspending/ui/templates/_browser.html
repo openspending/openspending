@@ -55,7 +55,7 @@
 </div>
 <div class="span-18">
   <xi:include href="_timegraph.html" />
-  ${entries_page(c.browser.page)}
+  ${entries_page(c.dataset, c.browser.page)}
 </div>
 <div class="span-6 last">
   <py:for each="facet in c.browser.facets"

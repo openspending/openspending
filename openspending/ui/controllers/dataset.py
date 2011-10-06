@@ -7,28 +7,61 @@ from pylons.controllers.util import abort
 from pylons.i18n import _
 
 from openspending import model
+from openspending.model import meta as db
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IDatasetController
+from openspending.lib.csvexport import write_csv
+from openspending.ui.lib.jsonp import to_jsonp
 from openspending.lib import json
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.browser import Browser
-from openspending.ui.lib.restapi import RestAPIMixIn
 from openspending.ui.lib.views import View, ViewState, handle_request
-from openspending.ui.lib.authz import requires
 from openspending.ui.lib.color import rgb_rainbow
 
 log = logging.getLogger(__name__)
 
-class DatasetController(BaseController, RestAPIMixIn):
+class DatasetController(BaseController):
 
     extensions = PluginImplementations(IDatasetController)
 
     model = model.Dataset
 
-    def view(self, name, format="html"):
-        d = model.Dataset.by_name(name)
-        return self._view(dataset=d, format=format)
+    def index(self, format='html'):
+        results = db.session.query(model.Dataset).all()
+        for item in self.extensions:
+            item.index(c, request, response, results)
+
+        c.results = results
+        if format == 'json':
+            return to_jsonp(map(lambda d: d.as_dict(), 
+                                results))
+        elif format == 'csv':
+            results = map(lambda d: d.as_dict(), results)
+            write_csv(results, response)
+            return
+        else:
+            return render('dataset/index.html')
+
+    def view(self, dataset, format='html'):
+        c.dataset = model.Dataset.by_name(dataset)
+        c.num_entries = len(c.dataset)
+
+        handle_request(request, c, c.dataset)
+
+        if c.view is None:
+            url = h.url_for(controller='entry', action='index',
+                        dataset=c.dataset.name)
+            c.browser = Browser(c.dataset, request.params, url=url)
+            c.browser.facet_by_dimensions()
+
+        for item in self.extensions:
+            item.read(c, request, response, c.dataset)
+
+        if format == 'json':
+            return to_jsonp(c.dataset.as_dict())
+        else:
+            return render('dataset/view.html')
 
     def bubbles(self, name, breakdown_field, drilldown_fields, format="html"):
         c.drilldown_fields = json.dumps(drilldown_fields.split(','))
@@ -56,52 +89,6 @@ class DatasetController(BaseController, RestAPIMixIn):
             delattr(c, 'time') # disable treemap(!)
 
         return render(c.template)
-
-    def _entry_q(self, dataset):
-        return  {'dataset': dataset.name}
-
-    def _index_html(self, results):
-        for item in self.extensions:
-            item.index(c, request, response, results)
-
-        c.results = results
-        return render('dataset/index.html')
-
-    def _make_browser(self):
-        url = h.url_for(controller='dataset', action='entries',
-                        name=c.dataset.name)
-        c.browser = Browser(c.dataset, request.params, url=url)
-        c.browser.facet_by_dimensions()
-
-    def _view_html(self, dataset):
-        c.dataset = dataset
-        c.num_entries = len(c.dataset)
-
-        handle_request(request, c, c.dataset)
-
-        if c.view is None:
-            self._make_browser()
-
-        for item in self.extensions:
-            item.read(c, request, response, c.dataset)
-
-        return render('dataset/view.html')
-
-    def entries(self, name, format='html'):
-        c.dataset = model.Dataset.by_name(name)
-        if not c.dataset:
-            abort(404, _('Sorry, there is no dataset named %r') % name)
-        self._make_browser()
-
-        if format == 'json':
-            return c.browser.to_jsonp()
-        elif format == 'csv':
-            return c.browser.to_csv()
-        else:
-            return self._entries_html()
-
-    def _entries_html(self):
-        return render('dataset/entries.html')
 
     def explorer(self, name=None):
         c.dataset = model.Dataset.by_name(name)

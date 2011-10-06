@@ -6,19 +6,34 @@ from pylons.i18n import _
 from routes import url_for
 
 from openspending import model
-from openspending.lib.util import deep_get
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IEntryController
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.browser import Browser
-from openspending.ui.lib.restapi import RestAPIMixIn
+from openspending.ui.lib import helpers as h
 
 log = logging.getLogger(__name__)
 
-class EntryController(BaseController, RestAPIMixIn):
+class EntryController(BaseController):
 
     extensions = PluginImplementations(IEntryController)
-    model = model.entry
+    
+    def index(self, dataset, format='html'):
+        c.dataset = model.Dataset.by_name(dataset)
+        if not c.dataset:
+            abort(404, _('Sorry, there is no dataset named %r') % dataset)
+        url = h.url_for(controller='entry', action='index',
+                    dataset=c.dataset.name)
+        c.browser = Browser(c.dataset, request.params, url=url)
+        c.browser.facet_by_dimensions()
+
+        if format == 'json':
+            return c.browser.to_jsonp()
+        elif format == 'csv':
+            c.browser.to_csv()
+            return
+        else:
+            return render('dataset/entries.html')
 
     def _view_html(self, entry):
         c.entry = entry

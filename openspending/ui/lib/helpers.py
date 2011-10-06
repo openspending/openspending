@@ -97,29 +97,22 @@ def _render_custom_html(tpl, name, obj):
     else:
         return None
 
-
-
-def classifier_url(classifier, **kwargs):
-    if len(classifier.get('name', '')):
-        return url_for(controller='classifier',
-                       action='view_by_taxonomy_name',
-                       name=classifier.get('name'),
-                       taxonomy=classifier.get('taxonomy'), **kwargs)
-    else:
-        return url_for(controller='classifier',
-                       action='view', id=str(classifier.get('_id')), **kwargs)
-
+def classifier_url(dataset, classifier, **kwargs):
+    return url_for(controller='classifier',
+                   action='view',
+                   dataset=dataset,
+                   name=classifier.get('name'),
+                   taxonomy=classifier.get('taxonomy'), **kwargs)
 
 def classifier_link(classifier, **kwargs):
     kwargs['class'] = 'classifier-link'
     return link_to(classifier.get('label', classifier.get('name')),
-                   classifier_url(classifier),
+                   classifier_url(dataset, classifier),
                    **kwargs)
-
 
 def dataset_url(dataset, **kwargs):
     return url_for(controller='dataset',
-                   action='view', name=dataset.name, **kwargs)
+                   action='view', dataset=dataset.name, **kwargs)
 
 
 def dataset_link(dataset, **kwargs):
@@ -129,40 +122,23 @@ def dataset_link(dataset, **kwargs):
                    **kwargs)
 
 
-def entity_url(entity, **kwargs):
-    id_ = str(entity['_id'])
-    action = kwargs.setdefault('action', 'view')
-    if action == 'view' and kwargs.get('format', 'html') == 'html':
-        kwargs['slug'] = entity_slug(entity)
-    return url_for(controller='entity', id=id_, **kwargs)
-
-
-def entity_link(entity, **kwargs):
-    kwargs['class'] = 'entity-link'
-    return link_to(entity.get('label', entity.get('name')),
-                   entity_url(entity),
-                   **kwargs)
-
-
-def entry_url(entry, **kwargs):
+def entry_url(dataset, entry, **kwargs):
     kwargs.setdefault('action', 'view')
     return url_for(controller='entry', id=str(entry['_id']),
-            **kwargs)
+                   dataset=dataset, **kwargs)
 
 
-def entry_link(entry, **kwargs):
+def entry_link(dataset, entry, **kwargs):
     kwargs['class'] = 'entry-link'
     return link_to(entry.get('label', entry.get('name', "(Unnamed)")),
-                   entry_url(entry), **kwargs)
+                   entry_url(dataset, entry), **kwargs)
 
 url_functions = {'classifier': classifier_url,
                  'entry': entry_url,
-                 'entity': entity_url,
                  'dataset': dataset_url}
 
 link_functions = {'classifier': classifier_link,
                   'entry': entry_link,
-                  'entity': entity_link,
                   'dataset': dataset_link}
 
 

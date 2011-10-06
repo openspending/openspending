@@ -5,16 +5,16 @@
 
   <py:def function="nav_class">nav-dataset</py:def>
 
-  <py:def function="page_title">${c.dataset['label']}</py:def>
+  <py:def function="page_title">${c.dataset.label or c.dataset.name}</py:def>
 
   <form py:def="search_form" method="get" action="search">
-      <input type="hidden" name="dataset" value="${c.dataset['label']}"/>
-      <input type="search" placeholder="Search ${c.dataset['label']}" name="q"/>
+      <input type="hidden" name="dataset" value="${c.dataset.label}"/>
+      <input type="search" placeholder="Search ${c.dataset.label}" name="q"/>
   </form>
 
 
   <div py:def="content">
-    <h2 class="page-title">${c.dataset['label']}</h2>
+    <h2 class="page-title">${c.dataset.label}</h2>
     <py:if test="hasattr(c, 'viewstate')">
       ${view_panel(c.viewstate)}
     </py:if>
@@ -22,18 +22,17 @@
     <div class="span-24 last" id="vis"></div>
     <div class="span-16">
       <h3>Description</h3>
-      <div class="no-desc" py:if="not c.dataset.get('description')">
-        No description is available for ${c.dataset['label']}
+      <div class="no-desc" py:if="not c.dataset.description">
+        No description is available for ${c.dataset.label}
       </div>
-      ${h.markdown(c.dataset.get('description'))}
+      ${h.markdown(c.dataset.description)}
     </div>
     <div class="span-8 submenu last">
       <h3>Research</h3>
       <ul>
-        <li><a href="${url(controller='dataset', action='entries', name=c.dataset['name'])}">Search</a>: ${c.num_entries} spending entries</li>
-        <li><a href="${url(controller='dimension', action='index', dataset=c.dataset['name'])}">Dimensions</a>: Explore the data model</li>
-        <!--li><a href="${url(controller='dataset', action='explorer',
-          name=c.dataset['name'])}">Explorer</a>: Dynamic data visualisations</li-->
+        <li><a href="${url(controller='entry', action='index', dataset=c.dataset.name)}">Search</a>: ${c.num_entries} spending entries</li>
+        <li><a href="${url(controller='dimension', action='index',
+          dataset=c.dataset.name)}">Dimensions</a>: Explore the data model</li>
       </ul>
     </div>
     <div class="span-24 last">
@@ -45,9 +44,9 @@
     <div id="comments" class="comments">
     </div>
     <div id="access" class="span-24 last">
-      Download a machine-readable version of <i>${c.dataset['label']}</i> (metadata):
-      <a href="${url(controller='dataset', action='view', name=c.dataset['name'], format='json')}"><img src="${h.static('img/icons/json.png')}" alt="JSON" /></a>
-      <a href="${url(controller='dataset', action='view', name=c.dataset['name'], format='csv')}"><img src="${h.static('img/icons/csv.png')}" alt="CSV" /></a>
+      Download a machine-readable version of <i>${c.dataset.label}</i> (metadata):
+      <a href="${url(controller='dataset', action='view', dataset=c.dataset.name, format='json')}"><img src="${h.static('img/icons/json.png')}" alt="JSON" /></a>
+      <a href="${url(controller='dataset', action='view', dataset=c.dataset.name, format='csv')}"><img src="${h.static('img/icons/csv.png')}" alt="CSV" /></a>
     </div>
 
   </div>

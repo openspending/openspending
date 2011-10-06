@@ -16,21 +16,21 @@ class TestDimensionController(ControllerTestCase):
         h.assert_true('Paid by' in response, "'Paid by' not in response!")
         h.assert_true('Paid to' in response, "'Paid to' not in response!")
         h.assert_true('Programme Object Group' in response, "'Programme Object Group' not in response!")
-        h.assert_true('Capital/Current' in response, "'Paid by' not in response!")
+        h.assert_true('Central government' in response, "'Central government' not in response!")
 
     def test_index_descriptions(self):
         response = self.app.get(url(controller='dimension', dataset='cra',
                                     action='index'))
         h.assert_true('The entity that the money was paid from.' in response,
                       "'The entity that the money was paid from.' not in response!")
-        h.assert_true('Capital (one-off investment) or Current (on-going running costs)' in response,
-                      "'Capital (one-off investment) or Current (on-going running costs)' not in response!")
+        h.assert_true('Central government, local government or public' in response,
+                      "'Central government, local government or public' not in response!")
 
     def test_index_json(self):
         response = self.app.get(url(controller='dimension', dataset='cra',
                                     action='index', format='json'))
         obj = json.loads(response.body)
-        h.assert_equal(len(obj), 9)
+        h.assert_equal(len(obj), 12)
         h.assert_equal(obj[0]['key'], 'from')
         h.assert_equal(obj[0]['label'], 'Paid by')
 

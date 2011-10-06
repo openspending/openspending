@@ -12,16 +12,13 @@ from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.views import handle_request
 from openspending.ui.lib.helpers import url_for
 from openspending.ui.lib.browser import Browser
-from openspending.ui.lib.restapi import RestAPIMixIn
 
 log = logging.getLogger(__name__)
 
 
-class ClassifierController(BaseController, RestAPIMixIn):
+class ClassifierController(BaseController):
 
     extensions = PluginImplementations(IClassifierController)
-
-    model = model.classifier
 
     @beaker_cache(invalidate_on_startup=True,
                   cache_response=False,

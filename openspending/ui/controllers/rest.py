@@ -14,7 +14,7 @@ class RestController(BaseController):
         dataset = db.session.query(Dataset).first()
         entry = list(dataset.materialize(limit=1)).pop()
         c.urls = [
-            url(controller='dataset', action='view', name=dataset.name,
+            url(controller='dataset', action='view', dataset=dataset.name,
                 format='json'),
             url(controller='entry', action='view', dataset=dataset.name,
                 id=entry['id'], format='json')]

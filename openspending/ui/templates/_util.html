@@ -13,7 +13,7 @@
     <py:if test="">&ndash;</py:if>
   </span>
 
-  <div py:def="entries_page(page)">
+  <div py:def="entries_page(dataset, page)">
     <table>
       <thead>
         <tr>
@@ -36,7 +36,7 @@
                 entry.get('amount'))}
             ${entry.get('currency')}
           </td>
-          <td><a href="${h.entry_url(entry)}">full entry &raquo;</a></td>
+          <td><a href="${h.entry_url(dataset.name, entry)}">full entry &raquo;</a></td>
         </tr>
       </tbody>
       <tfoot>
