@@ -5,7 +5,11 @@ from pylons.i18n import _
 def has_role(role, user):
     if user is None:
         return None
-    return role in user.get('roles', [])
+    if user.admin:
+        return True
+    if role == 'user':
+        return True
+    return False
 
 def have_role(role):
     from pylons import tmpl_context as c

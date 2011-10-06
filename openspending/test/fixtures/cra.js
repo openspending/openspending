@@ -54,7 +54,8 @@
       "label": "Region",
       "description": "",
       "datatype": "string",
-      "type": "value"
+      "type": "value",
+      "facet": true
     },
     "name": {
       "column": "name",
@@ -97,7 +98,8 @@
       ],
       "label": "COFOG level 1",
       "description": "Classification Of Function Of Government, level 1",
-      "taxonomy": "cofog"
+      "taxonomy": "cofog",
+      "facet": true
     },
     "cofog2": {
       "type": "classifier",

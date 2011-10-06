@@ -89,7 +89,8 @@ class Browser(object):
             key = dimension.name
             if dimension.type != 'value':
                 key += DIMENSION_LABEL
-            self.facets.append(key)
+            if dimension.facet:
+                self.facets.append(key)
 
     def facet_by(self, *facets):
         self.facets.extend(facets)
