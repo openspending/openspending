@@ -1,6 +1,5 @@
 from urllib import urlencode
 
-from openspending import model
 from openspending.lib import json
 from openspending.lib import solr_util as solr
 from openspending.lib.csvexport import write_csv

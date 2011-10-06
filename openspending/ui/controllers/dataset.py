@@ -75,8 +75,7 @@ class DatasetController(BaseController, RestAPIMixIn):
 
     def _view_html(self, dataset):
         c.dataset = dataset
-
-        c.num_entries = model.entry.find({'dataset.name': dataset['name']}).count()
+        c.num_entries = len(c.dataset)
 
         handle_request(request, c, c.dataset)
 
@@ -97,7 +96,7 @@ class DatasetController(BaseController, RestAPIMixIn):
         if format == 'json':
             return c.browser.to_jsonp()
         elif format == 'csv':
-            c.browser.to_csv()
+            return c.browser.to_csv()
         else:
             return self._entries_html()
 

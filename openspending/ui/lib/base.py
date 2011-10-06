@@ -18,6 +18,15 @@ from openspending.plugins.interfaces import IGenshiStreamFilter, IRequest
 import logging
 log = logging.getLogger(__name__)
 
+
+ACCEPT_MIMETYPES = {
+    "application/json": "json",
+    "text/javascript": "json",
+    "application/javascript": "json",
+    "text/csv": "csv"
+    }
+
+
 def render(template_name,
            extra_vars=None,
            form_fill=None, form_errors={},
@@ -115,3 +124,9 @@ class BaseController(WSGIController):
             if dataset.name.lower() == dataset_name:
                 c.dataset = dataset
 
+    def _detect_format(self, format):
+        for mimetype, mimeformat in self.accept_mimetypes.items():
+            if format == mimeformat or \
+                    mimetype in request.headers.get("Accept", ""):
+                return mimeformat
+        return "html"
