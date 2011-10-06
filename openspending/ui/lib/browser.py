@@ -12,7 +12,7 @@ DIMENSION_LABEL = ".label_facet"
 
 class Browser(object):
 
-    def __init__(self, args, dataset=None, url=None):
+    def __init__(self, dataset, args, url=None):
         self.args = args
         self.url = url
         self.dataset = dataset
@@ -80,9 +80,9 @@ class Browser(object):
         facet = facet.replace(DIMENSION_LABEL, "")
         if not len(facet):
             return "(Unknown)"
-        for dimension in self.dimensions:
-            if dimension.get('key') == facet:
-                return dimension.get('label', facet)
+        for dimension in self.dataset.dimensions:
+            if dimension.name == facet:
+                return dimension.label or facet
         return facet.capitalize().replace("_", " ")
 
     def facet_by_dimensions(self):
@@ -187,15 +187,10 @@ class Browser(object):
 
     @property
     def entities(self):
-        def _ids(obj):
-            r = [obj['_id']]
-            try:
-                r.append(ObjectId(obj['_id']))
-            except mongo.InvalidId:
-                pass
-            return r
-        ids = [id for sub in map(_ids, self.items) for id in sub]
-        return list(model.entry.find({"_id": {"$in": ids}}))
+        ids = map(lambda i: i['id'], self.items)
+        query = self.dataset.alias.c.id.in_(ids)
+        entries = self.dataset.materialize(query)
+        return list(entries)
 
     def to_jsonp(self):
         return jsonp.to_jsonp({

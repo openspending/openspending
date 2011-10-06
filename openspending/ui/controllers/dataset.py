@@ -70,8 +70,7 @@ class DatasetController(BaseController, RestAPIMixIn):
     def _make_browser(self):
         url = h.url_for(controller='dataset', action='entries',
                         name=c.dataset.name)
-        c.browser = Browser(request.params, dataset=c.dataset,
-                            url=url)
+        c.browser = Browser(c.dataset, request.params, url=url)
         c.browser.facet_by_dimensions()
 
     def _view_html(self, dataset):

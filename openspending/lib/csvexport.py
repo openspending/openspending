@@ -4,6 +4,7 @@ import sys
 from datetime import datetime
 
 from openspending import model
+from openspending.lib.util import flatten
 
 def write_csv(entries, response):
     response.content_type = 'text/csv'
@@ -15,7 +16,7 @@ def write_csv(entries, response):
     rows = []
     for entry in entries:
         d = {}
-        for k, v in model.entry.to_query_dict(entry).items():
+        for k, v in flatten(entry).items():
             if isinstance(v, (list, tuple, dict)):
                 continue
             elif isinstance(v, datetime):

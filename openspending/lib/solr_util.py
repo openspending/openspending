@@ -7,11 +7,10 @@ from datetime import datetime
 from dateutil import tz
 from unicodedata import category
 
-from bson.dbref import DBRef
-from pymongo.objectid import ObjectId
 from solr import SolrConnection
 
 from openspending import model
+from openspending.lib.util import flatten
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import ISolrSearch
 
@@ -109,19 +108,11 @@ def safe_unicode(s):
         return s
     return u"".join([c for c in unicode(s) if not category(c)[0] == 'C'])
 
-def flatten_dict(data, sep='.'):
-    out = {}
-    for k, v in data.items():
-        if isinstance(v, dict):
-            for ik, iv in flatten_dict(v, sep).items():
-                out[k + sep + ik] = iv
-        else:
-            out[k] = v
-    return out 
+
 
 def extend_entry(entry, dataset):
     entry['dataset'] = dataset.data.get('dataset', {})
-    entry = flatten_dict(entry)
+    entry = flatten(entry)
     entry['_id'] = dataset.name + '::' + unicode(entry['id'])
     for k, v in entry.items():
         # this is similar to json encoding, but not the same.

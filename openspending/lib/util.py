@@ -3,6 +3,16 @@ import re
 from hashlib import sha1
 from unidecode import unidecode
 
+def flatten(data, sep='.'):
+    out = {}
+    for k, v in data.items():
+        if isinstance(v, dict):
+            for ik, iv in flatten(v, sep).items():
+                out[k + sep + ik] = iv
+        else:
+            out[k] = v
+    return out 
+
 def dict_intersection(o, d):
     intersect = {}
     for k, v in d.items():
