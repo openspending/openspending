@@ -4,8 +4,13 @@ from sqlalchemy import orm
 from openspending.model import meta as db
 from openspending.model.attribute import Attribute
 from openspending.model.dimension import AttributeDimension, \
-        CompoundDimension, Measure
+        CompoundDimension, Measure, Dimension
 from openspending.model.dataset import Dataset
+
+# shut up useless SA warning:
+import warnings
+warnings.filterwarnings('ignore', 'Unicode type received non-unicode bind param value.')
+
 
 def init_model(engine):
     """ Initialize the SQLAlchemy driver and session maker. """
