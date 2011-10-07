@@ -299,6 +299,8 @@ def format_number_with_commas(number):
     '''
     if number is None:
         return "-"
+    if number == 'NaN':
+        return "-"
     try:
         if math.isnan(number):
             return "-"        
