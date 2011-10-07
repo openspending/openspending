@@ -4,40 +4,36 @@ This module implements views on the database.
 import logging
 from collections import defaultdict
 
-from openspending import model
+from openspending.model import Dataset, meta as db
 
 log = logging.getLogger(__name__)
 
 class View(object):
 
-    def __init__(self, dataset, name, label, dimension,
-                 drilldown=None, cuts={}):
+    def __init__(self, dataset, view):
         self.dataset = dataset
-        self.name = name
-        self.label = label
-        self.dimension = dimension
-        self.drilldown = drilldown
-        self.cuts = cuts
+        self.entity = view.get('entity').lower().strip()
+        self.filters = view.get('filters', {})
+        if self.entity == 'entity':
+            self.filters['taxonomy'] = 'entity'
+        self.name = view.get('name')
+        self.label = view.get('label')
+        self.dimension = view.get('dimension')
+        self.drilldown = view.get('drilldown', 
+                                  view.get('breakdown'))
+        self.cuts = view.get('cuts', 
+                             view.get('view_filters', {}))
 
-    def apply_to(self, obj, filter):
-        """
-        Applies the view to all entities in the same collection of
-        ``obj`` that match the query ``filter``.
-
-        ``obj``
-            a model object (instance of :class:`openspending.model.Base`)
-        ``filter``
-            a :term:`mongodb query spec`
-        """
-        data = self.pack()
-        mongo.db[obj.collection].update(
-            filter,
-            {'$set': {'views.%s' % self.name: data}},
-            multi=True
-        )
+    def match(self, obj):
+        if isinstance(obj, Dataset):
+            return self.entity == 'dataset'
+        for k, v in self.filters.items():
+            if obj.get(k) != v:
+                return False
+        return True
 
     @classmethod
-    def by_name(cls, obj, name):
+    def by_name(cls, dataset, obj, name):
         """get a``View`` with the name ``name`` from the object
 
         ``obj``
@@ -50,38 +46,11 @@ class View(object):
 
         raises: ``ValueError`` if the view does not exist.
         """
-        if not 'views' in obj:
-            raise ValueError("%s has no views." % obj)
-        view_data = obj.get('views').get(name)
-        if view_data is None:
-            raise ValueError("View %s does not exist." % name)
-        return cls.unpack(name, view_data)
-
-    def pack(self):
-        """
-        Convert view to a form suitable for storage in MongoDB.
-        Internal method, no API.
-        """
-        return {
-            "label": self.label,
-            "dataset": self.dataset.get('name'),
-            "dimension": self.dimension,
-            "drilldown": self.drilldown,
-            "cuts": self.cuts
-            }
-
-    @classmethod
-    def unpack(cls, name, data):
-        """
-        Create a  :class:`View` instance from a view ``name``
-        and a datastructure ``data`` (like it is created by
-        :meth:`pack`). Internal mehtod, no API.
-
-        """
-        dataset = model.dataset.find_one_by('name', data.get('dataset'))
-        return cls(dataset, name, data.get('label'), data.get('dimension'),
-                   drilldown=data.get('drilldown'),
-                   cuts=data.get('cuts', {}))
+        for data in dataset.data.get('views', []):
+            view = cls(dataset, data)
+            if view.name == name and view.match(obj):
+                return view
+        raise ValueError("View %s does not exist." % name)
 
     @property
     def base_dimensions(self):
@@ -96,15 +65,6 @@ class View(object):
             dimensions.append(self.drilldown)
         return dimensions
 
-    @property
-    def signature(self):
-        return "view_%s_%s" % (self.name, "_".join(sorted(self.full_dimensions)))
-
-    def compute(self):
-        # TODO: decide if this is a good idea
-        if not find_cube(self.dataset, self.full_dimensions):
-            Cube.define_cube(self.dataset, self.signature, self.full_dimensions)
-
 
 class ViewState(object):
 
@@ -117,25 +77,31 @@ class ViewState(object):
         self._aggregates = None
 
     @property
+    def dataset(self):
+        return self.view.dataset
+
+    @property
     def available_views(self):
-        return self.obj.get('views', {})
+        views = []
+        for data in self.dataset.data.get('views', []):
+            view = View(self.dataset, data)
+            if view.match(self.obj):
+                views.append(view)
+        return views
 
     @property
     def cuts(self):
         _filters = self.view.cuts.items()
-        _filters.append((self.view.dimension + "._id", self.obj.get('_id')))
+        if isinstance(self.obj, dict):
+            _filters.append((self.view.dimension, self.obj['name']))
         return _filters
 
     @property
     def totals(self):
         if self._totals is None:
             self._totals = {}
-            cube = find_cube(self.view.dataset, self.view.base_dimensions)
-            if cube is None:
-                log.warn("Run-time has view without cube: %s",
-                        self.view.base_dimensions)
-                return self._totals
-            results = cube.query(['year'], self.cuts)
+            results = self.dataset.aggregate(drilldowns=['year'], 
+                                             cuts=self.cuts)
             for entry in results.get('drilldown'):
                 self._totals[str(entry.get('year'))] = entry.get('amount')
         return self._totals
@@ -147,16 +113,13 @@ class ViewState(object):
                 return []
             res = defaultdict(dict)
             drilldowns = {}
-            cube = find_cube(self.view.dataset, self.view.full_dimensions)
-            if cube is None:
-                log.warn("Run-time has view without cube: %s",
-                        self.view.full_dimensions)
-                return []
-            results = cube.query(['year', self.view.drilldown], self.cuts)
+            query = ['year', self.view.drilldown]
+            results = self.dataset.aggregate(drilldowns=query,
+                                             cuts=self.cuts)
             for entry in results.get('drilldown'):
                 d = entry.get(self.view.drilldown)
                 # Get a hashable key for the drilldown
-                key = d['_id'] if isinstance(d, dict) else d
+                key = d['id'] if isinstance(d, dict) else d
                 # Store a reference to this drilldown
                 drilldowns[key] = d
                 # Store drilldown value for this year
@@ -169,28 +132,31 @@ class ViewState(object):
                                           key=lambda (k, v): v.get(self.time, 0))
         return self._aggregates
 
-def times(dataset, time_axis):
-    return sorted(model.entry.find({'dataset.name': dataset}).distinct(time_axis))
+
+def times(dataset):
+    # FIXME: once time is a compound dimension, make this 
+    # cleaner!
+    field = db.func.strftime("%Y", dataset['time'].column_alias)
+    query = db.select([field.label('year')], dataset.alias, distinct=True)
+    rp = dataset.bind.execute(query)
+    return sorted([r['year'] for r in rp.fetchall()])
+
 
 def handle_request(request, c, obj):
     view_name = request.params.get('_view', 'default')
     try:
-        c.view = View.by_name(obj, view_name)
+        c.view = View.by_name(c.dataset, obj, view_name)
     except ValueError:
         c.view = None
         return
 
-    c.dataset = c.view.dataset
-    if c.dataset is None:
-        return
-    time_axis = c.dataset.get('time_axis', 'time.from.year')
     req_time = request.params.get('_time')
-    c.times = times(c.dataset.get('name'), time_axis)
+    c.times = times(c.dataset)
     if req_time in c.times:
         c.state['time'] = req_time
     c.time = c.state.get('time')
     if c.time not in c.times and len(c.times):
-        c.time = c.dataset.get('default_time', c.times[-1])
+        c.time = c.dataset.default_time or c.times[-1]
     # TODO: more clever way to set comparison time
     c.time_before = None
     if c.time and c.times.index(c.time) > 0:

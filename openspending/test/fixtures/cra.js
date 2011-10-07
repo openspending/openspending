@@ -127,5 +127,39 @@
       "description": "Classification Of Function Of Government, level 3",
       "taxonomy": "cofog"
     }
-  }
+  },
+  "views": [
+    {
+      "entity": "dataset",
+      "label": "Spending by primary function",
+      "name": "default",
+      "dimension": "dataset",
+      "breakdown": "cofog1",
+      "filters": {"name": "cra"}
+    },
+    {
+      "entity": "dataset",
+      "label": "Spending by region",
+      "name": "region",
+      "dimension": "dataset",
+      "breakdown": "region",
+      "filters": {"name": "cra"}
+    },
+    {
+      "entity": "classifier",
+      "label": "Spending by region (within primary function)",
+      "name": "default",
+      "dimension": "cofog1",
+      "breakdown": "region",
+      "filters": {"taxonomy": "cofog"}
+    },
+    {
+      "entity": "entity",
+      "label": "Spending by region (within department)",
+      "name": "default",
+      "dimension": "from",
+      "breakdown": "region",
+      "filters": {"gov_department": "true"}
+    }
+  ]
 }

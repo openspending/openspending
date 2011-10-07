@@ -29,16 +29,10 @@ class TestClassifierController(ControllerTestCase):
         h.assert_equal(result.status, '200 OK')
 
         # Links to entries json and csv and entries listing
-        h.assert_true('<a href="/cra/cofog/3/entries.json">'
-                        in result)
-        h.assert_true('<a href="/cra/cofog/3/entries.csv">'
+        h.assert_true('<a href="/cra/cofog/3.json">'
                         in result)
         h.assert_true('<a href="/cra/cofog/3/entries">Search</a>'
                         in result)
-
-        # Search box and result listing from the solr browser
-        h.assert_true('class="search-form' in result)
-        h.assert_equal(result.body.count('full entry'), 5)
 
     def test_view_by_taxonomy_name_json(self):
         url_ = classifier_url(self.cra.name, self.classifier, format='json')

@@ -94,6 +94,7 @@ class BaseController(WSGIController):
             c.account = None
 
         i18n.handle_request(request, c)
+        c.state = session.get('state', {})
 
         c.q = ''
         c.items_per_page = int(request.params.get('items_per_page', 20))
@@ -105,6 +106,9 @@ class BaseController(WSGIController):
             item.before(request, c)
 
     def __after__(self):
+        if session.get('state', {}) != c.state:
+            session['state'] = c.state
+            session.save()
         for item in self.items:
             item.after(request, c)
 

@@ -24,6 +24,7 @@ class Dataset(TableHandler, db.Model):
     label = db.Column(db.Unicode(2000))
     description = db.Column(db.Unicode())
     currency = db.Column(db.Unicode())
+    default_time = db.Column(db.Unicode())
     data = db.Column(JSONType, default=dict)
 
     def __init__(self, data):
@@ -33,6 +34,7 @@ class Dataset(TableHandler, db.Model):
         self.name = dataset.get('name')
         self.description = dataset.get('description')
         self.currency = dataset.get('currency')
+        self.default_time = dataset.get('default_time')
         self._load_model()
 
     @db.reconstructor

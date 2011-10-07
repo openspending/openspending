@@ -76,12 +76,12 @@
     </form>
     
     <ul> 
-      <li py:for="name, data in viewstate.available_views.items()">
-        <py:if test="name==viewstate.view.name">
-          <strong>${data.get('label')}</strong>      
+      <li py:for="view in viewstate.available_views">
+        <py:if test="view.name==viewstate.view.name">
+          <strong>${view.label}</strong>      
         </py:if>
-        <py:if test="name!=viewstate.view.name">
-          <a href="?_view=${name}">${data.get('label')}</a>
+        <py:if test="view.name!=viewstate.view.name">
+          <a href="?_view=${view.name}">${view.label}</a>
         </py:if>
       </li>
     </ul>
