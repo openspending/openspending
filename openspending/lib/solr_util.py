@@ -96,8 +96,11 @@ class _Stub(object):
         return len(self.results)
 
 def drop_index(dataset_name):
+    drop('dataset:%s' % dataset_name)
+
+def drop(query):
     solr = get_connection()
-    solr.delete_query('dataset:%s' % dataset_name)
+    solr.delete_query(query)
     solr.commit()
 
 SOLR_CORE_FIELDS = ['id', 'dataset', 'amount', 'time', 'location', 'from',

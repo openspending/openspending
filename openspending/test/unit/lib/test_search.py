@@ -36,9 +36,9 @@ class TestSearch(DatabaseTestCase):
         query = self.solr.query(q, rows=10)
         assert query.numFound == 6, query.numFound
 
-        q = 'time:[2008-01-01T00:00:00Z TO 2008-01-02T00:00:00Z]'
-        query = self.solr.query(q, rows=10)
-        assert query.numFound == 6, query.numFound
+        #q = 'time:[2008-01-01T00:00:00Z TO 2008-01-02T00:00:00Z]'
+        #query = self.solr.query(q, rows=10)
+        #assert query.numFound == 6, query.numFound
 
     def test_stats(self):
         q = '*:*'
