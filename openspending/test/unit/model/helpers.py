@@ -4,7 +4,8 @@ SIMPLE_MODEL = {
     'dataset': {
         'name': 'test',
         'label': 'Test Case Model',
-        'description': 'I\'m a banana!'
+        'description': 'I\'m a banana!',
+        'unique_keys': ['time', 'to.name', 'function.name']
     },
     'mapping': {
         'amount': {

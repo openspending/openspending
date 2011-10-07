@@ -11,40 +11,11 @@ def flatten(data, sep='.'):
                 out[k + sep + ik] = iv
         else:
             out[k] = v
-    return out 
+    return out
 
-def dict_intersection(o, d):
-    intersect = {}
-    for k, v in d.items():
-        ov = o.get(k)
-        if isinstance(v, dict) and isinstance(ov, dict):
-            intersect[k] = dict_intersection(ov, v)
-        else:
-            if v == ov:
-                intersect[k] = v
-    return intersect
-
-
-def fields_from_query(_dict):
-    fields = []
-    for k, v in _dict.items():
-        if k.startswith('$'):
-            if isinstance(v, dict):
-                fields.extend(fields_from_query(v))
-        else:
-            fields.append(k)
-    return fields
-
-
-def deep_get(d, key, sep='.'):
-    if d is None:
-        return None
-    if sep in key:
-        car, rest = key.split(sep, 1)
-        return deep_get(d.get(car), rest, sep=sep)
-    else:
-        return d.get(key)
-
+def hash_values(iterable):
+    """Return a cryptographic hash of an iterable."""
+    return sha1(''.join(sha1(unicode(val)).hexdigest() for val in iterable)).hexdigest()
 
 def check_rest_suffix(name):
     '''\
@@ -69,6 +40,3 @@ def slugify(text, delimiter='-'):
         result.extend(unidecode(word).split())
     return unicode(delimiter.join(result))
 
-def hash_values(iterable):
-    """Return a cryptographic hash of an iterable."""
-    return sha1(''.join(sha1(val).hexdigest() for val in iterable)).hexdigest()

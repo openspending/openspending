@@ -37,10 +37,6 @@ class EntryController(BaseController):
 
     def view(self, dataset, id, format='html'):
         self._get_dataset(dataset)
-        try:
-            id = int(id)
-        except:
-            abort(404, _('Sorry, there is no entry %r') % id)
         entries = list(c.dataset.entries(c.dataset.alias.c.id==id))
         if not len(entries) == 1:
             abort(404, _('Sorry, there is no entry %r') % id)

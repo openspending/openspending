@@ -2,6 +2,7 @@ import math
 from collections import defaultdict
 
 from openspending.model import meta as db
+from openspending.lib.util import hash_values
 
 from openspending.model.common import TableHandler, JSONType
 from openspending.model.dimension import CompoundDimension, AttributeDimension
@@ -35,6 +36,7 @@ class Dataset(TableHandler, db.Model):
         self.description = dataset.get('description')
         self.currency = dataset.get('currency')
         self.default_time = dataset.get('default_time')
+        self.unique_keys = dataset.get('unique_keys')
         self._load_model()
 
     @db.reconstructor
@@ -80,10 +82,24 @@ class Dataset(TableHandler, db.Model):
         self.meta = db.MetaData()
         self.meta.bind = self.bind
 
-        self._ensure_table(self.meta, self.name + '_entry')
+        self._ensure_table(self.meta, self.name + '_entry',
+                           id_type=db.Unicode(42))
         for field in self.fields:
             field.generate(self.meta, self.table)
         self.alias = self.table.alias('entry')
+
+    def _make_key(self, row):
+        uniques = [self.name]
+        # TODO: hack until we get tree structre data into this.
+        for dimension in self.unique_keys:
+            attribute = None
+            if '.' in dimension:
+                dimension, attribute = dimension.split('.', 1)
+            obj = self[dimension]
+            if attribute:
+                obj = obj[attribute]
+            uniques.append(row.get(obj.source_column))
+        return hash_values(uniques)
 
     def load(self, row):
         """ Handle a single entry of data in the mapping source format, 
@@ -92,6 +108,7 @@ class Dataset(TableHandler, db.Model):
         entry = dict()
         for field in self.fields:
             entry.update(field.load(self.bind, row))
+        entry['id'] = self._make_key(row)
         self._upsert(self.bind, entry, ['id'])
 
     def load_all(self, rows):

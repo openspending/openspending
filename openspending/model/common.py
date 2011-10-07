@@ -24,13 +24,13 @@ class TableHandler(object):
     and dimensions to generate, write and clear the table under 
     its management. """
 
-    def _ensure_table(self, meta, name):
+    def _ensure_table(self, meta, name, id_type=db.Integer):
         """ Create the given table if it does not exist, otherwise
         reflect the current table schema from the database.
         """
         if not meta.bind.has_table(name):
             self.table = db.Table(name, meta)
-            col = db.Column('id', db.Integer, primary_key=True)
+            col = db.Column('id', id_type, primary_key=True)
             self.table.append_column(col)
             self.table.create(meta.bind)
         else:

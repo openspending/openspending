@@ -10,8 +10,9 @@ class TestEntryController(ControllerTestCase):
         self.cra = Dataset.by_name('cra')
 
     def test_view(self):
+        t = list(self.cra.entries(limit=1)).pop()
         response = self.app.get(url(controller='entry', action='view',
-                                    dataset='cra', id=str(2)))
+                                    dataset='cra', id=t['id']))
 
         assert 'cra' in response
 
@@ -25,7 +26,7 @@ class TestEntryController(ControllerTestCase):
 
         response = self.app.get(url(controller='entry', action='view',
                                     dataset=self.cra.name,
-                                    id=str(t['id'])))
+                                    id=t['id']))
 
         assert tpl % (t['id'], t['name']) in response, \
                'Custom HTML not present in rendered page!'

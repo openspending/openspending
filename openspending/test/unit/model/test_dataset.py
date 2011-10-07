@@ -1,7 +1,7 @@
 from StringIO import StringIO
 import csv
 
-from sqlalchemy import Integer, UnicodeText, Float
+from sqlalchemy import Integer, UnicodeText, Float, Unicode
 from nose.tools import assert_raises
 
 from openspending.test.unit.model.helpers import SIMPLE_MODEL, TEST_DATA
@@ -56,7 +56,7 @@ class TestDataset(DatabaseTestCase):
         assert self.ds.table.name=='test_entry', self.ds.table.name
         cols = self.ds.table.c
         assert 'id' in cols
-        assert isinstance(cols['id'].type, Integer)
+        assert isinstance(cols['id'].type, Unicode)
         # TODO: 
         assert 'time' in cols
         assert isinstance(cols['time'].type, UnicodeText)

@@ -188,7 +188,7 @@ class Browser(object):
         ids = map(lambda i: i['id'], self.items)
         query = self.dataset.alias.c.id.in_(ids)
         entries = self.dataset.entries(query)
-        return list(entries)
+        return sorted(entries, key=lambda e: ids.index(e['id']))
 
     def to_jsonp(self):
         return jsonp.to_jsonp({
