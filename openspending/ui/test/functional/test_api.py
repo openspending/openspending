@@ -108,6 +108,7 @@ class TestApiSearch(ControllerTestCase):
         h.skip_if_stubbed_solr()
 
         super(TestApiSearch, self).setup()
+        solr.drop_index('*')
         h.load_fixture('cra')
         solr.build_index(dataset_name='cra')
 
