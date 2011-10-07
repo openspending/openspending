@@ -41,7 +41,7 @@ class EntryController(BaseController):
             id = int(id)
         except:
             abort(404, _('Sorry, there is no entry %r') % id)
-        entries = list(c.dataset.materialize(c.dataset.alias.c.id==id))
+        entries = list(c.dataset.entries(c.dataset.alias.c.id==id))
         if not len(entries) == 1:
             abort(404, _('Sorry, there is no entry %r') % id)
         c.entry = entries.pop()

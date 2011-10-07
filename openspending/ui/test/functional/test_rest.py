@@ -23,7 +23,7 @@ class TestRestController(ControllerTestCase):
 
     def test_entry(self):
         q = self.cra['from'].alias.c.name=='Dept047'
-        example = list(self.cra.materialize(q, limit=1)).pop()
+        example = list(self.cra.entries(q, limit=1)).pop()
 
         response = self.app.get(url(controller='entry',
                                     action='view',

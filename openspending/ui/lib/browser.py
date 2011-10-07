@@ -187,7 +187,7 @@ class Browser(object):
     def entities(self):
         ids = map(lambda i: i['id'], self.items)
         query = self.dataset.alias.c.id.in_(ids)
-        entries = self.dataset.materialize(query)
+        entries = self.dataset.entries(query)
         return list(entries)
 
     def to_jsonp(self):

@@ -146,7 +146,7 @@ class TestDatasetLoad(DatabaseTestCase):
 
     def test_materialize_table(self):
         self.ds.load_all(self.reader)
-        itr = self.ds.materialize()
+        itr = self.ds.entries()
         tbl = list(itr)
         assert len(tbl)==6, len(tbl)
         row = tbl[0]

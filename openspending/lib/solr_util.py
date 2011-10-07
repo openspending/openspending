@@ -148,7 +148,7 @@ def build_index(dataset_name):
     buf = []
     total = 0
     increment = 500
-    for entry in dataset_.materialize():
+    for entry in dataset_.entries():
         ourdata = extend_entry(entry, dataset_)
         buf.append(ourdata)
         if len(buf) == increment:

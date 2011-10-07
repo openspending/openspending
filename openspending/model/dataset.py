@@ -134,7 +134,7 @@ class Dataset(TableHandler, db.Model):
             return dimension.alias.c[attr_name]
         return self.alias.c[dimension.column.name]
 
-    def materialize(self, conditions="1=1", order_by=None, limit=None,
+    def entries(self, conditions="1=1", order_by=None, limit=None,
             offset=None):
         """ Generate a fully denormalized view of the entries on this 
         table. This view is nested so that each dimension will be a hash

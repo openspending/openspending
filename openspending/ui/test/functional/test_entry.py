@@ -21,7 +21,7 @@ class TestEntryController(ControllerTestCase):
         self.cra.data['dataset']['entry_custom_html'] = tpl_c
         db.session.commit()
 
-        t = list(self.cra.materialize(limit=1)).pop()
+        t = list(self.cra.entries(limit=1)).pop()
 
         response = self.app.get(url(controller='entry', action='view',
                                     dataset=self.cra.name,

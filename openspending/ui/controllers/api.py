@@ -19,7 +19,7 @@ def statistic_normalize(dataset, result, per, statistic):
     for drilldown in result['drilldown']:
         per_value = drilldown.get(per)
         if not per_value in values:
-            entries = list(dataset.materialize(dataset.table.c[per]==per_value,
+            entries = list(dataset.entries(dataset.table.c[per]==per_value,
                     limit=1))
             if len(entries):
                 values[per_value] = entries[0].get(statistic, 0.0)
