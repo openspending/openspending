@@ -20,6 +20,7 @@ from openspending.lib import json
 from openspending.lib.util import slugify
 from openspending.ui.lib.authz import have_role
 from openspending.ui.lib.jsonp import to_jsonp, to_json
+import math
 
 def markdown(*args, **kwargs):
     return literal(_markdown(*args, **kwargs))
@@ -298,6 +299,8 @@ def format_number_with_commas(number):
     '''
     if number is None:
         return "-"
+    if math.isnan(number):
+        return "-"        
     s = str(int(number))
     groups = []
     while s and s[-1].isdigit():
