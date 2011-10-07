@@ -299,9 +299,14 @@ def format_number_with_commas(number):
     '''
     if number is None:
         return "-"
-    if math.isnan(number):
-        return "-"        
-    s = str(int(number))
+    try:
+        if math.isnan(number):
+            return "-"        
+        s = str(int(number))
+    except TypeError:
+        msg = "Value was not numeric: %s (type: %s)" % (repr(number), type(number))
+        raise TypeError(msg)
+
     groups = []
     while s and s[-1].isdigit():
         groups.append(s[-3:])
