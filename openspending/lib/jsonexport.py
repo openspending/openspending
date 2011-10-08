@@ -30,7 +30,7 @@ def default_json(obj):
     raise TypeError("%r is not JSON serializable" % obj)
 
 def write_browser_json(entries, stats, facets, response):
-    """ Streaming support for large result sets, specific to the browser as 
+    """ Streaming support for large result sets, specific to the browser as
     the data is enveloped. """
     response.content_type = 'application/json'
     callback = None

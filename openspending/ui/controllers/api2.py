@@ -1,7 +1,7 @@
 from pylons import config, request
 
 from openspending import model
-from openspending.ui.lib.jsonp import jsonpify
+from openspending.lib.jsonexport import jsonpify
 from openspending.ui.lib.base import BaseController
 
 class Api2Controller(BaseController):
@@ -23,7 +23,7 @@ class Api2Controller(BaseController):
             return {'errors': errors}
 
         try:
-            result = dataset.aggregate(drilldowns=drilldowns, cuts=cuts, page=page, 
+            result = dataset.aggregate(drilldowns=drilldowns, cuts=cuts, page=page,
                                        pagesize=pagesize, order=order)
         except ValueError:
             return {'errors': ['We cannot aggregate at the moment. '

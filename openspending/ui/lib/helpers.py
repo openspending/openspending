@@ -19,7 +19,6 @@ from openspending import model
 from openspending.lib import json
 from openspending.lib.util import slugify
 from openspending.ui.lib.authz import have_role
-from openspending.ui.lib.jsonp import to_jsonp, to_json
 import math
 
 def markdown(*args, **kwargs):
@@ -153,7 +152,7 @@ def format_number_with_commas(number):
         return "-"
     try:
         if math.isnan(number):
-            return "-"        
+            return "-"
         s = str(int(number))
     except TypeError:
         msg = "Value was not numeric: %s (type: %s)" % (repr(number), type(number))
