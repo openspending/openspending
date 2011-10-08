@@ -106,8 +106,10 @@ class ApiController(BaseController):
         translated_result = defaultdict(dict)
         for cell in result['drilldown']:
             key = tuple([cellget(cell, d) for d in drilldowns])
-            translated_result[key][cell['time']] = cell['amount']
-        dates = sorted(set([d['time'] for d in result['drilldown']]))
+            translated_result[key][cell['time']['name']] = \
+                    cell['amount']
+        dates = sorted(set([d['time']['name'] for d in \
+                result['drilldown']]))
         # give a value (or 0) for each present date in sorted order
         translated_result = [(k, [v.get(d, 0.0) for d in dates]) \
                 for k, v in translated_result.items()]

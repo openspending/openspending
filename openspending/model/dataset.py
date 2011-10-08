@@ -5,7 +5,8 @@ from openspending.model import meta as db
 from openspending.lib.util import hash_values
 
 from openspending.model.common import TableHandler, JSONType
-from openspending.model.dimension import CompoundDimension, AttributeDimension
+from openspending.model.dimension import CompoundDimension, \
+        AttributeDimension, DateDimension
 from openspending.model.dimension import Measure
 
 
@@ -53,6 +54,9 @@ class Dataset(TableHandler, db.Model):
             if data.get('type') == 'measure' or dim == 'amount':
                 self.measures.append(Measure(self, dim, data))
                 continue
+            elif data.get('type') == 'date' or \
+                    dim == 'time' and data.get('datatype') == 'date':
+                dimension = DateDimension(self, dim, data)
             elif data.get('type', 'value') == 'value':
                 dimension = AttributeDimension(self, dim, data)
             else:
@@ -247,12 +251,13 @@ class Dataset(TableHandler, db.Model):
                   db.func.count(self.alias.c.id).label("entries")]
         labels = {
             # TODO: these are sqlite-specific, make a factory somewhere
-            'year': db.func.strftime("%Y", self['time'].column_alias).label('year'),
-            'month': db.func.strftime("%Y-%m", self['time'].column_alias).label('month'),
+            'year': self['time']['year'].column_alias.label('year'),
+            'month': self['time']['yearmonth'].column_alias.label('month'),
             }
         dimensions = set(drilldowns + [k for k,v in cuts] + [o[0] for o in order])
         for dimension in dimensions:
             if dimension in labels:
+                joins = self['time'].join(joins)
                 fields.append(labels[dimension])
             else:
                 joins = self[dimension.split('.')[0]].join(joins)

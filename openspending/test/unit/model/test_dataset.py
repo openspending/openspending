@@ -8,7 +8,7 @@ from openspending.test import DatabaseTestCase, helpers as h
 
 from openspending.model import meta as db
 from openspending.model import Dataset, AttributeDimension, \
-        CompoundDimension, Measure
+        CompoundDimension, Measure, DateDimension
 
 class TestDataset(DatabaseTestCase):
 
@@ -26,7 +26,7 @@ class TestDataset(DatabaseTestCase):
 
     def test_load_model_dimensions(self):
         assert len(self.ds.dimensions)==4,self.ds.dimensions
-        assert isinstance(self.ds['time'], AttributeDimension), self.ds['time']
+        assert isinstance(self.ds['time'], DateDimension), self.ds['time']
         assert isinstance(self.ds['field'], AttributeDimension), self.ds['field']
         assert isinstance(self.ds['to'], CompoundDimension), self.ds['to']
         assert isinstance(self.ds['function'], CompoundDimension), \
@@ -57,8 +57,8 @@ class TestDataset(DatabaseTestCase):
         assert 'id' in cols
         assert isinstance(cols['id'].type, Unicode)
         # TODO: 
-        assert 'time' in cols
-        assert isinstance(cols['time'].type, UnicodeText)
+        assert 'time_id' in cols
+        assert isinstance(cols['time_id'].type, Integer)
         assert 'amount' in cols
         assert isinstance(cols['amount'].type, Float)
         assert 'field' in cols
@@ -82,7 +82,6 @@ class TestDatasetLoad(DatabaseTestCase):
         resn = self.engine.execute(self.ds.table.select()).fetchall()
         assert len(resn)==6,resn
         row0 = resn[0]
-        assert row0['time']=='2010-01-01', row0.items()
         assert row0['amount']==200, row0.items()
         assert row0['field']=='foo', row0.items()
     

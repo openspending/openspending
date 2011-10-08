@@ -163,3 +163,38 @@ class CompoundDimension(Dimension, TableHandler):
         return "<CompoundDimension(%s/%s:%s)>" % (self.taxonomy, self.name, 
                                                  self.attributes)
 
+class DateDimension(CompoundDimension):
+
+    DATE_FIELDS = [
+        {'name': 'name', 'datatype': 'string'},
+        {'name': 'year', 'datatype': 'string'},
+        {'name': 'quarter', 'datatype': 'string'},
+        {'name': 'month', 'datatype': 'string'},
+        {'name': 'week', 'datatype': 'string'},
+        {'name': 'day', 'datatype': 'string'},
+        # legacy query support:
+        {'name': 'yearmonth', 'datatype': 'string'},
+        ]
+
+    def __init__(self, dataset, name, data):
+        Dimension.__init__(self, dataset, name, data)
+        self.taxonomy = 'date'
+
+        self.attributes = []
+        for attr in self.DATE_FIELDS:
+            self.attributes.append(Attribute(self, attr))
+
+    def load(self, bind, value):
+        data = {
+                'name': value.isoformat(),
+                'year': value.strftime('%Y'),
+                'quarter': str(value.month / 4),
+                'month': value.strftime('%m'),
+                'week': value.strftime('%W'),
+                'day': value.strftime('%d'),
+                'yearmonth': value.strftime('%Y%m')
+            }
+        return super(DateDimension, self).load(bind, data)
+
+    def __repr__(self):
+        return "<DateDimension(%s/%s:%s)>" % (self.name, self.attributes)
