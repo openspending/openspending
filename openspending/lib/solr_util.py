@@ -161,7 +161,7 @@ def build_index(dataset_name):
     cur = model.entry.find(query)
     buf = []
     total = 0
-    increment = 500
+    increment = 1000
     for entry in cur:
         ourdata = extend_entry(entry)
         buf.append(ourdata)
