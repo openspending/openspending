@@ -102,10 +102,7 @@ class DatasetController(BaseController, RestAPIMixIn):
         elif format == 'csv':
             return c.browser.to_csv()
         else:
-            return self._entries_html()
-
-    def _entries_html(self):
-        return render('dataset/entries.html')
+            return render('dataset/entries.html')
 
     def explorer(self, name=None):
         c.dataset = model.dataset.find_one_by('name', name)

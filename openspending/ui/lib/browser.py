@@ -1,5 +1,7 @@
+from itertools import izip_longest
 from urllib import urlencode
-from bson.objectid import ObjectId
+
+from pylons import response
 
 from openspending import mongo
 from openspending import model
@@ -12,27 +14,31 @@ from openspending.ui.lib.page import Page
 FILTER_PREFIX = "filter-"
 DIMENSION_LABEL = ".label_facet"
 
+STREAM_BATCH_SIZE = 1000
+PAGE_SIZE = 100 # Applies only to HTML output, not CSV or JSON
+
 class Browser(object):
 
     def __init__(self, args, dataset_name=None, url=None):
         self.args = args
         self.url = url
         self.dataset_name = dataset_name
+
         if dataset_name is not None:
             self.dimensions = model.dimension.get_dataset_dimensions(self.dataset_name,
                                                                      facets_only=True)
         else:
             self.dimensions = [{'key': 'to', 'label': 'Recipient'},
                                {'key': 'from', 'label': 'Spender'}]
-        self._rows = None
+
         self._results = None
         self._page = None
         self.facets = []
         self.solr_args = {}
         self._filters = []
 
-    def limit(self, num):
-        self._rows = num
+        self._set_limit()
+        self._set_page_number()
 
     @property
     def filters(self):
@@ -46,33 +52,31 @@ class Browser(object):
     def filter_by(self, *fq):
         self._filters.extend(fq)
 
-    @property
-    def rows(self):
-        if self._rows is not None:
-            return self._rows
-
+    def _set_limit(self, limit=PAGE_SIZE):
+        # By default, we set limit to be the value of the limit query
+        # param, unless no such query param is set.
         try:
-            r = int(self.args.get('limit'))
+            self.limit = int(self.args.get('limit'))
         except TypeError:
-            r = None
+            self.limit = limit
 
-        if not r or r > 100:
-            self._rows = 100
-        else:
-            self._rows = r
+        # If we subsequently call _set_limit with a smaller value
+        # of the limit kwarg, then reduce or set the limit accordingly.
+        if limit:
+            self.limit = limit if not self.limit else min(limit, self.limit)
 
-        return self._rows
-
-    @property
-    def page_number(self):
+    def _set_page_number(self):
         try:
-            return int(self.args.get('page'))
+            self.page_number = int(self.args.get('page'))
         except TypeError:
-            return 1
+            self.page_number = 1
 
     @property
     def start(self):
-        return (self.page_number-1)*self.rows
+        if self.limit:
+            return (self.page_number - 1) * self.limit
+        else:
+            return (self.page_number - 1) * STREAM_BATCH_SIZE
 
     @property
     def fq(self):
@@ -118,7 +122,26 @@ class Browser(object):
 
     @property
     def items(self):
-        return self.results.get('response', {}).get('docs')
+        def _more():
+            return self.results.get('response', {}).get('docs')
+
+        res = _more()
+
+        # If a limit is defined, just do the query and yield the results
+        if self.limit:
+            for item in res:
+                yield item
+
+        # Otherwise, we can assume that we're streaming, so do a query,
+        # yield the results, then clear the results, go to the next page,
+        # and repeat.
+        else:
+            while res:
+                for item in res:
+                    yield item
+                self.page_number += 1
+                self._results = None
+                res = _more()
 
     @property
     def num_results(self):
@@ -140,17 +163,17 @@ class Browser(object):
     @property
     def page(self):
         if self._page is None:
-            from pylons import url
             def _url(page, **kwargs):
                 return self.state_url(('page', unicode(page)),
                                       ('page', unicode(self.page_number)))
             self._page = Page(
                 self.results,
-                page=int(self.args.get('page', 1)),
+                page=self.page_number,
                 item_count=self.num_results,
-                items_per_page=self.rows,
+                items_per_page=self.limit,
                 url=_url
             )
+
         return self._page
 
     def _query(self, **kwargs):
@@ -161,11 +184,16 @@ class Browser(object):
     def query(self, **kwargs):
         kw = dict(q=self.q, fq=self.fq,
                   start=self.start,
-                  rows=self.rows,
+                  rows=self.limit,
                   stats='true',
                   stats_field='amount',
                   sort='score desc, amount desc')
+
+        if not kw['rows']:
+            kw['rows'] = STREAM_BATCH_SIZE
+
         kw.update(self.solr_args)
+
         if len(self.facets):
             kw['facet'] = 'true'
             if not 'facet_limit' in kw:
@@ -173,9 +201,12 @@ class Browser(object):
             kw['facet_mincount'] = 1
             kw['facet_sort'] = 'count'
             kw['facet_field'] = self.facets
+
         kw.update(kwargs)
+
         if kw['q'] is None or not len(kw['q']):
             kw['q'] = '*:*'
+
         return self._query(**kw)
 
     def state_url(self, add=None, remove=None):
@@ -193,22 +224,42 @@ class Browser(object):
                     query])
 
     @property
-    def entities(self):
-        def _ids(obj):
-            r = [obj['_id']]
-            try:
-                r.append(ObjectId(obj['_id']))
-            except mongo.InvalidId:
-                pass
-            return r
-        ids = [id for sub in map(_ids, self.items) for id in sub]
-        return list(model.entry.find({"_id": {"$in": ids}}))
+    def entries(self):
+        for batch in _batches(STREAM_BATCH_SIZE, self.items):
+            for entry in model.entry.find(model.base.qs(batch)):
+                yield _entry_filter(entry)
 
     def to_jsonp(self):
-        from pylons import response
+        self._set_limit(None)
         facets = dict([(k, self.facet_values(k)) for k in self.facets])
-        return write_browser_json(self.entities, self.stats, facets, response)
+        return write_browser_json(self.entries, self.stats, facets, response)
 
     def to_csv(self):
-        from pylons import response
-        return write_csv(self.entities, response)
+        self._set_limit(None)
+        return write_csv(self.entries, response)
+
+def _entry_filter(entry):
+    def kill(entry, path):
+        try:
+            if len(path) == 1:
+                del entry[path[0]]
+            else:
+                kill(entry[path[0]], path[1:])
+        except KeyError:
+            pass
+
+    kill(entry, ['_csv_import_fp']) # provided by 'provenance' key
+    kill(entry, ['dataset', 'entry_custom_html'])
+    kill(entry, ['dataset', 'description'])
+
+    for k in entry.iterkeys():
+        if isinstance(entry[k], dict):
+            kill(entry[k], ['ref'])
+
+    return entry
+
+def _batches(n, iterable):
+    args = [iter(iterable)] * n
+    none = object() # Create simple unique object
+    for batch in izip_longest(fillvalue=none, *args):
+        yield filter(lambda x: x is not none, batch)
