@@ -72,6 +72,12 @@ class Dataset(TableHandler, db.Model):
         """ Both the dimensions and metrics in this dataset. """
         return self.dimensions + self.measures
 
+    @property
+    def compounds(self):
+        """ Return only compound dimensions. """
+        return filter(lambda d: isinstance(d, CompoundDimension),
+                self.dimensions)
+
     def generate(self):
         """ Create the tables and columns necessary for this dataset
         to keep data. Since this will also create references to these

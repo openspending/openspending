@@ -24,9 +24,8 @@ class ClassifierController(BaseController):
 
     def _get_classifier(self, dataset, taxonomy, name):
         self._get_dataset(dataset)
-        for dimension in c.dataset.dimensions:
-            if isinstance(dimension, model.CompoundDimension) and \
-                    dimension.taxonomy == taxonomy:
+        for dimension in c.dataset.compounds:
+            if dimension.taxonomy == taxonomy:
                 members = list(dimension.members(dimension.alias.c.name==name,
                     limit=1))
                 if not len(members):
