@@ -6,7 +6,7 @@ from openspending import model
 from openspending.lib import json
 from openspending.lib import solr_util as solr
 from openspending.lib.csvexport import write_csv
-from openspending.ui.lib import jsonp
+from openspending.ui.lib.jsonp import write_browser_json
 from openspending.ui.lib.page import Page
 
 FILTER_PREFIX = "filter-"
@@ -205,11 +205,9 @@ class Browser(object):
         return list(model.entry.find({"_id": {"$in": ids}}))
 
     def to_jsonp(self):
-        return jsonp.to_jsonp({
-            'results': self.entities,
-            'stats': self.stats,
-            'facets': dict([(k, self.facet_values(k)) for k in self.facets])
-        })
+        from pylons import response
+        facets = dict([(k, self.facet_values(k)) for k in self.facets])
+        return write_browser_json(self.entities, self.stats, facets, response)
 
     def to_csv(self):
         from pylons import response

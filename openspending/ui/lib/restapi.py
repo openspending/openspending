@@ -138,8 +138,7 @@ class RestAPIMixIn(object):
     def _view_csv(self, result):
         if not isinstance(result, list):
             result = [result]
-        write_csv(result, response)
-        return
+        return write_csv(result, response)
     _index_csv = _view_csv
 
     def _view_json(self, result):
