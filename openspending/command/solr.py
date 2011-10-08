@@ -47,4 +47,4 @@ def configure_parser(subparsers):
     p.set_defaults(func=_optimize)
 
     p = sp.add_parser('clean', help='Empty/reset the Solr index')
-    p.set_defaults(func=_load)
+    p.set_defaults(func=_clean)
