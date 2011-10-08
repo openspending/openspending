@@ -55,7 +55,7 @@ class Dataset(TableHandler, db.Model):
                 self.measures.append(Measure(self, dim, data))
                 continue
             elif data.get('type') == 'date' or \
-                    dim == 'time' and data.get('datatype') == 'date':
+                (dim == 'time' and data.get('datatype') == 'date'):
                 dimension = DateDimension(self, dim, data)
             elif data.get('type', 'value') == 'value':
                 dimension = AttributeDimension(self, dim, data)
@@ -250,7 +250,6 @@ class Dataset(TableHandler, db.Model):
         fields = [db.func.sum(self.alias.c[measure]).label(measure), 
                   db.func.count(self.alias.c.id).label("entries")]
         labels = {
-            # TODO: these are sqlite-specific, make a factory somewhere
             'year': self['time']['year'].column_alias.label('year'),
             'month': self['time']['yearmonth'].column_alias.label('month'),
             }

@@ -87,8 +87,12 @@ class CompoundDimension(Dimension, TableHandler):
         self.taxonomy = data.get('taxonomy', 'entity')
 
         self.attributes = []
+        names = []
         for attr in data.get('attributes', data.get('fields', [])):
             self.attributes.append(Attribute(self, attr))
+        if not 'name' in names:
+            self.attributes.append(Attribute(self, 
+                {'name': 'name', 'datatype': 'id'}))
 
     def join(self, from_clause):
         """ This will return a query fragment that can be used to establish
@@ -187,6 +191,7 @@ class DateDimension(CompoundDimension):
     def load(self, bind, value):
         data = {
                 'name': value.isoformat(),
+                'label': value.strftime("%d. %B %Y"),
                 'year': value.strftime('%Y'),
                 'quarter': str(value.month / 4),
                 'month': value.strftime('%m'),
