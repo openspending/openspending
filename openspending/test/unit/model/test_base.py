@@ -36,12 +36,22 @@ class TestBase(TestCase):
 
     def test_q_with_valid_objectid(self):
         q = base.q({'_id': '0123456789abcdef01234567'})
-        h.assert_equal(q, {'$or': [{'_id': '0123456789abcdef01234567'},
-                                   {'_id': mongo.ObjectId('0123456789abcdef01234567')}]})
+        h.assert_equal(q, {'_id': {'$in': ['0123456789abcdef01234567',
+                                           mongo.ObjectId('0123456789abcdef01234567')]}})
 
     def test_q_with_other_keys(self):
         q = base.q({'_id': 'some_id', 'foo': 'bar'})
         h.assert_equal(q, {'_id': 'some_id'})
+
+    def test_qs_with_strings(self):
+        qs = base.qs([{'_id': 'some_id'}, {'_id': 'another'}])
+        h.assert_equal(qs, {'_id': {'$in': ['some_id', 'another']}})
+
+    def test_qs_with_mixed(self):
+        qs = base.qs([{'_id': 'some_id'}, {'_id': '0123456789abcdef01234567'}])
+        h.assert_equal(qs, {'_id': {'$in': ['some_id',
+                                            '0123456789abcdef01234567',
+                                            mongo.ObjectId('0123456789abcdef01234567')]}})
 
     def test_create(self):
         self.mock_collection.insert.return_value = 'foo_id'

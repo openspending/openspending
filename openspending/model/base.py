@@ -44,11 +44,22 @@ def q(obj):
     """Return a query spec identifying the given object"""
     _q = {'_id': obj['_id']}
     try:
-        _q = {'$or': [_q, {'_id': mongo.ObjectId(obj['_id'])}]}
+        _q = {'_id': { '$in': [_q['_id'], mongo.ObjectId(obj['_id'])] }}
     except mongo.InvalidId:
         pass
 
     return _q
+
+def qs(iterable):
+    """Return a query spec for a list of objects"""
+    def _ids_for(obj):
+        _id = q(obj)['_id']
+        try:
+            return _id['$in']
+        except TypeError:
+            return [_id]
+
+    return {'_id': { '$in': [item for obj in iterable for item in _ids_for(obj)] }}
 
 def create(collection, doc):
     """\
