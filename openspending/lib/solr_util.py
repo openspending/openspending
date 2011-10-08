@@ -160,7 +160,7 @@ def build_index(dataset_name):
     assert dataset_ is not None, "No such dataset: %s" % dataset_name
     buf = []
     total = 0
-    increment = 500
+    increment = 1000
     for entry in dataset_.entries():
         ourdata = extend_entry(entry, dataset_)
         buf.append(ourdata)
