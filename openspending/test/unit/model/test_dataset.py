@@ -1,10 +1,9 @@
-from StringIO import StringIO
-import csv
+
 
 from sqlalchemy import Integer, UnicodeText, Float, Unicode
 from nose.tools import assert_raises
 
-from openspending.test.unit.model.helpers import SIMPLE_MODEL, TEST_DATA
+from openspending.test.unit.model.helpers import SIMPLE_MODEL, load_dataset
 from openspending.test import DatabaseTestCase, helpers as h
 
 from openspending.model import meta as db
@@ -77,10 +76,9 @@ class TestDatasetLoad(DatabaseTestCase):
         super(TestDatasetLoad, self).setup()
         self.ds = Dataset(SIMPLE_MODEL)
         self.engine = db.engine
-        self.reader = csv.DictReader(StringIO(TEST_DATA))
     
     def test_load_all(self):
-        self.ds.load_all(self.reader)
+        load_dataset(self.ds)
         resn = self.engine.execute(self.ds.table.select()).fetchall()
         assert len(resn)==6,resn
         row0 = resn[0]
@@ -89,7 +87,7 @@ class TestDatasetLoad(DatabaseTestCase):
         assert row0['field']=='foo', row0.items()
     
     def test_flush(self):
-        self.ds.load_all(self.reader)
+        load_dataset(self.ds)
         resn = self.engine.execute(self.ds.table.select()).fetchall()
         assert len(resn)==6,resn
         self.ds.flush()
@@ -108,44 +106,44 @@ class TestDatasetLoad(DatabaseTestCase):
         assert 'test_funny' not in tn, tn
 
     def test_dataset_count(self):
-        self.ds.load_all(self.reader)
+        load_dataset(self.ds)
         assert len(self.ds)==6,len(self.ds)
 
     def test_aggregate_simple(self):
-        self.ds.load_all(self.reader)
+        load_dataset(self.ds)
         res = self.ds.aggregate()
         assert res['summary']['num_entries']==6, res
         assert res['summary']['amount']==2690.0, res
 
     def test_aggregate_basic_cut(self):
-        self.ds.load_all(self.reader)
+        load_dataset(self.ds)
         res = self.ds.aggregate(cuts=[('field', u'foo')])
         assert res['summary']['num_entries']==3, res
         assert res['summary']['amount']==1000, res
 
     def test_aggregate_or_cut(self):
-        self.ds.load_all(self.reader)
+        load_dataset(self.ds)
         res = self.ds.aggregate(cuts=[('field', u'foo'), 
                                       ('field', u'bar')])
         assert res['summary']['num_entries']==4, res
         assert res['summary']['amount']==1190, res
 
     def test_aggregate_dimensions_drilldown(self):
-        self.ds.load_all(self.reader)
+        load_dataset(self.ds)
         res = self.ds.aggregate(drilldowns=['function'])
         assert res['summary']['num_entries']==6, res
         assert res['summary']['amount']==2690, res
         assert len(res['drilldown'])==2, res['drilldown']
 
     def test_aggregate_two_dimensions_drilldown(self):
-        self.ds.load_all(self.reader)
+        load_dataset(self.ds)
         res = self.ds.aggregate(drilldowns=['function', 'field'])
         assert res['summary']['num_entries']==6, res
         assert res['summary']['amount']==2690, res
         assert len(res['drilldown'])==5, res['drilldown']
 
     def test_materialize_table(self):
-        self.ds.load_all(self.reader)
+        load_dataset(self.ds)
         itr = self.ds.entries()
         tbl = list(itr)
         assert len(tbl)==6, len(tbl)

@@ -15,6 +15,7 @@ def load_fixture(name):
     Load fixture data into the database.
     """
     import json
+    from openspending.etl.validation.types import convert_types
     fh = open(fixture_path('%s.js' % name), 'r')
     data = json.load(fh)
     fh.close()
@@ -24,7 +25,9 @@ def load_fixture(name):
     dataset.generate()
     fh = open(fixture_path('%s.csv' % name), 'r')
     reader = csv.DictReader(fh)
-    dataset.load_all(reader)
+    for row in reader:
+        entry = convert_types(data['mapping'], row)
+        dataset.load(entry)
     fh.close()
     return dataset
 

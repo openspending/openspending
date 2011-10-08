@@ -4,7 +4,6 @@ import os
 from pylons import config
 
 from openspending.model import Dataset, meta as db
-from openspending import migration
 from openspending.test.helpers import load_fixture
 
 import migrate.versioning.api as migrateapi

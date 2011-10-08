@@ -88,37 +88,32 @@ class Dataset(TableHandler, db.Model):
             field.generate(self.meta, self.table)
         self.alias = self.table.alias('entry')
 
-    def _make_key(self, row):
+    def _make_key(self, data):
+        """ Generate a unique identifier for an entry. This is better 
+        than SQL auto-increment because it is stable across mutltiple
+        loads and thus creates stable URIs for entries. 
+        """
         uniques = [self.name]
-        # TODO: hack until we get tree structre data into this.
         for dimension in self.unique_keys:
             attribute = None
             if '.' in dimension:
                 dimension, attribute = dimension.split('.', 1)
-            obj = self[dimension]
-            if attribute:
-                obj = obj[attribute]
-            uniques.append(row.get(obj.source_column))
+            obj = data.get(dimension)
+            if attribute and obj is not None:
+                obj = obj.get(attribute)
+            uniques.append(obj)
         return hash_values(uniques)
 
-    def load(self, row):
+    def load(self, data):
         """ Handle a single entry of data in the mapping source format, 
         i.e. with all needed columns. This will propagate to all dimensions
         and set values as appropriate. """
         entry = dict()
         for field in self.fields:
-            entry.update(field.load(self.bind, row))
-        entry['id'] = self._make_key(row)
+            field_data = data[field.name]
+            entry.update(field.load(self.bind, field_data))
+        entry['id'] = self._make_key(data)
         self._upsert(self.bind, entry, ['id'])
-
-    def load_all(self, rows):
-        """ Non-API. 
-        Mini-loader which does not replace a proper BaseImporter, consumes
-        an iterable and loads each item in sequence. 
-        """
-        for row in rows:
-            self.load(row)
-        #bind.commit()
 
     def flush(self):
         """ Delete all data from the dataset tables but leave the table

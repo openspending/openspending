@@ -38,14 +38,10 @@ class Attribute(object):
         self.column = db.Column(self.name, type_)
         self.column.create(table)
 
-    def load(self, bind, row):
+    def load(self, bind, value):
         """ Load an attribute value but perform type conversion first.
         """
-        # TODO: remove this dependency - but how?
-        from openspending.etl.validation.types import attribute_type_by_name
-        converter = attribute_type_by_name(self.datatype)
-        value = converter.cast(row, self._data)
-        return {self.column.name: value if value else None}
+        return {self.column.name: value}
 
     def __repr__(self):
         return "<Attribute(%s)>" % self.name

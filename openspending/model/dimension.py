@@ -86,20 +86,8 @@ class CompoundDimension(Dimension, TableHandler):
         Dimension.__init__(self, dataset, name, data)
         self.taxonomy = data.get('taxonomy', 'entity')
 
-        attributes =  data.get('fields', [])
-        # TODO: this needs to be done in validation!
-        names = [a['name'] for a in attributes]
-        if 'name' not in names and 'label' in names:
-            for a in attributes:
-                if a['name'] == 'label':
-                    a = a.copy()
-                    a['name'] = 'name'
-                    a['datatype'] = 'id'
-                    attributes.append(a)
-                    break
-
         self.attributes = []
-        for attr in attributes:
+        for attr in data.get('attributes', data.get('fields', [])):
             self.attributes.append(Attribute(self, attr))
 
     def join(self, from_clause):
@@ -154,7 +142,8 @@ class CompoundDimension(Dimension, TableHandler):
         """
         dim = dict()
         for attr in self.attributes:
-            dim.update(attr.load(bind, row))
+            attr_data = row[attr.name]
+            dim.update(attr.load(bind, attr_data))
         pk = self._upsert(bind, dim, ['name'])
         return {self.column.name: pk}
 

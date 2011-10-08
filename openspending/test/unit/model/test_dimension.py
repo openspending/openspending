@@ -5,7 +5,7 @@ import unittest
 from nose.tools import assert_raises
 
 from openspending.test.unit.model.helpers import \
-        SIMPLE_MODEL, TEST_DATA
+        SIMPLE_MODEL, load_dataset
 from openspending.test import DatabaseTestCase, helpers as h
 
 from openspending.model import meta as db
@@ -18,7 +18,6 @@ class TestCompoundDimension(DatabaseTestCase):
         self.meta = db.metadata #MetaData()
         self.meta.bind = self.engine
         self.ds = Dataset(SIMPLE_MODEL)
-        self.reader = csv.DictReader(StringIO(TEST_DATA))
         self.entity = self.ds['to']
         self.classifier = self.ds['function']
 
