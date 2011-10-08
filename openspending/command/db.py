@@ -7,7 +7,22 @@ from openspending.model import Dataset, meta as db
 from openspending import migration
 from openspending.test.helpers import load_fixture
 
+import migrate.versioning.api as migrateapi
+try:
+    from migrate.versioning.exceptions import DatabaseAlreadyControlledError
+    from migrate.versioning.exceptions import DatabaseNotControlledError
+except ImportError:
+    # location changed in 0.6.1
+    from migrate.exceptions import DatabaseAlreadyControlledError
+    from migrate.exceptions import DatabaseNotControlledError
+
 log = logging.getLogger(__name__)
+
+def _migrate_repo():
+    default = os.path.join(os.path.dirname(config['__file__']), 'migrate')
+    repo = config.get('openspending.migrate_dir', default)
+    return repo, migrateapi.version(repo)
+    
 
 def drop():
     log.warn("Dropping database")
@@ -17,6 +32,9 @@ def drop():
 def init():
     log.warn("Initializing database")
     db.metadata.create_all()
+    url = config.get('sqlalchemy.url')
+    repo, repo_version = _migrate_repo()
+    migrateapi.version_control(url, repo, version=repo_version)
     return 0
 
 def drop_collections():
@@ -39,11 +57,13 @@ def load_example(name):
     return 0
 
 def migrate():
-    default = os.path.join(os.path.dirname(config['__file__']), 'migrate')
-    migrate_dir = config.get('openspending.migrate_dir', default)
+    url = config.get('sqlalchemy.url')
+    repo, repo_version = _migrate_repo()
+    migrateapi.version_control(url, repo, version=repo_version)
 
-    migration.configure(dirname=migrate_dir)
-    migration.up()
+    db_version = migrateapi.db_version(url, repo)
+    if db_version < repo_version:
+        migrateapi.upgrade(url, repo)
     return
 
 def _init(args):
