@@ -6,7 +6,7 @@ from pylons.i18n import _
 
 from openspending.lib import json
 from openspending.lib.csvexport import write_csv
-from openspending.ui.lib.jsonp import to_jsonp
+from openspending.lib.jsonexport import to_jsonp
 
 class RestAPIMixIn(object):
 
