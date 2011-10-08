@@ -2,9 +2,8 @@
 Helper methods for using Solr.
 '''
 
+import datetime
 import logging
-from datetime import datetime
-from dateutil import tz
 from unicodedata import category
 
 from bson.dbref import DBRef
@@ -104,6 +103,20 @@ def drop_index(dataset_name):
 SOLR_CORE_FIELDS = ['id', 'dataset', 'amount', 'time', 'location', 'from',
                     'to', 'notes']
 
+# Helper class to represent the UTC timezone.
+class tzutc(datetime.tzinfo):
+
+    def utcoffset(self, dt):
+        return datetime.timedelta(0)
+
+    def dst(self, dt):
+        return datetime.timedelta(0)
+
+    def tzname(self, dt):
+        return "UTC"
+
+    __reduce__ = object.__reduce__
+
 def safe_unicode(s):
     if not isinstance(s, basestring):
         return s
@@ -117,9 +130,9 @@ def extend_entry(entry):
             del entry[k]
         elif isinstance(v, ObjectId):
             entry[k] = str(v)
-        elif isinstance(v, datetime) and not v.tzinfo:
-            entry[k] = datetime(v.year, v.month, v.day, v.hour,
-                                v.minute, v.second, tzinfo=tz.tzutc())
+        elif isinstance(v, datetime.datetime) and not v.tzinfo:
+            entry[k] = datetime.datetime(v.year, v.month, v.day, v.hour,
+                                         v.minute, v.second, tzinfo=tzutc())
         elif '.' in k and isinstance(v, (list, tuple)):
             entry[k] = " ".join([unicode(vi) for vi in v])
         else:
