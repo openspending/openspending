@@ -46,14 +46,6 @@ def render_value(value):
     return value
 
 
-def convert_search_result(result):
-    entry_id = result.get('id', '')
-    entry = model.Entry.c.find_one({'_id': entry_id})
-    if entry is None:
-        return result
-    return entry
-
-
 def entity_slug(entity):
     '''generate an ascii slug for an entity.
 
