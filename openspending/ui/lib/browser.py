@@ -12,7 +12,7 @@ from openspending.ui.lib.page import Page
 FILTER_PREFIX = "filter-"
 DIMENSION_LABEL = ".label_facet"
 
-STREAM_BATCH_SIZE = 1000
+STREAM_BATCH_SIZE = 100
 PAGE_SIZE = 100 # Applies only to HTML output, not CSV or JSON
 
 class Browser(object):
