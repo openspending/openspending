@@ -136,7 +136,8 @@ class CompoundDimension(Dimension, TableHandler):
         fk = self.name + '_id'
         if not fk in entry_table.c:
             self.column = db.Column(self.name + '_id', db.Integer, index=True)
-            self.column.create(entry_table, index_name=self.name + '_id_index')
+            index = self.dataset.name + '_' + self.name + '_id_index'
+            self.column.create(entry_table, index_name=index)
         else:
             self.column = entry_table.c[fk]
         self.alias = self.table.alias(self.name)
