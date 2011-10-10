@@ -134,9 +134,7 @@ class ViewState(object):
 
 
 def times(dataset):
-    # FIXME: once time is a compound dimension, make this 
-    # cleaner!
-    field = db.func.strftime("%Y", dataset['time'].column_alias)
+    field = dataset['time']['year'].column_alias
     query = db.select([field.label('year')], dataset.alias, distinct=True)
     rp = dataset.bind.execute(query)
     return sorted([r['year'] for r in rp.fetchall()])
