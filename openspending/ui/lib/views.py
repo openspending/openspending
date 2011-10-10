@@ -135,7 +135,7 @@ class ViewState(object):
 
 def times(dataset):
     field = dataset['time']['year'].column_alias
-    query = db.select([field.label('year')], dataset.alias, distinct=True)
+    query = db.select([field.label('year')], dataset['time'].alias, distinct=True)
     rp = dataset.bind.execute(query)
     return sorted([r['year'] for r in rp.fetchall()])
 
