@@ -89,6 +89,7 @@ class CompoundDimension(Dimension, TableHandler):
         self.attributes = []
         names = []
         for attr in data.get('attributes', data.get('fields', [])):
+            names.append(attr['name'])
             self.attributes.append(Attribute(self, attr))
         if not 'name' in names:
             self.attributes.append(Attribute(self, 

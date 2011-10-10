@@ -28,11 +28,11 @@ class TableHandler(object):
         """ Create the given table if it does not exist, otherwise
         reflect the current table schema from the database.
         """
-        if not meta.bind.has_table(name):
+        if not db.engine.has_table(name):
             self.table = db.Table(name, meta)
             col = db.Column('id', id_type, primary_key=True)
             self.table.append_column(col)
-            self.table.create(meta.bind)
+            self.table.create(db.engine)
         else:
             self.table = db.Table(name, meta, autoload=True)
 
@@ -61,7 +61,7 @@ class TableHandler(object):
 
     def _drop(self, bind):
         """ Drop the table and the local reference to it. """
-        if bind.has_table(self.table.name):
+        if db.engine.has_table(self.table.name):
             self.table.drop()
         del self.table
 
