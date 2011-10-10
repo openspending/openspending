@@ -37,7 +37,6 @@ class Dataset(TableHandler, db.Model):
         self.description = dataset.get('description')
         self.currency = dataset.get('currency')
         self.default_time = dataset.get('default_time')
-        self.unique_keys = dataset.get('unique_keys')
         self._load_model()
 
     @db.reconstructor
@@ -48,6 +47,7 @@ class Dataset(TableHandler, db.Model):
         This is called upon initialization and deserialization of
         the dataset from the SQLAlchemy store.
         """
+        self.unique_keys = self.data['dataset'].get('unique_keys')
         self.dimensions = []
         self.measures = []
         for dim, data in self.data.get('mapping', {}).items():
