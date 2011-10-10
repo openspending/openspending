@@ -95,6 +95,9 @@ class CompoundDimension(Dimension, TableHandler):
             self.attributes.append(Attribute(self, 
                 {'name': 'name', 'datatype': 'id'}))
 
+        # TODO: possibly use a LRU later on?
+        self._pk_cache = {}
+
     def join(self, from_clause):
         """ This will return a query fragment that can be used to establish
         a join between the scheme table and the dimension, aliased to 
@@ -150,7 +153,12 @@ class CompoundDimension(Dimension, TableHandler):
         for attr in self.attributes:
             attr_data = row[attr.name]
             dim.update(attr.load(bind, attr_data))
-        pk = self._upsert(bind, dim, ['name'])
+        name = dim['name']
+        if name in self._pk_cache:
+            pk = self._pk_cache[name]
+        else:
+            pk = self._upsert(bind, dim, ['name'])
+            self._pk_cache[name] = pk
         return {self.column.name: pk}
 
     def members(self, conditions="1=1", limit=0, offset=0):
@@ -189,6 +197,8 @@ class DateDimension(CompoundDimension):
         self.attributes = []
         for attr in self.DATE_FIELDS:
             self.attributes.append(Attribute(self, attr))
+
+        self._pk_cache = {}
 
     def load(self, bind, value):
         data = {
