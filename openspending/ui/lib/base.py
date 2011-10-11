@@ -133,5 +133,7 @@ class BaseController(WSGIController):
 
     def _get_dataset(self, dataset):
         c.dataset = model.Dataset.by_name(dataset)
-        if not c.dataset:
+        if c.dataset is None:
             abort(404, _('Sorry, there is no dataset named %r') % dataset)
+
+

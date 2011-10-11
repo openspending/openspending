@@ -214,4 +214,4 @@ class DateDimension(CompoundDimension):
         return super(DateDimension, self).load(bind, data)
 
     def __repr__(self):
-        return "<DateDimension(%s/%s:%s)>" % (self.name, self.attributes)
+        return "<DateDimension(%s:%s)>" % (self.name, self.attributes)
