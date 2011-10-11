@@ -1,9 +1,6 @@
-from pylons import config
-
 import logging
 
 from pylons import request, response, tmpl_context as c
-from pylons.controllers.util import abort
 from pylons.i18n import _
 
 from openspending import model
@@ -38,8 +35,7 @@ class DatasetController(BaseController):
                                 results))
         elif format == 'csv':
             results = map(lambda d: d.as_dict(), results)
-            write_csv(results, response)
-            return
+            return write_csv(results, response)
         else:
             return render('dataset/index.html')
 
@@ -61,8 +57,7 @@ class DatasetController(BaseController):
         if format == 'json':
             return to_jsonp(c.dataset.as_dict())
         elif format == 'csv':
-            write_csv([c.dataset.as_dict()], response)
-            return
+            return write_csv([c.dataset.as_dict()], response)
         else:
             return render('dataset/view.html')
 

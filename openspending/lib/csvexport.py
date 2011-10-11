@@ -1,37 +1,34 @@
 import csv
-import sys
 
 from datetime import datetime
+from StringIO import StringIO
 
-from openspending import model
 from openspending.lib.util import flatten
 
 def write_csv(entries, response):
     response.content_type = 'text/csv'
+    response.headers['Transfer-Encoding'] = 'chunked'
+    return generate_csv(entries)
 
-    # NOTE: this should be a streaming service but currently
-    # I see no way to know the full set of keys without going
-    # through the data twice.
-    keys = set()
-    rows = []
+def generate_csv(entries):
+    generate_headers = True
     for entry in entries:
-        d = {}
+        row = {}
         for k, v in flatten(entry).items():
             if isinstance(v, (list, tuple, dict)):
                 continue
             elif isinstance(v, datetime):
                 v = v.isoformat()
-            d[unicode(k).encode('utf8')] = unicode(v).encode('utf8')
-        keys.update(d.keys())
-        rows.append(d)
+            row[unicode(k).encode('utf8')] = unicode(v).encode('utf8')
 
-    fields = sorted(keys)
-    writer = csv.DictWriter(response, fields)
+        fields = sorted(row.keys())
+        sio = StringIO()
+        writer = csv.DictWriter(sio, fields)
 
-    if sys.version_info < (2,7):
-        header = dict(zip(fields, fields))
-        writer.writerow(header)
-    else:
-        writer.writeheader()
+        if generate_headers:
+            header = dict(zip(fields, fields))
+            writer.writerow(header)
+            generate_headers = False
 
-    writer.writerows(rows)
+        writer.writerow(row)
+        yield sio.getvalue()

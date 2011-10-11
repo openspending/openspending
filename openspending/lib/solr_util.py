@@ -132,9 +132,9 @@ def extend_entry(entry, dataset):
     entry['_id'] = dataset.name + '::' + unicode(entry['id'])
     for k, v in entry.items():
         # this is similar to json encoding, but not the same.
-        if isinstance(v, datetime) and not v.tzinfo:
-            entry[k] = datetime(v.year, v.month, v.day, v.hour,
-                                v.minute, v.second, tzinfo=tz.tzutc())
+        if isinstance(v, datetime.datetime) and not v.tzinfo:
+            entry[k] = datetime.datetime(v.year, v.month, v.day, v.hour,
+                                         v.minute, v.second, tzinfo=tzutc())
         elif '.' in k and isinstance(v, (list, tuple)):
             entry[k] = " ".join([unicode(vi) for vi in v])
         else:
