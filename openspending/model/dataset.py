@@ -4,7 +4,8 @@ from collections import defaultdict
 from openspending.model import meta as db
 from openspending.lib.util import hash_values
 
-from openspending.model.common import TableHandler, JSONType
+from openspending.model.common import TableHandler, JSONType, \
+        ALIAS_PLACEHOLDER
 from openspending.model.dimension import CompoundDimension, \
         AttributeDimension, DateDimension
 from openspending.model.dimension import Measure
@@ -185,6 +186,7 @@ class Dataset(TableHandler, db.Model):
             result = {}
             for k, v in row.items():
                 field, attr = k.split('_', 1)
+                field = field.replace(ALIAS_PLACEHOLDER, '_')
                 if field == 'entry':
                     result[attr] = v
                 else:
@@ -319,6 +321,7 @@ class Dataset(TableHandler, db.Model):
                     summary['num_entries'] += value or 0
                 if '_' in key:
                     dimension, attribute = key.split('_', 1)
+                    dimension = dimension.replace(ALIAS_PLACEHOLDER, '_')
                     if dimension == 'entry':
                         result[attribute] = value
                     else:

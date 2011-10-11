@@ -1,7 +1,7 @@
 
 from openspending.model import meta as db
 from openspending.model.attribute import Attribute
-from openspending.model.common import TableHandler
+from openspending.model.common import TableHandler, ALIAS_PLACEHOLDER
 
 class Dimension(object):
     """ A base class for dimensions. """
@@ -143,7 +143,8 @@ class CompoundDimension(Dimension, TableHandler):
             self.column.create(entry_table, index_name=index)
         else:
             self.column = entry_table.c[fk]
-        self.alias = self.table.alias(self.name)
+        alias_name = self.name.replace('_', ALIAS_PLACEHOLDER)
+        self.alias = self.table.alias(alias_name)
 
     def load(self, bind, row):
         """ Load a row of data into this dimension by having the attributes
