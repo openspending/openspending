@@ -9,6 +9,7 @@ from pylons.templating import literal, pylons_globals
 from pylons import tmpl_context as c, request, response, config, app_globals, session
 from pylons.controllers.util import abort
 from genshi.filters import HTMLFormFiller
+from pylons.i18n import _
 
 from openspending import model
 from openspending.ui import i18n

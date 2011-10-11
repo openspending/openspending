@@ -52,7 +52,7 @@ class TestDataset(DatabaseTestCase):
         assert not hasattr(dim, 'alias')
 
     def test_generate_db_entry_table(self):
-        assert self.ds.table.name=='test_entry', self.ds.table.name
+        assert self.ds.table.name=='test__entry', self.ds.table.name
         cols = self.ds.table.c
         assert 'id' in cols
         assert isinstance(cols['id'].type, Unicode)
@@ -95,14 +95,14 @@ class TestDatasetLoad(DatabaseTestCase):
     
     def test_drop(self):
         tn = self.engine.table_names()
-        assert 'test_entry' in tn, tn
-        assert 'test_entity' in tn, tn
-        assert 'test_funny' in tn, tn
+        assert 'test__entry' in tn, tn
+        assert 'test__entity' in tn, tn
+        assert 'test__funny' in tn, tn
         self.ds.drop()
         tn = self.engine.table_names()
-        assert 'test_entry' not in tn, tn
-        assert 'test_entity' not in tn, tn
-        assert 'test_funny' not in tn, tn
+        assert 'test__entry' not in tn, tn
+        assert 'test__entity' not in tn, tn
+        assert 'test__funny' not in tn, tn
 
     def test_dataset_count(self):
         load_dataset(self.ds)

@@ -31,7 +31,7 @@ class TestCompoundDimension(DatabaseTestCase):
         #assert not hasattr(self.entity, 'table'), self.entity
         #self.ds.generate()
         assert hasattr(self.entity, 'table'), self.entity
-        assert self.entity.table.name=='test_' + self.entity.taxonomy, self.entity.table.name
+        assert self.entity.table.name=='test__' + self.entity.taxonomy, self.entity.table.name
         assert hasattr(self.entity, 'alias')
         assert self.entity.alias.name==self.entity.name, self.entity.alias.name
         cols = self.entity.table.c

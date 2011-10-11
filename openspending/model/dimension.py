@@ -89,10 +89,14 @@ class CompoundDimension(Dimension, TableHandler):
         self.attributes = []
         names = []
         for attr in data.get('attributes', data.get('fields', [])):
+            names.append(attr['name'])
             self.attributes.append(Attribute(self, attr))
         if not 'name' in names:
             self.attributes.append(Attribute(self, 
                 {'name': 'name', 'datatype': 'id'}))
+
+        # TODO: possibly use a LRU later on?
+        self._pk_cache = {}
 
     def join(self, from_clause):
         """ This will return a query fragment that can be used to establish
@@ -129,13 +133,14 @@ class CompoundDimension(Dimension, TableHandler):
         if it does not already exist and propagate this call to the 
         associated attributes. 
         """
-        self._ensure_table(meta, self.dataset.name + '_' + self.taxonomy)
+        self._ensure_table(meta, self.dataset.name, self.taxonomy)
         for attr in self.attributes:
             attr.generate(meta, self.table)
         fk = self.name + '_id'
         if not fk in entry_table.c:
             self.column = db.Column(self.name + '_id', db.Integer, index=True)
-            self.column.create(entry_table, index_name=self.name + '_id_index')
+            index = self.dataset.name + '__' + self.name + '_id_index'
+            self.column.create(entry_table, index_name=index)
         else:
             self.column = entry_table.c[fk]
         self.alias = self.table.alias(self.name)
@@ -148,7 +153,12 @@ class CompoundDimension(Dimension, TableHandler):
         for attr in self.attributes:
             attr_data = row[attr.name]
             dim.update(attr.load(bind, attr_data))
-        pk = self._upsert(bind, dim, ['name'])
+        name = dim['name']
+        if name in self._pk_cache:
+            pk = self._pk_cache[name]
+        else:
+            pk = self._upsert(bind, dim, ['name'])
+            self._pk_cache[name] = pk
         return {self.column.name: pk}
 
     def members(self, conditions="1=1", limit=0, offset=0):
@@ -187,6 +197,8 @@ class DateDimension(CompoundDimension):
         self.attributes = []
         for attr in self.DATE_FIELDS:
             self.attributes.append(Attribute(self, attr))
+
+        self._pk_cache = {}
 
     def load(self, bind, value):
         data = {

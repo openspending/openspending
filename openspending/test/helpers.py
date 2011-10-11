@@ -29,6 +29,7 @@ def load_fixture(name):
         entry = convert_types(data['mapping'], row)
         dataset.load(entry)
     fh.close()
+    dataset.commit()
     return dataset
 
 def fixture_file(name):

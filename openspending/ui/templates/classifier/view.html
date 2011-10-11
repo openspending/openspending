@@ -21,10 +21,10 @@
 
     <div class="span-16">
       <h3>Description</h3>
-      <div class="no-desc" py:if="not c.classifier.description">
+      <div class="no-desc" py:if="not c.classifier.get('description')">
         No description is available for ${c.classifier.label}
       </div>
-      ${h.markdown(c.classifier.description)}
+      ${h.markdown(c.classifier.get('description'))}
     </div>
     <div class="span-8 last">
       <h3>Research</h3>

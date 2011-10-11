@@ -37,7 +37,6 @@ class Dataset(TableHandler, db.Model):
         self.description = dataset.get('description')
         self.currency = dataset.get('currency')
         self.default_time = dataset.get('default_time')
-        self.unique_keys = dataset.get('unique_keys')
         self._load_model()
 
     @db.reconstructor
@@ -48,6 +47,7 @@ class Dataset(TableHandler, db.Model):
         This is called upon initialization and deserialization of
         the dataset from the SQLAlchemy store.
         """
+        self.unique_keys = self.data['dataset'].get('unique_keys')
         self.dimensions = []
         self.measures = []
         for dim, data in self.data.get('mapping', {}).items():
@@ -88,15 +88,21 @@ class Dataset(TableHandler, db.Model):
         tables and columns in the model representation, this needs to
         be called even for access to the data, not just upon loading.
         """
-        self.bind = db.engine
+        self.bind = db.engine #.connect()
         self.meta = db.MetaData()
-        self.meta.bind = self.bind
+        #self.tx = self.bind.begin()
+        self.meta.bind = db.engine
 
-        self._ensure_table(self.meta, self.name + '_entry',
+        self._ensure_table(self.meta, self.name, 'entry',
                            id_type=db.Unicode(42))
         for field in self.fields:
             field.generate(self.meta, self.table)
         self.alias = self.table.alias('entry')
+
+    def commit(self):
+        pass
+        #self.tx.commit()
+        #self.tx = self.bind.begin()
 
     def _make_key(self, data):
         """ Generate a unique identifier for an entry. This is better 
@@ -265,13 +271,16 @@ class Dataset(TableHandler, db.Model):
         for key in drilldowns:
             if key in labels:
                 column = labels[key]
+                group_by.append(column)
             else:
                 column = self.key(key)
                 if '.' in key or column.table == self.alias:
-                   fields.append(column)
+                    fields.append(column)
+                    group_by.append(column)
                 else:
                     fields.append(column.table)
-            group_by.append(column)
+                    for col in column.table.columns:
+                        group_by.append(col)
 
         conditions = db.and_()
         filters = defaultdict(set)
