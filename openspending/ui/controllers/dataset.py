@@ -106,6 +106,8 @@ class DatasetController(BaseController, RestAPIMixIn):
 
     def explorer(self, name=None):
         c.dataset = model.dataset.find_one_by('name', name)
+        if not c.dataset:
+            abort(404, _('Sorry, there is no dataset named %r') % name)
         c.keys_meta = dict([(k.key, {"label": k.label,
                 "description": k.get("description", "")})
                 for k in model.dimension.find({"dataset": c.dataset['name']})])
