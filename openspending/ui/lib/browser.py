@@ -228,7 +228,7 @@ class Browser(object):
             # will start yielding None values.
             query = self.dataset.alias.c.id.in_(ids)
             entries = self.dataset.entries(query)
-            entries_ordered = [None] * len(entries)
+            entries_ordered = [None] * STREAM_BATCH_SIZE
 
             for entry in entries:
                 entries_ordered[ids_map[entry['id']]] = entry
