@@ -2,9 +2,8 @@
 Helper methods for using Solr.
 '''
 
+import datetime
 import logging
-from datetime import datetime
-from dateutil import tz
 from unicodedata import category
 
 from solr import SolrConnection
@@ -105,6 +104,20 @@ def drop(query):
 
 SOLR_CORE_FIELDS = ['id', 'dataset', 'amount', 'time', 'location', 'from',
                     'to', 'notes']
+
+# Helper class to represent the UTC timezone.
+class tzutc(datetime.tzinfo):
+
+    def utcoffset(self, dt):
+        return datetime.timedelta(0)
+
+    def dst(self, dt):
+        return datetime.timedelta(0)
+
+    def tzname(self, dt):
+        return "UTC"
+
+    __reduce__ = object.__reduce__
 
 def safe_unicode(s):
     if not isinstance(s, basestring):
