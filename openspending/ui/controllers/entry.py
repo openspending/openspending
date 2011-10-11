@@ -1,11 +1,9 @@
 import logging
 
 from pylons import request, response, tmpl_context as c
-from pylons.controllers.util import abort, redirect
+from pylons.controllers.util import abort
 from pylons.i18n import _
-from routes import url_for
 
-from openspending import model
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IEntryController
 from openspending.ui.lib.base import BaseController, render
@@ -30,8 +28,7 @@ class EntryController(BaseController):
         if format == 'json':
             return c.browser.to_jsonp()
         elif format == 'csv':
-            c.browser.to_csv()
-            return
+            return c.browser.to_csv()
         else:
             return render('entry/index.html')
 
@@ -69,8 +66,7 @@ class EntryController(BaseController):
         if format == 'json':
             return to_jsonp(c.entry)
         elif format == 'csv':
-            write_csv([c.entry], response)
-            return
+            return write_csv([c.entry], response)
         else:
             return render('entry/view.html')
 

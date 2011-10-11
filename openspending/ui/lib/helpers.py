@@ -19,6 +19,7 @@ from openspending import model
 from openspending.lib import json
 from openspending.lib.util import slugify
 from openspending.ui.lib.authz import have_role
+from openspending.lib.jsonexport import to_jsonp, to_json
 import math
 
 def markdown(*args, **kwargs):
@@ -96,7 +97,7 @@ def classifier_url(dataset, classifier, **kwargs):
                    action='view',
                    dataset=dataset,
                    name=classifier.get('name'),
-                   taxonomy=classifier.get('taxonomy'), 
+                   taxonomy=classifier.get('taxonomy'),
                    **kwargs)
 
 

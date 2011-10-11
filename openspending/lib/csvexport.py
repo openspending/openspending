@@ -1,16 +1,12 @@
 import csv
-import sys
 
 from datetime import datetime
 from StringIO import StringIO
-from pylons.controllers.util import Response
 
-from openspending import model
 from openspending.lib.util import flatten
 
 def write_csv(entries, response):
     response.content_type = 'text/csv'
-    #response.headers['Transfer-Encoding'] = 'chunked'
     return generate_csv(entries)
 
 def generate_csv(entries):

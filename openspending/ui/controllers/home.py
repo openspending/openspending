@@ -8,7 +8,6 @@ from pylons.controllers.util import redirect
 from pylons.decorators.cache import beaker_cache
 from pylons.i18n import _
 
-from openspending import model
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IDatasetController
 from openspending.ui.i18n import set_session_locale

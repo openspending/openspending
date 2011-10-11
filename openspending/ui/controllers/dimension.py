@@ -20,9 +20,7 @@ class DimensionController(BaseController):
            cache_response=False,
            query_args=True)
     def index(self, dataset, format='html'):
-        c.dataset = model.Dataset.by_name(dataset)
-        if not c.dataset:
-            abort(404, _('Sorry, there is no dataset named %s') % dataset)
+        self._get_dataset(dataset)
         c.dimensions = c.dataset.dimensions
         if format == 'json':
             return to_jsonp([d.as_dict() for d in c.dimensions])
@@ -33,9 +31,7 @@ class DimensionController(BaseController):
            cache_response=False,
            query_args=True)
     def view(self, dataset, dimension, format='html'):
-        c.dataset = model.Dataset.by_name(dataset)
-        if not c.dataset:
-            abort(404, _('Sorry, there is no dataset named %s') % dataset)
+        self._get_dataset(dataset)
         try:
             c.dimension = c.dataset[dimension]
         except KeyError:

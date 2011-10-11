@@ -25,9 +25,8 @@ class Api2Controller(BaseController):
         try:
             result = dataset.aggregate(drilldowns=drilldowns, cuts=cuts, page=page,
                                        pagesize=pagesize, order=order)
-        except ValueError:
-            return {'errors': ['We cannot aggregate at the moment. '
-                               'Please come back later.']}
+        except (KeyError, ValueError) as ve:
+            return {'errors': ['Invalid aggregation query: %s' % ve]}
 
         return result
 

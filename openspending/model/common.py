@@ -1,7 +1,10 @@
+#coding: utf-8
 from json import dumps, loads
 from sqlalchemy.types import Text, MutableType, TypeDecorator
 
 from openspending.model import meta as db 
+
+ALIAS_PLACEHOLDER = u'‽'
 
 class JSONType(MutableType, TypeDecorator):
     impl = Text
