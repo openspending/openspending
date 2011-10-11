@@ -133,13 +133,13 @@ class CompoundDimension(Dimension, TableHandler):
         if it does not already exist and propagate this call to the 
         associated attributes. 
         """
-        self._ensure_table(meta, self.dataset.name + '_' + self.taxonomy)
+        self._ensure_table(meta, self.dataset.name, self.taxonomy)
         for attr in self.attributes:
             attr.generate(meta, self.table)
         fk = self.name + '_id'
         if not fk in entry_table.c:
             self.column = db.Column(self.name + '_id', db.Integer, index=True)
-            index = self.dataset.name + '_' + self.name + '_id_index'
+            index = self.dataset.name + '__' + self.name + '_id_index'
             self.column.create(entry_table, index_name=index)
         else:
             self.column = entry_table.c[fk]

@@ -93,7 +93,7 @@ class Dataset(TableHandler, db.Model):
         #self.tx = self.bind.begin()
         self.meta.bind = db.engine
 
-        self._ensure_table(self.meta, self.name + '_entry',
+        self._ensure_table(self.meta, self.name, 'entry',
                            id_type=db.Unicode(42))
         for field in self.fields:
             field.generate(self.meta, self.table)
