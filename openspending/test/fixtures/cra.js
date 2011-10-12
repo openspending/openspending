@@ -42,6 +42,13 @@
       "datatype": "float",
       "type": "value"
     },
+    "total": {
+      "column": "amount",
+      "label": "",
+      "description": "",
+      "datatype": "float",
+      "type": "measure"
+    },
     "cap_or_cur": {
       "column": "cap_or_cur",
       "label": "CG, LG or PC",

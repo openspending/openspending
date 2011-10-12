@@ -16,6 +16,7 @@ class Api2Controller(BaseController):
         drilldowns = self._drilldowns(params, errors)
         cuts = self._cuts(params, errors)
         order = self._order(params, errors)
+        measure = self._measure(params, dataset, errors)
         page = self._to_int('page', params.get('page', 1), errors)
         pagesize = self._to_int('pagesize', params.get('pagesize', 10000),
                                 errors)
@@ -23,10 +24,12 @@ class Api2Controller(BaseController):
             return {'errors': errors}
 
         try:
-            result = dataset.aggregate(drilldowns=drilldowns, cuts=cuts, page=page, 
+            result = dataset.aggregate(measure=measure, 
+                                       drilldowns=drilldowns, 
+                                       cuts=cuts, page=page, 
                                        pagesize=pagesize, order=order)
         except (KeyError, ValueError) as ve:
-            return {'errors': ['Invalid aggregation query: %s' % ve]}
+            return {'errors': ['Invalid aggregation query: %r' % ve]}
 
         return result
 
@@ -37,6 +40,13 @@ class Api2Controller(BaseController):
             errors.append('no dataset with name "%s"' % dataset_name)
             return
         return dataset
+
+    def _measure(self, params, dataset, errors):
+        name = params.get('measure', 'amount')
+        for measure in dataset.measures:
+            if measure.name == name:
+                return name
+        errors.append('no measure with name "%s"' % name)
 
     def _drilldowns(self, params, errors):
         drilldown_param = params.get('drilldown', None)
