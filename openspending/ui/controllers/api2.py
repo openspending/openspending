@@ -1,7 +1,7 @@
 from pylons import config, request
 
 from openspending import model
-from openspending.ui.lib.jsonp import jsonpify
+from openspending.lib.jsonexport import jsonpify
 from openspending.ui.lib.base import BaseController
 
 class Api2Controller(BaseController):

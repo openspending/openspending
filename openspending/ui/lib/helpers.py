@@ -97,7 +97,7 @@ def classifier_url(dataset, classifier, **kwargs):
                    action='view',
                    dataset=dataset,
                    name=classifier.get('name'),
-                   taxonomy=classifier.get('taxonomy'), 
+                   taxonomy=classifier.get('taxonomy'),
                    **kwargs)
 
 
@@ -153,7 +153,7 @@ def format_number_with_commas(number):
         return "-"
     try:
         if math.isnan(number):
-            return "-"        
+            return "-"
         s = str(int(number))
     except TypeError:
         msg = "Value was not numeric: %s (type: %s)" % (repr(number), type(number))

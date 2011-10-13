@@ -31,7 +31,7 @@ class DatasetController(BaseController):
 
         c.results = results
         if format == 'json':
-            return to_jsonp(map(lambda d: d.as_dict(), 
+            return to_jsonp(map(lambda d: d.as_dict(),
                                 results))
         elif format == 'csv':
             results = map(lambda d: d.as_dict(), results)
@@ -90,6 +90,8 @@ class DatasetController(BaseController):
 
     def explorer(self, name=None):
         c.dataset = model.Dataset.by_name(name)
+        if not c.dataset:
+            abort(404, _('Sorry, there is no dataset named %r') % name)
         c.keys_meta = dict([(d.name, {"label": d.label,
                 "description": d.description})
                 for d in c.dataset.dimensions])
