@@ -22,9 +22,6 @@ class HomeController(BaseController):
 
     extensions = PluginImplementations(IDatasetController)
 
-    @beaker_cache(invalidate_on_startup=True,
-           cache_response=False,
-           query_args=True)
     def index(self):
         featured_dataset = config.get("openspending.default_dataset")
         c.dataset = filter(lambda x: x.name == featured_dataset, c.datasets)

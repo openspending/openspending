@@ -11,7 +11,7 @@ from openspending.lib.csvexport import write_csv
 from openspending.ui.lib.jsonp import to_jsonp
 from openspending.lib import json
 from openspending.ui.lib import helpers as h
-from openspending.ui.lib.base import BaseController, render
+from openspending.ui.lib.base import BaseController, render, abort
 from openspending.ui.lib.browser import Browser
 from openspending.ui.lib.views import View, ViewState, handle_request
 from openspending.ui.lib.color import rgb_rainbow

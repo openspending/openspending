@@ -234,7 +234,8 @@ class Browser(object):
                 entries_ordered[ids_map[entry['id']]] = entry
 
             for entry in entries_ordered:
-                yield _entry_filter(entry)
+                if entry is not None:
+                    yield _entry_filter(entry)
 
     def to_jsonp(self):
         self._set_limit(None)
@@ -256,13 +257,6 @@ def _entry_filter(entry):
             pass
 
     kill(entry, ['_csv_import_fp']) # provided by 'provenance' key
-    kill(entry, ['dataset', 'entry_custom_html'])
-    kill(entry, ['dataset', 'description'])
-
-    for k in entry.iterkeys():
-        if isinstance(entry[k], dict):
-            kill(entry[k], ['ref'])
-
     return entry
 
 def _batches(n, iterable):

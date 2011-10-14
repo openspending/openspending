@@ -36,9 +36,6 @@ class ClassifierController(BaseController):
         abort(404, _('Sorry, there is no taxonomy named %r') % taxonomy)
 
 
-    @beaker_cache(invalidate_on_startup=True,
-                  cache_response=False,
-                  query_args=True)
     def view(self, dataset, taxonomy, name, format="html"):
         self._get_classifier(dataset, taxonomy, name)
         c.num_entries = -1
@@ -53,15 +50,11 @@ class ClassifierController(BaseController):
         if format == 'json':
             return to_jsonp(c.classifier)
         elif format == 'csv':
-            write_csv([c.dataset.as_dict()], response)
-            return
+            return write_csv([c.dataset.as_dict()], response)
         else:
             return render('classifier/view.html')
 
 
-    @beaker_cache(invalidate_on_startup=True,
-                  cache_response=False,
-                  query_args=True)
     def entries(self, dataset, taxonomy, name, format='html'):
         self._get_classifier(dataset, taxonomy, name)
 

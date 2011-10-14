@@ -16,9 +16,6 @@ PAGE_SIZE = 100
 
 class DimensionController(BaseController):
 
-    @beaker_cache(invalidate_on_startup=True,
-           cache_response=False,
-           query_args=True)
     def index(self, dataset, format='html'):
         self._get_dataset(dataset)
         c.dimensions = c.dataset.dimensions
@@ -27,9 +24,6 @@ class DimensionController(BaseController):
         else:
             return render('dimension/index.html')
 
-    @beaker_cache(invalidate_on_startup=True,
-           cache_response=False,
-           query_args=True)
     def view(self, dataset, dimension, format='html'):
         self._get_dataset(dataset)
         try:
