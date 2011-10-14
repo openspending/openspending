@@ -1,4 +1,4 @@
-from pylons import config, request
+from pylons import request
 
 from openspending import model
 from openspending.lib.jsonexport import jsonpify
