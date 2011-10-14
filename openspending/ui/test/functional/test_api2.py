@@ -29,6 +29,15 @@ class TestApi2Controller(ControllerTestCase):
         h.assert_equal(result['summary']['num_drilldowns'], 6)
         h.assert_equal(result['summary']['amount'], -371500000.0)
 
+    def test_measures(self):
+        response = self.app.get(url(controller='api2', action='aggregate',
+                                    dataset='cra', cut='year:2009',
+                                    measure='total'))
+        h.assert_equal(response.status, '200 OK')
+        result = json.loads(response.body)
+        h.assert_equal(result['summary']['num_drilldowns'], 1)
+        h.assert_equal(result['summary']['total'], 57300000.0)
+
     def test_cut(self):
         response = self.app.get(url(controller='api2', action='aggregate',
                                     dataset='cra', cut='year:2009'))
