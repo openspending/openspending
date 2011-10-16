@@ -744,6 +744,7 @@ form.basic input[type=submit]:active {
 .entry-page .amount .date {
   float: right;
   color: #aaa;
+  line-height: 1.2em;
 }
 
 .flag-box {

@@ -7,8 +7,10 @@
   <py:def function="page_title">${c.dataset['label']}</py:def>
 
   <div py:def="content">
-    <h2 class="page-title">${c.dataset['label']}: Entries</h2>
-
+    <h2 class="page-header">${c.dataset['label']}
+      <small>Individual financial transactions</small>
+    </h2>
+    <p>&nbsp;</p>
     <xi:include href="../_browser.html" />
   </div>
 

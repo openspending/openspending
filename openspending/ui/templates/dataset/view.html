@@ -14,39 +14,47 @@
 
 
   <div py:def="content">
-    <h2 class="page-title">${c.dataset.label}</h2>
+    <h2 class="page-header">${c.dataset.label} <small>${c.num_entries} Entries</small></h2>
     <py:if test="hasattr(c, 'viewstate')">
       ${view_panel(c.viewstate)}
     </py:if>
 
-    <div class="span-24 last" id="vis"></div>
-    <div class="span-16">
-      <h3>Description</h3>
-      <div class="no-desc" py:if="not c.dataset.description">
-        No description is available for ${c.dataset.label}
+    <div py:if="c.view" class="row">
+      <div class="span16 last" id="vis"></div>
+    </div>
+
+    <div class="row">
+      <div class="span-two-thirds">
+        <h3>Description</h3>
+        <div class="no-desc" py:if="not c.dataset.description">
+          No description is available for ${c.dataset.label}
+        </div>
+        ${h.markdown(c.dataset.description)}
       </div>
-      ${h.markdown(c.dataset.description)}
+      <div class="span-one-third">
+        <h3>Research</h3>
+        <ul>
+          <li><a href="${url(controller='entry', action='index', dataset=c.dataset.name)}">Search</a>: ${c.num_entries} spending entries</li>
+          <li><a href="${url(controller='dimension', action='index',
+            dataset=c.dataset.name)}">Dimensions</a>: Explore the data model</li>
+        </ul>
+      </div>
     </div>
-    <div class="span-8 submenu last">
-      <h3>Research</h3>
-      <ul>
-        <li><a href="${url(controller='entry', action='index', dataset=c.dataset.name)}">Search</a>: ${c.num_entries} spending entries</li>
-        <li><a href="${url(controller='dimension', action='index',
-          dataset=c.dataset.name)}">Dimensions</a>: Explore the data model</li>
-      </ul>
+    <div py:if="c.view" class="row">
+      <div class="span16">
+        <div id="detail" />
+      </div>
     </div>
-    <div class="span-24 last">
-      <div id="detail" />
-    </div>
-    <py:if test="c.view is None">
+    <div py:if="c.view is None" class="row">
       <xi:include href="../_browser.html" />
-    </py:if>
-    <div id="comments" class="comments">
     </div>
-    <div id="access" class="span-24 last">
-      Download a machine-readable version of <i>${c.dataset.label}</i> (metadata):
-      <a href="${url(controller='dataset', action='view', dataset=c.dataset.name, format='json')}"><img src="${h.static('img/icons/json.png')}" alt="JSON" /></a>
-      <a href="${url(controller='dataset', action='view', dataset=c.dataset.name, format='csv')}"><img src="${h.static('img/icons/csv.png')}" alt="CSV" /></a>
+
+    <div class="row">
+      <div id="access" class="span16">
+        Download a machine-readable version of <i>${c.dataset.label}</i> (metadata):
+        <a href="${url(controller='dataset', action='view', dataset=c.dataset.name, format='json')}"><img src="${h.static('img/icons/json.png')}" alt="JSON" /></a>
+        <a href="${url(controller='dataset', action='view', dataset=c.dataset.name, format='csv')}"><img src="${h.static('img/icons/csv.png')}" alt="CSV" /></a>
+      </div>
     </div>
 
   </div>

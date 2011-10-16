@@ -32,7 +32,10 @@ class ErrorController(BaseController):
 
         if code in self.rendered_error_codes:
             c.code = code
-            c.message = content
+            message = content
+            message = message.split('</h1>', 1)[-1]
+            message = message.split('</body>', 1)[0]
+            c.message = message.split('\n', 2)[-1]
             return render('../templates/%s.html' % code)
         else:
             page = error_document_template % \

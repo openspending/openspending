@@ -7,35 +7,70 @@
   <py:def function="page_title">Login</py:def>
   
   <div py:def="content">
-    <div class="span-12">
-      <h2>Log in</h2>
-      <form class="basic login" id="login" action="/perform_login" method="POST">
-        <label for="login">Login</label>
-        <input name="login" />
-        <label for="password">Password</label>
-        <input name="password" type="password" />
+    <div class="row">
+      <div class="span8">
+        <h2>Log in</h2>
+        <form class="basic login" id="login" action="/perform_login" method="POST">
+          <fieldset>
+            <div class="clearfix">
+              <label for="login">Login</label>
+              <div class="input">
+                <input name="login" />
+              </div>
+            </div>
+            <div class="clearfix">
+              <label for="password">Password</label>
+              <div class="input">
+                <input name="password" type="password" />
+              </div>
+            </div>
+          </fieldset>
+          <div class="actions">
+            <input value="Login" class="btn primary" type="submit" />
+          </div>
+        </form>
+      </div>
+      <div class="span8">
+        <h2>Create an account</h2>
+        <form class="basic register" id="register" action="/register" method="POST">
+          <fieldset>
+            <div class="clearfix">
+              <label for="name">Login</label>
+              <div class="input">
+                <input name="name" />
+              </div>
+            </div>
+            <div class="clearfix">
+              <label for="fullname">Fullname</label>
+              <div class="input">
+                <input name="fullname" />
+              </div>
+            </div>
+            <div class="clearfix">
+              <label for="email">E-Mail</label>
+              <div class="input">
+                <input name="email" />
+              </div>
+            </div>
+            <div class="clearfix">
+              <label for="password1">Password</label>
+              <div class="input">
+                <input name="password1" type="password" autocomplete="off" />
+              </div>
+            </div>
+            <div class="clearfix">
+              <label for="password2">Password (repeat)</label>
+              <div class="input">
+                <input name="password2" type="password" autocomplete="off" />
+              </div>
+            </div>
+          </fieldset>
 
-        <span class="labelpad">&nbsp;</span>
-        <input value="Login" type="submit" />
-      </form>
-    </div>
-    <div class="span-12 last">
-      <h2>Create an account</h2>
-      <form class="basic register" id="register" action="/register" method="POST">
-        <label for="name">Login</label>
-        <input name="name" />
-        <label for="fullname">Fullname</label>
-        <input name="fullname" />
-        <label for="email">E-Mail</label>
-        <input name="email" />
-        <label for="password1">Password</label>
-        <input name="password1" type="password" autocomplete="off" />
-        <label for="password2">Password (repeat)</label>
-        <input name="password2" type="password" autocomplete="off" />
-
-        <span class="labelpad">&nbsp;</span>
-        <input value="Login" type="submit" />
-      </form>
+          <div class="actions">
+            <input value="Create new account" class="btn primary" type="submit" />
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 

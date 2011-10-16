@@ -1,122 +1,90 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
   xmlns:py="http://genshi.edgewall.org/"
   xmlns:i18n="http://genshi.edgewall.org/i18n"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   >
 
-<xi:include href="_util.html" />
+  <xi:include href="_util.html" />
 
-<py:if test="len(_form_errors)">
-  <div py:match="input|select" py:strip="" py:with="error = _form_errors.get(str(select('@name')))">
-    ${select('.')}
-    <span class="error-message" py:if="error" py:content="error"></span>
-  </div>
-</py:if>
+  <head>
+    <meta charset="utf-8" />
+    <title>OpenSpending - mapping the money.</title>
+    <meta name="description" content="We're allowing anyone to explore,
+    visualize and track government spending." />
+    <meta name="author" content="Open Knowledge Foundation" />
+    <link rel="shortcut icon" href="${h.static('img/favicon.ico')}" type="image/x-icon" />
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-  <title>${page_title()} - ${g.site_title}</title>
-  <link rel="shortcut icon" href="${h.static('img/favicon.ico')}" type="image/x-icon" />
+    <!-- Le styles -->
+    <link href="${h.static('style/bootstrap.css')}" rel="stylesheet" />
+    <link href="${h.static('style/style.css')}" rel="stylesheet" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="${h.static('css/reset.css')}" />
-  <script src="${h.static('js/libs/modernizr-1.6.min.js')}"></script>
+    <script src="${h.static('js/libs/jquery-1.5.2.min.js')}"></script>
+    <script src="${h.static('js/bootstrap-dropdown.js')}"></script>
 
-  <link rel="stylesheet" href="${h.static('css/blueprint/screen.css')}" type="text/css" media="screen, projection" />
-  <link rel="stylesheet" href="${h.static('css/blueprint/print.css')}" type="text/css" media="print" />
-  <link rel="stylesheet" href="${h.static('css/style.css')}" />
-  <!--[if lt IE 8]>
-    <link rel="stylesheet" href="/css/blueprint/ie.css" type="text/css" media="screen, projection" />
-  <![endif]-->
-  <script src="${h.static('js/libs/jquery-1.5.1.min.js')}"></script>
-  <script src="${h.static('js/libs/underscore-min.js')}"></script>
-  <script src="${h.static('js/libs/backbone-min.js')}"></script>
+    <script src="${h.static('js/libs/underscore-min.js')}"></script>
+    <script src="${h.static('js/libs/backbone-min.js')}"></script>
 
-  <script src="${h.static('js/utils.js')}"></script>
-  <script src="${h.static('js/script.js')}"></script>
-  <script src="http://assets.okfn.org/banner/banner.js"></script>
-  <py:if test="defined('optional_head')">
-    ${optional_head()}
-  </py:if>
-</head>
-<body class="${nav_class()}">
-  <div id="wrap">
-    <py:with vars="messages = list(h._flash.pop_messages())">
-      <div class="flash-banner-box" py:if="len(messages)">
-        <div class="flash-banner ${m.category}" py:for="m in messages">
-          ${m.message}
-        </div>
-      </div>
-    </py:with>
-    <div id="page" class="container">
-      <header>
-        <nav>
-          <a href="${g.blog_link}">Blog</a>
-          <a py:if="g.forum_link" href="${g.forum_link}">Forum</a>
-          <a href="${g.wiki_link}">About</a>
-          <a py:if="c.account is None" href="/login">Login or register</a>
-          <py:if test="c.account is not None">
-            <a href="/settings">My Profile</a>
-            <a href="/logout">Logout</a>
-          </py:if>
-          <a style="color: #C7262E;" href="/reporterror">Report data problems</a>
-        </nav>
-        <h1 id="site-title">
-          <a href="/">${g.site_title}</a>
-        </h1>
-        <div id="slogan" class="">
-          ${g.site_slogan}
-        </div>
-      </header>
+    <script src="${h.static('js/utils.js')}"></script>
+    <script src="${h.static('js/script.js')}"></script>
+    <py:if test="defined('optional_head')">
+      ${optional_head()}
+    </py:if>
+  </head>
 
-      <div id="main">
-        <div id="dataset">
-          <div id="search" class="span-7 last">
-            <form method="get" action="${url(controller='entry',
-              action='index', dataset=c.dataset.name) if c.dataset else '/search'}">
-              <input type="text" class="textinput" name="q" value="${c.browser.q if hasattr(c, 'browser') else ''}" />
-              <input type="submit" value="${_('Search')}" class=""/>
-            </form>
-          </div>
-          <ul id="dataset-menu">
-            <li id="dataset-select">
-              <a py:if="c.dataset"
-                href="${h.dataset_url(c.dataset)}">${c.dataset.label} &raquo;</a>
-              <a py:if="not c.dataset" href="${url(controller='dataset', action='index')}">(select a dataset)</a>
-              <ul>
+  <body>
+
+    <div class="topbar" data-dropdown="dropdown">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="#">OpenSpending</a>
+          <ul class="nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="${g.blog_link}">Spending Blog</a></li>
+            <li class="dropdown">
+              <a href="#about" class="dropdown-toggle">Datasets</a>
+              <ul class="dropdown-menu">
                 <li py:for="dataset in c.datasets">
                   <a href="${h.dataset_url(dataset)}">${dataset.label}</a>
                 </li>
-                <li py:if="g.sandbox_mode"><a href="http://etl.sandbox.openspending.org">Import additional data...</a></li>
               </ul>
             </li>
-            <py:if test="c.dataset">
-              <li><a href="${url(controller='entry', action='index',
-                dataset=c.dataset.name)}">Search</a></li>
-              <li><a href="${url(controller='dimension', action='view',
-                dataset=c.dataset.name, dimension='from')}">Spenders</a></li>
-              <li><a href="${url(controller='dimension', action='view',
-                dataset=c.dataset.name, dimension='to')}">Recipients</a></li>
+            <li><a href="${g.wiki_link}">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <ul class="nav secondary-nav">
+            <li py:if="c.account is None">
+              <a href="/login">Login/Register</a>
+            </li>
+            <py:if test="c.account is not None">
+              <li><a href="/settings">Settings</a></li>
+              <li><a href="/logout">Logout</a></li>
             </py:if>
           </ul>
         </div>
-        <div id="content">
-          ${content()}
-        </div>
-        <div class="clearfix"></div>
       </div>
     </div>
 
-    <footer class="container">
-      <ul class="credits">
-        <li>&copy; 2011: <a href="http://okfn.org">The Open Knowledge Foundation</a></li>
-        <li><a href="http://www.opendefinition.org/okd/">
-          <img src="http://assets.okfn.org/images/ok_buttons/od_80x15_blue.png" alt="Open Data" />
-        </a></li>
-      </ul>
+    <div class="container">
+      <py:with vars="messages = list(h._flash.pop_messages())">
+        <div py:if="len(messages)">
+          <div class="alert-message ${m.category}" py:for="m in messages">
+            ${m.message}
+          </div>
+        </div>
+        </py:with>
+        <div id="content">
+          ${content()}
+        </div>
+
+      <footer>
+      <p class="right">&copy; Open Knowledge Foundation, 2011</p>
+
       <ul>
         <li><a href="${g.wiki_link}">Wiki</a></li>
         <li><a href="${g.lists_link}">Mailing List</a></li>
@@ -124,19 +92,22 @@
         <li><a href="http://okfn.org/privacy-policy/">Privacy</a></li>
         <li><a href="http://okfn.org/contact/">Contact</a></li>
       </ul>
-    </footer>
+      </footer>
 
-</div>
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-8271754-17']);
-  _gaq.push(['_trackPageview']);
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>
-</body>
+    </div> <!-- /container -->
+
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-8271754-17']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </body>
 </html>
+
+
 

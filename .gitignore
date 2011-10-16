@@ -3,6 +3,7 @@
 !/test_continuous.ini
 /*.egg-info
 *.pyc
+*.DS_Store
 /.pylons_data
 /solr/conf
 /solr/data

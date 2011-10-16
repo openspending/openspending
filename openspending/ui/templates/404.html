@@ -6,7 +6,12 @@
   <py:def function="page_title">${c.code}</py:def>
 
   <div py:def="content" id="innercontent">
-   ${c.message}
+    <h2 class="page-header">Resource not found
+      <small>Error ${c.code}</small></h2>
+    <div class="alert-message block-message error">
+      <strong>${c.message}</strong>: Maybe the URL is misspelled or the 
+      data has been deleted.
+    </div>
   </div>
 
   <xi:include href="layout.html" />

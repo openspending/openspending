@@ -7,45 +7,71 @@
 
  <py:def function="page_title">Welcome</py:def>
  <div py:def="content">
-   <div class="success">
-    Want to help map government finance from all around the globe? <a
-      href="/getinvolved">Get involved</a> in Open Spending!
+   <div class="alert-message block-message info">
+     Do you want to help map government finance from all around the globe? 
+     <a href="/getinvolved">Get involved</a> in Open Spending!
    </div>
-   <div id="above-fold">
-      <div py:if="c.dataset" id='centerpiece' class="span-18">
-        <h2>Featured Dataset: ${c.dataset['label']}</h2>
-        <div class="span-18" id="vis"></div>
+  
+   <div class="row">
+     <div class="span16 fp-mapping">
+       <div class="row">
+         <div class="span-two-thirds">
+           <h1>We're mapping the money.</h1>
+         </div>
+         <div class="span-one-third fp-mission">
+          <p>
+            Our aim is to track every government and corporate financial
+            transaction across the world and present it in useful and engaging forms
+            for everyone from a school-child to a data geek.
+          </p>
+          <p>
+            We're an open community that anyone is invited to join! We're looking for
+            researchers, coders and citizen activists to join us and to help gather
+            and understand financial data.
+          </p>
+        </div>
       </div>
-
-      <div class="span-6 last calltoaction-box">
-        <div>
-          <h3>Explore</h3>
-          <p i18n:msg="select, search">
-          <a href="${h.url(controller='dataset', action='index')}">Select a dataset</a> to explore or <a href="${h.url(controller='dataset', action='index')}">search</a> all financial records in our database.
-          </p>
-        </div>
-        <div>
-          <h3>Investigate</h3>
-          <p i18n:msg="getthedata">
-          Do you have spending questions? Ask and help to answer them on
-          <a href="http://getthedata.org">GetTheData.org</a> and join our
-          <a
-            href="http://lists.okfn.org/mailman/listinfo/wdmmg-discuss">discussion
-            list</a>.
-          </p>
-        </div>
-        <div>
-          <h3>Contribute</h3>
-          <p i18n:msg="wiki">
-            Is your country, state or city not on OpenSpending yet? We're
-            looking for spending data from all over the world. Learn about
-            data imports in <a href="http://wiki.openspending.org/Main_Page">our wiki</a>.
-          </p>
-        </div>
       </div>
     </div>
-    <div class="clearfix"></div>
-    <div class="span-18 dataset-listing">
+
+   <!--div class="row">
+     <div class="span16" id="vis"></div>
+   </div-->
+
+   <div class="row">
+    <div class="span-one-third">
+      <h3>Explore</h3>
+      <p i18n:msg="select, search">
+        OpenSpending presents financial information <strong>from many 
+        different countries</strong> and sources.
+        <a href="${h.url(controller='dataset', action='index')}">Choose a
+          dataset</a> to explore or visit our 
+          <a href="${g.blog_link}">Spending Blog</a>, where we highlight 
+          spending stories and methods of analyzing the information.
+      </p>
+    </div>
+    <div class="span-one-third">
+      <h3>Investigate</h3>
+      <p i18n:msg="getthedata">
+      Do you have spending questions? Ask and help to answer them on
+      <a href="http://getthedata.org">GetTheData.org</a> and join our
+      <a
+        href="http://lists.okfn.org/mailman/listinfo/wdmmg-discuss">discussion
+        list</a>.
+      </p>
+    </div>
+    <div class="span-one-third">
+      <h3>Contribute</h3>
+      <p i18n:msg="wiki">
+        Is your country, state or city not on OpenSpending yet? We're
+        looking for spending data from all over the world. Learn about
+        data imports in <a href="http://wiki.openspending.org/Main_Page">our wiki</a>.
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="span-two-thirds dataset-listing">
       <h3>Other Available Datasets</h3>
       <ul class="dataset-list">
         <li py:for="dataset in c.datasets">
@@ -53,21 +79,9 @@
           ${h.markdown(h.truncate(Markup(dataset.description).striptags(), 80, whole_word=True))}
         </li>
       </ul>
-   </div>
-    <div class="span-6 last">
-      <h3>What is OpenSpending?</h3>
-      <p>
-      Our aim is to track every (public) government and corporate financial
-      transaction across the world and present it in useful and engaging forms
-      for everyone from a school-child to a data geek.
-      </p>
-      <p>
-      We're an open community that anyone is invited to join! We're looking for
-      researchers, coders and citizen activists to join us and to help gather
-      and understand financial data.
-      </p>
     </div>
   </div>
+</div>
 
   <xi:include href="../layout.html" />
 </html>
