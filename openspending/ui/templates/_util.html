@@ -26,7 +26,7 @@
       </thead>
       <tbody>
         <tr py:for="entry in page">
-          <td>${entry.get('time')}</td>
+          <td width="12%">${entry.get('time')}</td>
           <td>
             <a py:if="entry.get('from.id')"
               href="${h.url_for(controller='classifier', action='view',
@@ -44,7 +44,7 @@
           </td>
           <td>
             <a href="${h.entry_url(dataset.name, entry)}">
-              details &raquo;
+              details&raquo;
             </a>
           </td>
         </tr>

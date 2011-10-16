@@ -70,17 +70,6 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="span-two-thirds dataset-listing">
-      <h3>Other Available Datasets</h3>
-      <ul class="dataset-list">
-        <li py:for="dataset in c.datasets">
-          <h4><a href="${h.dataset_url(dataset)}">${dataset.label}</a></h4>
-          ${h.markdown(h.truncate(Markup(dataset.description).striptags(), 80, whole_word=True))}
-        </li>
-      </ul>
-    </div>
-  </div>
 </div>
 
   <xi:include href="../layout.html" />

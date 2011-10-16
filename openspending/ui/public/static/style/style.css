@@ -134,7 +134,6 @@ table td.num {
   max-height: 15em;
   overflow-y: scroll;
   width: 100%;
-  margin-top: -1.5em;
   border-bottom: 1px solid #ddd;
   border-left: 1px solid #ddd;
   border-radius: 0px;
@@ -142,6 +141,10 @@ table td.num {
 
 .facets .count {
   color: #999;
+}
+
+.facets td {
+  border-left: 0px;
 }
 
 .facets .unfilter {

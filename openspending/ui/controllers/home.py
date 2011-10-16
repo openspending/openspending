@@ -23,26 +23,9 @@ class HomeController(BaseController):
     extensions = PluginImplementations(IDatasetController)
 
     def index(self):
-        featured_dataset = config.get("openspending.default_dataset")
-        c.dataset = filter(lambda x: x.name == featured_dataset, c.datasets)
-        if c.dataset:
-            c.dataset = c.dataset[0]
-        elif c.datasets:
-            c.dataset = c.datasets[0]
-        else:
-            c.dataset = None
-
-        c.template = 'home/index.html'
-
-        if c.dataset:
-            c.num_entries = len(c.dataset)
-
-            views.handle_request(request, c, c.dataset)
-
-            for item in self.extensions:
-                item.read(c, request, response, c.dataset)
-
-        return render(c.template)
+        # TODO decide if we want this.
+        #featured_dataset = config.get("openspending.default_dataset")
+        return render('home/index.html')
 
     def index_subdomain(self):
         if hasattr(c, 'dataset') and c.dataset:

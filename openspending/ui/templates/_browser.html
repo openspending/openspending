@@ -65,16 +65,9 @@
   <div class="span4">
     <py:for each="facet in c.browser.facets"
     py:with="values = len(c.browser.facet_values(facet));
-             filter = 'filter-%s' % facet">
-      <table>
-        <thead>
-          <tr>
-            <th>
-              ${c.browser.facet_name(facet)}
-            </th>
-          </tr>
-        </thead>
-      </table>
+    filter = 'filter-%s' % facet">
+      <h4>${c.browser.facet_name(facet)}</h4>
+      <div class="clearfix"></div>
       <table class="facets" py:if="values>0 and not (filter in request.params)">
         <tbody>
           <tr py:for="value, count in
