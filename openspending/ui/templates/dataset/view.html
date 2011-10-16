@@ -12,7 +12,6 @@
       <input type="search" placeholder="Search ${c.dataset.label}" name="q"/>
   </form>
 
-
   <div py:def="content">
     <h2 class="page-header">${c.dataset.label} <small>${c.num_entries} Entries</small></h2>
     <py:if test="hasattr(c, 'viewstate')">
@@ -20,7 +19,7 @@
     </py:if>
 
     <div py:if="c.view" class="row">
-      <div class="span16 last" id="vis"></div>
+      <div class="span16" id="vis"></div>
     </div>
 
     <div class="row">

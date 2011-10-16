@@ -2,50 +2,56 @@
   xmlns:i18n="http://genshi.edgewall.org/i18n"
   xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
   <xi:include href="_list.html" />
-  
+
   <py:def function="nav_class">nav-classifier</py:def>
 
   <py:def function="page_title">${c.classifier.label}</py:def>
-  
+
   <div py:def="content">
     <h2 class="page-header">${c.classifier.label}</h2>
-    
+
     <py:if test="hasattr(c, 'viewstate')">
       ${view_panel(c.viewstate)}
     </py:if>
-    
-    <div class="span-24 last">
-      <div id="vis">
+
+    <div py:if="c.view" class="row">
+      <div class="span16" id="vis"></div>
+    </div>
+
+    <div class="row">
+      <div class="span-two-thirds">
+        <h3>Description</h3>
+        <div class="no-desc" py:if="not c.classifier.get('description')">
+          No description is available for ${c.classifier.label}
+        </div>
+        ${h.markdown(c.classifier.get('description'))}
+      </div>
+      <div class="span-one-third">
+        <h3>Research</h3>
+        <ul>
+          <li><a href="${url(controller='classifier', action='entries',
+            dataset=c.dataset.name, name=c.classifier.name, taxonomy=c.classifier.taxonomy)}">Search</a>: ${c.num_entries} spending entries</li>
+        </ul>
       </div>
     </div>
 
-    <div class="span-16">
-      <h3>Description</h3>
-      <div class="no-desc" py:if="not c.classifier.get('description')">
-        No description is available for ${c.classifier.label}
+    <div py:if="c.view" class="row">
+      <div class="span16">
+        <div id="detail" />
       </div>
-      ${h.markdown(c.classifier.get('description'))}
     </div>
-    <div class="span-8 last">
-      <h3>Research</h3>
-      <ul>
-        <li><a href="${url(controller='classifier', action='entries',
-          dataset=c.dataset.name, name=c.classifier.name, taxonomy=c.classifier.taxonomy)}">Search</a>: ${c.num_entries} spending entries</li>
-      </ul>
-    </div>
-
-    <div id="detail" class="span-24 last"></div>
     <py:if test="c.view is None">
       <xi:include href="../_browser.html" />
     </py:if>
 
-    <div id="comments" class="comments"></div>
-    <div id="access" class="span-24 last">
-      Download a machine-readable version of <i>${c.classifier.label}</i>: 
-      <a href="${url(controller='classifier', action='view',
-        dataset=c.dataset.name,
-        name=c.classifier['name'], taxonomy=c.classifier['taxonomy'],
-        format='json')}"><img src="${h.static('img/icons/json.png')}" alt="JSON" /></a>
+    <div class="row">
+      <div id="access" class="span16">
+        Download a machine-readable version of <i>${c.classifier.label}</i>: 
+        <a href="${url(controller='classifier', action='view',
+          dataset=c.dataset.name,
+          name=c.classifier['name'], taxonomy=c.classifier['taxonomy'],
+          format='json')}"><img src="${h.static('img/icons/json.png')}" alt="JSON" /></a>
+      </div>
     </div>
   </div>
 
