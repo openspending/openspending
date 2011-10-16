@@ -8,15 +8,15 @@
 
   <div py:def="content" class="entry-page">
 
-    <h2 class="page-header">Entry: Detailed View of Transaction</h2>
-    <div class="row">
-      <div class="span16">
-        This is a single transaction of ${c.currency}
-        ${h.format_number_with_commas(c.amount)} on 
-        ${c.time.get('name')} in
-        <a href="${h.dataset_url(c.dataset)}">${c.dataset.label or c.dataset.name}</a>.
+    <h2 class="page-header">
+      <div class="representations">
+        <a href="${url(controller='entry', action='view', dataset=c.dataset.name, id=c.id, format='json')}">
+          <img src="${h.static('img/icons/json.png')}" alt="JSON" />
+        </a>
       </div>
-    </div>
+      Entry in ${c.dataset.label}
+      <small>Detailed View of Transaction</small>
+    </h2>
 
     <div class="row">
       <py:if test="c.custom_html">
@@ -100,16 +100,6 @@
       <h3>Notes:</h3>
       <dd>${h.markdown(c.entry.get('description'))}</dd>
     </py:if>
-    
-    <div class="row">
-      <div id="access" class="span16">
-        Download a machine-readable version of this entry:
-        <a href="${url(controller='entry', action='view', dataset=c.dataset.name, id=c.id, format='json')}">
-          <img src="${h.static('img/icons/json.png')}" alt="JSON" />
-        </a>
-      </div>
-    </div>
-
   </div><!-- /.content -->
 
   <xi:include href="../layout.html" />

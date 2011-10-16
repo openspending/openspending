@@ -27,8 +27,8 @@ body {
   min-width: 6em;
 }
 
-h2.page-title {
-  margin-bottom: 0.7em;
+.representations {
+  float: right;
 }
 
 .nav {

@@ -8,7 +8,15 @@
   <py:def function="page_title">${c.classifier.label}</py:def>
 
   <div py:def="content">
-    <h2 class="page-header">${c.classifier.label}</h2>
+    <h2 class="page-header">
+      <div class="representations">
+        <a href="${url(controller='classifier', action='view',
+          dataset=c.dataset.name,
+          name=c.classifier['name'], taxonomy=c.classifier['taxonomy'],
+          format='json')}"><img src="${h.static('img/icons/json.png')}" alt="JSON" /></a>
+      </div>
+      ${c.classifier.label}
+    </h2>
 
     <py:if test="hasattr(c, 'viewstate')">
       ${view_panel(c.viewstate)}
@@ -43,16 +51,6 @@
     <py:if test="c.view is None">
       <xi:include href="../_browser.html" />
     </py:if>
-
-    <div class="row">
-      <div id="access" class="span16">
-        Download a machine-readable version of <i>${c.classifier.label}</i>: 
-        <a href="${url(controller='classifier', action='view',
-          dataset=c.dataset.name,
-          name=c.classifier['name'], taxonomy=c.classifier['taxonomy'],
-          format='json')}"><img src="${h.static('img/icons/json.png')}" alt="JSON" /></a>
-      </div>
-    </div>
   </div>
 
   <xi:include href="../layout.html" />
