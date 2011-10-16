@@ -73,10 +73,10 @@ class AccountController(BaseController):
                     raise colander.Invalid(AccountSettings.password1,
                                            _("Passwords don't match!"))
 
-                c.account.name = data['name']
                 c.account.fullname = data['fullname']
                 c.account.email = data['email']
-                c.account.password = generate_password_hash(data['password1'])
+                if data['password1'] is not None and len(data['password1']):
+                    c.account.password = generate_password_hash(data['password1'])
                 db.session.add(c.account)
                 db.session.commit()
                 h.flash_success(_("Your settings have been updated."))

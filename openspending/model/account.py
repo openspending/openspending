@@ -55,5 +55,7 @@ class AccountSettings(colander.MappingSchema):
     fullname = colander.SchemaNode(colander.String())
     email = colander.SchemaNode(colander.String(),
                                 validator=colander.Email())
-    password1 = colander.SchemaNode(colander.String())
-    password2 = colander.SchemaNode(colander.String())
+    password1 = colander.SchemaNode(colander.String(),
+                                missing=None, default=None)
+    password2 = colander.SchemaNode(colander.String(),
+                                missing=None, default=None)
