@@ -9,6 +9,10 @@ body {
   max-width: 400px;
 }
 
+.green {
+  color: #99c862;
+}
+
 /* Custom theming */
 @font-face {
   font-family: Graublau;
