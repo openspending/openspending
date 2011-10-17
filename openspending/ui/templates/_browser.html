@@ -39,16 +39,29 @@
   <div class="span4">
     <div class="num-entries">
       <span py:if="c.browser.num_results">
-        <b>${c.browser.num_results} entries</b> found.<br/>
-        Estimated total: <b><abbr title="Mean: ${h.format_number_with_commas(c.browser.stats.get('mean'))}; Standard Deviation: ${h.format_number_with_commas(c.browser.stats.get('stddev'))}">
-            ${h.format_number_with_commas(c.browser.stats.get('sum'))}.</abbr></b><br/>
-        <py:if test="c.browser.url">
-        <br/>Raw data:
-          <a href="${c.browser.url}.json">
-            <img src="${h.static('img/icons/json.png')}" alt="JSON" /></a>
-          <a href="${c.browser.url}.csv">
-            <img src="${h.static('img/icons/csv.png')}" alt="CSV" /></a>
-        </py:if>
+        <div style="text-align: right;">
+          <py:if test="c.browser.url">
+            <a href="${c.browser.url}.json">
+              <img src="${h.static('img/icons/json.png')}" alt="JSON" /></a>
+            <a href="${c.browser.url}.csv">
+              <img src="${h.static('img/icons/csv.png')}" alt="CSV" /></a>
+          </py:if>
+        </div>
+        <ul>
+          <li><b>${c.browser.num_results} entries</b> found.</li>
+          <li>
+            Total:
+            ${h.format_number_with_commas(c.browser.stats.get('sum'))}
+          </li>
+          <li>
+            Mean:
+            ${h.format_number_with_commas(c.browser.stats.get('mean'))}
+          </li>
+          <li>
+            Std Deviation:
+            ${h.format_number_with_commas(c.browser.stats.get('stddev'))}
+            </li>
+        </ul>
       </span>
       <span py:if="c.browser.num_results==0">
         <b>No entries with this property.</b>
