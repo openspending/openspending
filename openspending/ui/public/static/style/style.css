@@ -15,8 +15,14 @@ body {
   src: url('/static/fonts/graublau/GraublauWeb.otf') format("opentype");
 }
 
+@font-face {
+  font-family: Share;
+  src: url('/static/fonts/share/Share-Regular.otf') format("opentype");
+}
+
 .brand, .topbar, h1, h2, h3 {
-  font-family: Graublau;
+  font-family: Share;
+  letter-spacing: -0.06em;
 }
 
 .tabs li.dropdown {
@@ -53,17 +59,33 @@ footer p.right {
 /* Front page */
 
 .fp-mapping {
-  background-image: url(/static/img/mapping.png);
   color: #fff;
   height: 300px;
-  border-radius: 10px;
   margin-bottom: 2em;
+}
+
+.fp-frame {
+  position: relative;
+  border-radius: 10px;
+}
+
+.fp-frame .slideshow img {
+  border-radius: 10px;
+  height: 300px;
+  width: 940px;
+}
+
+.fp-frame .overlay {
+  position: absolute; 
+  z-index: 1000;
+  top: 0px;
+  left: 0px;
 }
 
 .fp-mapping h1 {
   color: #fff;
   padding-top: 240px;
-  padding-left: 50px;
+  padding-left: 30px;
   font-weight: bold;
   font-size: 3em;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.55);

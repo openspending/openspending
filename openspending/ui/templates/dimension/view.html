@@ -8,15 +8,12 @@
   
   <div py:def="content">
     <h2 class="page-header">
-      ${c.dataset.label}
-      <span py:if="c.dimension.label">
-        &mdash; ${c.dimension.label}
-      </span>
+      ${c.dataset.label}:
+      ${c.dimension.label or c.dimension.name}
     </h2>
 
     <div class="row">
       <div class="span-one-third">
-        <h3>Values</h3>
         <div py:if="c.dimension.description">
           ${h.markdown(c.dimension.description)}
         </div>
