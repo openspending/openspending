@@ -177,6 +177,7 @@ class Browser(object):
         kw = dict(q=self.q, fq=self.fq,
                   start=self.start,
                   rows=self.limit,
+                  fl='id, amount, score',
                   stats='true',
                   stats_field='amount',
                   sort='score desc, amount desc')

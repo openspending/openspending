@@ -157,6 +157,6 @@ def handle_request(request, c, obj):
         c.time = c.dataset.default_time or c.times[-1]
     # TODO: more clever way to set comparison time
     c.time_before = None
-    if c.time and c.times.index(c.time) > 0:
+    if c.time and c.time in c.times:
         c.time_before = c.times[c.times.index(c.time) - 1]
     c.viewstate = ViewState(obj, c.view, c.time)
