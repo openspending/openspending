@@ -7,6 +7,7 @@ from openspending.model import Dataset, meta as db
 from openspending.test.helpers import load_fixture
 
 import migrate.versioning.api as migrate_api
+from migrate.exceptions import DatabaseNotControlledError
 
 log = logging.getLogger(__name__)
 
@@ -14,14 +15,6 @@ def drop():
     log.warn("Dropping database")
     db.metadata.reflect()
     db.metadata.drop_all()
-    return 0
-
-def init():
-    log.warn("Initializing database")
-    db.metadata.create_all()
-    url = config.get('sqlalchemy.url')
-    repo, repo_version = _migrate_repo()
-    migrate_api.version_control(url, repo, version=repo_version)
     return 0
 
 def drop_collections():
@@ -44,18 +37,18 @@ def load_example(name):
 
 def migrate():
     url = config.get('sqlalchemy.url')
-    repo, repo_version = _migrate_repo()
-    migrate_api.version_control(url, repo, version=repo_version)
+    repo = config.get('openspending.migrate_dir',
+                      os.path.join(os.path.dirname(config['__file__']),
+                                   'migration'))
 
-    db_version = migrate_api.db_version(url, repo)
-    if db_version < repo_version:
+    try:
         migrate_api.upgrade(url, repo)
-    return
+    except DatabaseNotControlledError:
+        # Assume it's a new database, and try the migration again
+        migrate_api.version_control(url, repo)
+        migrate_api.upgrade(url, repo)
 
-def _migrate_repo():
-    default = os.path.join(os.path.dirname(config['__file__']), 'migration')
-    repo = config.get('openspending.migrate_dir', default)
-    return repo, migrate_api.version(repo)
+    return 0
 
 def _init(args):
     return init()
@@ -78,9 +71,6 @@ def _migrate(args):
 def configure_parser(subparsers):
     parser = subparsers.add_parser('db', help='Database operations')
     sp = parser.add_subparsers(title='subcommands')
-
-    p = sp.add_parser('init', help='Initialize database')
-    p.set_defaults(func=_init)
 
     p = sp.add_parser('drop', help='Drop database')
     p.set_defaults(func=_drop)
