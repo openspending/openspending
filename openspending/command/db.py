@@ -10,14 +10,9 @@ import migrate.versioning.api as migrate_api
 
 log = logging.getLogger(__name__)
 
-def _migrate_repo():
-    default = os.path.join(os.path.dirname(config['__file__']), 'migration')
-    repo = config.get('openspending.migrate_dir', default)
-    return repo, migrate_api.version(repo)
-    
-
 def drop():
     log.warn("Dropping database")
+    db.metadata.reflect()
     db.metadata.drop_all()
     return 0
 
@@ -30,9 +25,8 @@ def init():
     return 0
 
 def drop_collections():
-    log.warn("Dropping collections from database")
-    db.metadata.drop_all()
-    return 0
+    # Kept for backwards compatibility
+    return drop()
 
 def drop_dataset(name):
     log.warn("Dropping dataset '%s'", name)
@@ -58,6 +52,11 @@ def migrate():
         migrate_api.upgrade(url, repo)
     return
 
+def _migrate_repo():
+    default = os.path.join(os.path.dirname(config['__file__']), 'migration')
+    repo = config.get('openspending.migrate_dir', default)
+    return repo, migrate_api.version(repo)
+
 def _init(args):
     return init()
 
@@ -79,7 +78,7 @@ def _migrate(args):
 def configure_parser(subparsers):
     parser = subparsers.add_parser('db', help='Database operations')
     sp = parser.add_subparsers(title='subcommands')
-    
+
     p = sp.add_parser('init', help='Initialize database')
     p.set_defaults(func=_init)
 
