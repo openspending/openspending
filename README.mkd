@@ -9,6 +9,10 @@ Install the application and copy configuration templates.
     $ cp development.ini_tmpl development.ini
     $ cp test.ini_tmpl test.ini
 
+Initialize the database
+
+    $ ostool development.ini db migrate
+
 Run the tests
 
     $ nosetests

@@ -36,7 +36,7 @@ def load_example(name):
     return 0
 
 def migrate():
-    url = config.get('sqlalchemy.url')
+    url = config.get('openspending.db.url')
     repo = config.get('openspending.migrate_dir',
                       os.path.join(os.path.dirname(config['__file__']),
                                    'migration'))
