@@ -13,3 +13,4 @@
 openspending/test/fixtures/.DS_Store
 openspending.db
 openspending/ui/templates/layout_orig.html
+/db
