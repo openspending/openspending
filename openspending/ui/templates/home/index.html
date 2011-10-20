@@ -5,27 +5,23 @@
   <py:def function="nav_class">nav-dataset</py:def>
 
 
-  <py:def function="optional_head">
-     <script type="text/javascript" src="http://cloud.github.com/downloads/malsup/cycle/jquery.cycle.all.latest.js"></script>
-     <script type="text/javascript">
-        $(document).ready(function() {
-        $('.slideshow').cycle({
-		      fx: 'fade'
-      	});
+  <py:def function="scripts">
+    <script src='http://cloud.github.com/downloads/malsup/cycle/jquery.cycle.all.latest.js'></script>
+    <script>
+      jQuery(function ($) {
+        $('.slideshow').cycle({fx: 'fade'});
       });
     </script>
   </py:def>
 
 
-
- 
  <py:def function="page_title">Welcome</py:def>
  <div py:def="content">
    <div class="alert-message block-message info">
-     Do you want to help map government finance from all around the globe? 
+     Do you want to help map government finance from all around the globe?
      <a href="/getinvolved">Get involved</a> in Open Spending!
    </div>
-  
+
    <div class="row">
      <div class="span16 fp-mapping">
        <div class="row fp-frame">
@@ -52,22 +48,18 @@
           </div>
         </div>
       </div>
-      </div>
     </div>
+  </div>
 
-   <!--div class="row">
-     <div class="span16" id="vis"></div>
-   </div-->
-
-   <div class="row">
+  <div class="row">
     <div class="span-one-third">
       <h3>Explore</h3>
       <p i18n:msg="select, search">
-        OpenSpending presents financial information <strong>from many 
+        OpenSpending presents financial information <strong>from many
         different countries</strong> and sources.
         <a href="${h.url(controller='dataset', action='index')}">Choose a
-          dataset</a> to explore or visit our 
-          <a href="${g.blog_link}">Spending Blog</a>, where we highlight 
+          dataset</a> to explore or visit our
+          <a href="${g.blog_link}">Spending Blog</a>, where we highlight
           spending stories and methods of analyzing the information.
       </p>
     </div>

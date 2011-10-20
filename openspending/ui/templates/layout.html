@@ -6,7 +6,7 @@
   >
 
   <xi:include href="_util.html" />
-  
+
   <py:if test="len(_form_errors)">
     <div py:match="input|select" py:strip="" py:with="error = _form_errors.get(str(select('@name')))">
       <div class="clearfix error" py:if="error">
@@ -36,14 +36,6 @@
     <link href="${h.static('style/bootstrap.css')}" rel="stylesheet" />
     <link href="${h.static('style/style.css')}" rel="stylesheet" />
 
-    <script src="${h.static('js/libs/jquery-1.5.2.min.js')}"></script>
-    <script src="${h.static('js/bootstrap-dropdown.js')}"></script>
-
-    <script src="${h.static('js/libs/underscore-min.js')}"></script>
-    <script src="${h.static('js/libs/backbone-min.js')}"></script>
-
-    <script src="${h.static('js/utils.js')}"></script>
-    <script src="${h.static('js/script.js')}"></script>
     <py:if test="defined('optional_head')">
       ${optional_head()}
     </py:if>
@@ -95,7 +87,7 @@
         </div>
 
       <footer>
-      <p class="right">&copy; 
+      <p class="right">&copy;
       <a href="http://okfn.org">Open Knowledge Foundation</a>, 2011</p>
 
       <ul>
@@ -109,7 +101,17 @@
 
     </div> <!-- /container -->
 
-    <script type="text/javascript">
+    ${script_tag('vendor/jquery')}
+    ${script_tag('vendor/underscore')}
+    ${script_tag('vendor/backbone')}
+    ${script_tag('vendor/bootstrap-dropdown')}
+    ${script_tag('utils/utils')}
+
+    <py:if test="defined('scripts')">
+      ${scripts()}
+    </py:if>
+
+    <script type="text/javascript" py:if="not g.debug">
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-8271754-17']);
       _gaq.push(['_trackPageview']);

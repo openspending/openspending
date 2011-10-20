@@ -9,6 +9,13 @@
   <!--! Herein can be found generic helper methods for a whole bunch of common
         templating issues -->
 
+  <py:def function="script_tag(name)">
+    <py:choose test="g.debug">
+      <script py:when="True" src="${h.static('js/%s.js' % name)}"></script>
+      <script py:otherwise="" src="${h.static('js/%s.min.js' % name)}"></script>
+    </py:choose>
+  </py:def>
+
   <span py:def="currency_symbols(currency)">
     <py:if test="">&ndash;</py:if>
   </span>
@@ -33,7 +40,7 @@
               dataset=dataset.name, taxonomy='entity',
               name=entry.get('from.name'))}">${entry.get('from.label')}</a></td>
           <td>
-            <a py:if="entry.get('to.id')" 
+            <a py:if="entry.get('to.id')"
               href="${h.url_for(controller='classifier', action='view',
               dataset=dataset.name, taxonomy='entity',
               name=entry.get('to.name'))}">${entry.get('to.label')}</a></td>
