@@ -11,6 +11,7 @@ from pylons.controllers.util import abort
 from genshi.filters import HTMLFormFiller
 from pylons.i18n import _
 
+from openspending.model import meta as db
 from openspending import model
 from openspending.ui import i18n
 from openspending.plugins.core import PluginImplementations
@@ -110,8 +111,11 @@ class BaseController(WSGIController):
         if session.get('state', {}) != c.state:
             session['state'] = c.state
             session.save()
+
         for item in self.items:
             item.after(request, c)
+
+        db.session.close()
 
     def _detect_dataset_subdomain(self):
         http_host = request.environ.get('HTTP_HOST').lower()
