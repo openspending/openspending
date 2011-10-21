@@ -28,6 +28,8 @@ class DatasetController(BaseController, RestAPIMixIn):
 
     def view(self, name, format="html"):
         d = model.dataset.find_one_by('name', name)
+        if d is None:
+            abort(404, _('Sorry, there is no dataset named %r') % name)
         _id = d['_id'] if d else None
         return self._view(id=_id, format=format)
 
