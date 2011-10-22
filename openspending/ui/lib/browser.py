@@ -1,4 +1,4 @@
-from itertools import izip_longest
+from itertools import izip_longest, count
 from urllib import urlencode
 
 from pylons import response
@@ -12,7 +12,7 @@ from openspending.ui.lib.page import Page
 FILTER_PREFIX = "filter-"
 DIMENSION_LABEL = ".label_facet"
 
-STREAM_BATCH_SIZE = 100
+STREAM_BATCH_SIZE = 1000
 PAGE_SIZE = 100 # Applies only to HTML output, not CSV or JSON
 
 class Browser(object):
@@ -44,17 +44,12 @@ class Browser(object):
         self._filters.extend(fq)
 
     def _set_limit(self, limit=PAGE_SIZE):
-        # By default, we set limit to be the value of the limit query
+        # set limit to be the value of the limit query
         # param, unless no such query param is set.
         try:
             self.limit = int(self.args.get('limit'))
         except TypeError:
             self.limit = limit
-
-        # If we subsequently call _set_limit with a smaller value
-        # of the limit kwarg, then reduce or set the limit accordingly.
-        if limit:
-            self.limit = limit if not self.limit else min(limit, self.limit)
 
     def _set_page_number(self):
         try:
@@ -114,26 +109,7 @@ class Browser(object):
 
     @property
     def items(self):
-        def _more():
-            return self.results.get('response', {}).get('docs')
-
-        res = _more()
-
-        # If a limit is defined, just do the query and yield the results
-        if self.limit:
-            for item in res:
-                yield item
-
-        # Otherwise, we can assume that we're streaming, so do a query,
-        # yield the results, then clear the results, go to the next page,
-        # and repeat.
-        else:
-            while res:
-                for item in res:
-                    yield item
-                self.page_number += 1
-                self._results = None
-                res = _more()
+        return self.results.get('response', {}).get('docs')
 
     @property
     def num_results(self):
@@ -144,8 +120,8 @@ class Browser(object):
                 {}).get(name, [])
         options = []
         for value in values[::2]:
-            count = values[values.index(value)+1]
-            options.append((value, count))
+            count_ = values[values.index(value)+1]
+            options.append((value, count_))
         return dict(options)
 
     @property
@@ -165,13 +141,12 @@ class Browser(object):
                 items_per_page=self.limit,
                 url=_url
             )
-
         return self._page
 
     def _query(self, **kwargs):
         kwargs.update({'wt': 'json'})
-        response = solr.get_connection().raw_query(**kwargs)
-        return json.loads(response)
+        data = solr.get_connection().raw_query(**kwargs)
+        return json.loads(data)
 
     def query(self, **kwargs):
         kw = dict(q=self.q, fq=self.fq,
@@ -218,50 +193,40 @@ class Browser(object):
 
     @property
     def entries(self):
-        for batch in _batches(STREAM_BATCH_SIZE, self.items):
-            # IDs in order requested
-            ids = map(lambda x: x['id'], batch)
-            # Make a mapping between id and original index
-            ids_map = dict((id_, idx) for idx, id_ in enumerate(ids))
+        # IDs in order requested
+        ids = map(lambda x: x['id'], self.items)
+        # Make a mapping between id and original index
+        ids_map = dict((id_, idx) for idx, id_ in enumerate(ids))
 
-            # Get entries. There must be a record in the database for
-            # every id that comes back from Solr, otherwise this method
-            # will start yielding None values.
-            query = self.dataset.alias.c.id.in_(ids)
-            entries = self.dataset.entries(query)
-            entries_ordered = [None] * STREAM_BATCH_SIZE
+        # Get entries. There must be a record in the database for
+        # every id that comes back from Solr, otherwise this method
+        # will start yielding None values.
+        query = self.dataset.alias.c.id.in_(ids)
+        entries = self.dataset.entries(query)
+        entries_ordered = [None] * STREAM_BATCH_SIZE
 
-            for entry in entries:
-                entries_ordered[ids_map[entry['id']]] = entry
+        for entry in entries:
+            entries_ordered[ids_map[entry['id']]] = entry
 
-            for entry in entries_ordered:
-                if entry is not None:
-                    yield _entry_filter(entry)
+        for entry in entries_ordered:
+            if entry is not None:
+                yield entry
+
+    @property
+    def all_entries(self):
+        for page in count(1):
+            self._results = None
+            self.page_number = page
+            self.limit = STREAM_BATCH_SIZE
+            for entry in self.entries:
+                yield entry
+            if (self.page_number * self.limit) > self.num_results:
+                break
 
     def to_jsonp(self):
-        self._set_limit(None)
         facets = dict([(k, self.facet_values(k)) for k in self.facets])
-        return write_browser_json(self.entries, self.stats, facets, response)
+        return write_browser_json(self.all_entries, self.stats, facets, response)
 
     def to_csv(self):
-        self._set_limit(None)
-        return write_csv(self.entries, response)
+        return write_csv(self.all_entries, response)
 
-def _entry_filter(entry):
-    def kill(entry, path):
-        try:
-            if len(path) == 1:
-                del entry[path[0]]
-            else:
-                kill(entry[path[0]], path[1:])
-        except KeyError:
-            pass
-
-    kill(entry, ['_csv_import_fp']) # provided by 'provenance' key
-    return entry
-
-def _batches(n, iterable):
-    args = [iter(iterable)] * n
-    none = object() # Create simple unique object
-    for batch in izip_longest(fillvalue=none, *args):
-        yield filter(lambda x: x is not none, batch)

@@ -82,7 +82,7 @@ class TestDatasetController(ControllerTestCase):
         obj = json.loads(response.body)
         h.assert_equal(len(obj['facets']), 2)
         #h.assert_equal(obj['stats']['count'], 36)
-        h.assert_equal(len(obj['results']), 20)
+        h.assert_equal(len(obj['results']), 36)
         h.assert_equal(obj['results'][0]['amount'], 46000000)
 
     def test_entries_csv(self):
@@ -91,7 +91,7 @@ class TestDatasetController(ControllerTestCase):
                                 params={'limit': '20'})
         r = csv.DictReader(StringIO(response.body))
         obj = [l for l in r]
-        h.assert_equal(len(obj), 20)
+        h.assert_equal(len(obj), 36)
         h.assert_equal(obj[0]['amount'], '46000000.0')
 
     def test_explorer(self):
