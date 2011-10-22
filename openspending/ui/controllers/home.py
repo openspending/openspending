@@ -12,7 +12,7 @@ from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IDatasetController
 from openspending.ui.i18n import set_session_locale
 from openspending.ui.lib import views
-from openspending.ui.lib.base import BaseController, render
+from openspending.ui.lib.base import BaseController, render, require
 from openspending.ui.lib.helpers import flash_success, flash_error
 
 log = logging.getLogger(__name__)
@@ -29,6 +29,7 @@ class HomeController(BaseController):
 
     def index_subdomain(self):
         if hasattr(c, 'dataset') and c.dataset:
+            require.dataset.read(c.dataset)
             redirect(url(controller='dataset',
                          action='view',
                          name=c.dataset['name'],

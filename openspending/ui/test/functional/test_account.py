@@ -9,15 +9,15 @@ class TestAccountController(ControllerTestCase):
     def test_register(self):
         response = self.app.get(url(controller='account', action='register'))
 
-    @h.patch('openspending.ui.lib.authz.have_role')
+    @h.patch('openspending.auth.account.update')
     @h.patch('openspending.ui.lib.base.model.Account.by_name')
-    def test_settings(self, model_mock, have_role_mock):
+    def test_settings(self, model_mock, update_mock):
         account = Account()
         account.name = 'mockaccount'
         db.session.add(account)
         db.session.commit()
         model_mock.return_value = account
-        have_role_mock.return_value = True
+        update_mock.return_value = True
         response = self.app.get(url(controller='account', action='settings'),
                                 extra_environ={'REMOTE_USER': 'mockaccount'})
 

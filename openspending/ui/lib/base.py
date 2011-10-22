@@ -12,6 +12,8 @@ from genshi.filters import HTMLFormFiller
 from pylons.i18n import _
 
 from openspending.model import meta as db
+from openspending.auth import require
+import openspending.auth as can
 from openspending import model
 from openspending.ui import i18n
 from openspending.plugins.core import PluginImplementations
@@ -43,6 +45,7 @@ def render(template_name,
     # Second, get the globals
     globs.update(pylons_globals())
     globs['g'] = app_globals
+    globs['can'] = can
     globs['_form_errors'] = form_errors
 
     # Grab a template reference
@@ -139,5 +142,6 @@ class BaseController(WSGIController):
         c.dataset = model.Dataset.by_name(dataset)
         if c.dataset is None:
             abort(404, _('Sorry, there is no dataset named %r') % dataset)
+        require.dataset.read(c.dataset)
 
 

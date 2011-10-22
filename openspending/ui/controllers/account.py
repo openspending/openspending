@@ -15,7 +15,7 @@ from openspending.model.account import Account, AccountRegister, \
     AccountSettings
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.authz import requires
-from openspending.ui.lib.base import BaseController, render
+from openspending.ui.lib.base import BaseController, render, require
 from openspending.ui.lib.security import generate_password_hash
 
 log = logging.getLogger(__name__)
@@ -26,6 +26,7 @@ class AccountController(BaseController):
         return render('account/login.html')
 
     def register(self):
+        require.account.create()
         errors, values = {}, None
         if request.method == 'POST':
             try:
@@ -61,8 +62,8 @@ class AccountController(BaseController):
         return render('account/login.html', form_fill=values,
                 form_errors=errors)
 
-    @requires("user")
     def settings(self):
+        require.account.update(c.account)
         errors, values = {}, c.account
         if request.method == 'POST':
             try:

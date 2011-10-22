@@ -11,7 +11,7 @@ log = logging.getLogger(__name__)
 class RestController(BaseController):
 
     def index(self):
-        dataset = db.session.query(Dataset).first()
+        dataset = db.session.query(Dataset).filter_by(private=False).first()
         entry = list(dataset.entries(limit=1)).pop()
         c.urls = [
             url(controller='dataset', action='view', dataset=dataset.name,

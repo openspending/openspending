@@ -2,7 +2,7 @@ from pylons import request
 
 from openspending import model
 from openspending.lib.jsonexport import jsonpify
-from openspending.ui.lib.base import BaseController
+from openspending.ui.lib.base import BaseController, require
 
 class Api2Controller(BaseController):
 
@@ -39,6 +39,7 @@ class Api2Controller(BaseController):
         if dataset is None:
             errors.append('no dataset with name "%s"' % dataset_name)
             return
+        require.dataset.read(dataset)
         return dataset
 
     def _measure(self, params, dataset, errors):

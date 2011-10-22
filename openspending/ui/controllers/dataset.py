@@ -63,8 +63,8 @@ class DatasetController(BaseController):
 
     def bubbles(self, name, breakdown_field, drilldown_fields, format="html"):
         c.drilldown_fields = json.dumps(drilldown_fields.split(','))
-        c.dataset = model.Dataset.by_name(name)
-        c.dataset_name = name
+        self._get_dataset(name)
+        c.dataset_name = c.dataset.name
 
         # TODO: make this a method
         c.template = 'dataset/view_bubbles.html'
@@ -89,9 +89,7 @@ class DatasetController(BaseController):
         return render(c.template)
 
     def explorer(self, name=None):
-        c.dataset = model.Dataset.by_name(name)
-        if not c.dataset:
-            abort(404, _('Sorry, there is no dataset named %r') % name)
+        self._get_dataset(name)
         c.keys_meta = dict([(d.name, {"label": d.label,
                 "description": d.description})
                 for d in c.dataset.dimensions])
@@ -101,6 +99,7 @@ class DatasetController(BaseController):
         return render('dataset/explorer.html')
 
     def timeline(self, name):
+        self._get_dataset(name)
         c.dataset = model.Dataset.by_name(name)
         view = View.by_name(c.dataset, "default")
         viewstate = ViewState(c.dataset, view, None)

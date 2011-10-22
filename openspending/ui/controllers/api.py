@@ -7,7 +7,7 @@ from pylons.controllers.util import abort
 from openspending import model
 from openspending.lib import calculator
 from openspending.lib import solr_util as solr
-from openspending.ui.lib.base import BaseController
+from openspending.ui.lib.base import BaseController, require
 from openspending.lib.jsonexport import jsonpify
 import re
 
@@ -61,6 +61,7 @@ class ApiController(BaseController):
         return out
 
     def search(self):
+        # TODO: add mandatory dataset filter
         solrargs = dict(request.params)
         rows = min(1000, request.params.get('rows', 10))
         q = request.params.get('q', '*:*')
@@ -80,6 +81,7 @@ class ApiController(BaseController):
         dataset_name = request.params.get('dataset', request.params.get('slice'))
         dataset_name = dataset_aliases.get(dataset_name, dataset_name)
         dataset = model.Dataset.by_name(dataset_name)
+        require.dataset.read(dataset)
 
         if dataset is None:
             abort(400, "Dataset %s not found" % dataset_name)

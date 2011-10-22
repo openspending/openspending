@@ -29,16 +29,24 @@ class Dataset(TableHandler, db.Model):
     currency = db.Column(db.Unicode())
     default_time = db.Column(db.Unicode())
     data = db.Column(JSONType, default=dict)
+    private = db.Column(db.Boolean, default=False)
 
     def __init__(self, data):
         self.data = data
-        dataset = data.get('dataset', {})
-        self.label = dataset.get('label')
-        self.name = dataset.get('name')
-        self.description = dataset.get('description')
-        self.currency = dataset.get('currency')
-        self.default_time = dataset.get('default_time')
+        self.label = self.dataset.get('label')
+        self.name = self.dataset.get('name')
+        self.description = self.dataset.get('description')
+        self.currency = self.dataset.get('currency')
+        self.default_time = self.dataset.get('default_time')
         self._load_model()
+
+    @property
+    def dataset(self):
+        return self.data.get('dataset', {})
+    
+    @property
+    def mapping(self):
+        return self.data.get('mapping', {})
 
     @db.reconstructor
     def _load_model(self):
@@ -48,10 +56,10 @@ class Dataset(TableHandler, db.Model):
         This is called upon initialization and deserialization of
         the dataset from the SQLAlchemy store.
         """
-        self.unique_keys = self.data['dataset'].get('unique_keys')
+        self.unique_keys = self.dataset.get('unique_keys')
         self.dimensions = []
         self.measures = []
-        for dim, data in self.data.get('mapping', {}).items():
+        for dim, data in self.mapping.items():
             if data.get('type') == 'measure' or dim == 'amount':
                 self.measures.append(Measure(self, dim, data))
                 continue
@@ -358,7 +366,7 @@ class Dataset(TableHandler, db.Model):
         return rp.fetchone()[0]
 
     def as_dict(self):
-        return self.data.get('dataset', {})
+        return self.dataset
 
     @classmethod
     def by_name(cls, name):

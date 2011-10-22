@@ -18,7 +18,6 @@ from webhelpers.text import truncate
 from openspending import model
 from openspending.lib import json
 from openspending.lib.util import slugify
-from openspending.ui.lib.authz import have_role
 from openspending.lib.jsonexport import to_jsonp, to_json
 import math
 
