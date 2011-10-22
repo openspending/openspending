@@ -3,10 +3,8 @@
   xmlns:xi="http://www.w3.org/2001/XInclude"
   py:strip="">
   <py:if test="c.browser.q and c.browser.num_results and hasattr(c, 'amount')">
-    <script type="text/javascript" src="${h.static('/js/qtip.js')}">//pointless jscript comment</script>
-    <!--[if IE]><script language="javascript" type="text/javascript" src="http://assets.okfn.org/ext/flot/0.6/excanvas.min.js"></script><![endif]-->
-    <script type="text/javascript" src="http://assets.okfn.org/ext/flot/0.6/jquery.flot.min.js">//pointless jscript comment</script>
-    <script type="text/javascript" src="${h.static('js/timegraph.js')}">//pointless jscript comment</script>
+    ${script_tag('vendor/qtip')}
+    ${script_tag('timegraph')}
 
     <div id="timegraph" style="width:98%; height:200px"></div>
     <script type="text/javascript">
@@ -36,7 +34,7 @@
           bars: {
             show: true
           },
-        data: [ 
+        data: [
         <py:for each="timestamp,amount in c.amounts">
           [ new Date('${timestamp}'), ${amount} ],
         </py:for>

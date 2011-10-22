@@ -29,8 +29,8 @@ def setup_package():
     '''
     from sqlalchemy import engine_from_config
     from migrate.versioning.util import construct_engine
-    config['sqlalchemy.url'] = 'sqlite:///:memory:'
-    engine = engine_from_config(config, 'sqlalchemy.')
+    config['openspending.db.url'] = 'sqlite:///:memory:'
+    engine = engine_from_config(config, 'openspending.db.')
     engine = construct_engine(engine)
     init_model(engine)
 
@@ -43,7 +43,7 @@ class TestCase(object):
         pass
 
 class DatabaseTestCase(TestCase):
-    
+
     def setup(self):
         setup_package()
         meta.metadata.create_all(meta.engine)

@@ -97,9 +97,9 @@ def load_environment(global_conf, app_conf):
         auto_reload=True,
         callback=template_loaded
     )
-    
+
     # SQLAlchemy
-    engine = engine_from_config(config, 'sqlalchemy.')
+    engine = engine_from_config(config, 'openspending.db.')
     engine = construct_engine(engine)
     init_model(engine)
 
