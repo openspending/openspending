@@ -49,7 +49,7 @@
         </div>
         <ul>
           <li><b>${c.browser.num_results} entries</b> found.</li>
-          <li>
+          <!--li>
             Total:
             ${h.format_number_with_commas(c.browser.stats.get('sum'))}
           </li>
@@ -60,7 +60,7 @@
           <li>
             Std Deviation:
             ${h.format_number_with_commas(c.browser.stats.get('stddev'))}
-            </li>
+            </li-->
         </ul>
       </span>
       <span py:if="c.browser.num_results==0">

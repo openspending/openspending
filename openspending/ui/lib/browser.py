@@ -150,7 +150,7 @@ class Browser(object):
 
     @property
     def stats(self):
-        return self.results.get('stats').get('stats_fields').get('amount')
+        return {} #self.results.get('stats').get('stats_fields').get('amount')
 
     @property
     def page(self):
@@ -159,7 +159,7 @@ class Browser(object):
                 return self.state_url(('page', unicode(page)),
                                       ('page', unicode(self.page_number)))
             self._page = Page(
-                self.results,
+                list(self.entries),
                 page=self.page_number,
                 item_count=self.num_results,
                 items_per_page=self.limit,
@@ -178,8 +178,8 @@ class Browser(object):
                   start=self.start,
                   rows=self.limit,
                   fl='id, amount, score',
-                  stats='true',
-                  stats_field='amount',
+                  #stats='true',
+                  #stats_field='amount',
                   sort='score desc, amount desc')
 
         if not kw['rows']:
