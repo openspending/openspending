@@ -14,6 +14,8 @@ class _SolrResultWrapper(object):
 def get_wrapper(obj, sqlalchemy_session=None):
     if isinstance(obj, dict) and 'responseHeader' in obj:
         return _SolrResultWrapper(obj)
+    if isinstance(obj, list):
+        return obj
     return _get_wrapper(obj, sqlalchemy_session=sqlalchemy_session)
     
 paginate.get_wrapper = get_wrapper
