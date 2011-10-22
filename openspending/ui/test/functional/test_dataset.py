@@ -3,6 +3,7 @@ import json
 from StringIO import StringIO
 
 from .. import ControllerTestCase, url, helpers as h
+from openspending.model import Dataset, meta as db
 
 class TestDatasetController(ControllerTestCase):
 
@@ -24,6 +25,14 @@ class TestDatasetController(ControllerTestCase):
         h.assert_equal(len(obj), 1)
         h.assert_equal(obj[0]['name'], 'cra')
         h.assert_equal(obj[0]['label'], 'Country Regional Analysis v2009')
+    
+    def test_index_hide_private(self):
+        cra = Dataset.by_name('cra')
+        cra.private = True
+        db.session.commit()
+        response = self.app.get(url(controller='dataset', action='index', format='json'))
+        obj = json.loads(response.body)
+        h.assert_equal(len(obj), 0)
 
     def test_index_csv(self):
         response = self.app.get(url(controller='dataset', action='index', format='csv'))
@@ -38,6 +47,16 @@ class TestDatasetController(ControllerTestCase):
         h.assert_true('Country Regional Analysis v2009' in response,
                       "'Country Regional Analysis v2009' not in response!")
         h.assert_true('36 spending entries' in response, "'36 spending entries' not in response!")
+    
+    def test_view_private(self):
+        cra = Dataset.by_name('cra')
+        cra.private = True
+        db.session.commit()
+        response = self.app.get(url(controller='dataset', action='view',
+            dataset='cra'), status=403)
+        h.assert_false('Country Regional Analysis v2009' in response,
+                      "'Country Regional Analysis v2009' not in response!")
+        h.assert_false('36 spending entries' in response, "'36 spending entries' not in response!")
 
     def test_view_has_format_links(self):
         view_url = dict(controller='dataset', action='view', dataset='cra')

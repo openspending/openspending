@@ -1,7 +1,7 @@
 import logging
 from collections import defaultdict
 
-from pylons import request, response, app_globals
+from pylons import request, response, app_globals, tmpl_context as c
 from pylons.controllers.util import abort
 
 from openspending import model
@@ -61,13 +61,17 @@ class ApiController(BaseController):
         return out
 
     def search(self):
-        # TODO: add mandatory dataset filter
         solrargs = dict(request.params)
         rows = min(1000, request.params.get('rows', 10))
         q = request.params.get('q', '*:*')
         solrargs['q'] = amend_query(q)
         solrargs['rows'] = rows
         solrargs['wt'] = 'json'
+
+        datasets = model.Dataset.all_by_account(c.account)
+        fq =  ' OR '.join(map(lambda d: '+dataset.id:%s' % d.id, datasets))
+        solrargs['fq'] = '(%s)' % fq
+
         if 'callback' in solrargs and not 'json.wrf' in solrargs:
             solrargs['json.wrf'] = solrargs['callback']
         if not 'sort' in solrargs:

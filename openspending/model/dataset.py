@@ -369,5 +369,14 @@ class Dataset(TableHandler, db.Model):
         return self.dataset
 
     @classmethod
+    def all_by_account(cls, account):
+        """ Query available datasets based on dataset visibility. """
+        from openspending.model.account import Account
+        criteria = [cls.private==False]
+        if account is not None:
+            criteria += ["1=1" if account.admin else "1=2", cls.managers.any(Account.id==account.id)]
+        return db.session.query(cls).filter(db.or_(*criteria))
+
+    @classmethod
     def by_name(cls, name):
         return db.session.query(cls).filter_by(name=name).first()

@@ -25,16 +25,15 @@ class DatasetController(BaseController):
     model = model.Dataset
 
     def index(self, format='html'):
-        results = db.session.query(model.Dataset).all()
+        c.results = model.Dataset.all_by_account(c.account)
         for item in self.extensions:
-            item.index(c, request, response, results)
+            item.index(c, request, response, c.results)
 
-        c.results = results
         if format == 'json':
             return to_jsonp(map(lambda d: d.as_dict(),
-                                results))
+                                c.results))
         elif format == 'csv':
-            results = map(lambda d: d.as_dict(), results)
+            results = map(lambda d: d.as_dict(), c.results)
             return write_csv(results, response)
         else:
             return render('dataset/index.html')

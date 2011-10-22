@@ -103,7 +103,7 @@ class BaseController(WSGIController):
 
         c.q = ''
         c.items_per_page = int(request.params.get('items_per_page', 20))
-        c.datasets = model.meta.session.query(model.Dataset).all()
+        c.datasets = model.Dataset.all_by_account(c.account)
         c.dataset = None
         self._detect_dataset_subdomain()
 
