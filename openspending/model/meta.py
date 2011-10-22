@@ -8,6 +8,7 @@ from sqlalchemy.orm import reconstructor
 
 from sqlalchemy import orm
 from sqlalchemy import func, select
+from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
 
 
