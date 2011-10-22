@@ -6,14 +6,17 @@
   <py:def function="page_title">${c.code}</py:def>
 
   <div py:def="content" id="innercontent">
-    ${c.message}
-    <p py:if="c.account">
-      You may not have the relevant rights.
-    </p>
-    <p py:if="not c.account">
-      You may need to login.
-    </p>
-
+    <h2 class="page-header">Access denied.
+      <small>Error ${c.code}</small></h2>
+    <div class="alert-message block-message error">
+      <strong>${c.message}</strong>:
+      <p py:if="c.account">
+        You may not have the relevant rights.
+      </p>
+      <p py:if="not c.account">
+        You may need to login.
+      </p>
+    </div>
   </div>
 
   <xi:include href="layout.html" />
