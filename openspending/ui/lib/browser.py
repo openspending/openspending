@@ -13,7 +13,7 @@ FILTER_PREFIX = "filter-"
 DIMENSION_LABEL = ".label_facet"
 
 STREAM_BATCH_SIZE = 1000
-PAGE_SIZE = 100 # Applies only to HTML output, not CSV or JSON
+PAGE_SIZE = 50 # Applies only to HTML output, not CSV or JSON
 
 class Browser(object):
 
