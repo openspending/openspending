@@ -59,10 +59,7 @@ class Browser(object):
 
     @property
     def start(self):
-        if self.limit:
-            return (self.page_number - 1) * self.limit
-        else:
-            return (self.page_number - 1) * STREAM_BATCH_SIZE
+        return (self.page_number - 1) * self.limit
 
     @property
     def fq(self):
@@ -137,6 +134,7 @@ class Browser(object):
             self._page = Page(
                 list(self.entries),
                 page=self.page_number,
+                presliced_list=True,
                 item_count=self.num_results,
                 items_per_page=self.limit,
                 url=_url
@@ -207,7 +205,6 @@ class Browser(object):
 
         for entry in entries:
             entries_ordered[ids_map[entry['id']]] = entry
-
         for entry in entries_ordered:
             if entry is not None:
                 yield entry
