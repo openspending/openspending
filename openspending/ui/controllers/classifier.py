@@ -1,7 +1,6 @@
 import logging
 
 from pylons import request, response, tmpl_context as c
-from pylons.decorators.cache import beaker_cache
 from pylons.controllers.util import abort
 from pylons.i18n import _
 
@@ -23,24 +22,15 @@ class ClassifierController(BaseController, RestAPIMixIn):
 
     model = model.classifier
 
-    @beaker_cache(invalidate_on_startup=True,
-                  cache_response=False,
-                  query_args=True)
     def view(self, *args, **kwargs):
         return super(ClassifierController, self).view(*args, **kwargs)
 
-    @beaker_cache(invalidate_on_startup=True,
-                  cache_response=False,
-                  query_args=True)
     def view_by_taxonomy_name(self, taxonomy, name, format="html"):
         classifier = self._filter({"taxonomy": taxonomy, "name": name})
         if not classifier:
             abort(404)
         return self._handle_get(result=classifier[0], format=format)
 
-    @beaker_cache(invalidate_on_startup=True,
-                  cache_response=False,
-                  query_args=True)
     def entries(self, taxonomy, name, format='html'):
         c.classifier = model.classifier.find_one({'taxonomy': taxonomy,
                                                   'name': name})

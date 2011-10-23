@@ -5,7 +5,6 @@ from bson.errors import InvalidId
 
 from pylons import request, response, tmpl_context as c
 from pylons.controllers.util import abort, redirect
-from pylons.decorators.cache import beaker_cache
 from pylons.i18n import _
 
 from openspending import model
@@ -40,12 +39,6 @@ class EntityController(BaseController, RestAPIMixIn):
                 url = entity_url(obj)
                 redirect(url, code=301)
 
-        return self._view_no_redirect(id, format)
-
-    @beaker_cache(invalidate_on_startup=True,
-                  cache_response=False,
-                  query_args=True)
-    def _view_no_redirect(self, id, format):
         return self._view(id, format)
 
     def _make_browser(self):
@@ -71,9 +64,6 @@ class EntityController(BaseController, RestAPIMixIn):
 
         return render(c.template)
 
-    @beaker_cache(invalidate_on_startup=True,
-           cache_response=False,
-           query_args=True)
     def entries(self, id, format='html'):
         c.entity = model.entity.get(id)
         if not c.entity:
