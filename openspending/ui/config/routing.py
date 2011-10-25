@@ -54,6 +54,9 @@ def make_map():
     map.connect('/help/*path', controller='docs', action='page')
 
     map.connect('/datasets.{format}', controller='dataset', action='index')
+    map.connect('/datasets/new', controller='dataset', action='new')
+    map.connect('/datasets', controller='dataset', action='create',
+            conditions=dict(method=['POST']))
     map.connect('/datasets', controller='dataset', action='index')
 
     map.connect('/api', controller='api', action='index')

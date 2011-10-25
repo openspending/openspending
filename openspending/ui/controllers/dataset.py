@@ -38,6 +38,16 @@ class DatasetController(BaseController):
         else:
             return render('dataset/index.html')
 
+    def new(self):
+        # TODO: move this part to core
+        from openspending.etl.validation.currency import CURRENCIES
+        c.currencies = [(k, v['name']) for k,v in CURRENCIES.items()]
+        c.currencies = sorted(c.currencies, key=lambda (k,v): v)
+        return render('dataset/new.html')
+
+    def create(self):
+        pass
+
     def view(self, dataset, format='html'):
         self._get_dataset(dataset)
         c.num_entries = len(c.dataset)

@@ -126,3 +126,8 @@ class TestDatasetController(ControllerTestCase):
 
     def test_timeline(self):
         h.skip("Not Yet Implemented!")
+
+    def test_new_form(self):
+        response = self.app.get(url(controller='dataset', action='new'), 
+            params={'limit': '20'})
+        assert "Create a dataset" in response.body
