@@ -96,13 +96,13 @@ class TestDatasetLoad(DatabaseTestCase):
     def test_drop(self):
         tn = self.engine.table_names()
         assert 'test__entry' in tn, tn
-        assert 'test__entity' in tn, tn
-        assert 'test__funny' in tn, tn
+        assert 'test__to' in tn, tn
+        assert 'test__function' in tn, tn
         self.ds.drop()
         tn = self.engine.table_names()
         assert 'test__entry' not in tn, tn
-        assert 'test__entity' not in tn, tn
-        assert 'test__funny' not in tn, tn
+        assert 'test__to' not in tn, tn
+        assert 'test__function' not in tn, tn
 
     def test_dataset_count(self):
         load_dataset(self.ds)

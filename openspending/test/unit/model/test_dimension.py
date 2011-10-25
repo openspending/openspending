@@ -24,8 +24,6 @@ class TestCompoundDimension(DatabaseTestCase):
     def test_basic_properties(self):
         assert self.entity.name=='to', self.entity.name
         assert self.classifier.name=='function', self.classifier.name
-        assert self.entity.taxonomy=='entity', self.entity.taxonomy
-        assert self.classifier.taxonomy=='funny', self.classifier.taxonomy
         
     def test_generated_tables(self):
         #assert not hasattr(self.entity, 'table'), self.entity

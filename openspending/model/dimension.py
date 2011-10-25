@@ -84,7 +84,7 @@ class CompoundDimension(Dimension, TableHandler):
 
     def __init__(self, dataset, name, data):
         Dimension.__init__(self, dataset, name, data)
-        self.taxonomy = data.get('taxonomy', 'entity')
+        self.taxonomy = data.get('taxonomy', name)
 
         self.attributes = []
         names = []
@@ -133,7 +133,7 @@ class CompoundDimension(Dimension, TableHandler):
         if it does not already exist and propagate this call to the 
         associated attributes. 
         """
-        self._ensure_table(meta, self.dataset.name, self.taxonomy)
+        self._ensure_table(meta, self.dataset.name, self.name)
         for attr in self.attributes:
             attr.generate(meta, self.table)
         fk = self.name + '_id'
@@ -175,8 +175,7 @@ class CompoundDimension(Dimension, TableHandler):
             yield member
 
     def __repr__(self):
-        return "<CompoundDimension(%s/%s:%s)>" % (self.taxonomy, self.name, 
-                                                 self.attributes)
+        return "<CompoundDimension(%s:%s)>" % (self.name, self.attributes)
 
 class DateDimension(CompoundDimension):
 
@@ -193,7 +192,7 @@ class DateDimension(CompoundDimension):
 
     def __init__(self, dataset, name, data):
         Dimension.__init__(self, dataset, name, data)
-        self.taxonomy = 'date'
+        self.taxonomy = name
 
         self.attributes = []
         for attr in self.DATE_FIELDS:
