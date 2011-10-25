@@ -9,9 +9,14 @@ Install the application and copy configuration templates.
     $ cp development.ini_tmpl development.ini
     $ cp test.ini_tmpl test.ini
 
+Configure the database connection. For Postgres, add a full db url of
+the form:
+
+    openspending.db.url = postgresql://localhost/openspending
+
 Initialize the database
 
-    $ ostool development.ini db migrate
+    $ ostool development.ini db init
 
 Run the tests
 
