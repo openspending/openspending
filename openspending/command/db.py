@@ -50,6 +50,18 @@ def migrate():
 
     return 0
 
+def init():
+    url = config.get('openspending.db.url')
+    repo = config.get('openspending.migrate_dir',
+                      os.path.join(os.path.dirname(config['__file__']),
+                                   'migration'))
+
+    # Assume it's a new database, and try the migration again
+    migrate_api.version_control(url, repo)
+    db.metadata.create_all()
+
+    return 0
+
 def _init(args):
     return init()
 
@@ -92,3 +104,7 @@ def configure_parser(subparsers):
     p = sp.add_parser('migrate',
                       help='Run pending data migrations')
     p.set_defaults(func=_migrate)
+
+    p = sp.add_parser('init',
+                      help='Initialize the database')
+    p.set_defaults(func=_init)
