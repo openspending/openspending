@@ -91,12 +91,12 @@ def _render_custom_html(tpl, name, obj):
         return None
 
 
-def classifier_url(dataset, classifier, **kwargs):
-    return url_for(controller='classifier',
-                   action='view',
+def member_url(dataset, dimension, member, **kwargs):
+    return url_for(controller='dimension',
+                   action='member',
                    dataset=dataset,
-                   name=classifier.get('name'),
-                   taxonomy=classifier.get('taxonomy'),
+                   name=member.get('name'),
+                   dimension=dimension,
                    **kwargs)
 
 
@@ -119,7 +119,7 @@ def entry_link(dataset, entry, **kwargs):
 def dimension_link(dataset, dimension, data):
     text = render_value(data)
     if isinstance(data, dict) and data['name']:
-        text = link_to(text, classifier_url(dataset, data))
+        text = link_to(text, member_url(dataset, dimension, data))
     return text
 
 

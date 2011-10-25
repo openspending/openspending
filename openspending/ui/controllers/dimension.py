@@ -1,20 +1,44 @@
 import logging
 
-from pylons import request, tmpl_context as c
+from pylons import request, tmpl_context as c, response
 from pylons.controllers.util import abort
-from pylons.decorators.cache import beaker_cache
 from pylons.i18n import _
 
+from openspending.plugins.core import PluginImplementations
+from openspending.plugins.interfaces import IDimensionController
+
 from openspending import model
-from openspending.lib.jsonexport import to_jsonp
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.page import Page
+from openspending.ui.lib.views import handle_request
+from openspending.ui.lib.helpers import url_for
+from openspending.ui.lib.browser import Browser
+from openspending.lib.csvexport import write_csv
+from openspending.lib.jsonexport import to_jsonp
 
 log = logging.getLogger(__name__)
 
 PAGE_SIZE = 100
 
 class DimensionController(BaseController):
+
+    extensions = PluginImplementations(IDimensionController)
+
+
+    def _get_member(self, dataset, dimension_name, name):
+        self._get_dataset(dataset)
+        c.dimension = dimension_name
+        for dimension in c.dataset.compounds:
+            if dimension.name == dimension_name:
+                members = list(dimension.members(dimension.alias.c.name==name,
+                    limit=1))
+                if not len(members):
+                    abort(404, _('Sorry, there is no member named %r')
+                            % name)
+                c.member = members.pop()
+                return
+        abort(404, _('Sorry, there is no dimension named %r') % dimension_name)
+
 
     def index(self, dataset, format='html'):
         self._get_dataset(dataset)
@@ -23,6 +47,7 @@ class DimensionController(BaseController):
             return to_jsonp([d.as_dict() for d in c.dimensions])
         else:
             return render('dimension/index.html')
+
 
     def view(self, dataset, dimension, format='html'):
         self._get_dataset(dataset)
@@ -51,3 +76,45 @@ class DimensionController(BaseController):
         c.page = Page(c.values, page=page,
                       items_per_page=PAGE_SIZE)
         return render('dimension/view.html')
+
+
+    def member(self, dataset, dimension, name, format="html"):
+        self._get_member(dataset, dimension, name)
+        c.num_entries = -1
+
+        handle_request(request, c, c.member)
+        if c.view is None:
+            self._make_browser()
+
+        for item in self.extensions:
+            item.read(c, request, response, c.member)
+
+        if format == 'json':
+            return to_jsonp(c.member)
+        elif format == 'csv':
+            return write_csv([c.member], response)
+        else:
+            return render('dimension/member.html')
+
+
+    def entries(self, dataset, dimension, name, format='html'):
+        self._get_member(dataset, dimension, name)
+
+        self._make_browser()
+        if format == 'json':
+            return c.browser.to_jsonp()
+        elif format == 'csv':
+            return c.browser.to_csv()
+        else:
+            return render('dimension/entries.html')
+
+
+    def _make_browser(self):
+        url = url_for(controller='dimension', action='entries',
+                dataset=c.dataset.name,
+                dimension=c.dimension,
+                name=c.member['name'])
+        c.browser = Browser(c.dataset, request.params, url=url)
+        c.browser.filter_by("+%s:%s" % (c.dimension, c.member['name']))
+        c.browser.facet_by_dimensions()
+

@@ -72,6 +72,14 @@ def make_map():
     map.connect('/{dataset}/explorer', controller='dataset', action='explorer')
     map.connect('/{dataset}/timeline', controller='dataset', action='timeline')
 
+
+    map.connect('/{dataset}/entries.{format}', controller='entry',
+            action='index')
+    map.connect('/{dataset}/entries', controller='entry', action='index')
+    map.connect('/{dataset}/entries/{id}.{format}', controller='entry', action='view')
+    map.connect('/{dataset}/entries/{id}', controller='entry', action='view')
+    map.connect('/{dataset}/entries/{id}/{action}', controller='entry')
+    
     map.connect('/{dataset}/dimensions.{format}',
                 controller='dimension', action='index')
     map.connect('/{dataset}/dimensions',
@@ -81,22 +89,20 @@ def make_map():
     map.connect('/{dataset}/dimensions/{dimension}',
                 controller='dimension', action='view')
 
-    map.connect('/{dataset}/entries.{format}', controller='entry',
-            action='index')
-    map.connect('/{dataset}/entries', controller='entry', action='index')
-    map.connect('/{dataset}/entries/{id}.{format}', controller='entry', action='view')
-    map.connect('/{dataset}/entries/{id}', controller='entry', action='view')
-    map.connect('/{dataset}/entries/{id}/{action}', controller='entry')
+    map.connect('/{dataset}/{dimension}.{format}',
+                controller='dimension', action='view')
+    map.connect('/{dataset}/{dimension}',
+                controller='dimension', action='view')
+    
+    map.connect('/{dataset}/{dimension}/{name}.{format}',
+                controller='dimension', action='member')
+    map.connect('/{dataset}/{dimension}/{name}',
+                controller='dimension', action='member')
 
-    map.connect('/{dataset}/{taxonomy}/{name}.{format}',
-                controller='classifier', action='view')
-    map.connect('/{dataset}/{taxonomy}/{name}',
-                controller='classifier', action='view')
-
-    map.connect('/{dataset}/{taxonomy}/{name}/entries.{format}',
-                controller='classifier', action='entries')
-    map.connect('/{dataset}/{taxonomy}/{name}/entries',
-                controller='classifier', action='entries')
+    map.connect('/{dataset}/{dimension}/{name}/entries.{format}',
+                controller='dimension', action='entries')
+    map.connect('/{dataset}/{dimension}/{name}/entries',
+                controller='dimension', action='entries')
 
     for plugin in routing_plugins:
         plugin.after_map(map)

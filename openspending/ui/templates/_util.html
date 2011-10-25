@@ -36,14 +36,14 @@
           <td width="12%">${entry.get('time').get('name')}</td>
           <td>
             <a py:if="entry.get('from')"
-              href="${h.url_for(controller='classifier', action='view',
-              dataset=dataset.name, taxonomy='entity',
+              href="${h.url_for(controller='dimension', action='member',
+              dataset=dataset.name, dimension='from',
               name=entry.get('from', {}).get('name'))}">${entry.get('from',
               {}).get('label')}</a></td>
           <td>
             <a py:if="entry.get('to')" 
-              href="${h.url_for(controller='classifier', action='view',
-              dataset=dataset.name, taxonomy='entity',
+              href="${h.url_for(controller='dimension', action='member',
+              dataset=dataset.name, dimension='to',
               name=entry.get('to', {}).get('name'))}">${entry.get('to', {}).get('label')}</a></td>
           <td class="num">
             ${h.format_number_with_commas(

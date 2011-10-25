@@ -33,8 +33,8 @@
         <div>
           <img src="${h.static('img/icons/arrow_left_12x12.png')}" />
           <a py:if="c.from_"
-                href="${h.url_for(controller='classifier', action='view',
-                dataset=c.dataset.name, taxonomy='entity',
+                href="${h.url_for(controller='dimension', action='member',
+                dataset=c.dataset.name, dimension='from',
                 name=c.from_.get('name'))}">${h.render_value(c.from_)}</a>
         </div>
         <span>
@@ -43,8 +43,8 @@
         <div>
           <img src="${h.static('img/icons/arrow_right_12x12.png')}" />
           <a py:if="c.to"
-                href="${h.url_for(controller='classifier', action='view',
-                dataset=c.dataset.name, taxonomy='entity',
+                href="${h.url_for(controller='dimension', action='member',
+                dataset=c.dataset.name, dimension='to',
                 name=c.to.get('name'))}">${h.render_value(c.to)}</a>
         </div>
       </div><!-- /.entities -->
@@ -85,7 +85,7 @@
                 <py:otherwise>${key}:</py:otherwise>
               </td>
               <td py:choose="">
-                ${h.dimension_link(c.dataset.name, c.desc.get(key), value)}
+                ${h.dimension_link(c.dataset.name, key, value)}
               </td>
               <td>
                 <i>${c.desc.get(key).description}</i>
