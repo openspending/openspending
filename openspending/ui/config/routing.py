@@ -84,10 +84,10 @@ def make_map():
                 controller='dimension', action='index')
     map.connect('/{dataset}/dimensions',
                 controller='dimension', action='index')
-    map.connect('/{dataset}/dimensions/{dimension}.{format}',
-                controller='dimension', action='view')
-    map.connect('/{dataset}/dimensions/{dimension}',
-                controller='dimension', action='view')
+    #map.connect('/{dataset}/dimensions/{dimension}.{format}',
+    #            controller='dimension', action='view')
+    #map.connect('/{dataset}/dimensions/{dimension}',
+    #            controller='dimension', action='view')
 
     map.connect('/{dataset}/{dimension}.{format}',
                 controller='dimension', action='view')
