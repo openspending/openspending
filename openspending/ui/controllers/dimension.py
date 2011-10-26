@@ -30,12 +30,13 @@ class DimensionController(BaseController):
         c.dimension = dimension_name
         for dimension in c.dataset.compounds:
             if dimension.name == dimension_name:
-                members = list(dimension.members(dimension.alias.c.name==name,
-                    limit=1))
+                cond = dimension.alias.c.name==name
+                members = list(dimension.members(cond, limit=1))
                 if not len(members):
                     abort(404, _('Sorry, there is no member named %r')
                             % name)
                 c.member = members.pop()
+                c.num_entries = dimension.num_entries(cond)
                 return
         abort(404, _('Sorry, there is no dimension named %r') % dimension_name)
 
@@ -80,9 +81,8 @@ class DimensionController(BaseController):
 
     def member(self, dataset, dimension, name, format="html"):
         self._get_member(dataset, dimension, name)
-        c.num_entries = -1
 
-        handle_request(request, c, c.member)
+        handle_request(request, c, c.member, c.dimension)
         if c.view is None:
             self._make_browser()
 

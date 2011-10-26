@@ -174,6 +174,18 @@ class CompoundDimension(Dimension, TableHandler):
             member['taxonomy'] = self.taxonomy
             yield member
 
+    def num_entries(self, conditions="1=1"):
+        joins = self.join(self.dataset.alias)
+        query = db.select([db.func.count(self.column_alias)], 
+                          conditions, joins)
+        rp = self.dataset.bind.execute(query)
+        return rp.fetchone()[0]
+
+
+    def __len__(self):
+        rp = self.bind.execute(self.alias.count())
+        return rp.fetchone()[0]
+
     def __repr__(self):
         return "<CompoundDimension(%s:%s)>" % (self.name, self.attributes)
 
