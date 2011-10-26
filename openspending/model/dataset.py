@@ -361,6 +361,14 @@ class Dataset(TableHandler, db.Model):
         return "<Dataset(%s:%s:%s)>" % (self.name, self.dimensions,
                 self.measures)
 
+    def times(self, attribute='year'):
+        """ Get all distinct times mentioned in the dataset. """
+        # TODO: make this a more generic distinct_attribute function
+        field = self['time'][attribute].column_alias
+        query = db.select([field.label(attribute)], self['time'].alias, distinct=True)
+        rp = self.bind.execute(query)
+        return sorted([r[attribute] for r in rp.fetchall()])
+
     def __len__(self):
         rp = self.bind.execute(self.alias.count())
         return rp.fetchone()[0]

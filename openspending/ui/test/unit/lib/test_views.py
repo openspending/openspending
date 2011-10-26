@@ -20,9 +20,9 @@ class TestViews(DatabaseTestCase):
         assert default.entity=='dataset', default.entity
         assert default.name=='default', default.name
         assert View.by_name(self.dataset, self.dataset, 'region')
-        
+
         cf = {'taxonomy': 'cofog'}
-        cfa = View.by_name(self.dataset, cf, 'default')
+        cfa = View.by_name(self.dataset, cf, 'default', 'cofog1')
         assert cfa, cfa
         assert cfa.dimension=='cofog1', cfa.dimension
 

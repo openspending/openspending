@@ -4,7 +4,7 @@ This module implements views on the database.
 import logging
 from collections import defaultdict
 
-from openspending.model import Dataset, meta as db
+from openspending.model import Dataset
 
 log = logging.getLogger(__name__)
 
@@ -24,7 +24,7 @@ class View(object):
         self.cuts = view.get('cuts', 
                              view.get('view_filters', {}))
 
-    def match(self, obj):
+    def match(self, obj, dimension=None):
         if isinstance(obj, Dataset):
             return self.entity == 'dataset'
         for k, v in self.filters.items():
@@ -33,7 +33,7 @@ class View(object):
         return True
 
     @classmethod
-    def by_name(cls, dataset, obj, name):
+    def by_name(cls, dataset, obj, name, dimension=None):
         """get a``View`` with the name ``name`` from the object
 
         ``obj``
@@ -48,7 +48,7 @@ class View(object):
         """
         for data in dataset.data.get('views', []):
             view = cls(dataset, data)
-            if view.name == name and view.match(obj):
+            if view.name == name and view.match(obj, dimension):
                 return view
         raise ValueError("View %s does not exist." % name)
 
@@ -133,23 +133,12 @@ class ViewState(object):
         return self._aggregates
 
 
-def times(dataset):
-    field = dataset['time']['year'].column_alias
-    query = db.select([field.label('year')], dataset['time'].alias, distinct=True)
-    rp = dataset.bind.execute(query)
-    return sorted([r['year'] for r in rp.fetchall()])
 
-
-def handle_request(request, c, obj):
-    view_name = request.params.get('_view', 'default')
-    try:
-        c.view = View.by_name(c.dataset, obj, view_name)
-    except ValueError:
-        c.view = None
-        return
-
+def _set_time_context(request, c):
+    # TODO: this is an unholy mess that needs to be killed
+    # with fire.
     req_time = request.params.get('_time')
-    c.times = times(c.dataset)
+    c.times = c.dataset.times()
     if req_time in c.times:
         c.state['time'] = req_time
     c.time = c.state.get('time')
@@ -159,4 +148,15 @@ def handle_request(request, c, obj):
     c.time_before = None
     if c.time and c.time in c.times:
         c.time_before = c.times[c.times.index(c.time) - 1]
+
+def handle_request(request, c, obj, dimension=None):
+    view_name = request.params.get('_view', 'default')
+    try:
+        c.view = View.by_name(c.dataset, obj, view_name,
+                              dimension=dimension)
+    except ValueError:
+        c.view = None
+        return
+
+    _set_time_context(request, c)
     c.viewstate = ViewState(obj, c.view, c.time)
