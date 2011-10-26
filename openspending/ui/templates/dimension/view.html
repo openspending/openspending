@@ -30,11 +30,14 @@
           </thead>
           <tbody> 
             <tr py:for="(v, s) in c.page">
-              <td py:if="v">
-                ${h.dimension_link(c.dataset.name, c.dimension, v)}
+              <td py:if="isinstance(v, dict) and v['name']">
+                ${h.dimension_link(c.dataset.name, c.dimension.name, v)}
               </td>
-              <td py:if="not v">
+              <td py:if="isinstance(v, dict) and not v['name']">
                 (Empty)
+              </td>
+              <td py:if="not isinstance(v, dict)">
+                ${v or '(Empty)'}
               </td>
               <td class="num">${h.format_number_with_commas(s)}</td>
             </tr>

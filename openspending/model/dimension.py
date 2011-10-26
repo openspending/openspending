@@ -183,7 +183,7 @@ class CompoundDimension(Dimension, TableHandler):
 
 
     def __len__(self):
-        rp = self.bind.execute(self.alias.count())
+        rp = self.dataset.bind.execute(self.alias.count())
         return rp.fetchone()[0]
 
     def __repr__(self):
