@@ -80,7 +80,9 @@ def make_map():
 
 
     map.connect('/{dataset}/editor', controller='editor', action='overview')
-
+    map.connect('/{dataset}/editor/core', controller='editor',
+            action='core_update', conditions=dict(method=['POST']))
+    map.connect('/{dataset}/editor/core', controller='editor', action='core_edit')
 
     map.connect('/{dataset}/entries.{format}', controller='entry',
             action='index')

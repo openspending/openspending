@@ -29,8 +29,6 @@ class DatasetController(BaseController):
 
     extensions = PluginImplementations(IDatasetController)
 
-    model = model.Dataset
-
     def index(self, format='html'):
         c.results = model.Dataset.all_by_account(c.account)
         for item in self.extensions:

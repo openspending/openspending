@@ -59,3 +59,35 @@ class EditorController(BaseController):
         except Invalid, i:
             errors = i.asdict()
         return self.core_edit(dataset, errors=errors)
+
+    def core_edit(self, dataset, errors={}, format='html'):
+        self._get_dataset(dataset)
+        require.dataset.update(c.dataset)
+        c.currencies = [(k, v['name']) for k,v in CURRENCIES.items()]
+        c.currencies = sorted(c.currencies, key=lambda (k,v): v)
+        fill = c.dataset.dataset.copy()
+        if errors:
+            fill.update(request.params)
+        return render('editor/core.html', form_errors=errors, 
+                form_fill=fill)
+
+
+    def core_update(self, dataset, errors={}, format='html'):
+        self._get_dataset(dataset)
+        require.dataset.update(c.dataset)
+        errors = {}
+        try:
+            schema = DatasetSchema()
+            data = schema.deserialize(request.params)
+            data['name'] = c.dataset.name
+            c.dataset.label = c.dataset.data['dataset']['label'] = \
+                    data['label']
+            c.dataset.currency = c.dataset.data['dataset']['currency'] = \
+                    data['currency']
+            c.dataset.description = c.dataset.data['dataset']['description'] = \
+                    data['description']
+            db.session.commit()
+            h.flash_success(_("The dataset has been updated."))
+        except Invalid, i:
+            errors = i.asdict()
+        return self.core_edit(dataset, errors=errors)

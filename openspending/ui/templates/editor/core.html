@@ -1,0 +1,59 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  py:strip="">
+
+  <py:def function="nav_class">nav-editor</py:def>
+
+  <py:def function="page_title">${c.dataset.label or c.dataset.name}</py:def>
+
+  <div py:def="content">
+    <h2 class="page-header">
+      <div class="representations">
+        <a href="${url(controller='dataset', action='view', dataset=c.dataset.name, format='json')}"><img src="${h.static('img/icons/json.png')}" alt="JSON" /></a>
+        <a href="${url(controller='dataset', action='view', dataset=c.dataset.name, format='csv')}"><img src="${h.static('img/icons/csv.png')}" alt="CSV" /></a>
+      </div>
+      
+      ${c.dataset.label} 
+      <small>Manage the dataset</small>
+    </h2>
+    <div class="row">
+      <div class="offset4 span12">
+        <form class="basic" id="login" action="${url(controller='editor',
+          action='core_update', dataset=c.dataset.name)}" method="POST">
+          <input name="name" value="${c.dataset.name}" type="hidden" />
+          <fieldset>
+            <div class="clearfix">
+              <label for="label">Title</label>
+              <div class="input">
+                <input name="label" placeholder="My Dataset" />
+              </div>
+            </div>
+            <div class="clearfix">
+              <label for="currency">Currency</label>
+              <div class="input">
+                <select name="currency">
+                  <py:for each="code, name in c.currencies">
+                    <option value="${code}">${name} (${code})</option>
+                  </py:for>
+                </select>
+              </div>
+            </div>
+            <div class="clearfix">
+              <label for="description">Description</label>
+              <div class="input">
+                <textarea class="xxlarge" rows="4" name="description"></textarea>
+              </div>
+            </div>
+          </fieldset>
+          <div class="actions">
+            <input value="Update" class="btn success" type="submit" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <xi:include href="../layout.html" />
+</html>
+
