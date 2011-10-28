@@ -79,7 +79,7 @@ def make_map():
     map.connect('/{dataset}/timeline', controller='dataset', action='timeline')
 
 
-    map.connect('/{dataset}/editor', controller='editor', action='overview')
+    map.connect('/{dataset}/editor', controller='editor', action='index')
     map.connect('/{dataset}/editor/core', controller='editor',
             action='core_update', conditions=dict(method=['POST']))
     map.connect('/{dataset}/editor/core', controller='editor', action='core_edit')

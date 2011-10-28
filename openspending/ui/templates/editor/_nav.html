@@ -16,8 +16,8 @@
       <small>Manage the dataset</small>
     </h2>
     <ul class="tabs">
-      <li class="${'active' if section == 'overview' else ''}">
-          <a href="${url(controller='editor', action='overview', dataset=c.dataset.name)}">Dashboard</a></li>
+      <li class="${'active' if section == 'index' else ''}">
+          <a href="${url(controller='editor', action='index', dataset=c.dataset.name)}">Dashboard</a></li>
       <li class="${'active' if section == 'core' else ''}">
           <a href="${url(controller='editor', action='core_edit', dataset=c.dataset.name)}">Core Properties</a></li>
       <li><a href="#">Data model</a></li>
