@@ -52,7 +52,7 @@ class Dataset(TableHandler, db.Model):
     @property
     def dataset(self):
         return self.data.get('dataset', {})
-    
+
     @property
     def mapping(self):
         return self.data.get('mapping', {})
