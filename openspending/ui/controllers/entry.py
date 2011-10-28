@@ -9,7 +9,7 @@ from openspending.plugins.interfaces import IEntryController
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.browser import Browser
 from openspending.lib.csvexport import write_csv
-from openspending.ui.lib.jsonp import to_jsonp
+from openspending.lib.jsonexport import to_jsonp
 from openspending.ui.lib import helpers as h
 
 log = logging.getLogger(__name__)

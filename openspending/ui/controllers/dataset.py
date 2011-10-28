@@ -8,7 +8,7 @@ from openspending.model import meta as db
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IDatasetController
 from openspending.lib.csvexport import write_csv
-from openspending.ui.lib.jsonp import to_jsonp
+from openspending.lib.jsonexport import to_jsonp
 from openspending.lib import json
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render, abort
