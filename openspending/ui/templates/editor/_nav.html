@@ -1,0 +1,30 @@
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:py="http://genshi.edgewall.org/"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  py:strip=""
+  >
+
+  <py:def function="editor_nav(section)">
+    <h2 class="page-header">
+      <div class="representations">
+        <a href="${url(controller='dataset', action='view', dataset=c.dataset.name, format='json')}"><img src="${h.static('img/icons/json.png')}" alt="JSON" /></a>
+        <a href="${url(controller='dataset', action='view', dataset=c.dataset.name, format='csv')}"><img src="${h.static('img/icons/csv.png')}" alt="CSV" /></a>
+      </div>
+      ${c.dataset.label} 
+      <small>Manage the dataset</small>
+    </h2>
+    <ul class="tabs">
+      <li class="${'active' if section == 'overview' else ''}">
+          <a href="${url(controller='editor', action='overview', dataset=c.dataset.name)}">Dashboard</a></li>
+      <li class="${'active' if section == 'core' else ''}">
+          <a href="${url(controller='editor', action='core_edit', dataset=c.dataset.name)}">Core Properties</a></li>
+      <li><a href="#">Data model</a></li>
+      <li><a href="#">Visualization views</a></li>
+    </ul>
+  </py:def>
+
+
+</html>
+
