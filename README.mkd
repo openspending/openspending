@@ -9,10 +9,22 @@ Install the application and copy configuration templates.
     $ cp development.ini_tmpl development.ini
     $ cp test.ini_tmpl test.ini
 
+Create a database if you do not have one already. We recommend using Postgres
+but you can use anything compatible with SQLAlchemy. For postgres you would do::
+
+    createdb -E utf-8 --owner {your-database-user} openspending
+
+You will also need to install python bindings for your database. For example,
+for Postgresql you will want to install the psycopg2 library::
+
+    pip install psycopg2
+    # or on debian / ubuntu
+    # apt-get install python-psycopg2
+
 Configure the database connection. For Postgres, add a full db url of
 the form:
 
-    openspending.db.url = postgresql://localhost/openspending
+    openspending.db.url = postgresql://{user}:{pass}@localhost/openspending
 
 Initialize the database
 
