@@ -1,9 +1,6 @@
 from datetime import datetime
 import logging
 
-from bson.dbref import DBRef
-from bson.objectid import ObjectId
-
 from decorator import decorator
 
 from pylons import request, response
@@ -21,10 +18,6 @@ def default_json(obj):
 
     Raises :exc:`TypeError` if it can't handle the object.
     '''
-    if isinstance(obj, DBRef):
-        return obj.as_doc()
-    if isinstance(obj, ObjectId):
-        return str(obj)
     if isinstance(obj, datetime):
         return obj.isoformat()
     raise TypeError("%r is not JSON serializable" % obj)
