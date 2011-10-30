@@ -14,7 +14,6 @@ from openspending.model import meta as db
 from openspending.model.account import Account, AccountRegister, \
     AccountSettings
 from openspending.ui.lib import helpers as h
-from openspending.ui.lib.authz import requires
 from openspending.ui.lib.base import BaseController, render, require
 from openspending.ui.lib.security import generate_password_hash
 
