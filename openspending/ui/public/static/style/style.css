@@ -56,6 +56,10 @@ body {
   letter-spacing: -0.06em;
 }
 
+.brand:hover {
+  text-decoration: none;
+}
+
 .tabs li.dropdown {
   float: right;
 }
@@ -283,4 +287,11 @@ table td.num {
   color: #aaa;
 }
 
+/* Help */
+.help-page a.headerlink {
+  display: none;
+}
 
+.help-page h1 {
+  display: none;
+}

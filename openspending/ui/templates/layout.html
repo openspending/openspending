@@ -58,8 +58,8 @@
                 </li>
               </ul>
             </li>
-            <li><a href="${g.wiki_link}">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="${h.url(controller='docs', action='page', path='index.html')}">About</a></li>
+            <li><a href="${h.url(controller='docs', action='page', path='contact.html')}">Contact</a></li>
           </ul>
           <ul class="nav secondary-nav">
             <li py:if="c.account is None">
