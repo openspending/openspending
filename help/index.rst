@@ -12,7 +12,10 @@ Contents:
 
 .. toctree::
    :maxdepth: 2
-
+  
+   types
+   dataguide
+   devguide
    api
    contact
 
