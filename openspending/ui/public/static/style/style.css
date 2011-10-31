@@ -295,3 +295,8 @@ table td.num {
 .help-page h1 {
   display: none;
 }
+
+.help-page li {
+  color: #333;
+}
+

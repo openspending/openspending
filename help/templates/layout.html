@@ -23,20 +23,13 @@
 {%- macro relbar() %}
     <div class="related span16">
       <ul class="breadcrumb">
-        <!--
-        {%- for rellink in rellinks %}
-        <li>
-          <a href="{{ pathto(rellink[0]) }}" title="{{ rellink[1]|striptags|e }}"
-             {{ accesskey(rellink[2]) }}>{{ rellink[3] }}</a>
-          {%- if not loop.first %}{{ reldelim2 }}{% endif %}</li>
-          {%- endfor %}
-        -->
         {%- block rootrellink %}
         <li><a href="{{ pathto(master_doc) }}">{{ shorttitle|e }}</a><span class="divider">{{ reldelim1 }}</span></li>
         {%- endblock %}
         {%- for parent in parents %}
         <li><a href="{{ parent.link|e }}" {% if loop.last %}{{ accesskey("U") }}{% endif %}>{{ parent.title }}</a><span class="divider">{{ reldelim1 }}</span></li>
         {%- endfor %}
+        <li class="active">{{ title|striptags|e }}</li>
         {%- block relbaritems %} {% endblock %}
       </ul>
     </div>
@@ -149,6 +142,11 @@
 
   <div py:def="content" class="help-page">
     <h2 class="page-header">{{ title|striptags|e }}</h2>
+    <div class="row">
+      <div span="16">
+        {%- block relbar2 %}{{ relbar() }}{% endblock %}
+      </div>
+    </div>
     {%- block content %}
       <div class="row">
         <div class="span4">
@@ -163,11 +161,6 @@
         </div>
       </div>
     {%- endblock %}
-    <div class="row">
-      <div span="16">
-        {%- block relbar2 %}{{ relbar() }}{% endblock %}
-      </div>
-    </div>
   </div>
 
   <xi:include href="../layout.html" />
