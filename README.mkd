@@ -21,6 +21,23 @@ for Postgresql you will want to install the psycopg2 library::
     # or on debian / ubuntu
     # apt-get install python-psycopg2
 
+Further, you will need to set up Apache Solr. You can download the
+latest version from the project website and then replace the default
+schema with the one from OpenSpending.::
+
+    $ cp -R apache-solr-X.X.X/example/solr/* ./solr
+    $ ln -sf "../wdmmg_schema.xml" ./solr/conf/schema.xml
+
+And then start solr (maybe inside a 'screen')::
+
+    $ cd solr; java -jar start.jar
+
+After setting up Solr, you must reference the server from the
+configuration file::
+
+    # Configure your Solr url. This is a typical default:
+    openspending.solr.url = http://localhost:8983/solr
+
 Configure the database connection. For Postgres, add a full db url of
 the form:
 
