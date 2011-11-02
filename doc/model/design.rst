@@ -234,6 +234,67 @@ structure of the dataset::
 Note that the definition of a source column (and a default value) is of 
 course not necessary for constant values.
 
+Views and pre-defined visualizations
+''''''''''''''''''''''''''''''''''''
+
+A frontend feature of OpenSpending is the option to display pre-defined 
+visualizations on the resource pages for datasets and dimensions. These 
+views show the (total) amount of all entries matching the individual 
+dataset or dimension member (e.g. ``/cra/cofog1/3`` - all UK healthcare
+expenditure), broken down by some other dimension (e.g. ``region``, the 
+geographic area in which the spending occurred). Such a breakdown can be
+used to power tools such as tables and visualizations in the frontend.
+
+As any dataset or dimension member may have several views associated with
+it, each view has a ``name``. If the user does not explicitly select a 
+view by its ``name``, the ``default`` view will be selected (the ``default``
+view needs to be defined just like any other view, if it does not exist, 
+the entries browser is shown instead).
+
+As views can both be applied to a :py:class:`~.Dataset` and a 
+:py:class:`~.Dimension`, two formats exist for their specification::
+
+  "views": [
+    {
+      "name": "default",
+      "label": "Spending by function",
+      "entity": "dataset",
+      "dimension": "dataset",
+      "drilldown": "function"
+    }
+  ]
+
+This view is applied to the :py:class:`~.Dataset` (i.e. it will be shown when 
+the user visits the dataset home page) by specifying ``dataset`` as the 
+``entity``. The view shows the total sum of the entries in the dataset divided 
+into the different values of the dimension ``function``. Note that in this case, 
+the ``dimension`` property does not carry a special meaning. The ``label`` will 
+be shown in the user interface to allow the user to select amongst different 
+views. ::
+
+  "views": [
+    {
+      "name": "default",
+      "label": "Spending by region",
+      "entity": "dimension",
+      "dimension": "function",
+      "drilldown": "region",
+      "cuts": {
+        "spending_type": "local"
+      }
+  ]
+
+This second view applies to all members of the :py:class:`~.Dimension` 
+``function``, i.e. it will be shown whenever the user visits a dimension 
+member page such as ``/dataset/function/health-services``. In this case, 
+a more complex aggregation is performed: not only is the total amount of 
+entries that match the dimension member value broken down by their ``region``, 
+but we're also applying a filter on the dimension ``spending_type`` to 
+only include those entries where this dimension has the specified value.
+
+Special care needs to be taken in order for the ``name`` of each view not
+to be ambiguous: the user must ensure that the value tuples of 
+``(name, dimension)`` (or ``name``, ``dataset``) are only used once.
 
 Physical model
 --------------
