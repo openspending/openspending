@@ -16,3 +16,4 @@ openspending/ui/templates/layout_orig.html
 /db
 .*.swp
 openspending/ui/templates/docs/*
+doc/_build/*

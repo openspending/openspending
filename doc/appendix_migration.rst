@@ -1,6 +1,6 @@
 
-Proposed data model changes in OpenSpending 0.11
-================================================
+Appendix: Migration from MongoDB to SQL-based storage
+=====================================================
 
 We've decided to move OpenSpending away from MongoDB in 0.11 and to
 move back to a relational database backend, presumably supporting 

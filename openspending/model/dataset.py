@@ -1,3 +1,11 @@
+"""
+The ``Dataset`` serves as double function in OpenSpending: on one hand, it is
+a simple domain object that can be created, modified and deleted as any other
+On the other hand it serves as a controller object for the dataset-specific
+data model which it represents, handling the creation, filling and migration of
+the table schema associated with the dataset. As such, it holds the key set
+of logic functions upon which all other queries and loading functions rely.
+"""
 import math
 from collections import defaultdict
 
@@ -239,9 +247,10 @@ class Dataset(TableHandler, db.Model):
             Type: `list` of two-`tuples`.
 
         Raises:
+
         :exc:`ValueError`
-            If a cube is not yet computed. Call :meth:`compute`
-            to compute the cube.
+            If a cube is not yet computed. Call :meth:`compute` to compute 
+            the cube.
         :exc:`KeyError`
             If a drilldown, cut or order dimension is not part of this
             cube or the order dimensions are not a subset of the drilldown

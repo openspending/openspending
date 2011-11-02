@@ -4,7 +4,8 @@ from openspending.model.attribute import Attribute
 from openspending.model.common import TableHandler, ALIAS_PLACEHOLDER
 
 class Dimension(object):
-    """ A base class for dimensions. """
+    """ A base class for dimensions. A dimension is any property of an entry
+    that can serve to describe it beyond its purely numeric ``Measure``.  """
 
     def __init__(self, dataset, name, data):
         self._data = data
@@ -16,21 +17,15 @@ class Dimension(object):
         self.facet = data.get('facet')
 
     def join(self, from_clause):
-        """ Return the object to be joined in when this dimension
-        is part of a query. """
         return from_clause
 
     def flush(self, bind):
-        """ Only applies to dimensions with their own table. """
         pass
 
     def drop(self, bind):
-        """ Only applies to dimensions with their own table. """
         del self.column
 
     def __getitem__(self, name):
-        """ Only applies to dimensions with their own attributes. 
-        """
         raise KeyError()
 
     def __repr__(self):
@@ -45,7 +40,10 @@ class Dimension(object):
 
 class AttributeDimension(Dimension, Attribute):
     """ A simple dimension that does not create its own values table 
-    but keeps its values directly as columns on the facts table. 
+    but keeps its values directly as columns on the facts table. This is
+    somewhat unusual for a star schema but appropriate for properties such as
+    transaction identifiers whose cardinality roughly equals that of the facts
+    table.
     """
 
     def __init__(self, dataset, name, data):
@@ -57,7 +55,9 @@ class AttributeDimension(Dimension, Attribute):
 
 class Measure(Attribute):
     """ A value on the facts table that can be subject to aggregation, 
-    and is specific to this one fact. """
+    and is specific to this one fact. This would typically be some 
+    financial unit, i.e. the amount associated with the transaction or
+    a specific portion thereof (i.e. co-financed amounts). """
 
     def __init__(self, dataset, name, data):
         Attribute.__init__(self, dataset, data)
@@ -68,8 +68,6 @@ class Measure(Attribute):
         raise KeyError()
 
     def join(self, from_clause):
-        """ Return the object to be joined in when this dimension
-        is part of a query. """
         return from_clause
 
     def __repr__(self):
@@ -107,9 +105,12 @@ class CompoundDimension(Dimension, TableHandler):
         return from_clause.join(self.alias, self.alias.c.id==self.column_alias)
     
     def flush(self, bind):
+        """ Clear all data in the dimension table but keep the table structure
+        intact. """
         self._flush(bind)
     
     def drop(self, bind):
+        """ Drop the dimension table and all data within it. """
         self._drop(bind)
         del self.column
 
@@ -147,9 +148,8 @@ class CompoundDimension(Dimension, TableHandler):
         self.alias = self.table.alias(alias_name)
 
     def load(self, bind, row):
-        """ Load a row of data into this dimension by having the attributes
-        perform type casting and then upserting the values. 
-        """
+        """ Load a row of data into this dimension by upserting the attribute 
+        values. """
         dim = dict()
         for attr in self.attributes:
             attr_data = row[attr.name]
@@ -163,6 +163,10 @@ class CompoundDimension(Dimension, TableHandler):
         return {self.column.name: pk}
 
     def members(self, conditions="1=1", limit=0, offset=0):
+        """ Get a listing of all the members of the dimension (i.e. all the
+        distinct values) matching the filter in ``conditions``. This can also be
+        used to find a single individual member, e.g. a dimension value
+        identified by its name. """
         query = db.select([self.alias], conditions, 
                           limit=limit, offset=offset)
         rp = self.dataset.bind.execute(query)
@@ -175,6 +179,9 @@ class CompoundDimension(Dimension, TableHandler):
             yield member
 
     def num_entries(self, conditions="1=1"):
+        """ Return the count of entries on the dataset fact table having the
+        dimension set to a value matching the filter given by ``conditions``.
+        """
         joins = self.join(self.dataset.alias)
         query = db.select([db.func.count(self.column_alias)], 
                           conditions, joins)
@@ -190,6 +197,10 @@ class CompoundDimension(Dimension, TableHandler):
         return "<CompoundDimension(%s:%s)>" % (self.name, self.attributes)
 
 class DateDimension(CompoundDimension):
+    """ DateDimensions are closely related to CompoundDimensions but the value
+    is set up from a Python date object to automatically contain several
+    properties of the date in their own attributes (e.g. year, month, quarter,
+    day). """
 
     DATE_FIELDS = [
         {'name': 'name', 'datatype': 'string'},
@@ -213,6 +224,17 @@ class DateDimension(CompoundDimension):
         self._pk_cache = {}
 
     def load(self, bind, value):
+        """ Given a Python datetime.date, generate a date dimension with the
+        following attributes automatically set:
+            
+        * name - a human-redable representation
+        * year - the year only (e.g. 2011)
+        * quarter - a number to identify the quarter of the year (zero-based)
+        * month - the month of the date (e.g. 01)
+        * week - calendar week of the year (e.g. 42)
+        * day - day of the month (e.g. 8)
+        * yearmonth - combined year and month (e.g. 201112)
+        """
         data = {
                 'name': value.isoformat(),
                 'label': value.strftime("%d. %B %Y"),

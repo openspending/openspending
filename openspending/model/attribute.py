@@ -1,6 +1,10 @@
 from openspending.model import meta as db
 
 class Attribute(object):
+    """ An attribute describes some concrete value stored in the data model.
+    This value can either be stored directly on the facts table or on a 
+    separate dimension table, which is associated to the facts table through
+    a reference. """
 
     def __init__(self, parent, data):
         self._data = data
@@ -39,8 +43,6 @@ class Attribute(object):
         self.column.create(table)
 
     def load(self, bind, value):
-        """ Load an attribute value but perform type conversion first.
-        """
         return {self.column.name: value}
 
     def __repr__(self):
