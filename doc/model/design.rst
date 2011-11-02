@@ -7,6 +7,8 @@ who want to modify core functions of the platform. For anyone who wants to
 simply load data or use publicly accessible APIs, online help is provided 
 from within the application.
 
+.. _olap-intro:
+
 Offline analytics in OpenSpending
 ---------------------------------
 
@@ -83,7 +85,7 @@ as spaces, symbols or text with accents or umlauts.
 
 The ``unique_keys`` property defines a set of attributes that can be 
 combined to generate a unique identity for each entry in the dataset. The 
-mechanism is explained in more detail in the sections below.
+mechanism is explained in more detail in :ref:`physical-model`.
 
 ``currency`` is expected to be a valid, three-letter currency code, e.g. 
 *EUR* or *USD*. All measures are by default assumed to be specified in 
@@ -99,8 +101,8 @@ versions of OpenSpending may break this up, defining both a ``model`` and
 ``mapping``. 
 
 The ``mapping`` section defines a set of fields to define the dataset model, each 
-of which that can have one of four types (see the section on OLAP in OpenSpending
-for a more detailed explanation):
+of which that can have one of four types (see :ref:`olap-intro` for a more 
+detailed explanation):
 
  * ``measure`` to define a monetary attribute, such as the transaction amount. 
    In fact, if a field called ``amount`` exists, it will always be considered a 
@@ -296,6 +298,9 @@ Special care needs to be taken in order for the ``name`` of each view not
 to be ambiguous: the user must ensure that the value tuples of 
 ``(name, dimension)`` (or ``name``, ``dataset``) are only used once.
 
+
+.. _physical-model: 
+
 Physical model
 --------------
 
@@ -349,8 +354,8 @@ There is a very limited number of different query types that are executed
 against the generated tables. 
 
 For non-aggregated access, an :py:meth:`~.Dataset.entries` query is generated 
-to yield a full view of the entries in a test dataset (see spendb unit tests) 
-with all dimensions joined to the facts table, e.g.::
+to yield a full view of the entries in a test dataset with all dimensions 
+joined to the facts table, e.g.::
 
   SELECT function.id AS function_id, function.name AS function_name, 
          function.label AS function_label, entry.source AS entry_source, 
