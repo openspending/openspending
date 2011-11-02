@@ -8,6 +8,7 @@ to use web-based interfaces as much as possible. If some functionality is not
 available remotely, it may be worth implementing an additional interface rather 
 than relying on the core to remain stable.
 
+
 Dataset: metadata and core functions
 ------------------------------------
 
@@ -19,13 +20,11 @@ Dataset: metadata and core functions
 Attributes, Dimensions and Measures
 -----------------------------------
 
-.. automodule:: openspending.model.attribute
+.. automodule:: openspending.model
 
   .. autoclass:: Attribute
      :members:
 
-.. automodule:: openspending.model.dimension
-  
   .. autoclass:: Measure
      :members:
 

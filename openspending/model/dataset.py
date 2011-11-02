@@ -74,7 +74,7 @@ class Dataset(TableHandler, db.Model):
             elif data.get('type') == 'date' or \
                 (dim == 'time' and data.get('datatype') == 'date'):
                 dimension = DateDimension(self, dim, data)
-            elif data.get('type', 'value') == 'value':
+            elif data.get('type') in ['value', 'attribute']:
                 dimension = AttributeDimension(self, dim, data)
             else:
                 dimension = CompoundDimension(self, dim, data)

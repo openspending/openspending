@@ -43,10 +43,10 @@ seperately).
 Modeling/mapping schema
 -----------------------
 
-OpenSpending keeps an extensive set of metadata for each dataset. The metadata
-is used to create the physical model, query the generated data structures,
-pre-define reports (views) to run off the data and provide general infromation
-about the dataset.
+OpenSpending keeps an extensive set of metadata for each :py:class:`~.Dataset`. 
+The metadata is used to create the physical model, query the generated data 
+structures, pre-define reports (views) to run off the data and provide general 
+information about the dataset.
 
 The metadata is stored in a specfied object structure, which is often 
 represented as JSON. The basic layout is this::
@@ -66,7 +66,8 @@ Each of these sections is documented below.
 Dataset core metadata
 '''''''''''''''''''''
 
-The core dataset attributes are very generic and easily explained::
+The core :py:class:`~.Dataset` attributes are very generic and easily 
+explained::
 
   "dataset": {
     "name": "machine-name",
@@ -99,26 +100,26 @@ versions of OpenSpending may break this up, defining both a ``model`` and
 
 The ``mapping`` section defines a set of fields to define the dataset model, each 
 of which that can have one of four types (see the section on OLAP in OpenSpending
-for a conceptual intro):
+for a more detailed explanation):
 
  * ``measure`` to define a monetary attribute, such as the transaction amount. 
    In fact, if a field called ``amount`` exists, it will always be considered a 
-   measure - this is needed to support older versions of the model format. The 
-   datatype of measures is always assumed to be a decimal number.
+   :py:class:`~.Measure` - this is needed to support older versions of the model 
+   format. The datatype of measures is always assumed to be a decimal number.
 
- * ``value`` to define an attribute dimension, such as a transaction ID. The 
-   datatype for value dimensions has to be set explicitly but it will fall back
-   to ``string``.
+ * ``value`` to define an :py:class:`~.AttributeDimension` attribute dimension, 
+   such as a transaction ID. The datatype for value dimensions has to be set 
+   explicitly but it will fall back to ``string``.
 
- * ``date`` to set a date dimension. Note that dates are always assumed to be 
-   given in an ISO-style date format, such as *YYYY-MM-DD*, *YYYY-MM* or *YYYY*.
-   For compatibility reasons, any field with the name ``time`` is assumed to be
-   a ``date`` type dimension.
+ * ``date`` to set a :py:class:`~.DateDimension`. Note that dates are always 
+   assumed to be given in an ISO-style date format, such as *YYYY-MM-DD*, 
+   *YYYY-MM* or *YYYY*. For compatibility reasons, any field with the name 
+   ``time`` is assumed to be a ``date`` type dimension.
 
- * *any other type value* will be treated as a compound dimension. For historic
-   reasons, this is often set to ``classifier`` or ``entity``. Note that, since 
-   compound dimensions have sub-attributes, their model syntax varies from that
-   of the other types.
+ * *any other type value* will be treated as a :py:class:`~CompoundDimension`. 
+   For historic reasons, this is often set to ``classifier`` or ``entity``. 
+   Note that, since compound dimensions have :py:class:`~Attribute` s, their 
+   model syntax varies from that of the other types.
 
 For dimensions of the types ``measure``, ``value`` and ``date``, a simple mapping
 format is available::
@@ -175,8 +176,8 @@ A valid input CSV file for the model defined above might look like this:
   |             | 2009        | 2854922.0 |
   +-------------+-------------+-----------+
 
-In order to generate a **compound dimension**, a somewhat more complex field 
-description is required, as each of the sub-attributes must be defined 
+In order to generate a :py:class:`~.CompoundDimension`, a somewhat more complex 
+field description is required, as each of the sub-attributes must be defined 
 independently.::
 
   "mapping": {
@@ -207,18 +208,18 @@ independently.::
     }
   }
 
-As you will note, part of the properties of the dimension are still defined 
-the same way (e.g. ``label``, ``description`` and the ``facet`` flag which 
-tells OpenSpending to include this dimension in the right-hand facet bar in
-the entries browser. Yet all those properties which relate to the content of
-the data must now be set for each entry of the list of attributes 
+As you will note, part of the properties of the :py:class:`~.Dimension` are 
+still defined the same way (e.g. ``label``, ``description`` and the ``facet`` 
+flag which tells the entry browser to include this dimension in the right-hand 
+facet bar. Yet all those properties which relate to the content of
+the data must now be set for each entry of the list of :py:class:`~.Attribute`
 individually: ``column``, ``datatype`` and ``default_value``. A new property,
 ``name`` is used to specify a name for the attribute within the dimension 
 (see the section below for conventions on attribute names).
 
-As a further option, both attribute dimensions and the individual attributes
-of a compound dimension can be defined to have a **constant value**. This is 
-sometimes useful to add provenance information or further details on the 
+As a further option, both :py:class:`~.AttributeDimension` and the individual 
+attributes of a compound dimension can be defined to have a **constant value**. 
+This is sometimes useful to add provenance information or further details on the 
 structure of the dataset::
 
   "mapping": {
@@ -237,33 +238,33 @@ course not necessary for constant values.
 Physical model
 --------------
 
-When loading a dataset, OpenSpending will generate a set of tables (and 
-columns) to represent the data. A table called ``<dataset_name>__entry`` 
-will be generated for each dataset with an ``id`` column. The ``id`` is 
-generated from a defined set of attributes (the *unique keys*) of each 
-entry by hashing each value. The ID is therefore stable even is the data 
-is re-loaded or the same record is inserted twice (i.e. an entry that has 
-the same unique keys as one which is already loaded will overwriting the
-existing record).
+When loading a :py:class:`~.Dataset`, OpenSpending will generate a set of 
+tables (and columns) to represent the data. A table called 
+``<dataset_name>__entry`` will be generated for each dataset with an ``id`` 
+column. The ``id`` is generated from a defined set of attributes 
+(the *unique keys*) of each entry by hashing each value. The ID is therefore 
+stable even is the data is re-loaded or the same record is inserted twice 
+(i.e. an entry that has the same unique keys as one which is already loaded 
+will overwriting the existing record).
 
 On the facts table, a single numeric column will be generated for each 
-*measure*. Other metadata (e.g. the currency of the measure) will not be 
-stored on the fact table but kept in the dataset metadata.
+:py:class:`~.Measure`. Other metadata (e.g. the currency of the measure) will 
+not be stored on the fact table but kept in the dataset metadata.
 
-*Attribute dimensions* are roughly equivalent to measures in technical 
+:py:class:`~.AttributeDimension` are roughly equivalent to measures in technical 
 terms, i.e. they also generate a single column on the fact table. The 
 generated column will have the datatype specified in the model.
 
-For *compound dimensions*, both a column on the fact table and a dedicated 
-table will be generated. The table will have a name of the form 
+For :py:class:`~.CompoundDimension`, both a column on the fact table and a 
+dedicated table will be generated. The table will have a name of the form 
 ``<dataset_name>__<dimension_name>``, with an auto-incrementing integer 
 ``id`` column. A column with a name of the form ``<dimension_name>_id`` 
 is added to the facts table as a foreign key reference to the dimension 
-table. For each attribute of the compound dimension, a column will be 
-generated with the appropriate type. In order to identify the dimension,
-each compound member is assumed to have a ``name`` attribute. If no ``name``
-is defined, the loader will attempt to auto-generate a value from an 
-attribute called ``label``. If label also does not exist, the loader will
+table. For each :py:class:`~.Attribute` of the compound dimension, a column 
+will be generated with the appropriate type. In order to identify the 
+dimension, each member is assumed to have a ``name`` attribute. 
+If no ``name`` is defined, the loader will attempt to auto-generate a value 
+from an attribute called ``label``. If label also does not exist, the loader will
 fail and require you to add a ``name`` attribute.
 
 OpenSpending also gives special importance to a set of other attributes of
