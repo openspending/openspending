@@ -5,6 +5,10 @@ OpenSpending aims to be a simple-to-use platform for developers. The
 site offers a variety of APIs that can be used to create new 
 visualizations, reports and other applications:
 
+.. toctree::
+  
+  dev-olap
+
 * Background: How does OpenSpending store data?
 * Which APIs are available? 
 * Aggregation API

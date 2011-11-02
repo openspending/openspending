@@ -6,7 +6,8 @@ finding, cleaning and loading datasets from various sources. If you
 are interested in doing this, check out the following resources:
 
 .. toctree::
-
+  
+  dev-olap
   data-cleansing
   data-extension
 

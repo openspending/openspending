@@ -142,11 +142,6 @@
 
   <div py:def="content" class="help-page">
     <h2 class="page-header">{{ title|striptags|e }}</h2>
-    <div class="row">
-      <div span="16">
-        {%- block relbar2 %}{{ relbar() }}{% endblock %}
-      </div>
-    </div>
     {%- block content %}
       <div class="row">
         <div class="span4">
@@ -161,6 +156,11 @@
         </div>
       </div>
     {%- endblock %}
+    <div class="row">
+      <div span="16">
+        {%- block relbar2 %}{{ relbar() }}{% endblock %}
+      </div>
+    </div>
   </div>
 
   <xi:include href="../layout.html" />

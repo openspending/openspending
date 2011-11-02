@@ -292,11 +292,20 @@ table td.num {
   display: none;
 }
 
+.help-page ul.breadcrumb {
+  margin: 0px;
+}
+
 .help-page h1 {
   display: none;
 }
 
 .help-page li {
   color: #333;
+}
+
+.help-page .pre {
+  font-family: monospace;
+  background-color: #efefef;
 }
 

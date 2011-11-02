@@ -168,15 +168,13 @@ found values into another format as needed. Valid types include: ``string``,
 
 A valid input CSV file for the model defined above might look like this:
 
-  +-------------+-------------+-----------+
-  | tx_id       | year_paid   | amt       |
-  +=============+=============+===========+
-  | D38DEF-ZZ   | 2008        | 5044.0    |
-  +-------------+-------------+-----------+
-  | AAA372-39   | 2011        | 43.5      |
-  +-------------+-------------+-----------+
-  |             | 2009        | 2854922.0 |
-  +-------------+-------------+-----------+
+  ============= ============= ===========
+  tx_id         year_paid     amt       
+  ============= ============= ===========
+  D38DEF-ZZ     2008          5044.0     
+  AAA372-39     2011          43.5       
+  (missing)     2009          2854922.0  
+  ============= ============= ===========
 
 In order to generate a :py:class:`~.CompoundDimension`, a somewhat more complex 
 field description is required, as each of the sub-attributes must be defined 
@@ -213,11 +211,12 @@ independently.::
 As you will note, part of the properties of the :py:class:`~.Dimension` are 
 still defined the same way (e.g. ``label``, ``description`` and the ``facet`` 
 flag which tells the entry browser to include this dimension in the right-hand 
-facet bar. Yet all those properties which relate to the content of
-the data must now be set for each entry of the list of :py:class:`~.Attribute`
-individually: ``column``, ``datatype`` and ``default_value``. A new property,
-``name`` is used to specify a name for the attribute within the dimension 
-(see the section below for conventions on attribute names).
+facet bar). All those properties which relate to the content of the data 
+(where it comes from, how it is to be interpreted) must now be set for each 
+:py:class:`~.Attribute` of the dimension individually: ``column``, ``datatype`` 
+and ``default_value``. A new property, ``name`` is used to specify a name for 
+the attribute (see :ref:`name-conventions` for commonly used and expected 
+attribute names).
 
 As a further option, both :py:class:`~.AttributeDimension` and the individual 
 attributes of a compound dimension can be defined to have a **constant value**. 
@@ -311,7 +310,7 @@ column. The ``id`` is generated from a defined set of attributes
 (the *unique keys*) of each entry by hashing each value. The ID is therefore 
 stable even is the data is re-loaded or the same record is inserted twice 
 (i.e. an entry that has the same unique keys as one which is already loaded 
-will overwriting the existing record).
+will overwrite the existing record).
 
 On the facts table, a single numeric column will be generated for each 
 :py:class:`~.Measure`. Other metadata (e.g. the currency of the measure) will 
@@ -332,6 +331,11 @@ dimension, each member is assumed to have a ``name`` attribute.
 If no ``name`` is defined, the loader will attempt to auto-generate a value 
 from an attribute called ``label``. If label also does not exist, the loader will
 fail and require you to add a ``name`` attribute.
+
+.. _name-conventions:
+
+Attribute name conventions
+''''''''''''''''''''''''''
 
 OpenSpending also gives special importance to a set of other attributes of
 compound dimensions so that it makes sense to define as many of them as 
