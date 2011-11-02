@@ -281,7 +281,37 @@ possible:
   palette.
 * ``parent`` is reserved for future use.
 
-Query composition 
------------------
+Querying the Model
+------------------
 
+There is a very limited number of different query types that are executed 
+against the generated tables. 
+
+For non-aggregated access, an :py:meth:`~.Dataset.entries` query is generated 
+to yield a full view of the entries in a test dataset (see spendb unit tests) 
+with all dimensions joined to the facts table, e.g.::
+
+  SELECT function.id AS function_id, function.name AS function_name, 
+         function.label AS function_label, entry.source AS entry_source, 
+         "to".id AS to_id, "to".name AS to_name, "to".label AS to_label,
+         entry.amount AS entry_amount
+  FROM dataset__entry AS entry
+    JOIN dataset__function AS function ON function.id = entry.function_id
+    JOIN dataset__to AS "to" ON "to".id = entry.to_id
+  WHERE 1=1
+
+Alternatively, multiple entries can be aggregated using SQL's GROUP BY, SUM
+and COUNT function. This is an :py:meth:`~.Dataset.aggregate` query that 
+generates output to satify the simple cubes API used by most of visualizations 
+running on OpenSpending::
+
+  SELECT sum(entry.amount) AS amount, count(entry.id) AS entries,
+         function.id AS function_id, function.name AS function_name,
+         function.label AS function_label, entry.field AS entry_field,
+         time.yearmonth AS time_yearmonth
+  FROM dataset__entry AS entry
+    JOIN dataset__function AS function ON function.id = entry.function_id
+    JOIN dataset__time AS time ON time.id = entry.time_id
+  GROUP BY function.id, time.yearmonth, entry.field
+  ORDER BY amount desc
 
