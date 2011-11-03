@@ -296,6 +296,10 @@ table td.num {
   margin: 0px;
 }
 
+.help-page .sphinxsidebarwrapper h3 {
+  display: none;
+}
+
 .help-page h1 {
   display: none;
 }

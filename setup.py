@@ -31,7 +31,6 @@ setup(
     author='Open Knowledge Foundation',
     author_email='okfn-help at lists okfn org',
     url='http://github.com/okfn/openspending',
-
     install_requires=[
         "WebOb==1.0.8", # Explicitly specify WebOb 1.0.8, as with 1.1
                         # integration with Pylons is broken:

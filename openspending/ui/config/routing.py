@@ -51,7 +51,7 @@ def make_map():
     map.connect('/after_login', controller='account', action='after_login')
     map.connect('/after_logout', controller='account', action='after_logout')
 
-    map.connect('/help/{path}', controller='docs', action='page')
+    map.connect('/help/*path', controller='docs', action='page')
 
     map.connect('/datasets.{format}', controller='dataset', action='index')
     map.connect('/datasets', controller='dataset', action='index')

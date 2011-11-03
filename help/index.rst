@@ -14,8 +14,7 @@ Contents:
    :maxdepth: 2
   
    types
-   dataguide
-   devguide
+   data
    api
    contact
 

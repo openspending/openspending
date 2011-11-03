@@ -7,7 +7,7 @@ are interested in doing this, check out the following resources:
 
 .. toctree::
   
-  dev-olap
+  api-olap
   data-cleansing
   data-extension
 
