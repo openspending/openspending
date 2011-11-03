@@ -98,9 +98,7 @@ class CompoundDimension(Dimension, TableHandler):
 
     def join(self, from_clause):
         """ This will return a query fragment that can be used to establish
-        a join between the scheme table and the dimension, aliased to 
-        represent this dimension (i.e. there can be multiple joins to the 
-        same table from different dimensions).
+        an aliased join between the fact table and the dimension table.
         """
         return from_clause.join(self.alias, self.alias.c.id==self.column_alias)
     
@@ -197,10 +195,10 @@ class CompoundDimension(Dimension, TableHandler):
         return "<CompoundDimension(%s:%s)>" % (self.name, self.attributes)
 
 class DateDimension(CompoundDimension):
-    """ DateDimensions are closely related to CompoundDimensions but the value
-    is set up from a Python date object to automatically contain several
-    properties of the date in their own attributes (e.g. year, month, quarter,
-    day). """
+    """ DateDimensions are closely related to :py:class:`CompoundDimensions` 
+    but the value is set up from a Python date object to automatically contain 
+    several properties of the date in their own attributes (e.g. year, month, 
+    quarter, day). """
 
     DATE_FIELDS = [
         {'name': 'name', 'datatype': 'string'},
