@@ -292,9 +292,11 @@ table td.num {
   display: none;
 }
 
+/*
 .help-page ul.breadcrumb {
   margin: 0px;
 }
+*/
 
 .help-page .sphinxsidebarwrapper h3 {
   display: none;
