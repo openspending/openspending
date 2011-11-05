@@ -69,7 +69,7 @@ class ApiController(BaseController):
         solrargs['wt'] = 'json'
 
         datasets = model.Dataset.all_by_account(c.account)
-        fq =  ' OR '.join(map(lambda d: '+dataset.name:"%s"' % d.name, datasets))
+        fq =  ' OR '.join(map(lambda d: '+dataset:"%s"' % d.name, datasets))
         solrargs['fq'] = '(%s)' % fq
 
         if 'callback' in solrargs and not 'json.wrf' in solrargs:
