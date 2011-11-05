@@ -127,7 +127,8 @@ def safe_unicode(s):
 
 
 def extend_entry(entry, dataset):
-    entry['dataset'] = dataset.as_dict()
+    entry['dataset'] = dataset.name
+    entry['dataset.id'] = dataset.id
     entry = flatten(entry)
     entry['_id'] = dataset.name + '::' + unicode(entry['id'])
     for k, v in entry.items():
