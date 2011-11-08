@@ -115,6 +115,6 @@ class DimensionController(BaseController):
                 dimension=c.dimension,
                 name=c.member['name'])
         c.browser = Browser(c.dataset, request.params, url=url)
-        c.browser.filter_by("+%s:%s" % (c.dimension, c.member['name']))
+        c.browser.filter_by("+%s:\"%s\"" % (c.dimension, c.member['name']))
         c.browser.facet_by_dimensions()
 
