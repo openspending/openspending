@@ -175,7 +175,7 @@ class Dataset(TableHandler, db.Model):
             key, attr = key.split('.', 1)
         dimension = self[key]
         if hasattr(dimension, 'alias'):
-            attr_name = dimension[attr].column.name if attr else 'id'
+            attr_name = dimension[attr].column.name if attr else 'name'
             return dimension.alias.c[attr_name]
         return self.alias.c[dimension.column.name]
 
