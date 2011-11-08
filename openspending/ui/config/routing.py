@@ -91,13 +91,17 @@ def make_map():
     #map.connect('/{dataset}/dimensions/{dimension}',
     #            controller='dimension', action='view')
 
-    map.connect('/{dataset}/{dimension}.{format}',
-                controller='dimension', action='view')
+    map.connect('/{dataset}/{dimension}.json',
+                controller='dimension', action='view', format='json')
+    map.connect('/{dataset}/{dimension}.csv',
+                controller='dimension', action='view', format='csv')
     map.connect('/{dataset}/{dimension}',
                 controller='dimension', action='view')
     
-    map.connect('/{dataset}/{dimension}/{name}.{format}',
-                controller='dimension', action='member')
+    map.connect('/{dataset}/{dimension}/{name}.json',
+                controller='dimension', action='member', format='json')
+    map.connect('/{dataset}/{dimension}/{name}.csv',
+                controller='dimension', action='member', format='csv')
     map.connect('/{dataset}/{dimension}/{name}',
                 controller='dimension', action='member')
 
