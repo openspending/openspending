@@ -8,6 +8,7 @@ of logic functions upon which all other queries and loading functions rely.
 """
 import math
 from collections import defaultdict
+from itertools import count
 
 from openspending.model import meta as db
 from openspending.lib.util import hash_values
@@ -180,7 +181,7 @@ class Dataset(TableHandler, db.Model):
         return self.alias.c[dimension.column.name]
 
     def entries(self, conditions="1=1", order_by=None, limit=None,
-            offset=None):
+            offset=None, step=10000):
         """ Generate a fully denormalized view of the entries on this 
         table. This view is nested so that each dimension will be a hash
         of its attributes. 
@@ -192,28 +193,42 @@ class Dataset(TableHandler, db.Model):
         for d in self.dimensions:
             joins = d.join(joins)
         selects = [f.selectable for f in self.fields] + [self.alias.c.id]
-        query = db.select(selects, conditions, joins, order_by=order_by,
-                          use_labels=True, limit=limit, offset=offset)
-        rp = self.bind.execute(query)
-        while True:
-            row = rp.fetchone()
-            if row is None:
-                break
-            result = {}
-            for k, v in row.items():
-                field, attr = k.split('_', 1)
-                field = field.replace(ALIAS_PLACEHOLDER, '_')
-                if field == 'entry':
-                    result[attr] = v
-                else:
-                    if not field in result:
-                        result[field] = dict()
 
-                        # TODO: backwards-compat?
-                        if isinstance(self[field], CompoundDimension):
-                            result[field]['taxonomy'] = self[field].taxonomy
-                    result[field][attr] = v
-            yield result
+        if limit is not None:
+            step = min(limit, step)
+
+        for i in count():
+            qoffset = (offset or 0) + (step * i)
+            if limit is not None and qoffset >= limit:
+                break
+
+            query = db.select(selects, conditions, joins, order_by=order_by,
+                              use_labels=True, limit=step, offset=qoffset)
+            rp = self.bind.execute(query)
+
+            first_row = True
+            while True:
+                row = rp.fetchone()
+                if row is None:
+                    if first_row:
+                        return
+                    break
+                first_row = False
+                result = {}
+                for k, v in row.items():
+                    field, attr = k.split('_', 1)
+                    field = field.replace(ALIAS_PLACEHOLDER, '_')
+                    if field == 'entry':
+                        result[attr] = v
+                    else:
+                        if not field in result:
+                            result[field] = dict()
+
+                            # TODO: backwards-compat?
+                            if isinstance(self[field], CompoundDimension):
+                                result[field]['taxonomy'] = self[field].taxonomy
+                        result[field][attr] = v
+                yield result
 
     def aggregate(self, measure='amount', drilldowns=None, cuts=None, 
             page=1, pagesize=10000, order=None):
