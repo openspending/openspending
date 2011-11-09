@@ -297,15 +297,15 @@ class Dataset(TableHandler, db.Model):
         for dimension in dimensions:
             if dimension in labels:
                 joins = self['time'].join(joins)
-                fields.append(labels[dimension])
             else:
                 joins = self[dimension.split('.')[0]].join(joins)
 
         group_by = []
-        for key in drilldowns:
+        for key in dimensions:
             if key in labels:
                 column = labels[key]
                 group_by.append(column)
+                fields.append(column)
             else:
                 column = self.key(key)
                 if '.' in key or column.table == self.alias:
