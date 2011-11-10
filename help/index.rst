@@ -6,8 +6,6 @@
 About OpenSpending
 ==================
 
-I'm a banana!
-
 Contents:
 
 .. toctree::
