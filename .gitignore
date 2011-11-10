@@ -3,9 +3,17 @@
 !/test_continuous.ini
 /*.egg-info
 *.pyc
+*.DS_Store
 /.pylons_data
 /solr/conf
 /solr/data
 /.noseids
 /linesman-enabled
 /sessions.db
+openspending/test/fixtures/.DS_Store
+openspending.db
+openspending/ui/templates/layout_orig.html
+/db
+.*.swp
+openspending/ui/templates/docs/*
+doc/_build/*

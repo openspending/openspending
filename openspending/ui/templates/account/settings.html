@@ -7,22 +7,55 @@
   <py:def function="page_title">Settings for: ${c.account['name']}</py:def>
 
   <div py:def="content">
-    <div class="span-24 last">
-      <h2>My Profile</h2>
-      <form class="basic settings" id="settings" action="/settings" method="POST">
-        <label for="fullname">Fullname</label>
-        <input name="fullname" />
-        <label for="email">E-Mail</label>
-        <input name="email" />
-        <label for="password1">Password</label>
-        <input name="password1" type="password" autocomplete="off" />
-        <label for="password2">Password (repeat)</label>
-        <input name="password2" type="password" autocomplete="off" />
+    <h2 class="page-header">Account Settings
+      <small>${c.account.fullname}</small>
+    </h2>
 
-        <span class="labelpad">&nbsp;</span>
-        <input value="Save" type="submit" />
-      </form>
+    <div class="row">
+      <div class="span-two-thirds offset-one-third">
+        <form class="basic settings" id="settings" action="/settings" method="POST">
+          <div class="clearfix">
+            <label for="fullname">Fullname</label>
+            <div class="input">
+              <input name="fullname" />
+            </div>
+          </div>
+          <div class="clearfix">
+            <label for="email">E-Mail</label>
+            <div class="input">
+              <input name="email" />
+            </div>
+          </div>
+          <div class="clearfix">
+            <label for="password1">Password</label>
+            <div class="input">
+              <input name="password1" type="password" autocomplete="off" />
+            </div>
+          </div>
+          <div class="clearfix">
+            <label for="password2">Password (repeat)</label>
+            <div class="input">
+              <input name="password2" type="password" autocomplete="off" />
+              <span class="help-block">Leave both fields blank to keep
+                your current password.</span>
+            </div>
+          </div>
+          <div class="clearfix">
+            <label for="api_key">API Key</label>
+            <div class="input">
+              <span class="uneditable-input" style="width: 25em;">${c.account.api_key}</span>
+              <span class="help-block">Use this key to access the OpenSpending
+                API programmatically.</span>
+            </div>
+          </div>
+          
+          <div class="actions">
+            <input value="Save" type="submit" class="btn primary" />
+          </div>
+        </form>
+      </div>
     </div>
+
   </div>
 
   <xi:include href="../layout.html" />

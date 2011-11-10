@@ -1,0 +1,21 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+
+  <py:def function="nav_class">nav-dataset</py:def>
+
+  <py:def function="page_title">${c.dataset['label']}</py:def>
+
+  <div py:def="content">
+    <h2 class="page-header">${c.dataset['label']}
+      <small>Individual financial transactions</small>
+    </h2>
+    <p>&nbsp;</p>
+    <xi:include href="../_browser.html" />
+  </div>
+
+  <xi:include href="../layout.html" />
+</html>
+
+
+

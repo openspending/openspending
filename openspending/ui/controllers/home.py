@@ -8,12 +8,11 @@ from pylons.controllers.util import redirect
 from pylons.decorators.cache import beaker_cache
 from pylons.i18n import _
 
-from openspending import model
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IDatasetController
 from openspending.ui.i18n import set_session_locale
 from openspending.ui.lib import views
-from openspending.ui.lib.base import BaseController, render
+from openspending.ui.lib.base import BaseController, render, require
 from openspending.ui.lib.helpers import flash_success, flash_error
 
 log = logging.getLogger(__name__)
@@ -23,34 +22,14 @@ class HomeController(BaseController):
 
     extensions = PluginImplementations(IDatasetController)
 
-    @beaker_cache(invalidate_on_startup=True,
-           cache_response=False,
-           query_args=True)
     def index(self):
-        featured_dataset = config.get("openspending.default_dataset")
-        c.datasets = list(model.dataset.find())
-        c.dataset = filter(lambda x: x['name'] == featured_dataset, c.datasets)
-        if c.dataset:
-            c.dataset = c.dataset[0]
-        elif c.datasets:
-            c.dataset = c.datasets[0]
-        else:
-            c.dataset = None
-
-        c.template = 'home/index.html'
-
-        if c.dataset:
-            c.num_entries = model.entry.find({"dataset.name": c.dataset['name']}).count()
-
-            views.handle_request(request, c, c.dataset)
-
-            for item in self.extensions:
-                item.read(c, request, response, c.dataset)
-
-        return render(c.template)
+        # TODO decide if we want this.
+        #featured_dataset = config.get("openspending.default_dataset")
+        return render('home/index.html')
 
     def index_subdomain(self):
         if hasattr(c, 'dataset') and c.dataset:
+            require.dataset.read(c.dataset)
             redirect(url(controller='dataset',
                          action='view',
                          name=c.dataset['name'],

@@ -9,6 +9,50 @@ Install the application and copy configuration templates.
     $ cp development.ini_tmpl development.ini
     $ cp test.ini_tmpl test.ini
 
+Create a database if you do not have one already. We recommend using Postgres
+but you can use anything compatible with SQLAlchemy. For postgres you would do::
+
+    createdb -E utf-8 --owner {your-database-user} openspending
+
+You will also need to install python bindings for your database. For example,
+for Postgresql you will want to install the psycopg2 library::
+
+    pip install psycopg2
+    # or on debian / ubuntu
+    # apt-get install python-psycopg2
+
+Further, you will need to set up Apache Solr. You can download the
+latest version from the project website and then replace the default
+schema with the one from OpenSpending.::
+
+    $ cp -R apache-solr-X.X.X/example/solr/* ./solr
+    $ ln -sf "../wdmmg_schema.xml" ./solr/conf/schema.xml
+
+And then start solr (maybe inside a 'screen')::
+
+    $ cd solr; java -jar start.jar
+
+After setting up Solr, you must reference the server from the
+configuration file::
+
+    # Configure your Solr url. This is a typical default:
+    openspending.solr.url = http://localhost:8983/solr
+
+Configure the database connection. For Postgres, add a full db url of
+the form:
+
+    openspending.db.url = postgresql://{user}:{pass}@localhost/openspending
+
+Initialize the database
+
+    $ ostool development.ini db init
+
+Generate the help system documentation (this is used by the front-end
+and must be available, developer documents are separate). The output 
+will be copied to the web applications template directory.
+
+    $ cd help; make clean html
+
 Run the tests
 
     $ nosetests

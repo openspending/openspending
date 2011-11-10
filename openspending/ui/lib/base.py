@@ -9,15 +9,27 @@ from pylons.templating import literal, pylons_globals
 from pylons import tmpl_context as c, request, response, config, app_globals, session
 from pylons.controllers.util import abort
 from genshi.filters import HTMLFormFiller
+from pylons.i18n import _
 
+from openspending.model import meta as db
+from openspending.auth import require
+import openspending.auth as can
 from openspending import model
-from openspending import mongo
 from openspending.ui import i18n
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IGenshiStreamFilter, IRequest
 
 import logging
 log = logging.getLogger(__name__)
+
+
+ACCEPT_MIMETYPES = {
+    "application/json": "json",
+    "text/javascript": "json",
+    "application/javascript": "json",
+    "text/csv": "csv"
+    }
+
 
 def render(template_name,
            extra_vars=None,
@@ -33,6 +45,7 @@ def render(template_name,
     # Second, get the globals
     globs.update(pylons_globals())
     globs['g'] = app_globals
+    globs['can'] = can
     globs['_form_errors'] = form_errors
 
     # Grab a template reference
@@ -75,24 +88,22 @@ class BaseController(WSGIController):
         try:
             return WSGIController.__call__(self, environ, start_response)
         finally:
-            mongo.connection.end_request()
             log.debug("Request to %s took %sms" % (request.path,
                int((time() - begin) * 1000)))
 
     def __before__(self, action, **params):
         account_name = request.environ.get('REMOTE_USER', None)
         if account_name:
-            c.account = model.account.find_one_by('name', account_name)
+            c.account = model.Account.by_name(account_name)
         else:
             c.account = None
 
         i18n.handle_request(request, c)
+        c.state = session.get('state', {})
 
         c.q = ''
         c.items_per_page = int(request.params.get('items_per_page', 20))
-        c.state = session.get('state', {})
-
-        c.datasets = list(model.dataset.find())
+        c.datasets = model.Dataset.all_by_account(c.account)
         c.dataset = None
         self._detect_dataset_subdomain()
 
@@ -100,11 +111,14 @@ class BaseController(WSGIController):
             item.before(request, c)
 
     def __after__(self):
-        for item in self.items:
-            item.after(request, c)
         if session.get('state', {}) != c.state:
             session['state'] = c.state
             session.save()
+
+        for item in self.items:
+            item.after(request, c)
+
+        db.session.close()
 
     def _detect_dataset_subdomain(self):
         http_host = request.environ.get('HTTP_HOST').lower()
@@ -114,6 +128,20 @@ class BaseController(WSGIController):
             return
         dataset_name, domain = http_host.split('.', 1)
         for dataset in c.datasets:
-            if dataset['name'].lower() == dataset_name:
+            if dataset.name.lower() == dataset_name:
                 c.dataset = dataset
+
+    def _detect_format(self, format):
+        for mimetype, mimeformat in self.accept_mimetypes.items():
+            if format == mimeformat or \
+                    mimetype in request.headers.get("Accept", ""):
+                return mimeformat
+        return "html"
+
+    def _get_dataset(self, dataset):
+        c.dataset = model.Dataset.by_name(dataset)
+        if c.dataset is None:
+            abort(404, _('Sorry, there is no dataset named %r') % dataset)
+        require.dataset.read(c.dataset)
+
 

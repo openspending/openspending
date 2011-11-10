@@ -3,11 +3,10 @@ from nose.plugins.skip import SkipTest
 from mock import Mock, patch, MagicMock
 
 import os as _os
+import csv
 
-from openspending import model as _model
-from openspending import mongo as _mongo
+from openspending.model import Dataset, meta as db
 from openspending.lib import solr_util as _solr
-from openspending.vendor import pymongodump as _pymongodump
 
 TEST_ROOT = _os.path.dirname(__file__)
 
@@ -15,7 +14,23 @@ def load_fixture(name):
     """
     Load fixture data into the database.
     """
-    _pymongodump.restore(_mongo.db, fixture_path('%s.pickle' % name), drop=False)
+    import json
+    from openspending.etl.validation.types import convert_types
+    fh = open(fixture_path('%s.js' % name), 'r')
+    data = json.load(fh)
+    fh.close()
+    dataset = Dataset(data)
+    db.session.add(dataset)
+    db.session.commit()
+    dataset.generate()
+    fh = open(fixture_path('%s.csv' % name), 'r')
+    reader = csv.DictReader(fh)
+    for row in reader:
+        entry = convert_types(data['mapping'], row)
+        dataset.load(entry)
+    fh.close()
+    dataset.commit()
+    return dataset
 
 def fixture_file(name):
     """Return a file-like object pointing to a named fixture."""
@@ -34,7 +49,8 @@ def clean_all():
     clean_solr()
 
 def clean_db():
-    _mongo.drop_collections()
+    db.session.rollback()
+    db.metadata.drop_all()
 
 def clean_solr():
     '''Clean all entries from Solr.'''
@@ -45,9 +61,8 @@ def clean_solr():
 def clean_and_reindex_solr():
     '''Clean Solr and reindex all entries in the database.'''
     clean_solr()
-    dataset_names = _model.dataset.distinct('name')
-    for name in dataset_names:
-        _solr.build_index(name)
+    for dataset in db.session.query(Dataset):
+        _solr.build_index(dataset.name)
 
 def skip_if_stubbed_solr():
     if type(_solr.get_connection()) == _solr._Stub:

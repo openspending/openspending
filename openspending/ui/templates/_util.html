@@ -9,12 +9,20 @@
   <!--! Herein can be found generic helper methods for a whole bunch of common
         templating issues -->
 
+  <py:def function="script_tag(name)">
+    <script src="${h.static('js/%s.js' % name)}"></script>
+    <!--py:choose test="g.debug">
+      <script py:when="True" src="${h.static('js/%s.js' % name)}"></script>
+      <script py:otherwise="" src="${h.static('js/%s.min.js' % name)}"></script>
+    </py:choose-->
+  </py:def>
+
   <span py:def="currency_symbols(currency)">
     <py:if test="">&ndash;</py:if>
   </span>
 
-  <div py:def="entries_page(page)">
-    <table>
+  <div py:def="entries_page(dataset, page)">
+    <table class="zebra-striped">
       <thead>
         <tr>
           <th>Time</th>
@@ -26,60 +34,55 @@
       </thead>
       <tbody>
         <tr py:for="entry in page">
-          <td>${entry.get('time.unparsed')}</td>
+          <td width="12%">${entry.get('time').get('name')}</td>
           <td>
-            <a py:if="entry.get('from.id')" href="${h.url_from_solr_doc(entry, 'entity', prefix='from.', action='view')}">${entry.get('from.label')}</a></td>
+            <a py:if="entry.get('from')"
+              href="${h.url_for(controller='dimension', action='member',
+              dataset=dataset.name, dimension='from',
+              name=entry.get('from', {}).get('name'))}">${entry.get('from',
+              {}).get('label')}</a></td>
           <td>
-            <a py:if="entry.get('to.id')" href="${h.url_from_solr_doc(entry, 'entity', prefix='to.', action='view')}">${entry.get('to.label')}</a></td>
+            <a py:if="entry.get('to')" 
+              href="${h.url_for(controller='dimension', action='member',
+              dataset=dataset.name, dimension='to',
+              name=entry.get('to', {}).get('name'))}">${entry.get('to', {}).get('label')}</a></td>
           <td class="num">
             ${h.format_number_with_commas(
                 entry.get('amount'))}
             ${entry.get('currency')}
           </td>
-          <td><a href="${h.entry_url(entry)}">full entry &raquo;</a></td>
+          <td>
+            <a href="${h.entry_url(dataset.name, entry)}">
+              details&raquo;
+            </a>
+          </td>
         </tr>
       </tbody>
-      <tfoot>
-        <tr>
-          <th colspan="6">
-            ${page.pager()}
-          </th>
-        </tr>
-      </tfoot>
     </table>
+    ${page.pager()}
   </div>
 
   <div py:def="view_panel(viewstate)" class="view-panel last">
-
-    <script>
-      $(document).ready(function() { 
-        $("#_time_select").change(function() {
-          $("#_time_form").submit();
-        });
-      }); 
-    </script>
-
-    <form id="_time_form" action="?" method="GET">
-      <input type="hidden" name="_view" value="${viewstate.view.name}" />
-      <select name="_time" py:if="hasattr(c, 'times')" id="_time_select">
-        <py:for each="time in c.times">
-          <option py:if="hasattr(c, 'time') and time==c.time" selected="selected" value="${time}">${time}</option>
-          <option py:if="(not hasattr(c, 'time')) or time!=c.time" value="${time}">${time}</option>
-        </py:for>
-      </select>
-    </form>
-    
-    <ul> 
-      <li py:for="name, data in viewstate.available_views.items()">
-        <py:if test="name==viewstate.view.name">
-          <strong>${data.get('label')}</strong>      
+    <ul class="tabs">
+      <py:for each="view in viewstate.available_views">
+        <py:if test="view.name==viewstate.view.name">
+          <li class="active"><a>${view.label}</a></li>
         </py:if>
-        <py:if test="name!=viewstate.view.name">
-          <a href="?_view=${name}">${data.get('label')}</a>
+        <py:if test="view.name!=viewstate.view.name">
+          <li><a href="?_view=${view.name}">${view.label}</a></li>
         </py:if>
+      </py:for>
+      <li class="dropdown" data-dropdown="dropdown">
+        <a href="#" class="dropdown-toggle">${c.time}</a>
+        <ul class="dropdown-menu">
+          <py:for each="time in c.times">
+            <li py:if="c.time != time">
+              <a href="?_view=${viewstate.view.name}&amp;_time=${time}">${time}</a>
+            </li>
+          </py:for>
+        </ul>
       </li>
     </ul>
-
   </div>
 
 </html>

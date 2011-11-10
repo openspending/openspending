@@ -1,80 +1,72 @@
 import logging
 
 from pylons import request, response, tmpl_context as c
-from pylons.controllers.util import abort, redirect
+from pylons.controllers.util import abort
 from pylons.i18n import _
-from routes import url_for
 
-from openspending import model
-from openspending.lib.util import deep_get
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IEntryController
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.browser import Browser
-from openspending.ui.lib.restapi import RestAPIMixIn
+from openspending.lib.csvexport import write_csv
+from openspending.lib.jsonexport import to_jsonp
+from openspending.ui.lib import helpers as h
 
 log = logging.getLogger(__name__)
 
-class EntryController(BaseController, RestAPIMixIn):
+class EntryController(BaseController):
 
     extensions = PluginImplementations(IEntryController)
-    model = model.entry
+    
+    def index(self, dataset, format='html'):
+        self._get_dataset(dataset)
+        url = h.url_for(controller='entry', action='index',
+                    dataset=c.dataset.name)
+        c.browser = Browser(c.dataset, request.params, url=url)
+        c.browser.facet_by_dimensions()
 
-    def _view_html(self, entry):
-        c.entry = entry
+        if format == 'json':
+            return c.browser.to_jsonp()
+        elif format == 'csv':
+            return c.browser.to_csv()
+        else:
+            return render('entry/index.html')
 
-        c.id = c.entry.get('_id')
+    def view(self, dataset, id, format='html'):
+        self._get_dataset(dataset)
+        entries = list(c.dataset.entries(c.dataset.alias.c.id==id))
+        if not len(entries) == 1:
+            abort(404, _('Sorry, there is no entry %r') % id)
+        c.entry = entries.pop()
+
+        c.id = c.entry.get('id')
         c.from_ = c.entry.get('from')
         c.to = c.entry.get('to')
-        c.dataset = model.entry.get_dataset(entry)
-        c.currency = c.entry.get('currency', c.dataset.get('currency')).upper()
+        c.currency = c.entry.get('currency', c.dataset.currency).upper()
         c.amount = c.entry.get('amount')
         c.time = c.entry.get('time')
-        c.flags = c.entry.get("flags")
 
-        c.custom_html = model.dataset.render_entry_custom_html(c.dataset, c.entry)
+        c.custom_html = h.render_entry_custom_html(c.dataset.as_dict(), 
+                                                   c.entry)
 
         excluded_keys = ('time', 'amount', 'currency', 'from',
-                         'to', 'dataset', '_id', 'classifiers', 'name',
-                         'classifier_ids', 'description')
+                         'to', 'dataset', 'id', 'name', 'description')
 
         c.extras = {}
         if c.dataset:
-            dataset_name = c.dataset["name"]
-            dimensions = model.dimension.get_dataset_dimensions(dataset_name)
-            c.desc = dict([(d.get('key'), d) for d in dimensions])
+            c.desc = dict([(d.name, d) for d in c.dataset.dimensions])
             for key in c.entry:
                 if key in c.desc and \
                         not key in excluded_keys:
                     c.extras[key] = c.entry[key]
 
-        c.template = 'entry/view.html'
-
-        if 'departments' in c.dataset.get('name'):
-            c.show_foi = True
-        else:
-            c.show_foi = False
-
         for item in self.extensions:
             item.read(c, request, response, c.entry)
 
-        return render(c.template)
-
-    def flag(self, id):
-        entry = model.entry.get(id)
-        if not entry:
-            abort(404, _('Sorry, there is no entry with id %r') % id)
-        if not c.account:
-            abort(403, _('You need to have an account'))
-        flag_name = request.params.get("flag", None)
-        result = False
-        try:
-            result = flag.inc_flag(entry, flag_name, c.account)
-        except KeyError:
-            abort(400, _("Unknown Flag"))
-        if not result:
-            abort(409, _("This account already flagged this entry"))
-        if request.headers.get("X-Requested-With", None) == "XMLHttpRequest":
-            return "{'status': 'OK'}"
-        return redirect(url_for(controller="entry", action="view", id=id))
+        if format == 'json':
+            return to_jsonp(c.entry)
+        elif format == 'csv':
+            return write_csv([c.entry], response)
+        else:
+            return render('entry/view.html')
 

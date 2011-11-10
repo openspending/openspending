@@ -1,43 +1,69 @@
-from pylons import config
-
 import logging
 
 from pylons import request, response, tmpl_context as c
-from pylons.controllers.util import abort
 from pylons.i18n import _
 
 from openspending import model
+from openspending.model import meta as db
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IDatasetController
+from openspending.lib.csvexport import write_csv
+from openspending.lib.jsonexport import to_jsonp
 from openspending.lib import json
 from openspending.ui.lib import helpers as h
-from openspending.ui.lib.base import BaseController, render
+from openspending.ui.lib.base import BaseController, render, abort
 from openspending.ui.lib.browser import Browser
-from openspending.ui.lib.restapi import RestAPIMixIn
 from openspending.ui.lib.views import View, ViewState, handle_request
-from openspending.ui.lib.authz import requires
 from openspending.ui.lib.color import rgb_rainbow
 
 log = logging.getLogger(__name__)
 
-class DatasetController(BaseController, RestAPIMixIn):
+class DatasetController(BaseController):
 
     extensions = PluginImplementations(IDatasetController)
 
-    model = model.dataset
+    model = model.Dataset
 
-    def view(self, name, format="html"):
-        d = model.dataset.find_one_by('name', name)
-        if d is None:
-            abort(404, _('Sorry, there is no dataset named %r') % name)
-        _id = d['_id'] if d else None
-        return self._view(id=_id, format=format)
+    def index(self, format='html'):
+        c.results = model.Dataset.all_by_account(c.account)
+        for item in self.extensions:
+            item.index(c, request, response, c.results)
+
+        if format == 'json':
+            return to_jsonp(map(lambda d: d.as_dict(),
+                                c.results))
+        elif format == 'csv':
+            results = map(lambda d: d.as_dict(), c.results)
+            return write_csv(results, response)
+        else:
+            return render('dataset/index.html')
+
+    def view(self, dataset, format='html'):
+        self._get_dataset(dataset)
+        c.num_entries = len(c.dataset)
+
+        handle_request(request, c, c.dataset)
+
+        if c.view is None:
+            url = h.url_for(controller='entry', action='index',
+                        dataset=c.dataset.name)
+            c.browser = Browser(c.dataset, request.params, url=url)
+            c.browser.facet_by_dimensions()
+
+        for item in self.extensions:
+            item.read(c, request, response, c.dataset)
+
+        if format == 'json':
+            return to_jsonp(c.dataset.as_dict())
+        elif format == 'csv':
+            return write_csv([c.dataset.as_dict()], response)
+        else:
+            return render('dataset/view.html')
 
     def bubbles(self, name, breakdown_field, drilldown_fields, format="html"):
         c.drilldown_fields = json.dumps(drilldown_fields.split(','))
-        dataset = name
-        c.dataset = model.dataset.find_one_by('name', name)
-        c.dataset_name = name
+        self._get_dataset(name)
+        c.dataset_name = c.dataset.name
 
         # TODO: make this a method
         c.template = 'dataset/view_bubbles.html'
@@ -61,69 +87,19 @@ class DatasetController(BaseController, RestAPIMixIn):
 
         return render(c.template)
 
-    def _entry_q(self, dataset):
-        return  {'dataset.name': dataset['name']}
-
-    def _index_html(self, results):
-        for item in self.extensions:
-            item.index(c, request, response, results)
-
-        c.results = results
-        return render('dataset/index.html')
-
-    def _make_browser(self):
-        url = h.url_for(controller='dataset', action='entries',
-                        name=c.dataset['name'])
-        c.browser = Browser(request.params, dataset_name=c.dataset['name'],
-                            url=url)
-        c.browser.facet_by_dimensions()
-
-    def _view_html(self, dataset):
-        c.dataset = dataset
-
-        c.num_entries = model.entry.find({'dataset.name': dataset['name']}).count()
-
-        handle_request(request, c, c.dataset)
-
-        if c.view is None:
-            self._make_browser()
-
-        for item in self.extensions:
-            item.read(c, request, response, c.dataset)
-
-        return render('dataset/view.html')
-
-    def entries(self, name, format='html'):
-        c.dataset = model.dataset.find_one_by('name', name)
-        if not c.dataset:
-            abort(404, _('Sorry, there is no dataset named %r') % name)
-        self._make_browser()
-
-        if format == 'json':
-            return c.browser.to_jsonp()
-        elif format == 'csv':
-            return c.browser.to_csv()
-        else:
-            return render('dataset/entries.html')
-
     def explorer(self, name=None):
-        c.dataset = model.dataset.find_one_by('name', name)
-        if not c.dataset:
-            abort(404, _('Sorry, there is no dataset named %r') % name)
-        c.keys_meta = dict([(k.key, {"label": k.label,
-                "description": k.get("description", "")})
-                for k in model.dimension.find({"dataset": c.dataset['name']})])
-        if "breakdownKeys" in c.dataset:
-            c.breakdown_keys = c.dataset["breakdownKeys"]
-        else:
-            c.breakdown_keys = c.keys_meta.keys()[:3]
-
+        self._get_dataset(name)
+        c.keys_meta = dict([(d.name, {"label": d.label,
+                "description": d.description})
+                for d in c.dataset.dimensions])
+        c.breakdown_keys = c.keys_meta.keys()[:3]
         c.keys_meta_json = json.dumps(c.keys_meta)
         c.breakdown_keys_json = json.dumps(c.breakdown_keys)
         return render('dataset/explorer.html')
 
     def timeline(self, name):
-        c.dataset = model.dataset.find_one_by('name', name)
+        self._get_dataset(name)
+        c.dataset = model.Dataset.by_name(name)
         view = View.by_name(c.dataset, "default")
         viewstate = ViewState(c.dataset, view, None)
         data = []
@@ -141,3 +117,4 @@ class DatasetController(BaseController, RestAPIMixIn):
         c.data = json.dumps(data)
         c.meta = json.dumps(meta)
         return render('dataset/timeline.html')
+

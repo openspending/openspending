@@ -8,37 +8,33 @@
   <py:def function="page_title">Explore ${c.dataset.get('label')}</py:def>
 
   <py:def function="optional_head">
-    <link type="text/css" href="${h.static('js/libs/jqueryui-1.8.11/css/ui-lightness/jquery-ui-1.8.11.custom.css')}" rel="stylesheet" /> 
+    <link type="text/css" href="${h.static('js/vendor/jquery-ui/css/ui-lightness/jquery-ui.custom.css')}" rel="stylesheet" />
     <link rel="stylesheet" href="${h.static('css/explorer.css')}" type="text/css"/>
 
-    <script type="text/javascript" src="${h.static('js/libs/jquery.json-2.2.js')}"></script>
-    <script type="text/javascript" src="${h.static('js/libs/jqueryui-1.8.11/jquery-ui-1.8.11.js')}"></script>
+    ${script_tag('vendor/jquery.json-2.2')}
+    ${script_tag('vendor/jquery-ui/jquery-ui')}
 
-    <script src="${h.static('js/libs/json2.js')}"></script> 
-    <script src="${h.static('js/libs/underscore-min.js')}"></script> 
-    <script src="${h.static('js/libs/backbone-min.js')}"></script> 
+    ${script_tag('vendor/json2')}
+    ${script_tag('vendor/underscore')}
+    ${script_tag('vendor/backbone')}
 
-    <script type="text/javascript" src="http://bitbucket.org/okfn/openspendingjs/raw/tip/lib/vendor/jquery.history.js"></script> 
-    <script type="text/javascript" src="http://bitbucket.org/okfn/openspendingjs/raw/tip/lib/vendor/jquery.tooltip.min.js"></script> 
-    <script type="text/javascript" src="http://bitbucket.org/okfn/openspendingjs/raw/tip/lib/vendor/raphael.js"></script> 
-    <script type="text/javascript" src="http://bitbucket.org/okfn/openspendingjs/raw/tip/lib/vendor/vis4.js"></script> 
-    <script type="text/javascript" src="http://bitbucket.org/okfn/openspendingjs/raw/tip/lib/vendor/Tween.js"></script> 
-    <script type="text/javascript" src="http://bitbucket.org/okfn/openspendingjs/raw/tip/app/bubbletree/bubbletree.min.js"></script> 
+    ${script_tag('vendor/jquery.history')}
+    ${script_tag('vendor/jquery.tooltip.min')}
+    ${script_tag('vendor/raphael')}
+    ${script_tag('vendor/vis4')}
+    ${script_tag('vendor/Tween')}
+    <script src="${h.static('app/bubbletree/bubbletree.min.js'}"></script>
 
-    <script type="text/javascript" src="http://bitbucket.org/okfn/openspendingjs/raw/tip/lib/utils/utils.js"></script> 
-    <script type="text/javascript" src="http://bitbucket.org/okfn/openspendingjs/raw/tip/lib/datastore.js"></script> 
-    <script type="text/javascript" src="http://bitbucket.org/okfn/openspendingjs/raw/tip/lib/model.js"></script> 
-    <script type="text/javascript" src="http://bitbucket.org/okfn/openspendingjs/raw/tip/lib/aggregator.js"></script> 
-
-    <!--
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/jquery-ui.min.js"></script>
-    -->
+    ${script_tag('utils/utils.js')}
+    ${script_tag('datastore.js')}
+    ${script_tag('model.js')}
+    ${script_tag('aggregator.js')}
 
     <!-- our scripts -->
-    <link rel="stylesheet" type="text/css" href="http://bitbucket.org/okfn/openspendingjs/raw/tip/app/bubbletree/css/style.tooltips.css" />
-    
+    <link rel="stylesheet" type="text/css" href="${h.static('app/bubbletree/css/style.tooltips.css')}" />
+
     <!-- this app -->
-    <script type="text/javascript" src="http://bitbucket.org/okfn/openspendingjs/raw/tip/app/explorer-v2/js/explorer.js"></script>
+    <script type="text/javascript" src="${h.static('app/explorer-v2/js/explorer.js')}"></script>
 
   <script type="text/javascript">
 jQuery(document).ready(function($) {
@@ -61,7 +57,7 @@ jQuery(document).ready(function($) {
 
 
   <div py:def="content">
-    <h2 id="page-top">Explore ${c.dataset['label']}</h2>
+    <h2 id="page-header">Explore ${c.dataset['label']}</h2>
 
  </div>
 

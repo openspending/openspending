@@ -8,9 +8,8 @@ class TestErrorController(ControllerTestCase):
             url(controller='error_test', action='not_authorised'),
             status=403
         )
-
-        assert "403 Forbidden" in response, \
-            "'403 Not Found' not in response to request that should give a 403!"
+        assert "Access was denied" in response, \
+            "'Access was denied' not in response to request that should give a 403!"
 
         assert "OpenSpending" in response, \
             "'OpenSpending' not in 403 page! Is this not a custom 403?"
@@ -23,8 +22,8 @@ class TestErrorController(ControllerTestCase):
             url(controller='error_test', action='not_found'),
             status=404
         )
-        assert "404 Not Found" in response, \
-            "'404 Not Found' not in response to request that should give a 404!"
+        assert "Error 404" in response, \
+            "'Not Found' not in response to request that should give a 404!"
 
         assert "OpenSpending" in response, \
             "'OpenSpending' not in 404 page! Is this not a custom 404?"
@@ -52,5 +51,3 @@ class TestErrorController(ControllerTestCase):
         assert "Custom 500 error message" in response, \
             "Custom error message was not passed through to 500 error page."
 
-        assert "The Count" in response, \
-            "What have you done to The Count!? Put him back this instant!"

@@ -3,42 +3,30 @@ import os
 
 from pylons import config
 
-from openspending import mongo
-from openspending import migration
+from openspending.model import Dataset, meta as db
 from openspending.test.helpers import load_fixture
+
+import migrate.versioning.api as migrate_api
+from migrate.exceptions import DatabaseNotControlledError
 
 log = logging.getLogger(__name__)
 
 def drop():
     log.warn("Dropping database")
-    mongo.drop_db()
+    db.metadata.reflect()
+    db.metadata.drop_all()
     return 0
 
 def drop_collections():
-    log.warn("Dropping collections from database")
-    mongo.drop_collections()
-    return 0
+    # Kept for backwards compatibility
+    return drop()
 
 def drop_dataset(name):
     log.warn("Dropping dataset '%s'", name)
-
-    log.info("Removing entries for dataset %s", name)
-    mongo.db.entry.remove({'dataset.name': name})
-
-    log.info("Removing dimensions for dataset %s", name)
-    mongo.db.dimension.remove({'dataset': name})
-
-    log.info("Removing distincts for dataset %s", name)
-    mongo.db['distincts__%s' % name].drop()
-
-    log.info("Removing cubes for dataset %s", name)
-    cubes = filter(lambda x: x.startswith('cubes.%s.' % name),
-                   mongo.db.collection_names())
-    for c in cubes:
-        mongo.db[c].drop()
-
-    log.info("Removing dataset object for dataset %s", name)
-    mongo.db.dataset.remove({'name': name})
+    dataset = db.session.query(Dataset).filter_by(name=name).first()
+    dataset.drop()
+    db.session.delete(dataset)
+    db.session.commit()
     return 0
 
 def load_example(name):
@@ -48,12 +36,34 @@ def load_example(name):
     return 0
 
 def migrate():
-    default = os.path.join(os.path.dirname(config['__file__']), 'migrate')
-    migrate_dir = config.get('openspending.migrate_dir', default)
+    url = config.get('openspending.db.url')
+    repo = config.get('openspending.migrate_dir',
+                      os.path.join(os.path.dirname(config['__file__']),
+                                   'migration'))
 
-    migration.configure(dirname=migrate_dir)
-    migration.up()
-    return
+    try:
+        migrate_api.upgrade(url, repo)
+    except DatabaseNotControlledError:
+        # Assume it's a new database, and try the migration again
+        migrate_api.version_control(url, repo)
+        migrate_api.upgrade(url, repo)
+
+    return 0
+
+def init():
+    url = config.get('openspending.db.url')
+    repo = config.get('openspending.migrate_dir',
+                      os.path.join(os.path.dirname(config['__file__']),
+                                   'migration'))
+
+    # Assume it's a new database, and try the migration again
+    migrate_api.version_control(url, repo)
+    db.metadata.create_all()
+
+    return 0
+
+def _init(args):
+    return init()
 
 def _drop(args):
     return drop()
@@ -94,3 +104,7 @@ def configure_parser(subparsers):
     p = sp.add_parser('migrate',
                       help='Run pending data migrations')
     p.set_defaults(func=_migrate)
+
+    p = sp.add_parser('init',
+                      help='Initialize the database')
+    p.set_defaults(func=_init)

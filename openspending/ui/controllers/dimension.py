@@ -1,76 +1,120 @@
 import logging
 
-from pylons import request, tmpl_context as c
+from pylons import request, tmpl_context as c, response
 from pylons.controllers.util import abort
 from pylons.i18n import _
 
-from openspending.lib.cubes import find_cube
+from openspending.plugins.core import PluginImplementations
+from openspending.plugins.interfaces import IDimensionController
+
 from openspending import model
-from openspending.lib.jsonexport import to_jsonp
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.page import Page
+from openspending.ui.lib.views import handle_request
+from openspending.ui.lib.helpers import url_for
+from openspending.ui.lib.browser import Browser
+from openspending.lib.csvexport import write_csv
+from openspending.lib.jsonexport import to_jsonp
 
 log = logging.getLogger(__name__)
 
-ENTRY_FIELDS = ["time", "amount", "currency", "_id"]
 PAGE_SIZE = 100
 
 class DimensionController(BaseController):
 
+    extensions = PluginImplementations(IDimensionController)
+
+
+    def _get_member(self, dataset, dimension_name, name):
+        self._get_dataset(dataset)
+        c.dimension = dimension_name
+        for dimension in c.dataset.compounds:
+            if dimension.name == dimension_name:
+                cond = dimension.alias.c.name==name
+                members = list(dimension.members(cond, limit=1))
+                if not len(members):
+                    abort(404, _('Sorry, there is no member named %r')
+                            % name)
+                c.member = members.pop()
+                c.num_entries = dimension.num_entries(cond)
+                return
+        abort(404, _('Sorry, there is no dimension named %r') % dimension_name)
+
+
     def index(self, dataset, format='html'):
-        c.dataset = model.dataset.find_one_by('name', dataset)
-        if not c.dataset:
-            abort(404, _('Sorry, there is no dataset named %s') % dataset)
-        c.dimensions = model.dimension.get_dataset_dimensions(c.dataset['name'])
-        c.dimensions = [d for d in c.dimensions if d['key'] not in ENTRY_FIELDS]
+        self._get_dataset(dataset)
+        c.dimensions = c.dataset.dimensions
         if format == 'json':
-            return to_jsonp(list(c.dimensions))
+            return to_jsonp([d.as_dict() for d in c.dimensions])
         else:
             return render('dimension/index.html')
 
+
     def view(self, dataset, dimension, format='html'):
-        c.dataset = model.dataset.find_one_by('name', dataset)
-        if not c.dataset:
-            abort(404, _('Sorry, there is no dataset named %s') % dataset)
-        if dimension in ENTRY_FIELDS or "." in dimension:
+        self._get_dataset(dataset)
+        try:
+            c.dimension = c.dataset[dimension]
+        except KeyError:
             abort(400, _('This is not a dimension'))
-        c.meta = model.dimension.find_one({"dataset": c.dataset['name'],
-                                           "key": dimension})
-        if c.meta is None:
-            c.meta = {}
+        if not isinstance(c.dimension, model.Dimension):
+            abort(400, _('This is not a dimension'))
 
         # TODO: pagination!
         try:
             page = int(request.params.get('page'))
         except:
             page = 1
-        cube = find_cube(c.dataset, [dimension])
-       # ok
-        if cube is not None:
-            try:
-                result = cube.query([dimension], page=page, pagesize=PAGE_SIZE,
-                                order=[('amount', True)])
-            except Exception as e:
-                error = str(e)
-                if "too much data for sort" in error:
-                    error = """Database tuning required: the dataset specified
-                               is so large that it cannot be searched quickly
-                               enough to fulfil your request in reasonable time.
-                               Please request that an administrator add an
-                               index to speed up this query."""
-                abort(403, error)
-            items = result.get('drilldown', [])
-            c.values = [(d.get(dimension), d.get('amount')) for d in items]
-        else:
-            abort(403, "none")
-            items = distinct(dimension, dataset_name=c.dataset['name'])
-            c.values = [(i, 0.0) for i in items]
+        result = c.dataset.aggregate(drilldowns=[dimension], page=page, 
+                    pagesize=PAGE_SIZE)
+        items = result.get('drilldown', [])
+        c.values = [(d.get(dimension), d.get('amount')) for d in items]
 
         if format == 'json':
             return to_jsonp({
                 "values": c.values,
-                "meta": c.meta})
+                "meta": c.dimension.as_dict()})
 
         c.page = Page(c.values, page=page,
                       items_per_page=PAGE_SIZE)
         return render('dimension/view.html')
+
+
+    def member(self, dataset, dimension, name, format="html"):
+        self._get_member(dataset, dimension, name)
+
+        handle_request(request, c, c.member, c.dimension)
+        if c.view is None:
+            self._make_browser()
+
+        for item in self.extensions:
+            item.read(c, request, response, c.member)
+
+        if format == 'json':
+            return to_jsonp(c.member)
+        elif format == 'csv':
+            return write_csv([c.member], response)
+        else:
+            return render('dimension/member.html')
+
+
+    def entries(self, dataset, dimension, name, format='html'):
+        self._get_member(dataset, dimension, name)
+
+        self._make_browser()
+        if format == 'json':
+            return c.browser.to_jsonp()
+        elif format == 'csv':
+            return c.browser.to_csv()
+        else:
+            return render('dimension/entries.html')
+
+
+    def _make_browser(self):
+        url = url_for(controller='dimension', action='entries',
+                dataset=c.dataset.name,
+                dimension=c.dimension,
+                name=c.member['name'])
+        c.browser = Browser(c.dataset, request.params, url=url)
+        c.browser.filter_by("+%s:\"%s\"" % (c.dimension, c.member['name']))
+        c.browser.facet_by_dimensions()
+

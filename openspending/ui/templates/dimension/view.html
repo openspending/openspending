@@ -4,47 +4,49 @@
 
   <py:def function="nav_class">nav-dataset</py:def>
 
-  <py:def function="page_title">Dimension: ${c.meta.get('label')}</py:def>
+  <py:def function="page_title">Dimension: ${c.dimension.label or c.dimension.name}</py:def>
   
   <div py:def="content">
-    <h2>
-      ${c.dataset['label']}
-      <span py:if="'label' in c.meta">
-        &mdash; ${c.meta.get('label')}
-      </span>
+    <h2 class="page-header">
+      ${c.dataset.label}:
+      ${c.dimension.label or c.dimension.name}
     </h2>
 
-    <div class="span-6">
-      <h3>Values</h3>
-      <div py:if="c.meta.get('description')">
-        ${h.markdown(c.meta.get('description'))}
+    <div class="row">
+      <div class="span-one-third">
+        <div py:if="c.dimension.description">
+          ${h.markdown(c.dimension.description)}
+        </div>
+        <i>All figures are total financial involvement, not just funds received or spent.</i>
       </div>
-      <i>All figures are total financial involvement, not just funds received or spent.</i>
+
+      <div class="span-two-thirds">
+        <table class="zebra-striped">
+          <thead>
+            <tr>
+              <th>Value</th>
+              <th class="num">Sum (${c.dataset.currency})</th>
+            </tr>
+          </thead>
+          <tbody> 
+            <tr py:for="(v, s) in c.page">
+              <td py:if="isinstance(v, dict) and v['name']">
+                ${h.dimension_link(c.dataset.name, c.dimension.name, v)}
+              </td>
+              <td py:if="isinstance(v, dict) and not v['name']">
+                (Empty)
+              </td>
+              <td py:if="not isinstance(v, dict)">
+                ${v or '(Empty)'}
+              </td>
+              <td class="num">${h.format_number_with_commas(s)}</td>
+            </tr>
+          </tbody>
+        </table>
+        ${c.page.pager()}
+      </div>
     </div>
 
-    <div class="span-18 last">
-      <table>
-        <thead>
-          <tr>
-            <th>Value</th>
-            <th class="num">Sum (${c.dataset.get('currency')})</th>
-          </tr>
-        </thead>
-        <tbody> 
-          <tr py:for="(v, s) in c.page">
-            <td>${h.dimension_link(v)}</td>
-            <td class="num">${h.format_number_with_commas(s)}</td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <th colspan="2">${c.page.pager()}</th>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
-
-    <div class="clearfix"></div>
   </div>
 
   <xi:include href="../layout.html" />

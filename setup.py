@@ -31,14 +31,14 @@ setup(
     author='Open Knowledge Foundation',
     author_email='okfn-help at lists okfn org',
     url='http://github.com/okfn/openspending',
-
     install_requires=[
         "WebOb==1.0.8", # Explicitly specify WebOb 1.0.8, as with 1.1
                         # integration with Pylons is broken:
                         # see https://gist.github.com/1214075
         "Pylons==1.0",
         "Genshi==0.6",
-        "pymongo==2.0.1",
+        "SQLAlchemy==0.7.2",
+        "sqlalchemy-migrate==0.7.1",
         "repoze.who==2.0",
         "repoze.who-friendlyform==1.0.8",
         "Unidecode==0.04.9",
@@ -59,7 +59,6 @@ setup(
     packages=filter(package_filter, find_packages()),
     namespace_packages=['openspending', 'openspending.plugins'],
     package_data={
-        'openspending.model': files_in_pkgdir('openspending.model', 'serverside_js'),
         'openspending.ui': (
             files_in_pkgdir('openspending.ui', 'public') +
             files_in_pkgdir('openspending.ui', 'templates')

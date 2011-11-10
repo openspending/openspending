@@ -1,18 +1,10 @@
 import random
 
-from openspending.mongo import db
-
 DEFAULT_COLOR = "#607890"
 
 def parent_color(obj):
     if 'color' in obj:
         return obj.get('color')
-    if 'parent' in obj and obj.get('parent'):
-        try:
-            parent = db.dereference(obj.get('parent'))
-            return parent_color(parent)
-        except:
-            pass
     return DEFAULT_COLOR
 
 # color range generator:

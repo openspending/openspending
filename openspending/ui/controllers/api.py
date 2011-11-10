@@ -1,14 +1,13 @@
 import logging
 from collections import defaultdict
 
-from pylons import request, response, app_globals
+from pylons import request, response, app_globals, tmpl_context as c
 from pylons.controllers.util import abort
 
 from openspending import model
 from openspending.lib import calculator
 from openspending.lib import solr_util as solr
-from openspending.lib.cubes import find_cube
-from openspending.ui.lib.base import BaseController
+from openspending.ui.lib.base import BaseController, require
 from openspending.lib.jsonexport import jsonpify
 import re
 
@@ -20,9 +19,12 @@ def statistic_normalize(dataset, result, per, statistic):
     for drilldown in result['drilldown']:
         per_value = drilldown.get(per)
         if not per_value in values:
-            entry = model.entry.find_one({'dataset.name': dataset['name'],
-                                          per: per_value})
-            values[per_value] = entry.get(statistic, 0.0) if entry else 0.0
+            entries = list(dataset.entries(dataset.table.c[per]==per_value,
+                    limit=1))
+            if len(entries):
+                values[per_value] = entries[0].get(statistic, 0.0)
+            else:
+                values[per_value] = 0.0
         if values[per_value]: # skip division by zero oppprtunities
             drilldown['amount'] /= values[per_value]
             drilldowns.append(drilldown)
@@ -65,6 +67,11 @@ class ApiController(BaseController):
         solrargs['q'] = amend_query(q)
         solrargs['rows'] = rows
         solrargs['wt'] = 'json'
+
+        datasets = model.Dataset.all_by_account(c.account)
+        fq =  ' OR '.join(map(lambda d: '+dataset:"%s"' % d.name, datasets))
+        solrargs['fq'] = '(%s)' % fq
+
         if 'callback' in solrargs and not 'json.wrf' in solrargs:
             solrargs['json.wrf'] = solrargs['callback']
         if not 'sort' in solrargs:
@@ -77,7 +84,8 @@ class ApiController(BaseController):
     def aggregate(self):
         dataset_name = request.params.get('dataset', request.params.get('slice'))
         dataset_name = dataset_aliases.get(dataset_name, dataset_name)
-        dataset = model.dataset.find_one_by('name', dataset_name)
+        dataset = model.Dataset.by_name(dataset_name)
+        require.dataset.read(dataset)
 
         if dataset is None:
             abort(400, "Dataset %s not found" % dataset_name)
@@ -95,13 +103,8 @@ class ApiController(BaseController):
                 statistics.append((key, value))
             elif 'breakdown' == op:
                 drilldowns.append(key)
-        dimensions = set(drilldowns + [k for k, v in cuts] + \
-                ['year'] + [v for k, v in statistics])
-        cube = find_cube(dataset, dimensions)
-        if cube is None:
-            abort(400, "No matching data cube available with dimensions: %r" %
-                  dimensions)
-        result = cube.query(drilldowns + ['year'], cuts)
+        result = dataset.aggregate(drilldowns=drilldowns + ['time'], 
+                cuts=cuts)
         #TODO: handle statistics as key-values ??? what's the point?
         for k, v in statistics:
             result = statistic_normalize(dataset, result, v, k)
@@ -109,14 +112,16 @@ class ApiController(BaseController):
         translated_result = defaultdict(dict)
         for cell in result['drilldown']:
             key = tuple([cellget(cell, d) for d in drilldowns])
-            translated_result[key][cell['year']] = cell['amount']
-        dates = sorted(set([d['year'] for d in result['drilldown']]))
+            translated_result[key][cell['time']['name']] = \
+                    cell['amount']
+        dates = sorted(set([d['time']['name'] for d in \
+                result['drilldown']]))
         # give a value (or 0) for each present date in sorted order
         translated_result = [(k, [v.get(d, 0.0) for d in dates]) \
                 for k, v in translated_result.items()]
         return {'results': translated_result,
                 'metadata': {
-                    'dataset': dataset['name'],
+                    'dataset': dataset.name,
                     'include': cuts,
                     'dates': map(unicode, dates),
                     'axes': drilldowns,

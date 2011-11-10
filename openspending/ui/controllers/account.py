@@ -10,11 +10,11 @@ from pylons.i18n import _
 
 from repoze.who.api import get_api
 
-from openspending.model import account
-from openspending.ui.lib.account import Register, Settings
+from openspending.model import meta as db
+from openspending.model.account import Account, AccountRegister, \
+    AccountSettings
 from openspending.ui.lib import helpers as h
-from openspending.ui.lib.authz import requires
-from openspending.ui.lib.base import BaseController, render
+from openspending.ui.lib.base import BaseController, render, require
 from openspending.ui.lib.security import generate_password_hash
 
 log = logging.getLogger(__name__)
@@ -25,36 +25,34 @@ class AccountController(BaseController):
         return render('account/login.html')
 
     def register(self):
-        if app_globals.sandbox_mode:
-            default_roles = ["user", "admin"]
-        else:
-            default_roles = ["user"]
-
+        require.account.create()
         errors, values = {}, None
         if request.method == 'POST':
             try:
-                schema = Register()
+                schema = AccountRegister()
                 values = request.params
-                acc = schema.deserialize(values)
-                exists = account.find_one_by('name', acc['name'])
-                if exists:
+                data = schema.deserialize(values)
+                if Account.by_name(data['name']):
                     raise colander.Invalid(
-                        Register.name,
+                        AccountRegister.name,
                         _("Login name already exists, please choose a "
                           "different one"))
-                if not acc['password1'] == acc['password2']:
-                    raise colander.Invalid(Register.password1, _("Passwords \
+                if not data['password1'] == data['password2']:
+                    raise colander.Invalid(AccountRegister.password1, _("Passwords \
                         don't match!"))
-                password = acc['password1']
-                acc['password_hash'] = generate_password_hash(password)
-                del acc['password1']
-                del acc['password2']
-                acc['roles'] = default_roles
-                account.create(acc)
+                account = Account()
+                account.name = data['name']
+                account.fullname = data['fullname']
+                account.email = data['email']
+                account.password = generate_password_hash(data['password1'])
+                if app_globals.sandbox_mode:
+                    account.admin = True
+                db.session.add(account)
+                db.session.commit()
                 who_api = get_api(request.environ)
                 authenticated, headers = who_api.login({
-                    "login": acc['name'],
-                    "password": password
+                    "login": account.name,
+                    "password": data['password1']
                 })
                 response.headers.extend(headers)
                 return redirect("/")
@@ -63,27 +61,29 @@ class AccountController(BaseController):
         return render('account/login.html', form_fill=values,
                 form_errors=errors)
 
-    @requires("user")
     def settings(self):
+        require.account.update(c.account)
         errors, values = {}, c.account
         if request.method == 'POST':
             try:
-                schema = Settings()
+                schema = AccountSettings()
                 values = request.params
                 data = schema.deserialize(values)
                 if not data['password1'] == data['password2']:
-                    raise colander.Invalid(Register.password1,
+                    raise colander.Invalid(AccountSettings.password1,
                                            _("Passwords don't match!"))
 
-                if len(data['password1']):
-                    password = data['password1']
-                    data['password_hash'] = generate_password_hash(password)
-                del data['password1']
-                del data['password2']
-                account.update(c.account, {"$set": data})
+                c.account.fullname = data['fullname']
+                c.account.email = data['email']
+                if data['password1'] is not None and len(data['password1']):
+                    c.account.password = generate_password_hash(data['password1'])
+                db.session.add(c.account)
+                db.session.commit()
                 h.flash_success(_("Your settings have been updated."))
             except colander.Invalid, i:
                 errors = i.asdict()
+        else:
+            values = c.account.as_dict()
         return render('account/settings.html',
                       form_fill=values,
                       form_errors=errors,
@@ -91,7 +91,7 @@ class AccountController(BaseController):
 
     def after_login(self):
         if c.account is not None:
-            h.flash_success(_("Welcome back, %s!") % c.account.get("name"))
+            h.flash_success(_("Welcome back, %s!") % c.account.name)
             redirect("/")
         else:
             h.flash_error(_("Incorrect user name or password!"))

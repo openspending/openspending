@@ -1,0 +1,317 @@
+
+/* Bootstrap overrides */
+body {
+  padding-top: 60px;
+}
+
+.topbar .menu-dropdown, .dropdown-menu {
+  min-width: 350px;
+  max-width: 400px;
+}
+
+.green {
+  color: #99c862;
+}
+
+/* Replicate pagination */
+.pager {
+  display: inline-block;
+  height: 36px;
+  margin: 18px 0;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.pager a, .pager .pager_dotdot, .pager .pager_curpage {
+  margin: 0px;
+  line-height: 34px;
+  /*border-right: 1px solid;
+  border-right-color: rgba(0, 0, 0, 0.15);*/
+  text-decoration: none;
+  padding: 0 14px;
+}
+
+.pager a:hover, .pager .active a {
+  color: black;
+}
+
+/* Custom theming */
+@font-face {
+  font-family: Graublau;
+  src: url('/static/fonts/graublau/GraublauWeb.otf') format("opentype");
+}
+
+@font-face {
+  font-family: Share;
+  src: url('/static/fonts/share/Share-Regular.otf') format("opentype");
+}
+
+.brand, .topbar, h1, h2, h3 {
+  font-family: Share;
+  letter-spacing: -0.06em;
+}
+
+.brand:hover {
+  text-decoration: none;
+}
+
+.tabs li.dropdown {
+  float: right;
+}
+
+.tabs ul.dropdown-menu {
+  min-width: 6em;
+}
+
+.representations {
+  float: right;
+}
+
+.nav {
+  font-size: 105%;
+}
+
+
+footer ul {
+  list-style-type: none;
+  margin: 0em;
+}
+
+footer ul li {
+  display: inline-block;
+  padding-right: 2em;
+}
+
+footer p.right {
+  float: right;
+}
+
+/* Front page */
+
+.fp-mapping {
+  color: #fff;
+  height: 300px;
+  margin-bottom: 2em;
+}
+
+.fp-frame {
+  position: relative;
+  border-radius: 10px;
+}
+
+.fp-frame .slideshow img {
+  border-radius: 10px;
+  height: 300px;
+  width: 940px;
+}
+
+.fp-frame .overlay {
+  position: absolute; 
+  z-index: 1000;
+  top: 0px;
+  left: 0px;
+}
+
+.fp-mapping h1 {
+  color: #fff;
+  padding-top: 240px;
+  padding-left: 30px;
+  font-weight: bold;
+  font-size: 3em;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.55);
+}
+
+.fp-mission {
+  min-height: 300px;
+  background-color: rgba(0,0,0,0.5);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.fp-mission p {
+  font-size: 1.1em;
+  line-height: 1.6em;
+  margin: 10px;
+  margin-top: 20px;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.55);
+}
+
+/* Table layouts */
+
+/*
+table th {
+  color: white;
+  border: 1px solid #CCC;
+  background-color: #333;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  background-image: -webkit-linear-gradient(top, #666666, #111111);
+  background-image: -moz-linear-gradient(top, #666666, #111111);
+  background-image: linear-gradient(top, #666666, #111111);
+}
+
+table th.sorting_desc {
+  background-color: #666666;
+}
+*/
+
+table th, table td { 
+  padding: 5px;
+}
+
+div.dataTables_wrapper {
+  min-height: 0px;
+}
+
+table td.num {
+    text-align: right;
+}
+
+.growth {
+  color: green;
+}
+
+.shrink {
+  color: red;
+}
+
+.no-desc {
+    font-style: italic;
+}
+
+
+/* Browser */
+.facets {
+  display: block;
+  max-height: 15em;
+  overflow-y: scroll;
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-radius: 0px;
+}
+
+.facets .count {
+  color: #999;
+}
+
+.facets td {
+  border-left: 0px;
+}
+
+.facets .unfilter {
+  color: red !important;
+}
+
+.search-form input {
+    font-size: 1.2em;
+    padding: 0.3em;
+}
+
+.search-form input.search {
+    width: 80%;
+    margin-right: 2em;
+}
+
+.search-form .form-help, .form-options {
+    color: #999;
+    font-variant: italic;
+    text-align: right;
+    width: 80%;
+    padding: 0.5em;
+}
+
+.search-help-text {
+    margin-top:1em;
+    padding: 10px;
+    border: 1px solid #ddd;
+    display: none;
+}
+
+.search-help-text ul {
+    margin-bottom: 0em;
+}
+
+/* Entry page */
+.entry-page .entities,
+.entry-page .amount {
+  /*border: 1px solid #ccc;*/
+  padding: 5px;
+}
+
+.entry-page .entities span {
+  font-weight: bold;
+}
+
+.entry-page .entities div {
+  font-size: 1.3em;
+  font-weight: bolder;
+  padding: 5px;
+  font-family: Graublau, sans-serif;
+}
+
+.entry-page .amount {
+}
+
+.entry-page .amount .currency {
+  font-weight: bold;
+  font-size: 0.5em;
+  display: inline;
+  vertical-align: top;
+}
+
+.entry-page .amount .number {
+  font-size: 2em;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  font-weight: bolder;
+  padding: 20px;
+  font-family: Graublau, sans-serif;
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
+  border-radius: 12px;
+
+     -moz-box-shadow: 0px 0px 10px #aaaaaa;
+  -webkit-box-shadow: 0px 0px 10px #aaaaaa;
+          box-shadow: 0px 0px 10px #aaaaaa;
+
+}
+
+.entry-page .amount .date {
+  float: right;
+  color: #aaa;
+}
+
+/* Help */
+.help-page a.headerlink {
+  display: none;
+}
+
+/*
+.help-page ul.breadcrumb {
+  margin: 0px;
+}
+*/
+
+.help-page .sphinxsidebarwrapper h3 {
+  display: none;
+}
+
+.help-page h1 {
+  display: none;
+}
+
+.help-page li {
+  color: #333;
+}
+
+.help-page .pre {
+  font-family: monospace;
+  background-color: #efefef;
+}
+

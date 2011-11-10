@@ -16,7 +16,7 @@ from routes.util import URLGenerator
 from webtest import TestApp
 import pylons.test
 
-from ...test import (TestCase, DatabaseTestCase,
+from openspending.test import (TestCase, DatabaseTestCase,
                      setup_package as _setup_package)
 
 __all__ = ['environ', 'url', 'TestCase', 'DatabaseTestCase',

@@ -1,9 +1,8 @@
-from pylons import config, request
+from pylons import request
 
 from openspending import model
-from openspending.lib.cubes import find_cube
 from openspending.lib.jsonexport import jsonpify
-from openspending.ui.lib.base import BaseController
+from openspending.ui.lib.base import BaseController, require
 
 class Api2Controller(BaseController):
 
@@ -17,38 +16,38 @@ class Api2Controller(BaseController):
         drilldowns = self._drilldowns(params, errors)
         cuts = self._cuts(params, errors)
         order = self._order(params, errors)
+        measure = self._measure(params, dataset, errors)
         page = self._to_int('page', params.get('page', 1), errors)
         pagesize = self._to_int('pagesize', params.get('pagesize', 10000),
                                 errors)
         if errors:
             return {'errors': errors}
 
-        # find a suiteable cube
-        dimensions = set([cut[0] for cut in cuts] + drilldowns)
-        # we can e.g. cut on cofog1.name, but the dimension is cofog1
-        dimensions = [d.split('.')[0] for d in dimensions]
-        cube = find_cube(dataset, dimensions)
-
-        if cube is None:
-            return {'errors': ['We cannot aggregate with this combination '
-                               'of drilldowns and cuts']}
         try:
-            result = cube.query(drilldowns, cuts, page=page, pagesize=pagesize,
-                                order=order)
-        except ValueError:
-            # fixme: add task to compute the cube
-            return {'errors': ['We cannot aggregate at the moment. '
-                               'Please come back later.']}
+            result = dataset.aggregate(measure=measure, 
+                                       drilldowns=drilldowns, 
+                                       cuts=cuts, page=page, 
+                                       pagesize=pagesize, order=order)
+        except (KeyError, ValueError) as ve:
+            return {'errors': ['Invalid aggregation query: %r' % ve]}
 
         return result
 
     def _dataset(self, params, errors):
         dataset_name = params.get('dataset')
-        dataset = model.dataset.find_one_by('name', dataset_name)
+        dataset = model.Dataset.by_name(dataset_name)
         if dataset is None:
             errors.append('no dataset with name "%s"' % dataset_name)
             return
+        require.dataset.read(dataset)
         return dataset
+
+    def _measure(self, params, dataset, errors):
+        name = params.get('measure', 'amount')
+        for measure in dataset.measures:
+            if measure.name == name:
+                return name
+        errors.append('no measure with name "%s"' % name)
 
     def _drilldowns(self, params, errors):
         drilldown_param = params.get('drilldown', None)
@@ -75,10 +74,10 @@ class Api2Controller(BaseController):
                               cut_param)
                 return
             else:
-                try:
-                    value = float(value)
-                except:
-                    pass
+                #try:
+                #    value = float(value)
+                #except:
+                #    pass
                 result.append((dimension, value))
         return result
 

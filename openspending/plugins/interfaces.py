@@ -105,8 +105,8 @@ class IEntityController(Interface):
         pass
 
 
-class IClassifierController(Interface):
-    """ Set controller variables for classifiers. """
+class IDimensionController(Interface):
+    """ Set controller variables for dimensions. """
 
     def index(self, c, request, response, query):
         return query
@@ -114,9 +114,10 @@ class IClassifierController(Interface):
     def read(self, c, request, response, entity):
         pass
 
+    def read_member(self, c, request, response, entity):
+        pass
 
 class ISolrSearch(Interface):
-    """ Set controller variables for classifiers. """
 
     def update_index(self, entity):
         return entity

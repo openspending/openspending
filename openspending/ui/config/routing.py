@@ -51,55 +51,10 @@ def make_map():
     map.connect('/after_login', controller='account', action='after_login')
     map.connect('/after_logout', controller='account', action='after_logout')
 
-    map.connect('search', '/search', controller='search', action='index')
+    map.connect('/help/*path', controller='docs', action='page')
 
-    map.connect('/dataset.{format}', controller='dataset', action='index')
-    map.connect('/dataset', controller='dataset', action='index')
-
-    map.connect('/dataset/{name}.{format}', controller='dataset', action='view')
-    map.connect('/dataset/{name}', controller='dataset', action='view')
-    map.connect('/dataset/bubbles/{name}/{breakdown_field}/{drilldown_fields}', controller='dataset', action='bubbles')
-
-    map.connect('/dataset/{dataset}/dimension.{format}',
-                controller='dimension', action='index')
-    map.connect('/dataset/{dataset}/dimension',
-                controller='dimension', action='index')
-    map.connect('/dataset/{dataset}/dimension/{dimension}.{format}',
-                controller='dimension', action='view')
-    map.connect('/dataset/{dataset}/dimension/{dimension}',
-                controller='dimension', action='view')
-
-    map.connect('/dataset/{name}/{action}.{format}', controller='dataset')
-    map.connect('/dataset/{name}/{action}', controller='dataset')
-
-    map.connect('/entity', controller='entity', action='index')
-    map.connect('/entity/{id}.{format}', controller='entity', action='view')
-    map.connect('/entity/{id}', controller='entity', action='view')
-    map.connect('/entity/{id}/entries.{format}', controller='entity',
-                action='entries')
-    map.connect('/entity/{id}/entries', controller='entity', action='entries')
-    map.connect('/entity/{id}/{slug}', controller='entity', action='view')
-
-    map.connect('/classifier/{id}.{format}', controller='classifier',
-                action='view')
-    map.connect('/classifier/{id}', controller='classifier', action='view')
-
-    map.connect('/classifier/{taxonomy}/{name}.{format}',
-                controller='classifier', action='view_by_taxonomy_name')
-    map.connect('/classifier/{taxonomy}/{name}',
-                controller='classifier', action='view_by_taxonomy_name')
-    map.connect('/classifier/{taxonomy}/{name}/view',
-                controller='classifier', action='view_by_taxonomy_name')
-
-    map.connect('/classifier/{taxonomy}/{name}/entries.{format}',
-                controller='classifier', action='entries')
-    map.connect('/classifier/{taxonomy}/{name}/entries',
-                controller='classifier', action='entries')
-
-    map.connect('/entry', controller='entry', action='index')
-    map.connect('/entry/{id}.{format}', controller='entry', action='view')
-    map.connect('/entry/{id}', controller='entry', action='view')
-    map.connect('/entry/{id}/{action}', controller='entry')
+    map.connect('/datasets.{format}', controller='dataset', action='index')
+    map.connect('/datasets', controller='dataset', action='index')
 
     map.connect('/api', controller='api', action='index')
     map.connect('/api/search', controller='api', action='search')
@@ -112,6 +67,48 @@ def make_map():
     map.connect('/500', controller='error', action='render', code="500")
 
     map.connect('/__version__', controller='home', action='version')
+
+    map.connect('/{dataset}.{format}', controller='dataset', action='view')
+    map.connect('/{dataset}', controller='dataset', action='view')
+    map.connect('/{dataset}/bubbles/{breakdown_field}/{drilldown_fields}', controller='dataset', action='bubbles')
+    map.connect('/{dataset}/explorer', controller='dataset', action='explorer')
+    map.connect('/{dataset}/timeline', controller='dataset', action='timeline')
+
+
+    map.connect('/{dataset}/entries.{format}', controller='entry',
+            action='index')
+    map.connect('/{dataset}/entries', controller='entry', action='index')
+    map.connect('/{dataset}/entries/{id}.{format}', controller='entry', action='view')
+    map.connect('/{dataset}/entries/{id}', controller='entry', action='view')
+    map.connect('/{dataset}/entries/{id}/{action}', controller='entry')
+    
+    map.connect('/{dataset}/dimensions.{format}',
+                controller='dimension', action='index')
+    map.connect('/{dataset}/dimensions',
+                controller='dimension', action='index')
+    #map.connect('/{dataset}/dimensions/{dimension}.{format}',
+    #            controller='dimension', action='view')
+    #map.connect('/{dataset}/dimensions/{dimension}',
+    #            controller='dimension', action='view')
+
+    map.connect('/{dataset}/{dimension}.json',
+                controller='dimension', action='view', format='json')
+    map.connect('/{dataset}/{dimension}.csv',
+                controller='dimension', action='view', format='csv')
+    map.connect('/{dataset}/{dimension}',
+                controller='dimension', action='view')
+    
+    map.connect('/{dataset}/{dimension}/{name}.json',
+                controller='dimension', action='member', format='json')
+    map.connect('/{dataset}/{dimension}/{name}.csv',
+                controller='dimension', action='member', format='csv')
+    map.connect('/{dataset}/{dimension}/{name}',
+                controller='dimension', action='member')
+
+    map.connect('/{dataset}/{dimension}/{name}/entries.{format}',
+                controller='dimension', action='entries')
+    map.connect('/{dataset}/{dimension}/{name}/entries',
+                controller='dimension', action='entries')
 
     for plugin in routing_plugins:
         plugin.after_map(map)

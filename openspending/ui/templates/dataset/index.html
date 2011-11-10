@@ -7,15 +7,17 @@
   <py:def function="page_title">All datasets</py:def>
 
   <div py:def="content">
-    <h2>OpenSpending: mapping the money</h2>
+    <h2 class="page-header">Available data sets</h2>
     <p>The database contains the following datasets:</p>
     <ul>
       <li py:for="row in c.results" i18n:msg="row_name,description">
-        <a class="dataset-name" href="${url(controller='dataset', action='view', name=row.name)}">
+        <h3><a class="dataset-name" href="${url(controller='dataset',
+          action='view', dataset=row.name)}">
             ${row.label if row.label else row.name}
-        </a>
-        <div py:if="row.get('description')">
-            ${h.markdown(row.get('description'))}
+          </a>
+        </h3>
+        <div py:if="row.description">
+            ${h.markdown(row.description)}
         </div>
       </li>
     </ul>

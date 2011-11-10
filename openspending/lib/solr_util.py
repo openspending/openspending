@@ -6,11 +6,10 @@ import datetime
 import logging
 from unicodedata import category
 
-from bson.dbref import DBRef
-from pymongo.objectid import ObjectId
 from solr import SolrConnection
 
 from openspending import model
+from openspending.lib.util import flatten
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import ISolrSearch
 
@@ -96,8 +95,11 @@ class _Stub(object):
         return len(self.results)
 
 def drop_index(dataset_name):
+    drop('dataset:%s' % dataset_name)
+
+def drop(query):
     solr = get_connection()
-    solr.delete_query('dataset:%s' % dataset_name)
+    solr.delete_query(query)
     solr.commit()
 
 SOLR_CORE_FIELDS = ['id', 'dataset', 'amount', 'time', 'location', 'from',
@@ -120,30 +122,30 @@ class tzutc(datetime.tzinfo):
 def safe_unicode(s):
     if not isinstance(s, basestring):
         return s
-    return u"".join([c for c in unicode(s) if not category(c) == 'Cc'])
+    return u"".join([c for c in unicode(s) if not category(c)[0] == 'C'])
 
-def extend_entry(entry):
-    entry = model.entry.to_index_dict(entry)
+
+
+def extend_entry(entry, dataset):
+    entry['dataset'] = dataset.name
+    entry['dataset.id'] = dataset.id
+    entry = flatten(entry)
+    entry['_id'] = dataset.name + '::' + unicode(entry['id'])
     for k, v in entry.items():
         # this is similar to json encoding, but not the same.
-        if isinstance(v, DBRef):
-            del entry[k]
-        elif isinstance(v, ObjectId):
-            entry[k] = str(v)
-        elif isinstance(v, datetime.datetime) and not v.tzinfo:
+        if isinstance(v, datetime.datetime) and not v.tzinfo:
             entry[k] = datetime.datetime(v.year, v.month, v.day, v.hour,
                                          v.minute, v.second, tzinfo=tzutc())
         elif '.' in k and isinstance(v, (list, tuple)):
             entry[k] = " ".join([unicode(vi) for vi in v])
         else:
             entry[k] = safe_unicode(entry[k])
-        if k.endswith(".label") or k.endswith(".name"):
+        if k.endswith(".name"):
+            vk = k[:len(k)-len(".name")]
+            entry[vk] = v
+        if k.endswith(".label"):
             entry[k + "_str"] = entry[k]
             entry[k + "_facet"] = entry[k]
-    if 'classifiers' in entry:
-        entry['classifiers'] = map(str, entry['classifiers'])
-    if 'entities' in entry:
-        entry['entities'] = map(str, entry['entities'])
     for item in PluginImplementations(ISolrSearch):
         entry = item.update_index(entry)
     return entry
@@ -155,15 +157,13 @@ def optimize():
 
 def build_index(dataset_name):
     solr = get_connection()
-    dataset_ = model.dataset.find_one_by('name', dataset_name)
+    dataset_ = model.Dataset.by_name(dataset_name)
     assert dataset_ is not None, "No such dataset: %s" % dataset_name
-    query = {'dataset.name': dataset_name}
-    cur = model.entry.find(query)
     buf = []
     total = 0
     increment = 1000
-    for entry in cur:
-        ourdata = extend_entry(entry)
+    for entry in dataset_.entries():
+        ourdata = extend_entry(entry, dataset_)
         buf.append(ourdata)
         if len(buf) == increment:
             solr.add_many(buf)

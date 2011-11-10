@@ -4,22 +4,28 @@
 
   <py:def function="nav_class">nav-dataset</py:def>
 
-  <py:def function="page_title">Dimensions in ${c.dataset.get('label')}</py:def>
+  <py:def function="page_title">Dimensions in ${c.dataset.label}</py:def>
   
   <div py:def="content">
-    <h2>${c.dataset.get('label')}: Dimensions</h2>
-    <p>${c.dataset.get('label')} has the following dimensions:</p>
-    <ul>
-      <li py:for="dimension in c.dimensions">
-        <a class="dimension-name" href="${url(controller='dimension',
-          action='view', dataset=c.dataset.get('name'), dimension=dimension.get('key'))}">
-            ${dimension.get('label')}
-        </a>
-        <div py:if="dimension.get('description')">
-            ${h.markdown(dimension.get('description'))}
-        </div>
-      </li>
-    </ul>
+    <h2 class="page-header">${c.dataset.label}: Dimensions
+      <small>Facets of the dataset.</small></h2>
+    <div class="row">
+      <div class="span16">
+        <p>${c.dataset.label} has the following dimensions:</p>
+        <ul>
+          <li py:for="dimension in c.dimensions">
+            <a class="dimension-name" href="${url(controller='dimension',
+              action='view', dataset=c.dataset.name,
+              dimension=dimension.name)}">
+                ${dimension.label or dimension.name}
+            </a>
+            <div py:if="dimension.description">
+              ${h.markdown(dimension.description)}
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 
   <xi:include href="../layout.html" />
