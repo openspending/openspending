@@ -11,10 +11,6 @@
 
   <py:def function="script_tag(name)">
     <script src="${h.static('js/%s.js' % name)}"></script>
-    <!--py:choose test="g.debug">
-      <script py:when="True" src="${h.static('js/%s.js' % name)}"></script>
-      <script py:otherwise="" src="${h.static('js/%s.min.js' % name)}"></script>
-    </py:choose-->
   </py:def>
 
   <span py:def="currency_symbols(currency)">

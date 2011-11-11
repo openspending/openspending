@@ -25,7 +25,7 @@
           <thead>
             <tr>
               <th>Value</th>
-              <th class="num">Sum (${c.dataset.currency})</th>
+              <th class="num" i18n:msg="currency">Sum (${c.dataset.currency})</th>
             </tr>
           </thead>
           <tbody> 
@@ -37,7 +37,7 @@
                 (Empty)
               </td>
               <td py:if="not isinstance(v, dict)">
-                ${v or '(Empty)'}
+                ${v or _('(Empty)')}
               </td>
               <td class="num">${h.format_number_with_commas(s)}</td>
             </tr>
