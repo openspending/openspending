@@ -15,6 +15,7 @@ Contents:
 
    overview
    install
+   deployment
    model/design
    model/objects
    appendix_migration

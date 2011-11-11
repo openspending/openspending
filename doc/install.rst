@@ -50,7 +50,7 @@ done by copying the Solr example configuration from the `Solr tarball`_, and
 replacing the default schema with one from OpenSpending.::
 
     $ cp -R apache-solr-3.1.0/example/solr/* ./solr
-    $ ln -sf "../wdmmg_schema.xml" ./solr/conf/schema.xml
+    $ ln -sf "../openspending_schema.xml" ./solr/conf/schema.xml
 
 .. _Solr tarball: http://www.apache.org/dyn/closer.cgi/lucene/solr/
 
