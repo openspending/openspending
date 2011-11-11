@@ -202,6 +202,7 @@ class DateDimension(CompoundDimension):
 
     DATE_FIELDS = [
         {'name': 'name', 'datatype': 'string'},
+        {'name': 'label', 'datatype': 'string'},
         {'name': 'year', 'datatype': 'string'},
         {'name': 'quarter', 'datatype': 'string'},
         {'name': 'month', 'datatype': 'string'},
