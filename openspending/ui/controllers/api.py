@@ -9,7 +9,6 @@ from openspending.lib import calculator
 from openspending.lib import solr_util as solr
 from openspending.ui.lib.base import BaseController, require
 from openspending.lib.jsonexport import jsonpify
-import re
 
 log = logging.getLogger(__name__)
 
@@ -34,23 +33,8 @@ def statistic_normalize(dataset, result, per, statistic):
 def cellget(cell, key):
     val = cell.get(key)
     if isinstance(val, dict):
-        return val.get('name', val.get('_id'))
+        return val.get('name', val.get('id'))
     return val
-
-# This is a temporary hack-on-a-stick to get things working again
-dataset_aliases = {
-    'ukdepartments': 'ukgov-25k-spending'
-}
-
-pattern = re.compile(r'(dataset:\S+)')
-
-def amend_query(q):
-    matches = pattern.search(q)
-    if not matches:
-        return q
-    _, dataset = matches.group(0).split(':')
-    dataset = dataset_aliases.get(dataset, dataset)
-    return pattern.sub('dataset:' + dataset, q)
 
 class ApiController(BaseController):
     @jsonpify
@@ -64,7 +48,7 @@ class ApiController(BaseController):
         solrargs = dict(request.params)
         rows = min(1000, request.params.get('rows', 10))
         q = request.params.get('q', '*:*')
-        solrargs['q'] = amend_query(q)
+        solrargs['q'] = q
         solrargs['rows'] = rows
         solrargs['wt'] = 'json'
 
@@ -83,7 +67,6 @@ class ApiController(BaseController):
     @jsonpify
     def aggregate(self):
         dataset_name = request.params.get('dataset', request.params.get('slice'))
-        dataset_name = dataset_aliases.get(dataset_name, dataset_name)
         dataset = model.Dataset.by_name(dataset_name)
         require.dataset.read(dataset)
 
