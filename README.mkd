@@ -13,10 +13,10 @@ Install submodules::
 
 Install the application and copy configuration templates.
 
-    $ pip install -E pyenv -e .
-    $ source pyenv/bin/activate
-    $ cp development.ini_tmpl development.ini
-    $ cp test.ini_tmpl test.ini
+    pip install -E pyenv -e .
+    source pyenv/bin/activate
+    cp development.ini_tmpl development.ini
+    cp test.ini_tmpl test.ini
 
 Create a database if you do not have one already. We recommend using Postgres
 but you can use anything compatible with SQLAlchemy. For postgres you would do::
@@ -34,12 +34,12 @@ Further, you will need to set up Apache Solr. You can download the
 latest version from the project website and then replace the default
 schema with the one from OpenSpending.::
 
-    $ cp -R apache-solr-X.X.X/example/solr/* ./solr
-    $ ln -sf "../wdmmg_schema.xml" ./solr/conf/schema.xml
+    cp -R apache-solr-X.X.X/example/solr/* ./solr
+    ln -sf "../wdmmg_schema.xml" ./solr/conf/schema.xml
 
 And then start solr (maybe inside a 'screen')::
 
-    $ cd solr; java -jar start.jar
+    cd solr; java -jar start.jar
 
 After setting up Solr, you must reference the server from the
 configuration file::
@@ -54,23 +54,23 @@ the form::
 
 Initialize the database
 
-    $ ostool development.ini db init
+    ostool development.ini db init
 
 Generate the help system documentation (this is used by the front-end
 and must be available, developer documents are separate). The output 
 will be copied to the web applications template directory.
 
-    $ cd help; make clean html
+    cd help; make clean html
 
 Run the application
 
-    $ paster serve --reload development.ini
+    paster serve --reload development.ini
 
 ## Run the tests
 
 Run the tests
 
-    $ nosetests
+    nosetests
 
 ## Issue tracking
 
