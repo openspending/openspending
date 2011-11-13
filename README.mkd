@@ -2,6 +2,15 @@
 
 ## Developer installation
 
+Get the source::
+
+    git clone https://github.com/okfn/openspending
+
+Install submodules::
+
+    git submodule init
+    git submodule update
+
 Install the application and copy configuration templates.
 
     $ pip install -E pyenv -e .
@@ -39,7 +48,7 @@ configuration file::
     openspending.solr.url = http://localhost:8983/solr
 
 Configure the database connection. For Postgres, add a full db url of
-the form:
+the form::
 
     openspending.db.url = postgresql://{user}:{pass}@localhost/openspending
 
@@ -53,13 +62,15 @@ will be copied to the web applications template directory.
 
     $ cd help; make clean html
 
-Run the tests
-
-    $ nosetests
-
 Run the application
 
     $ paster serve --reload development.ini
+
+## Run the tests
+
+Run the tests
+
+    $ nosetests
 
 ## Issue tracking
 
