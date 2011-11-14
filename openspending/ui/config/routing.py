@@ -71,6 +71,8 @@ def make_map():
     map.connect('/{dataset}.{format}', controller='dataset', action='view')
     map.connect('/{dataset}', controller='dataset', action='view')
     map.connect('/{dataset}/bubbles/{breakdown_field}/{drilldown_fields}', controller='dataset', action='bubbles')
+    map.connect('/{dataset}/model.{format}', controller='dataset', action='model')
+    map.connect('/{dataset}/model', controller='dataset', action='model')
     map.connect('/{dataset}/explorer', controller='dataset', action='explorer')
     map.connect('/{dataset}/timeline', controller='dataset', action='timeline')
 

@@ -65,6 +65,12 @@ parameters. Supported formats are HTML and JSON.
     "currency": "GBP"
   }
 
+Another call is available to get the full model description of 
+the dataset in question, which includes the core metadata but also
+a full description of all dimensions, measures and views. The
+format for this is always JSON::
+
+  GET /{dataset}/model.json
 
 Listing dataset dimensions
 ''''''''''''''''''''''''''

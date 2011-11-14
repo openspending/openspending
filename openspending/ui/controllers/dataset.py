@@ -87,6 +87,10 @@ class DatasetController(BaseController):
 
         return render(c.template)
 
+    def model(self, dataset, format='json'):
+        self._get_dataset(dataset)
+        return to_jsonp(c.dataset.data)
+
     def explorer(self, name=None):
         self._get_dataset(name)
         c.keys_meta = dict([(d.name, {"label": d.label,
