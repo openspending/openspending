@@ -7,7 +7,7 @@ RESERVED_TERMS = ['entry', 'entries', 'dataset', 'datasets', 'dimension',
                   'dimensions', 'editor', 'meta', 'id', 'login', 'logout',
                   'settings', 'browser', 'explorer', 'member', 'register',
                   'after_login', 'after_logout', 'locale', 'reporterror',
-                  'getinvolved', 'api', '500', 'error']
+                  'getinvolved', 'api', '500', 'error', 'url', 'model']
 
 def chained(*validators):
     """ 
