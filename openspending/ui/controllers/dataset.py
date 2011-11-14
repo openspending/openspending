@@ -60,16 +60,24 @@ class DatasetController(BaseController):
         else:
             return render('dataset/view.html')
 
-    def bubbles(self, name, breakdown_field, drilldown_fields, format="html"):
+#    def bubbles(self, name, breakdown_field, drilldown_fields, format="html"):
+    def bubbles(self, dataset, breakdown_field, drilldown_fields):
         c.drilldown_fields = json.dumps(drilldown_fields.split(','))
-        self._get_dataset(name)
+        self._get_dataset(dataset)
         c.dataset_name = c.dataset.name
 
         # TODO: make this a method
         c.template = 'dataset/view_bubbles.html'
 
-        curs = model.entry.find({'dataset.name':name})# , {breakdown_field: True})
-        breakdown_names = list(set([ i[breakdown_field]['name'] for i in curs ]))
+        try:
+            results = c.dataset.aggregate(drilldowns=[breakdown_field])
+        except KeyError:
+            abort(404, "Dimension `%s' not available" % breakdown_field)
+
+
+        log.info(results)
+        breakdowns = results['drilldown']
+        breakdown_names = [ i[breakdown_field]['label'] for i in breakdowns ]
 
         count = len(breakdown_names)
 
@@ -79,11 +87,6 @@ class DatasetController(BaseController):
         c.breakdown_field = breakdown_field
 
         handle_request(request, c, c.dataset)
-        if c.view is None:
-            self._make_browser()
-
-        if hasattr(c, 'time'):
-            delattr(c, 'time') # disable treemap(!)
 
         return render(c.template)
 
