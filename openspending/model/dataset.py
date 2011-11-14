@@ -194,6 +194,10 @@ class Dataset(TableHandler, db.Model):
             joins = d.join(joins)
         selects = [f.selectable for f in self.fields] + [self.alias.c.id]
 
+        # enforce stable sorting:
+        if order_by is None:
+            order_by = [self.alias.c.id.asc()]
+
         for i in count():
             qoffset = offset + (step * i)
             qlimit = step
