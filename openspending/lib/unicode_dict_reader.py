@@ -6,9 +6,6 @@ import csv
 class EmptyCSVError(Exception):
     pass
 
-class CSVisHTML(Exception):
-    pass
-
 class UnicodeDictReader(object):
     def __init__(self, fp, encoding='utf8', **kwargs):
         self.encoding = encoding
@@ -16,10 +13,6 @@ class UnicodeDictReader(object):
 
         if not self.reader.fieldnames:
             raise EmptyCSVError("No fieldnames in CSV reader: empty file?")
-
-        for field_name in self.reader.fieldnames:
-            if '<' in field_name:
-                raise CSVisHTML("HTML found where CSV expected")
 
         self.keymap = dict((k, k.decode(encoding)) for k in self.reader.fieldnames)
 
