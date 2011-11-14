@@ -1,8 +1,8 @@
-from openspending.validation.model.views import views_schema
 from colander import Invalid 
 
 from ... import TestCase, helpers as h
 
+from openspending.validation.model.views import views_schema
 from openspending.validation.model.common import ValidationState
 
 class TestViews(TestCase):

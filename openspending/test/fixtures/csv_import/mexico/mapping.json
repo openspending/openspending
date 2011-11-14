@@ -1,0 +1,153 @@
+{
+  "budget_programme": {
+    "column": "PP",
+    "datatype": "string",
+    "type": "value",
+    "description": "Category that lets you organize budget allocations of federal programs and federalized spending by the executors of federal spending to achieve its objectives and goals, as well as non-programmable expenditure.",
+    "label": "Budget Programme"
+  },
+  "function": {
+    "column": "F",
+    "datatype": "string",
+    "type": "value",
+    "description": "Identifies the actions that responsible carry out to fulfill the task imposed upon them by legal regulations.,\n",
+    "label": "Function"
+  },
+  "budget_programme_type": {
+    "column": "TPP",
+    "datatype": "string",
+    "type": "value",
+    "description": "Classifier which groups budgetary programs by: federal expenditure, federalized expenditure and non-programme related spending.",
+    "label": "Budget Programme Type"
+  },
+  "from": {
+    "fields": [
+      {
+        "column": "FROM",
+        "datatype": "id",
+        "default_value": "Government",
+        "name": "name"
+      },
+      {
+        "column": "FROM",
+        "datatype": "string",
+        "default_value": "Government",
+        "name": "label"
+      }
+    ],
+    "type": "entity",
+    "description": "Notional spender",
+    "label": "Spender"
+  },
+  "time": {
+    "column": "DATE",
+    "datatype": "date",
+    "type": "value",
+    "description": "Notional year",
+    "default_value": "1/1/2010",
+    "label": "Year"
+  },
+  "administrative_unit": {
+    "column": "UR",
+    "datatype": "string",
+    "type": "value",
+    "description": "Administrative unit within an institution entrusted with the execution of a program, subprogram or project and its corresponding budget.",
+    "label": "Administrative Unit"
+  },
+  "subfunction": {
+    "column": "SF",
+    "datatype": "string",
+    "type": "value",
+    "description": "Breakdown of the function that identifies more accurately the activities of the agencies.",
+    "label": "Subfunction"
+  },
+  "functional_group": {
+    "column": "GF",
+    "datatype": "string",
+    "type": "value",
+    "description": "Identifies the activities of the State to achieve its goals, in accordance with the Constitution of the United Mexican States and its laws and regulations. There are three major functional groups of programmable expenditure: Government, Social Development and Economic Development. In addition, Other includes the group of non-programmable expenditure.",
+    "label": "Functional Group"
+  },
+  "expenditure_type": {
+    "column": "TG",
+    "datatype": "string",
+    "type": "value",
+    "description": "Budget allocation according to their nature, current or capital expenditures, and investments.",
+    "label": "Expenditure Type"
+  },
+  "financial_source": {
+    "column": "FF",
+    "datatype": "string",
+    "type": "value",
+    "description": "Allocations identified by source of their funding: tax revenue, expenditure financed by the IDB-IBRD and other external funding, national counterpart, and own revenues.",
+    "label": "Financial Source"
+  },
+  "to": {
+    "fields": [
+      {
+        "column": "TO",
+        "datatype": "id",
+        "default_value": "Society",
+        "name": "name"
+      },
+      {
+        "column": "TO",
+        "datatype": "string",
+        "default_value": "Society",
+        "name": "label"
+      }
+    ],
+    "type": "entity",
+    "description": "Notional recipient",
+    "label": "Recipient"
+  },
+  "amount": {
+    "column": "IMPORTE PEF",
+    "datatype": "float",
+    "type": "value",
+    "description": "Amount approved in the budget.",
+    "label": "Amount"
+  },
+  "expenditure_object": {
+    "column": "OG",
+    "datatype": "string",
+    "type": "value",
+    "description": "Inputs by way of human, material and financial resources (goods and services) that the agencies use to carry out regular operations and the resources the Federal Government transfers to private and social sectors.",
+    "label": "Expenditure Object"
+  },
+  "budget_programme_identifier": {
+    "column": "IPP",
+    "datatype": "string",
+    "type": "value",
+    "description": "Identifier that classifies the budget programs according to the types and modalities with a greater desagregation.",
+    "label": "Budget Programme Identifier"
+  },
+  "institutional_activity": {
+    "column": "AI",
+    "datatype": "string",
+    "type": "value",
+    "description": "Set actions that the agencies perform or suppor, through the responsible units, in order to fulfill the objectives and goals contained in the programs, in accordance with their responsibilities.",
+    "label": "Institutional Activity"
+  },
+  "budget_account": {
+    "column": "RAMO",
+    "datatype": "string",
+    "type": "value",
+    "description": "Grouping used to identify and classify federal government spending according to the administrative departments of the Executive power, the Legislative and Judicial powers, or other general classification.",
+    "label": "Budget Account"
+  },
+  "budget_programme_group": {
+    "column": "GPP",
+    "datatype": "string",
+    "type": "value",
+    "description": "Identifier that classifies the budget programs according to the types and modalities.",
+    "label": "Budget Programme Group"
+  },
+  "entry_id": {
+    "column": "id",
+    "datatype": "string",
+    "type": "value",
+    "label": "Transaction ID",
+    "description": ""
+  }
+}

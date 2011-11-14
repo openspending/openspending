@@ -1,0 +1,370 @@
+{
+  "project-type": {
+    "column": "Type of Project-Basket",
+    "datatype": "string",
+    "type": "value",
+    "description": "Limited coverage",
+    "label": "Project Type"
+  },
+  "source-table": {
+    "column": "Source_Table",
+    "datatype": "string",
+    "type": "value",
+    "description": "Source Table for this data",
+    "label": "Source Table"
+  },
+  "donorref": {
+    "column": "Donorref",
+    "datatype": "string",
+    "type": "value",
+    "description": "Donor's project reference number",
+    "label": "Donor project  number"
+  },
+  "sector-objective": {
+    "fields": [
+      {
+        "column": "Sector Objective",
+        "datatype": "id",
+        "name": "name"
+      },
+      {
+        "column": "Sector Objective",
+        "datatype": "string",
+        "name": "label"
+      }
+    ],
+    "type": "classifier",
+    "description": "Second-level functional classification",
+    "taxonomy": "uganda.swg.sector_objective",
+    "label": "Sector Objective"
+  },
+  "agency-details": {
+    "column": "Agency Details (where relevant)",
+    "datatype": "string",
+    "type": "value",
+    "description": "Sub-unit of Agency\u00a0",
+    "label": "Agency Details"
+  },
+  "spending-source-type-id": {
+    "fields": [
+      {
+        "column": "spending_source_type_id",
+        "datatype": "id",
+        "name": "name"
+      },
+      {
+        "column": "spending_source_type_id",
+        "datatype": "string",
+        "name": "label"
+      }
+    ],
+    "type": "entity",
+    "description": "The type of spending source (1=GoU; 2=Aid; 3=Budget Support)",
+    "label": "Spending Source Type"
+  },
+  "aid-modality": {
+    "column": "Aid Modality",
+    "datatype": "string",
+    "type": "value",
+    "description": "Limited coverage",
+    "label": "Aid Modality"
+  },
+  "aid-programme-code": {
+    "column": "Aid_Programme_Code",
+    "datatype": "string",
+    "type": "value",
+    "description": "Aid only",
+    "label": "Aid Programme Code"
+  },
+  "donor-coa-code": {
+    "column": "DONOR COA CODE",
+    "datatype": "string",
+    "type": "value",
+    "description": "Uganda Chart of Accounts code for donor",
+    "label": "COA Code of Donor"
+  },
+  "peap-area": {
+    "column": "PEAP Area",
+    "datatype": "string",
+    "type": "value",
+    "description": "Poverty Eradication Action Plan",
+    "label": "PEAP Area"
+  },
+  "from": {
+    "fields": [
+      {
+        "column": "spending_source",
+        "datatype": "id",
+        "name": "name"
+      },
+      {
+        "column": "spending_source",
+        "datatype": "string",
+        "name": "label"
+      }
+    ],
+    "type": "entity",
+    "description": "Name of the spending source. Either the Government of Uganda, or the specific donor who provided the funds. If the specific donor is not known, then \"Donors\" is provided.",
+    "label": "Spender"
+  },
+  "spending-source-type-label": {
+    "fields": [
+      {
+        "column": "spending_source_type_label",
+        "datatype": "id",
+        "name": "name"
+      },
+      {
+        "column": "spending_source_type_label",
+        "datatype": "string",
+        "name": "label"
+      }
+    ],
+    "type": "entity",
+    "description": "The name of the type of spending source (Government of Uganda, \"Aid\" for project aid, and Budget Support)",
+    "label": "Spending Source Type"
+  },
+  "spending-type": {
+    "column": "spending_type",
+    "datatype": "string",
+    "type": "value",
+    "description": "Whether the spending is a commitment (planned) or a disbursement (outturn)",
+    "label": "Spending Type"
+  },
+  "aid-programme-name": {
+    "column": "Aid_Programme_Name",
+    "datatype": "string",
+    "type": "value",
+    "description": "Aid only",
+    "label": "Aid Programme Name"
+  },
+  "swg": {
+    "fields": [
+      {
+        "column": "SWG",
+        "datatype": "id",
+        "name": "name"
+      },
+      {
+        "column": "SWG",
+        "datatype": "string",
+        "name": "label"
+      }
+    ],
+    "type": "classifier",
+    "description": "First-level functional classification",
+    "taxonomy": "uganda.swg",
+    "label": "Sector Working Group"
+  },
+  "project-code": {
+    "column": "Project Code",
+    "datatype": "string",
+    "type": "value",
+    "description": "GoU Project Code\u00a0",
+    "label": "Project Code"
+  },
+  "to": {
+    "fields": [
+      {
+        "column": "recipient",
+        "datatype": "id",
+        "default_value": "Society Uganda",
+        "name": "name"
+      },
+      {
+        "column": "recipient",
+        "datatype": "string",
+        "default_value": "Society Uganda",
+        "name": "label"
+      }
+    ],
+    "type": "entity",
+    "description": "the recipient (\"Society (Uganda)\" in all cases)",
+    "label": "Recipient"
+  },
+  "gou-vote-name": {
+    "column": "Vote Name",
+    "datatype": "string",
+    "type": "value",
+    "description": "GoU Budget Vote Name (where known)\u00a0",
+    "label": "Vote Name"
+  },
+  "bs-offset": {
+    "column": "bs_offset",
+    "datatype": "string",
+    "type": "value",
+    "description": "",
+    "label": "Budget Support offset"
+  },
+  "amount-donor": {
+    "column": "amount_donor",
+    "datatype": "float",
+    "type": "value",
+    "description": "Amount committed or disbursed in this year in the donor currency (if available)",
+    "label": "Donor Amount"
+  },
+  "programme-code": {
+    "column": "Programme Code",
+    "datatype": "string",
+    "type": "value",
+    "description": "Recurrent spending only\u00a0",
+    "label": "Programme Code"
+  },
+  "sector-strategy-policy": {
+    "column": "Sector strategy or policy",
+    "datatype": "string",
+    "type": "value",
+    "description": "Limited coverage",
+    "label": "Sector Strategy or Policy"
+  },
+  "amount-dollars": {
+    "column": "amount_dollars",
+    "datatype": "float",
+    "type": "value",
+    "description": "Amount committed or disbursed in this year in US Dollars",
+    "label": "Dollar Amount"
+  },
+  "peap-pillar": {
+    "column": "PEAP Pillar",
+    "datatype": "string",
+    "type": "value",
+    "description": "Poverty Eradication Action Plan",
+    "label": "PEAP Pillar"
+  },
+  "project-name": {
+    "column": "Project Name",
+    "datatype": "string",
+    "type": "value",
+    "description": "GoU Project Name\u00a0",
+    "label": "Project Name"
+  },
+  "financecomment": {
+    "column": "Financecomment",
+    "datatype": "string",
+    "type": "value",
+    "description": "A 1 denotes that this entry is a value created to offset budget support from Government of Uganda spending. This is necessary to avoid double-counting when showing aggregations (of Government of Uganda spending, budget support and project aid) at higher levels, but it does not affect the actual amounts in the projects. Budget Support is money given directly to the government which they can spend on their own priorities. General Budget Support is given directly to the Treasury or Finance Ministry, and Sector Budget Support is given to an individual sector. Because of the nature of budget support, it is impossible to accurately track it through the system down to an individual project level. Below the higher levels, budget support thus becomes part of Government of Uganda revenues.",
+    "label": "Financial comments"
+  },
+  "grant-loan": {
+    "column": "GRANT-LOAN",
+    "datatype": "string",
+    "type": "value",
+    "description": "Limited coverage",
+    "label": "Grant or Loan"
+  },
+  "donorcurrency": {
+    "column": "donorcurrency",
+    "datatype": "string",
+    "type": "value",
+    "description": "Currency in which Donor Amount was provided in (if any)",
+    "label": "Donor's currency"
+  },
+  "programme-name": {
+    "column": "Programme Name",
+    "datatype": "string",
+    "type": "value",
+    "description": "Recurrent Spending only",
+    "label": "Programme Name"
+  },
+  "donor-name": {
+    "column": "Donor name",
+    "datatype": "string",
+    "type": "value",
+    "description": "",
+    "label": "Donor Name"
+  },
+  "on-off-budget": {
+    "column": "On-Off Budget",
+    "datatype": "string",
+    "type": "value",
+    "description": "Limited coverage",
+    "label": "On or Off Budget"
+  },
+  "mtef-sector": {
+    "column": "MTEF Sector",
+    "datatype": "string",
+    "type": "value",
+    "description": "Medium Term Expenditure Framework Sector",
+    "label": "MTEF Sector"
+  },
+  "from-id": {
+    "fields": [
+      {
+        "column": "spending_source_id",
+        "datatype": "id",
+        "name": "name"
+      },
+      {
+        "column": "spending_source_id",
+        "datatype": "string",
+        "name": "label"
+      }
+    ],
+    "type": "entity",
+    "description": "The ID for the spending source. This is 001 for the Government of Uganda (to follow the Government of Uganda Chart of Accounts code), the Uganda COA code for donors (where the donor is known), and 901 for donors (where the donor is unknown).",
+    "label": "Spender"
+  },
+  "sector-strategy-policy-details": {
+    "column": "Details of sector policy or strategy",
+    "datatype": "string",
+    "type": "value",
+    "description": "Limited coverage",
+    "label": "Sector Strategy or Policy Details"
+  },
+  "agency-name": {
+    "column": "Agency Name",
+    "datatype": "string",
+    "type": "value",
+    "description": "Relevant Agency",
+    "label": "Agency Name"
+  },
+  "mtef-reference": {
+    "column": "MTEF Reference",
+    "datatype": "string",
+    "type": "value",
+    "description": "Medium Term Expenditure Framework Reference",
+    "label": "MTEF Reference"
+  },
+  "amount": {
+    "column": "amount",
+    "datatype": "float",
+    "type": "value",
+    "description": "Amount committed or disbursed in this year in Ugandan Shillings.",
+    "label": "Amount"
+  },
+  "gou-vote-code": {
+    "column": "GOU Vote",
+    "datatype": "string",
+    "type": "value",
+    "description": "GoU Budget Vote Code\u00a0",
+    "label": "Vote Code"
+  },
+  "time": {
+    "column": "Year",
+    "datatype": "date",
+    "type": "value",
+    "description": "",
+    "label": "Financial year"
+  },
+  "source-id": {
+    "column": "Source_ID",
+    "datatype": "string",
+    "type": "value",
+    "description": "ID from the source table",
+    "label": "Source ID"
+  },
+  "peap-objective": {
+    "column": "PEAP Objective",
+    "datatype": "string",
+    "type": "value",
+    "description": "Poverty Eradication Action Plan",
+    "label": "PEAP Objective"
+  },
+  "entry_id": {
+    "column": "id",
+    "datatype": "string",
+    "type": "value",
+    "label": "Transaction ID",
+    "description": ""
+  }
+}

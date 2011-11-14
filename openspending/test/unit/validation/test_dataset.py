@@ -1,9 +1,9 @@
-from openspending.validation.model.dataset import dataset_schema
 from colander import Invalid 
 
 from ... import TestCase, helpers as h
 
-from openspending.validation.common import ValidationState
+from openspending.validation.model.dataset import dataset_schema
+from openspending.validation.model.common import ValidationState
 
 class TestDataset(TestCase):
 
