@@ -334,3 +334,22 @@ table td.num {
   border-left: 0px;
   padding: 0px;
 }
+
+
+/* Bubbletree vs. Bootstrap specific fixes. */
+.bubbletree .label {
+  padding: 0px;
+  font-weight: normal;
+  background-color: rgba(0,0,0,0);
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+}
+
+.bubbletree .amount,
+.bubbletree .desc {
+   font-family: Share !important;
+}
+
+
+
