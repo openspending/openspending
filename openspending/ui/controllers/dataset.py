@@ -60,41 +60,9 @@ class DatasetController(BaseController):
         else:
             return render('dataset/view.html')
 
-    def old_explorer(self, name=None):
-        self._get_dataset(name)
-        c.keys_meta = dict([(d.name, {"label": d.label,
-                "description": d.description})
-                for d in c.dataset.dimensions])
-        c.breakdown_keys = c.keys_meta.keys()[:3]
-        c.keys_meta_json = json.dumps(c.keys_meta)
-        c.breakdown_keys_json = json.dumps(c.breakdown_keys)
-        return render('dataset/explorer.html')
-
-#    def bubbles(self, name, breakdown_field, drilldown_fields, format="html"):
     def explorer(self, dataset):
         self._get_dataset(dataset)
         c.dataset_name = c.dataset.name
-
-#        try:
-#            results = c.dataset.aggregate(drilldowns=[breakdown_field])
-#        except KeyError:
-#            abort(404, "Dimension `%s' not available" % breakdown_field)
-#
-#        log.info(results)
-#        breakdowns = results['drilldown']
-#        breakdown_names = [ i[breakdown_field]['label'] for i in breakdowns ]
-#
-#        count = len(breakdown_names)
-#
-#        styles = [ s for s in rgb_rainbow(count) ]
-#        breakdown_styles = dict([ (breakdown_names[n], styles[n]) for n in range(0, count) ])
-#        c.breakdown_styles = [ "'%s' : { color: '%s' }," % (k, v) for k, v in breakdown_styles.iteritems() ]
-
-        # handle_request(request, c, c.dataset)
-
-        # TODO: make this a method
-        # c.template = 'dataset/view_bubbles.html'
-        # return render(c.template)
         return render('dataset/explorer.html')
 
     def model(self, dataset, format='json'):
