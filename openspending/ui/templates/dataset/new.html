@@ -32,7 +32,7 @@
               <div class="input">
                 <select name="currency">
                   <py:for each="code, name in c.currencies">
-                    <option name="${code}">${name} (${code})</option>
+                    <option value="${code}">${name} (${code})</option>
                   </py:for>
                 </select>
               </div>
