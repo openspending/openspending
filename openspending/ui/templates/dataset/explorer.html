@@ -68,10 +68,7 @@ jQuery(document).ready(function($) {
     endpoint: '/',
     target: '#hook',
     dataset: datasetId,
-    defaults: {
-      drilldowns: ${c.drilldown_fields},
-      breakdown: ${c.breakdown_field}
-    }
+    aggregator: {}
   };
   var explorer = new OpenSpending.App.Explorer(config);
   explorer.initialize();

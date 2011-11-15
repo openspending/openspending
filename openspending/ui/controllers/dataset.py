@@ -71,14 +71,7 @@ class DatasetController(BaseController):
         return render('dataset/explorer.html')
 
 #    def bubbles(self, name, breakdown_field, drilldown_fields, format="html"):
-    def explorer(self, dataset, aggregation_url):
-        aggregation_url = aggregation_url.lstrip('/')
-        parts = aggregation_url.split('/')
-        breakdown_field = parts[0] if parts else None
-        if breakdown_field == '-':
-            breakdown_field = None
-        drilldown_fields = parts[1] if len(parts) > 1 else ''
-        c.drilldown_fields = json.dumps(drilldown_fields.split(','))
+    def explorer(self, dataset):
         self._get_dataset(dataset)
         c.dataset_name = c.dataset.name
 
@@ -96,7 +89,6 @@ class DatasetController(BaseController):
 #        styles = [ s for s in rgb_rainbow(count) ]
 #        breakdown_styles = dict([ (breakdown_names[n], styles[n]) for n in range(0, count) ])
 #        c.breakdown_styles = [ "'%s' : { color: '%s' }," % (k, v) for k, v in breakdown_styles.iteritems() ]
-        c.breakdown_field = json.dumps(breakdown_field)
 
         # handle_request(request, c, c.dataset)
 
