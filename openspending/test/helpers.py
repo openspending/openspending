@@ -11,7 +11,7 @@ from openspending.lib import solr_util as _solr
 
 TEST_ROOT = _os.path.dirname(__file__)
 
-def load_fixture(name):
+def load_fixture(name, manager=None):
     """
     Load fixture data into the database.
     """
@@ -20,6 +20,8 @@ def load_fixture(name):
     data = json.load(fh)
     fh.close()
     dataset = Dataset(data)
+    if manager is not None:
+        dataset.managers.append(manager)
     db.session.add(dataset)
     db.session.commit()
     dataset.generate()
@@ -53,6 +55,17 @@ def fixture_path(name):
 def clean_all():
     clean_db()
     clean_solr()
+
+def make_account(name='test', fullname='Test User', 
+                 email='test@example.com'):
+    from openspending.model import Account
+    account = Account()
+    account.name = name
+    account.fullname = fullname
+    account.email = email
+    db.session.add(account)
+    db.session.commit()
+    return account
 
 def clean_db():
     db.session.rollback()

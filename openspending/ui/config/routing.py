@@ -79,6 +79,9 @@ def make_map():
     map.connect('/{dataset}/timeline', controller='dataset', action='timeline')
 
 
+    map.connect('/{dataset}/editor', controller='editor', action='overview')
+
+
     map.connect('/{dataset}/entries.{format}', controller='entry',
             action='index')
     map.connect('/{dataset}/entries', controller='entry', action='index')

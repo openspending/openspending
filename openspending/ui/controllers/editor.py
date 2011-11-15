@@ -59,6 +59,3 @@ class EditorController(BaseController):
         except Invalid, i:
             errors = i.asdict()
         return self.core_edit(dataset, errors=errors)
-
-
-

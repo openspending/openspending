@@ -56,6 +56,10 @@
                 <li py:for="dataset in c.datasets">
                   <a href="${h.dataset_url(dataset)}">${dataset.label}</a>
                 </li>
+                <py:if test="can.dataset.create()">
+                  <li class="divider"></li>
+                  <li><a href="${h.url_for(controller='dataset', action='new')}">Create a new dataset...</a></li>
+                </py:if>
               </ul>
             </li>
             <li><a href="http://wiki.openspending.org/">About</a></li>

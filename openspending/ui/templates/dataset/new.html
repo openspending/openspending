@@ -9,7 +9,23 @@
   <div py:def="content">
     <h2 class="page-header">Create a dataset</h2>
     <div class="row">
-      <div class="offset4 span12">
+      <div class="span4">
+        <div class="alert-message block-message info">
+          <strong>Hi there!</strong> 
+          If you have a spending or budget dataset that 
+          you can contribute, please give some basic information 
+          here.
+          <br/><br/>In the next steps, you'll
+          <ol>
+            <li>add references to <strong>data sources</strong>,</li>
+            <li>create a <strong>data model</strong> to describe the format,</li>
+            <li><strong>test</strong> the correctness of your model,</li>
+            <li><strong>import</strong> the data,</li>
+            <li>and generate <strong>visualized views</strong>.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="span12">
         <form class="basic" id="login" action="/datasets" method="POST">
           <fieldset>
             <div class="clearfix">

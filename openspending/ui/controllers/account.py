@@ -45,8 +45,6 @@ class AccountController(BaseController):
                 account.fullname = data['fullname']
                 account.email = data['email']
                 account.password = generate_password_hash(data['password1'])
-                if app_globals.sandbox_mode:
-                    account.admin = True
                 db.session.add(account)
                 db.session.commit()
                 who_api = get_api(request.environ)

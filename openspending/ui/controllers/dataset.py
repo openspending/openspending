@@ -13,7 +13,8 @@ from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import to_jsonp
 from openspending.lib import json
 from openspending.ui.lib import helpers as h
-from openspending.ui.lib.base import BaseController, render, abort
+from openspending.ui.lib.base import BaseController, render
+from openspending.ui.lib.base import abort, require
 from openspending.ui.lib.browser import Browser
 from openspending.ui.lib.views import View, ViewState, handle_request
 from openspending.ui.lib.color import rgb_rainbow
@@ -46,16 +47,19 @@ class DatasetController(BaseController):
 
     def new(self, errors={}):
         c.currencies = sorted(CURRENCIES.items(), key=lambda (k,v): v)
+        require.account.create()
         return render('dataset/new.html', form_errors=errors,
                 form_fill=request.params if errors else None)
 
     def create(self):
+        require.account.create()
         try:
             model = {'dataset': request.params}
             schema = dataset_schema(ValidationState(model))
             data = schema.deserialize(request.params)
             dataset = Dataset({'dataset': data})
             dataset.private = True
+            dataset.managers.append(c.account)
             db.session.add(dataset)
             db.session.commit()
             redirect(h.url_for(controller='dataset', action='view', 

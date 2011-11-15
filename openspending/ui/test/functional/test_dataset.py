@@ -12,6 +12,7 @@ class TestDatasetController(ControllerTestCase):
 
         super(TestDatasetController, self).setup()
         h.load_fixture('cra')
+        h.make_account('test')
         h.clean_and_reindex_solr()
 
     def test_index(self):
@@ -131,3 +132,18 @@ class TestDatasetController(ControllerTestCase):
         response = self.app.get(url(controller='dataset', action='new'), 
             params={'limit': '20'})
         assert "Create a dataset" in response.body
+    
+    def test_create_dataset(self):
+        response = self.app.post(url(controller='dataset', action='create'))
+        assert "Create a dataset" in response.body
+        assert "Required" in response.body
+
+        params = {'name': 'testds', 'label': 'Test Dataset', 
+                  'description': 'I\'m a banana!', 'currency': 'EUR'}
+        
+        response = self.app.post(url(controller='dataset', action='create'),
+                params=params, extra_environ={'REMOTE_USER': 'test'})
+        assert "302" in response.status
+
+        ds = Dataset.by_name('testds')
+        assert ds.label == params['label'], ds

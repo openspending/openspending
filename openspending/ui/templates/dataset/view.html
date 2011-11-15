@@ -44,6 +44,13 @@
           <li><a href="${url(controller='entry', action='index', dataset=c.dataset.name)}">Search</a>: ${c.num_entries} spending entries</li>
           <li><a href="${url(controller='dimension', action='index',
             dataset=c.dataset.name)}">Dimensions</a>: Explore the data model</li>
+          <py:if test="can.dataset.update(c.dataset)">
+          <li>
+              <span class="label important">Admin</span>
+              <a class="admin-link" href="${url(controller='dimension',
+              action='index', dataset=c.dataset.name)}">
+              Edit metadata</a>: Edit the core metadata fields.</li>
+          </py:if>
         </ul>
       </div>
     </div>
