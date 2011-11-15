@@ -47,10 +47,10 @@ jQuery(document).ready(function($) {
     target: '#content',
     dataset: datasetId,
     defaults: {
-      drilldowns: ['cofog1', 'cofog2']
+      drilldowns: ${c.drilldown_fields},
+      breakdown: ${c.breakdown_field}
     }
   };
-  console.log(datasetId);
   var explorer = new OpenSpending.App.Explorer(config);
   explorer.initialize();
 });
