@@ -14,10 +14,9 @@ from openspending.lib.jsonexport import to_jsonp
 from openspending.lib import json
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render
-from openspending.ui.lib.base import abort, require
+from openspending.ui.lib.base import require
 from openspending.ui.lib.browser import Browser
 from openspending.ui.lib.views import View, ViewState, handle_request
-from openspending.ui.lib.color import rgb_rainbow
 from openspending.validation.model.currency import CURRENCIES
 from openspending.validation.model.dataset import dataset_schema
 from openspending.validation.model.common import ValidationState
