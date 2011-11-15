@@ -17,7 +17,7 @@ class TestEditorController(ControllerTestCase):
 
     def test_overview(self):
         response = self.app.get(url(controller='editor', 
-            action='overview', dataset='cra'),
+            action='index', dataset='cra'),
             extra_environ={'REMOTE_USER': 'test'})
         assert 'Manage the dataset' in response.body
 
