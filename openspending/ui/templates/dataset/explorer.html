@@ -8,59 +8,59 @@
   <py:def function="page_title">Explore ${c.dataset.get('label')}</py:def>
 
   <py:def function="optional_head">
-    <link type="text/css" href="${h.static('js/vendor/jquery-ui/css/ui-lightness/jquery-ui.custom.css')}" rel="stylesheet" />
-    <link rel="stylesheet" href="${h.static('css/explorer.css')}" type="text/css"/>
-
-    ${script_tag('vendor/jquery.json-2.2')}
-    ${script_tag('vendor/jquery-ui/jquery-ui')}
-
-    ${script_tag('vendor/json2')}
-    ${script_tag('vendor/underscore')}
-    ${script_tag('vendor/backbone')}
-
-    ${script_tag('vendor/jquery.history')}
-    ${script_tag('vendor/jquery.tooltip.min')}
-    ${script_tag('vendor/raphael')}
-    ${script_tag('vendor/vis4')}
-    ${script_tag('vendor/Tween')}
-
-    <script src="${h.static('app/bubbletree/bubbletree.min.js')}"> </script>
-
-    ${script_tag('utils/utils.js')}
-    ${script_tag('datastore.js')}
-    ${script_tag('model.js')}
-    ${script_tag('aggregator.js')}
-
-    <!-- our scripts -->
-    <link rel="stylesheet" type="text/css" href="${h.static('app/bubbletree/css/style.tooltips.css')}" />
-
-    <!-- this app -->
-    <script type="text/javascript" src="${h.static('app/explorer-v2/js/explorer.js')}"></script>
-
-  <script type="text/javascript">
-jQuery(document).ready(function($) {
-  var datasetId = '${c.dataset["name"]}';
-  var config = {
-    endpoint: '/',
-    target: '#content',
-    dataset: datasetId
-  };
-  var explorer = new OpenSpending.App.Explorer(config);
-  explorer.initialize();
-});
-  </script>
+    <!--link rel="stylesheet" href="${h.static('css/explorer.css')}" type="text/css"/-->
+    <link rel="stylesheet" type="text/css" href="${h.static('js/vendor/bubbletree/1.0/bubbletree.css')}" />
     <style type="text/css">
+      .explorer #controls {
+        display: none;
+      }
+
       #controls-vis-type {
         display: none;
       }
     </style>
   </py:def>
 
+  <py:def function="scripts">
+    ${script_tag('vendor/jquery.json-2.2')}
+    ${script_tag('vendor/jquery.history')}
+    ${script_tag('vendor/jquery.tooltip')}
+    ${script_tag('vendor/raphael')}
+    ${script_tag('vendor/vis4')}
+    ${script_tag('vendor/Tween')}
+    ${script_tag('vendor/bubbletree/1.0/bubbletree')}
 
+    <!-- our scripts -->
+    ${script_tag('utils/utils')}
+    ${script_tag('datastore')}
+    ${script_tag('model')}
+    ${script_tag('aggregator')}
+
+    <!-- this app -->
+    <script type="text/javascript" src="${h.static('app/explorer-v2/js/explorer.js')}"></script>
+
+    <script type="text/javascript">
+jQuery(document).ready(function($) {
+  var datasetId = '${c.dataset["name"]}';
+  var config = {
+    endpoint: '/',
+    target: '#content',
+    dataset: datasetId,
+    defaults: {
+      drilldowns: ['cofog1', 'cofog2']
+    }
+  };
+  console.log(datasetId);
+  var explorer = new OpenSpending.App.Explorer(config);
+  explorer.initialize();
+});
+    </script>
+  </py:def>
+
+  <py:def function="page_title">Explorer</py:def>
   <div py:def="content">
     <h2 id="page-header">Explore ${c.dataset['label']}</h2>
-
- </div>
+  </div>
 
   <xi:include href="../layout.html" />
 </html>
