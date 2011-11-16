@@ -12,7 +12,7 @@
     ${editor_nav('core')}
     <div class="row">
       <div class="offset4 span12">
-        <form class="basic" id="login" action="${url(controller='editor',
+        <form class="basic" action="${url(controller='editor',
           action='core_update', dataset=c.dataset.name)}" method="POST">
           <input name="name" value="${c.dataset.name}" type="hidden" />
           <fieldset>
