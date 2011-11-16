@@ -11,7 +11,45 @@
   <div py:def="content">
     ${editor_nav('index')}
 
-    ToDo: Add sources list, sources add, load, flush, drop, publish.
+    <div class="row">
+      <div class="span12">
+        <h3>Source files</h3>
+        <div py:if="not len(list(c.dataset.sources))" 
+          class="alert-message block-message info">
+          <p>
+          <strong>Congratulations, your dataset is now created.</strong> Next, you'll need
+          to link to a source file that contains the data (or a sample for testing
+          if your dataset is very large!). The data must be in the CSV format.
+          </p>
+          <ul>
+            <li>Learn about <a href="#">how to export CSV</a> from various common
+              applications.</li>
+            <li>Help on <a href="#">common data wrangling tasks</a> needed to clean
+              source data.</li>
+          </ul>
+
+          <div class="alert-actions">
+            <a class="btn small" href="#">Add a source</a>
+          </div>
+        </div>
+      </div>
+      <div class="span4">
+        <h3>Dataset Actions</h3>
+        <a href="#" class="btn disabled">Update search index</a>
+        <span class="help-block">You cannot index as no 
+          data is loaded.</span>
+        <br/>
+        <a href="#" class="btn danger disabled">Delete loaded data</a>
+        <span class="help-block">Delete all loaded data to fix 
+          errors and re-edit the data dimensions.</span>
+        <br/>
+        <a href="#" class="btn success disabled">Make public</a>
+        <span class="help-block">After you've performed some QA,
+          let the world see this dataset.</span>
+        <br/>
+      </div>
+    </div>
+
   </div>
 
   <xi:include href="../layout.html" />

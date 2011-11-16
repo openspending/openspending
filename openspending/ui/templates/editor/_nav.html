@@ -16,24 +16,6 @@
       <small>Manage the dataset</small>
     </h2>
     
-    <div class="alert-message block-message info">
-      <p>
-      <strong>Congratulations, your dataset is now created.</strong> Next, you'll need
-      to link to a source file that contains the data (or a sample for testing
-      if your dataset is very large!). The data must be in the CSV format.
-      </p>
-      <ul>
-        <li>Learn about <a href="#">how to export CSV</a> from various common
-          applications.</li>
-        <li>Help on <a href="#">common data wrangling tasks</a> needed to clean
-          source data.</li>
-      </ul>
-
-      <div class="alert-actions">
-        <a class="btn small" href="#">Add a source</a>
-      </div>
-    </div>
-
     <ul class="tabs">
       <li class="${'active' if section == 'index' else ''}">
           <a href="${url(controller='editor', action='index', dataset=c.dataset.name)}">Dashboard</a></li>
