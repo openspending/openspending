@@ -3,6 +3,8 @@
   xmlns:xi="http://www.w3.org/2001/XInclude"
   py:strip="">
   <xi:include href="_nav.html" />
+  <xi:include href="../source/_new_form.html" />  
+  <xi:include href="../source/_list.html" />  
 
   <py:def function="nav_class">nav-editor</py:def>
 
@@ -29,8 +31,12 @@
           </ul>
 
           <div class="alert-actions">
-            <a class="btn small" href="#">Add a source</a>
+            <a class="btn small" data-backdrop="true" data-controls-modal="new-source" href="#">Add a source</a>
           </div>
+        </div>
+        <div py:if="len(list(c.dataset.sources))">
+          ${sources_list(c.dataset)}
+          <a class="btn success small" data-backdrop="true" data-controls-modal="new-source" href="#">Add a source</a>
         </div>
       </div>
       <div class="span4">
@@ -48,9 +54,37 @@
           let the world see this dataset.</span>
         <br/>
       </div>
+
+
+      <!-- Create source modal -->
+      <div id="new-source" class="modal hide fade">
+        <form class="basic" action="${h.url(controller='source', action='create',
+          dataset=c.dataset.name)}" method="POST">
+          <div class="modal-header">
+            <h3>Create a new data source</h3>
+          </div>
+          <div class="modal-body">
+            ${new_form()}
+          </div>
+          <div class="modal-footer">
+             <input value="Create" class="btn success" type="submit" />
+           </div>
+        </form>
+      </div>
     </div>
+    
+    <py:def function="scripts">
+      ${script_tag('vendor/bootstrap-modal')}
+      <script>
+        /*jQuery(document).ready(function($) {
+          $('#  foo new-source').modal(options)
+        });*/
+      </script>
+    </py:def>
 
   </div>
+
+
 
   <xi:include href="../layout.html" />
 </html>

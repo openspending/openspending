@@ -76,6 +76,9 @@ body {
   font-size: 105%;
 }
 
+.modal form {
+  margin-bottom: 0px;
+}
 
 footer ul {
   list-style-type: none;
@@ -333,6 +336,16 @@ table td.num {
 .help-page .highlighttable table td + td {
   border-left: 0px;
   padding: 0px;
+}
+
+/* Data sources */
+table.sources td {
+  vertical-align: middle;
+}
+
+table.sources td.ops {
+  width: 25%;
+  text-align: right;
 }
 
 

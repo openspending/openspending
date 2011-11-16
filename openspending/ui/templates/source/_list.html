@@ -1,0 +1,34 @@
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:py="http://genshi.edgewall.org/"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  py:strip=""
+  >
+
+  <py:def function="sources_list(dataset)">
+    <table class="sources">
+      <tr>
+        <th>Link</th>
+        <th>Operations</th>
+      </tr>
+      <py:for each="source in dataset.sources">
+        <tr>
+          <td><a href="${source.url}">${source.name}</a></td>
+          <py:if test="source == dataset.sources[0]">
+            <td class="ops">
+              <a class="btn small">Test a sample</a>
+              <a class="btn success small">Load</a>
+            </td>
+          </py:if>
+          <py:if test="source != dataset.sources[0]">
+            <td></td>
+          </py:if>
+        </tr>
+      </py:for>
+    </table>
+  </py:def>
+
+</html>
+
+

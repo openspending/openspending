@@ -6,10 +6,19 @@
   py:strip=""
   >
 
-  <py:def function="new_form(errors)">
-    
+  <py:def function="new_form()">
+    <fieldset>
+      <div class="clearfix">
+        <label for="url">URL</label>
+        <div class="input">
+          <input name="url" class="span6" placeholder="http://thedatahub.org/.../myfile.csv" />
+          <span class="help-block">This must point directly at a
+            valid CSV file. HTML landing pages or other formats, such as
+            Excel, will not work.</span>
+        </div>
+      </div>
+    </fieldset>
   </py:def>
-
 
 </html>
 
