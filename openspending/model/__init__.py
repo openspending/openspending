@@ -7,6 +7,7 @@ from openspending.model.dimension import AttributeDimension, \
         CompoundDimension, Measure, Dimension, DateDimension
 from openspending.model.dataset import Dataset
 from openspending.model.account import Account
+from openspending.model.source import Source
 
 # shut up useless SA warning:
 import warnings
