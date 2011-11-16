@@ -29,10 +29,11 @@ class EditorController(BaseController):
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
         c.currencies = sorted(CURRENCIES.items(), key=lambda (k,v): v)
+        errors = [(k[len('dataset.'):], v) for k, v in errors.items()]
         fill = c.dataset.dataset.copy()
         if errors:
             fill.update(request.params)
-        return render('editor/core.html', form_errors=errors, 
+        return render('editor/core.html', form_errors=dict(errors), 
                 form_fill=fill)
 
     def core_update(self, dataset, errors={}, format='html'):

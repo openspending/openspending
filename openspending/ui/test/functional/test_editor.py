@@ -38,3 +38,24 @@ class TestEditorController(ControllerTestCase):
         assert cra.label=='Common Rough Act', cra.label
         assert cra.dataset['label']=='Common Rough Act', cra.dataset
         assert cra.currency=='EUR', cra.currency
+    
+    def test_core_update_invalid_label(self):
+        response = self.app.post(url(controller='editor', 
+            action='core_update', dataset='cra'),
+            params={'name': 'cra', 'label': '',
+                    'description': 'I\'m a banana', 'currency': 'GBP'},
+            extra_environ={'REMOTE_USER': 'test'})
+        assert 'Required' in response.body
+        cra = Dataset.by_name('cra')
+        assert cra.label!='Common Rough Act', cra.label
+        assert cra.dataset['label']!='Common Rough Act', cra.dataset
+    
+    def test_core_update_invalid_currency(self):
+        response = self.app.post(url(controller='editor', 
+            action='core_update', dataset='cra'),
+            params={'name': 'cra', 'label': 'Common Rough Act',
+                    'description': 'I\'m a banana', 'currency': 'glass pearls'},
+            extra_environ={'REMOTE_USER': 'test'})
+        assert 'not a valid currency' in response.body
+        cra = Dataset.by_name('cra')
+        assert cra.currency=='GBP', cra.label
