@@ -22,8 +22,12 @@
       <li class="${'active' if section == 'core' else ''}">
           <a href="${url(controller='editor', action='core_edit',
             dataset=c.dataset.name)}">Important Info</a></li>
-      <li><a href="#">Data Dimensions</a></li>
-      <li><a href="#">Visualization Views</a></li>
+      <li class="${'active' if section == 'dimensions' else ''}">
+          <a href="${url(controller='editor', action='dimensions_edit',
+            dataset=c.dataset.name)}">Data Dimensions</a></li>
+      <li class="${'active' if section == 'views' else ''}">
+          <a href="${url(controller='editor', action='views_edit',
+            dataset=c.dataset.name)}">Visualization Views</a></li>
     </ul>
   </py:def>
 

@@ -83,6 +83,14 @@ def make_map():
     map.connect('/{dataset}/editor/core', controller='editor',
             action='core_update', conditions=dict(method=['POST']))
     map.connect('/{dataset}/editor/core', controller='editor', action='core_edit')
+    map.connect('/{dataset}/editor/dimensions', controller='editor',
+            action='dimensions_update', conditions=dict(method=['POST']))
+    map.connect('/{dataset}/editor/dimensions', controller='editor', 
+            action='dimensions_edit')
+    map.connect('/{dataset}/editor/views', controller='editor',
+            action='views_update', conditions=dict(method=['POST']))
+    map.connect('/{dataset}/editor/views', controller='editor', 
+            action='views_edit')
     
     map.connect('/{dataset}/sources', controller='source',
             action='create', conditions=dict(method=['POST']))

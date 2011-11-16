@@ -59,3 +59,62 @@ class TestEditorController(ControllerTestCase):
         assert 'not a valid currency' in response.body
         cra = Dataset.by_name('cra')
         assert cra.currency=='GBP', cra.label
+
+    def test_dimensions_edit_mask(self):
+        cra = Dataset.by_name('cra')
+        cra.drop()
+        cra.generate()
+        response = self.app.get(url(controller='editor', 
+            action='dimensions_edit', dataset='cra'),
+            extra_environ={'REMOTE_USER': 'test'})
+        assert '"amount"' in response.body
+        assert 'Update' in response.body
+    
+    def test_dimensions_edit_mask_with_data(self):
+        response = self.app.get(url(controller='editor', 
+            action='dimensions_edit', dataset='cra'),
+            extra_environ={'REMOTE_USER': 'test'})
+        assert 'cannot edit dimensions' in response.body
+        assert '"amount"' not in response.body
+        assert 'Update' not in response.body
+
+    def test_dimensions_update_invalid_json(self):
+        cra = Dataset.by_name('cra')
+        cra.drop()
+        cra.generate()
+        response = self.app.post(url(controller='editor', 
+            action='dimensions_update', dataset='cra'),
+            params={'mapping': 'banana'},
+            extra_environ={'REMOTE_USER': 'test'},
+            expect_errors=True)
+        assert '400' in response.status, response.status
+
+    def test_views_edit_mask(self):
+        response = self.app.get(url(controller='editor', 
+            action='views_edit', dataset='cra'),
+            extra_environ={'REMOTE_USER': 'test'})
+        assert '"default"' in response.body
+        assert 'Update' in response.body
+    
+    def test_views_update(self):
+        cra = Dataset.by_name('cra')
+        views = cra.data['views']
+        views[0]['label'] = 'Banana'
+        response = self.app.post(url(controller='editor', 
+            action='views_update', dataset='cra'),
+            params={'views': json.dumps(views)},
+            extra_environ={'REMOTE_USER': 'test'},
+            expect_errors=True)
+        assert '200' in response.status, response.status
+        cra = Dataset.by_name('cra')
+        assert 'Banana' in repr(cra.data['views'])
+
+
+    def test_views_update_invalid_json(self):
+        response = self.app.post(url(controller='editor', 
+            action='views_update', dataset='cra'),
+            params={'views': 'banana'},
+            extra_environ={'REMOTE_USER': 'test'},
+            expect_errors=True)
+        assert '400' in response.status, response.status
+
