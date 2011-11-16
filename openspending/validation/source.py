@@ -7,7 +7,7 @@ from openspending.validation.model.predicates import chained, \
 
 def valid_url(url):
     parsed = urlparse(url)
-    if ('http', 'https') not in parsed.scheme.lower():
+    if parsed.scheme.lower() not in ('http', 'https'):
         return "Only HTTP/HTTPS web addresses are supported " \
                 "at the moment."
     return True
