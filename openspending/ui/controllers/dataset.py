@@ -60,7 +60,7 @@ class DatasetController(BaseController):
             dataset.managers.append(c.account)
             db.session.add(dataset)
             db.session.commit()
-            redirect(h.url_for(controller='dataset', action='view', 
+            redirect(h.url_for(controller='editor', action='index', 
                                dataset=dataset.name))
         except Invalid, i:
             errors = i.asdict()
