@@ -80,5 +80,14 @@ setup(
         'console_scripts': [
             'ostool = openspending.command:main'
         ]
-    }
+    },
+
+    message_extractors = {'openspending': [
+            ('**.py', 'python', None),
+            ('ui/templates/docs/**.html', 'ignore', None),
+            ('ui/templates/**.html', 'genshi', {
+                'ignore_tags': 'script'
+            }),
+            ('ui/public/**', 'ignore', None),
+            ]},
 )

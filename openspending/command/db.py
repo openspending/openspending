@@ -24,6 +24,9 @@ def drop_collections():
 def drop_dataset(name):
     log.warn("Dropping dataset '%s'", name)
     dataset = db.session.query(Dataset).filter_by(name=name).first()
+    if dataset is None:
+        log.warn("Dataset does not exist: '%s'", name)
+        return 1
     dataset.drop()
     db.session.delete(dataset)
     db.session.commit()

@@ -181,7 +181,7 @@ class Dataset(TableHandler, db.Model):
         return self.alias.c[dimension.column.name]
 
     def entries(self, conditions="1=1", order_by=None, limit=None,
-            offset=None, step=10000):
+            offset=0, step=10000):
         """ Generate a fully denormalized view of the entries on this 
         table. This view is nested so that each dimension will be a hash
         of its attributes. 
@@ -194,16 +194,20 @@ class Dataset(TableHandler, db.Model):
             joins = d.join(joins)
         selects = [f.selectable for f in self.fields] + [self.alias.c.id]
 
-        if limit is not None:
-            step = min(limit, step)
+        # enforce stable sorting:
+        if order_by is None:
+            order_by = [self.alias.c.id.asc()]
 
         for i in count():
-            qoffset = (offset or 0) + (step * i)
-            if limit is not None and qoffset >= limit:
+            qoffset = offset + (step * i)
+            qlimit = step
+            if limit is not None:
+                qlimit = min(limit-(step*i), step)
+            if qlimit <= 0:
                 break
 
             query = db.select(selects, conditions, joins, order_by=order_by,
-                              use_labels=True, limit=step, offset=qoffset)
+                              use_labels=True, limit=qlimit, offset=qoffset)
             rp = self.bind.execute(query)
 
             first_row = True

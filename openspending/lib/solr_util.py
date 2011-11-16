@@ -160,16 +160,13 @@ def build_index(dataset_name):
     dataset_ = model.Dataset.by_name(dataset_name)
     assert dataset_ is not None, "No such dataset: %s" % dataset_name
     buf = []
-    total = 0
-    increment = 1000
-    for entry in dataset_.entries():
+    for i, entry in enumerate(dataset_.entries()):
         ourdata = extend_entry(entry, dataset_)
         buf.append(ourdata)
-        if len(buf) == increment:
+        if i and i % 1000 == 0:
             solr.add_many(buf)
             solr.commit()
-            total += increment
-            log.info("Indexed %d entries", total)
+            log.info("Indexed %d entries", i)
             buf = []
     solr.add_many(buf)
     solr.commit()

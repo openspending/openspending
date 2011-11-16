@@ -310,8 +310,46 @@ table td.num {
   color: #333;
 }
 
-.help-page .pre {
+.help-page .pre,
+.help-page pre {
   font-family: monospace;
   background-color: #efefef;
+  font-size: 11px;
 }
+
+.help-page dt .pre {
+  font-weight: bolder;
+}
+
+.help-page dd {
+  margin-bottom: 5px;
+}
+
+.help-page .highlighttable {
+  border: 0px;
+}
+
+.help-page .highlighttable table th + th, 
+.help-page .highlighttable table td + td {
+  border-left: 0px;
+  padding: 0px;
+}
+
+
+/* Bubbletree vs. Bootstrap specific fixes. */
+.bubbletree .label {
+  padding: 0px;
+  font-weight: normal;
+  background-color: rgba(0,0,0,0);
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+}
+
+.bubbletree .amount,
+.bubbletree .desc {
+   font-family: Share !important;
+}
+
+
 

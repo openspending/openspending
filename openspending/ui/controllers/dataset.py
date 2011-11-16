@@ -60,42 +60,14 @@ class DatasetController(BaseController):
         else:
             return render('dataset/view.html')
 
-    def bubbles(self, name, breakdown_field, drilldown_fields, format="html"):
-        c.drilldown_fields = json.dumps(drilldown_fields.split(','))
-        self._get_dataset(name)
+    def explorer(self, dataset):
+        self._get_dataset(dataset)
         c.dataset_name = c.dataset.name
-
-        # TODO: make this a method
-        c.template = 'dataset/view_bubbles.html'
-
-        curs = model.entry.find({'dataset.name':name})# , {breakdown_field: True})
-        breakdown_names = list(set([ i[breakdown_field]['name'] for i in curs ]))
-
-        count = len(breakdown_names)
-
-        styles = [ s for s in rgb_rainbow(count) ]
-        breakdown_styles = dict([ (breakdown_names[n], styles[n]) for n in range(0, count) ])
-        c.breakdown_styles = [ "'%s' : { color: '%s' }," % (k, v) for k, v in breakdown_styles.iteritems() ]
-        c.breakdown_field = breakdown_field
-
-        handle_request(request, c, c.dataset)
-        if c.view is None:
-            self._make_browser()
-
-        if hasattr(c, 'time'):
-            delattr(c, 'time') # disable treemap(!)
-
-        return render(c.template)
-
-    def explorer(self, name=None):
-        self._get_dataset(name)
-        c.keys_meta = dict([(d.name, {"label": d.label,
-                "description": d.description})
-                for d in c.dataset.dimensions])
-        c.breakdown_keys = c.keys_meta.keys()[:3]
-        c.keys_meta_json = json.dumps(c.keys_meta)
-        c.breakdown_keys_json = json.dumps(c.breakdown_keys)
         return render('dataset/explorer.html')
+
+    def model(self, dataset, format='json'):
+        self._get_dataset(dataset)
+        return to_jsonp(c.dataset.data)
 
     def timeline(self, name):
         self._get_dataset(name)

@@ -79,6 +79,14 @@ class TestDatasetController(ControllerTestCase):
         obj = json.loads(response.body)
         h.assert_equal(obj['name'], 'cra')
         h.assert_equal(obj['label'], 'Country Regional Analysis v2009')
+    
+    def test_model_json(self):
+        response = self.app.get(url(controller='dataset', action='model',
+                                    dataset='cra', format='json'))
+        obj = json.loads(response.body)
+        assert 'dataset' in obj.keys(), obj
+        h.assert_equal(obj['dataset']['name'], 'cra')
+        h.assert_equal(obj['dataset']['label'], 'Country Regional Analysis v2009')
 
     def test_view_csv(self):
         response = self.app.get(url(controller='dataset', action='view',
