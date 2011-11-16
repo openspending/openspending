@@ -31,6 +31,35 @@ class TestSourceController(ControllerTestCase):
             extra_environ={'REMOTE_USER': 'test'},
             expect_errors=True)
         assert '404' in response.status, response.status
+    
+    def test_new_source(self):
+        response = self.app.get(url(controller='source', 
+            action='new', dataset='cra'),
+            extra_environ={'REMOTE_USER': 'test'})
+        assert 'Create a data source' in response.body
 
+    def test_create_source(self):
+        url_ = 'http://banana.com/split.csv'
+        response = self.app.post(url(controller='source', 
+            action='create', dataset='cra'),
+            params={'url': url_},
+            extra_environ={'REMOTE_USER': 'test'})
 
+        response = self.app.get(url(controller='editor', 
+            action='index', dataset='cra'),
+            extra_environ={'REMOTE_USER': 'test'})
+        assert url_ in response.body, response.body
+
+    def test_create_source_invalid_url(self):
+        url_ = 'banana'
+        response = self.app.post(url(controller='source', 
+            action='create', dataset='cra'),
+            params={'url': url_},
+            extra_environ={'REMOTE_USER': 'test'})
+        assert 'HTTP/HTTPS' in response.body
+        
+        response = self.app.get(url(controller='editor', 
+            action='index', dataset='cra'),
+            extra_environ={'REMOTE_USER': 'test'})
+        assert url_ not in response.body, response.body
 
