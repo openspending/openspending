@@ -55,9 +55,9 @@ class DimensionController(BaseController):
         try:
             c.dimension = c.dataset[dimension]
         except KeyError:
-            abort(400, _('This is not a dimension'))
+            abort(404, _('This is not a dimension'))
         if not isinstance(c.dimension, model.Dimension):
-            abort(400, _('This is not a dimension'))
+            abort(404, _('This is not a dimension'))
 
         # TODO: pagination!
         try:
