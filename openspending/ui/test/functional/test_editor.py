@@ -109,11 +109,39 @@ class TestEditorController(ControllerTestCase):
         cra = Dataset.by_name('cra')
         assert 'Banana' in repr(cra.data['views'])
 
-
     def test_views_update_invalid_json(self):
         response = self.app.post(url(controller='editor', 
             action='views_update', dataset='cra'),
             params={'views': 'banana'},
+            extra_environ={'REMOTE_USER': 'test'},
+            expect_errors=True)
+        assert '400' in response.status, response.status
+
+    def test_publish(self):
+        cra = Dataset.by_name('cra')
+        cra.private = True
+        db.session.commit()
+        response = self.app.post(url(controller='editor', 
+            action='publish', dataset='cra'),
+            extra_environ={'REMOTE_USER': 'test'})
+        cra = Dataset.by_name('cra')
+        assert cra.private is False, cra.private
+        response = self.app.post(url(controller='editor', 
+            action='publish', dataset='cra'),
+            extra_environ={'REMOTE_USER': 'test'},
+            expect_errors=True)
+        assert '400' in response.status, response.status
+
+    def test_retract(self):
+        cra = Dataset.by_name('cra')
+        assert cra.private is False, cra.private
+        response = self.app.post(url(controller='editor', 
+            action='retract', dataset='cra'),
+            extra_environ={'REMOTE_USER': 'test'})
+        cra = Dataset.by_name('cra')
+        assert cra.private is True, cra.private
+        response = self.app.post(url(controller='editor', 
+            action='retract', dataset='cra'),
             extra_environ={'REMOTE_USER': 'test'},
             expect_errors=True)
         assert '400' in response.status, response.status

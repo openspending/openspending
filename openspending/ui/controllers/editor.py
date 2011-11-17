@@ -1,6 +1,7 @@
 import logging
 import json
 
+from pylons.controllers.util import redirect
 from pylons import request, tmpl_context as c
 from pylons.i18n import _
 from colander import Invalid
@@ -117,3 +118,35 @@ class EditorController(BaseController):
         except Invalid, i:
             errors = i.asdict()
         return self.views_edit(dataset, errors=errors, views=views)
+
+    def drop(self, dataset):
+        self._get_dataset(dataset)
+        require.dataset.update(c.dataset)
+        pass
+
+    def publish(self, dataset):
+        self._get_dataset(dataset)
+        require.dataset.update(c.dataset)
+        if not c.dataset.private:
+            abort(400, _("This dataset is already public!"))
+        c.dataset.private = False
+        db.session.commit()
+        public_url = h.url_for(controller='dataset', action='view', 
+                           dataset=c.dataset.name, qualified=True)
+        h.flash_success(_("Congratulations, the dataset has been " \
+                "published. It is now available at: %s") % public_url)
+        redirect(h.url_for(controller='editor', action='index', 
+                           dataset=c.dataset.name))
+
+    def retract(self, dataset):
+        self._get_dataset(dataset)
+        require.dataset.update(c.dataset)
+        if c.dataset.private:
+            abort(400, _("This dataset is already private!"))
+        c.dataset.private = True
+        db.session.commit()
+        h.flash_success(_("The dataset has been retracted. " \
+                "It is no longer visible to others."))
+        redirect(h.url_for(controller='editor', action='index', 
+                           dataset=c.dataset.name))
+

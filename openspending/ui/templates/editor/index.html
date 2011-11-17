@@ -45,9 +45,27 @@
         <span class="help-block">Delete all loaded data to fix 
           errors and re-edit the data dimensions.</span>
         <br/>
-        <a href="#" class="btn success disabled">Make public</a>
-        <span class="help-block">After you've performed some QA,
-          let the world see this dataset.</span>
+        <py:if test="c.dataset.private and len(c.dataset)">
+          <form method="POST" action="${h.url(controller='editor',
+            action='publish', dataset=c.dataset.name)}">
+            <input type="submit" class="btn success" value="Make public" />
+            <span class="help-block">After you've performed some QA,
+              let the world see this dataset.</span>
+          </form>
+        </py:if>
+        <py:if test="c.dataset.private and not len(c.dataset)">
+            <a class="btn success disabled">Make public</a>
+            <span class="help-block">After you've performed some QA,
+              let the world see this dataset.</span>
+        </py:if>
+        <py:if test="not c.dataset.private">
+          <form method="POST" action="${h.url(controller='editor',
+            action='retract', dataset=c.dataset.name)}">
+            <input type="submit" class="btn danger" value="Retract" />
+            <span class="help-block">If you have noted serious quality
+              issues or legal issues, you can un-publish this dataset.</span>
+          </form>
+        </py:if>
         <br/>
       </div>
 
