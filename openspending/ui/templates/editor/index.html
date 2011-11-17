@@ -41,10 +41,22 @@
       </div>
       <div class="span4">
         <h3>Dataset Actions</h3>
-        <a href="#" class="btn danger disabled">Delete loaded data</a>
-        <span class="help-block">Delete all loaded data to fix 
-          errors and re-edit the data dimensions.</span>
-        <br/>
+        <py:if test="len(c.dataset)">
+          <form method="POST" action="${h.url(controller='editor',
+            action='drop', dataset=c.dataset.name)}">
+            <input type="submit" class="btn danger" 
+              value="Delete loaded data" />
+            <span class="help-block">Delete all loaded data to fix 
+              errors and re-edit the data dimensions.</span>
+          </form>
+        </py:if>
+        <py:if test="not len(c.dataset)">
+          <a href="#" class="btn danger disabled">Delete loaded data</a>
+          <span class="help-block">You can remove the loaded data
+            at any time and start over.</span>
+          <br/>
+        </py:if>
+
         <py:if test="c.dataset.private and len(c.dataset)">
           <form method="POST" action="${h.url(controller='editor',
             action='publish', dataset=c.dataset.name)}">

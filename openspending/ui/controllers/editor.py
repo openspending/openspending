@@ -122,7 +122,12 @@ class EditorController(BaseController):
     def drop(self, dataset):
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
-        pass
+        c.dataset.drop()
+        c.dataset.generate()
+        db.session.commit()
+        h.flash_success(_("The dataset has been cleared."))
+        redirect(h.url_for(controller='editor', action='index', 
+                           dataset=c.dataset.name))
 
     def publish(self, dataset):
         self._get_dataset(dataset)
