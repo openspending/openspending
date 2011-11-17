@@ -57,6 +57,10 @@ class EditorController(BaseController):
 
     def dimensions_edit(self, dataset, errors={}, mapping=None, 
             format='html'):
+        # FIXME: cannot see this when there are no sources.
+
+        # TODO: handle columns and model guess coming from 
+        # source. 
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
         mapping = mapping or c.dataset.data.get('mapping', {})
@@ -79,6 +83,7 @@ class EditorController(BaseController):
             c.dataset.data['mapping'] = schema.deserialize(mapping)
             # erm...
             c.dataset.drop()
+            c.dataset.generate()
             db.session.commit()
             h.flash_success(_("The mapping has been updated."))
         except (ValueError, TypeError):
