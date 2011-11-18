@@ -22,7 +22,7 @@ class AggregationCache(object):
         self.cache = cache.get_cache('DSCACHE_' + dataset.name,
                                      type=type)
 
-    def aggregate(self, measure='amount', drilldowns=None, cuts=None, 
+    def aggregate(self, measure='amount', drilldowns=None, cuts=None,
         page=1, pagesize=10000, order=None):
         """ For call docs, see ``model.Dataset.aggregate``. """
 
@@ -34,8 +34,10 @@ class AggregationCache(object):
                                           pagesize=pagesize,
                                           order=order)
 
-        key_parts = {'m': measure, 'd': sorted(drilldowns), 
-                     'c': sorted(cuts), 'o': order}
+        key_parts = {'m': measure,
+                     'd': sorted(drilldowns or []),
+                     'c': sorted(cuts or []),
+                     'o': order}
         key = hashlib.sha1(repr(key_parts)).hexdigest()
 
         if self.cache.has_key(key):
