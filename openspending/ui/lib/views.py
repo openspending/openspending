@@ -27,6 +27,8 @@ class View(object):
     def match(self, obj, dimension=None):
         if isinstance(obj, Dataset):
             return self.entity == 'dataset'
+        if self.dimension != dimension:
+            return False
         for k, v in self.filters.items():
             if obj.get(k) != v:
                 return False
@@ -85,7 +87,7 @@ class ViewState(object):
         views = []
         for data in self.dataset.data.get('views', []):
             view = View(self.dataset, data)
-            if view.match(self.obj):
+            if view.match(self.obj, self.view.dimension):
                 views.append(view)
         return views
 
