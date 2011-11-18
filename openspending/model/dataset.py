@@ -80,6 +80,7 @@ class Dataset(TableHandler, db.Model):
             else:
                 dimension = CompoundDimension(self, dim, data)
             self.dimensions.append(dimension)
+        self.init()
         self.generate()
 
     def __getitem__(self, name):
@@ -100,22 +101,29 @@ class Dataset(TableHandler, db.Model):
         return filter(lambda d: isinstance(d, CompoundDimension),
                 self.dimensions)
 
-    def generate(self):
-        """ Create the tables and columns necessary for this dataset
-        to keep data. Since this will also create references to these
-        tables and columns in the model representation, this needs to
-        be called even for access to the data, not just upon loading.
-        """
+    def init(self):
+        """ Create a SQLAlchemy model for the current dataset model, 
+        without creating the tables and columns. This needs to be 
+        called both for access to the data and in order to generate
+        the model physically. """
         self.bind = db.engine #.connect()
         self.meta = db.MetaData()
         #self.tx = self.bind.begin()
         self.meta.bind = db.engine
 
-        self._ensure_table(self.meta, self.name, 'entry',
-                           id_type=db.Unicode(42))
+        self._init_table(self.meta, self.name, 'entry',
+                         id_type=db.Unicode(42))
+        for field in self.fields:
+            field.init(self.meta, self.table)
+        self.alias = self.table.alias('entry')
+
+    def generate(self):
+        """ Create the tables and columns necessary for this dataset
+        to keep data.
+        """
         for field in self.fields:
             field.generate(self.meta, self.table)
-        self.alias = self.table.alias('entry')
+        self._generate_table()
 
     def commit(self):
         pass

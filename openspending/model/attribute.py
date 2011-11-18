@@ -24,13 +24,10 @@ class Attribute(object):
     def column_alias(self):
         return self.parent.alias.c[self.column.name]
 
-    def generate(self, meta, table):
-        """ Create the column on a given table, selecting the proper
-        data type from attribute metadata. 
+    def init(self, meta, table):
+        """ Make a model for this attribute, selecting the proper
+        data type from attribute metadata.
         """
-        if self.name in table.c:
-            self.column = table.c[self.name]
-            return
         # TODO: fetch this from AttributeType system?
         types = {
             'string': db.UnicodeText,
@@ -40,7 +37,11 @@ class Attribute(object):
                 }
         type_ = types.get(self.datatype, db.UnicodeText)
         self.column = db.Column(self.name, type_)
-        self.column.create(table)
+        table.append_column(self.column)
+
+    def generate(self, meta, table):
+        """ Create the column on a given table. """
+        pass
 
     def load(self, bind, value):
         return {self.column.name: value}

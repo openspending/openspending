@@ -27,18 +27,20 @@ class TableHandler(object):
     and dimensions to generate, write and clear the table under 
     its management. """
 
-    def _ensure_table(self, meta, namespace, name, id_type=db.Integer):
+    def _init_table(self, meta, namespace, name, id_type=db.Integer):
         """ Create the given table if it does not exist, otherwise
         reflect the current table schema from the database.
         """
         name = namespace + '__' + name
-        if not db.engine.has_table(name):
-            self.table = db.Table(name, meta)
-            col = db.Column('id', id_type, primary_key=True)
-            self.table.append_column(col)
+        self.table = db.Table(name, meta)
+        col = db.Column('id', id_type, primary_key=True)
+        self.table.append_column(col)
+
+    def _generate_table(self):
+        """ Create the given table if it does not exist. """
+        # TODO: make this support some kind of migration?
+        if not db.engine.has_table(self.table.name):
             self.table.create(db.engine)
-        else:
-            self.table = db.Table(name, meta, autoload=True)
 
     def _upsert(self, bind, data, unique_columns):
         """ Upsert a set of values into the table. This will 

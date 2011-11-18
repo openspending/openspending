@@ -127,23 +127,23 @@ class CompoundDimension(Dimension, TableHandler):
                 return attr
         raise KeyError()
 
+    def init(self, meta, entry_table):
+        self._init_table(meta, self.dataset.name, self.name)
+        for attr in self.attributes:
+            attr.init(meta, self.table)
+        self.column = db.Column(self.name + '_id', db.Integer, index=True)
+        entry_table.append_column(self.column)
+        alias_name = self.name.replace('_', ALIAS_PLACEHOLDER)
+        self.alias = self.table.alias(alias_name)
+
     def generate(self, meta, entry_table):
         """ Create the table and column associated with this dimension 
         if it does not already exist and propagate this call to the 
         associated attributes. 
         """
-        self._ensure_table(meta, self.dataset.name, self.name)
         for attr in self.attributes:
             attr.generate(meta, self.table)
-        fk = self.name + '_id'
-        if not fk in entry_table.c:
-            self.column = db.Column(self.name + '_id', db.Integer, index=True)
-            index = self.dataset.name + '__' + self.name + '_id_index'
-            self.column.create(entry_table, index_name=index)
-        else:
-            self.column = entry_table.c[fk]
-        alias_name = self.name.replace('_', ALIAS_PLACEHOLDER)
-        self.alias = self.table.alias(alias_name)
+        self._generate_table()
 
     def load(self, bind, row):
         """ Load a row of data into this dimension by upserting the attribute 
