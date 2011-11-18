@@ -5,6 +5,7 @@ import logging
 from collections import defaultdict
 
 from openspending.model import Dataset
+from openspending.ui.lib.cache import AggregationCache
 
 log = logging.getLogger(__name__)
 
@@ -102,8 +103,9 @@ class ViewState(object):
     def totals(self):
         if self._totals is None:
             self._totals = {}
-            results = self.dataset.aggregate(drilldowns=['year'], 
-                                             cuts=self.cuts)
+            cache = AggregationCache(self.dataset)
+            results = cache.aggregate(drilldowns=['year'], 
+                                      cuts=self.cuts)
             for entry in results.get('drilldown'):
                 self._totals[str(entry.get('year'))] = entry.get('amount')
         return self._totals
@@ -116,8 +118,9 @@ class ViewState(object):
             res = defaultdict(dict)
             drilldowns = {}
             query = ['year', self.view.drilldown]
-            results = self.dataset.aggregate(drilldowns=query,
-                                             cuts=self.cuts)
+            cache = AggregationCache(self.dataset)
+            results = cache.aggregate(drilldowns=query,
+                                      cuts=self.cuts)
             for entry in results.get('drilldown'):
                 d = entry.get(self.view.drilldown)
                 # Get a hashable key for the drilldown

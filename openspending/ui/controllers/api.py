@@ -8,6 +8,7 @@ from openspending import model
 from openspending.lib import calculator
 from openspending.lib import solr_util as solr
 from openspending.ui.lib.base import BaseController, require
+from openspending.ui.lib.cache import AggregationCache
 from openspending.lib.jsonexport import jsonpify
 
 log = logging.getLogger(__name__)
@@ -86,8 +87,9 @@ class ApiController(BaseController):
                 statistics.append((key, value))
             elif 'breakdown' == op:
                 drilldowns.append(key)
-        result = dataset.aggregate(drilldowns=drilldowns + ['time'], 
-                cuts=cuts)
+        cache = AggregationCache(dataset)
+        result = cache.aggregate(drilldowns=drilldowns + ['time'], 
+                                 cuts=cuts)
         #TODO: handle statistics as key-values ??? what's the point?
         for k, v in statistics:
             result = statistic_normalize(dataset, result, v, k)

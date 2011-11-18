@@ -13,6 +13,7 @@ from openspending.ui.lib.page import Page
 from openspending.ui.lib.views import handle_request
 from openspending.ui.lib.helpers import url_for
 from openspending.ui.lib.browser import Browser
+from openspending.ui.lib.cache import AggregationCache
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import to_jsonp
 
@@ -64,8 +65,9 @@ class DimensionController(BaseController):
             page = int(request.params.get('page'))
         except:
             page = 1
-        result = c.dataset.aggregate(drilldowns=[dimension], page=page, 
-                    pagesize=PAGE_SIZE)
+        cache = AggregationCache(c.dataset)
+        result = cache.aggregate(drilldowns=[dimension], page=page, 
+                                 pagesize=PAGE_SIZE)
         items = result.get('drilldown', [])
         c.values = [(d.get(dimension), d.get('amount')) for d in items]
 

@@ -1,8 +1,14 @@
-from pylons import request
+import logging
+
+from pylons import request, response
+from pylons.controllers.util import etag_cache
 
 from openspending import model
 from openspending.lib.jsonexport import jsonpify
 from openspending.ui.lib.base import BaseController, require
+from openspending.ui.lib.cache import AggregationCache
+
+log = logging.getLogger(__name__)
 
 class Api2Controller(BaseController):
 
@@ -24,11 +30,20 @@ class Api2Controller(BaseController):
             return {'errors': errors}
 
         try:
-            result = dataset.aggregate(measure=measure, 
-                                       drilldowns=drilldowns, 
-                                       cuts=cuts, page=page, 
-                                       pagesize=pagesize, order=order)
+            cache = AggregationCache(dataset)
+            result = cache.aggregate(measure=measure, 
+                                     drilldowns=drilldowns, 
+                                     cuts=cuts, page=page, 
+                                     pagesize=pagesize, order=order)
+
+            if cache.cache_enabled and 'cache_key' in result['summary']:
+                if 'Pragma' in response.headers:
+                    del response.headers['Pragma']
+                response.cache_control = 'public; max-age: 84600'
+                etag_cache(result['summary']['cache_key'])
+
         except (KeyError, ValueError) as ve:
+            log.exception(ve)
             return {'errors': ['Invalid aggregation query: %r' % ve]}
 
         return result
