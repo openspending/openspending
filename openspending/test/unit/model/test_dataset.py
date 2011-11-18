@@ -75,6 +75,7 @@ class TestDatasetLoad(DatabaseTestCase):
     def setup(self):
         super(TestDatasetLoad, self).setup()
         self.ds = Dataset(SIMPLE_MODEL)
+        self.ds.generate()
         self.engine = db.engine
     
     def test_load_all(self):

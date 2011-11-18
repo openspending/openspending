@@ -81,7 +81,6 @@ class Dataset(TableHandler, db.Model):
                 dimension = CompoundDimension(self, dim, data)
             self.dimensions.append(dimension)
         self.init()
-        self.generate()
 
     def __getitem__(self, name):
         """ Access a field (dimension or measure) by name. """
