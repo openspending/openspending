@@ -39,7 +39,84 @@ preceding command.
 Having the virtualenv set up, you can install OpenSpending and its dependencies.
 This should be pretty painless. Just run::
 
-    $ pip install -e . -r ./pip-requirements.txt
+    $ pip install -E pyenv -e .
+
+Another dependency is the ``openspendingjs`` module, which is included through
+git submodules by initializing submodules from the root of the ``openspending``
+install::
+
+    $ git submodule init
+    $ git submodule update 
+
+You will also need to install python bindings for your database. For example,
+for Postgresql you will want to install the psycopg2 library::
+
+    pip install psycopg2
+    # or on debian / ubuntu
+    # apt-get install python-psycopg2
+
+
+Create a database if you do not have one already. We recommend using Postgres
+but you can use anything compatible with SQLAlchemy. For postgres you would do::
+
+    createdb -E utf-8 --owner {your-database-user} openspending
+
+Having done that, you can copy configuration templates::
+
+    source pyenv/bin/activate
+    cp development.ini_tmpl development.ini
+
+Edit the configuration files to make sure you're pointing to a valid database 
+URL is set::
+
+    openspending.db.url = postgresql://{user}:{pass}@localhost/openspending
+
+Initialize the database::
+
+    ostool development.ini db init
+
+Generate the help system documentation (this is used by the front-end
+and must be available, developer documents are separate). The output 
+will be copied to the web applications template directory::
+
+    cd help; make clean html
+
+Run the application::
+
+    paster serve --reload development.ini
+
+
+Loading environment and plugins
+'''''''''''''''''''''''''''''''
+
+Additionally to the core software, there are a number of extensions that can 
+be installed. These include: 
+
+* OpenSpending.ETL - The CSV and CKAN import facilities. Since you cannot
+  import data without this, it will almost always be required.
+* Treemaps - support for displaying views as treemaps.
+* DataTables - support for displaying views as tables.
+
+To install these, it is recommended you create a file named ``pip-sources.txt``
+with the following contents::
+
+  -e git+http://github.com/okfn/openspending.etl#egg=openspending.etl
+  -e git+http://github.com/okfn/openspending.plugins.treemap#egg=openspending.plugins.treemap
+  -e git+http://github.com/okfn/openspending.plugins.datatables#egg=openspending.plugins.datatables
+
+This can then be installed with a simple pip command:: 
+
+  pip install -r pip-sources.txt
+
+If you want to enable the plugins, also add the following directive to your
+configuration file (e.g. ``development.ini``)::
+  
+  openspending.plugins = treemap datatables
+
+The ETL component does not require such activation, its commands will simply
+become available when it is installed in the virtualenv. You will find the 
+``csvimport`` and ``ckanimport`` commands that allow loading of data by 
+running the ``ostool`` command line utility.
 
 
 Setup Solr
