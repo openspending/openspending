@@ -4,6 +4,7 @@ from mock import Mock, patch, MagicMock
 
 import os as _os
 import csv
+import json
 
 from openspending.model import Dataset, meta as db
 from openspending.lib import solr_util as _solr
@@ -14,8 +15,7 @@ def load_fixture(name):
     """
     Load fixture data into the database.
     """
-    import json
-    from openspending.etl.validation.types import convert_types
+    from openspending.validation.data import convert_types
     fh = open(fixture_path('%s.js' % name), 'r')
     data = json.load(fh)
     fh.close()
@@ -35,6 +35,12 @@ def load_fixture(name):
 def fixture_file(name):
     """Return a file-like object pointing to a named fixture."""
     return open(fixture_path(name))
+
+def model_fixture(name):
+    model_fp = fixture_file('model/' + name + '.json')
+    model = json.load(model_fp)
+    model_fp.close()
+    return model
 
 def fixture_path(name):
     """

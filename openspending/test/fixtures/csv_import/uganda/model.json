@@ -1,0 +1,10 @@
+{
+  "dataset": {
+    "name": "ugandabudget",
+    "unique_keys": ["entry_id"],
+    "label": "Uganda Budget and Aid to Uganda, 2003-2007",
+    "description": "Non-blank description",
+    "currency": "UGX",
+    "temporal_granularity": "year"
+  }
+}

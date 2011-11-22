@@ -61,7 +61,7 @@ TEST_DATA="""year,amount,field,to_name,to_label,func_name,func_label
 def load_dataset(dataset):
     from StringIO import StringIO
     import csv
-    from openspending.etl.validation.types import convert_types
+    from openspending.validation.data import convert_types
     reader = csv.DictReader(StringIO(TEST_DATA))
     for row in reader:
         row = convert_types(SIMPLE_MODEL['mapping'], row)

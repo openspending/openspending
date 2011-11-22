@@ -1,0 +1,11 @@
+id,paid_by,date,transaction_id,amount,paid_to,spending_area
+1,London Borough of Hammersmith and Fulham,2010-01-01,405869,898.64,ADT FIRE & SECURITY PLC,Childrens Services
+2,London Borough of Hammersmith and Fulham,2010-01-01,405870,517.85,ADT FIRE & SECURITY PLC,Resident Services
+3,London Borough of Hammersmith and Fulham,2010-01-01,405871,1215.97,ADT FIRE & SECURITY PLC,Regeneration and Housing Services
+4,London Borough of Hammersmith and Fulham,2010-01-01,417742,112.50,ALARM LTD,Finance and Corporate Services
+5,London Borough of Hammersmith and Fulham,2010-01-01,417742,562.50,ALARM LTD,Finance and Corporate Services
+6,London Borough of Hammersmith and Fulham,2010-01-01,391746,1665.62,ASCOM TELE NOVA LTD,Childrens Services
+7,London Borough of Hammersmith and Fulham,2010-01-01,396062,1500.00,BIW TECHNOLOGIES LIMITED,Community Services
+8,London Borough of Hammersmith and Fulham,2010-01-01,392463,560.00,CAPITAL CITY COMMUNICATIONS LTD,Resident Services
+9,London Borough of Hammersmith and Fulham,2010-01-01,393998,1296.00,CAPITAL CITY COMMUNICATIONS LTD,Environment Services
+10,London Borough of Hammersmith and Fulham,2010-01-01,395696,171.39,CAR HIRE (DAY OF SWANSEA)LTD,Resident Services

@@ -1,0 +1,71 @@
+{ 
+  "from": {
+    "fields": [
+      {
+        "column": "paid_by",
+        "datatype": "id",
+        "name": "name"
+      },
+      {
+        "column": "paid_by",
+        "datatype": "string",
+        "name": "label"
+      }
+    ],
+    "type": "entity",
+    "description": "Payer",
+    "label": "Payer"
+  },
+  "spendingarea": {
+    "column": "spending_area",
+    "datatype": "string",
+    "type": "value",
+    "description": "Spending Area",
+    "label": "Spending Area"
+  },
+  "to": {
+    "fields": [
+      {
+        "column": "paid_to",
+        "datatype": "id",
+        "name": "name"
+      },
+      {
+        "column": "paid_to",
+        "datatype": "string",
+        "name": "label"
+      }
+    ],
+    "type": "entity",
+    "description": "Payee",
+    "label": "Payee"
+  },
+  "amount": {
+    "column": "amount",
+    "datatype": "float",
+    "type": "value",
+    "description": "Amount",
+    "label": "Amount"
+  },
+  "time": {
+    "column": "date",
+    "datatype": "date",
+    "type": "value",
+    "description": "Date",
+    "label": "Date"
+  },
+  "transactionid": {
+    "column": "transaction_id",
+    "datatype": "string",
+    "type": "value",
+    "description": "Reference",
+    "label": "Reference"
+  },
+  "entry_id": {
+    "column": "id",
+    "datatype": "string",
+    "type": "value",
+    "description": "",
+    "label": "Unique transaction ID"
+  }
+}
