@@ -1,0 +1,28 @@
+{
+    "time": {
+        "label": "Time",
+        "type": "value",
+        "column": "date",
+        "datatype": "date"
+    },
+    "amount": {
+        "label": "Amount",
+        "type": "value",
+        "column": "amount",
+        "datatype": "float"
+    },
+    "from": {
+        "label": "Paid by",
+        "type": "entity",
+        "fields": [
+            {"column": "from_id", "name": "name", "datatype": "id"},
+            {"column": "from_label", "name": "label", "datatype": "string"}
+        ]
+    },
+    "entry_id": {
+        "type": "value",
+        "column": "id",
+        "label": "Entry ID",
+        "datatype": "string"
+    }
+}

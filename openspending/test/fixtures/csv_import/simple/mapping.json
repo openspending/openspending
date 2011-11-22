@@ -1,0 +1,52 @@
+{
+  "from": {
+    "fields": [
+      {
+        "column": "paid_by",
+        "datatype": "id",
+        "name": "name"
+      },
+      {
+        "column": "paid_by",
+        "datatype": "string",
+        "name": "label"
+      }
+    ],
+    "type": "entity",
+    "label": "Spender"
+  },
+  "to": {
+    "fields": [
+      {
+        "column": "paid_to",
+        "datatype": "id",
+        "name": "name"
+      },
+      {
+        "column": "paid_to",
+        "datatype": "string",
+        "name": "label"
+      }
+    ],
+    "type": "entity",
+    "label": "Recipient"
+  },
+  "amount": {
+    "column": "amount",
+    "label": "Amount",
+    "datatype": "float",
+    "type": "value"
+  },
+  "time": {
+    "column": "date",
+    "label": "Time",
+    "datatype": "date",
+    "type": "value"
+  },
+  "entry_id": {
+    "column": "id",
+    "label": "Entry ID",
+    "datatype": "string",
+    "type": "value"
+  }
+}

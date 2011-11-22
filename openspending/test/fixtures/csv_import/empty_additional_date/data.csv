@@ -1,0 +1,6 @@
+id,paid_by,date,amount,paid_to,additional_date
+1,Test From,2010-01-01,100.00,Test To,
+2,Test From,2010-01-01,100.00,Test To,2010-01-01
+3,Test From,2010-01-01,100.00,Test To,2010-01-01
+4,Test From,2010-01-01,100.00,Test To,2010-01-01
+5,Test From,2010-01-01,100.00,Test To,2010-01-01

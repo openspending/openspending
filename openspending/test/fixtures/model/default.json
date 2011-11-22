@@ -1,0 +1,74 @@
+{
+  "dataset": {
+    "name": "test",
+    "label": "Test Dataset", 
+    "description": "This is a test dataset",
+    "currency": "EUR",
+    "unique_keys": ["function.name"]
+  },
+  "mapping": {
+    "amount": {
+      "type": "measure",
+      "label": "Amount",
+      "datatype": "float",
+      "column": "AMOUNT"
+    },
+    "cofinance": {
+      "type": "measure",
+      "label": "Co-Financed Amount",
+      "datatype": "float",
+      "column": "COFIN"
+    },
+    "time": {
+      "type": "date",
+      "label": "Time of transaction",
+      "datatype": "date",
+      "column": "YEAR"
+    },
+    "transaction_id": {
+      "type": "value",
+      "label": "Transaction ID",
+      "datatype": "id",
+      "column": "TX"
+    },
+    "function": {
+      "type": "compound",
+      "label": "Function", 
+      "fields": [
+        {"name": "name", "datatype": "id", "column": "FUNCTION_ID"},
+        {"name": "label", "datatype": "string", "column": "FUNCTION"},
+        {"name": "description", "datatype": "string", "column": "FUNCTION_DESC"}
+      ]
+    },
+    "supplier": {
+      "type": "compound",
+      "label": "Supplier", 
+      "fields": [
+        {"name": "name", "datatype": "id", "column": "SUPPLIER_ID"},
+        {"name": "label", "datatype": "string", "column": "SUPPLIER"}
+      ]
+    }
+  },
+  "views": [
+    {
+      "name": "default",
+      "label": "By Function",
+      "dimension": "dataset",
+      "drilldown": "function",
+      "cuts": {
+        "supplier.name": "harry"
+        }
+    },
+    {
+      "name": "default",
+      "label": "By Supplier",
+      "dimension": "function",
+      "drilldown": "supplier"
+    },
+    {
+      "name": "default",
+      "label": "Grand Total",
+      "dimension": "function"
+    }
+  ]
+}

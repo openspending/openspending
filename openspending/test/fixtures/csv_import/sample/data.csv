@@ -1,0 +1,30 @@
+id,paid_by,date,transaction_id,amount,paid_to,spending_area
+1,London Borough of Hammersmith and Fulham,2010-01-01,405869,898.64,ADT FIRE & SECURITY PLC,Childrens Services
+2,London Borough of Hammersmith and Fulham,2010-01-01,405870,517.85,ADT FIRE & SECURITY PLC,Resident Services
+3,London Borough of Hammersmith and Fulham,2010-01-01,405871,1215.97,ADT FIRE & SECURITY PLC,Regeneration and Housing Services
+4,London Borough of Hammersmith and Fulham,2010-01-01,417742,112.50,ALARM LTD,Finance and Corporate Services
+5,London Borough of Hammersmith and Fulham,2010-01-01,417742,562.50,ALARM LTD,Finance and Corporate Services
+6,London Borough of Hammersmith and Fulham,2010-01-01,391746,1665.62,ASCOM TELE NOVA LTD,Childrens Services
+7,London Borough of Hammersmith and Fulham,2010-01-01,396062,1500.00,BIW TECHNOLOGIES LIMITED,Community Services
+8,London Borough of Hammersmith and Fulham,2010-01-01,392463,560.00,CAPITAL CITY COMMUNICATIONS LTD,Resident Services
+9,London Borough of Hammersmith and Fulham,2010-01-01,393998,1296.00,CAPITAL CITY COMMUNICATIONS LTD,Environment Services
+10,London Borough of Hammersmith and Fulham,2010-01-01,395696,171.39,CAR HIRE (DAY OF SWANSEA)LTD,Resident Services
+11,London Borough of Hammersmith and Fulham,2010-01-01,395696,180.68,CAR HIRE (DAY OF SWANSEA)LTD,Resident Services
+12,London Borough of Hammersmith and Fulham,2010-01-01,395696,182.82,CAR HIRE (DAY OF SWANSEA)LTD,Resident Services
+13,London Borough of Hammersmith and Fulham,2010-01-01,395696,185.60,CAR HIRE (DAY OF SWANSEA)LTD,Resident Services
+14,London Borough of Hammersmith and Fulham,2010-01-01,395696,244.84,CAR HIRE (DAY OF SWANSEA)LTD,Resident Services
+15,London Borough of Hammersmith and Fulham,2010-01-01,395696,265.49,CAR HIRE (DAY OF SWANSEA)LTD,Resident Services
+16,London Borough of Hammersmith and Fulham,2010-01-01,395696,384.65,CAR HIRE (DAY OF SWANSEA)LTD,Resident Services
+17,London Borough of Hammersmith and Fulham,2010-01-01,395696,148.10,CAR HIRE (DAY OF SWANSEA)LTD,Resident Services
+18,London Borough of Hammersmith and Fulham,2010-01-01,395696,168.85,CAR HIRE (DAY OF SWANSEA)LTD,Resident Services
+19,London Borough of Hammersmith and Fulham,2010-01-01,417549,32641.84,CB RICHARD ELLIS LTD CLIENT ACCOUNT,Environment Services
+20,London Borough of Hammersmith and Fulham,2010-01-01,417550,8106.18,CB RICHARD ELLIS LTD CLIENT ACCOUNT,Environment Services
+21,London Borough of Hammersmith and Fulham,2010-01-01,395936,527.00,CHESTERFIELD ASSOCIATES,Childrens Services
+22,London Borough of Hammersmith and Fulham,2010-01-01,407426,525.52,CHESTERFIELD ASSOCIATES,Community Services
+23,London Borough of Hammersmith and Fulham,2010-01-01,460450,136.97,CONSULTUS SERVICES AGENCY LTD,Community Services
+24,London Borough of Hammersmith and Fulham,2010-01-01,460450,1431.85,CONSULTUS SERVICES AGENCY LTD,Community Services
+25,London Borough of Hammersmith and Fulham,2010-01-01,409072,522.10,COYLE PERSONNEL PLC,Community Services
+26,London Borough of Hammersmith and Fulham,2010-01-01,405998,7009.96,CRANSTOUN DRUG SERVICES,Community Services
+27,London Borough of Hammersmith and Fulham,2010-01-01,409318,-1156.27,EDF ENERGY 1 LIMITED,Resident Services
+28,London Borough of Hammersmith and Fulham,2010-01-01,409319,-826.32,EDF ENERGY 1 LIMITED,Resident Services
+29,London Borough of Hammersmith and Fulham,2010-01-01,483559,2950.00,e-MENTORING LIMITED,Childrens Services
