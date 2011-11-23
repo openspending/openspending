@@ -123,6 +123,7 @@ class EditorController(BaseController):
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
         c.dataset.drop()
+        c.dataset.init()
         c.dataset.generate()
         db.session.commit()
         h.flash_success(_("The dataset has been cleared."))

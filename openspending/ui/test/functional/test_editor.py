@@ -63,6 +63,7 @@ class TestEditorController(ControllerTestCase):
     def test_dimensions_edit_mask(self):
         cra = Dataset.by_name('cra')
         cra.drop()
+        cra.init()
         cra.generate()
         response = self.app.get(url(controller='editor', 
             action='dimensions_edit', dataset='cra'),
@@ -81,6 +82,7 @@ class TestEditorController(ControllerTestCase):
     def test_dimensions_update_invalid_json(self):
         cra = Dataset.by_name('cra')
         cra.drop()
+        cra.init()
         cra.generate()
         response = self.app.post(url(controller='editor', 
             action='dimensions_update', dataset='cra'),
