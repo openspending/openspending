@@ -54,6 +54,9 @@ def make_map():
     map.connect('/help/*path', controller='docs', action='page')
 
     map.connect('/datasets.{format}', controller='dataset', action='index')
+    map.connect('/datasets/new', controller='dataset', action='new')
+    map.connect('/datasets', controller='dataset', action='create',
+            conditions=dict(method=['POST']))
     map.connect('/datasets', controller='dataset', action='index')
 
     map.connect('/api', controller='api', action='index')
@@ -75,6 +78,30 @@ def make_map():
     map.connect('/{dataset}/model', controller='dataset', action='model')
     map.connect('/{dataset}/timeline', controller='dataset', action='timeline')
 
+
+    map.connect('/{dataset}/editor', controller='editor', action='index')
+    map.connect('/{dataset}/editor/core', controller='editor',
+            action='core_update', conditions=dict(method=['POST']))
+    map.connect('/{dataset}/editor/core', controller='editor', action='core_edit')
+    map.connect('/{dataset}/editor/dimensions', controller='editor',
+            action='dimensions_update', conditions=dict(method=['POST']))
+    map.connect('/{dataset}/editor/dimensions', controller='editor', 
+            action='dimensions_edit')
+    map.connect('/{dataset}/editor/views', controller='editor',
+            action='views_update', conditions=dict(method=['POST']))
+    map.connect('/{dataset}/editor/views', controller='editor', 
+            action='views_edit')
+    map.connect('/{dataset}/editor/publish', controller='editor',
+            action='publish', conditions=dict(method=['POST']))
+    map.connect('/{dataset}/editor/retract', controller='editor',
+            action='retract', conditions=dict(method=['POST']))
+    map.connect('/{dataset}/editor/drop', controller='editor',
+            action='drop', conditions=dict(method=['POST']))
+    
+    map.connect('/{dataset}/sources', controller='source',
+            action='create', conditions=dict(method=['POST']))
+    map.connect('/{dataset}/sources/new', controller='source', action='new')
+    map.connect('/{dataset}/sources/{id}', controller='source', action='view')
 
     map.connect('/{dataset}/entries.{format}', controller='entry',
             action='index')

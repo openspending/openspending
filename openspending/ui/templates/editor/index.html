@@ -1,0 +1,117 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  py:strip="">
+  <xi:include href="_nav.html" />
+  <xi:include href="../source/_new_form.html" />  
+  <xi:include href="../source/_list.html" />  
+
+  <py:def function="nav_class">nav-editor</py:def>
+
+  <py:def function="page_title">${c.dataset.label or c.dataset.name}</py:def>
+
+  <div py:def="content">
+    ${editor_nav('index')}
+
+    <div class="row">
+      <div class="span12">
+        <h3>Source files</h3>
+        <div py:if="not len(list(c.dataset.sources))" 
+          class="alert-message block-message info">
+          <p>
+          <strong>Congratulations, your dataset is now created.</strong> Next, you'll need
+          to link to a source file that contains the data (or a sample for testing
+          if your dataset is very large!). The data must be in the CSV format.
+          </p>
+          <ul>
+            <li>Learn about <a href="#">how to export CSV</a> from various common
+              applications.</li>
+            <li>Help on <a href="#">common data wrangling tasks</a> needed to clean
+              source data.</li>
+          </ul>
+
+          <div class="alert-actions">
+            <a class="btn small" data-backdrop="true" data-controls-modal="new-source" href="#">Add a source</a>
+          </div>
+        </div>
+        <div py:if="len(list(c.dataset.sources))">
+          ${sources_list(c.dataset)}
+          <a class="btn success small" data-backdrop="true" data-controls-modal="new-source" href="#">Add a source</a>
+        </div>
+      </div>
+      <div class="span4">
+        <h3>Dataset Actions</h3>
+        <py:if test="len(c.dataset)">
+          <form method="POST" action="${h.url(controller='editor',
+            action='drop', dataset=c.dataset.name)}">
+            <input type="submit" class="btn danger" 
+              value="Delete loaded data" />
+            <span class="help-block">Delete all loaded data to fix 
+              errors and re-edit the data dimensions.</span>
+          </form>
+        </py:if>
+        <py:if test="not len(c.dataset)">
+          <a href="#" class="btn danger disabled">Delete loaded data</a>
+          <span class="help-block">You can remove the loaded data
+            at any time and start over.</span>
+          <br/>
+        </py:if>
+
+        <py:if test="c.dataset.private and len(c.dataset)">
+          <form method="POST" action="${h.url(controller='editor',
+            action='publish', dataset=c.dataset.name)}">
+            <input type="submit" class="btn success" value="Make public" />
+            <span class="help-block">After you've performed some QA,
+              let the world see this dataset.</span>
+          </form>
+        </py:if>
+        <py:if test="c.dataset.private and not len(c.dataset)">
+            <a class="btn success disabled">Make public</a>
+            <span class="help-block">After you've performed some QA,
+              let the world see this dataset.</span>
+        </py:if>
+        <py:if test="not c.dataset.private">
+          <form method="POST" action="${h.url(controller='editor',
+            action='retract', dataset=c.dataset.name)}">
+            <input type="submit" class="btn danger" value="Retract" />
+            <span class="help-block">If you have noted serious quality
+              issues or legal issues, you can un-publish this dataset.</span>
+          </form>
+        </py:if>
+        <br/>
+      </div>
+
+
+      <!-- Create source modal -->
+      <div id="new-source" class="modal hide fade">
+        <form class="basic" action="${h.url(controller='source', action='create',
+          dataset=c.dataset.name)}" method="POST">
+          <div class="modal-header">
+            <h3>Create a new data source</h3>
+          </div>
+          <div class="modal-body">
+            ${new_form()}
+          </div>
+          <div class="modal-footer">
+             <input value="Create" class="btn success" type="submit" />
+           </div>
+        </form>
+      </div>
+    </div>
+    
+    <py:def function="scripts">
+      ${script_tag('vendor/bootstrap-modal')}
+      <script>
+        /*jQuery(document).ready(function($) {
+          $('#  foo new-source').modal(options)
+        });*/
+      </script>
+    </py:def>
+
+  </div>
+
+
+
+  <xi:include href="../layout.html" />
+</html>
+

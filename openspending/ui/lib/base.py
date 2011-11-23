@@ -6,7 +6,8 @@ from time import time, gmtime, strftime
 
 from pylons.controllers import WSGIController
 from pylons.templating import literal, pylons_globals
-from pylons import tmpl_context as c, request, response, config, app_globals, session
+from pylons import tmpl_context as c, request, response, config
+from pylons import app_globals, session
 from pylons.controllers.util import abort
 from genshi.filters import HTMLFormFiller
 from pylons.i18n import _

@@ -1,0 +1,83 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  py:strip="">
+  <xi:include href="_nav.html" />
+
+  <py:def function="nav_class">nav-editor</py:def>
+
+  <py:def function="page_title">${c.dataset.label or c.dataset.name}</py:def>
+  
+  <py:def function="optional_head">
+    <style>
+      #frame {
+        display: none;
+        position: relative;
+        height: 305px;
+      }
+    </style>
+  </py:def>
+
+  <div py:def="content">
+    ${editor_nav('views')}
+    <div class="row">
+      <div class="offset4 span12">
+        <form class="basic" id="form" action="${url(controller='editor',
+          action='views_update', dataset=c.dataset.name)}" method="POST">
+          <fieldset>
+            <py:if test="len(c.errors.keys())">
+              <div class="alert-message block-message error">
+                <p>
+                The views could not be saved as they contain some 
+                errors:
+                </p>
+                <ul py:for="field, error in c.errors.items()">
+                  <li><strong>${field}:</strong> ${error}</li>
+                </ul>
+              </div>
+            </py:if>
+            <textarea id="fallback" class="xxlarge" rows="20"
+              name="views">${c.fill['views']}</textarea>
+            <div id="frame">
+              <div id="views" style="height: 300px; width:
+                690px">${c.fill['views']}</div>
+            </div>
+          </fieldset>
+          <div class="actions">
+            <input id="save" value="Update" class="btn success" type="submit" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <py:def function="scripts">
+    ${script_tag('vendor/ace/ace')}
+    ${script_tag('vendor/ace/mode-json')}
+    ${script_tag('vendor/ace/theme-monokai')}
+    <script>
+      jQuery(document).ready(function($) {
+        $("#fallback").hide();
+        $("#frame").show();
+        var editor = ace.edit("views");
+        var JSONMode = require("ace/mode/json").Mode;
+        editor.getSession().setMode(new JSONMode());
+        editor.setTheme("ace/theme/monokai");
+        editor.renderer.setShowPrintMargin(false);
+        $("#form").submit(function(e) {
+          var value = editor.getSession().getValue();
+          $("#fallback").val(value);
+        });
+      });
+    </script>
+    <style>
+      .ace-monokai .ace_gutter {
+        background-color: whiteSmoke;
+      }
+    </style>
+  </py:def>
+
+
+  <xi:include href="../layout.html" />
+</html>
+
