@@ -27,8 +27,8 @@
           Measures are the numeric properties of each entry in this 
           dataset.
         </span>
-        <ul py:for="measure in c.dataset.measures">
-          <li>
+        <ul>
+          <li py:for="measure in c.dataset.measures">
             <strong>${measure.label or measure.name}</strong>
             <div py:if="measure.description">
               ${h.markdown(measure.description)}
