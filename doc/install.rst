@@ -6,10 +6,12 @@ Requirements
 
 * Python_ >= 2.7, with pip_ and virtualenv_   
 * PostgreSQL_ >= 8.4
+* RabbitMQ_ >= 2.6.1
 * `Apache Solr`_
 
 .. _Python: http://www.python.org/
 .. _PostgreSQL: http://www.postgres.org/
+.. _RabbitMQ: http://www.rabbitmq.com//
 .. _Apache Solr: http://lucene.apache.org/solr/
 .. _virtualenv: http://pypi.python.org/pypi/virtualenv
 .. _pip: http://pypi.python.org/pypi/pip
@@ -85,22 +87,31 @@ Run the application::
 
     paster serve --reload development.ini
 
+In order to use web-based importing and loading, you will also need to set up
+the celery-based background daemon. When running this, make sure to have an
+instance of RabbitMQ installed and running and then execute::
 
-Loading environment and plugins
-'''''''''''''''''''''''''''''''
+    paster celeryd development.ini
+
+You can validate the functioning of the communication between the backend and
+frontend components using the ping action::
+
+    curl -q http://localhost:5000/__ping__ >/dev/null
+
+This should result in "Pong!" being printed to the background daemon's console.
+
+Installing optional plugins
+'''''''''''''''''''''''''''
 
 Additionally to the core software, there are a number of extensions that can 
 be installed. These include: 
 
-* OpenSpending.ETL - The CSV and CKAN import facilities. Since you cannot
-  import data without this, it will almost always be required.
 * Treemaps - support for displaying views as treemaps.
 * DataTables - support for displaying views as tables.
 
 To install these, it is recommended you create a file named ``pip-sources.txt``
 with the following contents::
 
-  -e git+http://github.com/okfn/openspending.etl#egg=openspending.etl
   -e git+http://github.com/okfn/openspending.plugins.treemap#egg=openspending.plugins.treemap
   -e git+http://github.com/okfn/openspending.plugins.datatables#egg=openspending.plugins.datatables
 
@@ -112,11 +123,6 @@ If you want to enable the plugins, also add the following directive to your
 configuration file (e.g. ``development.ini``)::
   
   openspending.plugins = treemap datatables
-
-The ETL component does not require such activation, its commands will simply
-become available when it is installed in the virtualenv. You will find the 
-``csvimport`` and ``ckanimport`` commands that allow loading of data by 
-running the ``ostool`` command line utility.
 
 
 Setup Solr
