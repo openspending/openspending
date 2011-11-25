@@ -50,7 +50,8 @@ setup(
         "mock==0.7.2",
         "sphinx==1.0.7",
         "argparse==1.2.1",
-        "celery==2.1.4"
+        "celery==2.1.4",
+        "messytables==0.1.2"
     ],
     setup_requires=[
         "PasteScript==1.7.4.2",
