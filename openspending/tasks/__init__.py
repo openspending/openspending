@@ -37,6 +37,7 @@ def load_source(source_id, sample=False):
         log.error("Dataset has no mapping.")
         return
 
+    source.dataset.generate()
     importer = CSVImporter(source)
     if sample:
         importer.run(max_lines=1000, max_errors=1000)
