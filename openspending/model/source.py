@@ -34,6 +34,9 @@ class Source(db.Model):
             return self.url[:20] + "..." + self.url[len(self.url)-30:]
         return self.url
 
+    def __repr__(self):
+        return "<Source(%s,%s)>" % (self.dataset.name, self.name)
+
     @classmethod
     def by_id(cls, id):
         return db.session.query(cls).filter_by(id=id).first()
