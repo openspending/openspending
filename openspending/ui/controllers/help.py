@@ -19,7 +19,7 @@ from openspending.ui.lib.helpers import flash_success, flash_error
 log = logging.getLogger(__name__)
 
 
-class DocsController(BaseController):
+class HelpController(BaseController):
 
     def page(self, path):
         suffix = 'docs/%s' % path
