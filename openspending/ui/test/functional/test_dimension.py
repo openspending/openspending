@@ -133,5 +133,4 @@ class TestDimensionController(ControllerTestCase):
         h.assert_equal(result.status, '200 OK')
         h.assert_equal(result.content_type, 'text/html')
         h.assert_true(('Public order and safety') in result)
-        h.assert_true(('financial transactions') in result)
         h.assert_equal(result.body.count('details'), 5)

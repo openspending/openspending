@@ -58,20 +58,6 @@
     ${page.pager()}
   </div>
 
-  <div py:def="view_panel(viewstate)" class="view-panel last">
-    <ul class="tabs">
-      <py:for each="view in c.available_views">
-        <py:if test="view.name==viewstate.view.name">
-          <li class="active"><a>${view.label}</a></li>
-        </py:if>
-        <py:if test="view.name!=viewstate.view.name">
-          <li><a href="?_view=${view.name}">${view.label}</a></li>
-        </py:if>
-      </py:for>
-      ${view_times()}
-    </ul>
-  </div>
-
   <div py:def="view_times()" class="view-panel last" py:strip="True">
     <li py:if="c.view" class="dropdown" data-dropdown="dropdown">
       <a href="#" class="dropdown-toggle">${c.time}</a>
@@ -85,3 +71,4 @@
     </li>
   </div>
 </html>
+

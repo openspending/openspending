@@ -102,6 +102,8 @@ class DimensionController(BaseController):
     def entries(self, dataset, dimension, name, format='html'):
         self._get_member(dataset, dimension, name)
 
+        handle_request(request, c, c.member, c.dimension)
+
         self._make_browser()
         if format == 'json':
             return c.browser.to_jsonp()

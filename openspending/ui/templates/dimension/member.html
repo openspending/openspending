@@ -1,25 +1,14 @@
 <html xmlns:py="http://genshi.edgewall.org/"
   xmlns:i18n="http://genshi.edgewall.org/i18n"
   xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
-
+  <xi:include href="_nav.html" />  
+  
   <py:def function="nav_class">nav-member</py:def>
 
   <py:def function="page_title">${c.member['label']}</py:def>
 
   <div py:def="content">
-    <h2 class="page-header">
-      <div class="representations">
-        <a href="${url(controller='dimension', action='member',
-          dataset=c.dataset.name,
-          name=c.member['name'], dimension=c.dimension,
-          format='json')}"><img src="${h.static('img/icons/json.png')}" alt="JSON" /></a>
-      </div>
-      ${c.member.label}
-    </h2>
-
-    <py:if test="hasattr(c, 'viewstate')">
-      ${view_panel(c.viewstate)}
-    </py:if>
+    ${member_nav(c.view.name if c.view else 'search')}
 
     <div py:if="c.view" class="row">
       <div class="span16" id="vis"></div>
@@ -32,13 +21,6 @@
           No description is available for ${c.member.label}
         </div>
         ${h.markdown(c.member.get('description'))}
-      </div>
-      <div class="span-one-third">
-        <h3>Research</h3>
-        <ul>
-          <li><a href="${url(controller='dimension', action='entries',
-            dataset=c.dataset.name, name=c.member.name, dimension=c.dimension)}">Search</a>: ${c.num_entries} spending entries</li>
-        </ul>
       </div>
     </div>
 
