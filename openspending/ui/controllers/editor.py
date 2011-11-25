@@ -27,6 +27,8 @@ class EditorController(BaseController):
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
         c.entries_count = len(c.dataset)
+        c.has_sources = c.dataset.sources.count() > 0
+        c.source = c.dataset.sources.first()
         c.index_count = solr.dataset_entries(c.dataset.name)
         c.index_percentage = 0 if not c.entries_count else \
             int((float(c.index_count)/float(c.entries_count))*1000)
