@@ -343,6 +343,15 @@ table.sources td {
   vertical-align: middle;
 }
 
+table.sources td form {
+  display: inline; 
+  margin-bottom: 0px;
+}
+
+table.sources td form input.small {
+  width: auto;
+}
+
 table.sources td.ops {
   width: 25%;
   text-align: right;
