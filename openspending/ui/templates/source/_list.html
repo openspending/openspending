@@ -18,6 +18,9 @@
             <py:if test="'error' in source.analysis">
               <span class="label important">Error</span>
             </py:if>
+            <py:if test="'columns' in source.analysis">
+              <span class="label notice">OK</span>
+            </py:if>
             <a href="${source.url}">${source.name}</a>
             <py:if test="'error' in source.analysis">
               &mdash; <strong>${source.analysis['error']}</strong>

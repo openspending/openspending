@@ -40,8 +40,13 @@
         </div>
       </div>
       <div class="span4">
+        <h3>Summary</h3>
+        <ul>
+          <li>Entries loaded: ${c.entries_count}</li>
+          <li>Searchable: ${c.index_count} (${c.index_percentage/10.0}%)</li>
+        </ul>
         <h3>Dataset Actions</h3>
-        <py:if test="len(c.dataset)">
+        <py:if test="c.entries_count">
           <form method="POST" action="${h.url(controller='editor',
             action='drop', dataset=c.dataset.name)}">
             <input type="submit" class="btn danger" 
@@ -50,14 +55,14 @@
               errors and re-edit the data dimensions.</span>
           </form>
         </py:if>
-        <py:if test="not len(c.dataset)">
+        <py:if test="not c.entries_count">
           <a href="#" class="btn danger disabled">Delete loaded data</a>
           <span class="help-block">You can remove the loaded data
             at any time and start over.</span>
           <br/>
         </py:if>
 
-        <py:if test="c.dataset.private and len(c.dataset)">
+        <py:if test="c.dataset.private and c.entries_count">
           <form method="POST" action="${h.url(controller='editor',
             action='publish', dataset=c.dataset.name)}">
             <input type="submit" class="btn success" value="Make public" />
@@ -65,7 +70,7 @@
               let the world see this dataset.</span>
           </form>
         </py:if>
-        <py:if test="c.dataset.private and not len(c.dataset)">
+        <py:if test="c.dataset.private and not c.entries_count">
             <a class="btn success disabled">Make public</a>
             <span class="help-block">After you've performed some QA,
               let the world see this dataset.</span>

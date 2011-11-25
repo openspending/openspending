@@ -1,5 +1,6 @@
 import logging
 import json
+import math
 
 from pylons.controllers.util import redirect
 from pylons import request, tmpl_context as c
@@ -7,6 +8,7 @@ from pylons.i18n import _
 from colander import Invalid
 
 from openspending.model import meta as db
+from openspending.lib import solr_util as solr
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.base import require, abort
@@ -23,6 +25,10 @@ class EditorController(BaseController):
     def index(self, dataset, format='html'):
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
+        c.entries_count = len(c.dataset)
+        c.index_count = solr.dataset_entries(c.dataset.name)
+        c.index_percentage = 0 if not c.entries_count else \
+            int((float(c.index_count)/float(c.entries_count))*1000)
         return render('editor/index.html')
 
     def core_edit(self, dataset, errors={}, format='html'):
