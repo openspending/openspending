@@ -65,6 +65,9 @@ class EditorController(BaseController):
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
         mapping = mapping or c.dataset.data.get('mapping', {})
+        if not len(mapping):
+            if 'mapping' in c.dataset.sources[0].analysis:
+                mapping = c.dataset.sources[0].analysis['mapping']
         c.fill = {'mapping': json.dumps(mapping, indent=2)}
         c.errors = errors
         c.can_edit = not len(c.dataset)
@@ -80,10 +83,13 @@ class EditorController(BaseController):
         errors, mapping = {}, None
         try:
             mapping = json.loads(request.params.get('mapping'))
-            schema = mapping_schema(ValidationState(c.dataset.data))
+            model = c.dataset.data.copy()
+            model['mapping'] = mapping
+            schema = mapping_schema(ValidationState(model))
             c.dataset.data['mapping'] = schema.deserialize(mapping)
             # erm...
             c.dataset.drop()
+            c.dataset.init()
             c.dataset.generate()
             db.session.commit()
             h.flash_success(_("The mapping has been updated."))
