@@ -148,6 +148,7 @@
     "datatype": "string",
     "type": "value",
     "label": "Transaction ID",
-    "description": ""
+    "description": "",
+    "key": true
   }
 }

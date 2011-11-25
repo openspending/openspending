@@ -35,6 +35,13 @@ class TestMapping(TestCase):
         schema.deserialize(ms)
     
     @h.raises(Invalid)
+    def test_requires_one_key_column(self):
+        ms = self.model['mapping'].copy()
+        del ms['function']['key']
+        schema = mapping_schema(self.state)
+        schema.deserialize(ms)
+
+    @h.raises(Invalid)
     def test_requires_time(self):
         ms = self.model['mapping'].copy()
         del ms['time']

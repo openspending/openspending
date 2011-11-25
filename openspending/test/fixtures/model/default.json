@@ -3,8 +3,7 @@
     "name": "test",
     "label": "Test Dataset", 
     "description": "This is a test dataset",
-    "currency": "EUR",
-    "unique_keys": ["function.name"]
+    "currency": "EUR"
   },
   "mapping": {
     "amount": {
@@ -33,7 +32,8 @@
     },
     "function": {
       "type": "compound",
-      "label": "Function", 
+      "label": "Function",
+      "key": true,
       "fields": [
         {"name": "name", "datatype": "id", "column": "FUNCTION_ID"},
         {"name": "label", "datatype": "string", "column": "FUNCTION"},

@@ -135,13 +135,12 @@ class Dataset(TableHandler, db.Model):
         loads and thus creates stable URIs for entries. 
         """
         uniques = [self.name]
-        for dimension in self.unique_keys:
-            attribute = None
-            if '.' in dimension:
-                dimension, attribute = dimension.split('.', 1)
-            obj = data.get(dimension)
-            if attribute and obj is not None:
-                obj = obj.get(attribute)
+        for field in self.fields:
+            if not field.key:
+                continue
+            obj = data.get(field.name)
+            if isinstance(obj, dict):
+                obj = obj.get('name', obj.get('id'))
             uniques.append(obj)
         return hash_values(uniques)
 

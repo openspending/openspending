@@ -41,6 +41,16 @@ def no_dimension_id_overlap(name, state):
         return True
     return _check
 
+def require_one_key_column(mapping):
+    """ At least one dimension needs to be marked as a ``key``
+    to be used to generate unique entry identifiers. """
+    for prop, meta in mapping.items():
+        if meta.get('key') is True:
+            return True
+    return "At least one dimension needs to be marked as a 'key' " \
+        "which can be used to uniquely identify entries in this " \
+        "dataset."
+
 def require_time_dimension(mapping):
     """ Each mapping needs to have a time dimension. """
     if 'time' not in mapping.keys():
@@ -107,6 +117,7 @@ def property_schema(name, state):
     """ This is validation which is common to all properties,
     i.e. both dimensions and measures. """
     schema = mapping(name, validator=chained(
+        name_wrap(nonempty_string, name),
         name_wrap(reserved_name, name),
         name_wrap(database_name, name),
         no_dimension_id_overlap(name, state)
@@ -183,7 +194,8 @@ def compound_dimension_schema(name, state):
 def mapping_schema(state):
     schema = mapping('mapping', validator=chained(
         require_time_dimension,
-        require_amount_dimension
+        require_amount_dimension,
+        require_one_key_column
         ))
     for name, meta in state.mapping_items:
         type_schema = {

@@ -69,10 +69,4 @@ class TestDataset(TestCase):
         schema = dataset_schema(self.state)
         schema.deserialize(ds)
     
-    @h.raises(Invalid)
-    def test_invalid_unique_key(self):
-        ds = self.model['dataset'].copy()
-        ds['unique_keys'].append("banana")
-        schema = dataset_schema(self.state)
-        schema.deserialize(ds)
 

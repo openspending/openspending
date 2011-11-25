@@ -53,6 +53,7 @@
     "type": "value",
     "label": "Entry ID",
     "column": "id",
-    "datatype": "string"
+    "datatype": "string",
+    "key": true
   }
 }

@@ -66,6 +66,7 @@
     "datatype": "string",
     "type": "value",
     "description": "",
-    "label": "Unique transaction ID"
+    "label": "Unique transaction ID",
+    "key": true
   }
 }

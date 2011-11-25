@@ -10,6 +10,7 @@ class Attribute(object):
         self._data = data
         self.parent = parent
         self.name = data.get('name')
+        self.key = data.get('key', False)
         self.source_column = data.get('column')
         self.default_value = data.get('default_value')
         self.constant = data.get('constant')

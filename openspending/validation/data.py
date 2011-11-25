@@ -11,7 +11,7 @@ class InvalidData(Invalid):
     problem, including source column, dimension name and data type.
     """
 
-    def __init__(self, column, attribute, datatype, value, message):
+    def __init__(self, attribute, column, datatype, value, message):
         node = SchemaNode(String(), name=attribute)
         self.column = column
         self.value = value
