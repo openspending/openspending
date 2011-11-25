@@ -7,6 +7,9 @@ from openspending.model import Dataset, meta as db
 from openspending.validation import Invalid
 from openspending.validation.data import convert_types
 from openspending.validation.model import validate_model
+from openspending.lib import unicode_dict_reader as udr
+
+from openspending.importer import util
 
 log = logging.getLogger(__name__)
 
@@ -63,13 +66,11 @@ class TooManyErrorsError(ImporterError):
 
 class BaseImporter(object):
 
-    def __init__(self, data, model, source_file="<stream>"):
-        self.data = data
-        self.model = model
+    def __init__(self, source):
+        self.source = source
+        self.dataset = source.dataset
         self.model_valid = None
-        self.source_file = source_file
         self.errors = []
-        self.on_error = lambda e: log.warn(e)
 
     def run(self,
             dry_run=False,
@@ -82,11 +83,6 @@ class BaseImporter(object):
         self.dry_run = dry_run
         self.max_errors = max_errors
         self.raise_errors = raise_errors
-
-        self.validate_model()
-        self.dataset = self.create_dataset(dry_run=dry_run)
-        self.dataset.generate()
-        #self.describe_dimensions()
 
         self.line_number = 0
 
@@ -111,36 +107,12 @@ class BaseImporter(object):
     def lines(self):
         raise NotImplementedError("lines not implemented in BaseImporter")
 
-    def validate_model(self):
-        if self.model_valid:
-            return
-
-        log.info("Validating model")
-        try:
-            self.model = validate_model(self.model)
-            self.model_valid = True
-        except Invalid as e:
-            raise ModelValidationError(e)
-
-    def create_dataset(self, dry_run=True):
-        q = db.session.query(Dataset)
-        q = q.filter_by(name=self.model['dataset']['name'])
-        dataset = q.first()
-        if dataset is not None:
-            return dataset
-        dataset = Dataset(self.model)
-        # TODO: only persist for non-dry-run?
-        if not dry_run:
-            db.session.add(dataset)
-            db.session.commit()
-        return dataset
-
     def process_line(self, line):
         if self.line_number % 1000 == 0:
             log.info('Imported %s lines' % self.line_number)
 
         try:
-            data = convert_types(self.model['mapping'], line)
+            data = convert_types(self.dataset.mapping, line)
             if not self.dry_run:
                 self.dataset.load(data)
         except (Invalid, ImporterError) as e:
@@ -152,8 +124,8 @@ class BaseImporter(object):
     def add_error(self, exception):
         err = DataError(exception=exception,
                         line_number=self.line_number,
-                        source_file=self.source_file)
-        self.on_error(err)
+                        source_file=self.source.url)
+        log.warn(err)
         self.errors.append(err)
 
         if self.max_errors and len(self.errors) >= self.max_errors:
@@ -161,14 +133,13 @@ class BaseImporter(object):
             raise TooManyErrorsError("The following errors occurred:" + all_errors)
 
 
-from openspending.lib import unicode_dict_reader as udr
-
 class CSVImporter(BaseImporter):
 
     @property
     def lines(self):
         try:
-            return udr.UnicodeDictReader(self.data)
+            csv = util.urlopen_lines(self.source.url)
+            return udr.UnicodeDictReader(csv)
         except udr.EmptyCSVError as e:
             self.add_error(e)
             return ()
