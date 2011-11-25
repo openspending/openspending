@@ -28,7 +28,12 @@
           dataset.
         </span>
         <ul py:for="measure in c.dataset.measures">
-          <li><strong>${measure.label or measure.name}</strong></li>
+          <li>
+            <strong>${measure.label or measure.name}</strong>
+            <div py:if="measure.description">
+              ${h.markdown(measure.description)}
+            </div>
+          </li>
         </ul>
         <h3>Dimensions</h3>
         <span class="help-block">

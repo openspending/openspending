@@ -12,7 +12,7 @@
         <a class="dimension-name" href="${url(controller='dimension',
           action='view', dataset=c.dataset.name,
           dimension=dimension.name)}">
-            ${dimension.label or dimension.name}
+          <strong>${dimension.label or dimension.name}</strong>
         </a>
         <div py:if="dimension.description">
           ${h.markdown(dimension.description)}
@@ -20,6 +20,7 @@
       </li>
     </ul>
   </py:def>
+
 
 </html>
 
