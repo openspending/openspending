@@ -199,8 +199,11 @@ class Browser(object):
         # Get entries. There must be a record in the database for
         # every id that comes back from Solr, otherwise this method
         # will start yielding None values.
-        query = self.dataset.alias.c.id.in_(ids)
-        entries = self.dataset.entries(query)
+        if len(ids):
+            query = self.dataset.alias.c.id.in_(ids)
+            entries = self.dataset.entries(query)
+        else:
+            entries = []
         entries_ordered = [None] * STREAM_BATCH_SIZE
 
         for entry in entries:
