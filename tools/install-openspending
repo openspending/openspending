@@ -1,4 +1,10 @@
 #!/bin/bash
+
+# Example of how to install OpenSpending programmatically on Ubuntu
+
+# N.B. pip does not install dependencies of packages installed with -e
+# Therefore we have to enumerate some of them specifically for the time being
+
 set -eu
 
 export DIR=$1
@@ -11,9 +17,11 @@ pip install pylons
 pip install psycopg2
 pip install genshi
 pip install webob==1.0.8
-pip install PasteScript==1.7.4.2
+pip install PasteScript==1.7.5
+pip install colander
+pip install translationstring
+pip install Unidecode==0.04.9
 pip install -e git+http://github.com/okfn/openspending#egg=openspending
-pip install -e git+http://github.com/okfn/openspending.etl#egg=openspending.etl
+pip install -e git+http://github.com/okfn/osvalidate#egg=osvalidate
 pip install -e git+http://github.com/okfn/openspending.plugins.treemap#egg=openspending.plugins.treemap
 pip install -e git+http://github.com/okfn/openspending.plugins.datatables#egg=openspending.plugins.datatables
-pip install -r pip-sources.txt 
