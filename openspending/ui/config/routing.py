@@ -70,6 +70,7 @@ def make_map():
     map.connect('/500', controller='error', action='render', code="500")
 
     map.connect('/__version__', controller='home', action='version')
+    map.connect('/__ping__', controller='home', action='ping')
 
     map.connect('/{dataset}.{format}', controller='dataset', action='view')
     map.connect('/{dataset}', controller='dataset', action='view')

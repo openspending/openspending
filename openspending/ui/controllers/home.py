@@ -63,3 +63,9 @@ class HomeController(BaseController):
         else:
             import openspending.version
             return openspending.version.__version__
+
+    def ping(self):
+        from openspending.tasks import ping
+        ping.delay()
+        flash_success(_("Sent ping!"))
+        redirect('/')
