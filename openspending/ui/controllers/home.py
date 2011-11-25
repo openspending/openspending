@@ -39,12 +39,6 @@ class HomeController(BaseController):
                          action='index',
                          sub_domain=None))
 
-    def getinvolved(self):
-        return render('home/getinvolved.html')
-
-    def reporterror(self):
-        return render('home/reporterror.html')
-
     def locale(self):
         return_to = request.params.get('return_to', '/')
         locale = request.params.get('locale')
