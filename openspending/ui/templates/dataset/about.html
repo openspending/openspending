@@ -16,10 +16,41 @@
     <div class="row">
       <div class="span-two-thirds">
         <h3>Description</h3>
-        <div class="no-desc" py:if="not c.dataset.description">
+        <div class="help-block" py:if="not c.dataset.description">
           No description is available for ${c.dataset.label}
         </div>
         ${h.markdown(c.dataset.description)}
+
+        <div class="row">
+          <div class="span-one-third">
+            <h3>Sources</h3>
+            <span class="help-block">
+              This is a listing of all source data that was registered
+              for this dataset. If you want to look at the exact data 
+              that is used to generate aggregates, you can also use a 
+              <a href="${h.url(controller='help', action='page',
+                path='api-search.html')}">bulk export</a>.
+            </span>
+            <br/>
+            <ul py:if="len(c.sources)">
+              <li py:for="source in c.sources">
+                <a href="${source.url}">${source.name}</a>
+              </li>
+            </ul>
+          </div>
+          <div class="span-one-third">
+            <h3>Team</h3>
+            <span class="help-block">
+              These people are the managers of the dataset. They can
+              make modifications to its schema and are responsible
+              to make sure the data is accurate.
+            </span>
+            <br/>
+            <ul py:if="len(c.managers)">
+              <li py:for="account in c.managers">${account.fullname}</li>
+            </ul>
+          </div>
+        </div>
       </div>
       <div class="span-one-third">
         <h3>Measures</h3>

@@ -88,6 +88,8 @@ class DatasetController(BaseController):
     def about(self, dataset, format='html'):
         self._get_dataset(dataset)
         handle_request(request, c, c.dataset)
+        c.sources = list(c.dataset.sources)
+        c.managers = list(c.dataset.managers)
         return render('dataset/about.html')
 
     def explorer(self, dataset):
