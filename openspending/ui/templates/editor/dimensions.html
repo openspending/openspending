@@ -23,23 +23,23 @@
     <div class="row">
       <div class="offset4 span12">
         <py:if test="not c.can_edit">
-          <form method="POST" action="${h.url(controller='editor',
-            action='drop', dataset=c.dataset.name)}">
-            <div class="alert-message block-message warning">
-              <strong>You cannot edit dimensions while data is
-                loaded.</strong>
-              In order to modify the dimensions model, you'll have to 
-              delete all the data that is currently loaded from the database.
-            
-              <div class="alert-actions">
+          <div class="alert-message block-message warning">
+            <strong>You cannot edit dimensions while data is
+              loaded.</strong>
+            In order to modify the dimensions model, you'll have to 
+            delete all the data that is currently loaded from the database.
+          
+            <div class="alert-actions">
+              <form method="POST" action="${h.url(controller='editor',
+                action='drop', dataset=c.dataset.name)}">
                 <input type="submit" class="btn danger" 
                   value="Delete loaded data" />
                 <a href="${h.url(controller='dimension', action='index',
                   dataset=c.dataset.name)}" class="btn">
                   See dimensions</a>
-              </div>
+              </form>
             </div>
-          </form>
+          </div>
         </py:if>
         <py:if test="c.can_edit">
           <form class="basic" id="form" action="${url(controller='editor',
