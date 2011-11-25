@@ -60,7 +60,7 @@
 
   <div py:def="view_panel(viewstate)" class="view-panel last">
     <ul class="tabs">
-      <py:for each="view in viewstate.available_views">
+      <py:for each="view in c.available_views">
         <py:if test="view.name==viewstate.view.name">
           <li class="active"><a>${view.label}</a></li>
         </py:if>
@@ -68,17 +68,20 @@
           <li><a href="?_view=${view.name}">${view.label}</a></li>
         </py:if>
       </py:for>
-      <li class="dropdown" data-dropdown="dropdown">
-        <a href="#" class="dropdown-toggle">${c.time}</a>
-        <ul class="dropdown-menu">
-          <py:for each="time in c.times">
-            <li py:if="c.time != time">
-              <a href="?_view=${viewstate.view.name}&amp;_time=${time}">${time}</a>
-            </li>
-          </py:for>
-        </ul>
-      </li>
+      ${view_times()}
     </ul>
   </div>
 
+  <div py:def="view_times()" class="view-panel last" py:strip="True">
+    <li py:if="c.view" class="dropdown" data-dropdown="dropdown">
+      <a href="#" class="dropdown-toggle">${c.time}</a>
+      <ul class="dropdown-menu">
+        <py:for each="time in c.times">
+          <li py:if="c.time != time">
+            <a href="?_view=${c.viewstate.view.name}&amp;_time=${time}">${time}</a>
+          </li>
+        </py:for>
+      </ul>
+    </li>
+  </div>
 </html>

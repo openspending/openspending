@@ -2,29 +2,15 @@
   xmlns:i18n="http://genshi.edgewall.org/i18n"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   py:strip="">
-
+  
+  <xi:include href="_nav.html" />
+  
   <py:def function="nav_class">nav-dataset</py:def>
 
   <py:def function="page_title">${c.dataset.label or c.dataset.name}</py:def>
 
-  <form py:def="search_form" method="get" action="search">
-      <input type="hidden" name="dataset" value="${c.dataset.label}"/>
-      <input type="search" placeholder="Search ${c.dataset.label}" name="q"/>
-  </form>
-
   <div py:def="content">
-    <h2 class="page-header">
-      <div class="representations">
-        <a href="${url(controller='dataset', action='view', dataset=c.dataset.name, format='json')}"><img src="${h.static('img/icons/json.png')}" alt="JSON" /></a>
-        <a href="${url(controller='dataset', action='view', dataset=c.dataset.name, format='csv')}"><img src="${h.static('img/icons/csv.png')}" alt="CSV" /></a>
-      </div>
-      
-      ${c.dataset.label} 
-      <small>${c.num_entries} Entries</small>
-    </h2>
-    <py:if test="hasattr(c, 'viewstate')">
-      ${view_panel(c.viewstate)}
-    </py:if>
+    ${dataset_nav(c.view.name if c.view else 'search')}
 
     <div py:if="c.view" class="row">
       <div class="span16" id="vis"></div>
@@ -37,21 +23,6 @@
           No description is available for ${c.dataset.label}
         </div>
         ${h.markdown(c.dataset.description)}
-      </div>
-      <div class="span-one-third">
-        <h3>Research</h3>
-        <ul>
-          <li><a href="${url(controller='entry', action='index', dataset=c.dataset.name)}">Search</a>: ${c.num_entries} spending entries</li>
-          <li><a href="${url(controller='dimension', action='index',
-            dataset=c.dataset.name)}">Dimensions</a>: Explore the data model</li>
-          <py:if test="can.dataset.update(c.dataset)">
-          <li>
-              <span class="label important">Admin</span>
-              <a class="admin-link" href="${url(controller='editor',
-              action='index', dataset=c.dataset.name)}">
-              Dataset Manager</a>: Manage metadata, model and load data.</li>
-          </py:if>
-        </ul>
       </div>
     </div>
     <div py:if="c.view" class="row">

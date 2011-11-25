@@ -55,6 +55,15 @@ class View(object):
                 return view
         raise ValueError("View %s does not exist." % name)
 
+    @classmethod
+    def available(cls, dataset, obj, dimension=None):
+        views = []
+        for data in dataset.data.get('views', []):
+            view = View(dataset, data)
+            if view.match(obj, dimension):
+                views.append(view)
+        return views
+
     @property
     def base_dimensions(self):
         dimensions = [self.dimension, 'year']
@@ -82,15 +91,6 @@ class ViewState(object):
     @property
     def dataset(self):
         return self.view.dataset
-
-    @property
-    def available_views(self):
-        views = []
-        for data in self.dataset.data.get('views', []):
-            view = View(self.dataset, data)
-            if view.match(self.obj, self.view.dimension):
-                views.append(view)
-        return views
 
     @property
     def cuts(self):
@@ -156,6 +156,7 @@ def _set_time_context(request, c):
 
 def handle_request(request, c, obj, dimension=None):
     view_name = request.params.get('_view', 'default')
+    c.available_views = View.available(c.dataset, obj, dimension)
     try:
         c.view = View.by_name(c.dataset, obj, view_name,
                               dimension=dimension)
@@ -165,3 +166,4 @@ def handle_request(request, c, obj, dimension=None):
 
     _set_time_context(request, c)
     c.viewstate = ViewState(obj, c.view, c.time)
+

@@ -7,6 +7,7 @@ from pylons.i18n import _
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IEntryController
 from openspending.ui.lib.base import BaseController, render
+from openspending.ui.lib.views import handle_request
 from openspending.ui.lib.browser import Browser
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import to_jsonp
@@ -20,6 +21,7 @@ class EntryController(BaseController):
     
     def index(self, dataset, format='html'):
         self._get_dataset(dataset)
+        handle_request(request, c, c.dataset)
         url = h.url_for(controller='entry', action='index',
                     dataset=c.dataset.name)
         c.browser = Browser(c.dataset, request.params, url=url)
