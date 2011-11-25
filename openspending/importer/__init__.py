@@ -31,7 +31,8 @@ class BaseImporter(object):
 
         self.row_number = 0
 
-        self._run = Run('import', Run.STATUS_RUNNING, self.dataset)
+        self._run = Run('import', Run.STATUS_RUNNING,
+                        self.dataset, self.source)
         db.session.add(self._run)
         db.session.commit()
 

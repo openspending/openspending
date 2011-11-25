@@ -30,10 +30,11 @@ class Run(db.Model):
     source = db.relationship(Source,
                               backref=db.backref('runs', lazy='dynamic'))
 
-    def __init__(self, operation, status, dataset, message=None):
+    def __init__(self, operation, status, dataset, source):
         self.operation = operation
         self.status = status
         self.dataset = dataset
+        self.source = source
 
     @classmethod
     def by_id(cls, id):
