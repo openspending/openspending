@@ -67,16 +67,13 @@ class EditorController(BaseController):
 
     def dimensions_edit(self, dataset, errors={}, mapping=None, 
             format='html'):
-        # FIXME: cannot see this when there are no sources.
-
-        # TODO: handle columns and model guess coming from 
-        # source. 
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
+        # TODO: really split up dimensions and mapping editor.
+        c.source = c.dataset.sources.first()
         mapping = mapping or c.dataset.data.get('mapping', {})
-        if not len(mapping):
-            if 'mapping' in c.dataset.sources[0].analysis:
-                mapping = c.dataset.sources[0].analysis['mapping']
+        if not len(mapping) and c.source and 'mapping' in c.source.analysis:
+                mapping = c.source.analysis['mapping']
         c.fill = {'mapping': json.dumps(mapping, indent=2)}
         c.errors = errors
         c.can_edit = not len(c.dataset)
