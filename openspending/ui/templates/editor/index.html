@@ -15,7 +15,6 @@
 
     <div class="row">
       <div class="span12">
-        <h3>Source files</h3>
         <py:choose test="">
           <div py:when="not c.has_sources" 
             class="alert-message block-message info">
@@ -35,34 +34,35 @@
               <a class="btn small" data-backdrop="true" data-controls-modal="new-source" href="#">Add a source</a>
             </div>
           </div>
-          <div py:otherwise="">
-            <py:choose test="">
-              <div py:when="c.source and not c.source.analysis"
-                class="alert-message block-message info">
-                <strong>Let me see...</strong> The data is now being checked to
-                see if it can be imported. This should not take very long.
-                <div class="alert-actions">
-                  <a class="btn small" href="?">Refresh</a>
-                </div>
-              </div>
-              <div py:when="c.source and not c.dataset.mapping"
-                class="alert-message block-message success">
-                <strong>Good stuff!</strong> Your data is now ready. Next,
-                create a <strong>data model</strong> to structure the dataset.
-                <div class="alert-actions">
-                  <a class="btn small" href="${h.url(controller='editor',
-                    action='dimensions_edit', dataset=c.dataset.name)}">Create
-                    a model</a>
-                  <a class="btn small" href="${h.url(controller='help',
-                    action='page', path='api-olap.html')}">Learn
-                    more</a>
-                </div>
-              </div>
-            </py:choose>
-            ${sources_list(c.dataset)}
-            <a class="btn success small" data-backdrop="true" data-controls-modal="new-source" href="#">Add a source</a>
+
+          <div py:when="c.source and not c.source.analysis"
+            class="alert-message block-message info">
+            <strong>Let me see...</strong> The data is now being checked to
+            see if it can be imported. This should not take very long.
+            <div class="alert-actions">
+              <a class="btn small" href="?">Refresh</a>
+            </div>
+          </div>
+
+          <div py:when="c.source and not c.dataset.mapping"
+            class="alert-message block-message success">
+            <strong>Good stuff!</strong> Your data is now ready. Next,
+            create a <strong>data model</strong> to structure the dataset.
+            <div class="alert-actions">
+              <a class="btn small" href="${h.url(controller='editor',
+                action='dimensions_edit', dataset=c.dataset.name)}">Create
+                a model</a>
+              <a class="btn small" href="${h.url(controller='help',
+                action='page', path='api-olap.html')}">Learn
+                more</a>
+            </div>
           </div>
         </py:choose>
+        <div py:if="c.has_sources">
+          <h3>Source files</h3>
+          ${sources_list(c.dataset)}
+          <a class="btn success small" data-backdrop="true" data-controls-modal="new-source" href="#">Add a source</a>
+        </div>
       </div>
       <div class="span4">
         <h3>Summary</h3>
