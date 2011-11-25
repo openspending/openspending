@@ -4,17 +4,14 @@
   py:strip="">
   
   <xi:include href="_nav.html" />
+  <xi:include href="../dimension/_list.html" />
   
   <py:def function="nav_class">nav-dataset</py:def>
 
   <py:def function="page_title">${c.dataset.label or c.dataset.name}</py:def>
 
   <div py:def="content">
-    ${dataset_nav(c.view.name if c.view else 'search')}
-
-    <div py:if="c.view" class="row">
-      <div class="span16" id="vis"></div>
-    </div>
+    ${dataset_nav('about')}
 
     <div class="row">
       <div class="span-two-thirds">
@@ -24,14 +21,26 @@
         </div>
         ${h.markdown(c.dataset.description)}
       </div>
-    </div>
-    <div py:if="c.view" class="row">
-      <div class="span16">
-        <div id="detail" />
+      <div class="span-one-third">
+        <h3>Measures</h3>
+        <span class="help-block">
+          Measures are the numeric properties of each entry in this 
+          dataset.
+        </span>
+        <ul py:for="measure in c.dataset.measures">
+          <li><strong>${measure.label or measure.name}</strong></li>
+        </ul>
+        <h3>Dimensions</h3>
+        <span class="help-block">
+          Dimensions are different aspects of the dataset, such as the
+          spender, recipient or classifications that apply.
+        </span>
+        ${dimensions_list(c.dataset.dimensions)}
       </div>
     </div>
   </div>
 
   <xi:include href="../layout.html" />
 </html>
+
 

@@ -85,6 +85,11 @@ class DatasetController(BaseController):
         else:
             return render('dataset/view.html')
 
+    def about(self, dataset, format='html'):
+        self._get_dataset(dataset)
+        handle_request(request, c, c.dataset)
+        return render('dataset/about.html')
+
     def explorer(self, dataset):
         self._get_dataset(dataset)
         c.dataset_name = c.dataset.name

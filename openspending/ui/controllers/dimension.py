@@ -44,9 +44,8 @@ class DimensionController(BaseController):
 
     def index(self, dataset, format='html'):
         self._get_dataset(dataset)
-        c.dimensions = c.dataset.dimensions
         if format == 'json':
-            return to_jsonp([d.as_dict() for d in c.dimensions])
+            return to_jsonp([d.as_dict() for d in c.dataset.dimensions])
         else:
             return render('dimension/index.html')
 
