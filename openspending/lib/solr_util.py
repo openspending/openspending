@@ -4,6 +4,7 @@ Helper methods for using Solr.
 
 import datetime
 import logging
+import json
 from unicodedata import category
 
 from solr import SolrConnection
@@ -101,6 +102,13 @@ def drop(query):
     solr = get_connection()
     solr.delete_query(query)
     solr.commit()
+
+def dataset_entries(dataset_name):
+    solr = get_connection()
+    res = solr.raw_query(q='*:*', fq='dataset:"%s"' % dataset_name,
+                   rows=0, wt='json')
+    res = json.loads(res)
+    return res.get('response', {}).get('numFound')
 
 SOLR_CORE_FIELDS = ['id', 'dataset', 'amount', 'time', 'location', 'from',
                     'to', 'notes']

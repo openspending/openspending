@@ -17,17 +17,20 @@
     </h2>
     
     <ul class="tabs">
+      <li class="">
+          <a href="${url(controller='dataset', action='view',
+            dataset=c.dataset.name)}">&laquo; Dataset view</a></li>
       <li class="${'active' if section == 'index' else ''}">
           <a href="${url(controller='editor', action='index', dataset=c.dataset.name)}">Dashboard</a></li>
       <li class="${'active' if section == 'core' else ''}">
           <a href="${url(controller='editor', action='core_edit',
-            dataset=c.dataset.name)}">Important Info</a></li>
+            dataset=c.dataset.name)}">Meta</a></li>
       <li class="${'active' if section == 'dimensions' else ''}">
           <a href="${url(controller='editor', action='dimensions_edit',
-            dataset=c.dataset.name)}">Data Dimensions</a></li>
+            dataset=c.dataset.name)}">Dimensions &amp; Measures</a></li>
       <li class="${'active' if section == 'views' else ''}">
           <a href="${url(controller='editor', action='views_edit',
-            dataset=c.dataset.name)}">Visualization Views</a></li>
+            dataset=c.dataset.name)}">Visualizations</a></li>
     </ul>
   </py:def>
 

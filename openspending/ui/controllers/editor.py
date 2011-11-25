@@ -1,5 +1,6 @@
 import logging
 import json
+import math
 
 from pylons.controllers.util import redirect
 from pylons import request, tmpl_context as c
@@ -7,9 +8,11 @@ from pylons.i18n import _
 from colander import Invalid
 
 from openspending.model import meta as db
+from openspending.lib import solr_util as solr
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.base import require, abort
+from openspending.ui.lib.cache import AggregationCache
 from openspending.validation.model.currency import CURRENCIES
 from openspending.validation.model.dataset import dataset_schema
 from openspending.validation.model.mapping import mapping_schema
@@ -23,6 +26,12 @@ class EditorController(BaseController):
     def index(self, dataset, format='html'):
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
+        c.entries_count = len(c.dataset)
+        c.has_sources = c.dataset.sources.count() > 0
+        c.source = c.dataset.sources.first()
+        c.index_count = solr.dataset_entries(c.dataset.name)
+        c.index_percentage = 0 if not c.entries_count else \
+            int((float(c.index_count)/float(c.entries_count))*1000)
         return render('editor/index.html')
 
     def core_edit(self, dataset, errors={}, format='html'):
@@ -58,13 +67,13 @@ class EditorController(BaseController):
 
     def dimensions_edit(self, dataset, errors={}, mapping=None, 
             format='html'):
-        # FIXME: cannot see this when there are no sources.
-
-        # TODO: handle columns and model guess coming from 
-        # source. 
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
+        # TODO: really split up dimensions and mapping editor.
+        c.source = c.dataset.sources.first()
         mapping = mapping or c.dataset.data.get('mapping', {})
+        if not len(mapping) and c.source and 'mapping' in c.source.analysis:
+                mapping = c.source.analysis['mapping']
         c.fill = {'mapping': json.dumps(mapping, indent=2)}
         c.errors = errors
         c.can_edit = not len(c.dataset)
@@ -80,10 +89,13 @@ class EditorController(BaseController):
         errors, mapping = {}, None
         try:
             mapping = json.loads(request.params.get('mapping'))
-            schema = mapping_schema(ValidationState(c.dataset.data))
+            model = c.dataset.data.copy()
+            model['mapping'] = mapping
+            schema = mapping_schema(ValidationState(model))
             c.dataset.data['mapping'] = schema.deserialize(mapping)
             # erm...
             c.dataset.drop()
+            c.dataset.init()
             c.dataset.generate()
             db.session.commit()
             h.flash_success(_("The mapping has been updated."))
@@ -125,6 +137,7 @@ class EditorController(BaseController):
         c.dataset.drop()
         c.dataset.init()
         c.dataset.generate()
+        AggregationCache(c.dataset).invalidate()
         db.session.commit()
         h.flash_success(_("The dataset has been cleared."))
         redirect(h.url_for(controller='editor', action='index', 
@@ -150,6 +163,7 @@ class EditorController(BaseController):
         if c.dataset.private:
             abort(400, _("This dataset is already private!"))
         c.dataset.private = True
+        AggregationCache(c.dataset).invalidate()
         db.session.commit()
         h.flash_success(_("The dataset has been retracted. " \
                 "It is no longer visible to others."))

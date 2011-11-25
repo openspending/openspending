@@ -1,0 +1,82 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  py:strip="">
+  
+  <xi:include href="_nav.html" />
+  <xi:include href="../dimension/_list.html" />
+  
+  <py:def function="nav_class">nav-dataset</py:def>
+
+  <py:def function="page_title">${c.dataset.label or c.dataset.name}</py:def>
+
+  <div py:def="content">
+    ${dataset_nav('about')}
+
+    <div class="row">
+      <div class="span-two-thirds">
+        <h3>Description</h3>
+        <div class="help-block" py:if="not c.dataset.description">
+          No description is available for ${c.dataset.label}
+        </div>
+        ${h.markdown(c.dataset.description)}
+
+        <div class="row">
+          <div class="span-one-third">
+            <h3>Sources</h3>
+            <span class="help-block">
+              This is a listing of all source data that was registered
+              for this dataset. If you want to look at the exact data 
+              that is used to generate aggregates, you can also use a 
+              <a href="${h.url(controller='help', action='page',
+                path='api-search.html')}">bulk export</a>.
+            </span>
+            <br/>
+            <ul py:if="len(c.sources)">
+              <li py:for="source in c.sources">
+                <a href="${source.url}">${source.name}</a>
+              </li>
+            </ul>
+          </div>
+          <div class="span-one-third">
+            <h3>Team</h3>
+            <span class="help-block">
+              These people are the managers of the dataset. They can
+              make modifications to its schema and are responsible
+              to make sure the data is accurate.
+            </span>
+            <br/>
+            <ul py:if="len(c.managers)">
+              <li py:for="account in c.managers">${account.fullname}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="span-one-third">
+        <h3>Measures</h3>
+        <span class="help-block">
+          Measures are the numeric properties of each entry in this 
+          dataset.
+        </span>
+        <ul>
+          <li py:for="measure in c.dataset.measures">
+            <strong>${measure.label or measure.name}</strong>
+            <div py:if="measure.description">
+              ${h.markdown(measure.description)}
+            </div>
+          </li>
+        </ul>
+        <h3>Dimensions</h3>
+        <span class="help-block">
+          Dimensions are different aspects of the dataset, such as the
+          spender, recipient or classifications that apply.
+        </span>
+        ${dimensions_list(c.dataset.dimensions)}
+      </div>
+    </div>
+  </div>
+
+  <xi:include href="../layout.html" />
+</html>
+
+

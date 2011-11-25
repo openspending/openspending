@@ -1,0 +1,47 @@
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:py="http://genshi.edgewall.org/"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  py:strip=""
+  >
+  <xi:include href="../_util.html" />  
+
+  <py:def function="dataset_nav(section)">
+    <h2 class="page-header">
+      <div class="representations">
+        <a href="${url(controller='dataset', action='view', dataset=c.dataset.name, format='json')}"><img src="${h.static('img/icons/json.png')}" alt="JSON" /></a>
+        <a href="${url(controller='dataset', action='view', dataset=c.dataset.name, format='csv')}"><img src="${h.static('img/icons/csv.png')}" alt="CSV" /></a>
+      </div>
+      ${c.dataset.label}
+      <small>${len(c.dataset)} Entries</small>
+    </h2>
+    
+    <ul class="tabs">
+      <py:for each="view in c.available_views">
+        <py:if test="view.name==section">
+          <li class="active"><a>${view.label}</a></li>
+        </py:if>
+        <py:if test="view.name!=section">
+          <li><a href="${h.url(controller='dataset', action='view',
+              dataset=c.dataset.name, _view=view.name)}">
+            ${view.label}</a></li>
+        </py:if>
+      </py:for>
+      <li class="${'active' if section == 'search' else ''}">
+          <a href="${url(controller='entry', action='index',
+            dataset=c.dataset.name)}">Search</a></li>
+      <li class="${'active' if section == 'about' else ''}">
+          <a href="${h.url(controller='dataset', action='about',
+            dataset=c.dataset.name)}">About</a></li>
+      <li py:if="can.dataset.update(c.dataset)" class="admin">
+          <a href="${url(controller='editor', action='index',
+            dataset=c.dataset.name)}">Manage</a></li>
+      ${view_times()}
+    </ul>
+  </py:def>
+
+
+</html>
+
+

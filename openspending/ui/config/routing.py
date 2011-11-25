@@ -51,7 +51,7 @@ def make_map():
     map.connect('/after_login', controller='account', action='after_login')
     map.connect('/after_logout', controller='account', action='after_logout')
 
-    map.connect('/help/*path', controller='docs', action='page')
+    map.connect('/help/*path', controller='help', action='page')
 
     map.connect('/datasets.{format}', controller='dataset', action='index')
     map.connect('/datasets/new', controller='dataset', action='new')
@@ -70,14 +70,15 @@ def make_map():
     map.connect('/500', controller='error', action='render', code="500")
 
     map.connect('/__version__', controller='home', action='version')
+    map.connect('/__ping__', controller='home', action='ping')
 
     map.connect('/{dataset}.{format}', controller='dataset', action='view')
     map.connect('/{dataset}', controller='dataset', action='view')
     map.connect('/{dataset}/explorer', controller='dataset', action='explorer')
     map.connect('/{dataset}/model.{format}', controller='dataset', action='model')
     map.connect('/{dataset}/model', controller='dataset', action='model')
+    map.connect('/{dataset}/meta', controller='dataset', action='about')
     map.connect('/{dataset}/timeline', controller='dataset', action='timeline')
-
 
     map.connect('/{dataset}/editor', controller='editor', action='index')
     map.connect('/{dataset}/editor/core', controller='editor',
@@ -102,6 +103,8 @@ def make_map():
             action='create', conditions=dict(method=['POST']))
     map.connect('/{dataset}/sources/new', controller='source', action='new')
     map.connect('/{dataset}/sources/{id}', controller='source', action='view')
+    map.connect('/{dataset}/sources/{id}/load', controller='source',
+            action='load', conditions=dict(method=['POST']))
 
     map.connect('/{dataset}/entries.{format}', controller='entry',
             action='index')

@@ -4,8 +4,7 @@ SIMPLE_MODEL = {
     'dataset': {
         'name': 'test',
         'label': 'Test Case Model',
-        'description': 'I\'m a banana!',
-        'unique_keys': ['time', 'to.name', 'function.name']
+        'description': 'I\'m a banana!'
     },
     'mapping': {
         'amount': {
@@ -18,7 +17,8 @@ SIMPLE_MODEL = {
             'type': 'value',
             'label': 'Year',
             'column': 'year',
-            'datatype': 'date'
+            'datatype': 'date',
+            'key': True
             },
         'field': {
             'type': 'value',
@@ -30,6 +30,7 @@ SIMPLE_MODEL = {
             'label': 'Einzelplan',
             'type': 'entity',
             'facet': True,
+            'key': True,
             'fields': [
                 {'column': 'to_name', 'name': 'name', 'datatype': 'string'},
                 {'column': 'to_label', 'name': 'label', 'datatype': 'string'},
@@ -41,6 +42,7 @@ SIMPLE_MODEL = {
             'type': 'classifier',
             'taxonomy': 'funny',
             'facet': False,
+            'key': True,
             'fields': [
                 {'column': 'func_name', 'name': 'name', 'datatype': 'string'},
                 {'column': 'func_label', 'name': 'label', 'datatype': 'string'}

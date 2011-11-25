@@ -55,18 +55,11 @@ openspending.sandbox_mode = false
 # openspending.lists_link = http://lists.okfn.org/mailman/listinfo/openspending-discuss
 # openspending.forum_link =
 
-# Mongo
-# openspending.mongodb.host = localhost
-# openspending.mongodb.port = 27017
-openspending.mongodb.database = openspending
+# Database
+openspending.db.url = postgresql:///localhost/openspending
 
 # Solr
 openspending.solr.url = http://localhost:8983/solr
-
-# CKAN
-# openspending.ckan_group = openspending
-# openspending.ckan_location = http://ckan.net/api
-openspending.ckan_api_key = your_ckan_api_key
 
 # Plugins (space-delimited list)
 # openspending.plugins =
@@ -75,18 +68,43 @@ openspending.ckan_api_key = your_ckan_api_key
 # openspending.cache_enabled = False
 
 # Relative path to static files
-# openspending.static_path = /
+# openspending.static_path = /static
 
 # Static file cache version
 # openspending.static_cache_version =
 
 # Directory containing migration modules
-# openspending.migrate_dir = %(here)s/migrate
+# openspending.migrate_dir = %(here)s/migration
+
+
+# ############# #
+# Celery config #
+# ############# # 
+
+broker.host = localhost
+#broker.vhost = rabbitmqhost
+broker.port = 5672
+#broker.user = rabbitmq
+#broker.password = qweqwe
+
+celery.imports = openspending.tasks
+
+celery.result.backend = amqp
+celery.result.dburi = amqp://
+celery.result.serializer = json
+
+celeryd.concurrency = 4
+#celeryd.log.file = celeryd.log
+celeryd.log.level = debug
+celeryd.max.tasks.per.child = 1
+
+#tasks will never be sent to the queue, but executed locally instead.
+#celery.always.eager = false
 
 # Logging configuration:
 #   http://wiki.pylonshq.com/display/pylonsdocs/Logging
 [loggers]
-keys = root
+keys = root, sqlalchemy, openspending
 
 [handlers]
 keys = console
@@ -98,6 +116,18 @@ keys = generic
 level = INFO
 handlers = console
 
+[logger_openspending]
+level = DEBUG
+handlers = console
+qualname = openspending
+propagate = 0
+
+[logger_sqlalchemy]
+level = WARN
+handlers = console
+qualname = sqlalchemy.engine
+propagate = 0
+
 [handler_console]
 class = StreamHandler
 args = (sys.stderr,)
@@ -106,3 +136,4 @@ formatter = generic
 
 [formatter_generic]
 format = %(asctime)s %(levelname)-5.5s [%(name)s] %(message)s
+

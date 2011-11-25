@@ -14,11 +14,42 @@
       </tr>
       <py:for each="source in dataset.sources">
         <tr>
-          <td><a href="${source.url}">${source.name}</a></td>
+          <td>
+            <py:if test="'error' in source.analysis">
+              <span class="label important">Error</span>
+            </py:if>
+            <py:if test="'columns' in source.analysis">
+              <span class="label notice">OK</span>
+            </py:if>
+            <a href="${source.url}">${source.name}</a>
+            <py:if test="'error' in source.analysis">
+              &mdash; <strong>${source.analysis['error']}</strong>
+            </py:if>
+            <py:if test="'columns' in source.analysis">
+              <span class="help-inline">
+                ${len(source.analysis['columns'])} columns
+              </span>
+            </py:if>
+          </td>
           <py:if test="source == dataset.sources[0]">
             <td class="ops">
-              <a class="btn small">Test a sample</a>
-              <a class="btn success small">Load</a>
+              <py:if test="source.loadable">
+                <form method="POST" action="${h.url(controller='source',
+                  action='load', dataset=c.dataset.name, id=source.id)}">
+                  <input type="hidden" name="sample" value="true" />
+                  <input type="submit" class="btn small" value="Test a sample" />
+                </form>
+                <form method="POST" action="${h.url(controller='source',
+                  action='load', dataset=c.dataset.name, id=source.id)}">
+                  <input type="submit" class="btn success small" value="Load" />
+                </form>
+              </py:if>
+              <py:if test="not source.loadable">
+                <a href="#" type="submit" class="btn small disabled">Test a
+                  sample</a>
+                <a href="#" type="submit" class="btn success small disabled">
+                  Load</a>
+              </py:if>
             </td>
           </py:if>
           <py:if test="source != dataset.sources[0]">

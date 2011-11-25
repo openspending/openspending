@@ -11,6 +11,7 @@ class Dimension(object):
         self._data = data
         self.dataset = dataset
         self.name = name
+        self.key = data.get('key', False)
         self.label = data.get('label', name)
         self.type = data.get('type', name)
         self.description = data.get('description', name)

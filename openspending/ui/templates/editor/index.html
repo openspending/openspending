@@ -15,33 +15,63 @@
 
     <div class="row">
       <div class="span12">
-        <h3>Source files</h3>
-        <div py:if="not len(list(c.dataset.sources))" 
-          class="alert-message block-message info">
-          <p>
-          <strong>Congratulations, your dataset is now created.</strong> Next, you'll need
-          to link to a source file that contains the data (or a sample for testing
-          if your dataset is very large!). The data must be in the CSV format.
-          </p>
-          <ul>
-            <li>Learn about <a href="#">how to export CSV</a> from various common
-              applications.</li>
-            <li>Help on <a href="#">common data wrangling tasks</a> needed to clean
-              source data.</li>
-          </ul>
+        <py:choose test="">
+          <div py:when="not c.has_sources" 
+            class="alert-message block-message info">
+            <p>
+            <strong>Congratulations, your dataset is now created.</strong> Next, you'll need
+            to link to a source file that contains the data (or a sample for testing
+            if your dataset is very large!). The data must be in the CSV format.
+            </p>
+            <ul>
+              <li>Learn about <a href="#">how to export CSV</a> from various common
+                applications.</li>
+              <li>Help on <a href="#">common data wrangling tasks</a> needed to clean
+                source data.</li>
+            </ul>
 
-          <div class="alert-actions">
-            <a class="btn small" data-backdrop="true" data-controls-modal="new-source" href="#">Add a source</a>
+            <div class="alert-actions">
+              <a class="btn small" data-backdrop="true" data-controls-modal="new-source" href="#">Add a source</a>
+            </div>
           </div>
-        </div>
-        <div py:if="len(list(c.dataset.sources))">
+
+          <div py:when="c.source and not c.source.analysis"
+            class="alert-message block-message info">
+            <strong>Let me see...</strong> The data is now being checked to
+            see if it can be imported. This should not take very long.
+            <div class="alert-actions">
+              <a class="btn small" href="?">Refresh</a>
+            </div>
+          </div>
+
+          <div py:when="c.source and not c.dataset.mapping"
+            class="alert-message block-message success">
+            <strong>Good stuff!</strong> Your data is now ready. Next,
+            create a <strong>data model</strong> to structure the dataset.
+            <div class="alert-actions">
+              <a class="btn small" href="${h.url(controller='editor',
+                action='dimensions_edit', dataset=c.dataset.name)}">Create
+                a model</a>
+              <a class="btn small" href="${h.url(controller='help',
+                action='page', path='api-olap.html')}">Learn
+                more</a>
+            </div>
+          </div>
+        </py:choose>
+        <div py:if="c.has_sources">
+          <h3>Source files</h3>
           ${sources_list(c.dataset)}
           <a class="btn success small" data-backdrop="true" data-controls-modal="new-source" href="#">Add a source</a>
         </div>
       </div>
       <div class="span4">
+        <h3>Summary</h3>
+        <ul>
+          <li>Entries loaded: ${c.entries_count}</li>
+          <li>Searchable: ${c.index_count} (${c.index_percentage/10.0}%)</li>
+        </ul>
         <h3>Dataset Actions</h3>
-        <py:if test="len(c.dataset)">
+        <py:if test="c.entries_count">
           <form method="POST" action="${h.url(controller='editor',
             action='drop', dataset=c.dataset.name)}">
             <input type="submit" class="btn danger" 
@@ -50,14 +80,14 @@
               errors and re-edit the data dimensions.</span>
           </form>
         </py:if>
-        <py:if test="not len(c.dataset)">
+        <py:if test="not c.entries_count">
           <a href="#" class="btn danger disabled">Delete loaded data</a>
           <span class="help-block">You can remove the loaded data
             at any time and start over.</span>
           <br/>
         </py:if>
 
-        <py:if test="c.dataset.private and len(c.dataset)">
+        <py:if test="c.dataset.private and c.entries_count">
           <form method="POST" action="${h.url(controller='editor',
             action='publish', dataset=c.dataset.name)}">
             <input type="submit" class="btn success" value="Make public" />
@@ -65,7 +95,7 @@
               let the world see this dataset.</span>
           </form>
         </py:if>
-        <py:if test="c.dataset.private and not len(c.dataset)">
+        <py:if test="c.dataset.private and not c.entries_count">
             <a class="btn success disabled">Make public</a>
             <span class="help-block">After you've performed some QA,
               let the world see this dataset.</span>

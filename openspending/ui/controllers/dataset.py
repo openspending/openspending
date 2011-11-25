@@ -20,7 +20,7 @@ from openspending.ui.lib.views import View, ViewState, handle_request
 from openspending.validation.model.currency import CURRENCIES
 from openspending.validation.model.dataset import dataset_schema
 from openspending.validation.model.common import ValidationState
-
+from openspending.ui.controllers.entry import EntryController
 
 log = logging.getLogger(__name__)
 
@@ -72,11 +72,8 @@ class DatasetController(BaseController):
 
         handle_request(request, c, c.dataset)
 
-        if c.view is None:
-            url = h.url_for(controller='entry', action='index',
-                        dataset=c.dataset.name)
-            c.browser = Browser(c.dataset, request.params, url=url)
-            c.browser.facet_by_dimensions()
+        if c.view is None and format == 'html':
+            return EntryController().index(dataset, format)
 
         for item in self.extensions:
             item.read(c, request, response, c.dataset)
@@ -87,6 +84,13 @@ class DatasetController(BaseController):
             return write_csv([c.dataset.as_dict()], response)
         else:
             return render('dataset/view.html')
+
+    def about(self, dataset, format='html'):
+        self._get_dataset(dataset)
+        handle_request(request, c, c.dataset)
+        c.sources = list(c.dataset.sources)
+        c.managers = list(c.dataset.managers)
+        return render('dataset/about.html')
 
     def explorer(self, dataset):
         self._get_dataset(dataset)

@@ -39,12 +39,6 @@ class HomeController(BaseController):
                          action='index',
                          sub_domain=None))
 
-    def getinvolved(self):
-        return render('home/getinvolved.html')
-
-    def reporterror(self):
-        return render('home/reporterror.html')
-
     def locale(self):
         return_to = request.params.get('return_to', '/')
         locale = request.params.get('locale')
@@ -69,3 +63,9 @@ class HomeController(BaseController):
         else:
             import openspending.version
             return openspending.version.__version__
+
+    def ping(self):
+        from openspending.tasks import ping
+        ping.delay()
+        flash_success(_("Sent ping!"))
+        redirect('/')

@@ -68,6 +68,10 @@ body {
   min-width: 6em;
 }
 
+.tabs li.admin a {
+  color: red;
+}
+
 .representations {
   float: right;
 }
@@ -343,6 +347,15 @@ table.sources td {
   vertical-align: middle;
 }
 
+table.sources td form {
+  display: inline; 
+  margin-bottom: 0px;
+}
+
+table.sources td form input.small {
+  width: auto;
+}
+
 table.sources td.ops {
   width: 25%;
   text-align: right;
@@ -363,6 +376,5 @@ table.sources td.ops {
 .bubbletree .desc {
    font-family: Share !important;
 }
-
 
 

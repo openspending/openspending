@@ -81,6 +81,7 @@ class Dataset(TableHandler, db.Model):
                 dimension = CompoundDimension(self, dim, data)
             self.dimensions.append(dimension)
         self.init()
+        self._is_generated = None
 
     def __getitem__(self, name):
         """ Access a field (dimension or measure) by name. """
@@ -123,6 +124,13 @@ class Dataset(TableHandler, db.Model):
         for field in self.fields:
             field.generate(self.meta, self.table)
         self._generate_table()
+        self._is_generated = True
+
+    @property
+    def is_generated(self):
+        if self._is_generated is None:
+            self._is_generated = self.table.exists()
+        return self._is_generated
 
     def commit(self):
         pass
@@ -135,13 +143,12 @@ class Dataset(TableHandler, db.Model):
         loads and thus creates stable URIs for entries. 
         """
         uniques = [self.name]
-        for dimension in self.unique_keys:
-            attribute = None
-            if '.' in dimension:
-                dimension, attribute = dimension.split('.', 1)
-            obj = data.get(dimension)
-            if attribute and obj is not None:
-                obj = obj.get(attribute)
+        for field in self.fields:
+            if not field.key:
+                continue
+            obj = data.get(field.name)
+            if isinstance(obj, dict):
+                obj = obj.get('name', obj.get('id'))
             uniques.append(obj)
         return hash_values(uniques)
 
@@ -196,6 +203,9 @@ class Dataset(TableHandler, db.Model):
         This is somewhat similar to the entries collection in the fully
         denormalized schema before OpenSpending 0.11 (MongoDB).
         """
+        if not self.is_generated:
+            return
+
         joins = self.alias
         for d in self.dimensions:
             joins = d.join(joins)
@@ -405,6 +415,8 @@ class Dataset(TableHandler, db.Model):
         return sorted([r[attribute] for r in rp.fetchall()])
 
     def __len__(self):
+        if not self.is_generated:
+            return 0
         rp = self.bind.execute(self.alias.count())
         return rp.fetchone()[0]
 
@@ -414,10 +426,10 @@ class Dataset(TableHandler, db.Model):
     @classmethod
     def all_by_account(cls, account):
         """ Query available datasets based on dataset visibility. """
-        from openspending.model.account import Account
         criteria = [cls.private==False]
         if account is not None:
-            criteria += ["1=1" if account.admin else "1=2", cls.managers.any(Account.id==account.id)]
+            criteria += ["1=1" if account.admin else "1=2",
+                         cls.managers.any(type(account).id==account.id)]
         return db.session.query(cls).filter(db.or_(*criteria))
 
     @classmethod

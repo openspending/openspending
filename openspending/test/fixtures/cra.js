@@ -4,8 +4,7 @@
     "name": "cra",
     "label": "Country Regional Analysis v2009",
     "description": "The Country Regional Analysis published by HM Treasury (2010 version).\n\nSource data can be found in the [CKAN data package](http://ckan.net/package/ukgov-finances-cra)",
-    "currency": "GBP",
-    "unique_keys": ["name"]
+    "currency": "GBP"
   },
   "mapping": {
     "from": {
@@ -69,7 +68,8 @@
       "label": "Name",
       "description": "",
       "datatype": "string",
-      "type": "value"
+      "type": "value",
+      "key": true
     },
     "currency": {
       "column": "currency",

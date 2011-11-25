@@ -15,7 +15,8 @@ def flatten(data, sep='.'):
 
 def hash_values(iterable):
     """Return a cryptographic hash of an iterable."""
-    return sha1(''.join(sha1(unicode(val)).hexdigest() for val in iterable)).hexdigest()
+    return sha1(''.join(sha1(unicode(val).encode('utf-8')).hexdigest() \
+            for val in iterable)).hexdigest()
 
 def check_rest_suffix(name):
     '''\
