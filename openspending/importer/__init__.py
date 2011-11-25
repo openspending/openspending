@@ -4,7 +4,7 @@ from datetime import datetime
 
 from openspending.model import Run, LogRecord
 from openspending.model import meta as db
-from openspending.validation import Invalid
+from openspending.validation.model import Invalid
 from openspending.validation.data import convert_types
 from openspending.lib import unicode_dict_reader as udr
 

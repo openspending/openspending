@@ -11,7 +11,7 @@ from openspending.model import Source, Dataset, Account
 from openspending.model import meta as db
 from openspending.importer import CSVImporter
 from openspending.validation.model import validate_model
-from openspending.validation import Invalid
+from openspending.validation.model import Invalid
 
 log = logging.getLogger(__name__)
 

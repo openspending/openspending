@@ -51,10 +51,12 @@ setup(
         "sphinx==1.0.7",
         "argparse==1.2.1",
         "celery==2.1.4",
-        "messytables==0.1.2"
+        "messytables==0.1.2",
+        
+        "osvalidate==2011-11-25.01"
     ],
     setup_requires=[
-        "PasteScript==1.7.4.2",
+        "PasteScript==1.7.5",
         "nose==1.1.2"
     ],
 
