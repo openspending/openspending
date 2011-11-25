@@ -21,6 +21,7 @@ pip install PasteScript==1.7.5
 pip install colander
 pip install translationstring
 pip install Unidecode==0.04.9
+pip install celery==2.1.4
 pip install -e git+http://github.com/okfn/openspending#egg=openspending
 pip install -e git+http://github.com/okfn/osvalidate#egg=osvalidate
 pip install -e git+http://github.com/okfn/openspending.plugins.treemap#egg=openspending.plugins.treemap
