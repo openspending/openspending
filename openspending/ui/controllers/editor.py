@@ -12,6 +12,7 @@ from openspending.lib import solr_util as solr
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.base import require, abort
+from openspending.ui.lib.cache import AggregationCache
 from openspending.validation.model.currency import CURRENCIES
 from openspending.validation.model.dataset import dataset_schema
 from openspending.validation.model.mapping import mapping_schema
@@ -137,6 +138,7 @@ class EditorController(BaseController):
         c.dataset.drop()
         c.dataset.init()
         c.dataset.generate()
+        AggregationCache(c.dataset).invalidate()
         db.session.commit()
         h.flash_success(_("The dataset has been cleared."))
         redirect(h.url_for(controller='editor', action='index', 
@@ -162,6 +164,7 @@ class EditorController(BaseController):
         if c.dataset.private:
             abort(400, _("This dataset is already private!"))
         c.dataset.private = True
+        AggregationCache(c.dataset).invalidate()
         db.session.commit()
         h.flash_success(_("The dataset has been retracted. " \
                 "It is no longer visible to others."))

@@ -18,7 +18,8 @@ class AggregationCache(object):
     def __init__(self, dataset, type='dbm'):
         self.dataset = dataset
         opt = config.get('openspending.cache_enabled', 'True')
-        self.cache_enabled = asbool(opt)
+        self.cache_enabled = asbool(opt) and \
+                not self.dataset.private
         self.cache = cache.get_cache('DSCACHE_' + dataset.name,
                                      type=type)
 
