@@ -69,7 +69,6 @@ class BaseImporter(object):
     def __init__(self, source):
         self.source = source
         self.dataset = source.dataset
-        self.model_valid = None
         self.errors = []
 
     def run(self,
@@ -77,7 +76,6 @@ class BaseImporter(object):
             max_errors=None,
             max_lines=None,
             raise_errors=False,
-            build_indices=True,
             **kwargs):
 
         self.dry_run = dry_run
@@ -125,7 +123,7 @@ class BaseImporter(object):
         err = DataError(exception=exception,
                         line_number=self.line_number,
                         source_file=self.source.url)
-        log.warn(err)
+        log.warn(unicode(err))
         self.errors.append(err)
 
         if self.max_errors and len(self.errors) >= self.max_errors:
