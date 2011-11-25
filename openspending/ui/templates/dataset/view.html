@@ -16,15 +16,6 @@
       <div class="span16" id="vis"></div>
     </div>
 
-    <div class="row">
-      <div class="span-two-thirds">
-        <h3>Description</h3>
-        <div class="no-desc" py:if="not c.dataset.description">
-          No description is available for ${c.dataset.label}
-        </div>
-        ${h.markdown(c.dataset.description)}
-      </div>
-    </div>
     <div py:if="c.view" class="row">
       <div class="span16">
         <div id="detail" />
