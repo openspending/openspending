@@ -8,6 +8,8 @@ from openspending.model.dimension import AttributeDimension, \
 from openspending.model.dataset import Dataset
 from openspending.model.account import Account
 from openspending.model.source import Source
+from openspending.model.run import Run
+from openspending.model.log_record import LogRecord
 
 # shut up useless SA warning:
 import warnings

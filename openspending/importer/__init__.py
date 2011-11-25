@@ -1,134 +1,115 @@
 import logging
+import traceback
+from datetime import datetime
 
-from unidecode import unidecode
-
-from openspending.model import Dataset, meta as db
-
+from openspending.model import Run, LogRecord
+from openspending.model import meta as db
 from openspending.validation import Invalid
 from openspending.validation.data import convert_types
-from openspending.validation.model import validate_model
 from openspending.lib import unicode_dict_reader as udr
 
 from openspending.importer import util
 
 log = logging.getLogger(__name__)
 
-
-class ImporterError(Exception):
-    pass
-
-
-class ModelValidationError(ImporterError):
-    def __init__(self, colander_exc):
-        self.colander_exc = colander_exc
-
-    def __str__(self):
-        msg = []
-        msg.append("These errors were found when attempting to validate your " \
-                   "model:")
-        for k, v in self.colander_exc.asdict().iteritems():
-            msg.append("  - '%s' field had error '%s'" % (unidecode(k), unidecode(v)))
-
-        return "\n".join(msg)
-
-
-class DataError(ImporterError):
-    def __init__(self, exception, line_number=None, source_file=None):
-        self.exception = exception
-        self.line_number = line_number
-        self.source_file = source_file
-
-        if isinstance(exception, Invalid):
-            msgs = ["Validation error:"]
-            for invalid in exception.children:
-                msg = "  - '%s' (%s) could not be generated from column '%s'" \
-                      " (value: %s): %s"
-                msg = msg % (invalid.node.name, invalid.datatype, 
-                             invalid.column, invalid.value, invalid.msg)
-                msgs.append(msg)
-            self.message = "\n".join(msgs)
-        elif isinstance(exception, Exception):
-            # The message attribute is deprecated for Python 2.6 BaseExceptions.
-            self.message = str(exception)
-        else:
-            self.message = repr(exception)
-
-    def __str__(self):
-        return "Line %s: %s" % (self.line_number, self.message)
-
-    def __repr__(self):
-        return "<DataError (message='%s', file=%s, line=%d)>" \
-            % (self.message, self.source_file, self.line_number)
-
-class TooManyErrorsError(ImporterError):
-    pass
-
-
 class BaseImporter(object):
 
     def __init__(self, source):
         self.source = source
         self.dataset = source.dataset
-        self.errors = []
+        self.errors = 0
+        self.row_number = None
 
     def run(self,
             dry_run=False,
-            max_errors=None,
             max_lines=None,
             raise_errors=False,
             **kwargs):
 
         self.dry_run = dry_run
-        self.max_errors = max_errors
         self.raise_errors = raise_errors
 
-        self.line_number = 0
+        self.row_number = 0
 
-        for line_number, line in enumerate(self.lines, start=1):
-            if max_lines and line_number > max_lines:
-                break
+        self._run = Run('import', Run.STATUS_RUNNING, self.dataset)
+        db.session.add(self._run)
+        db.session.commit()
 
-            self.line_number = line_number
-            self.process_line(line)
+        try:
+            for row_number, line in enumerate(self.lines, start=1):
+                if max_lines and row_number > max_lines:
+                    break
 
-        if self.line_number == 0:
-            self.add_error("Didn't read any lines of data")
+                self.row_number = row_number
+                self.process_line(line)
+        except Exception as ex:
+            self.log_exception(ex)
+            if self.raise_errors:
+                self._run.status = Run.STATUS_FAILED
+                self._run.time_end = datetime.utcnow()
+                db.session.commit()
+                raise
+
+        if self.row_number == 0:
+            self.log_exception(ValueError("Didn't read any lines of data"))
 
         if self.errors:
-            log.error("Finished import with %d errors:", len(self.errors))
-            for err in self.errors:
-                log.error(" - %s", err)
+            self._run.status = Run.STATUS_FAILED
         else:
+            self._run.status = Run.STATUS_COMPLETE
             log.info("Finished import with no errors!")
+        self._run.time_end = datetime.utcnow()
+        db.session.commit()
 
     @property
     def lines(self):
         raise NotImplementedError("lines not implemented in BaseImporter")
 
     def process_line(self, line):
-        if self.line_number % 1000 == 0:
-            log.info('Imported %s lines' % self.line_number)
+        if self.row_number % 1000 == 0:
+            log.info('Imported %s lines' % self.row_number)
 
         try:
             data = convert_types(self.dataset.mapping, line)
             if not self.dry_run:
                 self.dataset.load(data)
-        except (Invalid, ImporterError) as e:
+        except Invalid as invalid:
+            for child in invalid.children:
+                self.log_invalid_data(child)
             if self.raise_errors:
                 raise
-            else:
-                self.add_error(e)
+        except Exception as ex:
+            self.log_exception(ex)
+            if self.raise_errors:
+                raise
 
-    def add_error(self, exception):
-        err = DataError(exception=exception,
-                        line_number=self.line_number,
-                        source_file=self.source.url)
-        log.warn(unicode(err))
-        self.errors.append(err)
+    def log_invalid_data(self, invalid):
+        log_record = LogRecord(self._run, LogRecord.CATEGORY_DATA,
+                               logging.ERROR, invalid.msg)
+        log_record.attribute = invalid.node.name
+        log_record.column = invalid.column
+        log_record.value = invalid.value
+        log_record.data_type = invalid.datatype
 
-        if self.max_errors and len(self.errors) >= self.max_errors:
-            all_errors = "".join(map(lambda x: "\n  " + str(x), self.errors))
-            raise TooManyErrorsError("The following errors occurred:" + all_errors)
+        msg = "'%s' (%s) could not be generated from column '%s'" \
+              " (value: %s): %s"
+        msg = msg % (invalid.node.name, invalid.datatype, 
+                     invalid.column, invalid.value, invalid.msg)
+        log.warn(msg)
+        self._log(log_record)
+
+    def log_exception(self, exception):
+        log_record = LogRecord(self._run, LogRecord.CATEGORY_SYSTEM,
+                               logging.ERROR, str(exception))
+        log_record.error = traceback.format_exc()
+        log.error(unicode(exception))
+        self._log(log_record)
+
+    def _log(self, log_record):
+        self.errors += 1
+        log_record.row = self.row_number
+        db.session.add(log_record)
+        db.session.commit()
 
 
 class CSVImporter(BaseImporter):
@@ -139,7 +120,7 @@ class CSVImporter(BaseImporter):
             csv = util.urlopen_lines(self.source.url)
             return udr.UnicodeDictReader(csv)
         except udr.EmptyCSVError as e:
-            self.add_error(e)
+            self.log_exception(e)
             return ()
 
 

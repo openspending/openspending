@@ -9,7 +9,6 @@ from openspending.lib import json
 
 from openspending.model import Source, Dataset, Account
 from openspending.model import meta as db
-from openspending.importer import util
 from openspending.importer import CSVImporter
 from openspending.validation.model import validate_model
 from openspending.validation import Invalid
@@ -26,10 +25,6 @@ import_parser.add_argument('-n', '--dry-run',
 
 import_parser.add_argument('--no-index', action="store_false", dest='build_indices',
                            default=True, help='Suppress Solr index build.')
-
-import_parser.add_argument('--max-errors', action="store", dest='max_errors',
-                           type=int, default=None, metavar='N',
-                           help="Maximum number of import errors to tolerate before giving up.")
 
 import_parser.add_argument('--max-lines', action="store", dest='max_lines',
                            type=int, default=None, metavar='N',

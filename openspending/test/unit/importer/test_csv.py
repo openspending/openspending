@@ -71,7 +71,7 @@ class TestCSVImporter(DatabaseTestCase):
         source = csvimport_fixture('simple')
         importer = CSVImporter(source)
         importer.run()
-        h.assert_equal(importer.errors, [])
+        h.assert_equal(importer.errors, 0)
 
         dataset = db.session.query(Dataset).first()
         h.assert_true(dataset is not None, "Dataset should not be None")
@@ -90,8 +90,9 @@ class TestCSVImporter(DatabaseTestCase):
 
         importer = CSVImporter(source)
         importer.run(dry_run=True)
-        h.assert_true(len(importer.errors) > 1, "Should have errors")
-        h.assert_equal(importer.errors[0].line_number, 1,
+        h.assert_true(importer.errors > 1, "Should have errors")
+        records = list(importer._run.records)
+        h.assert_equal(records[0].row, 1,
                        "Should detect missing date colum in line 1")
 
     def test_empty_csv(self):
@@ -100,27 +101,27 @@ class TestCSVImporter(DatabaseTestCase):
         importer = CSVImporter(source)
         importer.run(dry_run=True)
 
-        h.assert_equal(len(importer.errors), 2)
-
-        h.assert_equal(importer.errors[0].line_number, 0)
-        h.assert_equal(importer.errors[1].line_number, 0)
-
-        h.assert_true("Didn't read any lines of data" in str(importer.errors[1].message))
+        h.assert_equal(importer.errors, 2)
+        records = list(importer._run.records)
+        h.assert_equal(records[0].row, 0)
+        h.assert_equal(records[1].row, 0)
+        h.assert_true("Didn't read any lines of data" in str(records[1].message))
 
     def test_malformed_csv(self):
         source = csvimport_fixture('malformed')
         importer = CSVImporter(source)
         importer.run(dry_run=True)
-        h.assert_equal(len(importer.errors), 1)
+        h.assert_equal(importer.errors, 1)
 
     def test_erroneous_values(self):
         source = csvimport_fixture('erroneous_values')
         importer = CSVImporter(source)
         importer.run(dry_run=True)
-        h.assert_equal(len(importer.errors), 1)
-        h.assert_true("date" in importer.errors[0].message,
+        h.assert_equal(importer.errors, 2)
+        records = list(importer._run.records)
+        h.assert_true("time" in records[1].message,
                       "Should find badly formatted date")
-        h.assert_equal(importer.errors[0].line_number, 5)
+        h.assert_equal(records[1].row, 5)
 
     def test_error_with_empty_additional_date(self):
         source = csvimport_fixture('empty_additional_date')
@@ -128,7 +129,7 @@ class TestCSVImporter(DatabaseTestCase):
         importer.run()
         # We are currently not able to import date cells without a value. See:
         # http://trac.openspending.org/ticket/170
-        h.assert_equal(len(importer.errors), 1)
+        h.assert_equal(importer.errors, 1)
 
     def test_currency_sane(self):
         h.skip("Not yet implemented")
@@ -151,7 +152,7 @@ class TestCSVImportDatasets(DatabaseTestCase):
         importer = CSVImporter(source)
         importer.run()
 
-        h.assert_equal(len(importer.errors), 0)
+        h.assert_equal(importer.errors, 0)
 
         # check correct number of entries
         dataset = db.session.query(Dataset).first()
