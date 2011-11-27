@@ -430,7 +430,9 @@ class Dataset(TableHandler, db.Model):
         if account is not None:
             criteria += ["1=1" if account.admin else "1=2",
                          cls.managers.any(type(account).id==account.id)]
-        return db.session.query(cls).filter(db.or_(*criteria))
+        q = db.session.query(cls).filter(db.or_(*criteria))
+        q= q.order_by(cls.label.asc())
+        return q
 
     @classmethod
     def by_name(cls, name):
