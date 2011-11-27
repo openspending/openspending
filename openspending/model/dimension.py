@@ -86,13 +86,8 @@ class CompoundDimension(Dimension, TableHandler):
         self.taxonomy = data.get('taxonomy', name)
 
         self.attributes = []
-        names = []
         for attr in data.get('attributes', data.get('fields', [])):
-            names.append(attr['name'])
             self.attributes.append(Attribute(self, attr))
-        if not 'name' in names:
-            self.attributes.append(Attribute(self, 
-                {'name': 'name', 'datatype': 'id'}))
 
         # TODO: possibly use a LRU later on?
         self._pk_cache = {}
