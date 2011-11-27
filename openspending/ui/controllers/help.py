@@ -22,7 +22,7 @@ log = logging.getLogger(__name__)
 class HelpController(BaseController):
 
     def page(self, path):
-        suffix = 'docs/%s' % path
+        suffix = 'help/%s' % path
         for path in app_globals.genshi_loader.search_path:
             filename = os.path.normpath(os.path.join(path, suffix))
             if not (filename.startswith(path)
