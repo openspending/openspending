@@ -67,7 +67,7 @@
     </div>
 
     <br/>
-    <div class="row">
+    <div class="row" py:if="len(c.extras)">
       <div class="span16">
         <table width="100%">
           <thead>
@@ -83,16 +83,16 @@
                 <py:when test="c.desc.get(key)">
                   <a href="${h.url_for(controller='dimension', action='view',
                     dataset=c.dataset.name, dimension=key)}">
-                    ${c.desc.get(key).label or c.desc.get(key).name}:
+                    ${c.desc.get(key).label or c.desc.get(key).name}
                   </a>
                 </py:when>
-                <py:otherwise>${key}:</py:otherwise>
+                <py:otherwise>${key}</py:otherwise>
               </td>
               <td py:choose="">
                 ${h.dimension_link(c.dataset.name, key, value)}
               </td>
-              <td>
-                <i>${c.desc.get(key).description}</i>
+              <td width="20%">
+                <span class="help-inline">${c.desc.get(key).description}</span>
               </td>
             </tr>
           </tbody>

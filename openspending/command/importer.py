@@ -77,7 +77,8 @@ def csvimport(csv_data_url, args):
             break
     db.session.add(source)
     db.session.commit()
-
+    
+    dataset.generate()
     importer = CSVImporter(source)
     importer.run(**vars(args))
     return 0

@@ -1,5 +1,6 @@
 import logging
 import os
+import json
 
 from pylons import config
 
@@ -53,6 +54,21 @@ def migrate():
 
     return 0
 
+def modelmigrate():
+    from openspending.validation.model.migration import migrate_model
+    dataset = db.Table('dataset', db.metadata, autoload=True)
+    rp = db.engine.execute(dataset.select())
+    while True:
+        ds = rp.fetchone()
+        if ds is None:
+            break
+        print ds['name'], '...'
+        model = migrate_model(ds['data'])
+        q = dataset.update().where(dataset.c.id==ds['id'])
+        q = q.values({'data': model})
+        db.engine.execute(q)
+    return 0
+
 def init():
     url = config.get('openspending.db.url')
     repo = config.get('openspending.migrate_dir',
@@ -83,6 +99,9 @@ def _load_example(args):
 def _migrate(args):
     return migrate()
 
+def _modelmigrate(args):
+    return modelmigrate()
+
 def configure_parser(subparsers):
     parser = subparsers.add_parser('db', help='Database operations')
     sp = parser.add_subparsers(title='subcommands')
@@ -107,6 +126,10 @@ def configure_parser(subparsers):
     p = sp.add_parser('migrate',
                       help='Run pending data migrations')
     p.set_defaults(func=_migrate)
+
+    p = sp.add_parser('modelmigrate',
+                      help='Run pending data model migrations')
+    p.set_defaults(func=_modelmigrate)
 
     p = sp.add_parser('init',
                       help='Initialize the database')
