@@ -53,7 +53,7 @@ setup(
         "celery==2.1.4",
         "messytables==0.1.2",
         
-        "osvalidate==2011-11-25.01"
+        "osvalidate==2011-11-25.02"
     ],
     setup_requires=[
         "PasteScript==1.7.5",

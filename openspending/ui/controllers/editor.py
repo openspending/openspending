@@ -73,7 +73,7 @@ class EditorController(BaseController):
         c.source = c.dataset.sources.first()
         mapping = mapping or c.dataset.data.get('mapping', {})
         if not len(mapping) and c.source and 'mapping' in c.source.analysis:
-                mapping = c.source.analysis['mapping']
+            mapping = c.source.analysis['mapping']
         c.fill = {'mapping': json.dumps(mapping, indent=2)}
         c.errors = errors
         c.can_edit = not len(c.dataset)

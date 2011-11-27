@@ -31,7 +31,7 @@ class Source(db.Model):
     @property
     def name(self):
         if len(self.url) > 55:
-            return self.url[:20] + "..." + self.url[len(self.url)-30:]
+            return self.url[:15] + " .. " + self.url[len(self.url)-25:]
         return self.url
 
     @property

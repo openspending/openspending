@@ -13,7 +13,7 @@ from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.base import abort, require
 from openspending.tasks import analyze_source, load_source
 
-from openspending.validation.source import source_schema
+from openspending.ui.validation.source import source_schema
 
 log = logging.getLogger(__name__)
 
