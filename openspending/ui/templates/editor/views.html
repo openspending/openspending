@@ -21,7 +21,30 @@
   <div py:def="content">
     ${editor_nav('views')}
     <div class="row">
-      <div class="offset4 span12">
+      <div class="span4">
+        <div class="alert-message block-message warning">
+          <strong>Here be dragons.</strong> The visualizations editor does 
+          not have a graphical interface yet. If you still want to use it, 
+          please check out the <a
+            href="http://openspending.readthedocs.org/en/latest/model/design.html#views-and-pre-defined-visualizations">documentation</a>
+          for the 'views' system.
+        </div>
+
+        <h3>Available Dimensions</h3>
+        <ul>
+          <li py:for="dimension in c.dataset.dimensions">
+            <code>${dimension.name}</code>: ${dimension.label}
+            <py:if test="hasattr(dimension, 'attributes')">
+              <span class="help-block">
+                Attributes: <span py:for="a in
+                  dimension.attributes"><code style="font-size: 9px;">${a.name}</code> </span>
+              </span>
+              <br/>
+            </py:if>
+          </li>
+        </ul>
+      </div>
+      <div class="span12">
         <form class="basic" id="form" action="${url(controller='editor',
           action='views_update', dataset=c.dataset.name)}" method="POST">
           <fieldset>
