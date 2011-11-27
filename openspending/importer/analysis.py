@@ -1,9 +1,12 @@
 from collections import defaultdict
 from urllib import urlopen
+import logging
 
 from messytables import CSVRowSet, type_guess
 from messytables.types import TYPES, DateType
 from openspending.lib.util import slugify
+
+log = logging.getLogger(__name__)
 
 class LocalDateType(DateType):
     formats = ["%Y", "%Y-%m", "%Y-%m-%d"]
