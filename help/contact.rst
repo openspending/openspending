@@ -31,4 +31,20 @@ If you'd like to get in touch with the OKF, visit our `contact page
 <http://okfn.org/contact/>`_. 
 
 
+Our funders
+'''''''''''
 
+OpenSpending is a community-driven project, but we would not be able
+to run it without the generous support of these organisations:
+
+
+.. image:: ../static/img/funders/kf.png
+
+
+.. image:: ../static/img/funders/on.jpg
+
+
+.. image:: ../static/img/funders/osf.JPG
+
+
+.. image:: ../static/img/funders/4ip.jpg
