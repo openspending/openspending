@@ -57,10 +57,13 @@
           </py:if>
         </tr>
         <tr py:if="source.runs.count()">
-          <td class="top" width="5%"><strong>Reports</strong> (latest):</td>
+          <td class="top" width="5%"><strong>Reports</strong>:</td>
           <td colspan="2">
             <ul class="runs">
               <li py:for="run in source.runs[:5]">
+                <a href="${h.url(controller='run', action='view',
+                  dataset=c.dataset.name, source=source.id, id=run.id)}">
+                  ${run.time_start.strftime("%d.%m.%Y, %H:%M")}</a>
                 <py:if test="run.status == 'running'">
                   <span class="label notice">Running</span>
                 </py:if>
@@ -70,9 +73,6 @@
                 <py:if test="run.status == 'failed'">
                   <span class="label important">Errors</span>
                 </py:if>
-                <a href="${h.url(controller='run', action='view',
-                  dataset=c.dataset.name, source=source.id, id=run.id)}">
-                  ${run.time_start.strftime("%d.%m.%Y, %H:%M")}</a>
                 (${run.records.count()} Errors)
               </li>
             </ul>
