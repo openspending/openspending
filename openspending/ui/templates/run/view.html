@@ -1,0 +1,48 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+
+  <xi:include href="../editor/_nav.html" />
+  
+  <py:def function="nav_class">nav-source</py:def>
+
+  <py:def function="page_title">Report: ${c.source.name}</py:def>
+  
+  <div py:def="content">
+    ${editor_nav('index')}
+
+    <h3>
+      Report:
+      ${c.source.name}
+      (${c.run.records.count()} Errors, ${c.run.status})
+    </h3>
+    <div class="row">
+      <div class="span16">
+        <table py:if="len(c.page)">
+          <tr>
+            <th>Row</th>
+            <th>Column</th>
+            <th>Attribute</th>
+            <th>Value</th>
+            <th>Error</th>
+          </tr>
+          <tr py:for="record in c.page">
+            <td>${record.row}</td>
+            <td>${record.column}</td>
+            <td>${record.attribute}</td>
+            <td>${record.value}</td>
+            <td>${record.message}</td>
+          </tr>
+        </table>
+        ${c.page.pager()}
+      </div>
+    </div>
+  </div>
+
+  <xi:include href="../layout.html" />
+</html>
+
+
+
+
+

@@ -25,6 +25,7 @@ class TestRunController(ControllerTestCase):
             id=self.importer._run.id),
             extra_environ={'REMOTE_USER': 'test'},
             expect_errors=True)
+        assert self.source.name.encode('utf-8') in response.body
     
     def test_view_run_does_not_exist(self):
         response = self.app.get(url(controller='run', 

@@ -40,4 +40,7 @@ class Run(db.Model):
     def by_id(cls, id):
         return db.session.query(cls).filter_by(id=id).first()
 
+    def __repr__(self):
+        return "<Run(%s,%s)>" % (self.source.id, self.id)
+
 
