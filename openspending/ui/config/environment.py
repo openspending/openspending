@@ -85,6 +85,9 @@ def load_environment(global_conf, app_conf):
     # set log level in markdown
     markdown.logger.setLevel(logging.WARN)
 
+    # Establish celery loader:
+    from openspending.command import celery
+
     # Translator (i18n)
     config['openspending.ui.translations'] = MultiDomainTranslator([config.get('lang', 'en')])
     translator = Translator(config['openspending.ui.translations'])
