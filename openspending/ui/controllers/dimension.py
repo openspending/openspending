@@ -76,7 +76,9 @@ class DimensionController(BaseController):
                 "meta": c.dimension.as_dict()})
 
         c.page = Page(c.values, page=page,
-                      items_per_page=PAGE_SIZE)
+                      item_count=result['summary']['num_drilldowns'],
+                      items_per_page=PAGE_SIZE,
+                      presliced_list=True)
         return render('dimension/view.html')
 
 
