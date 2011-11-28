@@ -26,6 +26,9 @@ class HomeController(BaseController):
         # TODO decide if we want this.
         #featured_dataset = config.get("openspending.default_dataset")
         return render('home/index.html')
+    
+    def getinvolved(self):
+        return render('home/getinvolved.html')
 
     def index_subdomain(self):
         if hasattr(c, 'dataset') and c.dataset:

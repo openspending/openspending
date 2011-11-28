@@ -42,7 +42,6 @@ def make_map():
     map.connect('/', controller='home', action='index')
 
     map.connect('/getinvolved', controller='home', action='getinvolved')
-    map.connect('/reporterror', controller='home', action='reporterror')
     map.connect('/locale', controller='home', action='locale')
 
     map.connect('/login', controller='account', action='login')
