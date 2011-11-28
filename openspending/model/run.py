@@ -26,9 +26,13 @@ class Run(db.Model):
                            nullable=True)
 
     dataset = db.relationship(Dataset,
-                              backref=db.backref('runs', lazy='dynamic'))
+                              backref=db.backref('runs',
+                                  order_by='Run.time_start.desc()',
+                                  lazy='dynamic'))
     source = db.relationship(Source,
-                              backref=db.backref('runs', lazy='dynamic'))
+                              backref=db.backref('runs', 
+                                  order_by='Run.time_start.desc()',
+                                  lazy='dynamic'))
 
     def __init__(self, operation, status, dataset, source):
         self.operation = operation
