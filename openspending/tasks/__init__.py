@@ -1,5 +1,5 @@
 import logging
-from celery.decorators import task
+from celery.task import task
 
 import openspending.command.celery
 
@@ -9,6 +9,11 @@ log = logging.getLogger(__name__)
 def ping():
     log.info("Pong.")
 
+@task(ignore_result=True)
+def analyze_all_sources():
+    from openspending.model import Source, meta as db
+    for source in db.session.query(Source):
+        analyze_source.delay(source.id)
 
 @task(ignore_result=True)
 def analyze_source(source_id):

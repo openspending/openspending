@@ -1,7 +1,6 @@
-import os
+import os, sys
 os.environ['CELERY_LOADER'] = 'openspending.command.celery.loader.PylonsLoader'
 
-import os
 from paste.script.command import Command, BadCommand
 from openspending.command import _configure_pylons
 
@@ -36,10 +35,10 @@ class CeleryCommand(Command):
         # @@ This is hacky
         self.min_args -= 1
         self.bootstrap_config(args[0])
-        self.update_parser()
+        self.update_parser(args[1:])
         return super(CeleryCommand, self).run(args[1:])
 
-    def update_parser(self):
+    def update_parser(self, args):
         """
         Abstract method.  Allows for the class's parser to be updated
         before the superclass's `run` method is called.  Necessary to
@@ -68,13 +67,15 @@ class CeleryDaemonCommand(CeleryCommand):
 
     parser = Command.standard_parser(quiet=True)
 
-    def update_parser(self):
+    def update_parser(self, args):
         from celery.bin.celeryd import WorkerCommand
         w = WorkerCommand()
+        w.setup_app_from_commandline(['celeryd'])
         for x in w.get_options():
             self.parser.add_option(x)
 
     def command(self):
-        from celery.apps import worker
-        return worker.run_worker(**vars(self.options))
+        from celery.bin.celeryd import WorkerCommand
+        w = WorkerCommand()
+        w.execute_from_commandline(['celeryd'] + sys.argv[3:])
 
