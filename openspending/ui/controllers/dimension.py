@@ -59,11 +59,7 @@ class DimensionController(BaseController):
         if not isinstance(c.dimension, model.Dimension):
             abort(404, _('This is not a dimension'))
 
-        # TODO: pagination!
-        try:
-            page = int(request.params.get('page'))
-        except:
-            page = 1
+        page = self._get_page('page')
         cache = AggregationCache(c.dataset)
         result = cache.aggregate(drilldowns=[dimension], page=page, 
                                  pagesize=PAGE_SIZE)

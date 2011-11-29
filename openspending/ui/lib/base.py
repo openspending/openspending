@@ -145,4 +145,9 @@ class BaseController(WSGIController):
             abort(404, _('Sorry, there is no dataset named %r') % dataset)
         require.dataset.read(c.dataset)
 
+    def _get_page(self, param='page'):
+        try:
+            return int(request.params.get(param))
+        except:
+            return 1
 
