@@ -61,7 +61,11 @@ class ApiController(BaseController):
             solrargs['json.wrf'] = solrargs['callback']
         if not 'sort' in solrargs:
             solrargs['sort'] = 'score desc,amount desc'
-        query = solr.get_connection().raw_query(**solrargs)
+        try:
+            query = solr.get_connection().raw_query(**solrargs)
+        except solr.SolrException, se:
+            response.status_int = se.httpcode
+            return se.body
         response.content_type = 'application/json'
         return query
 

@@ -132,3 +132,12 @@ class TestApiSearch(ControllerTestCase):
                                     q='children', callback=callback))
         assert response.body.startswith('%s({"responseHeader"'
                                         % callback), response.body
+
+    def test_search_04_invalid_query(self):
+        response = self.app.get(url(controller='api', action='search',
+                                    q='time:'), expect_errors=True)
+        assert "400" in response.status, response.status
+
+
+
+    

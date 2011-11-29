@@ -21,7 +21,7 @@ class ErrorController(BaseController):
 
     """
 
-    rendered_error_codes = ("404", "403", "500")
+    rendered_error_codes = ("404", "403", "400", "500")
 
     def document(self):
         """Render the error document - show custom template for 404"""
