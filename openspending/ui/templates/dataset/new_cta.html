@@ -1,0 +1,49 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+
+  <py:def function="nav_class">nav-account</py:def>
+
+  <py:def function="page_title">Import a dataset</py:def>
+  
+  <div py:def="content">
+    <h2 class="page-header">Contribute your local data!</h2>
+    <div class="row">
+      <div class="offset4 span12">
+        We're trying to gather <strong>the world's spending
+          information</strong>
+        in a common
+        database so that we can provide common tools for <strong>analysis,
+          visualization and comparison</strong>. OpenSpending is an open platform that
+        aims to facilitate the presentation of financial information so 
+        anyone - whether data geek or concerned citizen - can contribute 
+        their local city budget or spending reports.
+
+        <h3>Why should you contribute?</h3>
+        There are many projects that aim to track financial information. All
+        require these basic services, which we aim to provide:
+         <br/>  <br/>
+        <ul>
+          <li>Data loading and validation facilities.</li>
+          <li>Common visualization types (treemaps, charts, and the bubble
+          tree).</li>
+          <li>Full-text search for all entries.</li>
+          <li>Means to track provenance and provide access to the raw
+          data.</li>
+        </ul>
+        
+        <a href="${h.url(controller='account', action='register')}"
+          class="btn large success">Sign up to contribute</a>
+        <a href="${h.url(controller='help', action='page', path='data.html')}"
+          class="btn large">Learn more</a>
+      </div>
+    </div>
+  </div>
+
+  <xi:include href="../layout.html" />
+</html>
+
+
+
+
+

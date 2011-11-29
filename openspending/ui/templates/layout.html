@@ -56,10 +56,14 @@
                 <li py:for="dataset in c.datasets">
                   <a href="${h.dataset_url(dataset)}">${dataset.label}</a>
                 </li>
+                <li class="divider"></li>
                 <py:if test="can.dataset.create()">
-                  <li class="divider"></li>
                   <li><a href="${h.url_for(controller='dataset',
                     action='new')}">Import a dataset...</a></li>
+                </py:if>
+                <py:if test="not can.dataset.create()">
+                  <li><a href="${h.url_for(controller='dataset',
+                    action='cta')}">Import a dataset...</a></li>
                 </py:if>
               </ul>
             </li>

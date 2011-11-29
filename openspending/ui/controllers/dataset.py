@@ -42,6 +42,9 @@ class DatasetController(BaseController):
         else:
             return render('dataset/index.html')
 
+    def cta(self):
+        return render('dataset/new_cta.html')
+
     def new(self, errors={}):
         c.currencies = sorted(CURRENCIES.items(), key=lambda (k,v): v)
         require.account.create()
