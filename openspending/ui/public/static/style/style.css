@@ -361,6 +361,13 @@ table.sources td.ops {
   text-align: right;
 }
 
+table.sources td.top {
+  vertical-align: top;
+}
+
+table.sources ul.runs {
+  margin-bottom: 0px;
+}
 
 /* Bubbletree vs. Bootstrap specific fixes. */
 .bubbletree .label {

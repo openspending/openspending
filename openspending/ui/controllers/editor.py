@@ -99,7 +99,7 @@ class EditorController(BaseController):
             c.dataset.generate()
             db.session.commit()
             h.flash_success(_("The mapping has been updated."))
-        except (ValueError, TypeError):
+        except (ValueError, TypeError, AttributeError):
             abort(400, _("The mapping data could not be decoded as JSON!"))
         except Invalid, i:
             errors = i.asdict()

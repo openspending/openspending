@@ -9,12 +9,12 @@
   <py:def function="sources_list(dataset)">
     <table class="sources zebra-striped">
       <tr>
-        <th>Link</th>
+        <th colspan="2">Link</th>
         <th>Operations</th>
       </tr>
       <py:for each="source in dataset.sources">
         <tr>
-          <td>
+          <td colspan="2">
             <py:if test="'error' in source.analysis">
               <span class="label important">Error</span>
             </py:if>
@@ -55,6 +55,28 @@
           <py:if test="source != dataset.sources[0]">
             <td></td>
           </py:if>
+        </tr>
+        <tr py:if="source.runs.count()">
+          <td class="top" width="5%"><strong>Reports</strong>:</td>
+          <td colspan="2">
+            <ul class="runs">
+              <li py:for="run in source.runs[:5]">
+                <a href="${h.url(controller='run', action='view',
+                  dataset=c.dataset.name, source=source.id, id=run.id)}">
+                  ${run.time_start.strftime("%d.%m.%Y, %H:%M")}</a>
+                <py:if test="run.status == 'running'">
+                  <span class="label notice">Running</span>
+                </py:if>
+                <py:if test="run.status == 'complete'">
+                  <span class="label success">Complete</span>
+                </py:if>
+                <py:if test="run.status == 'failed'">
+                  <span class="label important">Errors</span>
+                </py:if>
+                (${run.records.count()} Errors)
+              </li>
+            </ul>
+          </td>
         </tr>
       </py:for>
     </table>
