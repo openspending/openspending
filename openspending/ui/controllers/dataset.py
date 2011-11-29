@@ -47,7 +47,7 @@ class DatasetController(BaseController):
         require.account.create()
         errors = [(k[len('dataset.'):], v) for k, v in errors.items()]
         return render('dataset/new.html', form_errors=dict(errors),
-                form_fill=request.params if errors else None)
+                form_fill=request.params if errors else {'currency': 'USD'})
 
     def create(self):
         require.account.create()

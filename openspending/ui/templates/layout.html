@@ -58,7 +58,8 @@
                 </li>
                 <py:if test="can.dataset.create()">
                   <li class="divider"></li>
-                  <li><a href="${h.url_for(controller='dataset', action='new')}">Create a new dataset...</a></li>
+                  <li><a href="${h.url_for(controller='dataset',
+                    action='new')}">Import a dataset...</a></li>
                 </py:if>
               </ul>
             </li>
