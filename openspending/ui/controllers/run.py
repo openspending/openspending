@@ -27,15 +27,16 @@ class RunController(BaseController):
 
     def view(self, dataset, source, id, format='html'):
         self._get_run(dataset, source, id)
-        c.system_page = Page(c.run.records.filter_by(category=LogRecord.CATEGORY_SYSTEM), 
+        system = c.run.records.filter_by(category=LogRecord.CATEGORY_SYSTEM)
+        c.num_system = system.count()
+        c.system_page = Page(system.order_by(LogRecord.timestamp.asc()), 
                 page=self._get_page('system_page'),
-                items_per_page=100)
-        c.data_page = Page(c.run.records.filter_by(category=LogRecord.CATEGORY_DATA), 
+                items_per_page=10)
+        data = c.run.records.filter_by(category=LogRecord.CATEGORY_DATA)
+        c.num_data = data.count()
+        c.data_page = Page(data.order_by(LogRecord.timestamp.asc()), 
                 page=self._get_page('data_page'),
-                items_per_page=100)
+                items_per_page=20)
         return render('run/view.html')
 
-
-    def record(self, dataset, source, run, id, format='html'):
-        pass
 

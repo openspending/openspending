@@ -16,7 +16,14 @@
       ${c.source.name}
       (${c.run.records.count()} Errors, ${c.run.status})
     </h3>
-    <div class="row" py:if="len(c.system_page)">
+    <div py:if="not (c.num_data or c.num_system)" 
+      class="alert-message block-message success">
+      <strong>Nothing to report!</strong> The source has been loaded
+      successfully. This does not mean the data is stored in a form 
+      which is semantically useful, though, so don't forget to 
+      sanity-check a few entries!
+    </div>
+    <div class="row" py:if="c.num_system">
       <div class="span16">
         <table class="zebra-striped">
           <tr>
@@ -30,10 +37,10 @@
             <td><pre>${record.error}</pre></td>
           </tr>
         </table>
-        ${c.system_page.pager()}
+        ${c.system_page.pager(page_param='system_page')}
       </div>
     </div>
-    <div class="row" py:if="len(c.data_page)">
+    <div class="row" py:if="c.num_data">
       <div class="span16">
         <table class="zebra-striped">
           <tr>
@@ -45,13 +52,13 @@
           </tr>
           <tr py:for="record in c.data_page">
             <td>${record.row}</td>
-            <td>${record.column}</td>
-            <td>${record.attribute}</td>
+            <td><code>${record.column}</code></td>
+            <td><code>${record.attribute}</code></td>
             <td>${record.value}</td>
             <td>${record.message}</td>
           </tr>
         </table>
-        ${c.data_page.pager()}
+        ${c.data_page.pager(page_param='data_page')}
       </div>
     </div>
   </div>
