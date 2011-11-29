@@ -10,30 +10,12 @@
         <input class="search" name="q" value="${c.browser.q}" autocomplete="off" results="5" placeholder="Search..."/>
         <input type="submit" class="btn default" value="Search" />
 
-        <div class="form-options">
+        <!--div class="form-options">
         </div>
         <div class="form-help" i18n:msg="more_help">
           e.g. 'pensions', 'from:cabinet-office', 'to:capita'.
-          <a id="show-search-help-text">More help &raquo;</a>
-        </div>
+        </div-->
       </form>
-    </div>
-    <div class="search-help-text">
-      Try search in specific fields - such as the dimensions used 
-      to classify spending items. For example:
-      <ul>
-        <li i18n:msg="from,to,from_cabinet,capita">
-          Use <strong>from</strong> and <strong>to</strong>. Try 
-          <strong>from:cabinet-office</strong> to find all payments made by the 
-          Cabinet Office, or <strong>to:capita</strong> for payments made to the 
-          supplier Capita.
-        </li>
-        <li i18n:msg="keysearch,cofog">
-          If you're interested in a particular dimension used to classify the 
-          spending, just use <strong>{key}:{search-term}</strong> to narrow down 
-          by that term - like <strong>cofog1:01</strong>.
-        </li>
-      </ul>
     </div>
   </div>
 
@@ -94,7 +76,7 @@
           </tr>
         </tbody>
       </table>
-      <table class="facets" 
+      <table class="facets condensed-table" 
         py:if="values==1 and filter in request.params"
         py:with="value = c.browser.facet_values(facet).items()[0][0]">
         <tbody py:if="(facet, value) in c.browser.filters">
