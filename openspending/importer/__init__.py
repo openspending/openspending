@@ -35,6 +35,7 @@ class BaseImporter(object):
                         self.dataset, self.source)
         db.session.add(self._run)
         db.session.commit()
+        log.info("Run reference: #%s", self._run.id)
 
         try:
             for row_number, line in enumerate(self.lines, start=1):

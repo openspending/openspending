@@ -34,7 +34,7 @@ class SourceController(BaseController):
             source = Source(c.dataset, c.account, data['url'])
             db.session.add(source)
             db.session.commit()
-            analyze_source.delay(source.id)
+            analyze_source.apply_async(args=[source.id], countdown=2)
             h.flash_success(_("The source has been created."))
             redirect(h.url_for(controller='editor', action='index', 
                                dataset=c.dataset.name))
