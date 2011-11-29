@@ -5,7 +5,7 @@ from pylons.controllers.util import redirect
 from pylons.i18n import _
 
 from openspending import model
-from openspending.model import Source, Run, meta as db
+from openspending.model import Source, Run, LogRecord, meta as db
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.page import Page
 from openspending.ui.lib.base import BaseController, render
@@ -27,11 +27,11 @@ class RunController(BaseController):
 
     def view(self, dataset, source, id, format='html'):
         self._get_run(dataset, source, id)
-        try:
-            page = int(request.params.get('page'))
-        except:
-            page = 1
-        c.page = Page(c.run.records, page=page,
+        c.system_page = Page(c.run.records.filter_by(category=LogRecord.CATEGORY_SYSTEM), 
+                page=self._get_page('system_page'),
+                items_per_page=100)
+        c.data_page = Page(c.run.records.filter_by(category=LogRecord.CATEGORY_DATA), 
+                page=self._get_page('data_page'),
                 items_per_page=100)
         return render('run/view.html')
 
