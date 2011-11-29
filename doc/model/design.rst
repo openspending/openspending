@@ -75,17 +75,12 @@ explained::
     "name": "machine-name",
     "label": "Nicer, human-friendly Title",
     "currency": "EUR",
-    "description": "This can be Markdown-formatted",
-    "unique_keys": ["foo.id", "transaction"]
+    "description": "This can be Markdown-formatted"
   }
 
 The ``name`` of the dataset will be part of each URL that refers to it, so it
 makes sense to choose a concise term without any special characters, such
 as spaces, symbols or text with accents or umlauts.
-
-The ``unique_keys`` property defines a set of attributes that can be 
-combined to generate a unique identity for each entry in the dataset. The 
-mechanism is explained in more detail in :ref:`physical-model`.
 
 ``currency`` is expected to be a valid, three-letter currency code, e.g. 
 *EUR* or *USD*. All measures are by default assumed to be specified in 
@@ -146,7 +141,8 @@ format is available::
       "description": "12-digit identifier for each entry.",
       "column": "tx_id",
       "datatype": "string",
-      "default_value": "<No ID>"
+      "default_value": "<No ID>",
+      "key": true
     }
   }
 
@@ -161,6 +157,13 @@ but invalid (e.g. numeric columns with textual values, invalid dates). Such
 errors will never be loaded and yield an error. The same is true of attributes
 with empty values for which no ``default_value`` has been set (such as 
 ``time`` in the example above).
+
+An important property is the ``key`` flag. This will include each flagged
+dimension on the creation of a unique key for each entry. At least one
+dimension must be flagged in this way, but the data contained must be 
+sufficient to uniquely identify the record with the dataset - otherwise 
+successive records with the same key set will overwrite previous ones. The 
+mechanism is explained in more detail in :ref:`physical-model`.
 
 The ``datatype`` property of the attribute dimension is used to convert the
 found values into another format as needed. Valid types include: ``string``,
@@ -218,22 +221,6 @@ and ``default_value``. A new property, ``name`` is used to specify a name for
 the attribute (see :ref:`name-conventions` for commonly used and expected 
 attribute names).
 
-As a further option, both :py:class:`~.AttributeDimension` and the individual 
-attributes of a compound dimension can be defined to have a **constant value**. 
-This is sometimes useful to add provenance information or further details on the 
-structure of the dataset::
-
-  "mapping": {
-    "source": {
-      "type": "value", 
-      "label": "Data Source", 
-      "datatype": "constant",
-      "constant": "OECD DAC, 2009"
-    }
-  }
-
-Note that the definition of a source column (and a default value) is of 
-course not necessary for constant values.
 
 Views and pre-defined visualizations
 ''''''''''''''''''''''''''''''''''''
@@ -307,10 +294,10 @@ When loading a :py:class:`~.Dataset`, OpenSpending will generate a set of
 tables (and columns) to represent the data. A table called 
 ``<dataset_name>__entry`` will be generated for each dataset with an ``id`` 
 column. The ``id`` is generated from a defined set of attributes 
-(the *unique keys*) of each entry by hashing each value. The ID is therefore 
-stable even is the data is re-loaded or the same record is inserted twice 
-(i.e. an entry that has the same unique keys as one which is already loaded 
-will overwrite the existing record).
+(those marked as *keys*) of each entry by hashing each value. The ID is 
+therefore stable even is the data is re-loaded or the same record is 
+inserted twice (i.e. an entry that has the same unique keys as one which is 
+already loaded will overwrite the existing record).
 
 On the facts table, a single numeric column will be generated for each 
 :py:class:`~.Measure`. Other metadata (e.g. the currency of the measure) will 
