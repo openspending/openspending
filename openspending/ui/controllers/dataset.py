@@ -3,7 +3,8 @@ import logging
 from pylons import request, response, tmpl_context as c
 from pylons.controllers.util import redirect
 from pylons.i18n import _
-from colander import Invalid
+from colander import SchemaNode, String, Invalid
+
 
 from openspending import model
 from openspending.model import Dataset, meta as db
@@ -58,6 +59,9 @@ class DatasetController(BaseController):
             model = {'dataset': request.params}
             schema = dataset_schema(ValidationState(model))
             data = schema.deserialize(request.params)
+            if Dataset.by_name(data['name']):
+                raise Invalid(SchemaNode(String(), name='dataset.name'),
+                    _("A dataset with this identifer already exists!"))
             dataset = Dataset({'dataset': data})
             dataset.private = True
             dataset.managers.append(c.account)
