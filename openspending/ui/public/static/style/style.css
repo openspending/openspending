@@ -120,6 +120,7 @@ footer p.right {
 .fp-frame .overlay {
   position: absolute; 
   z-index: 1000;
+  margin-left: 0;
   top: 0px;
   left: 0px;
 }
