@@ -95,7 +95,7 @@ class EditorController(BaseController):
             c.dataset.data['mapping'] = schema.deserialize(mapping)
             # erm...
             c.dataset.drop()
-            c.dataset.init()
+            c.dataset._load_model()
             c.dataset.generate()
             db.session.commit()
             h.flash_success(_("The mapping has been updated."))
