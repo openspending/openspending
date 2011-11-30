@@ -65,7 +65,6 @@ class Dataset(TableHandler, db.Model):
         This is called upon initialization and deserialization of
         the dataset from the SQLAlchemy store.
         """
-        self.unique_keys = self.dataset.get('unique_keys')
         self.dimensions = []
         self.measures = []
         for dim, data in self.mapping.items():
