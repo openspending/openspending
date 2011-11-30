@@ -89,6 +89,8 @@ class BaseController(WSGIController):
         try:
             return WSGIController.__call__(self, environ, start_response)
         finally:
+            db.session.remove()
+            db.session.close()
             log.debug("Request to %s took %sms" % (request.path,
                int((time() - begin) * 1000)))
 
