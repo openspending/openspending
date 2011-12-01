@@ -66,13 +66,8 @@ class TestDatasetController(ControllerTestCase):
         view_url.update({'format': 'json'})
         view_json_url = url(**view_url)
 
-        view_url.update({'format': 'csv'})
-        view_csv_url = url(**view_url)
-
         h.assert_true(view_json_url in response,
                       "Link to view page (JSON format) not in response!")
-        h.assert_true(view_csv_url in response,
-                      "Link to view page (CSV format) not in response!")
 
     def test_view_json(self):
         response = self.app.get(url(controller='dataset', action='view',
@@ -131,11 +126,11 @@ class TestDatasetController(ControllerTestCase):
     def test_new_form(self):
         response = self.app.get(url(controller='dataset', action='new'), 
             params={'limit': '20'})
-        assert "Create a dataset" in response.body
+        assert "Import a dataset" in response.body
     
     def test_create_dataset(self):
         response = self.app.post(url(controller='dataset', action='create'))
-        assert "Create a dataset" in response.body
+        assert "Import a dataset" in response.body
         assert "Required" in response.body
 
         params = {'name': 'testds', 'label': 'Test Dataset', 

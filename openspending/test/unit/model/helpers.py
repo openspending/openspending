@@ -33,8 +33,7 @@ SIMPLE_MODEL = {
             'key': True,
             'fields': [
                 {'column': 'to_name', 'name': 'name', 'datatype': 'string'},
-                {'column': 'to_label', 'name': 'label', 'datatype': 'string'},
-                {'constant': 'true', 'name': 'const', 'datatype': 'constant'}
+                {'column': 'to_label', 'name': 'label', 'datatype': 'string'}
             ]
             },
         'function': {
