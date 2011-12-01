@@ -35,9 +35,9 @@ class DatasetController(BaseController):
 
         if format == 'json':
             return to_jsonp(map(lambda d: d.as_dict(),
-                                c.results))
+                                c.datasets))
         elif format == 'csv':
-            results = map(lambda d: d.as_dict(), c.results)
+            results = map(lambda d: d.as_dict(), c.datasets)
             return write_csv(results, response)
         else:
             return render('dataset/index.html')
