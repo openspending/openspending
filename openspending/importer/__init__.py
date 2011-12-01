@@ -28,6 +28,8 @@ class BaseImporter(object):
 
         self.dry_run = dry_run
         self.raise_errors = raise_errors
+        
+        before_count = len(self.dataset)
 
         self.row_number = 0
 
@@ -53,7 +55,16 @@ class BaseImporter(object):
                 raise
 
         if self.row_number == 0:
-            self.log_exception(ValueError("Didn't read any lines of data"))
+            self.log_exception(ValueError("Didn't read any lines of data"), 
+                    error='')
+
+        num_loaded = len(self.dataset) - before_count
+        if not self.errors and num_loaded < row_number:
+            self.log_exception(ValueError("The number of entries loaded is "
+                "smaller than the number of source rows read."),
+                error="%s rows were read, but only %s entries created. "
+                    "Check the unique key criteria, entries seem to overlap." % \
+                    (row_number, num_loaded))
 
         if self.errors:
             self._run.status = Run.STATUS_FAILED
@@ -100,10 +111,13 @@ class BaseImporter(object):
         log.warn(msg)
         self._log(log_record)
 
-    def log_exception(self, exception):
+    def log_exception(self, exception, error=None):
         log_record = LogRecord(self._run, LogRecord.CATEGORY_SYSTEM,
                                logging.ERROR, str(exception))
-        log_record.error = traceback.format_exc()
+        if error is not None:
+            log_record.error = error
+        else:
+            log_record.error = traceback.format_exc()
         log.error(unicode(exception))
         self._log(log_record)
 
