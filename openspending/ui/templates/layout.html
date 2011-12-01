@@ -53,10 +53,12 @@
             <li class="dropdown">
               <a href="/datasets" class="dropdown-toggle">Datasets</a>
               <ul class="dropdown-menu">
-                <li py:for="dataset in c.datasets">
+                <li py:for="dataset in c.datasets[:15]">
                   <a href="${h.dataset_url(dataset)}">${dataset.label}</a>
                 </li>
                 <li class="divider"></li>
+                <li><a href="${h.url_for(controller='dataset',
+                  action='index')}">All datasets (${c.datasets.count()})...</a></li>
                 <py:if test="can.dataset.create()">
                   <li><a href="${h.url_for(controller='dataset',
                     action='new')}">Import a dataset...</a></li>
@@ -97,7 +99,9 @@
 
       <footer>
       <p class="right">&copy;
-      <a href="http://okfn.org">Open Knowledge Foundation</a>, 2011</p>
+      <a href="http://okfn.org">Open Knowledge Foundation</a>, 2011
+      <a href="http://opendefinition.org"><img src="http://assets.okfn.org/images/ok_buttons/od_80x15_blue.png" alt="Open Content" /></a>
+      </p>
 
       <ul>
         <li><a href="${h.url(controller='help', action='page', path='index.html')}">Help</a></li>

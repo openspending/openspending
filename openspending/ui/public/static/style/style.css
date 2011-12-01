@@ -98,6 +98,10 @@ footer p.right {
   float: right;
 }
 
+footer img {
+  margin-bottom: -3px;
+}
+
 /* Front page */
 
 .fp-mapping {
