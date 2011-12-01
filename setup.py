@@ -51,6 +51,7 @@ setup(
         "sphinx==1.0.7",
         "argparse==1.2.1",
         "celery==2.4.4",
+        "lxml==2.3.2",
         "messytables==0.1.4",
         "osvalidate==2011-12-01.01"
     ],

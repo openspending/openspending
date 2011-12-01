@@ -7,6 +7,7 @@ available to Controllers. This module is available to templates as 'h'.
 
 from pylons import config, url
 from routes import url_for
+from lxml import html
 from genshi.template import TextTemplate
 from webhelpers.html import escape, HTML, literal, url_escape
 from webhelpers.html.tags import *
@@ -23,6 +24,14 @@ import math
 
 def markdown(*args, **kwargs):
     return literal(_markdown(*args, **kwargs))
+
+def markdown_preview(text, length=140):
+    md = html.fromstring(unicode(markdown(text)))
+    text = md.text_content()
+    if length: 
+        text = truncate(text, length=length, whole_word=True)
+    return text
+
 
 
 _flash = _Flash()
