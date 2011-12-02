@@ -5,8 +5,6 @@ from pylons.controllers.util import redirect
 from pylons.i18n import _
 from colander import SchemaNode, String, Invalid
 
-
-from openspending import model
 from openspending.model import Dataset, meta as db
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IDatasetController
@@ -16,7 +14,6 @@ from openspending.lib import json
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.base import require
-from openspending.ui.lib.browser import Browser
 from openspending.ui.lib.views import View, ViewState, handle_request
 from openspending.validation.model.currency import CURRENCIES
 from openspending.validation.model.dataset import dataset_schema
@@ -109,7 +106,7 @@ class DatasetController(BaseController):
 
     def timeline(self, name):
         self._get_dataset(name)
-        c.dataset = model.Dataset.by_name(name)
+        c.dataset = Dataset.by_name(name)
         view = View.by_name(c.dataset, "default")
         viewstate = ViewState(c.dataset, view, None)
         data = []

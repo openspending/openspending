@@ -65,6 +65,7 @@ class Dataset(TableHandler, db.Model):
         This is called upon initialization and deserialization of
         the dataset from the SQLAlchemy store.
         """
+        self.ckan_uri = self.dataset.get('ckan_uri')
         self.dimensions = []
         self.measures = []
         for dim, data in self.mapping.items():
