@@ -44,7 +44,7 @@
             </div>
           </div>
 
-          <div py:when="c.source and not c.dataset.mapping"
+          <div py:when="c.source and 'columns' in c.source.analysis and not c.dataset.mapping"
             class="alert-message block-message success">
             <strong>Good stuff!</strong> Your data is now ready. Next,
             create a <strong>data model</strong> to structure the dataset.
