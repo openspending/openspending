@@ -6,7 +6,7 @@
 
   <py:def function="page_title">Import a dataset</py:def>
   
-  <div py:def="content">
+  <div py:def="content" class="dataset new">
     <h2 class="page-header">Import a dataset</h2>
     <div class="row">
       <div class="span4">
@@ -24,7 +24,32 @@
           </ul>
         </div>
       </div>
-      <div class="span12">
+      <div class="span12 import-options">
+        <div class="row">
+          <div class="span6 import-datahub">
+            <h3>Import from a DataHub Dataset</h3>
+            <p>Paste the url of your <a
+              href="http://thedatahub.org">http://thedatahub.org/</a> dataset
+            and we will take care of pulling all the relevant information automatically
+            (though you will get a chance to review and amend it).</p>
+            <form class="basic">
+              <input name="datahubUrl" placeholder="DataHub Dataset Url" />
+              <br /><br />
+              <input value="Import &raquo;" class="btn" type="submit" />
+            </form>
+          </div>
+          <div class="span1">
+            <h3>OR</h3>
+          </div>
+          <div class="span5 import-nondatahub">
+            <h3>Dataset not yet on the DataHub?</h3>
+            <p>No problem! You can still import your dataset as long as the
+            data file is online somewhere.</p>
+            <a href="#dataset-info" class="btn">Get Started &raquo;</a>
+          </div>
+        </div>
+      </div>
+      <div class="span12 dataset-info" style="display: none;">
         <form class="basic" id="login" action="/datasets" method="POST">
           <fieldset>
             <div class="clearfix">
@@ -60,7 +85,7 @@
             </div>
           </fieldset>
           <div class="actions">
-            <input value="Create" class="btn success" type="submit" />
+            <input value="Next Step" class="btn success" type="submit" />
           </div>
         </form>
       </div>
