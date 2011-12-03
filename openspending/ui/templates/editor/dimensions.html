@@ -42,8 +42,6 @@
           </div>
         </py:if>
         <py:if test="c.can_edit">
-          <form class="basic" id="form" action="${url(controller='editor',
-            action='dimensions_update', dataset=c.dataset.name)}" method="POST">
 
 
 			<div id='m1' class='modeleditor'>
@@ -161,32 +159,34 @@
 			</div> <!-- /.modeleditor -->
 
 
+			<form class="basic" id="form" action="${url(controller='editor',
+			        action='dimensions_update', dataset=c.dataset.name)}" 
+					method="POST">
 
-            <fieldset>
-              <py:if test="len(c.errors.keys())">
-                <div class="alert-message block-message error">
-                  <p>
-                  The dimensions mapping could not be saved as it 
-                  contains some errors:
-                  </p>
-                  <ul py:for="field, error in c.errors.items()">
-                    <li><strong>${field}:</strong> ${error}</li>
-                  </ul>
-                </div>
-              </py:if>
-              <textarea id="debug" class="xxlarge" rows="20"
-                name="mapping">${c.fill['mapping']}</textarea>
-              <div id="frame">
-                <div id="mapping" style="height: 300px; width:
-                  690px">${c.fill['mapping']}</div>
+
+              <fieldset>
+				<py:if test="len(c.errors.keys())">
+                  <div class="alert-message block-message error">
+					<p>
+					  The dimensions mapping could not be saved as it 
+					  contains some errors:
+					</p>
+					<ul py:for="field, error in c.errors.items()">
+                      <li><strong>${field}:</strong> ${error}</li>
+					</ul>
+                  </div>
+				</py:if>
+				<textarea id="fallback" class="xxlarge" rows="20"
+						  name="mapping">${c.fill['mapping']}</textarea>
+				<div id="frame">
+                  <div id="mapping" 
+					   style="height: 300px; width: 690px">${c.fill['mapping']}</div>
+				</div>
+              </fieldset>
+              <div class="actions">
+				<input id="save" value="Update" class="btn success" type="submit" />
               </div>
-            </fieldset>
-            <div class="actions">
-              <input id="save" value="Update" class="btn success" type="submit" />
-            </div>
-
-
-          </form>
+			</form>
         </py:if>
       </div>
     </div>
@@ -203,31 +203,31 @@
 
     <script>
       jQuery(document).ready(function($) {
-        $("#debug").hide();
+        $("#fallback").hide();
         $("#frame").show();
         var editor = ace.edit("mapping");
         top.document.getEditor = function() { return editor; };
+	    top.documentcheckThis = 3;
         var JSONMode = require("ace/mode/json").Mode;
         editor.getSession().setMode(new JSONMode());
         editor.setTheme("ace/theme/monokai");
         editor.renderer.setShowPrintMargin(false);
         $("#form").submit(function(e) {
           var value = editor.getSession().getValue();
-          $("#debug").val(value);
+          $("#fallback").val(value);
         });
       });
     </script>
 
 	<script src='/static/main.js'></script>
 	<script src='http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.js'></script>
-    <script src='/static/model_editor.js'></script>
     <script>
       jQuery(function($) {
         var modelEditor = $('#m1');
         var columns = ['date', 'value', 'dept_id', 'dept_name', 'dept_transaction_id', 'recipients', 'cofog_code_l1'];
         modelEditor.modelEditor({ columns: columns });
         var me = $('#m1').data('modelEditor');
-        $('#debug').change(function () {
+        $('#fallback').change(function () {
           me.data = JSON.parse($(this).val());
           $('#m1').trigger('modelChange');
         });

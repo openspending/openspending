@@ -492,7 +492,7 @@
       }
 	  var payload = JSON.stringify(this.data, null, 2);
 	  top.document.getEditor().getSession().setValue(payload);
-	  return $('#debug').text(payload);
+	  return;
     };
 
     ModelEditor.prototype.onFillColumnsRequest = function(elem) {
