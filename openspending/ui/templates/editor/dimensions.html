@@ -207,7 +207,6 @@
         $("#frame").show();
         var editor = ace.edit("mapping");
         top.document.getEditor = function() { return editor; };
-	    top.documentcheckThis = 3;
         var JSONMode = require("ace/mode/json").Mode;
         editor.getSession().setMode(new JSONMode());
         editor.setTheme("ace/theme/monokai");
