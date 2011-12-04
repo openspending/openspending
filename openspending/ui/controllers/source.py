@@ -44,6 +44,10 @@ class SourceController(BaseController):
             errors = [(k[len('source.'):], v) for k, v \
                     in errors.items()]
             return self.new(dataset, dict(errors))
+
+    def index(self, dataset, format='json'):
+        self._get_dataset(dataset)
+        return to_jsonp([src.as_dict() for src in c.dataset.sources])
     
     def _get_source(self, dataset, id):
         self._get_dataset(dataset)

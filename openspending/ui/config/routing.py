@@ -101,6 +101,8 @@ def make_map():
     
     map.connect('/{dataset}/sources', controller='source',
             action='create', conditions=dict(method=['POST']))
+    map.connect('/{dataset}/sources.{format}', controller='source',
+            action='index')
     map.connect('/{dataset}/sources/new', controller='source', action='new')
     map.connect('/{dataset}/sources/{id}', controller='source', action='view')
     map.connect('/{dataset}/sources/{id}/load', controller='source',

@@ -49,6 +49,12 @@ class Source(db.Model):
     def by_id(cls, id):
         return db.session.query(cls).filter_by(id=id).first()
 
-
-
+    def as_dict(self):
+        return {
+            "id": self.id,
+            "url": self.url,
+            "dataset": self.dataset.name,
+            "created_at": self.created_at
+            }
+    
 
