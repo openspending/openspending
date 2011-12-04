@@ -1,9 +1,8 @@
 
-initModelEditor = function(datasetName, $) {
+initModelEditor = function($, datasetName) {
   var modelEditor = $('#m1');
 
   var gotAnalysis = function(data) {
-	var columns = ['date', 'value', 'dept_id', 'dept_name', 'dept_transaction_id', 'recipients', 'cofog_code_l1'];
 	var columns = data.columns; // FIXME: might be absent
 
 	config = { columns: columns,
