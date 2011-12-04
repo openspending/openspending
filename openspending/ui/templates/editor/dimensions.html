@@ -16,6 +16,13 @@
         height: 305px;
       }
     </style>
+
+	<script>
+	  var validDimensionType = function(ty) {
+	    var validTypes = [ 'attribute', 'value', 'date', 'measure' ];
+	    return ($$.inArray(ty, validTypes) !== -1);
+      };
+	</script>
   </py:def>
 
   <div py:def="content">
@@ -103,13 +110,7 @@
 				<legend>$${name} ($${data.type})</legend>
 				{{if meta.helpText}}<p>$${meta.helpText}</p>{{/if}}
 				<dl>
-				  <!-- we cannot use $.inArray in a
-					   curly braced if clause, due to a genshi bug, see e.g.
-					   https://github.com/jquery/jquery-tmpl/issues/57 -->
-				  {{if data.type == "attribute" ||
-				  data.type == "value" ||
-				  data.type == "date" ||
-				  data.type == "measure"}}
+				  {{if validDimensionType(data.type)}}
 				  <dt><label>Column:</label></dt>
 				  <dd>
 					<select class='column' name='$${name}[column]'></select>
@@ -126,7 +127,6 @@
 				  </dd>
 				  {{/if}}
 				  {{/if}}
-				  <!-- end this bit -->
 				  <dt><label>Label:</label></dt>
 				  <dd>
 					<input type='text' name='$${name}[label]' value='$${data.label}' />
@@ -137,7 +137,7 @@
 				  </dd>
 				</dl>
 
-				{{if $$.inArray(data.type, ['attribute', 'value', 'date', 'measure']) === -1}}
+				{{if !(validDimensionType(data.type))}}
 				<table class='fields'>
 				  <thead>
 					<tr>
@@ -209,7 +209,6 @@
         $("#fallback").hide();
         $("#frame").show();
         var editor = ace.edit("mapping");
-	    console.log("starting editor");
         _globalEditor = editor;
         var JSONMode = require("ace/mode/json").Mode;
         editor.getSession().setMode(new JSONMode());
@@ -224,6 +223,7 @@
 
 	<script src='/static/main.js'></script>
 	<script src='http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.js'></script>
+
     <script>
       jQuery(function($) {
         var modelEditor = $('#m1');
