@@ -8,6 +8,7 @@ from colander import Invalid
 
 from openspending import model
 from openspending.model import Source, meta as db
+from openspending.lib.jsonexport import to_jsonp
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.base import abort, require
@@ -66,3 +67,7 @@ class SourceController(BaseController):
         h.flash_success(_("Now loading..."))
         redirect(h.url_for(controller='editor', action='index', 
                            dataset=c.dataset.name))
+
+    def analysis(self, dataset, source, format='json'):
+        self._get_source(dataset, source)
+        return to_jsonp(c.source.analysis)
