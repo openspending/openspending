@@ -202,11 +202,15 @@
 
 
     <script>
+	  var _globalEditor = null;
+	  findEditor = function() { return _globalEditor; }
+
       jQuery(document).ready(function($) {
         $("#fallback").hide();
         $("#frame").show();
         var editor = ace.edit("mapping");
-        top.document.getEditor = function() { return editor; };
+	    console.log("starting editor");
+        _globalEditor = editor;
         var JSONMode = require("ace/mode/json").Mode;
         editor.getSession().setMode(new JSONMode());
         editor.setTheme("ace/theme/monokai");
@@ -224,7 +228,11 @@
       jQuery(function($) {
         var modelEditor = $('#m1');
         var columns = ['date', 'value', 'dept_id', 'dept_name', 'dept_transaction_id', 'recipients', 'cofog_code_l1'];
-        modelEditor.modelEditor({ columns: columns });
+
+	    config = { columns: columns,
+	               getEditor: findEditor };
+        modelEditor.modelEditor(config);
+
         var me = $('#m1').data('modelEditor');
         $('#fallback').change(function () {
           me.data = JSON.parse($(this).val());

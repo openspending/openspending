@@ -491,8 +491,7 @@
         w.deserialize($.extend(true, {}, this.data));
       }
 	  var payload = JSON.stringify(this.data, null, 2);
-	  top.document.getEditor().getSession().setValue(payload);
-	  return;
+	  return this.updateEditor(payload);
     };
 
     ModelEditor.prototype.onFillColumnsRequest = function(elem) {
@@ -508,6 +507,13 @@
         return _results;
       }).call(this)).join('\n'));
     };
+
+	ModelEditor.prototype.updateEditor = function(data) {
+	  var getEditor = this.options.getEditor || function() {
+		return top.document.getEditor();
+	  };
+	  return getEditor().getSession().setValue(data);
+	};
 
     return ModelEditor;
 
