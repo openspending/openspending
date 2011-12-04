@@ -224,25 +224,13 @@
 	<script src='/static/main.js'></script>
 	<script src='http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.js'></script>
 
-    <script>
-      jQuery(function($) {
-        var modelEditor = $('#m1');
-        var columns = ['date', 'value', 'dept_id', 'dept_name', 'dept_transaction_id', 'recipients', 'cofog_code_l1'];
-
-	    config = { columns: columns,
-	               getEditor: findEditor };
-        modelEditor.modelEditor(config);
-
-        var me = $('#m1').data('modelEditor');
-        $('#fallback').change(function () {
-          me.data = JSON.parse($(this).val());
-          $('#m1').trigger('modelChange');
-        });
-      }); 
-  </script>
-
-
-
+    <script src='/static/me.js'></script>
+	<script>
+	  jQuery(function($) {
+	    var datasetName = "test70";
+	    initModelEditor(datasetName, $);
+	  });
+	</script>
 
     <style>
       .ace-monokai .ace_gutter {
