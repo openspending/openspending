@@ -227,8 +227,13 @@
     <script src='/static/editor/modelEditorInit.js'></script>
 	<script>
 	  jQuery(function($) {
-	    var datasetName = "${c.dataset.name}";
-	    initModelEditor($, datasetName, '#m1', '#fallback');
+	    var config = {
+	      dataset: "${c.dataset.name}",
+		  editorSelector: "#m1",
+		  fallbackSelector: "#fallback"
+	    };
+
+	    initModelEditor($, config);
 	  });
 	</script>
 

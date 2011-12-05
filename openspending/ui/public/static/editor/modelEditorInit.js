@@ -1,18 +1,19 @@
 
-initModelEditor = function($, datasetName, meHook, fallbackHook) {
-  var modelEditor = $(meHook);
+initModelEditor = function($, config) {
+  var $modelEditor = $(config.editorSelector);
+  var fallbackHook = config.fallbackSelector;
 
   var gotAnalysis = function(data) {
 	var columns = data.columns; // FIXME: might be absent
 
 	config = { columns: columns,
 	           getEditor: findEditor };
-	modelEditor.modelEditor(config);
+	$modelEditor.modelEditor(config);
 
-	var me = $(meHook).data('modelEditor');
+	var me = $modelEditor.data('modelEditor');
 	$(fallbackHook).change(function () {
       me.data = JSON.parse($(this).val());
-      $(meHook).trigger('modelChange');
+      $modelEditor.trigger('modelChange');
 	});
   };
 
@@ -23,14 +24,14 @@ initModelEditor = function($, datasetName, meHook, fallbackHook) {
 	};
 	var last = data[data.length - 1];
 	$.ajax({
-	  url: '/' + datasetName + '/sources/' + last.id + '/analysis.json',
+	  url: '/' + config.dataset + '/sources/' + last.id + '/analysis.json',
 	  dataType: 'json',
 	  success: gotAnalysis
 	});
   };
 
   $.ajax({
-	url: '/' + datasetName + '/sources.json',
+	url: '/' + config.dataset + '/sources.json',
 	dataType: 'json',
 	success: gotSources
   });
