@@ -17,22 +17,10 @@ initModelEditor = function($, config) {
 	});
   };
 
-  var gotSources = function(data) {
-	if(data.length === 0) {
-	  alert("No analyses of data found");
-	  return;
-	};
-	var last = data[data.length - 1];
-	$.ajax({
-	  url: '/' + config.dataset + '/sources/' + last.id + '/analysis.json',
-	  dataType: 'json',
-	  success: gotAnalysis
-	});
-  };
-
   $.ajax({
-	url: '/' + config.dataset + '/sources.json',
+	url: '/' + config.dataset + '/sources/' + config.source + '/analysis.json',
 	dataType: 'json',
-	success: gotSources
+	success: gotAnalysis
   });
+
 };
