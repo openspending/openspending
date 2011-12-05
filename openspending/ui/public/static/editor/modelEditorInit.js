@@ -1,6 +1,6 @@
 
-initModelEditor = function($, datasetName) {
-  var modelEditor = $('#m1');
+initModelEditor = function($, datasetName, meHook, fallbackHook) {
+  var modelEditor = $(meHook);
 
   var gotAnalysis = function(data) {
 	var columns = data.columns; // FIXME: might be absent
@@ -9,15 +9,14 @@ initModelEditor = function($, datasetName) {
 	           getEditor: findEditor };
 	modelEditor.modelEditor(config);
 
-	var me = $('#m1').data('modelEditor');
-	$('#fallback').change(function () {
+	var me = $(meHook).data('modelEditor');
+	$(fallbackHook).change(function () {
       me.data = JSON.parse($(this).val());
-      $('#m1').trigger('modelChange');
+      $(meHook).trigger('modelChange');
 	});
   };
 
   var gotSources = function(data) {
-
 	if(data.length === 0) {
 	  alert("No analyses of data found");
 	  return;
