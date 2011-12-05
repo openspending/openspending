@@ -203,10 +203,11 @@
 
     <script>
 	  var _globalEditor = null;
+      var fallback = "#fallback";
 	  findEditor = function() { return _globalEditor; }
 
       jQuery(document).ready(function($) {
-        $("#fallback").hide();
+        $(fallback).hide();
         $("#frame").show();
         var editor = ace.edit("mapping");
         _globalEditor = editor;
@@ -216,7 +217,7 @@
         editor.renderer.setShowPrintMargin(false);
         $("#form").submit(function(e) {
           var value = editor.getSession().getValue();
-          $("#fallback").val(value);
+          $(fallback).val(value);
         });
       });
     </script>
@@ -231,7 +232,7 @@
 	      dataset: "${c.dataset.name}",
 		  source: "${c.source.id}",
 		  editorSelector: "#m1",
-		  fallbackSelector: "#fallback"		  
+		  fallbackSelector: fallback
 	    };
 
 	    initModelEditor($, config);
