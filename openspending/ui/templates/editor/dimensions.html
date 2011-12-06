@@ -135,8 +135,12 @@
 				  <dd>
 					<textarea class='short' name='$${name}[description]'>$${data.description}</textarea>
 				  </dd>
+				  <dt><label>Unique key?</label></dt>
+				  <dd>
+					<input type='text' name='$${name}[key]' value='$${data.key}'></input>
+				  </dd>
 				</dl>
-
+				
 				{{if !(validDimensionType(data.type))}}
 				<table class='fields'>
 				  <thead>
