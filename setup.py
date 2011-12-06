@@ -51,9 +51,9 @@ setup(
         "sphinx==1.0.7",
         "argparse==1.2.1",
         "celery==2.4.4",
-        "lxml==2.3.2",
+        "lxml>=2.0",
         "messytables==0.1.4",
-        "osvalidate==2011-12-01.01"
+        "osvalidate==2011-12-06.01"
     ],
     setup_requires=[
         "PasteScript==1.7.5",
