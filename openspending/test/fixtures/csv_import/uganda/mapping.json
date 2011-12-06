@@ -3,6 +3,7 @@
     "column": "Type of Project-Basket",
     "datatype": "string",
     "type": "value",
+    "default_value": "",
     "description": "Limited coverage",
     "label": "Project Type"
   },
@@ -18,6 +19,7 @@
     "datatype": "string",
     "type": "value",
     "description": "Donor's project reference number",
+    "default_value": "",
     "label": "Donor project  number"
   },
   "sector-objective": {
@@ -42,6 +44,7 @@
     "column": "Agency Details (where relevant)",
     "datatype": "string",
     "type": "value",
+    "default_value": "",
     "description": "Sub-unit of Agency\u00a0",
     "label": "Agency Details"
   },
@@ -67,6 +70,7 @@
     "datatype": "string",
     "type": "value",
     "description": "Limited coverage",
+    "default_value": "",
     "label": "Aid Modality"
   },
   "aid-programme-code": {
@@ -74,12 +78,14 @@
     "datatype": "string",
     "type": "value",
     "description": "Aid only",
+    "default_value": "",
     "label": "Aid Programme Code"
   },
   "donor-coa-code": {
     "column": "DONOR COA CODE",
     "datatype": "string",
     "type": "value",
+    "default_value": "",
     "description": "Uganda Chart of Accounts code for donor",
     "label": "COA Code of Donor"
   },
@@ -135,6 +141,7 @@
     "column": "Aid_Programme_Name",
     "datatype": "string",
     "type": "value",
+    "default_value": "",
     "description": "Aid only",
     "label": "Aid Programme Name"
   },
@@ -160,6 +167,7 @@
     "column": "Project Code",
     "datatype": "string",
     "type": "value",
+    "default_value": "",
     "description": "GoU Project Code\u00a0",
     "label": "Project Code"
   },
@@ -215,6 +223,7 @@
     "datatype": "string",
     "type": "value",
     "description": "Limited coverage",
+    "default_value": "",
     "label": "Sector Strategy or Policy"
   },
   "amount-dollars": {
@@ -235,6 +244,7 @@
     "column": "Project Name",
     "datatype": "string",
     "type": "value",
+    "default_value": "(Unnamed)",
     "description": "GoU Project Name\u00a0",
     "label": "Project Name"
   },
@@ -242,6 +252,7 @@
     "column": "Financecomment",
     "datatype": "string",
     "type": "value",
+    "default_value": "",
     "description": "A 1 denotes that this entry is a value created to offset budget support from Government of Uganda spending. This is necessary to avoid double-counting when showing aggregations (of Government of Uganda spending, budget support and project aid) at higher levels, but it does not affect the actual amounts in the projects. Budget Support is money given directly to the government which they can spend on their own priorities. General Budget Support is given directly to the Treasury or Finance Ministry, and Sector Budget Support is given to an individual sector. Because of the nature of budget support, it is impossible to accurately track it through the system down to an individual project level. Below the higher levels, budget support thus becomes part of Government of Uganda revenues.",
     "label": "Financial comments"
   },
@@ -249,6 +260,7 @@
     "column": "GRANT-LOAN",
     "datatype": "string",
     "type": "value",
+    "default_value": "",
     "description": "Limited coverage",
     "label": "Grant or Loan"
   },
@@ -256,6 +268,7 @@
     "column": "donorcurrency",
     "datatype": "string",
     "type": "value",
+    "default_value": "",
     "description": "Currency in which Donor Amount was provided in (if any)",
     "label": "Donor's currency"
   },
@@ -271,6 +284,7 @@
     "datatype": "string",
     "type": "value",
     "description": "",
+    "default_value": "",
     "label": "Donor Name"
   },
   "on-off-budget": {
@@ -278,6 +292,7 @@
     "datatype": "string",
     "type": "value",
     "description": "Limited coverage",
+    "default_value": "",
     "label": "On or Off Budget"
   },
   "mtef-sector": {
@@ -308,6 +323,7 @@
     "column": "Details of sector policy or strategy",
     "datatype": "string",
     "type": "value",
+    "default_value": "",
     "description": "Limited coverage",
     "label": "Sector Strategy or Policy Details"
   },
@@ -315,6 +331,7 @@
     "column": "Agency Name",
     "datatype": "string",
     "type": "value",
+    "default_value": "",
     "description": "Relevant Agency",
     "label": "Agency Name"
   },
@@ -351,6 +368,7 @@
     "datatype": "string",
     "type": "value",
     "description": "ID from the source table",
+    "default_value": "",
     "label": "Source ID"
   },
   "peap-objective": {

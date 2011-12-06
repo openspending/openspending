@@ -119,7 +119,7 @@ class TestCSVImporter(DatabaseTestCase):
         importer.run(dry_run=True)
         h.assert_equal(importer.errors, 2)
         records = list(importer._run.records)
-        h.assert_true("time" in records[1].message,
+        h.assert_true("time" in records[1].attribute,
                       "Should find badly formatted date")
         h.assert_equal(records[1].row, 5)
 

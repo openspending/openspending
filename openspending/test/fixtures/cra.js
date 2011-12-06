@@ -12,7 +12,8 @@
       "fields": [
         {"column": "from.name", "datatype": "string", "name": "name"},
         {"column": "from.label", "datatype": "string", "name": "label"},
-        {"column": "from.description", "datatype": "string", "name": "description"}
+        {"column": "from.description", "datatype": "string", "default_value": "",
+          "name": "description"}
       ],
       "label": "Paid by",
       "description": "The entity that the money was paid from."
@@ -97,11 +98,16 @@
     "cofog1": {
       "type": "classifier",
       "fields": [
-        {"column": "cofog1.name", "datatype": "string", "name": "name"},
-        {"column": "cofog1.label", "datatype": "string", "name": "label"},
-        {"column": "cofog1.description", "datatype": "string", "name": "description"},
-        {"column": "cofog1.level", "datatype": "string", "name": "level"},
-        {"column": "cofog1.change_date", "datatype": "string", "name": "change_date"}
+        {"column": "cofog1.name", "datatype": "string", "default_value": "XX",
+          "name": "name"},
+        {"column": "cofog1.label", "datatype": "string", "default_value": "(Undefined)",
+          "name": "label"},
+        {"column": "cofog1.description", "datatype": "string", "default_value": "",
+          "name": "description"},
+        {"column": "cofog1.level", "datatype": "string", "default_value": "",
+          "name": "level"},
+        {"column": "cofog1.change_date", "datatype": "string", "default_value": "",
+          "name": "change_date"}
       ],
       "label": "COFOG level 1",
       "description": "Classification Of Function Of Government, level 1",
@@ -111,11 +117,16 @@
     "cofog2": {
       "type": "classifier",
       "fields": [
-        {"column": "cofog2.name", "datatype": "string", "name": "name"},
-        {"column": "cofog2.label", "datatype": "string", "name": "label"},
-        {"column": "cofog2.description", "datatype": "string", "name": "description"},
-        {"column": "cofog2.level", "datatype": "string", "name": "level"},
-        {"column": "cofog2.change_date", "datatype": "string", "name": "change_date"}
+        {"column": "cofog2.name", "datatype": "string", "default_value": "XX.X",
+          "name": "name"},
+        {"column": "cofog2.label", "datatype": "string", "default_value": "(Undefined)",
+          "name": "label"},
+        {"column": "cofog2.description", "datatype": "string", "default_value": "",
+          "name": "description"},
+        {"column": "cofog2.level", "datatype": "string", "default_value": "",
+          "name": "level"},
+        {"column": "cofog2.change_date", "datatype": "string", "default_value": "",
+          "name": "change_date"}
       ],
       "label": "COFOG level 2",
       "description": "Classification Of Function Of Government, level 2",
@@ -124,11 +135,16 @@
     "cofog3": {
       "type": "classifier",
       "fields": [
-        {"column": "cofog3.name", "datatype": "string", "name": "name"},
-        {"column": "cofog3.label", "datatype": "string", "name": "label"},
-        {"column": "cofog3.description", "datatype": "string", "name": "description"},
-        {"column": "cofog3.level", "datatype": "string", "name": "level"},
-        {"column": "cofog3.change_date", "datatype": "string", "name": "change_date"}
+        {"column": "cofog3.name", "datatype": "string", "default_value": "XX.X.X",
+          "name": "name"},
+        {"column": "cofog3.label", "datatype": "string", "default_value": "(Undefined)",
+          "name": "label"},
+        {"column": "cofog3.description", "datatype": "string", "default_value": "",
+          "name": "description"},
+        {"column": "cofog3.level", "datatype": "string", "default_value": "",
+          "name": "level"},
+        {"column": "cofog3.change_date", "datatype": "string", "default_value": "",
+          "name": "change_date"}
       ],
       "label": "COFOG level 3",
       "description": "Classification Of Function Of Government, level 3",
