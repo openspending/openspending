@@ -67,6 +67,9 @@ class EditorController(BaseController):
         require.dataset.update(c.dataset)
         # TODO: really split up dimensions and mapping editor.
         c.source = c.dataset.sources.first()
+        if c.source is None:
+            abort(400, _("You cannot edit the dimensions model before "\
+                          "defining a data source"))
         mapping = mapping or c.dataset.data.get('mapping', {})
         if not len(mapping) and c.source and 'mapping' in c.source.analysis:
             mapping = c.source.analysis['mapping']
