@@ -8,6 +8,7 @@ of logic functions upon which all other queries and loading functions rely.
 """
 import math
 from collections import defaultdict
+from datetime import datetime
 from itertools import count
 
 from openspending.model import meta as db
@@ -39,6 +40,8 @@ class Dataset(TableHandler, db.Model):
     default_time = db.Column(db.Unicode())
     entry_custom_html = db.Column(db.Unicode())
     private = db.Column(db.Boolean, default=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
     data = db.Column(JSONType, default=dict)
 
     def __init__(self, data):

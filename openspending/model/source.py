@@ -12,6 +12,7 @@ class Source(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.Unicode)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
     analysis = db.Column(JSONType, default=dict)
 
     dataset_id = db.Column(db.Integer, db.ForeignKey('dataset.id'))
