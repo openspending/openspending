@@ -189,23 +189,20 @@ independently.::
       "label": "Recipient of Funds",
       "description": "Final destination of the transaction.",
       "facet": true,
-      "fields": [
-        {
-          "name": "name", 
+      "attributes": {
+        "name": {
           "column": "recipient_name",
           "datatype": "id",
           "default_value": "unknown"
         },
-        {
-          "name": "label",
+        "label": {
           "column": "recipient_name",
           "datatype": "string",
           "default_value": "Unknown Recpient"
         },
-        {
-          "name": "city",
+        "city": {
           "column": "recipient_city",
-          "datatype": "string",
+          "datatype": "string"
         }
       ]
     }
@@ -217,9 +214,9 @@ flag which tells the entry browser to include this dimension in the right-hand
 facet bar). All those properties which relate to the content of the data 
 (where it comes from, how it is to be interpreted) must now be set for each 
 :py:class:`~.Attribute` of the dimension individually: ``column``, ``datatype`` 
-and ``default_value``. A new property, ``name`` is used to specify a name for 
-the attribute (see :ref:`name-conventions` for commonly used and expected 
-attribute names).
+and ``default_value``. The key of the element in the ``attributes`` mapping
+is used to specify a name for the attribute (see :ref:`name-conventions` for 
+commonly used and expected attribute names).
 
 
 Views and pre-defined visualizations
