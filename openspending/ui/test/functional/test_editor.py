@@ -3,7 +3,7 @@ import json
 from StringIO import StringIO
 
 from .. import ControllerTestCase, url, helpers as h
-from openspending.model import Dataset, meta as db
+from openspending.model import Dataset, Source, meta as db
 
 class TestEditorController(ControllerTestCase):
 
@@ -11,8 +11,8 @@ class TestEditorController(ControllerTestCase):
         h.skip_if_stubbed_solr()
 
         super(TestEditorController, self).setup()
-        user = h.make_account('test')
-        h.load_fixture('cra', user)
+        self.user = h.make_account('test')
+        h.load_fixture('cra', self.user)
         #h.clean_and_reindex_solr()
 
     def test_overview(self):
@@ -63,6 +63,10 @@ class TestEditorController(ControllerTestCase):
         cra.drop()
         cra.init()
         cra.generate()
+        src = Source(cra, self.user, 'file:///dev/null')
+        src.analysis = {'columns': ['amount', 'etc']}
+        db.session.add(src)
+        db.session.commit()
         response = self.app.get(url(controller='editor', 
             action='dimensions_edit', dataset='cra'),
             extra_environ={'REMOTE_USER': 'test'})
@@ -70,6 +74,11 @@ class TestEditorController(ControllerTestCase):
         assert 'Update' in response.body
     
     def test_dimensions_edit_mask_with_data(self):
+        cra = Dataset.by_name('cra')
+        src = Source(cra, self.user, 'file:///dev/null')
+        src.analysis = {'columns': ['amount', 'etc']}
+        db.session.add(src)
+        db.session.commit()
         response = self.app.get(url(controller='editor', 
             action='dimensions_edit', dataset='cra'),
             extra_environ={'REMOTE_USER': 'test'})
