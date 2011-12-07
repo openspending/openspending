@@ -1,6 +1,5 @@
 {
   "dataset": {
-    "model_rev": 1,
     "name": "cra",
     "label": "Country Regional Analysis v2009",
     "description": "The Country Regional Analysis published by HM Treasury (2010 version).\n\nSource data can be found in the [CKAN data package](http://ckan.net/package/ukgov-finances-cra)",
@@ -9,22 +8,22 @@
   "mapping": {
     "from": {
       "type": "entity",
-      "fields": [
-        {"column": "from.name", "datatype": "string", "name": "name"},
-        {"column": "from.label", "datatype": "string", "name": "label"},
-        {"column": "from.description", "datatype": "string", "default_value": "",
-          "name": "description"}
-      ],
+      "attributes": {
+        "name": {"column": "from.name", "datatype": "string"},
+        "label": {"column": "from.label", "datatype": "string"},
+        "description": {"column": "from.description", "datatype": "string", 
+          "default_value": ""}
+      },
       "label": "Paid by",
       "description": "The entity that the money was paid from."
     },
     "to": {
       "type": "entity",
-      "fields": [
-        {"column": "to.name", "datatype": "string", "name": "name"},
-        {"column": "to.label", "datatype": "string", "name": "label"},
-        {"column": "to.description", "datatype": "string", "name": "description"}
-      ],
+      "attributes": {
+        "name": {"column": "to.name", "datatype": "string"},
+        "label": {"column": "to.label", "datatype": "string"},
+        "description": {"column": "to.description", "datatype": "string"}
+      },
       "label": "Paid to",
       "description": "The entity that the money was paid to"
     },
@@ -88,27 +87,27 @@
     },
     "pog": {
       "type": "classifier",
-      "fields": [
-        {"column": "pog.name", "datatype": "string", "name": "name"},
-        {"column": "pog.label", "datatype": "string", "name": "label"}
-      ],
+      "attributes": {
+        "name": {"column": "pog.name", "datatype": "string"},
+        "label": {"column": "pog.label", "datatype": "string"}
+      },
       "label": "Programme Object Group",
       "taxonomy": "pog"
     },
     "cofog1": {
       "type": "classifier",
-      "fields": [
-        {"column": "cofog1.name", "datatype": "string", "default_value": "XX",
-          "name": "name"},
-        {"column": "cofog1.label", "datatype": "string", "default_value": "(Undefined)",
-          "name": "label"},
-        {"column": "cofog1.description", "datatype": "string", "default_value": "",
-          "name": "description"},
-        {"column": "cofog1.level", "datatype": "string", "default_value": "",
-          "name": "level"},
-        {"column": "cofog1.change_date", "datatype": "string", "default_value": "",
-          "name": "change_date"}
-      ],
+      "attributes": {
+        "name": {"column": "cofog1.name", "datatype": "string", 
+          "default_value": "XX"},
+        "label": {"column": "cofog1.label", "datatype": "string", 
+          "default_value": "(Undefined)"},
+        "description": {"column": "cofog1.description", "datatype": "string", 
+          "default_value": ""},
+        "level": {"column": "cofog1.level", "datatype": "string", 
+          "default_value": ""},
+        "change_date": {"column": "cofog1.change_date", "datatype": "string", 
+          "default_value": ""}
+      },
       "label": "COFOG level 1",
       "description": "Classification Of Function Of Government, level 1",
       "taxonomy": "cofog",
@@ -116,36 +115,36 @@
     },
     "cofog2": {
       "type": "classifier",
-      "fields": [
-        {"column": "cofog2.name", "datatype": "string", "default_value": "XX.X",
-          "name": "name"},
-        {"column": "cofog2.label", "datatype": "string", "default_value": "(Undefined)",
-          "name": "label"},
-        {"column": "cofog2.description", "datatype": "string", "default_value": "",
-          "name": "description"},
-        {"column": "cofog2.level", "datatype": "string", "default_value": "",
-          "name": "level"},
-        {"column": "cofog2.change_date", "datatype": "string", "default_value": "",
-          "name": "change_date"}
-      ],
+      "attributes": {
+        "name": {"column": "cofog2.name", "datatype": "string", 
+          "default_value": "XX.X"},
+        "label": {"column": "cofog2.label", "datatype": "string", 
+          "default_value": "(Undefined)"},
+        "description": {"column": "cofog2.description", "datatype": "string", 
+          "default_value": ""},
+        "level": {"column": "cofog2.level", "datatype": "string", 
+          "default_value": ""},
+        "change_date": {"column": "cofog2.change_date", "datatype": "string", 
+          "default_value": ""}
+      },
       "label": "COFOG level 2",
       "description": "Classification Of Function Of Government, level 2",
       "taxonomy": "cofog"
     },
     "cofog3": {
       "type": "classifier",
-      "fields": [
-        {"column": "cofog3.name", "datatype": "string", "default_value": "XX.X.X",
-          "name": "name"},
-        {"column": "cofog3.label", "datatype": "string", "default_value": "(Undefined)",
-          "name": "label"},
-        {"column": "cofog3.description", "datatype": "string", "default_value": "",
-          "name": "description"},
-        {"column": "cofog3.level", "datatype": "string", "default_value": "",
-          "name": "level"},
-        {"column": "cofog3.change_date", "datatype": "string", "default_value": "",
-          "name": "change_date"}
-      ],
+      "attributes": {
+        "name": {"column": "cofog3.name", "datatype": "string", 
+          "default_value": "XX.X.X"},
+        "label": {"column": "cofog3.label", "datatype": "string", 
+          "default_value": "(Undefined)"},
+        "description": {"column": "cofog3.description", "datatype": "string", 
+          "default_value": ""},
+        "level": {"column": "cofog3.level", "datatype": "string", 
+          "default_value": ""},
+        "change_date": {"column": "cofog3.change_date", "datatype": "string", 
+          "default_value": ""}
+      },
       "label": "COFOG level 3",
       "description": "Classification Of Function Of Government, level 3",
       "taxonomy": "cofog"
