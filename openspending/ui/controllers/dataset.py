@@ -105,7 +105,7 @@ class DatasetController(BaseController):
 
     def model(self, dataset, format='json'):
         self._get_dataset(dataset)
-        return to_jsonp(c.dataset.data)
+        return to_jsonp(c.dataset.model)
 
     def timeline(self, name):
         self._get_dataset(name)
