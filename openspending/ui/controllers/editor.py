@@ -39,7 +39,7 @@ class EditorController(BaseController):
         require.dataset.update(c.dataset)
         c.currencies = sorted(CURRENCIES.items(), key=lambda (k,v): v)
         errors = [(k[len('dataset.'):], v) for k, v in errors.items()]
-        fill = c.dataset.dataset.copy()
+        fill = c.dataset.as_dict()
         if errors:
             fill.update(request.params)
         return render('editor/core.html', form_errors=dict(errors), 
@@ -50,15 +50,11 @@ class EditorController(BaseController):
         require.dataset.update(c.dataset)
         errors = {}
         try:
-            schema = dataset_schema(ValidationState(c.dataset.data))
+            schema = dataset_schema(ValidationState(c.dataset.model))
             data = schema.deserialize(request.params)
-            data['name'] = c.dataset.name
-            c.dataset.label = c.dataset.data['dataset']['label'] = \
-                    data['label']
-            c.dataset.currency = c.dataset.data['dataset']['currency'] = \
-                    data['currency']
-            c.dataset.description = c.dataset.data['dataset']['description'] = \
-                    data['description']
+            c.dataset.label = data['label']
+            c.dataset.currency = data['currency']
+            c.dataset.description = data['description']
             db.session.commit()
             h.flash_success(_("The dataset metadata has been updated."))
         except Invalid, i:
@@ -89,7 +85,7 @@ class EditorController(BaseController):
         errors, mapping = {}, None
         try:
             mapping = json.loads(request.params.get('mapping'))
-            model = c.dataset.data.copy()
+            model = c.dataset.model
             model['mapping'] = mapping
             schema = mapping_schema(ValidationState(model))
             c.dataset.data['mapping'] = schema.deserialize(mapping)
@@ -121,7 +117,7 @@ class EditorController(BaseController):
         errors, views = {}, None
         try:
             views = json.loads(request.params.get('views'))
-            schema = views_schema(ValidationState(c.dataset.data))
+            schema = views_schema(ValidationState(c.dataset.model))
             c.dataset.data['views'] = schema.deserialize(views)
             db.session.commit()
             h.flash_success(_("The views have been updated."))

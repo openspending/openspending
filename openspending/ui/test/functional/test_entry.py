@@ -19,7 +19,7 @@ class TestEntryController(ControllerTestCase):
     def test_entry_custom_html(self):
         tpl = '<a href="/custom/path/%s">%s</a>'
         tpl_c = tpl % ('${entry["id"]}', '${entry["name"]}')
-        self.cra.data['dataset']['entry_custom_html'] = tpl_c
+        self.cra.entry_custom_html = tpl_c
         db.session.commit()
 
         t = list(self.cra.entries(limit=1)).pop()

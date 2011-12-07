@@ -81,11 +81,11 @@ def static(url):
 
 
 # TODO: moved here during openspending.model evacuation.
-def render_entry_custom_html(doc, entry):
-    """Render dataset ``doc``'s custom html for entry ``entry``"""
-    custom_html = doc.get('entry_custom_html')
-    if custom_html:
-        return _render_custom_html(custom_html, 'entry', entry)
+def render_entry_custom_html(dataset, entry):
+    """Render dataset ``datasets``'s custom html for entry ``entry``"""
+    if dataset.entry_custom_html:
+        return _render_custom_html(dataset.entry_custom_html, 
+                'entry', entry)
     else:
         return None
 

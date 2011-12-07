@@ -36,7 +36,6 @@ class TestEditorController(ControllerTestCase):
             extra_environ={'REMOTE_USER': 'test'})
         cra = Dataset.by_name('cra')
         assert cra.label=='Common Rough Act', cra.label
-        assert cra.dataset['label']=='Common Rough Act', cra.dataset
         assert cra.currency=='EUR', cra.currency
     
     def test_core_update_invalid_label(self):
@@ -48,7 +47,6 @@ class TestEditorController(ControllerTestCase):
         assert 'Required' in response.body
         cra = Dataset.by_name('cra')
         assert cra.label!='Common Rough Act', cra.label
-        assert cra.dataset['label']!='Common Rough Act', cra.dataset
     
     def test_core_update_invalid_currency(self):
         response = self.app.post(url(controller='editor', 

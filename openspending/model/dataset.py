@@ -37,21 +37,27 @@ class Dataset(TableHandler, db.Model):
     description = db.Column(db.Unicode())
     currency = db.Column(db.Unicode())
     default_time = db.Column(db.Unicode())
-    data = db.Column(JSONType, default=dict)
+    entry_custom_html = db.Column(db.Unicode())
     private = db.Column(db.Boolean, default=False)
+    data = db.Column(JSONType, default=dict)
 
     def __init__(self, data):
-        self.data = data
-        self.label = self.dataset.get('label')
-        self.name = self.dataset.get('name')
-        self.description = self.dataset.get('description')
-        self.currency = self.dataset.get('currency')
-        self.default_time = self.dataset.get('default_time')
+        self.data = data.copy()
+        dataset = self.data['dataset']
+        del self.data['dataset']
+        self.label = dataset.get('label')
+        self.name = dataset.get('name')
+        self.description = dataset.get('description')
+        self.currency = dataset.get('currency')
+        self.default_time = dataset.get('default_time')
+        self.entry_custom_html = dataset.get('entry_custom_html')
         self._load_model()
 
     @property
-    def dataset(self):
-        return self.data.get('dataset', {})
+    def model(self):
+        model = self.data.copy()
+        model['dataset'] = self.as_dict()
+        return model
 
     @property
     def mapping(self):
@@ -420,7 +426,13 @@ class Dataset(TableHandler, db.Model):
         return rp.fetchone()[0]
 
     def as_dict(self):
-        return self.dataset
+        return {
+            'label': self.label,
+            'name': self.name,
+            'description': self.description,
+            'default_time': self.default_time,
+            'currency': self.currency
+            }
 
     @classmethod
     def all_by_account(cls, account):
