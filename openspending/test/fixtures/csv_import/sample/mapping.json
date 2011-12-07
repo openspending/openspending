@@ -1,17 +1,15 @@
 {
   "from": {
-    "fields": [
-      {
+    "attributes": {
+      "name": {
         "column": "paid_by",
-        "datatype": "id",
-        "name": "name"
+        "datatype": "id"
       },
-      {
+      "label": {
         "column": "paid_by",
-        "datatype": "string",
-        "name": "label"
+        "datatype": "string"
       }
-    ],
+    },
     "type": "entity",
     "description": "Payer",
     "label": "Payer"
@@ -24,18 +22,16 @@
     "label": "Spending Area"
   },
   "to": {
-    "fields": [
-      {
+    "attributes": {
+      "name": {
         "column": "paid_to",
-        "datatype": "id",
-        "name": "name"
+        "datatype": "id"
       },
-      {
+      "label": {
         "column": "paid_to",
-        "datatype": "string",
-        "name": "label"
+        "datatype": "string"
       }
-    ],
+    },
     "type": "entity",
     "description": "Payee",
     "label": "Payee"

@@ -21,20 +21,18 @@
     "label": "Budget Programme Type"
   },
   "from": {
-    "fields": [
-      {
+    "attributes": {
+      "name": {
         "column": "FROM",
         "datatype": "id",
-        "default_value": "Government",
-        "name": "name"
+        "default_value": "Government"
       },
-      {
+      "label": {
         "column": "FROM",
         "datatype": "string",
-        "default_value": "Government",
-        "name": "label"
+        "default_value": "Government"
       }
-    ],
+    },
     "type": "entity",
     "description": "Notional spender",
     "label": "Spender"
@@ -83,20 +81,18 @@
     "label": "Financial Source"
   },
   "to": {
-    "fields": [
-      {
+    "attributes": {
+      "name": {
         "column": "TO",
         "datatype": "id",
-        "default_value": "Society",
-        "name": "name"
+        "default_value": "Society"
       },
-      {
+      "label": {
         "column": "TO",
         "datatype": "string",
-        "default_value": "Society",
-        "name": "label"
+        "default_value": "Society"
       }
-    ],
+    },
     "type": "entity",
     "description": "Notional recipient",
     "label": "Recipient"
