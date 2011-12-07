@@ -13,7 +13,9 @@ from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.base import require, abort
 from openspending.ui.lib.cache import AggregationCache
-from openspending.validation.model.currency import CURRENCIES
+from openspending.reference.currency import CURRENCIES
+from openspending.reference.country import COUNTRIES
+from openspending.reference.language import LANGUAGES
 from openspending.validation.model.dataset import dataset_schema
 from openspending.validation.model.mapping import mapping_schema
 from openspending.validation.model.views import views_schema
@@ -38,6 +40,8 @@ class EditorController(BaseController):
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
         c.currencies = sorted(CURRENCIES.items(), key=lambda (k,v): v)
+        c.languages = sorted(LANGUAGES.items(), key=lambda (k,v): v)
+        c.countries = sorted(COUNTRIES.items(), key=lambda (k,v): v)
         errors = [(k[len('dataset.'):], v) for k, v in errors.items()]
         fill = c.dataset.as_dict()
         if errors:
@@ -50,6 +54,7 @@ class EditorController(BaseController):
         require.dataset.update(c.dataset)
         errors = {}
         try:
+            print request.params
             schema = dataset_schema(ValidationState(c.dataset.model))
             data = schema.deserialize(request.params)
             c.dataset.label = data['label']
