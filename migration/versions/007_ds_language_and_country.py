@@ -18,12 +18,12 @@ def upgrade(migrate_engine):
         )
     dataset_language.create()
     
-    dataset_country = Table('dataset_country', meta,
+    dataset_territory = Table('dataset_territory', meta,
         Column('id', Integer, primary_key=True),
         Column('code', Unicode),
         Column('created_at', DateTime, default=datetime.utcnow),
         Column('updated_at', DateTime, onupdate=datetime.utcnow),
         Column('dataset_id', Integer, ForeignKey('dataset.id'))
         )
-    dataset_country.create()
+    dataset_territory.create()
 

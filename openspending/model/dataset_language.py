@@ -12,11 +12,11 @@ class DatasetLanguage(db.Model):
     updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
 
     dataset_id = db.Column(db.Integer, db.ForeignKey('dataset.id'))
-    dataset = db.relationship(Dataset, backref=db.backref('languages',
-                          lazy='dynamic'))
+    dataset = db.relationship(Dataset, backref=db.backref('_languages',
+                          lazy=False))
 
-    def __init__(self, dataset, code):
-        self.dataset = dataset
+    def __init__(self, code):
+        #self.dataset = dataset
         self.code = code
 
 
