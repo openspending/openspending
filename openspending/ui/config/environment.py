@@ -94,9 +94,15 @@ def load_environment(global_conf, app_conf):
     def template_loaded(template):
         translator.setup(template)
 
+    template_paths = [paths['templates'][0]]
+    extra_template_paths = config.get('extra_template_paths', '')
+    if extra_template_paths:
+        # must be first for them to override defaults
+        template_paths = extra_template_paths.split(',') + template_paths
+
     # Create the Genshi TemplateLoader
     config['pylons.app_globals'].genshi_loader = TemplateLoader(
-        search_path=paths['templates'],
+        search_path=template_paths,
         auto_reload=True,
         callback=template_loaded
     )

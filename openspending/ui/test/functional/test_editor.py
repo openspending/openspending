@@ -32,7 +32,8 @@ class TestEditorController(ControllerTestCase):
         response = self.app.post(url(controller='editor', 
             action='core_update', dataset='cra'),
             params={'name': 'cra', 'label': 'Common Rough Act',
-                    'description': 'I\'m a banana', 'currency': 'EUR'},
+                    'description': 'I\'m a banana', 'currency': 'EUR',
+                    'languages': 'en', 'territories': 'gb'},
             extra_environ={'REMOTE_USER': 'test'})
         cra = Dataset.by_name('cra')
         assert cra.label=='Common Rough Act', cra.label
@@ -46,7 +47,27 @@ class TestEditorController(ControllerTestCase):
             extra_environ={'REMOTE_USER': 'test'})
         assert 'Required' in response.body
         cra = Dataset.by_name('cra')
-        assert cra.label!='Common Rough Act', cra.label
+        assert cra.label!='', cra.label
+    
+    def test_core_update_invalid_language(self):
+        response = self.app.post(url(controller='editor', 
+            action='core_update', dataset='cra'),
+            params={'name': 'cra', 'label': 'CRA', 'languages': 'esperanto', 
+                    'description': 'I\'m a banana', 'currency': 'GBP'},
+            extra_environ={'REMOTE_USER': 'test'})
+        assert not 'updated' in response.body
+        cra = Dataset.by_name('cra')
+        assert not 'esperanto' in cra.languages
+    
+    def test_core_update_invalid_territory(self):
+        response = self.app.post(url(controller='editor', 
+            action='core_update', dataset='cra'),
+            params={'name': 'cra', 'label': 'CRA', 'territories': 'su', 
+                    'description': 'I\'m a banana', 'currency': 'GBP'},
+            extra_environ={'REMOTE_USER': 'test'})
+        assert not 'updated' in response.body
+        cra = Dataset.by_name('cra')
+        assert not 'su' in cra.territories
     
     def test_core_update_invalid_currency(self):
         response = self.app.post(url(controller='editor', 

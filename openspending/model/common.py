@@ -71,4 +71,13 @@ class TableHandler(object):
             self.table.drop()
         del self.table
 
+class DatasetFacetMixin(object):
+    
+    @classmethod
+    def dataset_counts(cls, datasets):
+        ds_ids = [d.id for d in datasets]
+        q = db.select([cls.code, db.func.count(cls.dataset_id)],
+            cls.dataset_id.in_(ds_ids), group_by=cls.code,
+            order_by=db.func.count(cls.dataset_id).desc())
+        return db.session.bind.execute(q).fetchall()
 

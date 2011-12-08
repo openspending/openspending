@@ -13,7 +13,9 @@ from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.base import require, abort
 from openspending.ui.lib.cache import AggregationCache
-from openspending.validation.model.currency import CURRENCIES
+from openspending.reference.currency import CURRENCIES
+from openspending.reference.country import COUNTRIES
+from openspending.reference.language import LANGUAGES
 from openspending.validation.model.dataset import dataset_schema
 from openspending.validation.model.mapping import mapping_schema
 from openspending.validation.model.views import views_schema
@@ -38,6 +40,8 @@ class EditorController(BaseController):
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
         c.currencies = sorted(CURRENCIES.items(), key=lambda (k,v): v)
+        c.languages = sorted(LANGUAGES.items(), key=lambda (k,v): v)
+        c.territories = sorted(COUNTRIES.items(), key=lambda (k,v): v)
         errors = [(k[len('dataset.'):], v) for k, v in errors.items()]
         fill = c.dataset.as_dict()
         if errors:
@@ -51,12 +55,17 @@ class EditorController(BaseController):
         errors = {}
         try:
             schema = dataset_schema(ValidationState(c.dataset.model))
-            data = schema.deserialize(request.params)
+            data = dict(request.params)
+            data['territories'] = request.params.getall('territories')
+            data['languages'] = request.params.getall('languages')
+            data = schema.deserialize(data)
             c.dataset.label = data['label']
             c.dataset.currency = data['currency']
             c.dataset.description = data['description']
+            c.dataset.territories = data['territories']
+            c.dataset.languages = data['languages']
             db.session.commit()
-            h.flash_success(_("The dataset metadata has been updated."))
+            h.flash_success(_("The dataset has been updated."))
         except Invalid, i:
             errors = i.asdict()
         return self.core_edit(dataset, errors=errors)

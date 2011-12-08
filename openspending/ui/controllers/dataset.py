@@ -1,4 +1,5 @@
 import logging
+from urllib import urlencode
 
 from pylons import request, response, tmpl_context as c
 from pylons.controllers.util import redirect
@@ -6,8 +7,8 @@ from pylons.i18n import _
 from colander import SchemaNode, String, Invalid
 
 
-from openspending import model
-from openspending.model import Dataset, meta as db
+from openspending.model import Dataset, DatasetTerritory, \
+        DatasetLanguage, meta as db
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IDatasetController
 from openspending.lib.csvexport import write_csv
@@ -39,6 +40,23 @@ class DatasetController(BaseController):
             results = map(lambda d: d.as_dict(), c.datasets)
             return write_csv(results, response)
         else:
+            c.query = request.params.items()
+            c.add_filter = lambda f, v: '?' + urlencode(c.query +
+                    [(f, v)] if (f, v) not in c.query else c.query)
+            c.del_filter = lambda f, v: '?' + urlencode([(k,x) for k, x in
+                c.query if (k,x) != (f,v)])
+            c.results = c.datasets
+            for language in request.params.getall('languages'):
+                l = db.aliased(DatasetLanguage)
+                c.results = c.results.join(l, Dataset._languages)
+                c.results = c.results.filter(l.code==language)
+            for territory in request.params.getall('territories'):
+                t = db.aliased(DatasetTerritory)
+                c.results = c.results.join(t, Dataset._territories)
+                c.results = c.results.filter(t.code==territory)
+            c.results = list(c.results)
+            c.territory_options = DatasetTerritory.dataset_counts(c.results)
+            c.language_options = DatasetLanguage.dataset_counts(c.results)
             return render('dataset/index.html')
 
     def cta(self):
@@ -108,7 +126,7 @@ class DatasetController(BaseController):
 
     def timeline(self, name):
         self._get_dataset(name)
-        c.dataset = model.Dataset.by_name(name)
+        c.dataset = Dataset.by_name(name)
         view = View.by_name(c.dataset, "default")
         viewstate = ViewState(c.dataset, view, None)
         data = []

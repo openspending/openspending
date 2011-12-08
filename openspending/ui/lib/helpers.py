@@ -16,6 +16,10 @@ from webhelpers.number import format_number as format_number_full
 from webhelpers.pylonslib import Flash as _Flash
 from webhelpers.text import truncate
 
+from openspending.reference.currency import CURRENCIES
+from openspending.reference.country import COUNTRIES
+from openspending.reference.language import LANGUAGES
+
 from openspending import model
 from openspending.lib import json
 from openspending.lib.util import slugify

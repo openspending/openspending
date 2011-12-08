@@ -11,16 +11,39 @@
     <p>The database contains the following datasets:</p>
 
     <div class="row">
-      <div class="span-one-third" py:for="dataset in c.datasets">
-        <br/>
-        <h3><a class="dataset-name" href="${url(controller='dataset',
-          action='view', dataset=dataset.name)}">
-            ${dataset.label}
-          </a>
-        </h3>
-        <div py:if="dataset.description">
-            ${h.markdown_preview(dataset.description)}
+      <div class="span-two-thirds"> 
+        <div py:for="dataset in c.results">
+          <h3><a class="dataset-name" href="${url(controller='dataset',
+            action='view', dataset=dataset.name)}">
+              ${dataset.label}
+            </a>
+          </h3>
+          <div py:if="dataset.description">
+              ${h.markdown_preview(dataset.description)}
+          </div>
+          <br/>
         </div>
+      </div>
+      <div class="span-one-third">
+        <h3>Countries</h3>
+        <ul>
+          <li py:for="(territory, count) in c.territory_options">
+            <a py:if="not ('territories', territory) in c.query" 
+              href="${c.add_filter('territories', territory)}">${h.COUNTRIES[territory]}</a>
+            <a py:if="('territories', territory) in c.query" class="unfilter" 
+              href="${c.del_filter('territories', territory)}">${h.COUNTRIES[territory]}</a>
+            (${count})
+          </li>
+        </ul>
+        <h3>Languages</h3>
+        <ul>
+          <li py:for="(language, count) in c.language_options">
+            <a py:if="not ('languages', language) in c.query"
+              href="${c.add_filter('languages', language)}">${h.LANGUAGES[language]}</a>
+            <a py:if="('languages', language) in c.query" class="unfilter"
+              href="${c.del_filter('languages', language)}">${h.LANGUAGES[language]}</a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
