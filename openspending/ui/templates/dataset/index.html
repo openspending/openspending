@@ -42,6 +42,7 @@
               href="${c.add_filter('languages', language)}">${h.LANGUAGES[language]}</a>
             <a py:if="('languages', language) in c.query" class="unfilter"
               href="${c.del_filter('languages', language)}">${h.LANGUAGES[language]}</a>
+            (${count})
           </li>
         </ul>
       </div>
