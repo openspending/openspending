@@ -33,6 +33,20 @@
       <li class="${'active' if section == 'search' else ''}">
           <a href="${url(controller='dimension', action='entries',
             dataset=c.dataset.name, dimension=c.dimension, name=c.member.name)}">Search</a></li>
+      <py:if test="'opencorporates_uri' in c.member and c.member.opencorporates_uri">
+        <li class="">
+        <a href="${c.member.opencorporates_uri}" title="${c.member.label} on OpenCorporates"><img src="/static/img/icons/external_link.gif" /> OpenCorporates</a></li>
+      </py:if>
+      <py:if test="'uri' in c.member and c.member.uri">
+        <li class="" py:if="'opencorporates.com' in c.member.uri">
+          <a href="${c.member.uri}" title="${c.member.label.strip()} on OpenCorporates">
+            <img src="/static/img/icons/external_link.gif" /> OpenCorporates</a>
+        </li>
+        <li class="" py:if="'publicbodies.org' in c.member.uri">
+          <a href="${c.member.uri}" title="${c.member.label.strip()} on PublicBodies.org">
+            <img src="/static/img/icons/external_link.gif" /> PublicBodies.org</a>
+        </li>
+      </py:if>
       ${view_times()}
     </ul>
   </py:def>
