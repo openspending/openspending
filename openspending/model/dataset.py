@@ -44,6 +44,9 @@ class Dataset(TableHandler, db.Model):
     updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
     data = db.Column(JSONType, default=dict)
 
+    languages = db.association_proxy('_languages', 'code')
+    territories = db.association_proxy('_territories', 'code')
+
     def __init__(self, data):
         self.data = data.copy()
         dataset = self.data['dataset']
@@ -54,6 +57,8 @@ class Dataset(TableHandler, db.Model):
         self.currency = dataset.get('currency')
         self.default_time = dataset.get('default_time')
         self.entry_custom_html = dataset.get('entry_custom_html')
+        self.languages = dataset.get('languages', [])
+        self.territories = dataset.get('territories', [])
         self._load_model()
 
     @property
@@ -434,7 +439,9 @@ class Dataset(TableHandler, db.Model):
             'name': self.name,
             'description': self.description,
             'default_time': self.default_time,
-            'currency': self.currency
+            'currency': self.currency,
+            'languages': list(self.languages),
+            'territories': list(self.territories)
             }
 
     @classmethod
