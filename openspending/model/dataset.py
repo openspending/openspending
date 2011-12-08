@@ -38,6 +38,7 @@ class Dataset(TableHandler, db.Model):
     description = db.Column(db.Unicode())
     currency = db.Column(db.Unicode())
     default_time = db.Column(db.Unicode())
+    schema_version = db.Column(db.Unicode())
     entry_custom_html = db.Column(db.Unicode())
     private = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
@@ -439,6 +440,7 @@ class Dataset(TableHandler, db.Model):
             'name': self.name,
             'description': self.description,
             'default_time': self.default_time,
+            'schema_version': self.schema_version,
             'currency': self.currency,
             'languages': list(self.languages),
             'territories': list(self.territories)
