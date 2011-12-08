@@ -167,7 +167,11 @@ mechanism is explained in more detail in :ref:`physical-model`.
 
 The ``datatype`` property of the attribute dimension is used to convert the
 found values into another format as needed. Valid types include: ``string``,
-``id`` (will generate a slug-like string), ``float`` and ``date``. 
+``id`` (will generate a slug-like string), ``float`` and ``date``.
+
+Attributes (and attribute dimensions) of the ``date`` type support a further
+option, ``format``. It can be used to specify a ``strptime``-compatible 
+date parsing format to be used for the values in this column.
 
 A valid input CSV file for the model defined above might look like this:
 
