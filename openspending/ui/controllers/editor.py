@@ -41,7 +41,7 @@ class EditorController(BaseController):
         require.dataset.update(c.dataset)
         c.currencies = sorted(CURRENCIES.items(), key=lambda (k,v): v)
         c.languages = sorted(LANGUAGES.items(), key=lambda (k,v): v)
-        c.countries = sorted(COUNTRIES.items(), key=lambda (k,v): v)
+        c.territories = sorted(COUNTRIES.items(), key=lambda (k,v): v)
         errors = [(k[len('dataset.'):], v) for k, v in errors.items()]
         fill = c.dataset.as_dict()
         if errors:
@@ -54,14 +54,18 @@ class EditorController(BaseController):
         require.dataset.update(c.dataset)
         errors = {}
         try:
-            print request.params
             schema = dataset_schema(ValidationState(c.dataset.model))
-            data = schema.deserialize(request.params)
+            data = dict(request.params)
+            data['territories'] = request.params.getall('territories')
+            data['languages'] = request.params.getall('languages')
+            data = schema.deserialize(data)
             c.dataset.label = data['label']
             c.dataset.currency = data['currency']
             c.dataset.description = data['description']
+            c.dataset.territories = data['territories']
+            c.dataset.languages = data['languages']
             db.session.commit()
-            h.flash_success(_("The dataset metadata has been updated."))
+            h.flash_success(_("The dataset has been updated."))
         except Invalid, i:
             errors = i.asdict()
         return self.core_edit(dataset, errors=errors)
