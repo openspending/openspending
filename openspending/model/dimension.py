@@ -48,7 +48,7 @@ class AttributeDimension(Dimension, Attribute):
     """
 
     def __init__(self, dataset, name, data):
-        Attribute.__init__(self, dataset, data)
+        Attribute.__init__(self, dataset, name, data)
         Dimension.__init__(self, dataset, name, data)
     
     def __repr__(self):
@@ -61,8 +61,7 @@ class Measure(Attribute):
     a specific portion thereof (i.e. co-financed amounts). """
 
     def __init__(self, dataset, name, data):
-        Attribute.__init__(self, dataset, data)
-        self.name = name
+        Attribute.__init__(self, dataset, name, data)
         self.label = data.get('label', name)
 
     def __getitem__(self, name):
@@ -86,8 +85,8 @@ class CompoundDimension(Dimension, TableHandler):
         self.taxonomy = data.get('taxonomy', name)
 
         self.attributes = []
-        for attr in data.get('attributes', data.get('fields', [])):
-            self.attributes.append(Attribute(self, attr))
+        for name, attr in data.get('attributes', {}).items():
+            self.attributes.append(Attribute(self, name, attr))
 
         # TODO: possibly use a LRU later on?
         self._pk_cache = {}
@@ -196,25 +195,25 @@ class DateDimension(CompoundDimension):
     several properties of the date in their own attributes (e.g. year, month, 
     quarter, day). """
 
-    DATE_FIELDS = [
-        {'name': 'name', 'datatype': 'string'},
-        {'name': 'label', 'datatype': 'string'},
-        {'name': 'year', 'datatype': 'string'},
-        {'name': 'quarter', 'datatype': 'string'},
-        {'name': 'month', 'datatype': 'string'},
-        {'name': 'week', 'datatype': 'string'},
-        {'name': 'day', 'datatype': 'string'},
-        # legacy query support:
-        {'name': 'yearmonth', 'datatype': 'string'},
-        ]
+    DATE_ATTRIBUTES = {
+            'name': { 'datatype': 'string'},
+            'label': {'datatype': 'string'},
+            'year': {'datatype': 'string'},
+            'quarter': {'datatype': 'string'},
+            'month': {'datatype': 'string'},
+            'week': {'datatype': 'string'},
+            'day': {'datatype': 'string'},
+            # legacy query support:
+            'yearmonth': {'datatype': 'string'},
+        }
 
     def __init__(self, dataset, name, data):
         Dimension.__init__(self, dataset, name, data)
         self.taxonomy = name
 
         self.attributes = []
-        for attr in self.DATE_FIELDS:
-            self.attributes.append(Attribute(self, attr))
+        for name, attr in self.DATE_ATTRIBUTES.items():
+            self.attributes.append(Attribute(self, name, attr))
 
         self._pk_cache = {}
 

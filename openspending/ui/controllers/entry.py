@@ -48,7 +48,7 @@ class EntryController(BaseController):
         c.amount = c.entry.get('amount')
         c.time = c.entry.get('time')
 
-        c.custom_html = h.render_entry_custom_html(c.dataset.as_dict(), 
+        c.custom_html = h.render_entry_custom_html(c.dataset, 
                                                    c.entry)
 
         excluded_keys = ('time', 'amount', 'currency', 'from',

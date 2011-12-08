@@ -12,6 +12,9 @@
 
   <div py:def="content">
     ${dataset_nav('about')}
+    <div class="representations">
+      <a href="${url(controller='dataset', action='model', dataset=c.dataset.name, format='json')}"><img src="${h.static('img/icons/json.png')}" alt="JSON" /></a>
+    </div>
 
     <div class="row">
       <div class="span-two-thirds">

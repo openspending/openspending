@@ -6,6 +6,8 @@ from openspending.model.attribute import Attribute
 from openspending.model.dimension import AttributeDimension, \
         CompoundDimension, Measure, Dimension, DateDimension
 from openspending.model.dataset import Dataset
+from openspending.model.dataset_language import DatasetLanguage
+from openspending.model.dataset_territory import DatasetTerritory
 from openspending.model.account import Account
 from openspending.model.source import Source
 from openspending.model.run import Run

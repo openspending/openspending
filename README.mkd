@@ -14,3 +14,9 @@ Please see docs/install.rst or http://docs.openspending.org/en/latest/install.ht
 ## Issue tracking
 
 Please report bugs and submit feature requests at https://github.com/okfn/openspending/issues.
+
+## Licensing
+
+OpenSpending's code is licensed under the GNU Affero Licence except where
+otherwise indicated. A copy of this licence is available in the file
+LICENSE.txt

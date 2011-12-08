@@ -1,33 +1,29 @@
 {
   "from": {
-    "fields": [
-      {
+    "attributes": {
+      "name": {
         "column": "paid_by",
-        "datatype": "id",
-        "name": "name"
+        "datatype": "id"
       },
-      {
+      "label": {
         "column": "paid_by",
-        "datatype": "string",
-        "name": "label"
+        "datatype": "string"
       }
-    ],
+    },
     "type": "entity",
     "label": "Spender"
   },
   "to": {
-    "fields": [
-      {
+    "attributes": {
+      "name": {
         "column": "paid_to",
-        "datatype": "id",
-        "name": "name"
+        "datatype": "id"
       },
-      {
+      "label": {
         "column": "paid_to",
-        "datatype": "string",
-        "name": "label"
+        "datatype": "string"
       }
-    ],
+    },
     "type": "entity",
     "label": "Recipient"
   },

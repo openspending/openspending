@@ -31,10 +31,10 @@ SIMPLE_MODEL = {
             'type': 'entity',
             'facet': True,
             'key': True,
-            'fields': [
-                {'column': 'to_name', 'name': 'name', 'datatype': 'string'},
-                {'column': 'to_label', 'name': 'label', 'datatype': 'string'}
-            ]
+            'attributes': {
+                'name': {'column': 'to_name', 'datatype': 'string'},
+                'label': {'column': 'to_label', 'datatype': 'string'}
+                }
             },
         'function': {
             'label': 'Function code',
@@ -42,10 +42,10 @@ SIMPLE_MODEL = {
             'taxonomy': 'funny',
             'facet': False,
             'key': True,
-            'fields': [
-                {'column': 'func_name', 'name': 'name', 'datatype': 'string'},
-                {'column': 'func_label', 'name': 'label', 'datatype': 'string'}
-            ]
+            'attributes': {
+                'name': {'column': 'func_name', 'datatype': 'string'},
+                'label': {'column': 'func_label', 'datatype': 'string'}
+                }
             }
         }
     }

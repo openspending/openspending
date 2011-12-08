@@ -12,6 +12,7 @@ class Source(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.Unicode)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
     analysis = db.Column(JSONType, default=dict)
 
     dataset_id = db.Column(db.Integer, db.ForeignKey('dataset.id'))
@@ -49,6 +50,12 @@ class Source(db.Model):
     def by_id(cls, id):
         return db.session.query(cls).filter_by(id=id).first()
 
-
-
+    def as_dict(self):
+        return {
+            "id": self.id,
+            "url": self.url,
+            "dataset": self.dataset.name,
+            "created_at": self.created_at
+            }
+    
 

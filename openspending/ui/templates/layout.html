@@ -22,7 +22,7 @@
   <head>
     <meta charset="utf-8" />
     <title>${page_title()} - ${g.site_title}</title>
-    <meta name="description" content="We're allowing anyone to explore,
+    <meta name="description" content="We're enabling anyone to explore,
     visualize and track government spending." />
     <meta name="author" content="Open Knowledge Foundation" />
     <link rel="shortcut icon" href="${h.static('img/favicon.ico')}" type="image/x-icon" />
@@ -53,7 +53,7 @@
             <li class="dropdown">
               <a href="/datasets" class="dropdown-toggle">Datasets</a>
               <ul class="dropdown-menu">
-                <li py:for="dataset in c.datasets[:15]">
+                <li py:for="dataset in c.datasets.limit(15)">
                   <a href="${h.dataset_url(dataset)}">${dataset.label}</a>
                 </li>
                 <li class="divider"></li>

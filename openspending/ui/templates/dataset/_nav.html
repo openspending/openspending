@@ -9,9 +9,6 @@
 
   <py:def function="dataset_nav(section)">
     <h2 class="page-header">
-      <div class="representations">
-        <a href="${url(controller='dataset', action='view', dataset=c.dataset.name, format='json')}"><img src="${h.static('img/icons/json.png')}" alt="JSON" /></a>
-      </div>
       ${c.dataset.label}
       <small>${len(c.dataset)} Entries</small>
     </h2>

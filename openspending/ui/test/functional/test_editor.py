@@ -3,7 +3,7 @@ import json
 from StringIO import StringIO
 
 from .. import ControllerTestCase, url, helpers as h
-from openspending.model import Dataset, meta as db
+from openspending.model import Dataset, Source, meta as db
 
 class TestEditorController(ControllerTestCase):
 
@@ -11,8 +11,8 @@ class TestEditorController(ControllerTestCase):
         h.skip_if_stubbed_solr()
 
         super(TestEditorController, self).setup()
-        user = h.make_account('test')
-        h.load_fixture('cra', user)
+        self.user = h.make_account('test')
+        h.load_fixture('cra', self.user)
         #h.clean_and_reindex_solr()
 
     def test_overview(self):
@@ -32,11 +32,11 @@ class TestEditorController(ControllerTestCase):
         response = self.app.post(url(controller='editor', 
             action='core_update', dataset='cra'),
             params={'name': 'cra', 'label': 'Common Rough Act',
-                    'description': 'I\'m a banana', 'currency': 'EUR'},
+                    'description': 'I\'m a banana', 'currency': 'EUR',
+                    'languages': 'en', 'territories': 'gb'},
             extra_environ={'REMOTE_USER': 'test'})
         cra = Dataset.by_name('cra')
         assert cra.label=='Common Rough Act', cra.label
-        assert cra.dataset['label']=='Common Rough Act', cra.dataset
         assert cra.currency=='EUR', cra.currency
     
     def test_core_update_invalid_label(self):
@@ -47,8 +47,27 @@ class TestEditorController(ControllerTestCase):
             extra_environ={'REMOTE_USER': 'test'})
         assert 'Required' in response.body
         cra = Dataset.by_name('cra')
-        assert cra.label!='Common Rough Act', cra.label
-        assert cra.dataset['label']!='Common Rough Act', cra.dataset
+        assert cra.label!='', cra.label
+    
+    def test_core_update_invalid_language(self):
+        response = self.app.post(url(controller='editor', 
+            action='core_update', dataset='cra'),
+            params={'name': 'cra', 'label': 'CRA', 'languages': 'esperanto', 
+                    'description': 'I\'m a banana', 'currency': 'GBP'},
+            extra_environ={'REMOTE_USER': 'test'})
+        assert not 'updated' in response.body
+        cra = Dataset.by_name('cra')
+        assert not 'esperanto' in cra.languages
+    
+    def test_core_update_invalid_territory(self):
+        response = self.app.post(url(controller='editor', 
+            action='core_update', dataset='cra'),
+            params={'name': 'cra', 'label': 'CRA', 'territories': 'su', 
+                    'description': 'I\'m a banana', 'currency': 'GBP'},
+            extra_environ={'REMOTE_USER': 'test'})
+        assert not 'updated' in response.body
+        cra = Dataset.by_name('cra')
+        assert not 'su' in cra.territories
     
     def test_core_update_invalid_currency(self):
         response = self.app.post(url(controller='editor', 
@@ -65,6 +84,10 @@ class TestEditorController(ControllerTestCase):
         cra.drop()
         cra.init()
         cra.generate()
+        src = Source(cra, self.user, 'file:///dev/null')
+        src.analysis = {'columns': ['amount', 'etc']}
+        db.session.add(src)
+        db.session.commit()
         response = self.app.get(url(controller='editor', 
             action='dimensions_edit', dataset='cra'),
             extra_environ={'REMOTE_USER': 'test'})
@@ -72,6 +95,11 @@ class TestEditorController(ControllerTestCase):
         assert 'Update' in response.body
     
     def test_dimensions_edit_mask_with_data(self):
+        cra = Dataset.by_name('cra')
+        src = Source(cra, self.user, 'file:///dev/null')
+        src.analysis = {'columns': ['amount', 'etc']}
+        db.session.add(src)
+        db.session.commit()
         response = self.app.get(url(controller='editor', 
             action='dimensions_edit', dataset='cra'),
             extra_environ={'REMOTE_USER': 'test'})

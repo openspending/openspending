@@ -3,6 +3,7 @@
     "column": "Type of Project-Basket",
     "datatype": "string",
     "type": "value",
+    "default_value": "",
     "description": "Limited coverage",
     "label": "Project Type"
   },
@@ -18,21 +19,20 @@
     "datatype": "string",
     "type": "value",
     "description": "Donor's project reference number",
+    "default_value": "",
     "label": "Donor project  number"
   },
   "sector-objective": {
-    "fields": [
-      {
+    "attributes": {
+      "name": {
         "column": "Sector Objective",
-        "datatype": "id",
-        "name": "name"
+        "datatype": "id"
       },
-      {
+      "label": {
         "column": "Sector Objective",
-        "datatype": "string",
-        "name": "label"
+        "datatype": "string"
       }
-    ],
+    },
     "type": "classifier",
     "description": "Second-level functional classification",
     "taxonomy": "uganda.swg.sector_objective",
@@ -42,22 +42,21 @@
     "column": "Agency Details (where relevant)",
     "datatype": "string",
     "type": "value",
+    "default_value": "",
     "description": "Sub-unit of Agency\u00a0",
     "label": "Agency Details"
   },
   "spending-source-type-id": {
-    "fields": [
-      {
+    "attributes": {
+      "name": {
         "column": "spending_source_type_id",
-        "datatype": "id",
-        "name": "name"
+        "datatype": "id"
       },
-      {
+      "label": {
         "column": "spending_source_type_id",
-        "datatype": "string",
-        "name": "label"
+        "datatype": "string"
       }
-    ],
+    },
     "type": "entity",
     "description": "The type of spending source (1=GoU; 2=Aid; 3=Budget Support)",
     "label": "Spending Source Type"
@@ -67,6 +66,7 @@
     "datatype": "string",
     "type": "value",
     "description": "Limited coverage",
+    "default_value": "",
     "label": "Aid Modality"
   },
   "aid-programme-code": {
@@ -74,12 +74,14 @@
     "datatype": "string",
     "type": "value",
     "description": "Aid only",
+    "default_value": "",
     "label": "Aid Programme Code"
   },
   "donor-coa-code": {
     "column": "DONOR COA CODE",
     "datatype": "string",
     "type": "value",
+    "default_value": "",
     "description": "Uganda Chart of Accounts code for donor",
     "label": "COA Code of Donor"
   },
@@ -91,35 +93,31 @@
     "label": "PEAP Area"
   },
   "from": {
-    "fields": [
-      {
+    "attributes": {
+      "name": {
         "column": "spending_source",
-        "datatype": "id",
-        "name": "name"
+        "datatype": "id"
       },
-      {
+      "label": {
         "column": "spending_source",
-        "datatype": "string",
-        "name": "label"
+        "datatype": "string"
       }
-    ],
+    },
     "type": "entity",
     "description": "Name of the spending source. Either the Government of Uganda, or the specific donor who provided the funds. If the specific donor is not known, then \"Donors\" is provided.",
     "label": "Spender"
   },
   "spending-source-type-label": {
-    "fields": [
-      {
+    "attributes": {
+      "name": {
         "column": "spending_source_type_label",
-        "datatype": "id",
-        "name": "name"
+        "datatype": "id"
       },
-      {
+      "label": {
         "column": "spending_source_type_label",
-        "datatype": "string",
-        "name": "label"
+        "datatype": "string"
       }
-    ],
+    },
     "type": "entity",
     "description": "The name of the type of spending source (Government of Uganda, \"Aid\" for project aid, and Budget Support)",
     "label": "Spending Source Type"
@@ -135,22 +133,21 @@
     "column": "Aid_Programme_Name",
     "datatype": "string",
     "type": "value",
+    "default_value": "",
     "description": "Aid only",
     "label": "Aid Programme Name"
   },
   "swg": {
-    "fields": [
-      {
+    "attributes": {
+      "name": {
         "column": "SWG",
-        "datatype": "id",
-        "name": "name"
+        "datatype": "id"
       },
-      {
+      "label": {
         "column": "SWG",
-        "datatype": "string",
-        "name": "label"
+        "datatype": "string"
       }
-    ],
+    },
     "type": "classifier",
     "description": "First-level functional classification",
     "taxonomy": "uganda.swg",
@@ -160,24 +157,23 @@
     "column": "Project Code",
     "datatype": "string",
     "type": "value",
+    "default_value": "",
     "description": "GoU Project Code\u00a0",
     "label": "Project Code"
   },
   "to": {
-    "fields": [
-      {
+    "attributes": {
+      "name": {
         "column": "recipient",
         "datatype": "id",
-        "default_value": "Society Uganda",
-        "name": "name"
+        "default_value": "Society Uganda"
       },
-      {
+      "label": {
         "column": "recipient",
         "datatype": "string",
-        "default_value": "Society Uganda",
-        "name": "label"
+        "default_value": "Society Uganda"
       }
-    ],
+    },
     "type": "entity",
     "description": "the recipient (\"Society (Uganda)\" in all cases)",
     "label": "Recipient"
@@ -215,6 +211,7 @@
     "datatype": "string",
     "type": "value",
     "description": "Limited coverage",
+    "default_value": "",
     "label": "Sector Strategy or Policy"
   },
   "amount-dollars": {
@@ -235,6 +232,7 @@
     "column": "Project Name",
     "datatype": "string",
     "type": "value",
+    "default_value": "(Unnamed)",
     "description": "GoU Project Name\u00a0",
     "label": "Project Name"
   },
@@ -242,6 +240,7 @@
     "column": "Financecomment",
     "datatype": "string",
     "type": "value",
+    "default_value": "",
     "description": "A 1 denotes that this entry is a value created to offset budget support from Government of Uganda spending. This is necessary to avoid double-counting when showing aggregations (of Government of Uganda spending, budget support and project aid) at higher levels, but it does not affect the actual amounts in the projects. Budget Support is money given directly to the government which they can spend on their own priorities. General Budget Support is given directly to the Treasury or Finance Ministry, and Sector Budget Support is given to an individual sector. Because of the nature of budget support, it is impossible to accurately track it through the system down to an individual project level. Below the higher levels, budget support thus becomes part of Government of Uganda revenues.",
     "label": "Financial comments"
   },
@@ -249,6 +248,7 @@
     "column": "GRANT-LOAN",
     "datatype": "string",
     "type": "value",
+    "default_value": "",
     "description": "Limited coverage",
     "label": "Grant or Loan"
   },
@@ -256,6 +256,7 @@
     "column": "donorcurrency",
     "datatype": "string",
     "type": "value",
+    "default_value": "",
     "description": "Currency in which Donor Amount was provided in (if any)",
     "label": "Donor's currency"
   },
@@ -271,6 +272,7 @@
     "datatype": "string",
     "type": "value",
     "description": "",
+    "default_value": "",
     "label": "Donor Name"
   },
   "on-off-budget": {
@@ -278,6 +280,7 @@
     "datatype": "string",
     "type": "value",
     "description": "Limited coverage",
+    "default_value": "",
     "label": "On or Off Budget"
   },
   "mtef-sector": {
@@ -288,18 +291,16 @@
     "label": "MTEF Sector"
   },
   "from-id": {
-    "fields": [
-      {
+    "attributes": {
+      "name": {
         "column": "spending_source_id",
-        "datatype": "id",
-        "name": "name"
+        "datatype": "id"
       },
-      {
+      "label": {
         "column": "spending_source_id",
-        "datatype": "string",
-        "name": "label"
+        "datatype": "string"
       }
-    ],
+    },
     "type": "entity",
     "description": "The ID for the spending source. This is 001 for the Government of Uganda (to follow the Government of Uganda Chart of Accounts code), the Uganda COA code for donors (where the donor is known), and 901 for donors (where the donor is unknown).",
     "label": "Spender"
@@ -308,6 +309,7 @@
     "column": "Details of sector policy or strategy",
     "datatype": "string",
     "type": "value",
+    "default_value": "",
     "description": "Limited coverage",
     "label": "Sector Strategy or Policy Details"
   },
@@ -315,6 +317,7 @@
     "column": "Agency Name",
     "datatype": "string",
     "type": "value",
+    "default_value": "",
     "description": "Relevant Agency",
     "label": "Agency Name"
   },
@@ -351,6 +354,7 @@
     "datatype": "string",
     "type": "value",
     "description": "ID from the source table",
+    "default_value": "",
     "label": "Source ID"
   },
   "peap-objective": {

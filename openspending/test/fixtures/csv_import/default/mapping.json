@@ -14,10 +14,10 @@
     "from": {
         "label": "Paid by",
         "type": "entity",
-        "fields": [
-            {"column": "from_id", "name": "name", "datatype": "id"},
-            {"column": "from_label", "name": "label", "datatype": "string"}
-        ]
+        "attributes": {
+            "name": {"column": "from_id", "datatype": "id"},
+            "label": {"column": "from_label", "datatype": "string"}
+        }
     },
     "entry_id": {
         "type": "value",

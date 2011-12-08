@@ -59,14 +59,14 @@ class TestDatasetController(ControllerTestCase):
                       "'Country Regional Analysis v2009' not in response!")
         h.assert_false('36 spending entries' in response, "'36 spending entries' not in response!")
 
-    def test_view_has_format_links(self):
-        view_url = dict(controller='dataset', action='view', dataset='cra')
-        response = self.app.get(url(**view_url))
+    def test_about_has_format_links(self):
+        url_ = url(controller='dataset', action='about', dataset='cra')
+        response = self.app.get(url_)
 
-        view_url.update({'format': 'json'})
-        view_json_url = url(**view_url)
+        url_ = url(controller='dataset', action='model', dataset='cra',
+           format='json')
 
-        h.assert_true(view_json_url in response,
+        h.assert_true(url_ in response,
                       "Link to view page (JSON format) not in response!")
 
     def test_view_json(self):

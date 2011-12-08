@@ -13,7 +13,9 @@ from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.base import require, abort
 from openspending.ui.lib.cache import AggregationCache
-from openspending.validation.model.currency import CURRENCIES
+from openspending.reference.currency import CURRENCIES
+from openspending.reference.country import COUNTRIES
+from openspending.reference.language import LANGUAGES
 from openspending.validation.model.dataset import dataset_schema
 from openspending.validation.model.mapping import mapping_schema
 from openspending.validation.model.views import views_schema
@@ -38,8 +40,10 @@ class EditorController(BaseController):
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
         c.currencies = sorted(CURRENCIES.items(), key=lambda (k,v): v)
+        c.languages = sorted(LANGUAGES.items(), key=lambda (k,v): v)
+        c.territories = sorted(COUNTRIES.items(), key=lambda (k,v): v)
         errors = [(k[len('dataset.'):], v) for k, v in errors.items()]
-        fill = c.dataset.dataset.copy()
+        fill = c.dataset.as_dict()
         if errors:
             fill.update(request.params)
         return render('editor/core.html', form_errors=dict(errors), 
@@ -50,17 +54,18 @@ class EditorController(BaseController):
         require.dataset.update(c.dataset)
         errors = {}
         try:
-            schema = dataset_schema(ValidationState(c.dataset.data))
-            data = schema.deserialize(request.params)
-            data['name'] = c.dataset.name
-            c.dataset.label = c.dataset.data['dataset']['label'] = \
-                    data['label']
-            c.dataset.currency = c.dataset.data['dataset']['currency'] = \
-                    data['currency']
-            c.dataset.description = c.dataset.data['dataset']['description'] = \
-                    data['description']
+            schema = dataset_schema(ValidationState(c.dataset.model))
+            data = dict(request.params)
+            data['territories'] = request.params.getall('territories')
+            data['languages'] = request.params.getall('languages')
+            data = schema.deserialize(data)
+            c.dataset.label = data['label']
+            c.dataset.currency = data['currency']
+            c.dataset.description = data['description']
+            c.dataset.territories = data['territories']
+            c.dataset.languages = data['languages']
             db.session.commit()
-            h.flash_success(_("The dataset metadata has been updated."))
+            h.flash_success(_("The dataset has been updated."))
         except Invalid, i:
             errors = i.asdict()
         return self.core_edit(dataset, errors=errors)
@@ -71,6 +76,9 @@ class EditorController(BaseController):
         require.dataset.update(c.dataset)
         # TODO: really split up dimensions and mapping editor.
         c.source = c.dataset.sources.first()
+        if c.source is None:
+            abort(400, _("You cannot edit the dimensions model before "\
+                          "defining a data source"))
         mapping = mapping or c.dataset.data.get('mapping', {})
         if not len(mapping) and c.source and 'mapping' in c.source.analysis:
             mapping = c.source.analysis['mapping']
@@ -89,7 +97,7 @@ class EditorController(BaseController):
         errors, mapping = {}, None
         try:
             mapping = json.loads(request.params.get('mapping'))
-            model = c.dataset.data.copy()
+            model = c.dataset.model
             model['mapping'] = mapping
             schema = mapping_schema(ValidationState(model))
             c.dataset.data['mapping'] = schema.deserialize(mapping)
@@ -121,7 +129,7 @@ class EditorController(BaseController):
         errors, views = {}, None
         try:
             views = json.loads(request.params.get('views'))
-            schema = views_schema(ValidationState(c.dataset.data))
+            schema = views_schema(ValidationState(c.dataset.model))
             c.dataset.data['views'] = schema.deserialize(views)
             db.session.commit()
             h.flash_success(_("The views have been updated."))

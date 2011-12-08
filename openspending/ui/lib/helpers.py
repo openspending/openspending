@@ -16,6 +16,10 @@ from webhelpers.number import format_number as format_number_full
 from webhelpers.pylonslib import Flash as _Flash
 from webhelpers.text import truncate
 
+from openspending.reference.currency import CURRENCIES
+from openspending.reference.country import COUNTRIES
+from openspending.reference.language import LANGUAGES
+
 from openspending import model
 from openspending.lib import json
 from openspending.lib.util import slugify
@@ -81,11 +85,11 @@ def static(url):
 
 
 # TODO: moved here during openspending.model evacuation.
-def render_entry_custom_html(doc, entry):
-    """Render dataset ``doc``'s custom html for entry ``entry``"""
-    custom_html = doc.get('entry_custom_html')
-    if custom_html:
-        return _render_custom_html(custom_html, 'entry', entry)
+def render_entry_custom_html(dataset, entry):
+    """Render dataset ``datasets``'s custom html for entry ``entry``"""
+    if dataset.entry_custom_html:
+        return _render_custom_html(dataset.entry_custom_html, 
+                'entry', entry)
     else:
         return None
 
