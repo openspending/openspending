@@ -21,12 +21,6 @@
           <div py:if="dataset.description">
               ${h.markdown_preview(dataset.description)}
           </div>
-          <!--span py:for="code in dataset.territories" class="label success">
-            ${h.COUNTRIES[code]}
-          </span>
-          <span py:for="code in dataset.languages" class="label notice">
-            ${h.LANGUAGES[code]}
-            </span-->
           <br/>
         </div>
       </div>
@@ -34,15 +28,20 @@
         <h3>Countries</h3>
         <ul>
           <li py:for="(territory, count) in c.territory_options">
-            <a py:if="not ('territories', territory) in c.query" href="${c.add_filter('territories', territory)}">${h.COUNTRIES[territory]}</a>
-            <a py:if="('territories', territory) in c.query" class="unfilter" href="${c.del_filter('territories', territory)}">${h.COUNTRIES[territory]}</a>
+            <a py:if="not ('territories', territory) in c.query" 
+              href="${c.add_filter('territories', territory)}">${h.COUNTRIES[territory]}</a>
+            <a py:if="('territories', territory) in c.query" class="unfilter" 
+              href="${c.del_filter('territories', territory)}">${h.COUNTRIES[territory]}</a>
             (${count})
           </li>
         </ul>
         <h3>Languages</h3>
         <ul>
           <li py:for="(language, count) in c.language_options">
-            <a href="">${h.LANGUAGES[language]}</a> (${count})
+            <a py:if="not ('languages', language) in c.query"
+              href="${c.add_filter('languages', language)}">${h.LANGUAGES[language]}</a>
+            <a py:if="('languages', language) in c.query" class="unfilter"
+              href="${c.del_filter('languages', language)}">${h.LANGUAGES[language]}</a>
           </li>
         </ul>
       </div>
