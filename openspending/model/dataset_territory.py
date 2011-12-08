@@ -2,8 +2,9 @@ from datetime import datetime
 
 from openspending.model import meta as db
 from openspending.model.dataset import Dataset
+from openspending.model.common import DatasetFacetMixin
 
-class DatasetTerritory(db.Model):
+class DatasetTerritory(db.Model, DatasetFacetMixin):
     __tablename__ = 'dataset_territory'
 
     id = db.Column(db.Integer, primary_key=True)
