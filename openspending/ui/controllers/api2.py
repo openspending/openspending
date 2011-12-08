@@ -58,6 +58,8 @@ class Api2Controller(BaseController):
         return dataset
 
     def _measure(self, params, dataset, errors):
+        if dataset is None:
+            return
         name = params.get('measure', 'amount')
         for measure in dataset.measures:
             if measure.name == name:
