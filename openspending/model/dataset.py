@@ -40,6 +40,7 @@ class Dataset(TableHandler, db.Model):
     default_time = db.Column(db.Unicode())
     schema_version = db.Column(db.Unicode())
     entry_custom_html = db.Column(db.Unicode())
+    ckan_uri = db.Column(db.Unicode())
     private = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
