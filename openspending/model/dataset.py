@@ -60,6 +60,7 @@ class Dataset(TableHandler, db.Model):
         self.entry_custom_html = dataset.get('entry_custom_html')
         self.languages = dataset.get('languages', [])
         self.territories = dataset.get('territories', [])
+        self.ckan_uri = dataset.get('ckan_uri')
         self._load_model()
 
     @property
@@ -80,7 +81,6 @@ class Dataset(TableHandler, db.Model):
         This is called upon initialization and deserialization of
         the dataset from the SQLAlchemy store.
         """
-        self.ckan_uri = self.dataset.get('ckan_uri')
         self.dimensions = []
         self.measures = []
         for dim, data in self.mapping.items():
