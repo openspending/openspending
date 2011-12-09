@@ -30,6 +30,9 @@
       <li class="${'active' if section == 'about' else ''}">
           <a href="${h.url(controller='dataset', action='about',
             dataset=c.dataset.name)}">About</a></li>
+      <li class="${'active' if section == 'explorer' else ''}">
+		  <a href="${h.url(controller='dataset', action='explorer',
+            dataset=c.dataset.name)}">Explore</a></li>
       <li py:if="can.dataset.update(c.dataset)" class="admin">
           <a href="${url(controller='editor', action='index',
             dataset=c.dataset.name)}">Manage</a></li>
