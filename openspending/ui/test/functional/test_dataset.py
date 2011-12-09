@@ -127,6 +127,7 @@ class TestDatasetController(ControllerTestCase):
         response = self.app.get(url(controller='dataset', action='new'), 
             params={'limit': '20'})
         assert "Import a dataset" in response.body
+        assert 'Import from a DataHub Dataset' in response.body, response.body
     
     def test_create_dataset(self):
         response = self.app.post(url(controller='dataset', action='create'))

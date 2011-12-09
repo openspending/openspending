@@ -24,7 +24,8 @@
           </ul>
         </div>
       </div>
-      <div class="span12 import-options">
+      <div class="span12 import-options" py:if="not c.have_error">
+        <!-- do not display on error as only relevant when first importing -->
         <div class="row">
           <div class="span6 import-datahub">
             <h3>Import from a DataHub Dataset</h3>
@@ -49,7 +50,7 @@
           </div>
         </div>
       </div>
-      <div class="span12 dataset-info" style="display: none;">
+      <div class="span12 dataset-info" style="${c.dataset_info_style}">
         <form class="basic" id="login" action="/datasets" method="POST">
           <input name="ckan_uri" type="hidden" />
           <fieldset>
