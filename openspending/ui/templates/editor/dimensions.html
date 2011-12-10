@@ -228,7 +228,7 @@
 					</tr>
 				  </thead>
 				  <tbody>
-					{{each(n, f) data.fields}}
+					{{each(n, f) data.attributes}}
 					{{tmpl({'fieldName': n, 'prefix': formFieldPrefix, 'required': formFieldRequired}) '#tpl_dimension_field'}}
 					{{/each}}
 				  </tbody>
