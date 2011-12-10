@@ -57,7 +57,7 @@ function setupNewSource($els) {
   $els.each(function(idx, $el) {
     $el = $($el);
     var dataHubUri = $el.attr('ckan-uri');
-    if (dataHubUri == '') {
+    if (!dataHubUri) {
       return;
     } else {
       getCkanDatasetInfo(dataHubUri).then(function(data) {
