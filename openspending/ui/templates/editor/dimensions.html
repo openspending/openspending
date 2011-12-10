@@ -74,8 +74,46 @@
         </py:if>
         <py:if test="c.can_edit">
 
+		 
+  		  <ul class="tabs">
+  			<li class="active"><a href="#source">Source</a></li>
+  			<li><a href="#m1">Edit</a></li>
+  		  </ul>
 
-			<div id='m1' class='modeleditor'>
+          <div id="main-tab-content" class="tab-content">
+
+            <div class="active tab-pane" id="source">
+			<form class="basic" id="form" action="${url(controller='editor',
+			        action='dimensions_update', dataset=c.dataset.name)}" 
+					method="POST">
+
+
+              <fieldset>
+				<py:if test="len(c.errors.keys())">
+                  <div class="alert-message block-message error">
+					<p>
+					  The dimensions mapping could not be saved as it 
+					  contains some errors:
+					</p>
+					<ul py:for="field, error in c.errors.items()">
+                      <li><strong>${field}:</strong> ${error}</li>
+					</ul>
+                  </div>
+				</py:if>
+				<textarea id="fallback" class="xxlarge" rows="20"
+						  name="mapping">${c.fill['mapping']}</textarea>
+				<div id="frame">
+                  <div id="mapping" 
+					   style="height: 300px; width: 690px">${c.fill['mapping']}</div>
+				</div>
+              </fieldset>
+              <div class="actions">
+				<input id="save" value="Update" class="btn success" type="submit" />
+              </div>
+			</form>
+            </div>
+
+			<div id='m1' class='modeleditor tab-pane'>
 			  <div class='forms'>
 				<form action='#'>
 
@@ -186,35 +224,7 @@
 			  </script>
 			</div> <!-- /.modeleditor -->
 
-
-			<form class="basic" id="form" action="${url(controller='editor',
-			        action='dimensions_update', dataset=c.dataset.name)}" 
-					method="POST">
-
-
-              <fieldset>
-				<py:if test="len(c.errors.keys())">
-                  <div class="alert-message block-message error">
-					<p>
-					  The dimensions mapping could not be saved as it 
-					  contains some errors:
-					</p>
-					<ul py:for="field, error in c.errors.items()">
-                      <li><strong>${field}:</strong> ${error}</li>
-					</ul>
-                  </div>
-				</py:if>
-				<textarea id="fallback" class="xxlarge" rows="20"
-						  name="mapping">${c.fill['mapping']}</textarea>
-				<div id="frame">
-                  <div id="mapping" 
-					   style="height: 300px; width: 690px">${c.fill['mapping']}</div>
-				</div>
-              </fieldset>
-              <div class="actions">
-				<input id="save" value="Update" class="btn success" type="submit" />
-              </div>
-			</form>
+          </div>
         </py:if>
       </div>
     </div>
@@ -251,6 +261,14 @@
     </script>
 
     ${script_tag('vendor/jquery.tmpl')}
+
+	${script_tag('vendor/bootstrap-tabs')}
+
+	<script>
+	  $(function($) {
+	    $('.tabs').tabs();
+	  });
+    </script>
 
     <script type="text/javascript" src="${h.static('app/dimensions-editor/main.js')}"></script>
     <script type="text/javascript" src="${h.static('app/dimensions-editor/modelEditorInit.js')}"></script>
