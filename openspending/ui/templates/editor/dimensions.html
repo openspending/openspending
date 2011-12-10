@@ -264,13 +264,8 @@
 		  fallbackSelector: fallback
 	    };
 
-	    var qs = parseQueryString();
-		var keys = qs.map(function(i) { return i[0]; });
-
-        if($.inArray("visual", keys) !== -1) {
-          $('.dimensions_widget').show();
-          initModelEditor($, config);
-        }
+        $('.dimensions_widget').show();
+        initModelEditor($, config);
 	  });
 	</script>
 
