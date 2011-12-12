@@ -5,7 +5,7 @@
 # A space separated list of extra packages to be installed.
 # This will be passed to the system package manager, normally apt-get.
 # Example: "subversion libjpeg-dev"
-EXTRA_PACKAGES=""
+EXTRA_PACKAGES="libxml2-dev libxslt1-dev"
 
 ################################
 ### Python-specific settings ###
