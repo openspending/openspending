@@ -8,7 +8,8 @@ from openspending.model import Dataset, meta as db
 from openspending.test.helpers import load_fixture
 
 import migrate.versioning.api as migrate_api
-from migrate.exceptions import DatabaseNotControlledError
+from migrate.exceptions import DatabaseNotControlledError, \
+        DatabaseAlreadyControlledError
 
 log = logging.getLogger(__name__)
 
@@ -79,10 +80,12 @@ def init():
                                    'migration'))
 
     # Assume it's a new database, and try the migration again
-    migrate_api.version_control(url, repo)
-    db.metadata.create_all()
-
-    return 0
+    try:
+        migrate_api.version_control(url, repo)
+        db.metadata.create_all()
+        return 0
+    except DatabaseAlreadyControlledError:
+        migrate()
 
 def _init(args):
     return init()
