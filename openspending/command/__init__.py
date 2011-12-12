@@ -47,6 +47,9 @@ def main():
     args = parser.parse_args()
 
     config_file = os.path.abspath(args.config)
+    if not os.path.exists(config_file):
+        print "Config file not found: %s" % config_file
+        sys.exit(1)
     _configure_logging(config_file)
     _configure_pylons(config_file)
 
