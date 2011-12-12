@@ -180,7 +180,8 @@ div.dataTables_wrapper {
   min-height: 0px;
 }
 
-table td.num {
+table td.num,
+table th.num {
     text-align: right;
 }
 
