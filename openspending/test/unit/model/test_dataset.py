@@ -141,6 +141,16 @@ class TestDatasetLoad(DatabaseTestCase):
         assert res['summary']['num_entries']==6, res
         assert res['summary']['amount']==2690, res
         assert len(res['drilldown'])==5, res['drilldown']
+    
+    def test_aggregate_by_attribute(self):
+        load_dataset(self.ds)
+        res = self.ds.aggregate(drilldowns=['function.label'])
+        assert len(res['drilldown'])==2, res['drilldown']
+
+    def test_aggregate_two_attributes_same_dimension(self):
+        load_dataset(self.ds)
+        res = self.ds.aggregate(drilldowns=['function.name', 'function.label'])
+        assert len(res['drilldown'])==2, res['drilldown']
 
     def test_materialize_table(self):
         load_dataset(self.ds)

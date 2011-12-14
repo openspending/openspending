@@ -333,9 +333,11 @@ class Dataset(TableHandler, db.Model):
         dimensions = set(drilldowns + [k for k,v in cuts] + [o[0] for o in order])
         for dimension in dimensions:
             if dimension in labels:
-                joins = self['time'].join(joins)
+                _name = 'time'
             else:
-                joins = self[dimension.split('.')[0]].join(joins)
+                _name = dimension.split('.')[0]
+            if _name not in [c.table.name for c in joins.columns]:
+                joins = self[_name].join(joins)
 
         group_by = []
         for key in dimensions:
