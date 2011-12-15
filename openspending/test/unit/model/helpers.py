@@ -32,7 +32,7 @@ SIMPLE_MODEL = {
             'facet': True,
             'key': True,
             'attributes': {
-                'name': {'column': 'to_name', 'datatype': 'string'},
+                'name': {'column': 'to_name', 'datatype': 'id'},
                 'label': {'column': 'to_label', 'datatype': 'string'}
                 }
             },
@@ -43,7 +43,7 @@ SIMPLE_MODEL = {
             'facet': False,
             'key': True,
             'attributes': {
-                'name': {'column': 'func_name', 'datatype': 'string'},
+                'name': {'column': 'func_name', 'datatype': 'id'},
                 'label': {'column': 'func_label', 'datatype': 'string'}
                 }
             }

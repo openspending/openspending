@@ -13,6 +13,11 @@ body {
   color: #99c862;
 }
 
+/* cf. https://github.com/twitter/bootstrap/issues/706 */
+input, textarea, button, select, .btn {
+  -webkit-transform-style: inherit;
+}
+
 /* Replicate pagination */
 .pager {
   display: inline-block;
