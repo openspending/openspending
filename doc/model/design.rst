@@ -56,8 +56,11 @@ represented as JSON. The basic layout is this::
   "dataset": {
     ... basic dataset attributes ...
     },
-  "mapping": {
+  "dimensions": {
     ... dimension descriptions ...
+    },
+  "mapping": {
+    ... column to dimension mapping ...
     },
   "views": [
     ... pre-defined views ...
@@ -86,16 +89,15 @@ as spaces, symbols or text with accents or umlauts.
 *EUR* or *USD*. All measures are by default assumed to be specified in 
 this currency, unless otherwise noted.
 
-Dimension and mapping definitions
-'''''''''''''''''''''''''''''''''
+Dimension definitions
+'''''''''''''''''''''
 
-The second section of the model, ``mapping``, serves a duplicate function: it 
-is both used to define how the data should be modelled in OpenSpending and how
-values for each attribute can be located within a source CSV file. Future 
-versions of OpenSpending may break this up, defining both a ``model`` and 
-``mapping``. 
+The second section of the model, ``dimensions``, defines a data structure that 
+will be used internall in OpenSpending to represent the dataset. Contrary to
+what the name implies, the ``dimensions`` section keeps definitions for both 
+dimensions and measures that are modelled in the dataset.
 
-The ``mapping`` section defines a set of fields to define the dataset model, each 
+The ``dimensions`` section defines a set of fields to define the dataset model, each 
 of which that can have one of four types (see :ref:`olap-intro` for a more 
 detailed explanation):
 
@@ -118,10 +120,10 @@ detailed explanation):
    Note that, since compound dimensions have :py:class:`~Attribute` s, their 
    model syntax varies from that of the other types.
 
-For dimensions of the types ``measure``, ``value`` and ``date``, a simple mapping
+For dimensions of the types ``measure``, ``value`` and ``date``, a simple modelling
 format is available::
 
-  "mapping": {
+  "dimensions": {
     "amount": {
       "type": "measure",
       "label": "Amount paid",
@@ -146,17 +148,15 @@ format is available::
     }
   }
 
-The mapping above defines three fields, one measure and two dimensions. The
-meaning of ``type``, ``label`` and ``description`` are somewhat 
-self-explanatory. ``column`` is used to define the source column where data
-for this attribute can be found when the dataset is loaded form a CSV file.
-If such a column cannot be found (or when it is empty), the system can fall
-back to a ``default_value``, which will be used instead to fill up missing 
-values. The ``default_value`` will not be used, however, if data is present 
-but invalid (e.g. numeric columns with textual values, invalid dates). Such
-errors will never be loaded and yield an error. The same is true of attributes
-with empty values for which no ``default_value`` has been set (such as 
-``time`` in the example above).
+The section above defines three fields, one measure and two dimensions. The
+meaning of ``type``, ``label`` and ``description`` are self-explanatory. 
+If, during a load, the system encounters an empty input for some field, it 
+will fall back to a ``default_value``, which will be used instead to fill up 
+missing values. The ``default_value`` will not be used, however, if data is
+present but invalid (e.g. numeric columns with textual values, invalid dates). 
+Such errors will never be loaded and yield an error. The same is true of
+attributes with empty values for which no ``default_value`` has been set 
+(such as ``time`` in the example above).
 
 An important property is the ``key`` flag. This will include each flagged
 dimension on the creation of a unique key for each entry. At least one
@@ -172,16 +172,6 @@ found values into another format as needed. Valid types include: ``string``,
 Attributes (and attribute dimensions) of the ``date`` type support a further
 option, ``format``. It can be used to specify a ``strptime``-compatible 
 date parsing format to be used for the values in this column.
-
-A valid input CSV file for the model defined above might look like this:
-
-  ============= ============= ===========
-  tx_id         year_paid     amt       
-  ============= ============= ===========
-  D38DEF-ZZ     2008          5044.0     
-  AAA372-39     2011          43.5       
-  (missing)     2009          2854922.0  
-  ============= ============= ===========
 
 In order to generate a :py:class:`~.CompoundDimension`, a somewhat more complex 
 field description is required, as each of the sub-attributes must be defined 
@@ -217,10 +207,47 @@ still defined the same way (e.g. ``label``, ``description`` and the ``facet``
 flag which tells the entry browser to include this dimension in the right-hand 
 facet bar). All those properties which relate to the content of the data 
 (where it comes from, how it is to be interpreted) must now be set for each 
-:py:class:`~.Attribute` of the dimension individually: ``column``, ``datatype`` 
+:py:class:`~.Attribute` of the dimension individually: ``datatype`` 
 and ``default_value``. The key of the element in the ``attributes`` mapping
 is used to specify a name for the attribute (see :ref:`name-conventions` for 
 commonly used and expected attribute names).
+
+
+Source data mappings
+''''''''''''''''''''
+
+Having the defined the abstract data model for a dataset, a second section is
+used to define the relation between fields in the model and columns in a source
+CSV file. Unlike the ``dimensions`` section, this ``mapping`` is specific to a 
+particular data source file. In cases where multiple source files with varying 
+formats are used to load a single dataset, a different ``mapping`` can be
+defined for each case.
+
+The mapping defintion is similar to the dimensions model, defining a source for
+each attribute in the model. For the example above, the following mapping may
+be used::
+
+  "mapping": {
+    "amount": {"column": "amt"},
+    "time": {"column": "year_paid"},
+    "transaction": {"column": "tx_id"},
+    "recipient.name": {"column": "recipient_name"},
+    "recipient.label": {"column": "recipient_name"},
+    "recipient.city": {"column": "recipient_city"}
+  }
+
+In this, ``column`` is used to define the source column where data for this 
+attribute can be found when the dataset is loaded form a CSV file.
+
+A valid input CSV file for the mapping defined above might look like this:
+
+  ============= ============= =========== =============== ===============
+  tx_id         year_paid     amt         recipient_name  recipient_city
+  ============= ============= =========== =============== ===============
+  D38DEF-ZZ     2008          5044.0      Foo             Amsterdam
+  AAA372-39     2011          43.5        Bar             Boston
+  (missing)     2009          2854922.0   Qux             Delhi
+  ============= ============= =========== =============== ===============
 
 
 Views and pre-defined visualizations
