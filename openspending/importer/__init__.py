@@ -41,7 +41,7 @@ class BaseImporter(object):
 
         try:
             for row_number, line in enumerate(self.lines, start=1):
-                if max_lines and row_number > max_lines:
+                if max_lines and row_number >= max_lines:
                     break
 
                 self.row_number = row_number
