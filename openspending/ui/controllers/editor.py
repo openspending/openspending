@@ -102,6 +102,7 @@ class EditorController(BaseController):
 
         errors, mapping = {}, None
         try:
+            log.info(request.params.get('mapping'))
             mapping = json.loads(request.params.get('mapping'))
             model = c.dataset.model
             model['mapping'] = mapping

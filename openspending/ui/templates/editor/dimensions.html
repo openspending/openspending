@@ -85,7 +85,7 @@
             
 			<div id='m1' class='modeleditor tab-pane active'>
 			  <div class='forms'>
-				<form action='#'>
+				<form action="#">
 
 				  <!-- Dimension mapping -->
 				  <div class='formpart dimensions_widget'>
@@ -121,7 +121,6 @@
 					<div id="dim-tab-content" class="dimensions tab-content">
 					</div>
 				  </div>
-
 				</form>
 			  </div> <!-- /.forms -->
 
@@ -208,6 +207,15 @@
 				<a class="btn rm_dimension $${name}" rm-dim="$${name}" href="#">Delete dimension</a>
 			  </script>
 			</div> <!-- /.modeleditor -->
+				  <form  class="basic" id="form" action="${url(controller='editor',
+			        action='dimensions_update', dataset=c.dataset.name)}" 
+					method="POST">
+
+					<input id="mapping" name="mapping" value="" type="hidden" />
+ 				    <div class="actions">
+					  <input id="save" value="Update" class="btn success" type="submit" />
+				    </div>
+                  </form>
 
           </div>
         </py:if>
@@ -239,7 +247,7 @@
 	      dataset: "${c.dataset.name}",
 		  source: "${c.source.id}",
 		  editorSelector: "#m1",
-		  fallbackSelector: '#fallback'
+		  fallbackSelector: '#mapping'
 	    };
 
         $('.dimensions_widget').show();
