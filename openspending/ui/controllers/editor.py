@@ -71,7 +71,9 @@ class EditorController(BaseController):
         return self.core_edit(dataset, errors=errors)
 
     def dimensions_edit(self, dataset, errors={}, mapping=None, 
-            format='html'):
+            format='html', mode='visual'):
+        assert mode in ['visual', 'source']
+        log.info("MODE: " + mode)
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
         # TODO: really split up dimensions and mapping editor.
@@ -85,7 +87,11 @@ class EditorController(BaseController):
         c.fill = {'mapping': json.dumps(mapping, indent=2)}
         c.errors = errors
         c.can_edit = not len(c.dataset)
-        return render('editor/dimensions.html', form_fill=c.fill)
+
+        template = {'visual': 'editor/dimensions.html',
+                    'source': 'editor/dimensions_source.html'}[mode]
+
+        return render(template, form_fill=c.fill)
     
     def dimensions_update(self, dataset, format='html'):
         self._get_dataset(dataset)

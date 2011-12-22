@@ -76,49 +76,19 @@
 
 		 
   		  <ul class="tabs">
-  			<li class="active"><a href="#source">Source</a></li>
-  			<li><a href="#m1">Edit</a></li>
+  			<li class="active"><a href="#m1">Edit</a></li>
+  			<li><a href="dimensions_src">Source</a></li>
   		  </ul>
 
           <div id="main-tab-content" class="tab-content">
 
-            <div class="active tab-pane" id="source">
-			<form class="basic" id="form" action="${url(controller='editor',
-			        action='dimensions_update', dataset=c.dataset.name)}" 
-					method="POST">
-
-
-              <fieldset>
-				<py:if test="len(c.errors.keys())">
-                  <div class="alert-message block-message error">
-					<p>
-					  The dimensions mapping could not be saved as it 
-					  contains some errors:
-					</p>
-					<ul py:for="field, error in c.errors.items()">
-                      <li><strong>${field}:</strong> ${error}</li>
-					</ul>
-                  </div>
-				</py:if>
-				<textarea id="fallback" class="xxlarge" rows="20"
-						  name="mapping">${c.fill['mapping']}</textarea>
-				<div id="frame">
-                  <div id="mapping" 
-					   style="height: 300px; width: 690px">${c.fill['mapping']}</div>
-				</div>
-              </fieldset>
-              <div class="actions">
-				<input id="save" value="Update" class="btn success" type="submit" />
-              </div>
-			</form>
-            </div>
-
-			<div id='m1' class='modeleditor tab-pane'>
+            
+			<div id='m1' class='modeleditor tab-pane active'>
 			  <div class='forms'>
 				<form action='#'>
 
 				  <!-- Dimension mapping -->
-				  <div class='formpart dimensions_widget' style='display: none'>
+				  <div class='formpart dimensions_widget'>
 					<h2>Dimension mapping</h2>
 					<p>
 					  The first and most important step in the creation of a model is
@@ -249,31 +219,6 @@
 
   <py:def function="scripts">
 
-    ${script_tag('vendor/ace/ace')}
-    ${script_tag('vendor/ace/mode-json')}
-    ${script_tag('vendor/ace/theme-monokai')}
-
-
-    <script>
-	  var _globalEditor = null;
-      var fallback = "#fallback";
-	  findEditor = function() { return _globalEditor; }
-
-      jQuery(document).ready(function($) {
-        $(fallback).hide();
-        $("#frame").show();
-        var editor = ace.edit("mapping");
-        _globalEditor = editor;
-        var JSONMode = require("ace/mode/json").Mode;
-        editor.getSession().setMode(new JSONMode());
-        editor.setTheme("ace/theme/monokai");
-        editor.renderer.setShowPrintMargin(false);
-        $("#form").submit(function(e) {
-          var value = editor.getSession().getValue();
-          $(fallback).val(value);
-        });
-      });
-    </script>
 
     ${script_tag('vendor/jquery.tmpl')}
 
@@ -294,7 +239,7 @@
 	      dataset: "${c.dataset.name}",
 		  source: "${c.source.id}",
 		  editorSelector: "#m1",
-		  fallbackSelector: fallback
+		  fallbackSelector: '#fallback'
 	    };
 
         $('.dimensions_widget').show();
@@ -302,11 +247,6 @@
 	  });
 	</script>
 
-    <style>
-      .ace-monokai .ace_gutter {
-        background-color: whiteSmoke;
-      }
-    </style>
   </py:def>
 
   <xi:include href="../layout.html" />
