@@ -76,7 +76,13 @@
 
 		 
   		  <ul class="tabs">
-  			<li class="active"><a href="#m1">Edit</a></li>
+
+					  <li class="dropdown" data-dropdown="dropdown" >
+						<a href="#" class="dropdown-toggle">Dimension</a>
+						<ul  id="names-hook" class="dimension-names dropdown-menu">
+						</ul>
+					  </li>
+
   			<li><a href="dimensions_src">Advanced</a></li>
   		  </ul>
 
@@ -100,15 +106,10 @@
 					</p>
 
 					<ul class="tabs">
-
-					  <li class="dropdown" data-dropdown="dropdown" >
-						<a href="#" class="dropdown-toggle">Dimension</a>
-						<ul class="dimension-names dropdown-menu">
-						</ul>
-					  </li>
 					</ul>
 
 					<div id="dim-tab-content" class="dimensions tab-content">
+
 					</div>
 					  <a class='btn add_attribute_dimension' href='#'>Add single column</a>
 					  <a class='btn add_compound_dimension' href='#'>Add Multi-column</a>
@@ -243,7 +244,8 @@
 	      dataset: "${c.dataset.name}",
 		  source: "${c.source.id}",
 		  editorSelector: "#m1",
-		  fallbackSelector: '#mapping'
+		  fallbackSelector: '#mapping',
+	      namesHook: '#names-hook'
 	    };
 
         $('.dimensions_widget').show();
