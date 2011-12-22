@@ -68,7 +68,8 @@ class Browser(object):
         if self.dataset is not None:
             filters.append("+dataset:%s" % self.dataset.name)
         for field, value in self.filters:
-            filters.append("+%s:\"%s\"" % (field, value))
+            filters.append("+%s:\"%s\"" % (field, 
+                value.replace('"', '\\"')))
         return filters
 
     def facet_name(self, facet):
