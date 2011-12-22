@@ -178,7 +178,10 @@
 				  </dd>
 				  <dt><label>Unique key?</label></dt>
 				  <dd>
-					<input type='text' name='$${name}[key]' value='$${data.key}'></input>
+					<select class='boolean' name='$${name}[key]' value='$${data.key}'>
+					  <option value="false">No</option>
+					  <option value="true">Yes</option>
+					</select>
 				  </dd>
 				</dl>
 				
@@ -248,8 +251,10 @@
 	      namesHook: '#names-hook'
 	    };
 
-        $('.dimensions_widget').show();
-        initModelEditor($, config);
+        $(document).ready(function () {
+          $('.dimensions_widget').show();
+          initModelEditor($, config);
+        });
 	  });
 	</script>
 
