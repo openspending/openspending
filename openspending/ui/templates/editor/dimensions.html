@@ -15,6 +15,15 @@
         position: relative;
         height: 305px;
       }
+      .dimensions_widget li a {
+	    vertical-align: middle;
+	    text-align: center;
+	    width: 80%;
+	  }
+
+	  .dimensions_widget li {
+	    list-style-type: none;
+	  }
     </style>
 
 	<script>
@@ -43,6 +52,18 @@
             path='api-olap.html')}">Background: How does OpenSpending store data?</a></li>
           <li><a href="http://wiki.openspending.org/Mapping_Format">Schema wiki</a></li>
         </ul>
+
+        <py:if test="c.can_edit">
+		  <div class='formpart dimensions_widget'>
+			<ul>
+			  <li><a class='btn add_attribute_dimension' href='#'>Add single column</a></li>
+			  <li><a class='btn add_compound_dimension' href='#'>Add Multi-column</a></li>
+			  <li><a class='btn add_date_dimension' href='#'>Add Date</a></li>
+			  <li><a class='btn add_measure' href='#'>Add Measure</a></li>
+			</ul>
+		  </div>
+		</py:if>
+
         <py:if test="c.can_edit and c.source and 'columns' in c.source.analysis">
           <h3>Source data columns</h3>
           <ul>
@@ -94,7 +115,6 @@
 				<form action="#">
 
 				  <!-- Dimension mapping -->
-				  <div class='formpart dimensions_widget'>
 					<h2>Dimension mapping</h2>
 					<p>
 					  The first and most important step in the creation of a model is
@@ -105,12 +125,6 @@
 					  the bottom of the page.
 					</p>
 
-
-					  <a class='btn add_attribute_dimension' href='#'>Add single column</a>
-					  <a class='btn add_compound_dimension' href='#'>Add Multi-column</a>
-					  <a class='btn add_date_dimension' href='#'>Add Date</a>
-					  <a class='btn add_measure' href='#'>Add Measure</a>
-				  </div>
 
 				</form>
 			  </div> <!-- /.forms -->
