@@ -27,6 +27,7 @@
 
   <div py:def="content">
     ${editor_nav('dimensions')}
+          <div id="m1"><div class="forms"><form action="#">
     <div class="row">
       <div class="span4">
         <h3>What do I do here?</h3>
@@ -86,7 +87,6 @@
   			<li><a href="#src">Advanced</a></li>
   		  </ul>
 
-          <div id="m1"><div class="forms"><form action="#">
           <div class="modeleditor tab-content dimensions">
 			<div id='src' class='tab-pane'>Place holder - please ignore</div>
 			<div class='tab-pane active'>
@@ -213,10 +213,10 @@
                   </form>
 
           </div>
-          </form></div></div>
         </py:if>
       </div>
     </div>
+          </form></div></div>
 
 
   </div>
@@ -237,6 +237,7 @@
     <script type="text/javascript" src="${h.static('app/dimensions-editor/main.js')}"></script>
     <script type="text/javascript" src="${h.static('app/dimensions-editor/modelEditorInit.js')}"></script>
 
+    <py:if test="c.can_edit">
 	<script>
 	  jQuery(function($) {
 	    var config = {
@@ -253,7 +254,7 @@
         });
 	  });
 	</script>
-
+    </py:if>
   </py:def>
 
   <xi:include href="../layout.html" />
