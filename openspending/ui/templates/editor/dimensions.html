@@ -36,7 +36,7 @@
 
   <div py:def="content">
     ${editor_nav('dimensions')}
-          <div id="m1"><div class="forms"><form action="#">
+          <div id="m1"><div class="forms dimensions_widget"><form action="#">
     <div class="row">
       <div class="span4">
         <h3>What do I do here?</h3>
@@ -54,7 +54,7 @@
         </ul>
 
         <py:if test="c.can_edit">
-		  <div class='formpart dimensions_widget'>
+		  <div class='formpart'>
 			<ul>
 			  <li><a class='btn add_attribute_dimension' href='#'>Add single column</a></li>
 			  <li><a class='btn add_compound_dimension' href='#'>Add Multi-column</a></li>
