@@ -96,6 +96,17 @@
         </py:if>
         <py:if test="c.can_edit">
 
+				<py:if test="len(c.errors.keys())">
+                  <div class="alert-message block-message error">
+					<p>
+					  The dimensions mapping could not be saved as it 
+					  contains some errors:
+					</p>
+					<ul py:for="field, error in c.errors.items()">
+                      <li><strong>${field}:</strong> ${error}</li>
+					</ul>
+                  </div>
+				</py:if>
 		 
   		  <ul class="tabs">
 
