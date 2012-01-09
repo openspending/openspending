@@ -60,6 +60,8 @@
 			  <li><a class='btn add_compound_dimension' href='#'>Add Multi-column</a></li>
 			  <li><a class='btn add_date_dimension' href='#'>Add Date</a></li>
 			  <li><a class='btn add_measure' href='#'>Add Measure</a></li>
+			  <li><a class='btn set_uniques' href='#'>Set Unique Dimensions</a></li>
+			  <li><a class='btn rm_add_dimensions' href='#'>Delete All Dimensions</a></li>
 			</ul>
 		  </div>
 		</py:if>
@@ -111,7 +113,7 @@
   		  <ul class="tabs">
 
 					  <li class="dropdown" data-dropdown="dropdown" style="float: left">
-						<a href="#" class="dropdown-toggle">Dimension</a>
+						<a href="#" class="dropdown-toggle" id="dimension-count">Dimensions (?)</a>
 						<ul  id="names-hook" class="dimension-names dropdown-menu">
 						</ul>
 					  </li>
