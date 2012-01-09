@@ -73,7 +73,6 @@ class EditorController(BaseController):
     def dimensions_edit(self, dataset, errors={}, mapping=None, 
             format='html', mode='visual'):
         assert mode in ['visual', 'source']
-        log.info("MODE: " + mode)
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
         # TODO: really split up dimensions and mapping editor.
@@ -102,7 +101,6 @@ class EditorController(BaseController):
 
         errors, mapping = {}, None
         try:
-            log.info(request.params.get('mapping'))
             mapping = json.loads(request.params.get('mapping'))
             model = c.dataset.model
             model['mapping'] = mapping
