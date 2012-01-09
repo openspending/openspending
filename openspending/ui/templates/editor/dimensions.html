@@ -15,13 +15,13 @@
         position: relative;
         height: 305px;
       }
-      .dimensions_widget li a {
+      #action_buttons li a {
 	    vertical-align: middle;
 	    text-align: center;
 	    width: 80%;
 	  }
 
-	  .dimensions_widget li {
+	  #action_buttons li {
 	    list-style-type: none;
 	  }
     </style>
@@ -54,7 +54,7 @@
         </ul>
 
         <py:if test="c.can_edit">
-		  <div class='formpart'>
+		  <div class='formpart' id='action_buttons'>
 			<ul>
 			  <li><a class='btn add_attribute_dimension' href='#'>Add single column</a></li>
 			  <li><a class='btn add_compound_dimension' href='#'>Add Multi-column</a></li>
