@@ -195,7 +195,7 @@
 				</dl>
 				
 				{{if !(validDimensionType(data.type))}}
-				<table class='fields'>
+				<div><table class='fields'>
 				  <thead>
 					<tr>
 					  <td>Field name</td>
@@ -209,12 +209,16 @@
 					{{tmpl({'fieldName': n, 'prefix': formFieldPrefix, 'required': formFieldRequired}) '#tpl_dimension_field'}}
 					{{/each}}
 				  </tbody>
-				</table>
-				<p><a class='add_field' href='#'>Add a field</a></p>
+				</table></div>
+				<a class='btn add_field' href='#'>Add a field</a>
 				{{/if}}
 				<a class="btn rm_dimension $${name}" rm-dim="$${name}" href="#">Delete dimension</a>
 			  </script>
 			</div> <!-- /.modeleditor -->
+
+          </div>
+        </py:if>
+
 				  <form  class="basic" id="form" action="${url(controller='editor',
 			        action='dimensions_update', dataset=c.dataset.name)}" 
 					method="POST">
@@ -226,8 +230,6 @@
 				    </div>
                   </form>
 
-          </div>
-        </py:if>
       </div>
     </div>
           </form></div></div>
