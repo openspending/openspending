@@ -15,6 +15,20 @@
         position: relative;
         height: 305px;
       }
+      #action_buttons li a {
+	    vertical-align: middle;
+	    text-align: center;
+	    width: 80%;
+	  }
+
+	  #action_buttons li {
+	    list-style-type: none;
+	  }
+
+      #column-names .used {
+	    text-decoration: line-through;
+	    background-color: #ffffff;
+	  }
     </style>
 
 	<script>
@@ -27,24 +41,48 @@
 
   <div py:def="content">
     ${editor_nav('dimensions')}
+          <div id="m1"><div class="forms dimensions_widget"><form action="#">
     <div class="row">
       <div class="span4">
-        <h3>What do I do here?</h3>
-        To create a model, you need to define the dimensions of your dataset
-        in a JSON (JavaScript Object Notation) schema. Using the
-        auto-generated schema, you likely need to define
-        measures and compound dimensions.
-        <ul>
-          <li><strong><a
-            href="http://docs.openspending.org/en/latest/model/design.html#dimension-and-mapping-definitions">Schema
-            documentation</a></strong></li>
-          <li><a href="${h.url(controller='help', action='page',
-            path='api-olap.html')}">Background: How does OpenSpending store data?</a></li>
-          <li><a href="http://wiki.openspending.org/Mapping_Format">Schema wiki</a></li>
-        </ul>
+
+        <py:if test="c.can_edit">
+		  <div class='formpart' id='action_buttons'>
+			<ul>
+			  <li><a class='btn add_attribute_dimension' href='#'>Add single column</a></li>
+			  <li><a class='btn add_compound_dimension' href='#'>Add Multi-column</a></li>
+			  <li><a class='btn add_date_dimension' href='#'>Add Date</a></li>
+			  <li><a class='btn add_measure' href='#'>Add Measure</a></li>
+			  <li><a class='btn rm_all_dimensions' href='#'>Delete All Dimensions</a></li>
+			  <li><a class='btn' data-backdrop="true"
+                data-controls-modal="check-uniques"
+                data-keyboard="true" href='#'>Set Unique Dimensions</a></li>
+			</ul>
+		  </div>
+
+
+
+      <div id="check-uniques" class="modal hide fade">
+        <div class="modal-header">
+          <h3>Specify which dimensions identify an entry uniquely</h3>
+        </div>
+		<form action='#'>
+          <div class="modal-body">
+			<ul id="uniques" style="list-style: none;">
+			</ul>
+          </div>
+          <div class="modal-footer">
+			<a class='btn set_uniques success'>Update</a>
+          </div>
+		</form>
+      </div>
+
+
+
+		</py:if>
+
         <py:if test="c.can_edit and c.source and 'columns' in c.source.analysis">
           <h3>Source data columns</h3>
-          <ul>
+          <ul id='column-names'>
             <li py:for="col in c.source.analysis['columns']">
               <code>${col}</code>
             </li>
@@ -74,21 +112,6 @@
         </py:if>
         <py:if test="c.can_edit">
 
-		 
-  		  <ul class="tabs">
-  			<li class="active"><a href="#source">Source</a></li>
-  			<li><a href="#m1">Edit</a></li>
-  		  </ul>
-
-          <div id="main-tab-content" class="tab-content">
-
-            <div class="active tab-pane" id="source">
-			<form class="basic" id="form" action="${url(controller='editor',
-			        action='dimensions_update', dataset=c.dataset.name)}" 
-					method="POST">
-
-
-              <fieldset>
 				<py:if test="len(c.errors.keys())">
                   <div class="alert-message block-message error">
 					<p>
@@ -100,26 +123,26 @@
 					</ul>
                   </div>
 				</py:if>
-				<textarea id="fallback" class="xxlarge" rows="20"
-						  name="mapping">${c.fill['mapping']}</textarea>
-				<div id="frame">
-                  <div id="mapping" 
-					   style="height: 300px; width: 690px">${c.fill['mapping']}</div>
-				</div>
-              </fieldset>
-              <div class="actions">
-				<input id="save" value="Update" class="btn success" type="submit" />
-              </div>
-			</form>
-            </div>
+		 
+  		  <ul class="tabs">
 
-			<div id='m1' class='modeleditor tab-pane'>
+					  <li class="dropdown" data-dropdown="dropdown" style="float: left">
+						<a href="#" class="dropdown-toggle" id="dimension-count">Dimensions (?)</a>
+						<ul  id="names-hook" class="dimension-names dropdown-menu">
+						</ul>
+					  </li>
+
+  			<li><a href="dimensions_src">Advanced</a></li>
+			<li class="active"><a href="#help">Help</a></li>
+  		  </ul>
+
+          <div class="modeleditor tab-content dimensions">
+			<div class='tab-pane active' id='help'>
 			  <div class='forms'>
-				<form action='#'>
+				<form action="#">
 
 				  <!-- Dimension mapping -->
-				  <div class='formpart dimensions_widget' style='display: none'>
-					<h2>Dimension mapping</h2>
+					<h3>Dimension mapping</h3>
 					<p>
 					  The first and most important step in the creation of a model is
 					  the mapping of columns in the data file to "dimensions", the logical
@@ -128,29 +151,20 @@
 					  out below, and you can add your own dimensions using the links at
 					  the bottom of the page.
 					</p>
+        <h3>What do I do here?</h3>
+        To create a model, you need to define the dimensions of your dataset
+        in a JSON (JavaScript Object Notation) schema. Using the
+        auto-generated schema, you likely need to define
+        measures and compound dimensions.
+        <ul>
+          <li><strong><a
+            href="http://docs.openspending.org/en/latest/model/design.html#dimension-and-mapping-definitions">Schema
+            documentation</a></strong></li>
+          <li><a href="${h.url(controller='help', action='page',
+            path='api-olap.html')}">Background: How does OpenSpending store data?</a></li>
+          <li><a href="http://wiki.openspending.org/Mapping_Format">Schema wiki</a></li>
+        </ul>
 
-					<ul class="tabs">
-
-                      <li class="dropdown" data-dropdown="dropdown">
-						<a href="#" class="dropdown-toggle">Add</a>
-						<ul class="dropdown-menu">
-					      <li><a class='add_attribute_dimension' href='#'>Single-column</a></li>
-						  <li><a class='add_compound_dimension' href='#'>Multi-column</a></li>
-						  <li><a class='add_date_dimension' href='#'>Date</a></li>
-						  <li><a class='add_measure' href='#'>Measure</a></li>
-						</ul>
-					  </li>
-
-					  <li class="dropdown" data-dropdown="dropdown" >
-						<a href="#" class="dropdown-toggle">Dimension</a>
-						<ul class="dimension-names dropdown-menu">
-						</ul>
-					  </li>
-					</ul>
-
-					<div id="dim-tab-content" class="dimensions tab-content">
-					</div>
-				  </div>
 
 				</form>
 			  </div> <!-- /.forms -->
@@ -213,12 +227,15 @@
 				  </dd>
 				  <dt><label>Unique key?</label></dt>
 				  <dd>
-					<input type='text' name='$${name}[key]' value='$${data.key}'></input>
+					<select class='boolean' name='$${name}[key]' value='$${data.key}'>
+					  <option value="false">No</option>
+					  <option value="true">Yes</option>
+					</select>
 				  </dd>
 				</dl>
 				
 				{{if !(validDimensionType(data.type))}}
-				<table class='fields'>
+				<div><table class='fields'>
 				  <thead>
 					<tr>
 					  <td>Field name</td>
@@ -232,52 +249,43 @@
 					{{tmpl({'fieldName': n, 'prefix': formFieldPrefix, 'required': formFieldRequired}) '#tpl_dimension_field'}}
 					{{/each}}
 				  </tbody>
-				</table>
-				<p><a class='add_field' href='#'>Add a field</a></p>
+				</table></div>
+				<a class='btn add_field' href='#'>Add a field</a>
 				{{/if}}
 				<a class="btn rm_dimension $${name}" rm-dim="$${name}" href="#">Delete dimension</a>
 			  </script>
+
+
 			</div> <!-- /.modeleditor -->
 
           </div>
         </py:if>
+
+				  <form  class="basic" id="form" action="${url(controller='editor',
+			        action='dimensions_update', dataset=c.dataset.name)}" 
+					method="POST">
+
+					<textarea id="mapping" name="mapping" style="display: none">${c.fill['mapping']}</textarea>
+ 				    <div class="actions">
+					  <input id="save" value="Save" class="btn success" type="submit" />
+
+				    </div>
+                  </form>
+
       </div>
     </div>
+          </form></div></div>
 
 
   </div>
 
   <py:def function="scripts">
 
-    ${script_tag('vendor/ace/ace')}
-    ${script_tag('vendor/ace/mode-json')}
-    ${script_tag('vendor/ace/theme-monokai')}
-
-
-    <script>
-	  var _globalEditor = null;
-      var fallback = "#fallback";
-	  findEditor = function() { return _globalEditor; }
-
-      jQuery(document).ready(function($) {
-        $(fallback).hide();
-        $("#frame").show();
-        var editor = ace.edit("mapping");
-        _globalEditor = editor;
-        var JSONMode = require("ace/mode/json").Mode;
-        editor.getSession().setMode(new JSONMode());
-        editor.setTheme("ace/theme/monokai");
-        editor.renderer.setShowPrintMargin(false);
-        $("#form").submit(function(e) {
-          var value = editor.getSession().getValue();
-          $(fallback).val(value);
-        });
-      });
-    </script>
 
     ${script_tag('vendor/jquery.tmpl')}
 
 	${script_tag('vendor/bootstrap-tabs')}
+    ${script_tag('vendor/bootstrap-modal')}
 
 	<script>
 	  $(function($) {
@@ -288,25 +296,24 @@
     <script type="text/javascript" src="${h.static('app/dimensions-editor/main.js')}"></script>
     <script type="text/javascript" src="${h.static('app/dimensions-editor/modelEditorInit.js')}"></script>
 
+    <py:if test="c.can_edit">
 	<script>
 	  jQuery(function($) {
 	    var config = {
 	      dataset: "${c.dataset.name}",
 		  source: "${c.source.id}",
 		  editorSelector: "#m1",
-		  fallbackSelector: fallback
+		  fallbackSelector: '#mapping',
+	      namesHook: '#names-hook'
 	    };
 
-        $('.dimensions_widget').show();
-        initModelEditor($, config);
+        $(document).ready(function () {
+          $('.dimensions_widget').show();
+          initModelEditor($, config);
+        });
 	  });
 	</script>
-
-    <style>
-      .ace-monokai .ace_gutter {
-        background-color: whiteSmoke;
-      }
-    </style>
+    </py:if>
   </py:def>
 
   <xi:include href="../layout.html" />
