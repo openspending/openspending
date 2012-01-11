@@ -60,10 +60,32 @@
 			  <li><a class='btn add_compound_dimension' href='#'>Add Multi-column</a></li>
 			  <li><a class='btn add_date_dimension' href='#'>Add Date</a></li>
 			  <li><a class='btn add_measure' href='#'>Add Measure</a></li>
-			  <li><a class='btn set_uniques' href='#'>Set Unique Dimensions</a></li>
 			  <li><a class='btn rm_all_dimensions' href='#'>Delete All Dimensions</a></li>
+			  <li><a class='btn' data-backdrop="true"
+                data-controls-modal="check-uniques"
+                data-keyboard="true" href='#'>Set Unique Dimensions</a></li>
 			</ul>
 		  </div>
+
+
+
+      <div id="check-uniques" class="modal hide fade">
+        <div class="modal-header">
+          <h3>Specify which dimensions identify an entry uniquely</h3>
+        </div>
+		<form action='#'>
+          <div class="modal-body">
+			<ul id="uniques" style="list-style: none;">
+			</ul>
+          </div>
+          <div class="modal-footer">
+			<a class='btn set_uniques success'>Update</a>
+          </div>
+		</form>
+      </div>
+
+
+
 		</py:if>
 
         <py:if test="c.can_edit and c.source and 'columns' in c.source.analysis">
@@ -119,11 +141,11 @@
 					  </li>
 
   			<li><a href="dimensions_src">Advanced</a></li>
+			<li class="active"><a href="#help">Help</a></li>
   		  </ul>
 
           <div class="modeleditor tab-content dimensions">
-			<div id='src' class='tab-pane'>Place holder - please ignore</div>
-			<div class='tab-pane active'>
+			<div class='tab-pane active' id='help'>
 			  <div class='forms'>
 				<form action="#">
 
@@ -227,6 +249,8 @@
 				{{/if}}
 				<a class="btn rm_dimension $${name}" rm-dim="$${name}" href="#">Delete dimension</a>
 			  </script>
+
+
 			</div> <!-- /.modeleditor -->
 
           </div>
@@ -256,6 +280,7 @@
     ${script_tag('vendor/jquery.tmpl')}
 
 	${script_tag('vendor/bootstrap-tabs')}
+    ${script_tag('vendor/bootstrap-modal')}
 
 	<script>
 	  $(function($) {
