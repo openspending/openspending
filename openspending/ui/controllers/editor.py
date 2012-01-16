@@ -72,6 +72,7 @@ class EditorController(BaseController):
 
     def dimensions_edit(self, dataset, errors={}, mapping=None, 
             format='html', mode='visual'):
+
         assert mode in ['visual', 'source']
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
@@ -93,7 +94,14 @@ class EditorController(BaseController):
         return render(template, form_fill=c.fill)
     
     def dimensions_update(self, dataset, format='html'):
+        dry_run = False
+
         self._get_dataset(dataset)
+
+        operation = request.params.get('operation', 'Save')
+        if operation == 'Verify':
+            dry_run = True
+
         require.dataset.update(c.dataset)
         if len(c.dataset):
             abort(400, _("You cannot edit the dimensions model when " \
@@ -105,13 +113,17 @@ class EditorController(BaseController):
             model = c.dataset.model
             model['mapping'] = mapping
             schema = mapping_schema(ValidationState(model))
-            c.dataset.data['mapping'] = schema.deserialize(mapping)
+            new_mapping =  schema.deserialize(mapping)
+            if not dry_run:
             # erm...
-            c.dataset.drop()
-            c.dataset._load_model()
-            c.dataset.generate()
-            db.session.commit()
-            h.flash_success(_("The mapping has been updated."))
+                c.dataset.data['mapping'] = new_mapping
+                c.dataset.drop()
+                c.dataset._load_model()
+                c.dataset.generate()
+                db.session.commit()
+                h.flash_success(_("The mapping has been updated."))
+            else:
+                h.flash_success(_("The mapping has been validated successfully."))
         except (ValueError, TypeError, AttributeError):
             abort(400, _("The mapping data could not be decoded as JSON!"))
         except Invalid, i:
