@@ -29,6 +29,16 @@
 	    text-decoration: line-through;
 	    background-color: #ffffff;
 	  }
+
+      #column-names-container {
+        text-align: right;
+	  }
+	  #column-names-container h3 {
+	    padding: 5px;
+	  }
+	  #column-names-container li {
+	    list-style-type: none;
+      }
     </style>
 
 	<script>
@@ -48,14 +58,17 @@
         <py:if test="c.can_edit">
 		  <div class='formpart' id='action_buttons'>
 			<ul>
-			  <li><a class='btn add_attribute_dimension' href='#'>Add single column</a></li>
+<!--			  <li><a class='btn add_attribute_dimension' href='#'>Add single column</a></li>
 			  <li><a class='btn add_compound_dimension' href='#'>Add Multi-column</a></li>
 			  <li><a class='btn add_date_dimension' href='#'>Add Date</a></li>
-			  <li><a class='btn add_measure' href='#'>Add Measure</a></li>
-			  <li><a class='btn rm_all_dimensions' href='#'>Delete All Dimensions</a></li>
+			  <li><a class='btn add_measure' href='#'>Add Measure</a></li> -->
+			  <li><a class='btn' data-backdrop="static"
+				data-controls-modal="add-dimension"
+				data-keyboard="false" href='#'>Add Dimension</a></li>
 			  <li><a class='btn' data-backdrop="true"
                 data-controls-modal="check-uniques"
                 data-keyboard="true" href='#'>Set Unique Dimensions</a></li>
+			  <li><a class='btn rm_all_dimensions' href='#'>Delete All Dimensions</a></li>
 			</ul>
 		  </div>
 
@@ -77,16 +90,56 @@
       </div>
 
 
+      <div id="add-dimension" class="modal hide fade">
+        <div class="modal-header">
+          <h3>Add new dimension</h3>
+        </div>
+		<form action='#'>
+          <div class="modal-body">
+			<div style="padding: 4px">
+			  <p>
+				The name you choose should only contain letters, numbers and dashes (i.e., no spaces)
+			  </p>
+			  <p>Where the dimension represents the ultimate source or destination of the funds, call it <code>from</code> or <code>to</code>.
+				</p>
+			</div>
+			<dl>			  
+			  <dt><label>Type:</label></dt>
+			  <dd>
+				<select id='dimension_type' name='new-dimension-type'>
+				  <option value='attribute'>Single CSV column</option>
+				  <option value='compound'>Multiple CSV columns</option>
+				  <option value='date'>Date</option>
+				  <option value='measure'>Measure</option>
+				</select>
+			  </dd>
+			  
+			  <dt><label>Name:</label></dt>
+			  <dd>
+				<input type='text' name='new-dimension-name' value='' />
+			  </dd>
+			</dl>
+          </div>
+          <div class="modal-footer">
+			<a class='btn cancel_add_dimension cancel'>Cancel</a>
+			<a class='btn add_dimension success'>Add</a>
+          </div>
+		</form>
+      </div>
+
+
 
 		</py:if>
 
         <py:if test="c.can_edit and c.source and 'columns' in c.source.analysis">
-          <h3>Source data columns</h3>
+         <div id='column-names-container'>
+          <h3>Source data columns:</h3>
           <ul id='column-names'>
             <li py:for="col in c.source.analysis['columns']">
               <code>${col}</code>
             </li>
           </ul>
+		 </div>
         </py:if>
 
       </div>
@@ -267,7 +320,8 @@
 
 					<textarea id="mapping" name="mapping" style="display: none">${c.fill['mapping']}</textarea>
  				    <div class="actions">
-					  <input id="save" value="Save" class="btn success" type="submit" />
+					  <input id="verify" value="Verify" class="btn" name="operation" type="submit" />
+					  <input id="save" value="Save" class="btn success" name="operation" type="submit" />
 
 				    </div>
                   </form>
