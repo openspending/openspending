@@ -41,7 +41,8 @@ preceding command.
 Having the virtualenv set up, you can install OpenSpending and its dependencies.
 This should be pretty painless. Just run::
 
-    $ pip install -E pyenv -e .
+    $ pip install -e .
+    $ pip install -e git+http://github.com/okfn/osvalidate#egg=osvalidate
 
 Another dependency is the ``openspendingjs`` module, which is included through
 git submodules by initializing submodules from the root of the ``openspending``
@@ -53,50 +54,46 @@ install::
 You will also need to install python bindings for your database. For example,
 for Postgresql you will want to install the psycopg2 library::
 
-    pip install psycopg2
-    # or on debian / ubuntu
-    # apt-get install python-psycopg2
-
+    $ pip install psycopg2
 
 Create a database if you do not have one already. We recommend using Postgres
 but you can use anything compatible with SQLAlchemy. For postgres you would do::
 
-    createdb -E utf-8 --owner {your-database-user} openspending
+    $ createdb -E utf-8 --owner {your-database-user} openspending
 
 Having done that, you can copy configuration templates::
 
-    source pyenv/bin/activate
-    cp development.ini_tmpl development.ini
+    $ cp development.ini_tmpl development.ini
 
 Edit the configuration files to make sure you're pointing to a valid database 
 URL is set::
 
-    openspending.db.url = postgresql://{user}:{pass}@localhost/openspending
+    $ openspending.db.url = postgresql://{user}:{pass}@localhost/openspending
 
 Initialize the database::
 
-    ostool development.ini db init
+    $ ostool development.ini db init
 
 Generate the help system documentation (this is used by the front-end
 and must be available, developer documents are separate). The output 
 will be copied to the web applications template directory::
 
-    cd help; make clean html
+    $ cd help && make clean html
 
 Run the application::
 
-    paster serve --reload development.ini
+    $ paster serve --reload development.ini
 
 In order to use web-based importing and loading, you will also need to set up
 the celery-based background daemon. When running this, make sure to have an
 instance of RabbitMQ installed and running and then execute::
 
-    paster celeryd development.ini
+    $ paster celeryd development.ini
 
 You can validate the functioning of the communication between the backend and
 frontend components using the ping action::
 
-    curl -q http://localhost:5000/__ping__ >/dev/null
+    $ curl -q http://localhost:5000/__ping__ >/dev/null
 
 This should result in "Pong!" being printed to the background daemon's console.
 
@@ -132,14 +129,14 @@ Create a configuration home directory to use with Solr. This is most easily
 done by copying the Solr example configuration from the `Solr tarball`_, and 
 replacing the default schema with one from OpenSpending.::
 
-    $ cp -R apache-solr-3.1.0/example/solr/* ./solr
-    $ ln -sf "../openspending_schema.xml" ./solr/conf/schema.xml
+    $ cp -R apache-solr-3.5.0/example ./solr/
+    $ ln -sfT ../../../openspending_schema.xml ./solr/conf/schema.xml
 
 .. _Solr tarball: http://www.apache.org/dyn/closer.cgi/lucene/solr/
 
 Start Solr with the full path to the folder as a parameter: ::
 
-    $ solr $(pwd)/solr
+    $ (cd solr/example && java -Dsolr.velocity.enabled=false -jar start.jar)
 
 
 Customize the configuration file
