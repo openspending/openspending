@@ -42,7 +42,6 @@ Having the virtualenv set up, you can install OpenSpending and its dependencies.
 This should be pretty painless. Just run::
 
     $ pip install -e .
-    $ pip install -e git+http://github.com/okfn/osvalidate#egg=osvalidate
 
 Another dependency is the ``openspendingjs`` module, which is included through
 git submodules by initializing submodules from the root of the ``openspending``
@@ -78,7 +77,7 @@ Generate the help system documentation (this is used by the front-end
 and must be available, developer documents are separate). The output 
 will be copied to the web applications template directory::
 
-    $ cd help && make clean html
+    $ (cd help && make clean html)
 
 Run the application::
 
@@ -130,7 +129,7 @@ done by copying the Solr example configuration from the `Solr tarball`_, and
 replacing the default schema with one from OpenSpending.::
 
     $ cp -R apache-solr-3.5.0/example ./solr/
-    $ ln -sfT ../../../openspending_schema.xml ./solr/conf/schema.xml
+    $ ln -sfT ../../../openspending_schema.xml ./solr/example/solr/conf/schema.xml
 
 .. _Solr tarball: http://www.apache.org/dyn/closer.cgi/lucene/solr/
 
@@ -138,31 +137,8 @@ Start Solr with the full path to the folder as a parameter: ::
 
     $ (cd solr/example && java -Dsolr.velocity.enabled=false -jar start.jar)
 
-
-Customize the configuration file
-''''''''''''''''''''''''''''''''
-
-Create a configuration file, choosing a name that reflects the environment
-in which this deployment will be used. For a development environment:::
-
-    $ cp development.ini_tmpl development.ini
-
-Edit the config file with relevant details for your local machine. The
-options in the file are commented. Some of the important options in 
-`[app:main]` are::
-    
-    # Configure your database. e.g. for a development database:
-    openspending.db.url = postgresql://user:pass@host/dbname
-    
-    # Configure your Solr url. This is a typical default:
-    openspending.solr.url = http://localhost:8983/solr
-    
-    # Choose which plugins to activate:
-    openspending.plugins = treemap datatables [...]
-    
-
-Test the install and run the site
----------------------------------
+Test the install
+----------------
 
 Create test configuration (which inherits, by default, from `development.ini`): ::
 
@@ -172,9 +148,12 @@ Run the tests.::
 
     $ nosetests 
 
-Finally, run the site from development.ini::
+Import a sample dataset: ::
 
-    $ paster serve --reload development.ini
+    $ ostool development.ini csvimport --model http://mk.ucant.org/info/data/sample-openspending-model.json http://mk.ucant.org/info/data/sample-openspending-dataset.csv
+    $ ostool development.ini solr load openspending-example
+
+Verify that the data is visible at http://127.0.0.1:5000/openspending-example/entries
 
 Create an Admin User
 --------------------
