@@ -144,6 +144,12 @@ Create test configuration (which inherits, by default, from `development.ini`): 
 
     $ cp test.ini_tmpl test.ini
 
+You will need to either set up a second instance of solr, or comment
+out the solr url in test.ini so that the tests use the same instance
+of solr. Regrettably, the tests delete all data from solr when they
+run, so having them share the development instance may be
+inconvenient.
+
 Run the tests.::
 
     $ nosetests 

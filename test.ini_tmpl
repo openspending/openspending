@@ -16,3 +16,10 @@ use = config:development.ini
 openspending.cache_enabled = False
 set openspending.mongodb.database = openspending_test
 set debug = False
+
+# Solr
+# If you comment out this line, then you can use the same solr for
+# development and running the tests. However, the tests will delete
+# all data from solr. Use with caution.
+
+openspending.solr.url = http://localhost:18983/solr
