@@ -53,6 +53,12 @@ def migrate():
         migrate_api.version_control(url, repo)
         migrate_api.upgrade(url, repo)
 
+    diff = migrate_api.compare_model_to_db(url, repo, db.metadata)
+    if diff:
+        # Oh dear! The database we migrated to doesn't match openspending.model
+        print diff
+        return 1
+
     return 0
 
 def modelmigrate():
@@ -74,18 +80,7 @@ def modelmigrate():
     return 0
 
 def init():
-    url = config.get('openspending.db.url')
-    repo = config.get('openspending.migrate_dir',
-                      os.path.join(os.path.dirname(config['__file__']),
-                                   'migration'))
-
-    # Assume it's a new database, and try the migration again
-    try:
-        migrate_api.version_control(url, repo)
-        db.metadata.create_all()
-        return 0
-    except DatabaseAlreadyControlledError:
-        migrate()
+    migrate()
 
 def _init(args):
     return init()
