@@ -2,6 +2,8 @@
   xmlns:i18n="http://genshi.edgewall.org/i18n"
   xmlns:xi="http://www.w3.org/2001/XInclude"
   py:strip="">
+<!-- templates/_timegraph.html -->
+
   <py:if test="c.browser.q and c.browser.num_results and hasattr(c, 'amount')">
     ${script_tag('vendor/qtip')}
     ${script_tag('timegraph')}

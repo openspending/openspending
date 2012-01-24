@@ -7,6 +7,8 @@
 
   <xi:include href="_util.html" />
 
+  <!-- templates/layout.html top -->
+
   <py:if test="len(_form_errors)">
     <div py:match="input|select" py:strip="" py:with="error = _form_errors.get(str(select('@name')))">
       <div class="clearfix error" py:if="error">
@@ -40,6 +42,8 @@
       ${optional_head()}
     </py:if>
   </head>
+
+  <!-- templates/layout.html body -->
 
   <body>
 
@@ -93,7 +97,11 @@
           </div>
         </div>
         </py:with>
+<!-- ************************************************************************************************** -->
+        <!-- templates/layout.html content include start -->
         ${content()}
+        <!-- templates/layout.html content include end -->
+<!-- ************************************************************************************************** -->
 
       <footer>
       <p class="right">&copy;

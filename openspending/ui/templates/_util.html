@@ -18,6 +18,7 @@
   </span>
 
   <div py:def="entries_page(dataset, page)">
+    <!-- templates/_util.html entries_page -->
     <table class="zebra-striped">
       <thead>
         <tr>
@@ -59,6 +60,7 @@
   </div>
 
   <div py:def="view_times()" class="view-panel last" py:strip="True">
+    <!-- templates/_util.html view_times -->
     <li py:if="c.view" class="dropdown" data-dropdown="dropdown">
       <a href="#" class="dropdown-toggle">${c.time}</a>
       <ul class="dropdown-menu">

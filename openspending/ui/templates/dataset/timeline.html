@@ -8,6 +8,7 @@
   <py:def function="page_title">Timeline ${c.dataset.get('label')}</py:def>
 
   <py:def function="optional_head">
+    <!-- templates/dataset/timeline.html optional_head -->
     <link type="text/css" href="${h.static('js/vendor/jquery-ui/css/ui-lightness/jquery-ui.custom.css')}" rel="stylesheet" />
 
 
@@ -34,6 +35,7 @@
 
 
   <div py:def="content">
+    <!-- templates/dataset/timeline.html content -->
     <h2 id="page-header">Timeline ${c.dataset['label']}</h2>
     <div id="vis">
     </div>

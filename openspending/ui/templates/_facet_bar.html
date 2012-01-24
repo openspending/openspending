@@ -3,6 +3,8 @@
   xmlns:xi="http://www.w3.org/2001/XInclude"
   py:strip="">
 
+<!-- templates/_facet_bar.html -->
+
   <div class="section-chartlist">
     <ul class="chartlist">
       <py:for each="k,v in sorted(c.facet_counts.items(), key=lambda (k,v): v, reverse=True)" py:with="divisor = float(max(c.facet_counts.values()))">

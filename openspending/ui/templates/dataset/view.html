@@ -12,6 +12,8 @@
   <div py:def="content">
     ${dataset_nav(c.view.name if c.view else 'search')}
 
+    <!-- templates/dataset/view.html content -->
+
     <div py:if="c.view" class="row">
       <div class="span16" id="vis"></div>
     </div>

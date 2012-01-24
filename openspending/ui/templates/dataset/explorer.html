@@ -8,6 +8,8 @@
   <py:def function="page_title">Explore ${c.dataset.get('label')}</py:def>
 
   <py:def function="optional_head">
+    <!-- templates/dataset/explorer.html optional_head -->
+
     <!--link rel="stylesheet" href="${h.static('css/explorer.css')}" type="text/css"/-->
     <link rel="stylesheet" type="text/css" href="${h.static('js/vendor/bubbletree/1.0/bubbletree.css')}" />
     <style type="text/css">
@@ -44,6 +46,7 @@
   </py:def>
 
   <py:def function="scripts">
+    <!-- templates/dataset/explorer.html scripts -->
     ${script_tag('vendor/jquery.json-2.2')}
     ${script_tag('vendor/jquery.history')}
     ${script_tag('vendor/jquery.tooltip')}
@@ -78,6 +81,7 @@ jQuery(document).ready(function($) {
 
   <py:def function="page_title">Explorer</py:def>
   <div py:def="content" id="content" py:strip="">
+    <!-- templates/dataset/explorer.html content -->
     <h2 class="page-header">
       ${c.dataset['label']}
       <div class="representations">
