@@ -134,8 +134,8 @@ def make_map():
 
     map.connect('/{dataset}/{dimension}.json',
                 controller='dimension', action='view', format='json')
-    map.connect('/{dataset}/{dimension}.csv',
-                controller='dimension', action='view', format='csv')
+    #map.connect('/{dataset}/{dimension}.csv',
+    #            controller='dimension', action='view', format='csv')
     map.connect('/{dataset}/{dimension}',
                 controller='dimension', action='view')
     
