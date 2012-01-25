@@ -18,8 +18,9 @@ def update(dataset):
     return False
 
 def delete(dataset):
-    if logged_in() and tmpl_context.account.admin:
-        return True
+    if logged_in():
+        if tmpl_context.account.admin:
+            return True
+        elif tmpl_context.account in dataset.managers:
+            return True
     return False
-
-

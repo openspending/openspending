@@ -100,6 +100,8 @@ def make_map():
             action='retract', conditions=dict(method=['POST']))
     map.connect('/{dataset}/editor/drop', controller='editor',
             action='drop', conditions=dict(method=['POST']))
+    map.connect('/{dataset}/editor/delete', controller='editor',
+            action='delete', conditions=dict(method=['POST']))
     
     map.connect('/{dataset}/sources', controller='source',
             action='create', conditions=dict(method=['POST']))

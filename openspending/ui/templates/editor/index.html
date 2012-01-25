@@ -111,6 +111,13 @@
               issues or legal issues, you can un-publish this dataset.</span>
           </form>
         </py:if>
+
+        <form method="POST" action="${h.url(controller='editor',
+          action='delete', dataset=c.dataset.name)}">
+          <input type="submit" class="btn danger" value="Delete entire dataset" />
+          <span class="help-block">This action cannot be undone.</span>
+        </form>
+
         <br/>
       </div>
 

@@ -195,3 +195,11 @@ class EditorController(BaseController):
         redirect(h.url_for(controller='editor', action='index', 
                            dataset=c.dataset.name))
 
+    def delete(self, dataset):
+        self._get_dataset(dataset)
+        require.dataset.delete(c.dataset)
+        c.dataset.drop()
+        db.session.delete(c.dataset)
+        db.session.commit()
+        h.flash_success(_("The dataset has been deleted."))
+        redirect(h.url_for(controller='dataset', action='index'))
