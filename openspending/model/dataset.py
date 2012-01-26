@@ -7,6 +7,7 @@ the table schema associated with the dataset. As such, it holds the key set
 of logic functions upon which all other queries and loading functions rely.
 """
 import math
+import logging
 from collections import defaultdict
 from datetime import datetime
 from itertools import count
@@ -20,6 +21,7 @@ from openspending.model.dimension import CompoundDimension, \
         AttributeDimension, DateDimension
 from openspending.model.dimension import Measure
 
+log = logging.getLogger(__name__)
 
 class Dataset(TableHandler, db.Model):
     """ The dataset is the core entity of any access to data. All
@@ -140,6 +142,13 @@ class Dataset(TableHandler, db.Model):
         for field in self.fields:
             field.generate(self.meta, self.table)
         self._generate_table()
+        for dim in self.dimensions:
+            if isinstance(dim, CompoundDimension):
+                sql_alter = "alter table "+self.table.name+" add constraint "+self.name+'_'+dim.name+'_fk' \
+                    +" foreign key ("+dim.name+'_id'+") references "+dim.table.name+" ("+'id'+")"
+                log.debug("generate FK for dim %s: %s", dim.name, sql_alter);
+                db.engine.execute(sql_alter)
+
         self._is_generated = True
 
     @property
@@ -191,9 +200,9 @@ class Dataset(TableHandler, db.Model):
         """ Drop all tables created as part of this dataset, i.e. by calling
         ``generate()``. This will of course also delete the data itself.
         """
+        self._drop(self.bind)
         for dimension in self.dimensions:
             dimension.drop(self.bind)
-        self._drop(self.bind)
 
     def key(self, key):
         """ For a given ``key``, find a column to indentify it in a query.
