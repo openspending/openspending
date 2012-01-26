@@ -101,10 +101,14 @@ class DimensionController(BaseController):
 
         handle_request(request, c, c.member, c.dimension)
 
+        attachment_name = '__'.join([dataset, dimension, name])
+
         self._make_browser()
         if format == 'json':
+            response.content_disposition = 'attachment; filename=%s.json' % attachment_name
             return c.browser.to_jsonp()
         elif format == 'csv':
+            response.content_disposition = 'attachment; filename=%s.csv' % attachment_name
             return c.browser.to_csv()
         else:
             return render('dimension/entries.html')
