@@ -28,8 +28,10 @@ class EntryController(BaseController):
         c.browser.facet_by_dimensions()
 
         if format == 'json':
+            response.content_disposition = 'attachment; filename=%s.json' % c.dataset.name
             return c.browser.to_jsonp()
         elif format == 'csv':
+            response.content_disposition = 'attachment; filename=%s.csv' % c.dataset.name
             return c.browser.to_csv()
         else:
             return render('entry/index.html')

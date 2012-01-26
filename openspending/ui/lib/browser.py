@@ -230,4 +230,3 @@ class Browser(object):
 
     def to_csv(self):
         return write_csv(self.all_entries, response)
-
