@@ -11,6 +11,7 @@ import logging
 from collections import defaultdict
 from datetime import datetime
 from itertools import count
+from sqlalchemy import ForeignKeyConstraint
 
 from openspending.model import meta as db
 from openspending.lib.util import hash_values
@@ -141,14 +142,14 @@ class Dataset(TableHandler, db.Model):
         """
         for field in self.fields:
             field.generate(self.meta, self.table)
-        self._generate_table()
         for dim in self.dimensions:
             if isinstance(dim, CompoundDimension):
-                sql_alter = "alter table "+self.table.name+" add constraint "+self.name+'_'+dim.name+'_fk' \
-                    +" foreign key ("+dim.name+'_id'+") references "+dim.table.name+" ("+'id'+")"
-                log.debug("generate FK for dim %s: %s", dim.name, sql_alter);
-                db.engine.execute(sql_alter)
-
+                self.table.append_constraint(ForeignKeyConstraint(
+                    [ dim.name+'_id' ], [ dim.table.name + '.id' ],
+                    #use_alter=True,
+                    name='fk_'+self.name+'_'+dim.name
+                ))
+        self._generate_table()
         self._is_generated = True
 
     @property
