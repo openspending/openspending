@@ -164,6 +164,23 @@ class TestEditorController(ControllerTestCase):
         cra = Dataset.by_name('cra')
         assert len(cra)==0, len(cra)
 
+    def test_delete(self):
+        cra = Dataset.by_name('cra')
+        assert len(cra)==36, len(cra)
+        # double-check authz
+        response = self.app.post(url(controller='editor', 
+            action='delete', dataset='cra'),
+            expect_errors=True)
+        assert '403' in response.status
+        cra = Dataset.by_name('cra')
+        assert len(cra)==36, len(cra)
+
+        response = self.app.post(url(controller='editor', 
+            action='delete', dataset='cra'),
+            extra_environ={'REMOTE_USER': 'test'})
+        cra = Dataset.by_name('cra')
+        assert cra is None, cra
+
     def test_publish(self):
         cra = Dataset.by_name('cra')
         cra.private = True
