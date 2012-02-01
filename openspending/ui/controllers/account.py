@@ -84,8 +84,7 @@ class AccountController(BaseController):
             values = c.account.as_dict()
         return render('account/settings.html',
                       form_fill=values,
-                      form_errors=errors,
-                      cache_private=True)
+                      form_errors=errors)
 
     def after_login(self):
         if c.account is not None:

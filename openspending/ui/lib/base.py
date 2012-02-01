@@ -35,10 +35,13 @@ ACCEPT_MIMETYPES = {
 def render(template_name,
            extra_vars=None,
            form_fill=None, form_errors={},
-           cache_expire=3600, cache_private=False,
+           suppress_cache=True,
            method='xhtml'):
 
-    _setup_cache(cache_expire, cache_private)
+    if suppress_cache:
+        response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '0'
 
     # Pull in extra vars if needed
     globs = extra_vars or {}
@@ -62,19 +65,6 @@ def render(template_name,
         stream = item.filter(stream)
 
     return literal(stream.render(method=method, encoding=None))
-
-def _setup_cache(cache_expire, cache_private):
-    del response.headers["Pragma"]
-
-    if app_globals.debug or request.method not in ('HEAD', 'GET'):
-        response.headers["Cache-Control"] = 'no-cache, no-store, max-age=0'
-    else:
-        response.headers["Last-Modified"] = strftime("%a, %d %b %Y %H:%M:%S GMT", gmtime())
-
-        if cache_private:
-            response.headers["Cache-Control"] = 'private, max-age=%d' % cache_expire
-        else:
-            response.headers["Cache-Control"] = 'public, max-age=0, s-maxage=%d' % cache_expire
 
 class BaseController(WSGIController):
 
