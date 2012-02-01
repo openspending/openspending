@@ -79,6 +79,10 @@ will be copied to the web applications template directory::
 
     $ (cd help && make clean html)
 
+Compile the translations:
+
+    $ python setup.py compile_catalog
+
 Run the application::
 
     $ paster serve --reload development.ini
