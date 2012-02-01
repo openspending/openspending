@@ -85,6 +85,18 @@ input, textarea, button, select, .btn {
   font-size: 105%;
 }
 
+.nav select { 
+  display: block;
+  float: none;
+  margin: 10px 10px 11px;
+  line-height: 19px;
+  height: 19px;
+}
+
+.nav select.locale { 
+  width: 120px;
+}
+
 .modal form {
   margin-bottom: 0px;
 }

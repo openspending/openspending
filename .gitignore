@@ -17,3 +17,4 @@ openspending/ui/templates/layout_orig.html
 .*.swp
 openspending/ui/templates/help/*
 doc/_build/*
+*.mo

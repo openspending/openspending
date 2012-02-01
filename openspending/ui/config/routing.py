@@ -43,6 +43,7 @@ def make_map():
 
     map.connect('/getinvolved', controller='home', action='getinvolved')
     map.connect('/locale', controller='home', action='locale')
+    map.connect('/set-locale', controller='home', action='set_locale', conditions=dict(method=['POST']))
 
     map.connect('/login', controller='account', action='login')
     map.connect('/register', controller='account', action='register')

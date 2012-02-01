@@ -55,6 +55,12 @@ class HomeController(BaseController):
         return_to += '__cache=%s' % int(random.random() * 100000000)
         redirect(return_to.encode('utf-8'))
 
+    def set_locale(self):
+        locale = request.params.get('locale')
+        if locale is not None:
+            set_session_locale(locale)
+            log.debug("Set session locale to %s" % locale)
+
     def version(self):
         cwd = os.path.dirname(__file__)
         process = subprocess.Popen('git rev-parse --verify HEAD'.split(' '),

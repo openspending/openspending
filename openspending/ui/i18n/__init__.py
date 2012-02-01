@@ -1,6 +1,8 @@
 from pylons.i18n import _, add_fallback, get_lang, set_lang, gettext
 from babel import Locale
 
+import logging
+log = logging.getLogger(__name__)
 
 # TODO: Figure out a nicer way to get this. From the .ini? 
 _KNOWN_LOCALES = ['en', 'de', 'no', 'it']
@@ -38,6 +40,7 @@ def handle_request(request, tmpl_context):
         try:
             set_lang(language) 
             tmpl_context.language = language
+            break
         except: pass
 
 

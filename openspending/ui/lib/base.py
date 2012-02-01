@@ -3,6 +3,9 @@
 Provides the BaseController class for subclassing.
 """
 from time import time, gmtime, strftime
+import os
+import babel
+import gettext
 
 from pylons.controllers import WSGIController
 from pylons.templating import literal, pylons_globals
@@ -103,6 +106,8 @@ class BaseController(WSGIController):
         for item in self.items:
             item.before(request, c)
 
+        c.languages = self._detect_languages()
+
     def __after__(self):
         if session.get('state', {}) != c.state:
             session['state'] = c.state
@@ -131,6 +136,19 @@ class BaseController(WSGIController):
                 return mimeformat
         return "html"
 
+    def _detect_languages(self):
+        # Magic paths copied from pylons.i18n.translation._get_translator
+        localedir = os.path.join(config['pylons.paths']['root'], 'i18n')
+        messagefiles = gettext.find(config['pylons.package'], localedir,
+                                    languages=babel.Locale('en').languages.keys(),
+                                    all=True)
+        languages = [path.split('/')[-3] for path in messagefiles]
+        langlist = zip(languages, 
+                       [babel.Locale.parse(lang).display_name for lang in languages])
+        # Filter out bogus language codes before they screw us over completely
+        # (Hint: 'no' is not a real language code)
+        return filter(lambda (language, name): name is not None, langlist)
+        
     def _get_dataset(self, dataset):
         c.dataset = model.Dataset.by_name(dataset)
         if c.dataset is None:
@@ -142,4 +160,3 @@ class BaseController(WSGIController):
             return int(request.params.get(param))
         except:
             return 1
-
