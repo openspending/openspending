@@ -18,15 +18,15 @@
         <py:choose test="">
           <div py:when="not c.has_sources" 
             class="alert-message block-message info">
-            <p>
+            <p i18n:msg="">
             <strong>Congratulations, your dataset is now created.</strong> Next, you'll need
             to link to a source file that contains the data (or a sample for testing
             if your dataset is very large!). The data must be in the CSV format.
             </p>
             <ul>
-              <li>Learn about <a href="#">how to export CSV</a> from various common
+              <li i18n:msg="">Learn about <a href="#">how to export CSV</a> from various common
                 applications.</li>
-              <li>Help on <a href="#">common data wrangling tasks</a> needed to clean
+              <li i18n:msg="">Help on <a href="#">common data wrangling tasks</a> needed to clean
                 source data.</li>
             </ul>
 
@@ -39,7 +39,7 @@
           </div>
 
           <div py:when="c.source and not c.source.analysis"
-            class="alert-message block-message info">
+            class="alert-message block-message info"  i18n:msg="">
             <strong>Let me see...</strong> The data is now being checked to
             see if it can be imported. This should not take very long.
             <div class="alert-actions">
@@ -48,7 +48,7 @@
           </div>
 
           <div py:when="c.source and 'columns' in c.source.analysis and not c.dataset.mapping"
-            class="alert-message block-message success">
+            class="alert-message block-message success"  i18n:msg="">
             <strong>Good stuff!</strong> Your data is now ready. Next,
             create a <strong>data model</strong> to structure the dataset.
             <div class="alert-actions">
@@ -115,7 +115,7 @@
         <form method="POST" action="${h.url(controller='editor',
           action='delete', dataset=c.dataset.name)}">
           <input type="submit" class="btn danger" value="Delete entire dataset" />
-          <span class="help-block">This action cannot be undone.</span>
+          <span class="help-block" i18n:comment="Warning message on deletion">This action cannot be undone.</span>
         </form>
 
         <br/>

@@ -50,7 +50,7 @@
     <div class="topbar" data-dropdown="dropdown">
       <div class="fill">
         <div class="container">
-          <a class="brand" href="/"><span class="green">Open</span>Spending</a>
+          <a class="brand" href="/" xml:lang="en"><span class="green">Open</span>Spending</a>
           <ul class="nav">
             <li class="active"><a href="/">Home</a></li>
             <li><a href="${g.blog_link}">Spending Blog</a></li>
@@ -62,7 +62,7 @@
                 </li>
                 <li class="divider"></li>
                 <li><a href="${h.url_for(controller='dataset',
-                  action='index')}">All datasets (${c.datasets.count()})...</a></li>
+                  action='index')}" i18n:msg="count">All datasets (${c.datasets.count()})...</a></li>
                 <py:if test="can.dataset.create()">
                   <li><a href="${h.url_for(controller='dataset',
                     action='new')}">Import a dataset...</a></li>

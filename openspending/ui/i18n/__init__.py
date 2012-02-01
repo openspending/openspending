@@ -5,7 +5,7 @@ import logging
 log = logging.getLogger(__name__)
 
 # TODO: Figure out a nicer way to get this. From the .ini? 
-_KNOWN_LOCALES = ['en', 'de', 'no', 'it']
+_KNOWN_LOCALES = ['en', 'de', 'it']
 
 def get_available_locales():
     return map(Locale.parse, _KNOWN_LOCALES)
@@ -42,6 +42,3 @@ def handle_request(request, tmpl_context):
             tmpl_context.language = language
             break
         except: pass
-
-
-

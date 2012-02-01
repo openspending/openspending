@@ -46,7 +46,6 @@ class HomeController(BaseController):
         locale = request.params.get('locale')
         if locale is not None:
             set_session_locale(locale)
-            log.debug("Set session locale to %s" % locale)
 
     def version(self):
         cwd = os.path.dirname(__file__)

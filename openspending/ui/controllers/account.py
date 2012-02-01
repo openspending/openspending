@@ -38,8 +38,8 @@ class AccountController(BaseController):
                         _("Login name already exists, please choose a "
                           "different one"))
                 if not data['password1'] == data['password2']:
-                    raise colander.Invalid(AccountRegister.password1, _("Passwords \
-                        don't match!"))
+                    raise colander.Invalid(AccountRegister.password1,
+                                           _("Passwords don't match!"))
                 account = Account()
                 account.name = data['name']
                 account.fullname = data['fullname']

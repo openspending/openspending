@@ -17,12 +17,12 @@
       }
     </style>
 
-	<script>
-	  var validDimensionType = function(ty) {
-	    var validTypes = [ 'attribute', 'value', 'date', 'measure' ];
-	    return ($$.inArray(ty, validTypes) !== -1);
+        <script>
+          var validDimensionType = function(ty) {
+            var validTypes = [ 'attribute', 'value', 'date', 'measure' ];
+            return ($$.inArray(ty, validTypes) !== -1);
       };
-	</script>
+        </script>
   </py:def>
 
   <div py:def="content">
@@ -74,44 +74,44 @@
         </py:if>
         <py:if test="c.can_edit">
 
-		 
-  		  <ul class="tabs">
-  			<li><a href="dimensions">Dimensions</a></li>
-  			<li class="active"><a href="#source">Advanced</a></li>
-			<li><a href="dimensions#help">Help</a></li>
-  		  </ul>
+                 
+                  <ul class="tabs">
+                        <li><a href="dimensions">Dimensions</a></li>
+                        <li class="active"><a href="#source">Advanced</a></li>
+                        <li><a href="dimensions#help">Help</a></li>
+                  </ul>
 
           <div id="main-tab-content" class="tab-content">
 
             <div class="active tab-pane" id="source">
-			<form class="basic" id="form" action="${url(controller='editor',
-			        action='dimensions_update', dataset=c.dataset.name)}" 
-					method="POST">
+                        <form class="basic" id="form" action="${url(controller='editor',
+                                action='dimensions_update', dataset=c.dataset.name)}" 
+                                        method="POST">
 
 
               <fieldset>
-				<py:if test="len(c.errors.keys())">
+                                <py:if test="len(c.errors.keys())">
                   <div class="alert-message block-message error">
-					<p>
-					  The dimensions mapping could not be saved as it 
-					  contains some errors:
-					</p>
-					<ul py:for="field, error in c.errors.items()">
+                                        <p>
+                                          The dimensions mapping could not be saved as it 
+                                          contains some errors:
+                                        </p>
+                                        <ul py:for="field, error in c.errors.items()">
                       <li><strong>${field}:</strong> ${error}</li>
-					</ul>
+                                        </ul>
                   </div>
-				</py:if>
-				<textarea id="fallback" class="xxlarge" rows="20"
-						  name="mapping">${c.fill['mapping']}</textarea>
-				<div id="frame">
+                                </py:if>
+                                <textarea id="fallback" class="xxlarge" rows="20"
+                                                  name="mapping">${c.fill['mapping']}</textarea>
+                                <div id="frame">
                   <div id="mapping" 
-					   style="height: 300px; width: 690px">${c.fill['mapping']}</div>
-				</div>
+                                           style="height: 300px; width: 690px">${c.fill['mapping']}</div>
+                                </div>
               </fieldset>
               <div class="actions">
-				<input id="save" value="Save" class="btn success" type="submit" />
+                                <input id="save" value="Save" class="btn success" type="submit" />
               </div>
-			</form>
+                        </form>
             </div>
 
           </div>
@@ -130,9 +130,9 @@
 
 
     <script>
-	  var _globalEditor = null;
+          var _globalEditor = null;
       var fallback = "#fallback";
-	  findEditor = function() { return _globalEditor; }
+          findEditor = function() { return _globalEditor; }
 
       jQuery(document).ready(function($) {
         $(fallback).hide();
@@ -152,12 +152,12 @@
 
     ${script_tag('vendor/jquery.tmpl')}
 
-	${script_tag('vendor/bootstrap-tabs')}
+        ${script_tag('vendor/bootstrap-tabs')}
 
-	<script>
-	  $(function($) {
-	    $('.tabs').tabs();
-	  });
+        <script>
+          $(function($) {
+            $('.tabs').tabs();
+          });
     </script>
 
     <style>
