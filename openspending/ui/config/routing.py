@@ -54,6 +54,8 @@ def make_map():
 
     map.connect('/datasets.{format}', controller='dataset', action='index')
     map.connect('/datasets/cta', controller='dataset', action='cta')
+    map.connect('/datasets/territories', controller='dataset',
+            action='territories')
     map.connect('/datasets/new', controller='dataset', action='new')
     map.connect('/datasets', controller='dataset', action='create',
             conditions=dict(method=['POST']))

@@ -58,6 +58,19 @@ class DatasetController(BaseController):
             c.language_options = DatasetLanguage.dataset_counts(c.results)
             return render('dataset/index.html')
 
+    def territories(self):
+        q = db.select([DatasetTerritory.code, 
+                       db.func.count(DatasetTerritory.dataset_id)],
+            group_by=DatasetTerritory.code,
+            order_by=db.func.count(DatasetTerritory.dataset_id).desc())
+        result = {}
+        for territory, count in db.session.bind.execute(q).fetchall():
+            result[territory] = {'count': count,
+                                 'label': h.COUNTRIES[territory],
+                                 'url': h.url_for(controller='dataset',
+                                     action='index', territories=territory)}
+        return to_jsonp(result)
+
     def cta(self):
         return render('dataset/new_cta.html')
 
