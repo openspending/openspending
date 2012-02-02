@@ -40,7 +40,7 @@ class TestCompoundDimension(DatabaseTestCase):
         assert len(self.entity.attributes)==2, self.entity.attributes
         assert_raises(KeyError, self.entity.__getitem__, 'field')
         assert self.entity['name'].name=='name'
-        assert self.entity['name'].datatype=='string'
+        assert self.entity['name'].datatype=='id'
 
     def test_attributes_exist_on_table(self):
         assert hasattr(self.entity, 'table'), self.entity
