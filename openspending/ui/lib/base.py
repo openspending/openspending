@@ -103,7 +103,7 @@ class BaseController(WSGIController):
         for item in self.items:
             item.before(request, c)
 
-        c.languages = i18n.get_language_pairs()
+        c.detected_l10n_languages = i18n.get_language_pairs()
 
     def __after__(self):
         if session.get('state', {}) != c.state:

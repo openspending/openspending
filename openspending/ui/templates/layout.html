@@ -79,10 +79,10 @@
           <ul class="nav secondary-nav">
             <li>
                 <option py:match="option[@class='locale']" py:attrs="select('@*')"
-                  selected="${c.language and (str(select('@value')) == c.language) or None}"
+                  selected="${c.detected_l10n_languages and (str(select('@value')) == c.language) or None}"
                   py:content="select('text()')" />
                 <select name="locale" class="locale" id="select-locale">
-                  <option py:for="l in c.languages" class="locale" value="${l[0]}">${l[1]}</option>
+                  <option py:for="l in c.detected_l10n_languages" class="locale" value="${l[0]}">${l[1]}</option>
                 </select>
              </li>
             <li py:if="c.account is None">
