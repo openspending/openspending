@@ -78,9 +78,9 @@ function setupNewSource($els) {
 }
 
 function setupLocales() {
-  $('#select-locale').change(function(event) {
+  $('.select-locale').click(function(event) {
       $.ajax({url: '/set-locale',
-            data: {locale: $(this).val()},
+            data: {locale: $(this).data('locale')},
             type: 'POST',
             async: false,
             });
