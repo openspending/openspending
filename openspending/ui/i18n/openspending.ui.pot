@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openspending 0.11\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-02-01 16:40+0000\n"
+"POT-Creation-Date: 2012-02-04 21:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,7 +43,7 @@ msgstr ""
 msgid "You have been logged out."
 msgstr ""
 
-#: openspending/ui/controllers/dataset.py:81
+#: openspending/ui/controllers/dataset.py:94
 msgid "A dataset with this identifer already exists!"
 msgstr ""
 
@@ -150,7 +150,7 @@ msgstr ""
 msgid "Now loading..."
 msgstr ""
 
-#: openspending/ui/lib/base.py:155
+#: openspending/ui/lib/base.py:139
 #, python-format
 msgid "Sorry, there is no dataset named %r"
 msgstr ""
@@ -275,49 +275,53 @@ msgid "About"
 msgstr ""
 
 #: openspending/ui/templates/layout.html:77
-#: openspending/ui/templates/layout.html:126
+#: openspending/ui/templates/layout.html:131
 msgid "Contact"
 msgstr ""
 
-#: openspending/ui/templates/layout.html:89
+#: openspending/ui/templates/layout.html:81
 msgid "Login/Register"
 msgstr ""
 
-#: openspending/ui/templates/layout.html:92
+#: openspending/ui/templates/layout.html:84
 msgid "Settings"
 msgstr ""
 
-#: openspending/ui/templates/layout.html:93
+#: openspending/ui/templates/layout.html:85
 msgid "Logout"
 msgstr ""
 
-#: openspending/ui/templates/layout.html:116
-msgid "Open Knowledge Foundation"
-msgstr ""
-
-#: openspending/ui/templates/layout.html:117
-msgid "Open Content"
+#: openspending/ui/templates/layout.html:88
+msgid "Language"
 msgstr ""
 
 #: openspending/ui/templates/layout.html:121
+msgid "Open Knowledge Foundation"
+msgstr ""
+
+#: openspending/ui/templates/layout.html:122
+msgid "Open Content"
+msgstr ""
+
+#: openspending/ui/templates/layout.html:126
 #: openspending/ui/templates/editor/dimensions.html:189
 #: openspending/ui/templates/editor/dimensions_source.html:81
 msgid "Help"
 msgstr ""
 
-#: openspending/ui/templates/layout.html:122
+#: openspending/ui/templates/layout.html:127
 msgid "Wiki"
 msgstr ""
 
-#: openspending/ui/templates/layout.html:123
+#: openspending/ui/templates/layout.html:128
 msgid "Mailing List"
 msgstr ""
 
-#: openspending/ui/templates/layout.html:124
+#: openspending/ui/templates/layout.html:129
 msgid "API"
 msgstr ""
 
-#: openspending/ui/templates/layout.html:125
+#: openspending/ui/templates/layout.html:130
 msgid "Privacy"
 msgstr ""
 
@@ -395,7 +399,7 @@ msgstr ""
 
 #: openspending/ui/templates/dataset/_nav.html:36
 #: openspending/ui/templates/dataset/explorer.html:8
-#: openspending/ui/templates/home/index.html:56
+#: openspending/ui/templates/home/index.html:43
 msgid "Explore"
 msgstr ""
 
@@ -1077,37 +1081,33 @@ msgstr ""
 msgid "Loading…"
 msgstr ""
 
-#: openspending/ui/templates/home/index.html:18
+#: openspending/ui/templates/home/index.html:17
 msgid "Welcome"
 msgstr ""
 
-#: openspending/ui/templates/home/index.html:20
+#: openspending/ui/templates/home/index.html:19
 msgid ""
 "Do you want to help map government finance from all around the globe?\n"
-"     [1:Get involved] in Open Spending!"
+"      [1:Get involved] in Open Spending!"
 msgstr ""
 
-#: openspending/ui/templates/home/index.html:35
-msgid "We're mapping the money."
-msgstr ""
-
-#: openspending/ui/templates/home/index.html:38
+#: openspending/ui/templates/home/index.html:30
 msgid ""
-"Our aim is to track every government and corporate financial\n"
-"              transaction across the world and present it in useful and "
-"engaging forms\n"
-"              for everyone from a school-child to a data geek."
+"Our aim is to track every government and corporate financial transaction \n"
+"        across the world and present it in useful and engaging forms for "
+"everyone\n"
+"        from a school-child to a data geek."
 msgstr ""
 
-#: openspending/ui/templates/home/index.html:43
+#: openspending/ui/templates/home/index.html:34
 msgid ""
 "We're an open community that anyone is invited to join! We're looking for\n"
-"              researchers, coders and citizen activists to join us and to "
-"help gather\n"
-"              and understand financial data."
+"        researchers, coders and citizen activists to join us and to help "
+"gather and\n"
+"        understand financial data."
 msgstr ""
 
-#: openspending/ui/templates/home/index.html:57
+#: openspending/ui/templates/home/index.html:44
 msgid ""
 "OpenSpending presents financial information [1:from many\n"
 "        different countries] and sources.\n"
@@ -1117,11 +1117,11 @@ msgid ""
 "          spending stories and methods of analyzing the information."
 msgstr ""
 
-#: openspending/ui/templates/home/index.html:67
+#: openspending/ui/templates/home/index.html:54
 msgid "Investigate"
 msgstr ""
 
-#: openspending/ui/templates/home/index.html:68
+#: openspending/ui/templates/home/index.html:55
 msgid ""
 "Do you have spending questions? Ask and help to answer them on\n"
 "      our [1:discussion \n"
@@ -1130,11 +1130,11 @@ msgid ""
 "      [2:Spending Blog] to share your findings."
 msgstr ""
 
-#: openspending/ui/templates/home/index.html:77
+#: openspending/ui/templates/home/index.html:64
 msgid "Contribute"
 msgstr ""
 
-#: openspending/ui/templates/home/index.html:78
+#: openspending/ui/templates/home/index.html:65
 msgid ""
 "Is your country, state or city not on OpenSpending yet? We're\n"
 "        looking for spending data from all over the world. [1:Import a\n"
