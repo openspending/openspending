@@ -97,6 +97,14 @@ input, textarea, button, select, .btn {
   width: 120px;
 }
 
+li.locale { 
+  text-align: right;
+}
+
+.topbar div > ul .dropdown-menu li.current-locale a {
+  color: #ccc;
+}
+
 .modal form {
   margin-bottom: 0px;
 }

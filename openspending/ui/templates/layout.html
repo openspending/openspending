@@ -87,8 +87,9 @@
             <li class="dropdown">
               <a class="dropdown-toggle">Language</a>
               <ul class="dropdown-menu">
-                <li py:for="l in c.detected_l10n_languages"
-                    class="locale"><a class="select-locale" data-locale="${l[0]}">${l[1]}</a></li>
+                <li py:for="l in c.detected_l10n_languages" class="locale ${'current-locale' if l[0] == c.language else ''}">
+                    <a class="select-locale" data-locale="${l[0]}">${l[1]}</a>
+                </li>
                 <!-- option py:match="option[@class='locale']" py:attrs="select('@*')"
                   selected="${c.detected_l10n_languages and (str(select('@value')) == c.language) or None}"
                   py:content="select('text()')" />

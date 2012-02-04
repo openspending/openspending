@@ -56,7 +56,8 @@ def handle_request(request, tmpl_context):
         get_default_locale().language]
     for language in options:
         try:
-            set_lang(language) 
-            tmpl_context.language = language
+            set_lang(language)
+            # Lose the territory part of the locale string
+            tmpl_context.language = get_lang()[0].split('_')[0]
             break
         except: pass
