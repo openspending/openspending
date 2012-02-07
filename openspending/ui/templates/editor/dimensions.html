@@ -51,17 +51,14 @@
 
   <div py:def="content">
     ${editor_nav('dimensions')}
-          <div id="m1"><div class="forms dimensions_widget"><form action="#">
+    
+    <div id="m1"><div class="forms dimensions_widget"><form action="#">
     <div class="row">
       <div class="span4">
 
         <py:if test="c.can_edit">
                   <div class='formpart' id='action_buttons'>
                         <ul>
-<!--                      <li><a class='btn add_attribute_dimension' href='#'>Add single column</a></li>
-                          <li><a class='btn add_compound_dimension' href='#'>Add Multi-column</a></li>
-                          <li><a class='btn add_date_dimension' href='#'>Add Date</a></li>
-                          <li><a class='btn add_measure' href='#'>Add Measure</a></li> -->
                           <li><a class='btn' data-backdrop="static"
                                 data-controls-modal="add-dimension"
                                 data-keyboard="false" href='#'>Add Dimension</a></li>
@@ -107,8 +104,8 @@
                           <dt><label>Type:</label></dt>
                           <dd>
                                 <select id='dimension_type' name='new-dimension-type'>
-                                  <option value='attribute'>Single CSV column</option>
-                                  <option value='compound'>Multiple CSV columns</option>
+                                  <option value='attribute'>Attribute</option>
+                                  <option value='compound'>Dimension</option>
                                   <option value='date'>Date</option>
                                   <option value='measure'>Measure</option>
                                 </select>
@@ -331,39 +328,36 @@
   </div>
 
   <py:def function="scripts">
-
-
     ${script_tag('vendor/jquery.tmpl')}
-
-        ${script_tag('vendor/bootstrap-tabs')}
+    ${script_tag('vendor/bootstrap-tabs')}
     ${script_tag('vendor/bootstrap-modal')}
 
-        <script>
-          $(function($) {
-            $('.tabs').tabs();
-          });
+    <script>
+      $(function($) {
+        $('.tabs').tabs();
+      });
     </script>
 
     <script type="text/javascript" src="${h.static('app/dimensions-editor/main.js')}"></script>
     <script type="text/javascript" src="${h.static('app/dimensions-editor/modelEditorInit.js')}"></script>
 
     <py:if test="c.can_edit">
-        <script>
-          jQuery(function($) {
-            var config = {
-              dataset: "${c.dataset.name}",
-                  source: "${c.source.id}",
-                  editorSelector: "#m1",
-                  fallbackSelector: '#mapping',
-              namesHook: '#names-hook'
+      <script>
+        jQuery(function($) {
+          var config = {
+            dataset: "${c.dataset.name}",
+            source: "${c.source.id}",
+            editorSelector: "#m1",
+            fallbackSelector: '#mapping',
+            namesHook: '#names-hook'
             };
 
-        $(document).ready(function () {
-          $('.dimensions_widget').show();
-          initModelEditor($, config);
-        });
+          $(document).ready(function () {
+            $('.dimensions_widget').show();
+            initModelEditor($, config);
           });
-        </script>
+        });
+      </script>
     </py:if>
   </py:def>
 
