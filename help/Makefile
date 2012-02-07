@@ -10,7 +10,7 @@ BUILDDIR      = ../openspending/ui/templates/help
 # Internal variables.
 ALLSPHINXOPTS   = -d $(BUILDDIR)/doctrees $(SPHINXOPTS) .
 
-.PHONY: help clean html
+.PHONY: help clean html pot
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -24,3 +24,5 @@ html:
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)."
 
+pot:
+	$(SPHINXBUILD) -b gettext . pots

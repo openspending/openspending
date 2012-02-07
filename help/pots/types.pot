@@ -1,0 +1,58 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2011, The Open Knowledge Foundation
+# This file is distributed under the same license as the OpenSpending package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenSpending 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-02-07 16:44\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../types.rst:2
+# 090c00cd4549448ab793bbd186268f8d
+msgid "Types of Information in OpenSpending"
+msgstr ""
+
+#: ../types.rst:4
+# 83f3da511d4249d1b5e208b7da16a4b2
+msgid "OpenSpending is very flexible with regards to the financial data types it supports. While there is a strong focus on government finance, this is of course not a technical constraint. Most of the data we present can be categorized as either spending or budgetary data:"
+msgstr ""
+
+#: ../types.rst:9
+# 440ebc19d068492aafbc177bc4f53272
+msgid "Spending data"
+msgstr ""
+
+#: ../types.rst:11
+# e0078f9a85c34de6a70c2eb56c3358ea
+msgid "Spending data can include various types of records, including information on government grants, commitments and actual expenditure. However, we don’t expect spending data to include aggregate information. This means that while several physical payments may be consolidated into a single item, each payment from one entity to another made for a specific purpose (project, service) on a given date or during a given duration should be listed individually. Reporting data about spending that has been further aggregated will demand different modes of analysis and should instead be treated as budget data."
+msgstr ""
+
+#: ../types.rst:14
+# 4769bbfe6f9b49e19180fae1060dec8a
+msgid "Budgetary data"
+msgstr ""
+
+#: ../types.rst:16
+# b6b2022b41284478b2a75db77a47fd71
+msgid "Budget information generally reflects the outcome (or status) of a financial programming process within government. For this purpose, data on past outcomes and appropriations for a future period are often presented jointly. Allocation is typically structured across one or many classification schemes (rather than by the actual recipients of funds). Since budget information is often based on aggregated data and statistical estimates, much of the literature on the publication of statistical information applies to it."
+msgstr ""
+
+#: ../types.rst:19
+# 0f467b20554c4542a8fb627a35d364cb
+msgid "Other types of data"
+msgstr ""
+
+#: ../types.rst:21
+# e72d6d800d3744cf9aed7399e030f138
+msgid "Of course, we're actively looking to support further types of financial information, such as corporate balance sheets and cash flow statements."
+msgstr ""
+

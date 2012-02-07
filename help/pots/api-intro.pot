@@ -1,0 +1,58 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2011, The Open Knowledge Foundation
+# This file is distributed under the same license as the OpenSpending package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenSpending 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-02-07 16:44\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../api-intro.rst:3
+# 290c2a917cd04027906dcaa476410b3c
+msgid "Summary and Conventions"
+msgstr ""
+
+#: ../api-intro.rst:6
+# 697ec6df50d5499fb5bc89191daed8cc
+msgid "Authentication"
+msgstr ""
+
+#: ../api-intro.rst:8
+# c32f4997ded644f18a4654cee7c69d20
+msgid "Some actions in OpenSpending require authentication, particularly those that write to the system or aim to access protected data (e.g. pre-publication datasets). For this purpose, each user is provided an API key. The key is displayed in the *Settings* mask and can be used to perform HTTP Basic-style authentication::"
+msgstr ""
+
+#: ../api-intro.rst:18
+# 222334b8cdd1413f8b185e9b45830210
+msgid "JSON-P Callbacks"
+msgstr ""
+
+#: ../api-intro.rst:20
+# 0a03c532e6074a9fb4040f4268920e9c
+msgid "All API calls that return JSON support JSON-P (JSON with padding). You can add a ``?callback=foo`` parameter to any query to wrap the output in a function call. This is used to include JSON data in other sites that do not support CORS::"
+msgstr ""
+
+#: ../api-intro.rst:34
+# 2f8699bff45e44cebfa1f1a9662aea13
+msgid "This can be used in remote web pages to include data as a simple ``script`` tag:"
+msgstr ""
+
+#: ../api-intro.rst:48
+# 4700242359bf47f3a80b28440ab0b1d5
+msgid "Cross Origin Resource Sharing"
+msgstr ""
+
+#: ../api-intro.rst:50
+# 589b57ee12c64e908858b7a503abd40e
+msgid "The API does not yet support `CORS <http://code.google.com/p/html5security/wiki/CrossOriginRequestSecurity>`_ but support will be added in the near future."
+msgstr ""
+

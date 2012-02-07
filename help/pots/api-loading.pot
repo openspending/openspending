@@ -1,0 +1,33 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2011, The Open Knowledge Foundation
+# This file is distributed under the same license as the OpenSpending package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenSpending 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-02-07 16:44\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../api-loading.rst:3
+# cd304c3c46a54203a093d4883c58157b
+msgid "Data loading API"
+msgstr ""
+
+#: ../api-loading.rst:5
+# 8be500ad5c6a417eafc3c59d275f6cfb
+msgid "Future version of OpenSpending will support and API to stage and perform loads of datasets and to manipulate dataset and visualization metadata on loaded datasets."
+msgstr ""
+
+#: ../api-loading.rst:9
+# 3a2d55006333419fa07ed26865a9d379
+msgid "While this functionality is not yet implemented, we'd appreciate any input on the design of this API on our `openspending-dev <http://lists.okfn.org/mailman/listinfo/openspending-dev>`_ mailing list."
+msgstr ""
+
