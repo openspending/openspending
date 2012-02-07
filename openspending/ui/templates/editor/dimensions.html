@@ -128,7 +128,11 @@
 
                 </py:if>
 
-        <py:if test="c.can_edit and c.source and 'columns' in c.source.analysis">
+      <py:if test="c.can_edit and c.source and 'columns' in c.source.analysis">
+        <ul id="names-hook" class="dimension-names">
+          <li>foo</li>
+        </ul>
+         
          <div id='column-names-container'>
           <h3>Source data columns:</h3>
           <ul id='column-names'>
@@ -174,17 +178,6 @@
                   </div>
                                 </py:if>
                  
-                  <ul class="tabs">
-
-                                          <li class="dropdown" data-dropdown="dropdown" style="float: left">
-                                                <a href="#" class="dropdown-toggle" id="dimension-count">Dimensions (?)</a>
-                                                <ul  id="names-hook" class="dimension-names dropdown-menu">
-                                                </ul>
-                                          </li>
-
-                        <li><a href="dimensions_src">Advanced</a></li>
-                        <li class="active"><a href="#help">Help</a></li>
-                  </ul>
 
           <div class="modeleditor tab-content dimensions">
                         <div class='tab-pane active' id='help'>
@@ -201,11 +194,13 @@
                                           out below, and you can add your own dimensions using the links at
                                           the bottom of the page.
                                         </p>
-        <h3>What do I do here?</h3>
+                                        <h3>What do I do here?</h3>
+                                        <p>
         To create a model, you need to define the dimensions of your dataset
         in a JSON (JavaScript Object Notation) schema. Using the
         auto-generated schema, you likely need to define
         measures and compound dimensions.
+        </p>
         <ul>
           <li><strong><a
             href="http://docs.openspending.org/en/latest/model/design.html#dimension-and-mapping-definitions">Schema
