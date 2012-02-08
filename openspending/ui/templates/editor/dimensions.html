@@ -220,6 +220,9 @@
                                         </select>
                                   </td>
                                   <td>
+                                    <input type='short' class='span3' name='$${prefix(fieldName)}[default_value]' placeholder="Default Value" />
+                                  </td>
+                                  <td>
                                         {{if required(fieldName) != true}}
                                         <a href='#' class='field_rm'>&times;</a>
                                         {{/if}}
@@ -240,6 +243,10 @@
                                   <dt><label>Column:</label></dt>
                                   <dd>
                                         <select class='column' name='$${name}[column]'></select>
+                                  </dd>
+                                  <dt><label>Default Value:</label></dt>
+                                  <dd>
+                                        <select class='short' name='$${name}[default_value]'></select>
                                   </dd>
                                   {{if !meta.fixedDataType}}
                                   <dt><label>Data type:</label></dt>
@@ -278,6 +285,7 @@
                                           <td>Field name</td>
                                           <td>Column</td>
                                           <td>Type</td>
+                                          <td>Default value</td>
                                           <td>&nbsp;</td>
                                         </tr>
                                   </thead>
