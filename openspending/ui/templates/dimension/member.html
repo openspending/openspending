@@ -17,7 +17,7 @@
     <div class="row">
       <div class="span-two-thirds">
         <h3>Description</h3>
-        <div class="no-desc" py:if="not c.member.get('description')">
+        <div class="no-desc" py:if="not c.member.get('description')" i18n:msg="member_label">
           No description is available for ${c.member.label}
         </div>
         ${h.markdown(c.member.get('description'))}

@@ -42,18 +42,10 @@ class HomeController(BaseController):
                          action='index',
                          sub_domain=None))
 
-    def locale(self):
-        return_to = request.params.get('return_to', '/')
+    def set_locale(self):
         locale = request.params.get('locale')
         if locale is not None:
-            flash_success(_("Language has been set to: English"))
             set_session_locale(locale)
-        else:
-            flash_error(_("No language given!"))
-        return_to += '&' if '?' in return_to else '?'
-        # hack to prevent next page being cached
-        return_to += '__cache=%s' % int(random.random() * 100000000)
-        redirect(return_to.encode('utf-8'))
 
     def version(self):
         cwd = os.path.dirname(__file__)

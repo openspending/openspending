@@ -29,5 +29,5 @@ class HelpController(BaseController):
                     and os.path.exists(filename)):
                 continue
             return render(suffix)
-        abort(404, "Sorry, the selected help file could not be found")
+        abort(404, _("Sorry, the selected help file could not be found"))
 

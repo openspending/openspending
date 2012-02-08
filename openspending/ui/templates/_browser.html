@@ -27,9 +27,9 @@
         <div style="text-align: right;">
           <py:if test="c.browser.url">
             <a href="${c.browser.url}.json">
-              <img src="${h.static('img/icons/json.png')}" alt="JSON" /></a>
+              <img src="${h.static('img/icons/json.png')}" alt="JSON" xml:lang="en" /></a>
             <a href="${c.browser.url}.csv">
-              <img src="${h.static('img/icons/csv.png')}" alt="CSV" /></a>
+              <img src="${h.static('img/icons/csv.png')}" alt="CSV" xml:lang="en" /></a>
           </py:if>
         </div>
         <ul>
@@ -83,7 +83,8 @@
         py:with="value = c.browser.facet_values(facet).items()[0][0]">
         <tbody py:if="(facet, value) in c.browser.filters">
           <tr>
-            <td width="5%" class="count">
+            <td width="5%" class="count"
+            i18n:comment="Label for active filters on the dataset 'Search' page">
               filter:
             </td>
             <td>

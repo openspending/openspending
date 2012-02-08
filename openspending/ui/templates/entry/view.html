@@ -11,10 +11,10 @@
   <div py:def="content" class="entry-page">
     <!-- templates/entry/view.html -->
 
-    <h2 class="page-header">
+    <h2 class="page-header" i18n:msg="dataset_label">
       <div class="representations">
         <a href="${url(controller='entry', action='view', dataset=c.dataset.name, id=c.id, format='json')}">
-          <img src="${h.static('img/icons/json.png')}" alt="JSON" />
+          <img src="${h.static('img/icons/json.png')}" alt="JSON" xml:lang="en" />
         </a>
       </div>
       Entry in ${c.dataset.label}

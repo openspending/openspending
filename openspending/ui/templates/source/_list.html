@@ -45,8 +45,7 @@
                 </form>
               </py:if>
               <py:if test="not source.loadable">
-                <a href="#" type="submit" class="btn small disabled">Test a
-                  sample</a>
+                <a href="#" type="submit" class="btn small disabled">Test a sample</a>
                 <a href="#" type="submit" class="btn success small disabled">
                   Load</a>
               </py:if>
@@ -73,7 +72,7 @@
                 <py:if test="run.status == 'failed'">
                   <span class="label important">Errors</span>
                 </py:if>
-                (${run.records.count()} Errors)
+                <span py:strip="" i18n:msg="count">(${run.records.count()} Errors)</span>
               </li>
             </ul>
           </td>

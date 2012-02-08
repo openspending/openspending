@@ -6,49 +6,36 @@
 
 
   <py:def function="scripts">
-    <script src='http://cloud.github.com/downloads/malsup/cycle/jquery.cycle.all.latest.js'></script>
-    <script>
-      jQuery(function ($) {
-        $('.slideshow').cycle({fx: 'fade'});
-      });
-    </script>
+    <script type="text/javascript" src="/static/js/vendor/jquery.js"></script>
+  	<script type="text/javascript" src="/static/js/vendor/raphael-min.js"></script>
+	  <script type="text/javascript" src="/static/js/vendor/kartograph/kartograph.min.js"></script>
+  	<script type="text/javascript" src="/static/js/vendor/chroma.pack.min.js"></script>
+  	<script type="text/javascript" src="/static/app/spending-map/load.js"></script>
   </py:def>
 
 
- <py:def function="page_title">Welcome</py:def>
- <div py:def="content">
-   <div class="alert-message block-message info">
-     Do you want to help map government finance from all around the globe?
-     <a href="/getinvolved">Get involved</a> in Open Spending!
-   </div>
-
-   <div class="row">
-     <div class="span16 fp-mapping">
-       <div class="row fp-frame">
-         <div class="slideshow span16">
-           <img src="${h.static('img/home/mapping.jpg')}" />
-           <img src="${h.static('img/home/nerds.jpg')}" />
-           <img src="${h.static('img/home/bubbles.jpg')}" />
-         </div>
-         <div class="overlay row">
-           <div class="span-two-thirds">
-             <h1>We're mapping the money.</h1>
-           </div>
-           <div class="span-one-third fp-mission">
-            <p>
-              Our aim is to track every government and corporate financial
-              transaction across the world and present it in useful and engaging forms
-              for everyone from a school-child to a data geek.
-            </p>
-            <p>
-              We're an open community that anyone is invited to join! We're looking for
-              researchers, coders and citizen activists to join us and to help gather
-              and understand financial data.
-            </p>
-          </div>
-        </div>
-      </div>
+  <py:def function="page_title">Welcome</py:def>
+  <div py:def="content">
+    <div class="alert-message block-message info" i18n:msg="">
+      Do you want to help map government finance from all around the globe?
+      <a href="/getinvolved">Get involved</a> in Open Spending!
     </div>
+
+    <div class="row">
+      <div id="fp-wrap" class="span16">
+		  <div id="fp-map">
+
+		  </div>
+		  <div id="fp-blurb">
+        <p>Our aim is to track every government and corporate financial transaction 
+        across the world and present it in useful and engaging forms for everyone
+        from a school-child to a data geek.</p>
+
+        <p>We're an open community that anyone is invited to join! We're looking for
+        researchers, coders and citizen activists to join us and to help gather and
+        understand financial data.</p>
+		  </div>
+	  </div>
   </div>
 
   <div class="row">

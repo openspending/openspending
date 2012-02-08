@@ -42,7 +42,7 @@ def make_map():
     map.connect('/', controller='home', action='index')
 
     map.connect('/getinvolved', controller='home', action='getinvolved')
-    map.connect('/locale', controller='home', action='locale')
+    map.connect('/set-locale', controller='home', action='set_locale', conditions=dict(method=['POST']))
 
     map.connect('/login', controller='account', action='login')
     map.connect('/register', controller='account', action='register')
@@ -54,6 +54,8 @@ def make_map():
 
     map.connect('/datasets.{format}', controller='dataset', action='index')
     map.connect('/datasets/cta', controller='dataset', action='cta')
+    map.connect('/datasets/territories', controller='dataset',
+            action='territories')
     map.connect('/datasets/new', controller='dataset', action='new')
     map.connect('/datasets', controller='dataset', action='create',
             conditions=dict(method=['POST']))

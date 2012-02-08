@@ -16,37 +16,37 @@
         height: 305px;
       }
       #action_buttons li a {
-	    vertical-align: middle;
-	    text-align: center;
-	    width: 80%;
-	  }
+            vertical-align: middle;
+            text-align: center;
+            width: 80%;
+          }
 
-	  #action_buttons li {
-	    list-style-type: none;
-	  }
+          #action_buttons li {
+            list-style-type: none;
+          }
 
       #column-names .used {
-	    text-decoration: line-through;
-	    background-color: #ffffff;
-	  }
+            text-decoration: line-through;
+            background-color: #ffffff;
+          }
 
       #column-names-container {
         text-align: right;
-	  }
-	  #column-names-container h3 {
-	    padding: 5px;
-	  }
-	  #column-names-container li {
-	    list-style-type: none;
+          }
+          #column-names-container h3 {
+            padding: 5px;
+          }
+          #column-names-container li {
+            list-style-type: none;
       }
     </style>
 
-	<script>
-	  var validDimensionType = function(ty) {
-	    var validTypes = [ 'attribute', 'value', 'date', 'measure' ];
-	    return ($$.inArray(ty, validTypes) !== -1);
+        <script>
+          var validDimensionType = function(ty) {
+            var validTypes = [ 'attribute', 'value', 'date', 'measure' ];
+            return ($$.inArray(ty, validTypes) !== -1);
       };
-	</script>
+        </script>
   </py:def>
 
   <div py:def="content">
@@ -56,21 +56,21 @@
       <div class="span4">
 
         <py:if test="c.can_edit">
-		  <div class='formpart' id='action_buttons'>
-			<ul>
-<!--			  <li><a class='btn add_attribute_dimension' href='#'>Add single column</a></li>
-			  <li><a class='btn add_compound_dimension' href='#'>Add Multi-column</a></li>
-			  <li><a class='btn add_date_dimension' href='#'>Add Date</a></li>
-			  <li><a class='btn add_measure' href='#'>Add Measure</a></li> -->
-			  <li><a class='btn' data-backdrop="static"
-				data-controls-modal="add-dimension"
-				data-keyboard="false" href='#'>Add Dimension</a></li>
-			  <li><a class='btn' data-backdrop="true"
+                  <div class='formpart' id='action_buttons'>
+                        <ul>
+<!--                      <li><a class='btn add_attribute_dimension' href='#'>Add single column</a></li>
+                          <li><a class='btn add_compound_dimension' href='#'>Add Multi-column</a></li>
+                          <li><a class='btn add_date_dimension' href='#'>Add Date</a></li>
+                          <li><a class='btn add_measure' href='#'>Add Measure</a></li> -->
+                          <li><a class='btn' data-backdrop="static"
+                                data-controls-modal="add-dimension"
+                                data-keyboard="false" href='#'>Add Dimension</a></li>
+                          <li><a class='btn' data-backdrop="true"
                 data-controls-modal="check-uniques"
                 data-keyboard="true" href='#'>Set Unique Dimensions</a></li>
-			  <li><a class='btn rm_all_dimensions' href='#'>Delete All Dimensions</a></li>
-			</ul>
-		  </div>
+                          <li><a class='btn rm_all_dimensions' href='#'>Delete All Dimensions</a></li>
+                        </ul>
+                  </div>
 
 
 
@@ -78,15 +78,15 @@
         <div class="modal-header">
           <h3>Specify which dimensions identify an entry uniquely</h3>
         </div>
-		<form action='#'>
+                <form action='#'>
           <div class="modal-body">
-			<ul id="uniques" style="list-style: none;">
-			</ul>
+                        <ul id="uniques" style="list-style: none;">
+                        </ul>
           </div>
           <div class="modal-footer">
-			<a class='btn set_uniques success'>Update</a>
+                        <a class='btn set_uniques success'>Update</a>
           </div>
-		</form>
+                </form>
       </div>
 
 
@@ -94,42 +94,42 @@
         <div class="modal-header">
           <h3>Add new dimension</h3>
         </div>
-		<form action='#'>
+                <form action='#'>
           <div class="modal-body">
-			<div style="padding: 4px">
-			  <p>
-				The name you choose should only contain letters, numbers and dashes (i.e., no spaces)
-			  </p>
-			  <p>Where the dimension represents the ultimate source or destination of the funds, call it <code>from</code> or <code>to</code>.
-				</p>
-			</div>
-			<dl>			  
-			  <dt><label>Type:</label></dt>
-			  <dd>
-				<select id='dimension_type' name='new-dimension-type'>
-				  <option value='attribute'>Single CSV column</option>
-				  <option value='compound'>Multiple CSV columns</option>
-				  <option value='date'>Date</option>
-				  <option value='measure'>Measure</option>
-				</select>
-			  </dd>
-			  
-			  <dt><label>Name:</label></dt>
-			  <dd>
-				<input type='text' name='new-dimension-name' value='' />
-			  </dd>
-			</dl>
+                        <div style="padding: 4px">
+                          <p>
+                                The name you choose should only contain letters, numbers and dashes (i.e., no spaces)
+                          </p>
+                          <p i18n:msg="">Where the dimension represents the ultimate source or destination of the funds, call it <code>from</code> or <code>to</code>.
+                                </p>
+                        </div>
+                        <dl>                      
+                          <dt><label>Type:</label></dt>
+                          <dd>
+                                <select id='dimension_type' name='new-dimension-type'>
+                                  <option value='attribute'>Single CSV column</option>
+                                  <option value='compound'>Multiple CSV columns</option>
+                                  <option value='date'>Date</option>
+                                  <option value='measure'>Measure</option>
+                                </select>
+                          </dd>
+                          
+                          <dt><label>Name:</label></dt>
+                          <dd>
+                                <input type='text' name='new-dimension-name' value='' />
+                          </dd>
+                        </dl>
           </div>
           <div class="modal-footer">
-			<a class='btn cancel_add_dimension cancel'>Cancel</a>
-			<a class='btn add_dimension success'>Add</a>
+                        <a class='btn cancel_add_dimension cancel'>Cancel</a>
+                        <a class='btn add_dimension success'>Add</a>
           </div>
-		</form>
+                </form>
       </div>
 
 
 
-		</py:if>
+                </py:if>
 
         <py:if test="c.can_edit and c.source and 'columns' in c.source.analysis">
          <div id='column-names-container'>
@@ -139,7 +139,7 @@
               <code>${col}</code>
             </li>
           </ul>
-		 </div>
+                 </div>
         </py:if>
 
       </div>
@@ -165,45 +165,45 @@
         </py:if>
         <py:if test="c.can_edit">
 
-				<py:if test="len(c.errors.keys())">
+                                <py:if test="len(c.errors.keys())">
                   <div class="alert-message block-message error">
-					<p>
-					  The dimensions mapping could not be saved as it 
-					  contains some errors:
-					</p>
-					<ul py:for="field, error in c.errors.items()">
+                                        <p>
+                                          The dimensions mapping could not be saved as it 
+                                          contains some errors:
+                                        </p>
+                                        <ul py:for="field, error in c.errors.items()">
                       <li><strong>${field}:</strong> ${error}</li>
-					</ul>
+                                        </ul>
                   </div>
-				</py:if>
-		 
-  		  <ul class="tabs">
+                                </py:if>
+                 
+                  <ul class="tabs">
 
-					  <li class="dropdown" data-dropdown="dropdown" style="float: left">
-						<a href="#" class="dropdown-toggle" id="dimension-count">Dimensions (?)</a>
-						<ul  id="names-hook" class="dimension-names dropdown-menu">
-						</ul>
-					  </li>
+                                          <li class="dropdown" data-dropdown="dropdown" style="float: left">
+                                                <a href="#" class="dropdown-toggle" id="dimension-count">Dimensions (?)</a>
+                                                <ul  id="names-hook" class="dimension-names dropdown-menu">
+                                                </ul>
+                                          </li>
 
-  			<li><a href="dimensions_src">Advanced</a></li>
-			<li class="active"><a href="#help">Help</a></li>
-  		  </ul>
+                        <li><a href="dimensions_src">Advanced</a></li>
+                        <li class="active"><a href="#help">Help</a></li>
+                  </ul>
 
           <div class="modeleditor tab-content dimensions">
-			<div class='tab-pane active' id='help'>
-			  <div class='forms'>
-				<form action="#">
+                        <div class='tab-pane active' id='help'>
+                          <div class='forms'>
+                                <form action="#">
 
-				  <!-- Dimension mapping -->
-					<h3>Dimension mapping</h3>
-					<p>
-					  The first and most important step in the creation of a model is
-					  the mapping of columns in the data file to "dimensions", the logical
-					  divisions of the dataset. The four required dimensions, <code>amount</code>,
-					  <code>time</code>, <code>from</code>, and <code>to</code> are laid
-					  out below, and you can add your own dimensions using the links at
-					  the bottom of the page.
-					</p>
+                                  <!-- Dimension mapping -->
+                                        <h3>Dimension mapping</h3>
+                                        <p i18n:msg="">
+                                          The first and most important step in the creation of a model is
+                                          the mapping of columns in the data file to "dimensions", the logical
+                                          divisions of the dataset. The four required dimensions, <code>amount</code>,
+                                          <code>time</code>, <code>from</code>, and <code>to</code> are laid
+                                          out below, and you can add your own dimensions using the links at
+                                          the bottom of the page.
+                                        </p>
         <h3>What do I do here?</h3>
         To create a model, you need to define the dimensions of your dataset
         in a JSON (JavaScript Object Notation) schema. Using the
@@ -219,111 +219,111 @@
         </ul>
 
 
-				</form>
-			  </div> <!-- /.forms -->
+                                </form>
+                          </div> <!-- /.forms -->
 
-			  <!-- Dimension column field template -->
-			  <script id='tpl_dimension_field' type='text/x-jquery-tmpl'>
-				<tr data-field-name='$${fieldName}'>
-				  <td>$${fieldName}</td>
-				  <td><select class='column' name='$${prefix(fieldName)}[column]'></select></td>
-				  <td>
-					<select name='$${prefix(fieldName)}[datatype]'>
-					  <option value=''></option>
-					  <option value='string'>string</option>
-					  <option value='float'>float</option>
-					  <option value='id'>id</option>
-					  <option value='date'>date</option>
-					</select>
-				  </td>
-				  <td>
-					{{if required(fieldName) != true}}
-					<a href='#' class='field_rm'>&times;</a>
-					{{/if}}
-				  </td>
-				</tr>
-			  </script>
+                          <!-- Dimension column field template -->
+                          <script id='tpl_dimension_field' type='text/x-jquery-tmpl'>
+                                <tr data-field-name='$${fieldName}'>
+                                  <td>$${fieldName}</td>
+                                  <td><select class='column' name='$${prefix(fieldName)}[column]'></select></td>
+                                  <td>
+                                        <select name='$${prefix(fieldName)}[datatype]'>
+                                          <option value=''></option>
+                                          <option value='string'>string</option>
+                                          <option value='float'>float</option>
+                                          <option value='id'>id</option>
+                                          <option value='date'>date</option>
+                                        </select>
+                                  </td>
+                                  <td>
+                                        {{if required(fieldName) != true}}
+                                        <a href='#' class='field_rm'>&times;</a>
+                                        {{/if}}
+                                  </td>
+                                </tr>
+                          </script>
 
-			  <!-- Dimension template -->
-			  <script id='tpl_dimension' type='text/x-jquery-tmpl'>
-				<input type='hidden' name='$${name}[type]' value='$${data.type}' />
-				{{if meta.fixedDataType}}
-				<input type='hidden' name='$${name}[datatype]' value='$${data.datatype}' />
-				{{/if}}
-				<legend>$${name} ($${data.type})</legend>
-				{{if meta.helpText}}<p>$${meta.helpText}</p>{{/if}}
-				<dl>
-				  {{if validDimensionType(data.type)}}
-				  <dt><label>Column:</label></dt>
-				  <dd>
-					<select class='column' name='$${name}[column]'></select>
-				  </dd>
-				  {{if !meta.fixedDataType}}
-				  <dt><label>Data type:</label></dt>
-				  <dd>
-					<select name='$${name}[datatype]'>
-					  <option value='string'>string</option>
-					  <option value='float'>float</option>
-					  <option value='id'>id</option>
-					  <option value='date'>date</option>
-					</select>
-				  </dd>
-				  {{/if}}
-				  {{/if}}
-				  <dt><label>Label:</label></dt>
-				  <dd>
-					<input type='text' name='$${name}[label]' value='$${data.label}' />
-				  </dd>
-				  <dt><label>Description:</label></dt>
-				  <dd>
-					<textarea class='short' name='$${name}[description]'>$${data.description}</textarea>
-				  </dd>
-				  <dt><label>Unique key?</label></dt>
-				  <dd>
-					<select class='boolean' name='$${name}[key]' value='$${data.key}'>
-					  <option value="false">No</option>
-					  <option value="true">Yes</option>
-					</select>
-				  </dd>
-				</dl>
-				
-				{{if !(validDimensionType(data.type))}}
-				<div><table class='fields'>
-				  <thead>
-					<tr>
-					  <td>Field name</td>
-					  <td>Column</td>
-					  <td>Type</td>
-					  <td>&nbsp;</td>
-					</tr>
-				  </thead>
-				  <tbody>
-					{{each(n, f) data.attributes}}
-					{{tmpl({'fieldName': n, 'prefix': formFieldPrefix, 'required': formFieldRequired}) '#tpl_dimension_field'}}
-					{{/each}}
-				  </tbody>
-				</table></div>
-				<a class='btn add_field' href='#'>Add a field</a>
-				{{/if}}
-				<a class="btn rm_dimension $${name}" rm-dim="$${name}" href="#">Delete dimension</a>
-			  </script>
+                          <!-- Dimension template -->
+                          <script id='tpl_dimension' type='text/x-jquery-tmpl'>
+                                <input type='hidden' name='$${name}[type]' value='$${data.type}' />
+                                {{if meta.fixedDataType}}
+                                <input type='hidden' name='$${name}[datatype]' value='$${data.datatype}' />
+                                {{/if}}
+                                <legend>$${name} ($${data.type})</legend>
+                                {{if meta.helpText}}<p>$${meta.helpText}</p>{{/if}}
+                                <dl>
+                                  {{if validDimensionType(data.type)}}
+                                  <dt><label>Column:</label></dt>
+                                  <dd>
+                                        <select class='column' name='$${name}[column]'></select>
+                                  </dd>
+                                  {{if !meta.fixedDataType}}
+                                  <dt><label>Data type:</label></dt>
+                                  <dd>
+                                        <select name='$${name}[datatype]'>
+                                          <option value='string'>string</option>
+                                          <option value='float'>float</option>
+                                          <option value='id'>id</option>
+                                          <option value='date'>date</option>
+                                        </select>
+                                  </dd>
+                                  {{/if}}
+                                  {{/if}}
+                                  <dt><label>Label:</label></dt>
+                                  <dd>
+                                        <input type='text' name='$${name}[label]' value='$${data.label}' />
+                                  </dd>
+                                  <dt><label>Description:</label></dt>
+                                  <dd>
+                                        <textarea class='short' name='$${name}[description]'>$${data.description}</textarea>
+                                  </dd>
+                                  <dt><label>Unique key?</label></dt>
+                                  <dd>
+                                        <select class='boolean' name='$${name}[key]' value='$${data.key}'>
+                                          <option value="false">No</option>
+                                          <option value="true">Yes</option>
+                                        </select>
+                                  </dd>
+                                </dl>
+                                
+                                {{if !(validDimensionType(data.type))}}
+                                <div><table class='fields'>
+                                  <thead>
+                                        <tr>
+                                          <td>Field name</td>
+                                          <td>Column</td>
+                                          <td>Type</td>
+                                          <td>&nbsp;</td>
+                                        </tr>
+                                  </thead>
+                                  <tbody>
+                                        {{each(n, f) data.attributes}}
+                                        {{tmpl({'fieldName': n, 'prefix': formFieldPrefix, 'required': formFieldRequired}) '#tpl_dimension_field'}}
+                                        {{/each}}
+                                  </tbody>
+                                </table></div>
+                                <a class='btn add_field' href='#'>Add a field</a>
+                                {{/if}}
+                                <a class="btn rm_dimension $${name}" rm-dim="$${name}" href="#">Delete dimension</a>
+                          </script>
 
 
-			</div> <!-- /.modeleditor -->
+                        </div> <!-- /.modeleditor -->
 
           </div>
         </py:if>
 
-				  <form  class="basic" id="form" action="${url(controller='editor',
-			        action='dimensions_update', dataset=c.dataset.name)}" 
-					method="POST">
+                                  <form  class="basic" id="form" action="${url(controller='editor',
+                                action='dimensions_update', dataset=c.dataset.name)}" 
+                                        method="POST">
 
-					<textarea id="mapping" name="mapping" style="display: none">${c.fill['mapping']}</textarea>
- 				    <div class="actions">
-					  <input id="verify" value="Verify" class="btn" name="operation" type="submit" />
-					  <input id="save" value="Save" class="btn success" name="operation" type="submit" />
+                                        <textarea id="mapping" name="mapping" style="display: none">${c.fill['mapping']}</textarea>
+                                    <div class="actions">
+                                          <input id="verify" value="Verify" class="btn" name="operation" type="submit" />
+                                          <input id="save" value="Save" class="btn success" name="operation" type="submit" />
 
-				    </div>
+                                    </div>
                   </form>
 
       </div>
@@ -338,35 +338,35 @@
 
     ${script_tag('vendor/jquery.tmpl')}
 
-	${script_tag('vendor/bootstrap-tabs')}
+        ${script_tag('vendor/bootstrap-tabs')}
     ${script_tag('vendor/bootstrap-modal')}
 
-	<script>
-	  $(function($) {
-	    $('.tabs').tabs();
-	  });
+        <script>
+          $(function($) {
+            $('.tabs').tabs();
+          });
     </script>
 
     <script type="text/javascript" src="${h.static('app/dimensions-editor/main.js')}"></script>
     <script type="text/javascript" src="${h.static('app/dimensions-editor/modelEditorInit.js')}"></script>
 
     <py:if test="c.can_edit">
-	<script>
-	  jQuery(function($) {
-	    var config = {
-	      dataset: "${c.dataset.name}",
-		  source: "${c.source.id}",
-		  editorSelector: "#m1",
-		  fallbackSelector: '#mapping',
-	      namesHook: '#names-hook'
-	    };
+        <script>
+          jQuery(function($) {
+            var config = {
+              dataset: "${c.dataset.name}",
+                  source: "${c.source.id}",
+                  editorSelector: "#m1",
+                  fallbackSelector: '#mapping',
+              namesHook: '#names-hook'
+            };
 
         $(document).ready(function () {
           $('.dimensions_widget').show();
           initModelEditor($, config);
         });
-	  });
-	</script>
+          });
+        </script>
     </py:if>
   </py:def>
 

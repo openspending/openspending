@@ -38,8 +38,8 @@ class AccountController(BaseController):
                         _("Login name already exists, please choose a "
                           "different one"))
                 if not data['password1'] == data['password2']:
-                    raise colander.Invalid(AccountRegister.password1, _("Passwords \
-                        don't match!"))
+                    raise colander.Invalid(AccountRegister.password1,
+                                           _("Passwords don't match!"))
                 account = Account()
                 account.name = data['name']
                 account.fullname = data['fullname']
@@ -84,8 +84,7 @@ class AccountController(BaseController):
             values = c.account.as_dict()
         return render('account/settings.html',
                       form_fill=values,
-                      form_errors=errors,
-                      cache_private=True)
+                      form_errors=errors)
 
     def after_login(self):
         if c.account is not None:

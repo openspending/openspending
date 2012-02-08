@@ -91,9 +91,9 @@ setup(
 
     message_extractors = {'openspending': [
             ('**.py', 'python', None),
-            ('ui/templates/docs/**.html', 'ignore', None),
+            ('ui/templates/help/**.html', 'ignore', None),
             ('ui/templates/**.html', 'genshi', {
-                'ignore_tags': 'script'
+                'ignore_tags': 'script http://www.w3.org/1999/xhtml}script style http://www.w3.org/1999/xhtml}style'
             }),
             ('ui/public/**', 'ignore', None),
             ]},
