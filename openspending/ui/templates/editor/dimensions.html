@@ -130,17 +130,8 @@
 
       <py:if test="c.can_edit and c.source and 'columns' in c.source.analysis">
         <ul id="names-hook" class="dimension-names">
-          <li>foo</li>
         </ul>
          
-         <div id='column-names-container'>
-          <h3>Source data columns:</h3>
-          <ul id='column-names'>
-            <li py:for="col in c.source.analysis['columns']">
-              <code>${col}</code>
-            </li>
-          </ul>
-                 </div>
         </py:if>
 
       </div>
@@ -273,6 +264,10 @@
                                   <dt><label>Unique key?</label></dt>
                                   <dd>
                                         <input type='checkbox' name='$${name}[key]' value='true' />
+                                  </dd>
+                                  <dt><label>Facet</label></dt>
+                                  <dd>
+                                        <input type='checkbox' name='$${name}[facet]' value='true' />
                                   </dd>
                                 </dl>
                                 
