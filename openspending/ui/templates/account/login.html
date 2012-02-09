@@ -7,67 +7,68 @@
   <py:def function="page_title">Login</py:def>
   
   <div py:def="content">
+    <h2 class="page-header">Sign in to OpenSpending</h2>
     <div class="row">
-      <div class="span8">
-        <h2>Login</h2>
-        <form class="basic login" id="login" action="/perform_login" method="POST">
+      <div class="span6">
+        <h3>Login</h3>
+        <form class="basic login form-horizontal" id="login" action="/perform_login" method="POST">
           <fieldset>
-            <div class="clearfix">
+            <div class="control-group">
               <label for="login">Login</label>
-              <div class="input">
+              <div class="controls">
                 <input name="login" />
               </div>
             </div>
-            <div class="clearfix">
+            <div class="control-group">
               <label for="password">Password</label>
-              <div class="input">
+              <div class="controls">
                 <input name="password" type="password" />
               </div>
             </div>
           </fieldset>
-          <div class="actions">
-            <input value="Login" class="btn primary" type="submit" />
+          <div class="form-actions">
+            <input value="Login" class="btn btn-primary" type="submit" />
           </div>
         </form>
       </div>
-      <div class="span8">
-        <h2>Create an account</h2>
-        <form class="basic register" id="register" action="/register" method="POST">
+      <div class="span6">
+        <h3>Create an account</h3>
+        <form class="basic register form-horizontal" id="register" action="/register" method="POST">
           <fieldset>
-            <div class="clearfix">
+            <div class="control-group">
               <label for="name">Login</label>
-              <div class="input">
+              <div class="controls">
                 <input name="name" />
               </div>
             </div>
-            <div class="clearfix">
+            <div class="control-group">
               <label for="fullname">Fullname</label>
-              <div class="input">
+              <div class="controls">
                 <input name="fullname" />
               </div>
             </div>
-            <div class="clearfix">
+            <div class="control-group">
               <label for="email">E-Mail</label>
-              <div class="input">
+              <div class="controls">
                 <input name="email" />
               </div>
             </div>
-            <div class="clearfix">
+            <div class="control-group">
               <label for="password1">Password</label>
-              <div class="input">
+              <div class="controls">
                 <input name="password1" type="password" autocomplete="off" />
               </div>
             </div>
-            <div class="clearfix">
+            <div class="control-group">
               <label for="password2">Password (repeat)</label>
-              <div class="input">
+              <div class="controls">
                 <input name="password2" type="password" autocomplete="off" />
               </div>
             </div>
           </fieldset>
 
-          <div class="actions">
-            <input value="Create new account" class="btn primary" type="submit" />
+          <div class="form-actions">
+            <input value="Create new account" class="btn btn-primary" type="submit" />
           </div>
         </form>
       </div>

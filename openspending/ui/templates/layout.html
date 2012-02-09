@@ -47,36 +47,38 @@
 
   <body>
 
-    <div class="topbar" data-dropdown="dropdown">
-      <div class="fill">
+    <div class="navbar navbar-fixed-top" data-dropdown="dropdown">
+      <div class="navbar-inner">
         <div class="container">
           <a class="brand" href="/" xml:lang="en"><span class="green">Open</span>Spending</a>
-          <ul class="nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="${g.blog_link}">Spending Blog</a></li>
-            <li class="dropdown">
-              <a href="/datasets" class="dropdown-toggle">Datasets</a>
-              <ul class="dropdown-menu">
-                <li py:for="dataset in c.datasets.limit(15)">
-                  <a href="${h.dataset_url(dataset)}">${dataset.label}</a>
-                </li>
-                <li class="divider"></li>
-                <li><a href="${h.url_for(controller='dataset',
-                  action='index')}" i18n:msg="count">All datasets (${c.datasets.count()})...</a></li>
-                <py:if test="can.dataset.create()">
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a href="/">Home</a></li>
+              <li><a href="${g.blog_link}">Spending Blog</a></li>
+              <li class="dropdown">
+                <a href="/datasets" class="dropdown-toggle">Datasets</a>
+                <ul class="dropdown-menu">
+                  <li py:for="dataset in c.datasets.limit(15)">
+                    <a href="${h.dataset_url(dataset)}">${dataset.label}</a>
+                  </li>
+                  <li class="divider"></li>
                   <li><a href="${h.url_for(controller='dataset',
-                    action='new')}">Import a dataset...</a></li>
-                </py:if>
-                <py:if test="not can.dataset.create()">
-                  <li><a href="${h.url_for(controller='dataset',
-                    action='cta')}">Import a dataset...</a></li>
-                </py:if>
-              </ul>
-            </li>
-            <li><a href="http://wiki.openspending.org/">About</a></li>
-            <li><a href="${h.url(controller='help', action='page', path='contact.html')}">Contact</a></li>
-          </ul>
-          <ul class="nav secondary-nav">
+                    action='index')}" i18n:msg="count">All datasets (${c.datasets.count()})...</a></li>
+                  <py:if test="can.dataset.create()">
+                    <li><a href="${h.url_for(controller='dataset',
+                      action='new')}">Import a dataset...</a></li>
+                  </py:if>
+                  <py:if test="not can.dataset.create()">
+                    <li><a href="${h.url_for(controller='dataset',
+                      action='cta')}">Import a dataset...</a></li>
+                  </py:if>
+                </ul>
+              </li>
+              <li><a href="http://wiki.openspending.org/">About</a></li>
+              <li><a href="${h.url(controller='help', action='page', path='contact.html')}">Contact</a></li>
+            </ul>
+          </div>
+          <ul class="nav pull-right">
             <li py:if="c.account is None">
               <a href="/login">Login/Register</a>
             </li>
@@ -86,16 +88,10 @@
             </py:if>
             <li class="dropdown">
               <a class="dropdown-toggle">Language</a>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu locale-dropdown">
                 <li py:for="l in c.detected_l10n_languages" class="locale ${'current-locale' if l[0] == c.language else ''}">
                     <a class="select-locale" data-locale="${l[0]}">${l[1]}</a>
                 </li>
-                <!-- option py:match="option[@class='locale']" py:attrs="select('@*')"
-                  selected="${c.detected_l10n_languages and (str(select('@value')) == c.language) or None}"
-                  py:content="select('text()')" />
-                <select name="locale" class="locale" id="select-locale">
-                  <option py:for="l in c.detected_l10n_languages" class="locale" value="${l[0]}">${l[1]}</option>
-                  </select-->
               </ul>
              </li>
           </ul>
@@ -106,11 +102,12 @@
     <div class="container">
       <py:with vars="messages = list(h._flash.pop_messages())">
         <div py:if="len(messages)">
-          <div class="alert-message ${m.category}" py:for="m in messages">
+          <div class="alert alert-${m.category}" py:for="m in messages">
             ${m.message}
           </div>
         </div>
-        </py:with>
+      </py:with>
+
 <!-- ************************************************************************************************** -->
         <!-- templates/layout.html content include start -->
         ${content()}

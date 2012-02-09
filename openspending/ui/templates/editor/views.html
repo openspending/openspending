@@ -31,25 +31,25 @@
         </div>
 
         <h3>Available Dimensions</h3>
-        <ul>
+        <ul class="">
           <li py:for="dimension in c.dataset.dimensions">
-            <code>${dimension.name}</code>: ${dimension.label}
+            <strong>${dimension.name}</strong>: ${dimension.label}
             <py:if test="hasattr(dimension, 'attributes')">
-              <span class="help-block">
-                Attributes: <span py:for="a in
-                  dimension.attributes"><code style="font-size: 9px;">${a.name}</code> </span>
-              </span>
-              <br/>
+              <ul py:for="a in dimension.attributes">
+                <li>
+                  <strong>${a.name}</strong>
+                </li>
+              </ul>
             </py:if>
           </li>
         </ul>
       </div>
-      <div class="span12">
+      <div class="span8">
         <form class="basic" id="form" action="${url(controller='editor',
           action='views_update', dataset=c.dataset.name)}" method="POST">
           <fieldset>
             <py:if test="len(c.errors.keys())">
-              <div class="alert-message block-message error">
+              <div class="alert block-message alert-error">
                 <p>
                 The views could not be saved as they contain some 
                 errors:
@@ -63,11 +63,11 @@
               name="views">${c.fill['views']}</textarea>
             <div id="frame">
               <div id="views" style="height: 300px; width:
-                690px">${c.fill['views']}</div>
+                620px">${c.fill['views']}</div>
             </div>
           </fieldset>
-          <div class="actions">
-            <input id="save" value="Update" class="btn success" type="submit" />
+          <div class="form-actions">
+            <input id="save" value="Update" class="btn btn-success" type="submit" />
           </div>
         </form>
       </div>

@@ -10,7 +10,7 @@
     <!-- templates/dataset/new_cta.html content -->
     <h2 class="page-header">Contribute your local data!</h2>
     <div class="row">
-      <div class="offset4 span12" i18n:msg="">
+      <div class="offset2 span10" i18n:msg="">
         We're trying to gather <strong>the world's spending
           information</strong>
         in a common
@@ -21,11 +21,9 @@
         their local city budget or spending reports.
       </div>
     </div>
+    <h3 class="page-header">Why should you contribute?</h3>
     <div class="row">
-      <h3 class="offset4 span12">Why should you contribute?</h3>
-    </div>
-    <div class="row">
-      <div class="offset4 span12" i18n:msg="">
+      <div class="offset2 span10" i18n:msg="">
         There are many projects that aim to track financial information. All
         require these basic services, which we aim to provide:
          <br/>  <br/>
@@ -37,11 +35,12 @@
           <li>Means to track provenance and provide access to the raw
           data.</li>
         </ul>
-        
-        <a href="${h.url(controller='account', action='register')}"
-          class="btn large success">Sign up to contribute</a>
-        <a href="${h.url(controller='help', action='page', path='data.html')}"
-          class="btn large">Learn more</a>
+        <div class="form-actions">
+          <a href="${h.url(controller='account', action='register')}"
+            class="btn btn-large btn-success">Sign up to contribute</a>
+          <a href="${h.url(controller='help', action='page', path='data.html')}"
+            class="btn btn-large">Learn more</a>
+        </div>
       </div>
     </div>
   </div>

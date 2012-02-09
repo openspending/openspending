@@ -12,45 +12,45 @@
     </h2>
 
     <div class="row">
-      <div class="span-two-thirds offset-one-third">
-        <form class="basic settings" id="settings" action="/settings" method="POST">
-          <div class="clearfix">
+      <div class="offset2 span10">
+        <form class="basic settings form-horizontal" id="settings" action="/settings" method="POST">
+          <div class="control-group">
             <label for="fullname">Fullname</label>
-            <div class="input">
+            <div class="controls">
               <input name="fullname" />
             </div>
           </div>
-          <div class="clearfix">
+          <div class="control-group">
             <label for="email">E-Mail</label>
-            <div class="input">
+            <div class="controls">
               <input name="email" />
             </div>
           </div>
-          <div class="clearfix">
+          <div class="control-group">
             <label for="password1">Password</label>
-            <div class="input">
+            <div class="controls">
               <input name="password1" type="password" autocomplete="off" />
             </div>
           </div>
-          <div class="clearfix">
+          <div class="control-group">
             <label for="password2">Password (repeat)</label>
-            <div class="input">
+            <div class="controls">
               <input name="password2" type="password" autocomplete="off" />
-              <span class="help-block">Leave both fields blank to keep
-                your current password.</span>
+              <p class="help-block">Leave both fields blank to keep
+                your current password.</p>
             </div>
           </div>
-          <div class="clearfix">
+          <div class="control-group">
             <label for="api_key">API Key</label>
-            <div class="input">
+            <div class="controls">
               <span class="uneditable-input" style="width: 25em;">${c.account.api_key}</span>
-              <span class="help-block">Use this key to access the OpenSpending
-                API programmatically.</span>
+              <p class="help-block">Use this key to access the OpenSpending
+                API programmatically.</p>
             </div>
           </div>
           
-          <div class="actions">
-            <input value="Save" type="submit" class="btn primary" />
+          <div class="form-actions">
+            <input value="Save" type="submit" class="btn btn-primary" />
           </div>
         </form>
       </div>

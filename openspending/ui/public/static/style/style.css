@@ -1,7 +1,11 @@
 
 /* Bootstrap overrides */
 body {
-  padding-top: 60px;
+  padding-top: 40px;
+}
+
+.page-header {
+  padding-bottom: 0;
 }
 
 .topbar .menu-dropdown, .dropdown-menu {
@@ -81,10 +85,6 @@ input, textarea, button, select, .btn {
   float: right;
 }
 
-.nav {
-  font-size: 105%;
-}
-
 .nav select { 
   display: block;
   float: none;
@@ -93,16 +93,12 @@ input, textarea, button, select, .btn {
   height: 19px;
 }
 
-.nav select.locale { 
-  width: 120px;
-}
-
-li.locale { 
-  text-align: right;
-}
-
 .topbar div > ul .dropdown-menu li.current-locale a {
   color: #ccc;
+}
+
+.dropdown-menu.locale-dropdown {
+  min-width: 150px;
 }
 
 .modal form {

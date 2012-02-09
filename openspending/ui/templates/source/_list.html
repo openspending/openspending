@@ -7,7 +7,7 @@
   >
 
   <py:def function="sources_list(dataset)">
-    <table class="sources zebra-striped">
+    <table class="sources table table-striped table-condensed">
       <tr>
         <th colspan="2">Link</th>
         <th>Operations</th>
@@ -16,10 +16,10 @@
         <tr>
           <td colspan="2">
             <py:if test="'error' in source.analysis">
-              <span class="label important">Error</span>
+              <span class="label label-important">Error</span>
             </py:if>
             <py:if test="'columns' in source.analysis">
-              <span class="label notice">OK</span>
+              <span class="label label-info">OK</span>
             </py:if>
             <a href="${source.url}">${source.name}</a>
             <py:if test="'error' in source.analysis">
@@ -37,16 +37,16 @@
                 <form method="POST" action="${h.url(controller='source',
                   action='load', dataset=c.dataset.name, id=source.id)}">
                   <input type="hidden" name="sample" value="true" />
-                  <input type="submit" class="btn small" value="Test a sample" />
+                  <input type="submit" class="btn btn-small" value="Test a sample" />
                 </form>
                 <form method="POST" action="${h.url(controller='source',
                   action='load', dataset=c.dataset.name, id=source.id)}">
-                  <input type="submit" class="btn success small" value="Load" />
+                  <input type="submit" class="btn btn-success btn-small" value="Load" />
                 </form>
               </py:if>
               <py:if test="not source.loadable">
-                <a href="#" type="submit" class="btn small disabled">Test a sample</a>
-                <a href="#" type="submit" class="btn success small disabled">
+                <a href="#" type="submit" class="btn btn-small disabled">Test a sample</a>
+                <a href="#" type="submit" class="btn btn-success btn-small disabled">
                   Load</a>
               </py:if>
             </td>
@@ -64,13 +64,13 @@
                   dataset=c.dataset.name, source=source.id, id=run.id)}">
                   ${run.time_start.strftime("%d.%m.%Y, %H:%M")}</a>
                 <py:if test="run.status == 'running'">
-                  <span class="label notice">Running</span>
+                  <span class="label label-info">Running</span>
                 </py:if>
                 <py:if test="run.status == 'complete'">
-                  <span class="label success">Complete</span>
+                  <span class="label label-success">Complete</span>
                 </py:if>
                 <py:if test="run.status == 'failed'">
-                  <span class="label important">Errors</span>
+                  <span class="label label-important">Errors</span>
                 </py:if>
                 <span py:strip="" i18n:msg="count">(${run.records.count()} Errors)</span>
               </li>

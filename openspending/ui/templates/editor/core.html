@@ -11,20 +11,20 @@
   <div py:def="content">
     ${editor_nav('core')}
     <div class="row">
-      <div class="offset4 span12">
-        <form class="basic" action="${url(controller='editor',
+      <div class="offset2 span10">
+        <form class="basic form-horizontal" action="${url(controller='editor',
           action='core_update', dataset=c.dataset.name)}" method="POST">
           <input name="name" value="${c.dataset.name}" type="hidden" />
           <fieldset>
-            <div class="clearfix">
-              <label for="label">Title</label>
-              <div class="input">
-                <input name="label" placeholder="My Dataset" />
+            <div class="control-group">
+              <label class="control-label" for="label">Title</label>
+              <div class="controls">
+                <input class="input-xlarge" name="label" placeholder="My Dataset" />
               </div>
             </div>
-            <div class="clearfix">
-              <label for="currency">Currency</label>
-              <div class="input">
+            <div class="control-group">
+              <label class="control-label" for="currency">Currency</label>
+              <div class="controls">
                 <select name="currency">
                   <py:for each="code, name in c.currencies">
                     <option value="${code}">${name} (${code})</option>
@@ -32,15 +32,9 @@
                 </select>
               </div>
             </div>
-            <div class="clearfix">
-              <label for="description">Description</label>
-              <div class="input">
-                <textarea class="xxlarge" rows="17" name="description"></textarea>
-              </div>
-            </div>
-            <div class="clearfix">
-              <label for="territories">Countries</label>
-              <div class="input">
+            <div class="control-group">
+              <label class="control-label" for="territories">Countries</label>
+              <div class="controls">
                 <select name="territories" multiple="multiple" class="span7">
                   <py:for each="code, name in c.territories">
                     <option value="${code}">${name} (${code})</option>
@@ -48,9 +42,9 @@
                 </select>
               </div>
             </div>
-            <div class="clearfix">
-              <label for="languages">Languages</label>
-              <div class="input">
+            <div class="control-group">
+              <label class="control-label" for="languages">Languages</label>
+              <div class="controls">
                 <select name="languages" multiple="multiple" class="span7">
                   <py:for each="code, name in c.languages">
                     <option value="${code}">${name} (${code})</option>
@@ -58,9 +52,15 @@
                 </select>
               </div>
             </div>
+            <div class="control-group">
+              <label class="control-label" for="description">Description</label>
+              <div class="controls">
+                <textarea class="input-xxlarge" rows="7" name="description"></textarea>
+              </div>
+            </div>
           </fieldset>
-          <div class="actions">
-            <input value="Update" class="btn success" type="submit" />
+          <div class="form-actions">
+            <input value="Update" class="btn btn-success" type="submit" />
           </div>
         </form>
       </div>
