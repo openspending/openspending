@@ -29,7 +29,7 @@
     <br/>
     
     <div class="row">
-      <div class="entities span7">
+      <div class="entities span5">
         <py:if test="'from' in c.desc">
           <span>
             ${c.desc.get('from', {}).label or _('Recipient')}:
@@ -56,7 +56,7 @@
         </py:if>
       </div><!-- /.entities -->
 
-      <div class="amount span8">
+      <div class="amount span6">
         <div class="number">
           <img src="${h.static('img/icons/cd_16x16.png')}" />
           ${h.format_number_with_commas(c.amount)}
@@ -71,8 +71,8 @@
 
     <br/>
     <div class="row" py:if="len(c.extras)">
-      <div class="span16">
-        <table width="100%">
+      <div class="span12">
+        <table class="table table-striped table-condensed" width="100%">
           <thead>
             <tr>
               <th>Dimension</th>

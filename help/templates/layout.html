@@ -21,7 +21,7 @@
 {%- endif %}
 
 {%- macro relbar() %}
-    <div class="related span16">
+    <div class="related span12">
       <ul class="breadcrumb">
         {%- block rootrellink %}
         <li><a href="{{ pathto(master_doc) }}">{{ shorttitle|e }}</a><span class="divider">{{ reldelim1 }}</span></li>
@@ -140,18 +140,18 @@
   <div py:def="content" class="help-page">
     <h2 class="page-header">{{ title|striptags|e }}</h2>
     <div class="row">
-      <div span="16">
+      <div span="12">
         {%- block relbar2 %}{{ relbar() }}{% endblock %}
       </div>
     </div>
     {%- block content %}
       <div class="row">
-        <div class="span4">
+        <div class="span3">
           {%- block sidebar1 %} {# possible location for sidebar #} {% endblock %}
           {%- block sidebar2 %}{{ sidebar() }}{% endblock %}
           &nbsp;
         </div>
-        <div class="span8">
+        <div class="span9">
           {%- block document %}
             {% block body %} {% endblock %}
           {%- endblock %}

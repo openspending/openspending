@@ -17,15 +17,15 @@
       (${c.run.records.count()} Errors, ${c.run.status})
     </h3>
     <div py:if="not (c.num_data or c.num_system)" 
-      class="alert-message block-message success">
+      class="alert block-message alert-success">
       <strong>Nothing to report!</strong> The source has been loaded
       successfully. This does not mean the data is stored in a form 
       which is semantically useful, though, so don't forget to 
       sanity-check a few entries!
     </div>
     <div class="row" py:if="c.num_system">
-      <div class="span16">
-        <table class="zebra-striped">
+      <div class="span12">
+        <table class="table table-condensed table-striped">
           <tr>
             <th>Level</th>
             <th>Message</th>
@@ -41,8 +41,8 @@
       </div>
     </div>
     <div class="row" py:if="c.num_data">
-      <div class="span16">
-        <table class="zebra-striped">
+      <div class="span12">
+        <table class="table table-condensed table-striped">
           <tr>
             <th>Row</th>
             <th>Column</th>

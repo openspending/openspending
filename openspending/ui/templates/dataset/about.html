@@ -19,7 +19,7 @@
     </div>
 
     <div class="row">
-      <div class="span-two-thirds">
+      <div class="span8">
         <h3>Description</h3>
         <div class="help-block" py:if="not c.dataset.description" i18n:msg="label">
           No description is available for ${c.dataset.label}
@@ -27,7 +27,7 @@
         ${h.markdown(c.dataset.description)}
 
         <div class="row">
-          <div class="span-one-third">
+          <div class="span4">
             <h3>Sources</h3>
             <span class="help-block" i18n:msg="">
               This is a listing of all source data that was registered
@@ -43,7 +43,7 @@
               </li>
             </ul>
           </div>
-          <div class="span-one-third">
+          <div class="span4">
             <h3>Team</h3>
             <span class="help-block">
               These people are the managers of the dataset. They can
@@ -57,7 +57,7 @@
           </div>
         </div>
       </div>
-      <div class="span-one-third">
+      <div class="span4">
         <h3>Measures</h3>
         <span class="help-block">
           Measures are the numeric properties of each entry in this 
