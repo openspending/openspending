@@ -64,7 +64,7 @@
     <!-- templates/_util.html view_times -->
     <li py:if="c.view" class="dropdown" data-dropdown="dropdown">
       <a href="#" class="dropdown-toggle">${c.time}</a>
-      <ul class="dropdown-menu">
+      <ul class="dropdown-menu times">
         <py:for each="time in c.times">
           <li py:if="c.time != time">
             <a href="?_view=${c.viewstate.view.name}&amp;_time=${time}">${time}</a>
