@@ -14,8 +14,10 @@
         display: none;
         position: relative;
         height: 305px;
-      }
-      #action_buttons li a {
+        }
+
+        /*
+        #action_buttons li a {
             vertical-align: middle;
             text-align: center;
             width: 80%;
@@ -24,6 +26,7 @@
           #action_buttons li {
             list-style-type: none;
           }
+      */
 
       #column-names .used {
             text-decoration: line-through;
@@ -38,6 +41,10 @@
           }
           #column-names-container li {
             list-style-type: none;
+            }
+
+      .rm_dimension {
+        float: right;
       }
     </style>
 
@@ -54,20 +61,33 @@
     
     <div id="m1"><div class="forms dimensions_widget"><form action="#">
     <div class="row">
-      <div class="span4">
+      <div class="span3">
 
         <py:if test="c.can_edit">
-                  <div class='formpart' id='action_buttons'>
-                        <ul>
-                          <li><a class='btn' data-backdrop="static"
+        <p>
+          <a class='btn btn-primary' data-backdrop="static"
                                 data-controls-modal="add-dimension"
-                                data-keyboard="false" href='#'>Add Dimension</a></li>
-                          <li><a class='btn' data-backdrop="true"
-                data-controls-modal="check-uniques"
-                data-keyboard="true" href='#'>Set Unique Dimensions</a></li>
-                          <li><a class='btn rm_all_dimensions' href='#'>Delete All Dimensions</a></li>
-                        </ul>
-                  </div>
+                                data-keyboard="false" href='#'>
+            <i class="icon-plus icon-white"></i>
+            Add Dimension</a>
+        </p>
+        <p class="help-block">
+          Make sure your dimensions import all source data columns.<br/><br/>
+        </p>
+        <p>
+          <a class='btn btn-primary' data-backdrop="true"
+              data-controls-modal="check-uniques"
+              data-keyboard="true" href='#'>Set Unique Dimensions</a>
+        </p>
+        <p class="help-block">
+          Identify the dimensions that help to identify each entry.<br/><br/>
+        </p>
+        <h3>Exisiting Dimensions</h3>
+        <div class="well">
+          <ul id="names-hook" class="dimension-names nav nav-list">
+          </ul>
+        </div>
+
 
 
 
@@ -81,7 +101,7 @@
                         </ul>
           </div>
           <div class="modal-footer">
-                        <a class='btn set_uniques success'>Update</a>
+                        <a class='btn set_uniques btn-success'>Update</a>
           </div>
                 </form>
       </div>
@@ -91,7 +111,7 @@
         <div class="modal-header">
           <h3>Add new dimension</h3>
         </div>
-                <form action='#'>
+                <form action='#' class="form-horizontal">
           <div class="modal-body">
                         <div style="padding: 4px">
                           <p>
@@ -100,42 +120,61 @@
                           <p i18n:msg="">Where the dimension represents the ultimate source or destination of the funds, call it <code>from</code> or <code>to</code>.
                                 </p>
                         </div>
-                        <dl>                      
-                          <dt><label>Type:</label></dt>
-                          <dd>
-                                <select id='dimension_type' name='new-dimension-type'>
-                                  <option value='attribute'>Attribute</option>
-                                  <option value='compound'>Dimension</option>
-                                  <option value='date'>Date</option>
-                                  <option value='measure'>Measure</option>
-                                </select>
-                          </dd>
-                          
-                          <dt><label>Name:</label></dt>
-                          <dd>
-                                <input type='text' name='new-dimension-name' value='' />
-                          </dd>
-                        </dl>
+                      <div class="control-group">
+                        <label for="new-dimension-name">Name</label>
+                        <div class="controls">
+                          <input type='text' name='new-dimension-name' value='' />
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label for="new-dimension-type">Type</label>
+                        <div class="controls">
+                          <label class="checkbox">
+                            <input id='dimension_type' type="radio" name="new-dimension-type" value="compound" />
+                            Dimension
+                            <p class="help-block">
+                              A defined set, like suppliers or classifications, with 
+                              multiple attributes (e.g. supplier name and VAT number).
+                            </p>
+                          </label>
+                          <label class="checkbox">
+                            <input id='dimension_type' type="radio" name="new-dimension-type" value="attribute" />
+                            Attribute
+                            <p class="help-block">
+                              A simple value, e.g. descriptions or transaction IDs.
+                            </p>
+                          </label>
+                          <label class="checkbox">
+                            <input id='dimension_type' type="radio" name="new-dimension-type" value="date" />
+                            Date
+                            <p class="help-block">
+                              Temporal value, e.g. start of project, date of disbursement.
+                            </p>
+                          </label>
+                          <label class="checkbox">
+                            <input id='dimension_type' type="radio" name="new-dimension-type" value="measure" />
+                            Measure
+                            <p class="help-block">
+                              Monetary information, e.g. amount disbursed or allocated.
+                            </p>
+                          </label>
+                        </div>
+                      </div>
           </div>
           <div class="modal-footer">
-                        <a class='btn cancel_add_dimension cancel'>Cancel</a>
-                        <a class='btn add_dimension success'>Add</a>
+                        <a class='btn cancel_add_dimension btn-danger'>Cancel</a>
+                        <a class='btn add_dimension btn-success'>Add</a>
           </div>
                 </form>
       </div>
 
 
 
-                </py:if>
-
-      <py:if test="c.can_edit and c.source and 'columns' in c.source.analysis">
-        <ul id="names-hook" class="dimension-names">
-        </ul>
          
         </py:if>
 
       </div>
-      <div class="span8">
+      <div class="span9">
         <py:if test="not c.can_edit">
           <div class="alert-message block-message warning">
             <strong>You cannot edit dimensions while data is
@@ -158,7 +197,7 @@
         <py:if test="c.can_edit">
 
                                 <py:if test="len(c.errors.keys())">
-                  <div class="alert-message block-message error">
+                  <div class="alert block-message alert-error">
                                         <p>
                                           The dimensions mapping could not be saved as it 
                                           contains some errors:
@@ -212,7 +251,6 @@
                                   <td><select class='column' name='$${prefix(fieldName)}[column]'></select></td>
                                   <td>
                                         <select name='$${prefix(fieldName)}[datatype]'>
-                                          <option value=''></option>
                                           <option value='string'>string</option>
                                           <option value='float'>float</option>
                                           <option value='id'>id</option>
@@ -224,7 +262,7 @@
                                   </td>
                                   <td>
                                         {{if required(fieldName) != true}}
-                                        <a href='#' class='field_rm'>&times;</a>
+                                        <a href='#' class='field_rm'><i class="icon-remove"></i></a>
                                         {{/if}}
                                   </td>
                                 </tr>
@@ -232,61 +270,81 @@
 
                           <!-- Dimension template -->
                           <script id='tpl_dimension' type='text/x-jquery-tmpl'>
+                            <div class="form-horizontal">
                                 <input type='hidden' name='$${name}[type]' value='$${data.type}' />
                                 {{if meta.fixedDataType}}
                                 <input type='hidden' name='$${name}[datatype]' value='$${data.datatype}' />
                                 {{/if}}
                                 <legend>$${name} ($${data.type})</legend>
                                 {{if meta.helpText}}<p>$${meta.helpText}</p>{{/if}}
-                                <dl>
-                                  {{if validDimensionType(data.type)}}
-                                  <dt><label>Column:</label></dt>
-                                  <dd>
-                                        <select class='column' name='$${name}[column]'></select>
-                                  </dd>
-                                  <dt><label>Default Value:</label></dt>
-                                  <dd>
-                                        <select class='short' name='$${name}[default_value]'></select>
-                                  </dd>
-                                  {{if !meta.fixedDataType}}
-                                  <dt><label>Data type:</label></dt>
-                                  <dd>
-                                        <select name='$${name}[datatype]'>
-                                          <option value='string'>string</option>
-                                          <option value='float'>float</option>
-                                          <option value='id'>id</option>
-                                          <option value='date'>date</option>
-                                        </select>
-                                  </dd>
-                                  {{/if}}
-                                  {{/if}}
-                                  <dt><label>Label:</label></dt>
-                                  <dd>
-                                        <input type='text' name='$${name}[label]' value='$${data.label}' />
-                                  </dd>
-                                  <dt><label>Description:</label></dt>
-                                  <dd>
-                                        <textarea class='short' name='$${name}[description]'>$${data.description}</textarea>
-                                  </dd>
-                                  <dt><label>Unique key?</label></dt>
-                                  <dd>
-                                        <input type='checkbox' name='$${name}[key]' value='true' />
-                                  </dd>
-                                  <dt><label>Facet</label></dt>
-                                  <dd>
-                                        <input type='checkbox' name='$${name}[facet]' value='true' />
-                                  </dd>
-                                </dl>
-                                
+
+                                <div class="control-group">
+                                  <label class="control-label">Label:</label>
+                                  <div class="controls">
+                                      <input type='text' name='$${name}[label]' value='$${data.label}' />
+                                  </div>
+                                </div>
+                                <div class="control-group">
+                                  <div class="controls">
+                                    <label class="checkbox">
+                                      <input type='checkbox' name='$${name}[key]' value='true' />
+                                      Include in unique key
+                                    </label>
+                                  </div>
+                                </div>
+
+                                {{if validDimensionType(data.type)}}
+                                <div class="control-group">
+                                  <label class="control-label">Column:</label>
+                                  <div class="controls">
+                                      <select class='column' name='$${name}[column]'></select>
+                                  </div>
+                                </div>
+                                <hr/>
+                                <div class="control-group">
+                                  <label class="control-label">Default value:</label>
+                                  <div class="controls">
+                                      <input class='short' name='$${name}[default_value]' />
+                                  </div>
+                                </div>
+                                {{if !meta.fixedDataType}}
+                                  <div class="control-group">
+                                    <label class="control-label">Data type:</label>
+                                    <div class="controls">
+                                      <select name='$${name}[datatype]'>
+                                        <option value='string'>string</option>
+                                        <option value='float'>float</option>
+                                        <option value='id'>id</option>
+                                        <option value='date'>date</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                {{/if}}
+                                {{/if}}
+                                <div class="control-group">
+                                  <label class="control-label">Description:</label>
+                                  <div class="controls">
+                                    <textarea class='short' name='$${name}[description]'>$${data.description}</textarea>
+                                  </div>
+                                </div>
+                                <div class="control-group">
+                                  <div class="controls">
+                                    <label class="checkbox">
+                                      <input type='checkbox' name='$${name}[facet]' value='true' />
+                                      Use as facet in entries browser
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
                                 {{if !(validDimensionType(data.type))}}
-                                <div><table class='fields'>
+                                <div><table class='table table-condensed table-striped fields'>
                                   <thead>
                                         <tr>
-                                          <td>Field name</td>
-                                          <td>Column</td>
-                                          <td>Type</td>
-                                          <td>Default value</td>
-                                          <td>&nbsp;</td>
+                                          <th>Field</th>
+                                          <th>Column</th>
+                                          <th>Type</th>
+                                          <th>Default</th>
+                                          <th>&nbsp;</th>
                                         </tr>
                                   </thead>
                                   <tbody>
@@ -305,19 +363,20 @@
           </div>
         </py:if>
 
+
+      </div>
+    </div>
                                   <form  class="basic" id="form" action="${url(controller='editor',
                                 action='dimensions_update', dataset=c.dataset.name)}" 
                                         method="POST">
 
                                         <textarea id="mapping" name="mapping" style="display: none">${c.fill['mapping']}</textarea>
-                                    <div class="actions">
-                                          <input id="save" value="Save" class="btn btn-success" name="operation" type="submit" />
+                                    <div class="form-actions">
+                                          <input id="save" value="Save Dimensions" class="btn btn-success" name="operation" type="submit" />
+                                          <input type="button" class='btn btn-danger rm_all_dimensions' value="Delete All Dimensions" />
 
                                     </div>
                   </form>
-
-      </div>
-    </div>
           </form></div></div>
 
 
