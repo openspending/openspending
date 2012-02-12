@@ -63,6 +63,7 @@ input, textarea, button, select, .btn {
 
 .brand, .topbar, h1, h2, h3 {
   font-family: Share;
+  font-weight: normal;
   letter-spacing: -0.06em;
 }
 
