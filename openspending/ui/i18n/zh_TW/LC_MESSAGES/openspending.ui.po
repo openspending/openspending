@@ -1,47 +1,49 @@
 # Translations template for openspending.
 # Copyright (C) 2012 ORGANIZATION
 # This file is distributed under the same license as the openspending project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
-#
-#, fuzzy
+# 
+# Translators:
+#   <whisky@ystaiwan.org.tw>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: openspending 0.11\n"
+"Project-Id-Version: OpenSpending\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2012-02-13 21:03+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2012-02-13 20:04+0000\n"
+"Last-Translator: pudo <friedrich@pudo.org>\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.net/projects/p/openspending/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
+"Language: zh_TW\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 
 #: openspending/ui/controllers/account.py:38
 msgid "Login name already exists, please choose a different one"
-msgstr ""
+msgstr "登錄名稱已經存在，請重新選擇"
 
 #: openspending/ui/controllers/account.py:42
 #: openspending/ui/controllers/account.py:72
 msgid "Passwords don't match!"
-msgstr ""
+msgstr "密碼不同！"
 
 #: openspending/ui/controllers/account.py:80
 msgid "Your settings have been updated."
-msgstr ""
+msgstr "您的設定已經更新"
 
 #: openspending/ui/controllers/account.py:91
 #, python-format
 msgid "Welcome back, %s!"
-msgstr ""
+msgstr "歡迎回來，%s!"
 
 #: openspending/ui/controllers/account.py:94
 msgid "Incorrect user name or password!"
-msgstr ""
+msgstr "錯誤的使用者名稱或是密碼！"
 
 #: openspending/ui/controllers/account.py:98
 msgid "You have been logged out."
-msgstr ""
+msgstr "您已經登出！"
 
 #: openspending/ui/controllers/dataset.py:94
 msgid "A dataset with this identifer already exists!"
@@ -50,7 +52,7 @@ msgstr ""
 #: openspending/ui/controllers/dimension.py:37
 #, python-format
 msgid "Sorry, there is no member named %r"
-msgstr ""
+msgstr "錯誤，會員名稱 %r 不存在"
 
 #: openspending/ui/controllers/dimension.py:42
 #, python-format
@@ -64,10 +66,11 @@ msgstr ""
 
 #: openspending/ui/controllers/editor.py:68
 msgid "The dataset has been updated."
-msgstr ""
+msgstr "資料庫已經更新"
 
 #: openspending/ui/controllers/editor.py:102
-msgid "You cannot edit the dimensions model when data is loaded for the dataset."
+msgid ""
+"You cannot edit the dimensions model when data is loaded for the dataset."
 msgstr ""
 
 #: openspending/ui/controllers/editor.py:119
@@ -100,7 +103,8 @@ msgstr ""
 
 #: openspending/ui/controllers/editor.py:175
 #, python-format
-msgid "Congratulations, the dataset has been published. It is now available at: %s"
+msgid ""
+"Congratulations, the dataset has been published. It is now available at: %s"
 msgstr ""
 
 #: openspending/ui/controllers/editor.py:184
@@ -128,7 +132,8 @@ msgstr ""
 msgid "Sent ping!"
 msgstr ""
 
-#: openspending/ui/controllers/run.py:23 openspending/ui/controllers/source.py:56
+#: openspending/ui/controllers/run.py:23
+#: openspending/ui/controllers/source.py:56
 #, python-format
 msgid "There is no source '%s'"
 msgstr ""
@@ -149,39 +154,40 @@ msgstr ""
 #: openspending/ui/lib/base.py:139
 #, python-format
 msgid "Sorry, there is no dataset named %r"
-msgstr ""
+msgstr "錯誤，沒有名為 %r 的資料組"
 
 #: openspending/ui/templates/400.html:5 openspending/ui/templates/403.html:5
 #: openspending/ui/templates/404.html:5 openspending/ui/templates/500.html:5
 msgid "nav-home"
-msgstr ""
+msgstr "前往-首頁"
 
 #: openspending/ui/templates/400.html:9
 msgid "Invalid request."
 msgstr ""
 
 #: openspending/ui/templates/400.html:10 openspending/ui/templates/403.html:10
-#: openspending/ui/templates/404.html:10 openspending/ui/templates/run/view.html:32
+#: openspending/ui/templates/404.html:10
+#: openspending/ui/templates/run/view.html:32
 #: openspending/ui/templates/run/view.html:51
 #: openspending/ui/templates/source/_list.html:19
 msgid "Error"
-msgstr ""
+msgstr "錯誤"
 
 #: openspending/ui/templates/403.html:9
 msgid "Access denied."
-msgstr ""
+msgstr "禁止讀取"
 
 #: openspending/ui/templates/403.html:13
 msgid "You may not have the relevant rights."
-msgstr ""
+msgstr "您的權限可能不足"
 
 #: openspending/ui/templates/403.html:16
 msgid "You may need to login."
-msgstr ""
+msgstr "您需要先登入"
 
 #: openspending/ui/templates/404.html:9
 msgid "Resource not found"
-msgstr ""
+msgstr "資源不存在"
 
 #. Advice regarding a 404 error
 #: openspending/ui/templates/404.html:11
@@ -193,11 +199,11 @@ msgstr ""
 
 #: openspending/ui/templates/500.html:9
 msgid "Something went wrong"
-msgstr ""
+msgstr "錯誤出現"
 
 #: openspending/ui/templates/500.html:10
 msgid "Internal Server Error"
-msgstr ""
+msgstr "內部伺服器錯誤"
 
 #: openspending/ui/templates/500.html:13
 msgid ""
@@ -218,34 +224,34 @@ msgstr ""
 #. Label for active filters on the dataset 'Search' page
 #: openspending/ui/templates/_browser.html:87
 msgid "filter:"
-msgstr ""
+msgstr "篩選："
 
 #: openspending/ui/templates/_util.html:25
 msgid "Time"
-msgstr ""
+msgstr "時間"
 
 #: openspending/ui/templates/_util.html:26
 #: openspending/ui/templates/entry/view.html:47
 msgid "Spender"
-msgstr ""
+msgstr "發款單位"
 
 #: openspending/ui/templates/_util.html:27
 #: openspending/ui/templates/entry/view.html:35
 msgid "Recipient"
-msgstr ""
+msgstr "受款單位"
 
 #: openspending/ui/templates/_util.html:28
 msgid "Amount"
-msgstr ""
+msgstr "金額"
 
 #. Link to entry details (please leave arrow intact)
 #: openspending/ui/templates/_util.html:53
 msgid "details»"
-msgstr ""
+msgstr "內容»"
 
 #: openspending/ui/templates/layout.html:53
 msgid "Home"
-msgstr ""
+msgstr "首頁"
 
 #: openspending/ui/templates/layout.html:54
 msgid "Spending Blog"
@@ -253,7 +259,7 @@ msgstr ""
 
 #: openspending/ui/templates/layout.html:56
 msgid "Datasets"
-msgstr ""
+msgstr "資料組"
 
 #: openspending/ui/templates/layout.html:62
 #, python-format
@@ -268,24 +274,24 @@ msgstr ""
 #: openspending/ui/templates/layout.html:74
 #: openspending/ui/templates/dataset/_nav.html:34
 msgid "About"
-msgstr ""
+msgstr "關於"
 
 #: openspending/ui/templates/layout.html:75
 #: openspending/ui/templates/layout.html:132
 msgid "Contact"
-msgstr ""
+msgstr "联系"
 
 #: openspending/ui/templates/layout.html:80
 msgid "Login/Register"
-msgstr ""
+msgstr "登入/註冊"
 
 #: openspending/ui/templates/layout.html:83
 msgid "Settings"
-msgstr ""
+msgstr "設定"
 
 #: openspending/ui/templates/layout.html:84
 msgid "Logout"
-msgstr ""
+msgstr "登出"
 
 #: openspending/ui/templates/layout.html:87
 msgid "Language"
@@ -299,23 +305,23 @@ msgstr ""
 
 #: openspending/ui/templates/layout.html:125
 msgid "Help"
-msgstr ""
+msgstr "說明"
 
 #: openspending/ui/templates/layout.html:126
 msgid "Wiki"
-msgstr ""
+msgstr "Wiki"
 
 #: openspending/ui/templates/layout.html:127
 msgid "Mailing List"
-msgstr ""
+msgstr "郵件論壇"
 
 #: openspending/ui/templates/layout.html:130
 msgid "API"
-msgstr ""
+msgstr "API"
 
 #: openspending/ui/templates/layout.html:131
 msgid "Privacy"
-msgstr ""
+msgstr "隱私宣告"
 
 #: openspending/ui/templates/layout.html:141
 msgid "Open Content"
@@ -336,14 +342,14 @@ msgstr ""
 #: openspending/ui/templates/dataset/new.html:5
 #: openspending/ui/templates/dataset/new_cta.html:5
 msgid "nav-account"
-msgstr ""
+msgstr "前往-帳號"
 
 #: openspending/ui/templates/account/login.html:7
 #: openspending/ui/templates/account/login.html:13
 #: openspending/ui/templates/account/login.html:17
 #: openspending/ui/templates/account/login.html:39
 msgid "Login"
-msgstr ""
+msgstr "登入"
 
 #: openspending/ui/templates/account/login.html:10
 msgid "Sign in to OpenSpending"
@@ -353,34 +359,34 @@ msgstr ""
 #: openspending/ui/templates/account/login.html:57
 #: openspending/ui/templates/account/settings.html:30
 msgid "Password"
-msgstr ""
+msgstr "密碼"
 
 #: openspending/ui/templates/account/login.html:35
 msgid "Create an account"
-msgstr ""
+msgstr "建立帳號"
 
 #: openspending/ui/templates/account/login.html:45
 #: openspending/ui/templates/account/settings.html:18
 msgid "Fullname"
-msgstr ""
+msgstr "全名"
 
 #: openspending/ui/templates/account/login.html:51
 #: openspending/ui/templates/account/settings.html:24
 msgid "E-Mail"
-msgstr ""
+msgstr "E-Mail"
 
 #: openspending/ui/templates/account/login.html:63
 #: openspending/ui/templates/account/settings.html:36
 msgid "Password (repeat)"
-msgstr ""
+msgstr "密碼 (重覆輸入)"
 
 #: openspending/ui/templates/account/settings.html:7
 msgid "Settings for:"
-msgstr ""
+msgstr "設定項目:"
 
 #: openspending/ui/templates/account/settings.html:10
 msgid "Account Settings"
-msgstr ""
+msgstr "帳號設定"
 
 #: openspending/ui/templates/account/settings.html:39
 msgid ""
@@ -390,7 +396,7 @@ msgstr ""
 
 #: openspending/ui/templates/account/settings.html:44
 msgid "API Key"
-msgstr ""
+msgstr "API Key"
 
 #: openspending/ui/templates/account/settings.html:47
 msgid ""
@@ -400,18 +406,18 @@ msgstr ""
 
 #: openspending/ui/templates/dataset/_nav.html:14
 msgid "Entries"
-msgstr ""
+msgstr "資料輸入"
 
 #: openspending/ui/templates/dataset/_nav.html:31
 #: openspending/ui/templates/dimension/_nav.html:36
 msgid "Search"
-msgstr ""
+msgstr "搜尋"
 
 #: openspending/ui/templates/dataset/_nav.html:37
 #: openspending/ui/templates/dataset/explorer.html:8
 #: openspending/ui/templates/home/index.html:44
 msgid "Explore"
-msgstr ""
+msgstr "瀏覽"
 
 #: openspending/ui/templates/dataset/_nav.html:40
 msgid "Manage"
@@ -430,7 +436,7 @@ msgstr ""
 #: openspending/ui/templates/home/index.html:5
 #: openspending/ui/templates/home/reporterror.html:5
 msgid "nav-dataset"
-msgstr ""
+msgstr "前往-資料組"
 
 #: openspending/ui/templates/dataset/about.html:23
 #: openspending/ui/templates/dataset/new.html:85
@@ -438,7 +444,7 @@ msgstr ""
 #: openspending/ui/templates/editor/core.html:56
 #: openspending/ui/templates/entry/view.html:80
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 #: openspending/ui/templates/dataset/about.html:24
 #, python-format
@@ -490,7 +496,7 @@ msgstr ""
 
 #: openspending/ui/templates/dataset/dropdb.html:7
 msgid "Database erased"
-msgstr ""
+msgstr "資料庫"
 
 #: openspending/ui/templates/dataset/dropdb.html:12
 msgid "OpenSpending: mapping the money"
@@ -512,15 +518,15 @@ msgstr ""
 
 #: openspending/ui/templates/dataset/index.html:7
 msgid "All datasets"
-msgstr ""
+msgstr "所有的資料組"
 
 #: openspending/ui/templates/dataset/index.html:12
 msgid "Available data sets"
-msgstr ""
+msgstr "可選擇的資料組"
 
 #: openspending/ui/templates/dataset/index.html:13
 msgid "The database contains the following datasets:"
-msgstr ""
+msgstr "資料庫包含下列資料組:"
 
 #: openspending/ui/templates/dataset/index.html:30
 #: openspending/ui/templates/editor/core.html:36
@@ -561,8 +567,7 @@ msgstr ""
 #: openspending/ui/templates/dataset/new.html:34
 msgid ""
 "Paste the url of your [1:http://thedatahub.org/] dataset\n"
-"            and we will take care of pulling all the relevant information "
-"automatically\n"
+"            and we will take care of pulling all the relevant information automatically\n"
 "            (though you will get a chance to review and amend it)."
 msgstr ""
 
@@ -615,8 +620,7 @@ msgid ""
 "          information]\n"
 "        in a common\n"
 "        database so that we can provide common tools for [2:analysis,\n"
-"          visualization and comparison]. OpenSpending is an open platform "
-"that\n"
+"          visualization and comparison]. OpenSpending is an open platform that\n"
 "        aims to facilitate the presentation of financial information so \n"
 "        anyone - whether data geek or concerned citizen - can contribute \n"
 "        their local city budget or spending reports."
@@ -648,7 +652,7 @@ msgstr ""
 #: openspending/ui/templates/dataset/timeline.html:8
 #: openspending/ui/templates/dataset/timeline.html:39
 msgid "Timeline"
-msgstr ""
+msgstr "時間軸"
 
 #: openspending/ui/templates/dimension/_nav.html:39
 #: openspending/ui/templates/dimension/_nav.html:44
@@ -695,7 +699,7 @@ msgstr ""
 
 #: openspending/ui/templates/dimension/member.html:6
 msgid "nav-member"
-msgstr ""
+msgstr "前往-員"
 
 #: openspending/ui/templates/dimension/member.html:20
 #, python-format
@@ -707,24 +711,26 @@ msgid "Dimension:"
 msgstr ""
 
 #: openspending/ui/templates/dimension/view.html:20
-msgid "All figures are total financial involvement, not just funds received or spent."
+msgid ""
+"All figures are total financial involvement, not just funds received or "
+"spent."
 msgstr ""
 
 #: openspending/ui/templates/dimension/view.html:27
 #: openspending/ui/templates/entry/view.html:79
 #: openspending/ui/templates/run/view.html:50
 msgid "Value"
-msgstr ""
+msgstr "價值"
 
 #: openspending/ui/templates/dimension/view.html:28
 #, python-format
 msgid "Sum (%(currency)s)"
-msgstr ""
+msgstr "總額 (%(currency)s)"
 
 #: openspending/ui/templates/dimension/view.html:36
 #: openspending/ui/templates/dimension/view.html:40
 msgid "(Empty)"
-msgstr ""
+msgstr "(無)"
 
 #: openspending/ui/templates/editor/_nav.html:15
 msgid "Manage the dataset"
@@ -792,14 +798,13 @@ msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:107
 msgid ""
-"The name you choose should only contain letters, numbers and dashes (i.e., no"
-" spaces)"
+"The name you choose should only contain letters, numbers and dashes (i.e., "
+"no spaces)"
 msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:110
 msgid ""
-"Where the dimension represents the ultimate source or destination of the "
-"funds, \n"
+"Where the dimension represents the ultimate source or destination of the funds, \n"
 "                        call it [1:from] or [2:to]."
 msgstr ""
 
@@ -819,8 +824,7 @@ msgstr ""
 #: openspending/ui/templates/editor/dimensions.html:127
 msgid ""
 "A defined set, like suppliers or classifications, with \n"
-"                                multiple attributes (e.g. supplier name and "
-"VAT number)."
+"                                multiple attributes (e.g. supplier name and VAT number)."
 msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:133
@@ -869,16 +873,11 @@ msgstr ""
 #: openspending/ui/templates/editor/dimensions.html:185
 msgid ""
 "To create a model for your dataset,\n"
-"                                          you need to translate the columns "
-"in \n"
-"                                          the data file to \"dimensions\", "
-"the logical\n"
-"                                          divisions of the dataset. A "
-"dimension\n"
-"                                          can be any property of a line item "
-"or \n"
-"                                          transaction that should be "
-"presented\n"
+"                                          you need to translate the columns in \n"
+"                                          the data file to \"dimensions\", the logical\n"
+"                                          divisions of the dataset. A dimension\n"
+"                                          can be any property of a line item or \n"
+"                                          transaction that should be presented\n"
 "                                          within OpenSpending."
 msgstr ""
 
@@ -927,13 +926,10 @@ msgstr ""
 #: openspending/ui/templates/editor/dimensions.html:202
 msgid ""
 "Beyond that, you can add your own\n"
-"                                          dimensions to describe aspects such"
-"\n"
+"                                          dimensions to describe aspects such\n"
 "                                          as classification schemes,\n"
-"                                          descriptions, transaction IDs and "
-"any\n"
-"                                          other details present in the source"
-"\n"
+"                                          descriptions, transaction IDs and any\n"
+"                                          other details present in the source\n"
 "                                          data."
 msgstr ""
 
@@ -968,10 +964,8 @@ msgstr ""
 #: openspending/ui/templates/editor/dimensions.html:222
 msgid ""
 "If your data is transactional and \n"
-"                                          contains the name of a department "
-"or \n"
-"                                          body spending the funds, make sure "
-"to \n"
+"                                          contains the name of a department or \n"
+"                                          body spending the funds, make sure to \n"
 "                                          include a"
 msgstr ""
 
@@ -989,8 +983,7 @@ msgstr ""
 msgid ""
 "Set a unique key combination so\n"
 "                                          that the values within that\n"
-"                                          combination are different between "
-"all \n"
+"                                          combination are different between all \n"
 "                                          entries in the dataset. This can\n"
 "                                          later be used for updating the\n"
 "                                          dataset."
@@ -999,14 +992,11 @@ msgstr ""
 #: openspending/ui/templates/editor/dimensions.html:236
 msgid ""
 "After you've done these basic things,\n"
-"                                          make sure to also create dimensions"
-"\n"
-"                                          to cover any other aspects present "
-"in \n"
+"                                          make sure to also create dimensions\n"
+"                                          to cover any other aspects present in \n"
 "                                          the source data. You can group\n"
 "                                          related columns into a single\n"
-"                                          dimension, for example if each row"
-" \n"
+"                                          dimension, for example if each row \n"
 "                                          mentions both a company's name and\n"
 "                                          its VAT number."
 msgstr ""
@@ -1038,10 +1028,8 @@ msgstr ""
 #: openspending/ui/templates/editor/index.html:21
 msgid ""
 "[1:Congratulations, your dataset is now created.] Next, you'll need\n"
-"            to link to a source file that contains the data (or a sample for "
-"testing\n"
-"            if your dataset is very large!). The data must be in the CSV "
-"format."
+"            to link to a source file that contains the data (or a sample for testing\n"
+"            if your dataset is very large!). The data must be in the CSV format."
 msgstr ""
 
 #: openspending/ui/templates/editor/index.html:27
@@ -1174,7 +1162,7 @@ msgstr ""
 
 #: openspending/ui/templates/entry/view.html:17
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
 #: openspending/ui/templates/entry/view.html:14
 #, python-format
@@ -1190,21 +1178,21 @@ msgstr ""
 
 #: openspending/ui/templates/entry/view.html:107
 msgid "Notes:"
-msgstr ""
+msgstr "註解:"
 
 #: openspending/ui/templates/home/getinvolved.html:7
 #: openspending/ui/templates/home/getinvolved.html:10
 msgid "Get Involved"
-msgstr ""
+msgstr "加入我們"
 
 #: openspending/ui/templates/home/getinvolved.html:15
 #: openspending/ui/templates/home/reporterror.html:20
 msgid "Loading…"
-msgstr ""
+msgstr "載入中…"
 
 #: openspending/ui/templates/home/index.html:17
 msgid "Welcome"
-msgstr ""
+msgstr "歡迎"
 
 #: openspending/ui/templates/home/index.html:19
 msgid ""
@@ -1215,16 +1203,14 @@ msgstr ""
 #: openspending/ui/templates/home/index.html:30
 msgid ""
 "Our aim is to track every government and corporate financial transaction \n"
-"        across the world and present it in useful and engaging forms for "
-"everyone\n"
+"        across the world and present it in useful and engaging forms for everyone\n"
 "        from a school-child to a data geek."
 msgstr ""
 
 #: openspending/ui/templates/home/index.html:34
 msgid ""
 "We're an open community that anyone is invited to join! We're looking for\n"
-"        researchers, coders and citizen activists to join us and to help "
-"gather and\n"
+"        researchers, coders and citizen activists to join us and to help gather and\n"
 "        understand financial data."
 msgstr ""
 
@@ -1240,7 +1226,7 @@ msgstr ""
 
 #: openspending/ui/templates/home/index.html:55
 msgid "Investigate"
-msgstr ""
+msgstr "調查"
 
 #: openspending/ui/templates/home/index.html:56
 msgid ""
@@ -1265,11 +1251,11 @@ msgstr ""
 
 #: openspending/ui/templates/home/reporterror.html:7
 msgid "Report an issue"
-msgstr ""
+msgstr "問題回報"
 
 #: openspending/ui/templates/home/reporterror.html:11
 msgid "Report a data issue"
-msgstr ""
+msgstr "資料問題回報"
 
 #: openspending/ui/templates/home/reporterror.html:12
 msgid ""
@@ -1281,11 +1267,11 @@ msgstr ""
 
 #: openspending/ui/templates/home/rest.html:5
 msgid "nav-api"
-msgstr ""
+msgstr "前往-api"
 
 #: openspending/ui/templates/home/rest.html:7
 msgid "REST API"
-msgstr ""
+msgstr "REST API"
 
 #: openspending/ui/templates/home/rest.html:10
 msgid "The Store's REST API"
@@ -1294,14 +1280,13 @@ msgstr ""
 #: openspending/ui/templates/home/rest.html:12
 msgid ""
 "This API returns JSON versions of the store's domain objects.\n"
-"    The URLs are generally the same as the URLs used by the web interface for"
-"\n"
+"    The URLs are generally the same as the URLs used by the web interface for\n"
 "    the same objects, but with \"/api/rest\" prepended."
 msgstr ""
 
 #: openspending/ui/templates/home/rest.html:17
 msgid "Here are some examples:"
-msgstr ""
+msgstr "範例 :"
 
 #: openspending/ui/templates/home/rest.html:26
 msgid ""
@@ -1418,4 +1403,3 @@ msgstr ""
 #: openspending/ui/templates/source/new.html:17
 msgid "Create a data source"
 msgstr ""
-

@@ -1,187 +1,193 @@
 # Translations template for openspending.
 # Copyright (C) 2012 ORGANIZATION
 # This file is distributed under the same license as the openspending project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
-#
-#, fuzzy
+# 
+# Translators:
+#   <henri.ahti@gmail.com>, 2012.
 msgid ""
 msgstr ""
-"Project-Id-Version: openspending 0.11\n"
+"Project-Id-Version: OpenSpending\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2012-02-13 21:03+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2012-02-13 20:04+0000\n"
+"Last-Translator: pudo <friedrich@pudo.org>\n"
+"Language-Team: Finnish (Finland) (http://www.transifex.net/projects/p/openspending/language/fi_FI/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
+"Language: fi_FI\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: openspending/ui/controllers/account.py:38
 msgid "Login name already exists, please choose a different one"
-msgstr ""
+msgstr "Käyttäjätunnus olemassa. Ole hyvä ja valitse toinen."
 
 #: openspending/ui/controllers/account.py:42
 #: openspending/ui/controllers/account.py:72
 msgid "Passwords don't match!"
-msgstr ""
+msgstr "Salasanat eivät samat"
 
 #: openspending/ui/controllers/account.py:80
 msgid "Your settings have been updated."
-msgstr ""
+msgstr "Asetuksesi on päivitetty"
 
 #: openspending/ui/controllers/account.py:91
 #, python-format
 msgid "Welcome back, %s!"
-msgstr ""
+msgstr "Tervetuloa takaisin, %s!"
 
 #: openspending/ui/controllers/account.py:94
 msgid "Incorrect user name or password!"
-msgstr ""
+msgstr "Väärä käyttäjätunnus tai salasana"
 
 #: openspending/ui/controllers/account.py:98
 msgid "You have been logged out."
-msgstr ""
+msgstr "Olet kirjautunut ulos."
 
 #: openspending/ui/controllers/dataset.py:94
 msgid "A dataset with this identifer already exists!"
-msgstr ""
+msgstr "Tietoaineisto tällä tunnisteella on jo olemassa!"
 
 #: openspending/ui/controllers/dimension.py:37
 #, python-format
 msgid "Sorry, there is no member named %r"
-msgstr ""
+msgstr "Valitettavasti jäsentä nimellä %r ei ole"
 
 #: openspending/ui/controllers/dimension.py:42
 #, python-format
 msgid "Sorry, there is no dimension named %r"
-msgstr ""
+msgstr "Valitettavasti dimensiota nimellä %r ei ole"
 
 #: openspending/ui/controllers/dimension.py:58
 #: openspending/ui/controllers/dimension.py:60
 msgid "This is not a dimension"
-msgstr ""
+msgstr "Tämä ei ole dimensio"
 
 #: openspending/ui/controllers/editor.py:68
 msgid "The dataset has been updated."
-msgstr ""
+msgstr "Tietoaineisto on päivitetty"
 
 #: openspending/ui/controllers/editor.py:102
-msgid "You cannot edit the dimensions model when data is loaded for the dataset."
-msgstr ""
+msgid ""
+"You cannot edit the dimensions model when data is loaded for the dataset."
+msgstr "Et voi muokata dimensioita kun data on ladattuna tietoaineistolle"
 
 #: openspending/ui/controllers/editor.py:119
 msgid "The mapping has been updated."
-msgstr ""
+msgstr "Mäppäys on päivitetty"
 
 #: openspending/ui/controllers/editor.py:121
 msgid "The mapping has been validated successfully."
-msgstr ""
+msgstr "Mäppäys on varmistettu onnistuneesti"
 
 #: openspending/ui/controllers/editor.py:123
 msgid "The mapping data could not be decoded as JSON!"
-msgstr ""
+msgstr "Mäppäystietoa ei voitu lukea JSON muodossa"
 
 #: openspending/ui/controllers/editor.py:147
 msgid "The views have been updated."
-msgstr ""
+msgstr "Näkymä(t) on päivitetty"
 
 #: openspending/ui/controllers/editor.py:149
 msgid "The views could not be decoded as JSON!"
-msgstr ""
+msgstr "Näkymiä ei voitu lukea JSON muodossa"
 
 #: openspending/ui/controllers/editor.py:162
 msgid "The dataset has been cleared."
-msgstr ""
+msgstr "Tietoaineisto on tyhjennetty"
 
 #: openspending/ui/controllers/editor.py:170
 msgid "This dataset is already public!"
-msgstr ""
+msgstr "Tietoaineisto on jo julkinen!"
 
 #: openspending/ui/controllers/editor.py:175
 #, python-format
-msgid "Congratulations, the dataset has been published. It is now available at: %s"
-msgstr ""
+msgid ""
+"Congratulations, the dataset has been published. It is now available at: %s"
+msgstr "Onneksi olkoon, tietoaineisto on julkaistu. Se on nyt osoitteessa: %s"
 
 #: openspending/ui/controllers/editor.py:184
 msgid "This dataset is already private!"
-msgstr ""
+msgstr "Tietoaineisto on jo yksityinen!"
 
 #: openspending/ui/controllers/editor.py:188
 msgid "The dataset has been retracted. It is no longer visible to others."
-msgstr ""
+msgstr "Tietoaineisto on vedetty takaisin. Se ei ole enää näkyvissä muille."
 
 #: openspending/ui/controllers/editor.py:199
 msgid "The dataset has been deleted."
-msgstr ""
+msgstr "Tietoaineisto on poistettu."
 
 #: openspending/ui/controllers/entry.py:43
 #, python-format
 msgid "Sorry, there is no entry %r"
-msgstr ""
+msgstr "Valitettavasti %r ei löydy"
 
 #: openspending/ui/controllers/help.py:32
 msgid "Sorry, the selected help file could not be found"
-msgstr ""
+msgstr "Valitettavasti kyseistä ohje tiedostoa ei löydetty"
 
 #: openspending/ui/controllers/home.py:65
 msgid "Sent ping!"
-msgstr ""
+msgstr "Ping lähetetty!"
 
-#: openspending/ui/controllers/run.py:23 openspending/ui/controllers/source.py:56
+#: openspending/ui/controllers/run.py:23
+#: openspending/ui/controllers/source.py:56
 #, python-format
 msgid "There is no source '%s'"
-msgstr ""
+msgstr "Ei ole lähdettä '%s'"
 
 #: openspending/ui/controllers/run.py:26
 #, python-format
 msgid "There is no run '%s'"
-msgstr ""
+msgstr "Ei ole ajoa '%s'"
 
 #: openspending/ui/controllers/source.py:39
 msgid "The source has been created."
-msgstr ""
+msgstr "Lähde on luotu"
 
 #: openspending/ui/controllers/source.py:71
 msgid "Now loading..."
-msgstr ""
+msgstr "Ladataan..."
 
 #: openspending/ui/lib/base.py:139
 #, python-format
 msgid "Sorry, there is no dataset named %r"
-msgstr ""
+msgstr "Valitettavasti tietoaineistoa nimellä %r ei löydy"
 
 #: openspending/ui/templates/400.html:5 openspending/ui/templates/403.html:5
 #: openspending/ui/templates/404.html:5 openspending/ui/templates/500.html:5
 msgid "nav-home"
-msgstr ""
+msgstr "nav-home"
 
 #: openspending/ui/templates/400.html:9
 msgid "Invalid request."
-msgstr ""
+msgstr "Virheellinen kysely"
 
 #: openspending/ui/templates/400.html:10 openspending/ui/templates/403.html:10
-#: openspending/ui/templates/404.html:10 openspending/ui/templates/run/view.html:32
+#: openspending/ui/templates/404.html:10
+#: openspending/ui/templates/run/view.html:32
 #: openspending/ui/templates/run/view.html:51
 #: openspending/ui/templates/source/_list.html:19
 msgid "Error"
-msgstr ""
+msgstr "Virhe"
 
 #: openspending/ui/templates/403.html:9
 msgid "Access denied."
-msgstr ""
+msgstr "Pääsy estetty."
 
 #: openspending/ui/templates/403.html:13
 msgid "You may not have the relevant rights."
-msgstr ""
+msgstr "Sinulla ei välttämättä tarvittavia oikeuksia"
 
 #: openspending/ui/templates/403.html:16
 msgid "You may need to login."
-msgstr ""
+msgstr "Sinun tarvitsee ensin kirjautua"
 
 #: openspending/ui/templates/404.html:9
 msgid "Resource not found"
-msgstr ""
+msgstr "Resurssia ei löydy"
 
 #. Advice regarding a 404 error
 #: openspending/ui/templates/404.html:11
@@ -189,107 +195,107 @@ msgstr ""
 msgid ""
 "[1:%(message)s]: Maybe the URL is misspelled or the \n"
 "      data has been deleted."
-msgstr ""
+msgstr "[1:%(message)s]: ehkä kirjoitit osoitteen väärin tai data on poistettu"
 
 #: openspending/ui/templates/500.html:9
 msgid "Something went wrong"
-msgstr ""
+msgstr "Jokin epäonnistui"
 
 #: openspending/ui/templates/500.html:10
 msgid "Internal Server Error"
-msgstr ""
+msgstr "Palvelimen sisäinen virhe"
 
 #: openspending/ui/templates/500.html:13
 msgid ""
 ":\n"
 "      Sorry, there seems to be an internal problem in OpenSpending.\n"
 "      The problem has now been reported and we're on it."
-msgstr ""
+msgstr ":\nValitettavasti näyttää että OpenSpending alustassa tapahtui virhe. Saimme tiedon virheestä ja tutkimme ditä"
 
 #: openspending/ui/templates/_browser.html:36
 #, python-format
 msgid "[1:%(entries)s entries] found."
-msgstr ""
+msgstr "[1:%(entries)s entries] löytyi."
 
 #: openspending/ui/templates/_browser.html:52
 msgid "No entries with this property."
-msgstr ""
+msgstr "Ei syötteitä tällä ominaisuudella"
 
 #. Label for active filters on the dataset 'Search' page
 #: openspending/ui/templates/_browser.html:87
 msgid "filter:"
-msgstr ""
+msgstr "suodatus:"
 
 #: openspending/ui/templates/_util.html:25
 msgid "Time"
-msgstr ""
+msgstr "Aika"
 
 #: openspending/ui/templates/_util.html:26
 #: openspending/ui/templates/entry/view.html:47
 msgid "Spender"
-msgstr ""
+msgstr "Käyttäjä"
 
 #: openspending/ui/templates/_util.html:27
 #: openspending/ui/templates/entry/view.html:35
 msgid "Recipient"
-msgstr ""
+msgstr "Saaja"
 
 #: openspending/ui/templates/_util.html:28
 msgid "Amount"
-msgstr ""
+msgstr "Summa"
 
 #. Link to entry details (please leave arrow intact)
 #: openspending/ui/templates/_util.html:53
 msgid "details»"
-msgstr ""
+msgstr "yksityiskohdat»"
 
 #: openspending/ui/templates/layout.html:53
 msgid "Home"
-msgstr ""
+msgstr "Koti"
 
 #: openspending/ui/templates/layout.html:54
 msgid "Spending Blog"
-msgstr ""
+msgstr "Spending Blog"
 
 #: openspending/ui/templates/layout.html:56
 msgid "Datasets"
-msgstr ""
+msgstr "Tietoaineistot"
 
 #: openspending/ui/templates/layout.html:62
 #, python-format
 msgid "All datasets (%(count)s)..."
-msgstr ""
+msgstr "Kaikki tietoaineistot (%(count)s)..."
 
 #: openspending/ui/templates/layout.html:66
 #: openspending/ui/templates/layout.html:70
 msgid "Import a dataset..."
-msgstr ""
+msgstr "Tuo tietoaineisto..."
 
 #: openspending/ui/templates/layout.html:74
 #: openspending/ui/templates/dataset/_nav.html:34
 msgid "About"
-msgstr ""
+msgstr "Meistä"
 
 #: openspending/ui/templates/layout.html:75
 #: openspending/ui/templates/layout.html:132
 msgid "Contact"
-msgstr ""
+msgstr "Ota yhteyttä"
 
 #: openspending/ui/templates/layout.html:80
 msgid "Login/Register"
-msgstr ""
+msgstr "Kirjaudu/Rekisteröidy"
 
 #: openspending/ui/templates/layout.html:83
 msgid "Settings"
-msgstr ""
+msgstr "Asetukset"
 
 #: openspending/ui/templates/layout.html:84
 msgid "Logout"
-msgstr ""
+msgstr "Kirjaudu ulos"
 
 #: openspending/ui/templates/layout.html:87
 msgid "Language"
-msgstr ""
+msgstr "Kieli"
 
 #: openspending/ui/templates/layout.html:119
 msgid ""
@@ -299,27 +305,27 @@ msgstr ""
 
 #: openspending/ui/templates/layout.html:125
 msgid "Help"
-msgstr ""
+msgstr "Ohjeet"
 
 #: openspending/ui/templates/layout.html:126
 msgid "Wiki"
-msgstr ""
+msgstr "Wiki"
 
 #: openspending/ui/templates/layout.html:127
 msgid "Mailing List"
-msgstr ""
+msgstr "Sähköpostilista"
 
 #: openspending/ui/templates/layout.html:130
 msgid "API"
-msgstr ""
+msgstr "API"
 
 #: openspending/ui/templates/layout.html:131
 msgid "Privacy"
-msgstr ""
+msgstr "Yksityisyys"
 
 #: openspending/ui/templates/layout.html:141
 msgid "Open Content"
-msgstr ""
+msgstr "Open Content"
 
 #: openspending/ui/templates/layout.html:135
 msgid ""
@@ -336,14 +342,14 @@ msgstr ""
 #: openspending/ui/templates/dataset/new.html:5
 #: openspending/ui/templates/dataset/new_cta.html:5
 msgid "nav-account"
-msgstr ""
+msgstr "nav-account"
 
 #: openspending/ui/templates/account/login.html:7
 #: openspending/ui/templates/account/login.html:13
 #: openspending/ui/templates/account/login.html:17
 #: openspending/ui/templates/account/login.html:39
 msgid "Login"
-msgstr ""
+msgstr "Kirjaudu"
 
 #: openspending/ui/templates/account/login.html:10
 msgid "Sign in to OpenSpending"
@@ -353,69 +359,69 @@ msgstr ""
 #: openspending/ui/templates/account/login.html:57
 #: openspending/ui/templates/account/settings.html:30
 msgid "Password"
-msgstr ""
+msgstr "Salasana"
 
 #: openspending/ui/templates/account/login.html:35
 msgid "Create an account"
-msgstr ""
+msgstr "Luo tili"
 
 #: openspending/ui/templates/account/login.html:45
 #: openspending/ui/templates/account/settings.html:18
 msgid "Fullname"
-msgstr ""
+msgstr "Koko nimi"
 
 #: openspending/ui/templates/account/login.html:51
 #: openspending/ui/templates/account/settings.html:24
 msgid "E-Mail"
-msgstr ""
+msgstr "Sähköposti"
 
 #: openspending/ui/templates/account/login.html:63
 #: openspending/ui/templates/account/settings.html:36
 msgid "Password (repeat)"
-msgstr ""
+msgstr "Salasana(toista)"
 
 #: openspending/ui/templates/account/settings.html:7
 msgid "Settings for:"
-msgstr ""
+msgstr "Asetukset:"
 
 #: openspending/ui/templates/account/settings.html:10
 msgid "Account Settings"
-msgstr ""
+msgstr "Käyttäjätilin asetukset"
 
 #: openspending/ui/templates/account/settings.html:39
 msgid ""
 "Leave both fields blank to keep\n"
 "                your current password."
-msgstr ""
+msgstr "Jätä molemmat kentät tyhjiksi\njos haluat pitää nykyisen salasanan"
 
 #: openspending/ui/templates/account/settings.html:44
 msgid "API Key"
-msgstr ""
+msgstr "API avain"
 
 #: openspending/ui/templates/account/settings.html:47
 msgid ""
 "Use this key to access the OpenSpending\n"
 "                API programmatically."
-msgstr ""
+msgstr "Käytä tätä avainta käyttääksesi OpenSpending\nAPIa ohjelmallisesti"
 
 #: openspending/ui/templates/dataset/_nav.html:14
 msgid "Entries"
-msgstr ""
+msgstr "Tietoalkiot"
 
 #: openspending/ui/templates/dataset/_nav.html:31
 #: openspending/ui/templates/dimension/_nav.html:36
 msgid "Search"
-msgstr ""
+msgstr "Etsi"
 
 #: openspending/ui/templates/dataset/_nav.html:37
 #: openspending/ui/templates/dataset/explorer.html:8
 #: openspending/ui/templates/home/index.html:44
 msgid "Explore"
-msgstr ""
+msgstr "Selaa"
 
 #: openspending/ui/templates/dataset/_nav.html:40
 msgid "Manage"
-msgstr ""
+msgstr "Hallitse"
 
 #: openspending/ui/templates/dataset/about.html:9
 #: openspending/ui/templates/dataset/dropdb.html:5
@@ -430,7 +436,7 @@ msgstr ""
 #: openspending/ui/templates/home/index.html:5
 #: openspending/ui/templates/home/reporterror.html:5
 msgid "nav-dataset"
-msgstr ""
+msgstr "nav-dataset"
 
 #: openspending/ui/templates/dataset/about.html:23
 #: openspending/ui/templates/dataset/new.html:85
@@ -438,16 +444,16 @@ msgstr ""
 #: openspending/ui/templates/editor/core.html:56
 #: openspending/ui/templates/entry/view.html:80
 msgid "Description"
-msgstr ""
+msgstr "Kuvaus"
 
 #: openspending/ui/templates/dataset/about.html:24
 #, python-format
 msgid "No description is available for %(label)s"
-msgstr ""
+msgstr "Kuvausta ei saatavissa tälle %(label)s"
 
 #: openspending/ui/templates/dataset/about.html:31
 msgid "Sources"
-msgstr ""
+msgstr "Lähteet"
 
 #: openspending/ui/templates/dataset/about.html:32
 msgid ""
@@ -455,88 +461,88 @@ msgid ""
 "              for this dataset. If you want to look at the exact data \n"
 "              that is used to generate aggregates, you can also use a \n"
 "              [1:bulk export]."
-msgstr ""
+msgstr "Tämä on listaus kaikista datalähteistä joita rekisteröity tälle tietoaineistolle. Jos haluat katsoa varsinaista dataa niin voit käyttää  [1:bulk export]."
 
 #: openspending/ui/templates/dataset/about.html:47
 msgid "Team"
-msgstr ""
+msgstr "Ryhmä"
 
 #: openspending/ui/templates/dataset/about.html:48
 msgid ""
 "These people are the managers of the dataset. They can\n"
 "              make modifications to its schema and are responsible\n"
 "              to make sure the data is accurate."
-msgstr ""
+msgstr "Nämä henkilöt ovat tämän tietoaineiston hallinnoijia. He voivat\ntehdä muutoksia skeemaan ja ovat vastuussa\nettä data tarkkaa."
 
 #: openspending/ui/templates/dataset/about.html:61
 msgid "Measures"
-msgstr ""
+msgstr "Mittarit"
 
 #: openspending/ui/templates/dataset/about.html:62
 msgid ""
 "Measures are the numeric properties of each entry in this \n"
 "          dataset."
-msgstr ""
+msgstr "Mittarit ovat numeerisia ominaisuuksia jokaisesta osasta tätä\ntietoaineistoa"
 
 #: openspending/ui/templates/dataset/about.html:74
 msgid "Dimensions"
-msgstr ""
+msgstr "Dimensiot"
 
 #: openspending/ui/templates/dataset/about.html:75
 msgid ""
 "Dimensions are different aspects of the dataset, such as the\n"
 "          spender, recipient or classifications that apply."
-msgstr ""
+msgstr "Dimensiot ovat eri näkokulmia tietoaineistoihin siten että rahan käyttäjä, vastaanottaja ja luokittelut otetaan huomioon"
 
 #: openspending/ui/templates/dataset/dropdb.html:7
 msgid "Database erased"
-msgstr ""
+msgstr "Tietokanta tyhjennetty"
 
 #: openspending/ui/templates/dataset/dropdb.html:12
 msgid "OpenSpending: mapping the money"
-msgstr ""
+msgstr "OpenSpending: mapping the money"
 
 #: openspending/ui/templates/dataset/dropdb.html:13
 msgid ""
 "The database should now have been erased. You'll even have to create a new "
 "user to log in again."
-msgstr ""
+msgstr "Tietokanta pitäisi nyt olla tyhjä. Sinun täytyy luoda uusi käyttäjä kirjautuaksesi uudelleen."
 
 #: openspending/ui/templates/dataset/explorer.html:83
 msgid "Explorer"
-msgstr ""
+msgstr "Selain"
 
 #: openspending/ui/templates/dataset/explorer.html:90
 msgid "back »"
-msgstr ""
+msgstr "takaisin »"
 
 #: openspending/ui/templates/dataset/index.html:7
 msgid "All datasets"
-msgstr ""
+msgstr "Kaikki tietoaineistot"
 
 #: openspending/ui/templates/dataset/index.html:12
 msgid "Available data sets"
-msgstr ""
+msgstr "Saatavilla olevat tietoaineistot"
 
 #: openspending/ui/templates/dataset/index.html:13
 msgid "The database contains the following datasets:"
-msgstr ""
+msgstr "Tietokanta sisältää seuraavat tietoaineistot:"
 
 #: openspending/ui/templates/dataset/index.html:30
 #: openspending/ui/templates/editor/core.html:36
 msgid "Countries"
-msgstr ""
+msgstr "Maat"
 
 #: openspending/ui/templates/dataset/index.html:40
 #: openspending/ui/templates/editor/core.html:46
 msgid "Languages"
-msgstr ""
+msgstr "Kielet"
 
 #: openspending/ui/templates/dataset/new.html:7
 #: openspending/ui/templates/dataset/new.html:11
 #: openspending/ui/templates/dataset/new_cta.html:7
 msgid "Import a dataset"
-msgstr ""
+msgstr "Tuo tietoaineisto"
 
 #. List of steps to take
 #: openspending/ui/templates/dataset/new.html:14
@@ -552,62 +558,61 @@ msgid ""
 "            [10:[11:import] the data,]\n"
 "            [12:and generate [13:visualized views].]\n"
 "          ]"
-msgstr ""
+msgstr "Jos sinulla on joku kulutukseem tai budjettiin liittyvä tietoaineisto\nvoit osallistua antamalla perustiedot tässä\n[1:][2:]Seuraavissa vaiheissa sinä\n[3:\n[4:lisäät viittauksia [5:tietolähteisiin],]\n[6:luot [7:tietomallin] joka kuvaa muodon,]\n[8:[9:testaat] että mallisi on oikea,]\n[10:[11:tuot] tietoaineiston,]\n[12:ja luot [13:visualisoituja näkymiä].]\n]"
 
 #: openspending/ui/templates/dataset/new.html:33
 msgid "Import from a DataHub Dataset"
-msgstr ""
+msgstr "Tuo tietoaineisto olemassaolevasta datahubi aineistosta"
 
 #: openspending/ui/templates/dataset/new.html:34
 msgid ""
 "Paste the url of your [1:http://thedatahub.org/] dataset\n"
-"            and we will take care of pulling all the relevant information "
-"automatically\n"
+"            and we will take care of pulling all the relevant information automatically\n"
 "            (though you will get a chance to review and amend it)."
-msgstr ""
+msgstr "Syötä url [1:http://thedatahub.org/] tietoaineistoon\nja me lataamme automaattisesti tarvittavan tiedon\n(tsinulla on kuitenkin mahdollisuus katselmoida ja muokata sitä ennen julkaisua)."
 
 #: openspending/ui/templates/dataset/new.html:45
 msgid "OR"
-msgstr ""
+msgstr "OR"
 
 #: openspending/ui/templates/dataset/new.html:48
 msgid "Dataset not yet on the DataHub?"
-msgstr ""
+msgstr "Tietoaineistosi ei vielä datahubissa?"
 
 #: openspending/ui/templates/dataset/new.html:49
 msgid ""
 "No problem! You can still import your dataset as long as the\n"
 "            data file is online somewhere."
-msgstr ""
+msgstr "Ei ongelmaa! Voit tuoda tietoaineiston kunhan\ntietoaineisto on jossain verkossa saatavilla"
 
 #: openspending/ui/templates/dataset/new.html:51
 msgid "Get Started »"
-msgstr ""
+msgstr "Aloita »"
 
 #: openspending/ui/templates/dataset/new.html:60
 #: openspending/ui/templates/editor/core.html:20
 msgid "Title"
-msgstr ""
+msgstr "Otsikko"
 
 #: openspending/ui/templates/dataset/new.html:66
 msgid "Identifier"
-msgstr ""
+msgstr "Tunniste"
 
 #: openspending/ui/templates/dataset/new.html:69
 msgid ""
 "The identifier will become part of the\n"
 "                  dataset URL and cannot be changed later. It may only \n"
 "                  contain alphanumeric characters, dashes and underscores."
-msgstr ""
+msgstr "Tunnisteesta tulee osa tietoaineiston osoitetta jota ei voi muutta myöhemmin. Nimen saa sisältää vain alphanumeerisia merkkejä, viivoja ja alaviivoja."
 
 #: openspending/ui/templates/dataset/new.html:75
 #: openspending/ui/templates/editor/core.html:26
 msgid "Currency"
-msgstr ""
+msgstr "Rahayksikkö"
 
 #: openspending/ui/templates/dataset/new_cta.html:11
 msgid "Contribute your local data!"
-msgstr ""
+msgstr "Tuo lisää paikallista dataa!"
 
 #: openspending/ui/templates/dataset/new_cta.html:13
 msgid ""
@@ -615,16 +620,15 @@ msgid ""
 "          information]\n"
 "        in a common\n"
 "        database so that we can provide common tools for [2:analysis,\n"
-"          visualization and comparison]. OpenSpending is an open platform "
-"that\n"
+"          visualization and comparison]. OpenSpending is an open platform that\n"
 "        aims to facilitate the presentation of financial information so \n"
 "        anyone - whether data geek or concerned citizen - can contribute \n"
 "        their local city budget or spending reports."
-msgstr ""
+msgstr "Yritämme kerätä [1:maailman varojen käyttö\ntietoa]\nyleiseen\ntietokantaan jotta voimme tarjota yleisiä työkaluja [2:analysointiin,\nvisualisointiin ja vertailuun]. OpenSpending on avoin alusta joka\ntähtää taloustiedon esittämiseen sellaisena että\nkuka vaan dataspesialisti tai kiinnostunut kansalainen - voi osallistua\nja tutkia oman kaupunkinsa budjetti- ja menoraportteja"
 
 #: openspending/ui/templates/dataset/new_cta.html:24
 msgid "Why should you contribute?"
-msgstr ""
+msgstr "Miksi osallistua?"
 
 #: openspending/ui/templates/dataset/new_cta.html:26
 msgid ""
@@ -648,107 +652,109 @@ msgstr ""
 #: openspending/ui/templates/dataset/timeline.html:8
 #: openspending/ui/templates/dataset/timeline.html:39
 msgid "Timeline"
-msgstr ""
+msgstr "Aikajana"
 
 #: openspending/ui/templates/dimension/_nav.html:39
 #: openspending/ui/templates/dimension/_nav.html:44
 msgid "OpenCorporates"
-msgstr ""
+msgstr "OpenCorporates"
 
 #: openspending/ui/templates/dimension/_nav.html:48
 msgid "PublicBodies.org"
-msgstr ""
+msgstr "PublicBodies.org"
 
 #: openspending/ui/templates/dimension/entries.html:6
 msgid "nav-dimension"
-msgstr ""
+msgstr "nav-dimension"
 
 #: openspending/ui/templates/dimension/entries.html:8
 #, python-format
 msgid "%(entry_label)s - Entries"
-msgstr ""
+msgstr "%(entry_label)s - Tietoalkiot"
 
 #: openspending/ui/templates/dimension/entries.html:8
 msgid "- Entries"
-msgstr ""
+msgstr "- Tietoalkiot"
 
 #: openspending/ui/templates/dimension/index.html:8
 #, python-format
 msgid "Dimensions in %(dataset_label)s"
-msgstr ""
+msgstr "Dimensioita dataseteissä %(dataset_label)s"
 
 #: openspending/ui/templates/dimension/index.html:8
 msgid "Dimensions in"
-msgstr ""
+msgstr "Dimensoita"
 
 #: openspending/ui/templates/dimension/index.html:11
 #, python-format
 msgid ""
 "%(dataset_label)s: Dimensions\n"
 "      [1:Facets of the dataset.]"
-msgstr ""
+msgstr "%(dataset_label)s: Dimensiot\n      [1:Tietoaineiston fasetti.]"
 
 #: openspending/ui/templates/dimension/index.html:15
 #, python-format
 msgid "%(dataset)s has the following dimensions:"
-msgstr ""
+msgstr "%(dataset)s tietoaineistolla on seuraavat dimensiot:"
 
 #: openspending/ui/templates/dimension/member.html:6
 msgid "nav-member"
-msgstr ""
+msgstr "nav-member"
 
 #: openspending/ui/templates/dimension/member.html:20
 #, python-format
 msgid "No description is available for %(member_label)s"
-msgstr ""
+msgstr "Kuvausta ei saatavissa tälle %(member_label)s"
 
 #: openspending/ui/templates/dimension/view.html:7
 msgid "Dimension:"
-msgstr ""
+msgstr "Dimensio:"
 
 #: openspending/ui/templates/dimension/view.html:20
-msgid "All figures are total financial involvement, not just funds received or spent."
-msgstr ""
+msgid ""
+"All figures are total financial involvement, not just funds received or "
+"spent."
+msgstr "Kaikki luvut ovat kokonaisia summia, eivät vain varoja joita on vastaanotettu tai kulutettu "
 
 #: openspending/ui/templates/dimension/view.html:27
 #: openspending/ui/templates/entry/view.html:79
 #: openspending/ui/templates/run/view.html:50
 msgid "Value"
-msgstr ""
+msgstr "Arvo"
 
 #: openspending/ui/templates/dimension/view.html:28
 #, python-format
 msgid "Sum (%(currency)s)"
-msgstr ""
+msgstr "Summa (%(currency)s)"
 
 #: openspending/ui/templates/dimension/view.html:36
 #: openspending/ui/templates/dimension/view.html:40
 msgid "(Empty)"
-msgstr ""
+msgstr "(Tyhjä)"
 
 #: openspending/ui/templates/editor/_nav.html:15
 msgid "Manage the dataset"
-msgstr ""
+msgstr "Hallitse tietoaineistoa"
 
 #: openspending/ui/templates/editor/_nav.html:21
 msgid "Dashboard"
-msgstr ""
+msgstr "Yhteenveto"
 
 #: openspending/ui/templates/editor/_nav.html:24
 msgid "Dimensions & Measures"
-msgstr ""
+msgstr "Dimensiot & Mittarit"
 
 #: openspending/ui/templates/editor/_nav.html:27
 msgid "Visualizations"
-msgstr ""
+msgstr "Visualisoinnit"
 
 #: openspending/ui/templates/editor/_nav.html:30
 msgid "Meta"
-msgstr ""
+msgstr "Metatieto"
 
 #: openspending/ui/templates/editor/_nav.html:33
 msgid "Dataset view »"
-msgstr ""
+msgstr "Tietoaineisto näkymä »"
 
 #: openspending/ui/templates/editor/core.html:7
 #: openspending/ui/templates/editor/dimensions.html:7
@@ -756,11 +762,11 @@ msgstr ""
 #: openspending/ui/templates/editor/index.html:9
 #: openspending/ui/templates/editor/views.html:7
 msgid "nav-editor"
-msgstr ""
+msgstr "nav-editor"
 
 #: openspending/ui/templates/editor/dimensions.html:60
 msgid "Add Dimension"
-msgstr ""
+msgstr "Lisää dimensio"
 
 #: openspending/ui/templates/editor/dimensions.html:63
 msgid "Make sure your dimensions import all source data columns."
@@ -768,7 +774,7 @@ msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:70
 msgid "Set Unique Dimensions"
-msgstr ""
+msgstr "Aseta uniikit dimensiot"
 
 #: openspending/ui/templates/editor/dimensions.html:72
 msgid "Identify the dimensions that help to identify each entry."
@@ -780,26 +786,25 @@ msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:86
 msgid "Specify which dimensions identify an entry uniquely"
-msgstr ""
+msgstr "Määrittele mitkä dimensiot määrittelevät rivin uniikisti"
 
 #: openspending/ui/templates/editor/dimensions.html:94
 msgid "Update"
-msgstr ""
+msgstr "Päivitä"
 
 #: openspending/ui/templates/editor/dimensions.html:102
 msgid "Add new dimension"
-msgstr ""
+msgstr "Lisää uusi dimensio"
 
 #: openspending/ui/templates/editor/dimensions.html:107
 msgid ""
-"The name you choose should only contain letters, numbers and dashes (i.e., no"
-" spaces)"
-msgstr ""
+"The name you choose should only contain letters, numbers and dashes (i.e., "
+"no spaces)"
+msgstr "Nimi jonka valitset pitää sisältää kirjaimia, numeroita tai viivoja (ei esimerkiksi välilyöntejä)"
 
 #: openspending/ui/templates/editor/dimensions.html:110
 msgid ""
-"Where the dimension represents the ultimate source or destination of the "
-"funds, \n"
+"Where the dimension represents the ultimate source or destination of the funds, \n"
 "                        call it [1:from] or [2:to]."
 msgstr ""
 
@@ -814,19 +819,18 @@ msgstr ""
 #: openspending/ui/templates/editor/dimensions.html:125
 #: openspending/ui/templates/entry/view.html:78
 msgid "Dimension"
-msgstr ""
+msgstr "Dimensio"
 
 #: openspending/ui/templates/editor/dimensions.html:127
 msgid ""
 "A defined set, like suppliers or classifications, with \n"
-"                                multiple attributes (e.g. supplier name and "
-"VAT number)."
+"                                multiple attributes (e.g. supplier name and VAT number)."
 msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:133
 #: openspending/ui/templates/run/view.html:49
 msgid "Attribute"
-msgstr ""
+msgstr "Attribuutti"
 
 #: openspending/ui/templates/editor/dimensions.html:135
 msgid "A simple value, e.g. descriptions or transaction IDs."
@@ -834,7 +838,7 @@ msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:140
 msgid "Date"
-msgstr ""
+msgstr "Päiväys"
 
 #: openspending/ui/templates/editor/dimensions.html:142
 msgid "Temporal value, e.g. start of project, date of disbursement."
@@ -842,7 +846,7 @@ msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:147
 msgid "Measure"
-msgstr ""
+msgstr "Mittari"
 
 #: openspending/ui/templates/editor/dimensions.html:149
 msgid "Monetary information, e.g. amount disbursed or allocated."
@@ -850,35 +854,30 @@ msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:157
 msgid "Cancel"
-msgstr ""
+msgstr "Peruuta"
 
 #: openspending/ui/templates/editor/dimensions.html:158
 msgid "Add"
-msgstr ""
+msgstr "Lisää"
 
 #: openspending/ui/templates/editor/dimensions.html:169
 msgid ""
 "The dimensions mapping could not be saved as it \n"
 "                                          contains some errors:"
-msgstr ""
+msgstr "Dimensioiden kohdistusta ei voita tallentaa sillä\n                                          se sisältää joitain virheitä:"
 
 #: openspending/ui/templates/editor/dimensions.html:184
 msgid "Dimension mapping"
-msgstr ""
+msgstr "Dimensioiden kohdistus"
 
 #: openspending/ui/templates/editor/dimensions.html:185
 msgid ""
 "To create a model for your dataset,\n"
-"                                          you need to translate the columns "
-"in \n"
-"                                          the data file to \"dimensions\", "
-"the logical\n"
-"                                          divisions of the dataset. A "
-"dimension\n"
-"                                          can be any property of a line item "
-"or \n"
-"                                          transaction that should be "
-"presented\n"
+"                                          you need to translate the columns in \n"
+"                                          the data file to \"dimensions\", the logical\n"
+"                                          divisions of the dataset. A dimension\n"
+"                                          can be any property of a line item or \n"
+"                                          transaction that should be presented\n"
 "                                          within OpenSpending."
 msgstr ""
 
@@ -927,19 +926,16 @@ msgstr ""
 #: openspending/ui/templates/editor/dimensions.html:202
 msgid ""
 "Beyond that, you can add your own\n"
-"                                          dimensions to describe aspects such"
-"\n"
+"                                          dimensions to describe aspects such\n"
 "                                          as classification schemes,\n"
-"                                          descriptions, transaction IDs and "
-"any\n"
-"                                          other details present in the source"
-"\n"
+"                                          descriptions, transaction IDs and any\n"
+"                                          other details present in the source\n"
 "                                          data."
 msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:210
 msgid "What do I do here?"
-msgstr ""
+msgstr "Mitä minä teen täällä?"
 
 #: openspending/ui/templates/editor/dimensions.html:211
 msgid ""
@@ -968,10 +964,8 @@ msgstr ""
 #: openspending/ui/templates/editor/dimensions.html:222
 msgid ""
 "If your data is transactional and \n"
-"                                          contains the name of a department "
-"or \n"
-"                                          body spending the funds, make sure "
-"to \n"
+"                                          contains the name of a department or \n"
+"                                          body spending the funds, make sure to \n"
 "                                          include a"
 msgstr ""
 
@@ -989,8 +983,7 @@ msgstr ""
 msgid ""
 "Set a unique key combination so\n"
 "                                          that the values within that\n"
-"                                          combination are different between "
-"all \n"
+"                                          combination are different between all \n"
 "                                          entries in the dataset. This can\n"
 "                                          later be used for updating the\n"
 "                                          dataset."
@@ -999,21 +992,18 @@ msgstr ""
 #: openspending/ui/templates/editor/dimensions.html:236
 msgid ""
 "After you've done these basic things,\n"
-"                                          make sure to also create dimensions"
-"\n"
-"                                          to cover any other aspects present "
-"in \n"
+"                                          make sure to also create dimensions\n"
+"                                          to cover any other aspects present in \n"
 "                                          the source data. You can group\n"
 "                                          related columns into a single\n"
-"                                          dimension, for example if each row"
-" \n"
+"                                          dimension, for example if each row \n"
 "                                          mentions both a company's name and\n"
 "                                          its VAT number."
 msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:249
 msgid "Background: How does OpenSpending store data?"
-msgstr ""
+msgstr "Taustaa: Miten OpenSpending tallentaa dataa?"
 
 #: openspending/ui/templates/editor/dimensions_errors.html:18
 msgid "You cannot edit dimensions while data is loaded."
@@ -1023,7 +1013,7 @@ msgstr ""
 msgid ""
 "In order to modify the dimensions model, you'll have to \n"
 "            delete all the data that is currently loaded from the database."
-msgstr ""
+msgstr "Jotta voit muokata dimensiomallia, sinun täytyy \n            poistaa kaikki data joka on tällä hetkellä tallennettu tietokantaan."
 
 #: openspending/ui/templates/editor/dimensions_errors.html:33
 msgid "You need to define at least one data source."
@@ -1038,28 +1028,26 @@ msgstr ""
 #: openspending/ui/templates/editor/index.html:21
 msgid ""
 "[1:Congratulations, your dataset is now created.] Next, you'll need\n"
-"            to link to a source file that contains the data (or a sample for "
-"testing\n"
-"            if your dataset is very large!). The data must be in the CSV "
-"format."
-msgstr ""
+"            to link to a source file that contains the data (or a sample for testing\n"
+"            if your dataset is very large!). The data must be in the CSV format."
+msgstr "[1:Onneksi olkoon, tietoaineistosi on nyt luotu.] Seuraavaksi pitää\n            linkittää lähdetiedosto joka sisältää datan(tai esimerkin testausta varten\n            jos datasettisi on erityisen suuri!). Data täytyy olla CSV muodossa."
 
 #: openspending/ui/templates/editor/index.html:27
 msgid ""
 "Learn about [1:how to export CSV] from various common\n"
 "                applications."
-msgstr ""
+msgstr "Opettele kuinka [1:tuot CSV tiedostoja] erilaisista yleisesti\n                ohjelmista."
 
 #: openspending/ui/templates/editor/index.html:29
 msgid ""
 "Help on [1:common data wrangling tasks] needed to clean\n"
 "                source data."
-msgstr ""
+msgstr "Apua [1:yleisessä datan avaus tehtävissä] joita tarvitaan"
 
 #: openspending/ui/templates/editor/index.html:37
 #: openspending/ui/templates/editor/index.html:67
 msgid "Add a source"
-msgstr ""
+msgstr "Lisää lähde"
 
 #: openspending/ui/templates/editor/index.html:41
 msgid ""
@@ -1068,7 +1056,7 @@ msgid ""
 "            [2:\n"
 "              [3:Refresh]\n"
 "            ]"
-msgstr ""
+msgstr "[1:Katsotaan...] Dataa tarkistetaan että\nonko se valmist tuotavaksi. Tämän ei pitäisi viedä \npitkään\n[2:\n[3:Refresh]\n]"
 
 #: openspending/ui/templates/editor/index.html:50
 msgid ""
@@ -1080,60 +1068,60 @@ msgid ""
 "              [5:Learn\n"
 "                more]\n"
 "            ]"
-msgstr ""
+msgstr "[1:Hienoa!] Datasi on nyt valmis. Seuraavaksi,\n            luo [2:data malli] määrittääksesi tietoaineistosi rakenne.\n            [3:\n              [4:Luo\n                malli]\n              [5:Opi\n                lisää]\n            ]"
 
 #: openspending/ui/templates/editor/index.html:65
 msgid "Source files"
-msgstr ""
+msgstr "Lähdetiedostot"
 
 #: openspending/ui/templates/editor/index.html:71
 msgid "Summary"
-msgstr ""
+msgstr "Yhteenveto"
 
 #: openspending/ui/templates/editor/index.html:73
 msgid "Entries loaded:"
-msgstr ""
+msgstr "Tietoalkioita ladattu:"
 
 #: openspending/ui/templates/editor/index.html:74
 msgid "Searchable:"
-msgstr ""
+msgstr "Etsittävä:"
 
 #: openspending/ui/templates/editor/index.html:76
 msgid "Dataset Actions"
-msgstr ""
+msgstr "Tietoaineistojen toiminteet"
 
 #: openspending/ui/templates/editor/index.html:82
 msgid ""
 "Delete all loaded data to fix \n"
 "              errors and re-edit the data dimensions."
-msgstr ""
+msgstr "Poista kaikki ladattu data korjataksesi \n              virheet ja uudelleenmuokkaa datan dimensiot."
 
 #: openspending/ui/templates/editor/index.html:87
 msgid "Delete loaded data"
-msgstr ""
+msgstr "Poista ladattu data"
 
 #: openspending/ui/templates/editor/index.html:88
 msgid ""
 "You can remove the loaded data\n"
 "            at any time and start over."
-msgstr ""
+msgstr "Voit poistaa ladatun datan\n            milloin vaan ja aloittaa alusta."
 
 #: openspending/ui/templates/editor/index.html:97
 #: openspending/ui/templates/editor/index.html:103
 msgid ""
 "After you've performed some QA,\n"
 "              let the world see this dataset."
-msgstr ""
+msgstr "Kun olet tehnyt hieman laadunvarmistusta,\n              niin voit antaa maailman nähdä tietoaineiston."
 
 #: openspending/ui/templates/editor/index.html:102
 msgid "Make public"
-msgstr ""
+msgstr "Tee julkinen"
 
 #: openspending/ui/templates/editor/index.html:110
 msgid ""
 "If you have noted serious quality\n"
 "              issues or legal issues, you can un-publish this dataset."
-msgstr ""
+msgstr "Jos olet huomannyt merkittäviä laatu\n              tai lakiteknisiä ongelmia, voit palauttaa aineiston ei-julkiseksi."
 
 #. Warning message on deletion
 #: openspending/ui/templates/editor/index.html:118
@@ -1144,7 +1132,7 @@ msgstr ""
 
 #: openspending/ui/templates/editor/index.html:132
 msgid "Create a new data source"
-msgstr ""
+msgstr "Luo uusi datalähde"
 
 #: openspending/ui/templates/editor/views.html:25
 msgid ""
@@ -1152,29 +1140,29 @@ msgid ""
 "          not have a graphical interface yet. If you still want to use it, \n"
 "          please check out the [2:documentation]\n"
 "          for the 'views' system."
-msgstr ""
+msgstr "[1:Here be dragons.] Visualisointi editorissa \n          ei ole vielä graafista käyttöliittymää. Jos haluat kuitenkin käyttää, \n          niin lue [2:dokumentaatio]\n          'views' systeemistä."
 
 #: openspending/ui/templates/editor/views.html:33
 msgid "Available Dimensions"
-msgstr ""
+msgstr "Käytössä olevat dimensiot"
 
 #: openspending/ui/templates/editor/views.html:53
 msgid ""
 "The views could not be saved as they contain some \n"
 "                errors:"
-msgstr ""
+msgstr "Näkymiä ei voitu tallentaa koska ne sisälsivät joitain \n                virheitä:"
 
 #: openspending/ui/templates/entry/view.html:7
 msgid "nav-entry"
-msgstr ""
+msgstr "nav-entry"
 
 #: openspending/ui/templates/entry/view.html:9
 msgid "Entry Details"
-msgstr ""
+msgstr "Tietoalkion yksityiskohdat"
 
 #: openspending/ui/templates/entry/view.html:17
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
 #: openspending/ui/templates/entry/view.html:14
 #, python-format
@@ -1186,47 +1174,45 @@ msgid ""
 "      ]\n"
 "      Entry in %(dataset_label)s\n"
 "      [4:Detailed View of Transaction]"
-msgstr ""
+msgstr "[1:\n        [2:\n          [3:]\n        ]\n      ]\n      Tietoalkiossa %(dataset_label)s\n      [4:Yksityiskohtainen näkymä transaktioon]"
 
 #: openspending/ui/templates/entry/view.html:107
 msgid "Notes:"
-msgstr ""
+msgstr "Huomioita:"
 
 #: openspending/ui/templates/home/getinvolved.html:7
 #: openspending/ui/templates/home/getinvolved.html:10
 msgid "Get Involved"
-msgstr ""
+msgstr "Osallistu"
 
 #: openspending/ui/templates/home/getinvolved.html:15
 #: openspending/ui/templates/home/reporterror.html:20
 msgid "Loading…"
-msgstr ""
+msgstr "Ladataan..."
 
 #: openspending/ui/templates/home/index.html:17
 msgid "Welcome"
-msgstr ""
+msgstr "Tervetuloa"
 
 #: openspending/ui/templates/home/index.html:19
 msgid ""
 "Do you want to help map government finance from all around the globe?\n"
 "      [1:Get involved] in Open Spending!"
-msgstr ""
+msgstr "Haluatko auttaa kartoittamaan julkishallinnon talousdataa eri puolilta maailmaa?\n      [1:Osallistu] Open Spendingiin!"
 
 #: openspending/ui/templates/home/index.html:30
 msgid ""
 "Our aim is to track every government and corporate financial transaction \n"
-"        across the world and present it in useful and engaging forms for "
-"everyone\n"
+"        across the world and present it in useful and engaging forms for everyone\n"
 "        from a school-child to a data geek."
-msgstr ""
+msgstr "Tavoitteemme on kartoittaa jokainen julkishallinnon ja korporaation transaktiot \n        ympäri maailmaa ja esittää se hyödyllisessä ja kiinnostavissa muodoissa kaikille\n        koululaisesta datanörttiin."
 
 #: openspending/ui/templates/home/index.html:34
 msgid ""
 "We're an open community that anyone is invited to join! We're looking for\n"
-"        researchers, coders and citizen activists to join us and to help "
-"gather and\n"
+"        researchers, coders and citizen activists to join us and to help gather and\n"
 "        understand financial data."
-msgstr ""
+msgstr "Olemme avoin yhteisö ja kaikki ovat tervetulleita osallistumaan! Etsimme\n        tutkijoita, koodareita ja kansalaisaktivisteja osallistumaan keräämään ja\n        ymmärtämään talousdataa."
 
 #: openspending/ui/templates/home/index.html:45
 msgid ""
@@ -1236,11 +1222,11 @@ msgid ""
 "          dataset] to explore or visit our\n"
 "          [3:Spending Blog], where we highlight\n"
 "          spending stories and methods of analyzing the information."
-msgstr ""
+msgstr "OpenSpending kuvaa taloudellista tietoa [1:monesta\neri maasta] ja lähteestä.\n[2:Valitse\ntietoaineisto] ja tutki sitä tai tutustu\n[3:Spending blogiin], missä kerrotaan\nkulutukseen liittyviä tarinoita ja menetelmiä tiedon analysointiin."
 
 #: openspending/ui/templates/home/index.html:55
 msgid "Investigate"
-msgstr ""
+msgstr "Tutki"
 
 #: openspending/ui/templates/home/index.html:56
 msgid ""
@@ -1249,11 +1235,11 @@ msgid ""
 "        list]. When you've found interesting information in the data,\n"
 "      become a contributor to the \n"
 "      [2:Spending Blog] to share your findings."
-msgstr ""
+msgstr "Onko sinulla kysymyksiä? Kysy ja auta vastaamaan niihin\n      meidän [1:keskustelu \n        ryhmässä]. Kun olet löytänyt mielenkiintoista tietoa datasta,\n      voit osallistua\n      [2:Spending blogin] kirjoitukseen jakaaksesi löydökset."
 
 #: openspending/ui/templates/home/index.html:65
 msgid "Contribute"
-msgstr ""
+msgstr "Osallistu"
 
 #: openspending/ui/templates/home/index.html:66
 msgid ""
@@ -1261,15 +1247,15 @@ msgid ""
 "        looking for spending data from all over the world. [1:Import a\n"
 "          dataset] from your country or local community to visualize \n"
 "        and explore government expenditure."
-msgstr ""
+msgstr "Onko sinun maasi tai kaupunkisi OpenSpending:issä vielä? Etsimme\n        kulutusdataa kaikkialta maailmasta. [1:Tuo\n          tietoaineisto] oman maasi tai  yhteisösi data visualisoidaksesi \n        se ja tutkiaksesi julkisen hallinnon menoja."
 
 #: openspending/ui/templates/home/reporterror.html:7
 msgid "Report an issue"
-msgstr ""
+msgstr "Ilmoita ongelma"
 
 #: openspending/ui/templates/home/reporterror.html:11
 msgid "Report a data issue"
-msgstr ""
+msgstr "Ilmoita tietoaineistoon liittyvä ongelma"
 
 #: openspending/ui/templates/home/reporterror.html:12
 msgid ""
@@ -1277,62 +1263,61 @@ msgid ""
 "      or misrepresented data or that is implausible in terms of the amount\n"
 "      spent, the recipient or the spender, please help us flag these item by\n"
 "      filling out the form below."
-msgstr ""
+msgstr "Jos huomaat jotain datoja jossa on virheitä\ntai dataa on väärin tulkittu tai sisältää virheellisiä kulutussummia, niin ole hyvä ja ilmoita niistä\ntäyttämällä lomake alla"
 
 #: openspending/ui/templates/home/rest.html:5
 msgid "nav-api"
-msgstr ""
+msgstr "nav-api"
 
 #: openspending/ui/templates/home/rest.html:7
 msgid "REST API"
-msgstr ""
+msgstr "REST API"
 
 #: openspending/ui/templates/home/rest.html:10
 msgid "The Store's REST API"
-msgstr ""
+msgstr "The Store's REST API"
 
 #: openspending/ui/templates/home/rest.html:12
 msgid ""
 "This API returns JSON versions of the store's domain objects.\n"
-"    The URLs are generally the same as the URLs used by the web interface for"
-"\n"
+"    The URLs are generally the same as the URLs used by the web interface for\n"
 "    the same objects, but with \"/api/rest\" prepended."
-msgstr ""
+msgstr "Tämä API palauttaa JSON versiot Storeen tallennettuihin objekteihin. URL:it ovat yleisesti samat kuin web-käyttöliittymässä\nsamoilla objekteille, mutta osoitteessa \"/api/rest\""
 
 #: openspending/ui/templates/home/rest.html:17
 msgid "Here are some examples:"
-msgstr ""
+msgstr "Tässä on joitain esimerkkejä:"
 
 #: openspending/ui/templates/home/rest.html:26
 msgid ""
 "The JSON response generally contains the same information as the\n"
 "    corresponding web page, but in more detail."
-msgstr ""
+msgstr "JSON vastaus sisältää yleensä saman tiedon kuin\nvastaava web-sivu, mutta paljon yksityiskohtaisemmin"
 
 #: openspending/ui/templates/home/rest.html:29
 msgid ""
 "A JSONP object is returned if a [1:callback] parameter is\n"
 "    supplied (usually by appending \"?callback=myfun\" or\n"
 "    similar)."
-msgstr ""
+msgstr "JSONP objekti palautetaan jos [1:callback] parametri on\nannettu (yleensä \"?callback=myfun\" tai vastaava)"
 
 #: openspending/ui/templates/run/view.html:7
 #: openspending/ui/templates/source/new.html:8
 msgid "nav-source"
-msgstr ""
+msgstr "nav-source"
 
 #: openspending/ui/templates/run/view.html:9
 #: openspending/ui/templates/run/view.html:14
 msgid "Report:"
-msgstr ""
+msgstr "Raportti:"
 
 #: openspending/ui/templates/run/view.html:17
 msgid "Errors,"
-msgstr ""
+msgstr "Virheitä,"
 
 #: openspending/ui/templates/run/view.html:21
 msgid "Nothing to report!"
-msgstr ""
+msgstr "Ei mitään raportoivaa"
 
 #: openspending/ui/templates/run/view.html:21
 msgid ""
@@ -1340,82 +1325,81 @@ msgid ""
 "      successfully. This does not mean the data is stored in a form \n"
 "      which is semantically useful, though, so don't forget to \n"
 "      sanity-check a few entries!"
-msgstr ""
+msgstr "Lähde on ladattu\n      onnistuneesti. Tämä ei tarkoita sitä että data olisi tallennettu  \n      semanttisesti hyödyllisessä muodossa, joten älä unohda \n      tarkistaa muutamia tietoalkioita!"
 
 #: openspending/ui/templates/run/view.html:30
 msgid "Level"
-msgstr ""
+msgstr "Taso"
 
 #: openspending/ui/templates/run/view.html:31
 msgid "Message"
-msgstr ""
+msgstr "Viesti"
 
 #: openspending/ui/templates/run/view.html:47
 msgid "Row"
-msgstr ""
+msgstr "Rivi"
 
 #: openspending/ui/templates/run/view.html:48
 msgid "Column"
-msgstr ""
+msgstr "Sarake"
 
 #: openspending/ui/templates/source/_list.html:12
 msgid "Link"
-msgstr ""
+msgstr "Linkki"
 
 #: openspending/ui/templates/source/_list.html:13
 msgid "Operations"
-msgstr ""
+msgstr "Toiminnot"
 
 #: openspending/ui/templates/source/_list.html:22
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: openspending/ui/templates/source/_list.html:30
 msgid "columns"
-msgstr ""
+msgstr "sarakkeet"
 
 #: openspending/ui/templates/source/_list.html:48
 msgid "Test a sample"
-msgstr ""
+msgstr "Testaa esimerkkiä"
 
 #: openspending/ui/templates/source/_list.html:49
 msgid "Load"
-msgstr ""
+msgstr "Lataa"
 
 #: openspending/ui/templates/source/_list.html:59
 msgid "Reports"
-msgstr ""
+msgstr "Raportit"
 
 #: openspending/ui/templates/source/_list.html:67
 msgid "Running"
-msgstr ""
+msgstr "Suoritetaan"
 
 #: openspending/ui/templates/source/_list.html:70
 msgid "Complete"
-msgstr ""
+msgstr "Valmis"
 
 #: openspending/ui/templates/source/_list.html:73
 msgid "Errors"
-msgstr ""
+msgstr "Virheitä"
 
 #: openspending/ui/templates/source/_list.html:75
 #, python-format
 msgid "(%(count)s Errors)"
-msgstr ""
+msgstr "(%(count)s virhettä)"
 
 #: openspending/ui/templates/source/_new_form.html:12
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: openspending/ui/templates/source/_new_form.html:15
 msgid ""
 "This must point directly at a\n"
 "            valid CSV file. HTML landing pages or other formats, such as\n"
 "            Excel, will not work."
-msgstr ""
+msgstr "Tämän pitää osoittaa suoraan\n            validiin CSV tiedostoon. HTML sivut ja muut muodot, kuten\n            Excel, ei toimi."
 
 #: openspending/ui/templates/source/new.html:10
 #: openspending/ui/templates/source/new.html:17
 msgid "Create a data source"
-msgstr ""
-
+msgstr "Luo datan lähde"

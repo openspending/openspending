@@ -1,21 +1,22 @@
 # Translations template for openspending.
 # Copyright (C) 2012 ORGANIZATION
 # This file is distributed under the same license as the openspending project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
-#
-#, fuzzy
+# 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: openspending 0.11\n"
+"Project-Id-Version: OpenSpending\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2012-02-13 21:03+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2012-02-13 20:04+0000\n"
+"Last-Translator: pudo <friedrich@pudo.org>\n"
+"Language-Team: Latvian (http://www.transifex.net/projects/p/openspending/language/lv/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
+"Language: lv\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2)\n"
 
 #: openspending/ui/controllers/account.py:38
 msgid "Login name already exists, please choose a different one"
@@ -67,7 +68,8 @@ msgid "The dataset has been updated."
 msgstr ""
 
 #: openspending/ui/controllers/editor.py:102
-msgid "You cannot edit the dimensions model when data is loaded for the dataset."
+msgid ""
+"You cannot edit the dimensions model when data is loaded for the dataset."
 msgstr ""
 
 #: openspending/ui/controllers/editor.py:119
@@ -100,7 +102,8 @@ msgstr ""
 
 #: openspending/ui/controllers/editor.py:175
 #, python-format
-msgid "Congratulations, the dataset has been published. It is now available at: %s"
+msgid ""
+"Congratulations, the dataset has been published. It is now available at: %s"
 msgstr ""
 
 #: openspending/ui/controllers/editor.py:184
@@ -128,7 +131,8 @@ msgstr ""
 msgid "Sent ping!"
 msgstr ""
 
-#: openspending/ui/controllers/run.py:23 openspending/ui/controllers/source.py:56
+#: openspending/ui/controllers/run.py:23
+#: openspending/ui/controllers/source.py:56
 #, python-format
 msgid "There is no source '%s'"
 msgstr ""
@@ -161,7 +165,8 @@ msgid "Invalid request."
 msgstr ""
 
 #: openspending/ui/templates/400.html:10 openspending/ui/templates/403.html:10
-#: openspending/ui/templates/404.html:10 openspending/ui/templates/run/view.html:32
+#: openspending/ui/templates/404.html:10
+#: openspending/ui/templates/run/view.html:32
 #: openspending/ui/templates/run/view.html:51
 #: openspending/ui/templates/source/_list.html:19
 msgid "Error"
@@ -561,8 +566,7 @@ msgstr ""
 #: openspending/ui/templates/dataset/new.html:34
 msgid ""
 "Paste the url of your [1:http://thedatahub.org/] dataset\n"
-"            and we will take care of pulling all the relevant information "
-"automatically\n"
+"            and we will take care of pulling all the relevant information automatically\n"
 "            (though you will get a chance to review and amend it)."
 msgstr ""
 
@@ -615,8 +619,7 @@ msgid ""
 "          information]\n"
 "        in a common\n"
 "        database so that we can provide common tools for [2:analysis,\n"
-"          visualization and comparison]. OpenSpending is an open platform "
-"that\n"
+"          visualization and comparison]. OpenSpending is an open platform that\n"
 "        aims to facilitate the presentation of financial information so \n"
 "        anyone - whether data geek or concerned citizen - can contribute \n"
 "        their local city budget or spending reports."
@@ -707,7 +710,9 @@ msgid "Dimension:"
 msgstr ""
 
 #: openspending/ui/templates/dimension/view.html:20
-msgid "All figures are total financial involvement, not just funds received or spent."
+msgid ""
+"All figures are total financial involvement, not just funds received or "
+"spent."
 msgstr ""
 
 #: openspending/ui/templates/dimension/view.html:27
@@ -792,14 +797,13 @@ msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:107
 msgid ""
-"The name you choose should only contain letters, numbers and dashes (i.e., no"
-" spaces)"
+"The name you choose should only contain letters, numbers and dashes (i.e., "
+"no spaces)"
 msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:110
 msgid ""
-"Where the dimension represents the ultimate source or destination of the "
-"funds, \n"
+"Where the dimension represents the ultimate source or destination of the funds, \n"
 "                        call it [1:from] or [2:to]."
 msgstr ""
 
@@ -819,8 +823,7 @@ msgstr ""
 #: openspending/ui/templates/editor/dimensions.html:127
 msgid ""
 "A defined set, like suppliers or classifications, with \n"
-"                                multiple attributes (e.g. supplier name and "
-"VAT number)."
+"                                multiple attributes (e.g. supplier name and VAT number)."
 msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:133
@@ -869,16 +872,11 @@ msgstr ""
 #: openspending/ui/templates/editor/dimensions.html:185
 msgid ""
 "To create a model for your dataset,\n"
-"                                          you need to translate the columns "
-"in \n"
-"                                          the data file to \"dimensions\", "
-"the logical\n"
-"                                          divisions of the dataset. A "
-"dimension\n"
-"                                          can be any property of a line item "
-"or \n"
-"                                          transaction that should be "
-"presented\n"
+"                                          you need to translate the columns in \n"
+"                                          the data file to \"dimensions\", the logical\n"
+"                                          divisions of the dataset. A dimension\n"
+"                                          can be any property of a line item or \n"
+"                                          transaction that should be presented\n"
 "                                          within OpenSpending."
 msgstr ""
 
@@ -927,13 +925,10 @@ msgstr ""
 #: openspending/ui/templates/editor/dimensions.html:202
 msgid ""
 "Beyond that, you can add your own\n"
-"                                          dimensions to describe aspects such"
-"\n"
+"                                          dimensions to describe aspects such\n"
 "                                          as classification schemes,\n"
-"                                          descriptions, transaction IDs and "
-"any\n"
-"                                          other details present in the source"
-"\n"
+"                                          descriptions, transaction IDs and any\n"
+"                                          other details present in the source\n"
 "                                          data."
 msgstr ""
 
@@ -968,10 +963,8 @@ msgstr ""
 #: openspending/ui/templates/editor/dimensions.html:222
 msgid ""
 "If your data is transactional and \n"
-"                                          contains the name of a department "
-"or \n"
-"                                          body spending the funds, make sure "
-"to \n"
+"                                          contains the name of a department or \n"
+"                                          body spending the funds, make sure to \n"
 "                                          include a"
 msgstr ""
 
@@ -989,8 +982,7 @@ msgstr ""
 msgid ""
 "Set a unique key combination so\n"
 "                                          that the values within that\n"
-"                                          combination are different between "
-"all \n"
+"                                          combination are different between all \n"
 "                                          entries in the dataset. This can\n"
 "                                          later be used for updating the\n"
 "                                          dataset."
@@ -999,14 +991,11 @@ msgstr ""
 #: openspending/ui/templates/editor/dimensions.html:236
 msgid ""
 "After you've done these basic things,\n"
-"                                          make sure to also create dimensions"
-"\n"
-"                                          to cover any other aspects present "
-"in \n"
+"                                          make sure to also create dimensions\n"
+"                                          to cover any other aspects present in \n"
 "                                          the source data. You can group\n"
 "                                          related columns into a single\n"
-"                                          dimension, for example if each row"
-" \n"
+"                                          dimension, for example if each row \n"
 "                                          mentions both a company's name and\n"
 "                                          its VAT number."
 msgstr ""
@@ -1038,10 +1027,8 @@ msgstr ""
 #: openspending/ui/templates/editor/index.html:21
 msgid ""
 "[1:Congratulations, your dataset is now created.] Next, you'll need\n"
-"            to link to a source file that contains the data (or a sample for "
-"testing\n"
-"            if your dataset is very large!). The data must be in the CSV "
-"format."
+"            to link to a source file that contains the data (or a sample for testing\n"
+"            if your dataset is very large!). The data must be in the CSV format."
 msgstr ""
 
 #: openspending/ui/templates/editor/index.html:27
@@ -1215,16 +1202,14 @@ msgstr ""
 #: openspending/ui/templates/home/index.html:30
 msgid ""
 "Our aim is to track every government and corporate financial transaction \n"
-"        across the world and present it in useful and engaging forms for "
-"everyone\n"
+"        across the world and present it in useful and engaging forms for everyone\n"
 "        from a school-child to a data geek."
 msgstr ""
 
 #: openspending/ui/templates/home/index.html:34
 msgid ""
 "We're an open community that anyone is invited to join! We're looking for\n"
-"        researchers, coders and citizen activists to join us and to help "
-"gather and\n"
+"        researchers, coders and citizen activists to join us and to help gather and\n"
 "        understand financial data."
 msgstr ""
 
@@ -1294,8 +1279,7 @@ msgstr ""
 #: openspending/ui/templates/home/rest.html:12
 msgid ""
 "This API returns JSON versions of the store's domain objects.\n"
-"    The URLs are generally the same as the URLs used by the web interface for"
-"\n"
+"    The URLs are generally the same as the URLs used by the web interface for\n"
 "    the same objects, but with \"/api/rest\" prepended."
 msgstr ""
 
@@ -1418,4 +1402,3 @@ msgstr ""
 #: openspending/ui/templates/source/new.html:17
 msgid "Create a data source"
 msgstr ""
-
