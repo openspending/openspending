@@ -1,0 +1,73 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2011, The Open Knowledge Foundation
+# This file is distributed under the same license as the OpenSpending package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenSpending 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-02-07 16:44\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../api-olap.rst:2
+# 0f47b19f37444373a4bfd8ffda74fe91
+msgid "How does OpenSpending store data?"
+msgstr ""
+
+#: ../api-olap.rst:4
+# ffd0d38f43134d0c8818a48e31b49c82
+msgid "OpenSpending maintains a collection of **datasets**, each of which represents spending or budgetary data from a separate source that has its own data model. Inside each dataset, a set of **entries** are stored to represent individual transactions."
+msgstr ""
+
+#: ../api-olap.rst:10
+# bd328a3e890c40e4a824fb1fac653a56
+msgid "Measures and Dimensions"
+msgstr ""
+
+#: ../api-olap.rst:12
+# a1aafab428694683930dc9f9f2238d5d
+msgid "Each entry has several properties, such as the amount spent, a time stamp and several other dimensions to identify the data."
+msgstr ""
+
+#: ../api-olap.rst:15
+# cf7f46ff09004960ba858f842bb483af
+msgid "There are different types of properties: **measures** are numeric units which contain the actual value of the entry (i.e. the monetary value of the transaction). They can be aggregated by some criterion, for example in order to sum up all transactions destined for a certain supplier."
+msgstr ""
+
+#: ../api-olap.rst:20
+# f89841adf0fb4a9791cdb249c2ee8a6e
+msgid "To contextualize these numeric values, **dimensions** contain other types of data that is available for the entry, e.g. a transaction number, classification scheme or involved company or individual."
+msgstr ""
+
+#: ../api-olap.rst:24
+# 38d1aa55484e4205a375b344cfe2a1cf
+msgid "Dimensions can either hold a single value (so-called *Attribute Dimensions*) or a nested set of values (*Compound Dimensions*). Each compound dimension is identified through a name which makes it unique within the given dimension."
+msgstr ""
+
+#: ../api-olap.rst:28
+# a1b520d0f51d4a469329898ed83addd5
+msgid "As a matter of convention, composite dimensions also have a human-readable label as well as a color used to represent it in visualizations. A special type of nested structures is used to represent dates in a way that lends itself to easy aggregation."
+msgstr ""
+
+#: ../api-olap.rst:35
+# fdf9e67c516940dca5b59475e82d29af
+msgid "Slicing and Dicing the Data"
+msgstr ""
+
+#: ../api-olap.rst:37
+# 29dafab2164940b398a3708f34d065f5
+msgid "This storage structure is often referred to as a data cube, which represents a multi-dimensional spreadsheet. When working with the cube, filters on dimensions are often used to select a relevant subset of the data. It is useful to think of these operations in terms of a cube from which you can **slice** (filter) certain segments while dividing the resulting part of the cube by other criteria in a **drilldown** (dicing) operation."
+msgstr ""
+
+#: ../api-olap.rst:44
+# 7e401934cd7e40ddb6413d760547ccf8
+msgid "On a technical level, all entries of a dataset are stored both in a set of auto-generated database tables and in a full text search index. Both mechanisms are sometimes used to produce aggregates, which may lead to (floating-point imprecision based) differences between their results."
+msgstr ""
+

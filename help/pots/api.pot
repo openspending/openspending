@@ -1,0 +1,73 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2011, The Open Knowledge Foundation
+# This file is distributed under the same license as the OpenSpending package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenSpending 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-02-07 16:44\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../api.rst:2
+# 335777a147b04c5199dca243c3022447
+msgid "Guide for developers and designers"
+msgstr ""
+
+#: ../api.rst:4
+# 496b6fb355f645778c09652fffc4ccad
+msgid "OpenSpending aims to be a simple-to-use platform for developers. The site offers a variety of APIs that can be used to create new visualizations, reports and other applications:"
+msgstr ""
+
+#: ../api.rst:9
+# 1e349b19a6d9422799faf50da611d545
+msgid "Using the OpenSpending API"
+msgstr ""
+
+#: ../api.rst:11
+# db5ef029dd01403f9331fe9d05978c5c
+msgid "We want to help people answer complicated questions about government finance. If you have used OpenSpending in some interesting way, :doc:`please let us know <contact>` and we'll add your project to this section!"
+msgstr ""
+
+#: ../api.rst:15
+# 2f1a098fa7504b189f8252cb267403c4
+msgid "Background: :doc:`api-olap`"
+msgstr ""
+
+#: ../api.rst:16
+# e0d9445bb08b4437a42f8f7f80affa63
+msgid "`Radial Bubble Tree <http://okfn.github.com/bubbletree/>`_"
+msgstr ""
+
+#: ../api.rst:19
+# 115257d140bf40c8b78d534d39e745ae
+msgid "API Reference"
+msgstr ""
+
+#: ../api.rst:33
+# 4c0ce4ea98404e078531aa25fa34a954
+msgid "Contribute to the platform"
+msgstr ""
+
+#: ../api.rst:35
+# 6562a727948e4a73893d2a672a0f0f7f
+msgid "Of course, OpenSpending is an `open source <http://www.gnu.org/licenses/agpl.html>`_ project and we aim to include contributions into production as quickly as possible."
+msgstr ""
+
+#: ../api.rst:39
+# 44f4c786e7f548d49960442ea0e3be7a
+msgid "We work as a distributed team and most discussions take place either on the `openspending-dev <http://lists.okfn.org/mailman/listinfo/openspending-dev>`_ mailing list or on IRC (``#openspending`` on FreeNode)."
+msgstr ""
+
+#: ../api.rst:43
+# 7132d4d46a1a47b081a1e4bb94e108b8
+msgid "If you feel like hacking core, check out the `GitHub issues <https://github.com/okfn/openspending>`_ to see what is going on and where help is needed."
+msgstr ""
+
