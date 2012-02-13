@@ -250,7 +250,11 @@
                                 <div class="control-group">
                                   <label class="control-label">Label:</label>
                                   <div class="controls">
-                                      <input type='text' name='$${name}[label]' value='$${data.label}' />
+                                    <input type='text' name='$${name}[label]' value='$${data.label}' />
+                                    <p class="help-block">
+                                      A human-readable title for this
+                                      dimension.
+                                    </p>
                                   </div>
                                 </div>
                                 <div class="control-group">
@@ -259,6 +263,11 @@
                                       <input type='checkbox' name='$${name}[key]' value='true' />
                                       Include in unique key
                                     </label>
+                                    <p class="help-block">
+                                      Make this dimension part of the set of
+                                      uniquely identifying values for each
+                                      column.
+                                    </p>
                                   </div>
                                 </div>
 
@@ -266,14 +275,21 @@
                                 <div class="control-group">
                                   <label class="control-label">Column:</label>
                                   <div class="controls">
-                                      <select class='column' name='$${name}[column]'></select>
+                                    <select class='column' name='$${name}[column]'></select>
+                                    <p class="help-block">
+                                      Source column in the source CSV file.
+                                    </p>
                                   </div>
                                 </div>
                                 <hr/>
                                 <div class="control-group">
                                   <label class="control-label">Default value:</label>
                                   <div class="controls">
-                                      <input class='short' name='$${name}[default_value]' />
+                                    <input class='short' name='$${name}[default_value]' />
+                                    <p class="help-block">
+                                      Empty cells will be padded with this
+                                      value.
+                                    </p>
                                   </div>
                                 </div>
                                 {{if !meta.fixedDataType}}
@@ -302,6 +318,10 @@
                                       <input type='checkbox' name='$${name}[facet]' value='true' />
                                       Use as facet in entries browser
                                     </label>
+                                    <p class="help-block">
+                                      Select a few dimensions which are useful
+                                      to slice the dataset by.
+                                    </p>
                                   </div>
                                 </div>
                               </div>
