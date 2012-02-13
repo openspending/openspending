@@ -50,9 +50,8 @@
     ${editor_nav('dimensions')}
     
     <div id="m1">
-      <div class="forms dimensions_widget">
-        <form action="#">
-          <div class="row">
+      <div class="dimensions_widget">
+          <div class="row forms">
             <div class="span3">
               <p>
                 <a class='btn btn-primary' data-backdrop="static"
@@ -181,8 +180,6 @@
           <div class="modeleditor tab-content dimensions">
                         <div class='tab-pane active' id='help'>
                           <div class='forms'>
-                                <form action="#">
-
                                   <!-- Dimension mapping -->
                                         <h2>Dimension mapping</h2>
                                         <p i18n:msg="">
@@ -251,9 +248,6 @@
                                           <li><a href="${h.url(controller='help', action='page',
                                             path='api-olap.html')}">Background: How does OpenSpending store data?</a></li>
                                         </ul>
-
-
-                                </form>
                           </div> <!-- /.forms -->
 
                           <!-- Dimension column field template -->
@@ -397,18 +391,17 @@
 
       </div>
     </div>
-                                  <form  class="basic" id="form" action="${url(controller='editor',
+            <form  class="basic" id="form" action="${url(controller='editor',
                                 action='dimensions_update', dataset=c.dataset.name)}" 
                                         method="POST">
 
                                         <textarea id="mapping" name="mapping" style="display: none">${c.fill['mapping']}</textarea>
                                     <div class="form-actions">
-                                          <input id="save" value="Save Dimensions" class="btn btn-success" name="operation" type="submit" />
+                                          <input id="save" value="Save Dimensions" class="btn btn-success" type="submit" />
                                           <input type="button" class='btn btn-danger rm_all_dimensions' value="Delete All Dimensions" />
-
                                     </div>
                   </form>
-          </form></div></div>
+          </div></div>
 
 
   </div>
