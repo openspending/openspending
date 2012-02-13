@@ -111,23 +111,36 @@
         <!-- templates/layout.html content include end -->
 <!-- ************************************************************************************************** -->
 
-      <footer>
-      <p class="right">&copy;
-      <a href="http://okfn.org">Open Knowledge Foundation</a>, 2011
-      <a href="http://opendefinition.org"><img src="http://assets.okfn.org/images/ok_buttons/od_80x15_blue.png" alt="Open Content" /></a>
-      </p>
-
-      <ul>
-        <li><a href="${h.url(controller='help', action='page', path='index.html')}">Help</a></li>
-        <li><a href="${g.wiki_link}">Wiki</a></li>
-        <li><a href="${g.lists_link}">Mailing List</a></li>
-        <li><a href="${h.url(controller='help', action='page', path='api.html')}">API</a></li>
-        <li><a href="http://okfn.org/privacy-policy/">Privacy</a></li>
-        <li><a href="${h.url(controller='help', action='page', path='contact.html')}">Contact</a></li>
-      </ul>
-      </footer>
-
     </div> <!-- /container -->
+    
+    <footer>
+      <div class="inner">
+        <div class="container">
+          <p>
+            This is an <a href="http://okfn.org">Open Knowledge Foundation</a>
+            project.
+          </p>
+
+          <ul class="footer-links span4 pull-left">
+            <li><a href="${h.url(controller='help', action='page', path='index.html')}">Help</a></li>
+            <li><a href="${g.wiki_link}">Wiki</a></li>
+            <li><a href="${g.lists_link}">Mailing List</a></li>
+          </ul>
+          <ul class="footer-links span4 pull-left">
+            <li><a href="${h.url(controller='help', action='page', path='api.html')}">API</a></li>
+            <li><a href="http://okfn.org/privacy-policy/">Privacy</a></li>
+            <li><a href="${h.url(controller='help', action='page', path='contact.html')}">Contact</a></li>
+          </ul>
+
+          All <a href="http://www.gnu.org/licenses/agpl.html">code</a> 
+          and <a href="http://opendatacommons.org/licenses/odbl/">data</a> is 
+          openly licensed in accordance with the 
+          <a href="http://opendefinition.org/">open definition</a>.
+          <br/>
+          <a href="http://opendefinition.org"><img src="http://assets.okfn.org/images/ok_buttons/od_80x15_blue.png" alt="Open Content" /></a>
+        </div>
+      </div>
+    </footer>
 
     ${script_tag('vendor/jquery')}
     ${script_tag('vendor/underscore')}
