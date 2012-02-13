@@ -59,12 +59,12 @@ class BaseImporter(object):
                     error='')
 
         num_loaded = len(self.dataset) - before_count
-        if not self.errors and num_loaded < row_number:
+        if not self.errors and num_loaded < (self.row_number-1):
             self.log_exception(ValueError("The number of entries loaded is "
                 "smaller than the number of source rows read."),
                 error="%s rows were read, but only %s entries created. "
                     "Check the unique key criteria, entries seem to overlap." % \
-                    (row_number, num_loaded))
+                    (self.row_number, num_loaded))
 
         if self.errors:
             self._run.status = Run.STATUS_FAILED
