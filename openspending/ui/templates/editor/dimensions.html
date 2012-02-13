@@ -14,46 +14,36 @@
         display: none;
         position: relative;
         height: 305px;
-        }
-
-        /*
-        #action_buttons li a {
-            vertical-align: middle;
-            text-align: center;
-            width: 80%;
-          }
-
-          #action_buttons li {
-            list-style-type: none;
-          }
-      */
+      }
 
       #column-names .used {
-            text-decoration: line-through;
-            background-color: #ffffff;
-          }
+        text-decoration: line-through;
+        background-color: #ffffff;
+      }
 
       #column-names-container {
         text-align: right;
-          }
-          #column-names-container h3 {
-            padding: 5px;
-          }
-          #column-names-container li {
-            list-style-type: none;
-            }
+      }
+
+      #column-names-container h3 {
+        padding: 5px;
+      }
+      
+      #column-names-container li {
+        list-style-type: none;
+      }
 
       .rm_dimension {
         float: right;
       }
     </style>
 
-        <script>
-          var validDimensionType = function(ty) {
-            var validTypes = [ 'attribute', 'value', 'date', 'measure' ];
-            return ($$.inArray(ty, validTypes) !== -1);
+    <script>
+      var validDimensionType = function(ty) {
+        var validTypes = [ 'attribute', 'value', 'date', 'measure' ];
+        return ($$.inArray(ty, validTypes) !== -1);
       };
-        </script>
+    </script>
   </py:def>
 
   <div py:def="content">
@@ -63,7 +53,6 @@
     <div class="row">
       <div class="span3">
 
-        <py:if test="c.can_edit">
         <p>
           <a class='btn btn-primary' data-backdrop="static"
                                 data-controls-modal="add-dimension"
@@ -168,33 +157,8 @@
                 </form>
       </div>
 
-
-
-         
-        </py:if>
-
       </div>
       <div class="span9">
-        <py:if test="not c.can_edit">
-          <div class="alert-message block-message warning">
-            <strong>You cannot edit dimensions while data is
-              loaded.</strong>
-            In order to modify the dimensions model, you'll have to 
-            delete all the data that is currently loaded from the database.
-          
-            <div class="alert-actions">
-              <form method="POST" action="${h.url(controller='editor',
-                action='drop', dataset=c.dataset.name)}">
-                <input type="submit" class="btn danger" 
-                  value="Delete loaded data" />
-                <a href="${h.url(controller='dimension', action='index',
-                  dataset=c.dataset.name)}" class="btn">
-                  See dimensions</a>
-              </form>
-            </div>
-          </div>
-        </py:if>
-        <py:if test="c.can_edit">
 
                                 <py:if test="len(c.errors.keys())">
                   <div class="alert block-message alert-error">
@@ -361,7 +325,6 @@
                         </div> <!-- /.modeleditor -->
 
           </div>
-        </py:if>
 
 
       </div>
@@ -396,24 +359,22 @@
     <script type="text/javascript" src="${h.static('app/dimensions-editor/main.js')}"></script>
     <script type="text/javascript" src="${h.static('app/dimensions-editor/modelEditorInit.js')}"></script>
 
-    <py:if test="c.can_edit">
-      <script>
-        jQuery(function($) {
-          var config = {
-            dataset: "${c.dataset.name}",
-            source: "${c.source.id}",
-            editorSelector: "#m1",
-            fallbackSelector: '#mapping',
-            namesHook: '#names-hook'
-            };
+    <script>
+      jQuery(function($) {
+        var config = {
+          dataset: "${c.dataset.name}",
+          source: "${c.source.id}",
+          editorSelector: "#m1",
+          fallbackSelector: '#mapping',
+          namesHook: '#names-hook'
+          };
 
-          $(document).ready(function () {
-            $('.dimensions_widget').show();
-            initModelEditor($, config);
-          });
+        $(document).ready(function () {
+          $('.dimensions_widget').show();
+          initModelEditor($, config);
         });
-      </script>
-    </py:if>
+      });
+    </script>
   </py:def>
 
   <xi:include href="../layout.html" />

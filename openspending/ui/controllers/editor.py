@@ -71,27 +71,22 @@ class EditorController(BaseController):
         return self.core_edit(dataset, errors=errors)
 
     def dimensions_edit(self, dataset, errors={}, mapping=None, 
-            format='html', mode='visual'):
+            format='html'):
 
-        assert mode in ['visual', 'source']
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
         # TODO: really split up dimensions and mapping editor.
         c.source = c.dataset.sources.first()
         if c.source is None:
-            abort(400, _("You cannot edit the dimensions model before "\
-                          "defining a data source"))
+            return render('editor/dimensions_errors.html')
         mapping = mapping or c.dataset.data.get('mapping', {})
         if not len(mapping) and c.source and 'mapping' in c.source.analysis:
             mapping = c.source.analysis['mapping']
         c.fill = {'mapping': json.dumps(mapping, indent=2)}
         c.errors = errors
-        c.can_edit = not len(c.dataset)
-
-        template = {'visual': 'editor/dimensions.html',
-                    'source': 'editor/dimensions_source.html'}[mode]
-
-        return render(template, form_fill=c.fill)
+        if len(c.dataset):
+            return render('editor/dimensions_errors.html')
+        return render('editor/dimensions.html', form_fill=c.fill)
     
     def dimensions_update(self, dataset, format='html'):
         dry_run = False
