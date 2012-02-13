@@ -3,6 +3,9 @@
 
 import csv
 
+# look away
+csv.field_size_limit(csv.field_size_limit() * 100)
+
 class EmptyCSVError(Exception):
     pass
 
