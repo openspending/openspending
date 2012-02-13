@@ -49,115 +49,120 @@
   <div py:def="content">
     ${editor_nav('dimensions')}
     
-    <div id="m1"><div class="forms dimensions_widget"><form action="#">
-    <div class="row">
-      <div class="span3">
-
-        <p>
-          <a class='btn btn-primary' data-backdrop="static"
+    <div id="m1">
+      <div class="forms dimensions_widget">
+        <form action="#">
+          <div class="row">
+            <div class="span3">
+              <p>
+                <a class='btn btn-primary' data-backdrop="static"
                                 data-controls-modal="add-dimension"
                                 data-keyboard="false" href='#'>
-            <i class="icon-plus icon-white"></i>
-            Add Dimension</a>
-        </p>
-        <p class="help-block">
-          Make sure your dimensions import all source data columns.<br/><br/>
-        </p>
-        <p>
-          <a class='btn btn-primary' data-backdrop="true"
-              data-controls-modal="check-uniques"
-              data-keyboard="true" href='#'>Set Unique Dimensions</a>
-        </p>
-        <p class="help-block">
-          Identify the dimensions that help to identify each entry.<br/><br/>
-        </p>
-        <h3>Exisiting Dimensions</h3>
-        <div class="well">
-          <ul id="names-hook" class="dimension-names nav nav-list">
-          </ul>
-        </div>
+                  <i class="icon-plus icon-white"></i>
+                  Add Dimension</a>
+              </p>
+              <p class="help-block">
+                Make sure your dimensions import all source data columns.<br/><br/>
+              </p>
+
+              <p>
+                <a class='btn btn-primary' data-backdrop="true"
+                                data-controls-modal="check-uniques"
+                                data-keyboard="true" href='#'>Set Unique Dimensions</a>
+              </p>
+              <p class="help-block">
+                Identify the dimensions that help to identify each entry.<br/><br/>
+              </p>
+
+              <h3>Exisiting Dimensions</h3>
+              <div class="well">
+                <ul id="names-hook" class="dimension-names nav nav-list">
+                </ul>
+              </div>
 
 
-
-
-      <div id="check-uniques" class="modal hide fade">
-        <div class="modal-header">
-          <h3>Specify which dimensions identify an entry uniquely</h3>
-        </div>
+              <!-- Unique dimensions selector window. --> 
+              <div id="check-uniques" class="modal hide fade">
+                <div class="modal-header">
+                  <h3>Specify which dimensions identify an entry uniquely</h3>
+                </div>
                 <form action='#'>
-          <div class="modal-body">
-                        <ul id="uniques" style="list-style: none;">
-                        </ul>
-          </div>
-          <div class="modal-footer">
-                        <a class='btn set_uniques btn-success'>Update</a>
-          </div>
+                  <div class="modal-body">
+                    <ul id="uniques" style="list-style: none;">
+                    </ul>
+                  </div>
+                  <div class="modal-footer">
+                    <a class='btn set_uniques btn-success'>Update</a>
+                  </div>
                 </form>
-      </div>
+              </div>
 
-
-      <div id="add-dimension" class="modal hide fade">
-        <div class="modal-header">
-          <h3>Add new dimension</h3>
-        </div>
+              <!-- Add dimension window. -->
+              <div id="add-dimension" class="modal hide fade">
+                <div class="modal-header">
+                  <h3>Add new dimension</h3>
+                </div>
                 <form action='#' class="form-horizontal">
-          <div class="modal-body">
-                        <div style="padding: 4px">
-                          <p>
-                                The name you choose should only contain letters, numbers and dashes (i.e., no spaces)
-                          </p>
-                          <p i18n:msg="">Where the dimension represents the ultimate source or destination of the funds, call it <code>from</code> or <code>to</code>.
-                                </p>
+                  <div class="modal-body">
+                    <div style="padding: 4px">
+                      <p>
+                        The name you choose should only contain letters, numbers and dashes (i.e., no spaces)
+                      </p>
+                      <p i18n:msg="">
+                        Where the dimension represents the ultimate source or destination of the funds, 
+                        call it <code>from</code> or <code>to</code>.
+                      </p>
+                      </div>
+                        <div class="control-group">
+                          <label for="new-dimension-name">Name</label>
+                          <div class="controls">
+                            <input type='text' name='new-dimension-name' value='' />
+                          </div>
                         </div>
-                      <div class="control-group">
-                        <label for="new-dimension-name">Name</label>
-                        <div class="controls">
-                          <input type='text' name='new-dimension-name' value='' />
+                        <div class="control-group">
+                          <label for="new-dimension-type">Type</label>
+                          <div class="controls">
+                            <label class="checkbox">
+                              <input id='dimension_type' type="radio" name="new-dimension-type" value="compound" />
+                              Dimension
+                              <p class="help-block">
+                                A defined set, like suppliers or classifications, with 
+                                multiple attributes (e.g. supplier name and VAT number).
+                              </p>
+                            </label>
+                            <label class="checkbox">
+                              <input id='dimension_type' type="radio" name="new-dimension-type" value="attribute" />
+                              Attribute
+                              <p class="help-block">
+                                A simple value, e.g. descriptions or transaction IDs.
+                              </p>
+                            </label>
+                            <label class="checkbox">
+                              <input id='dimension_type' type="radio" name="new-dimension-type" value="date" />
+                              Date
+                              <p class="help-block">
+                                Temporal value, e.g. start of project, date of disbursement.
+                              </p>
+                            </label>
+                            <label class="checkbox">
+                              <input id='dimension_type' type="radio" name="new-dimension-type" value="measure" />
+                              Measure
+                              <p class="help-block">
+                                Monetary information, e.g. amount disbursed or allocated.
+                              </p>
+                            </label>
+                          </div>
                         </div>
                       </div>
-                      <div class="control-group">
-                        <label for="new-dimension-type">Type</label>
-                        <div class="controls">
-                          <label class="checkbox">
-                            <input id='dimension_type' type="radio" name="new-dimension-type" value="compound" />
-                            Dimension
-                            <p class="help-block">
-                              A defined set, like suppliers or classifications, with 
-                              multiple attributes (e.g. supplier name and VAT number).
-                            </p>
-                          </label>
-                          <label class="checkbox">
-                            <input id='dimension_type' type="radio" name="new-dimension-type" value="attribute" />
-                            Attribute
-                            <p class="help-block">
-                              A simple value, e.g. descriptions or transaction IDs.
-                            </p>
-                          </label>
-                          <label class="checkbox">
-                            <input id='dimension_type' type="radio" name="new-dimension-type" value="date" />
-                            Date
-                            <p class="help-block">
-                              Temporal value, e.g. start of project, date of disbursement.
-                            </p>
-                          </label>
-                          <label class="checkbox">
-                            <input id='dimension_type' type="radio" name="new-dimension-type" value="measure" />
-                            Measure
-                            <p class="help-block">
-                              Monetary information, e.g. amount disbursed or allocated.
-                            </p>
-                          </label>
-                        </div>
-                      </div>
-          </div>
-          <div class="modal-footer">
+                      <div class="modal-footer">
                         <a class='btn cancel_add_dimension btn-danger'>Cancel</a>
                         <a class='btn add_dimension btn-success'>Add</a>
-          </div>
-                </form>
-      </div>
+                      </div>
+                    </form>
+                  </div>
 
-      </div>
+                </div>
+
       <div class="span9">
 
                                 <py:if test="len(c.errors.keys())">
