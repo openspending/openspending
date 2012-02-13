@@ -11,7 +11,7 @@
     <h2 class="page-header">Import a dataset</h2>
     <div class="row">
       <div class="span4">
-        <div class="alert-message block-message info" i18n:msg=""
+        <div class="alert block-message alert-info" i18n:msg=""
               i18n:comment="List of steps to take">
           If you have a spending or budget dataset that 
           you can contribute, please give some basic information 
@@ -26,10 +26,10 @@
           </ul>
         </div>
       </div>
-      <div class="span12 import-options" py:if="not c.have_error">
+      <div class="span8 import-options" py:if="not c.have_error">
         <!-- do not display on error as only relevant when first importing -->
         <div class="row">
-          <div class="span6 import-datahub">
+          <div class="span4 import-datahub">
             <h3>Import from a DataHub Dataset</h3>
             <p i18n:msg="">Paste the url of your <a
               href="http://thedatahub.org">http://thedatahub.org/</a> dataset
@@ -44,7 +44,7 @@
           <div class="span1">
             <h3>OR</h3>
           </div>
-          <div class="span5 import-nondatahub">
+          <div class="span3 import-nondatahub">
             <h3>Dataset not yet on the DataHub?</h3>
             <p>No problem! You can still import your dataset as long as the
             data file is online somewhere.</p>
@@ -52,28 +52,28 @@
           </div>
         </div>
       </div>
-      <div class="span12 dataset-info" style="${c.dataset_info_style}">
-        <form class="basic" id="login" action="/datasets" method="POST">
+      <div class="span8 dataset-info" style="${c.dataset_info_style}">
+        <form class="basic form-horizontal" id="login" action="/datasets" method="POST">
           <input name="ckan_uri" type="hidden" />
           <fieldset>
-            <div class="clearfix">
-              <label for="label">Title</label>
-              <div class="input">
+            <div class="control-group">
+              <label class="control-label" for="label">Title</label>
+              <div class="controls">
                 <input name="label" placeholder="My Dataset" />
               </div>
             </div>
-            <div class="clearfix">
-              <label for="name">Identifier</label>
-              <div class="input">
+            <div class="control-group">
+              <label class="control-label" for="name">Identifier</label>
+              <div class="controls">
                 <input name="name" placeholder="my_dataset" />
-                <span class="help-block">The identifier will become part of the
+                <p class="help-block">The identifier will become part of the
                   dataset URL and cannot be changed later. It may only 
-                  contain alphanumeric characters, dashes and underscores.</span>
+                  contain alphanumeric characters, dashes and underscores.</p>
               </div>
             </div>
-            <div class="clearfix">
-              <label for="currency">Currency</label>
-              <div class="input">
+            <div class="control-group">
+              <label class="control-label" for="currency">Currency</label>
+              <div class="controls">
                 <select name="currency">
                   <py:for each="code, name in c.currencies">
                     <option value="${code}">${name} (${code})</option>
@@ -81,15 +81,15 @@
                 </select>
               </div>
             </div>
-            <div class="clearfix">
-              <label for="description">Description</label>
-              <div class="input">
+            <div class="control-group">
+              <label class="control-label" for="description">Description</label>
+              <div class="controls">
                 <textarea class="xxlarge" rows="4" name="description"></textarea>
               </div>
             </div>
           </fieldset>
-          <div class="actions">
-            <input value="Next Step" class="btn success" type="submit" />
+          <div class="form-actions">
+            <input value="Next Step" class="btn btn-success" type="submit" />
           </div>
         </form>
       </div>

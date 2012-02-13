@@ -10,13 +10,10 @@
   <!-- templates/layout.html top -->
 
   <py:if test="len(_form_errors)">
-    <div py:match="input|select" py:strip="" py:with="error = _form_errors.get(str(select('@name')))">
-      <div class="clearfix error" py:if="error">
-        ${select('.')}
-        <span class="help-inline" py:if="error" py:content="error"></span>
-      </div>
-      <py:if test="not error">
-        ${select('.')}
+    <div py:match="input|select|textarea" py:strip="" py:with="error = _form_errors.get(str(select('@name')))">
+      ${select('.')}
+      <py:if test="error">
+        <p class="help-block error" py:content="error"></p>
       </py:if>
     </div>
   </py:if>
