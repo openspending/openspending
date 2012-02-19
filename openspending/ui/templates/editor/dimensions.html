@@ -51,8 +51,7 @@
     
     <div id="m1">
       <div class="dimensions_widget">
-        <div class="row forms">
-          <form action="#">
+        <div class="row">
             <div class="span3">
               <p>
                 <a class='btn btn-primary' data-backdrop="static"
@@ -177,10 +176,11 @@
                   </div>
                                 </py:if>
                  
-
+          <div class="forms">
+          <form action="#" id="editor-form">
           <div class="modeleditor tab-content dimensions">
                         <div class='tab-pane active' id='help'>
-                          <div class='forms'>
+                          <div>
                                   <!-- Dimension mapping -->
                                         <h2>Dimension mapping</h2>
                                         <p i18n:msg="">
@@ -388,9 +388,10 @@
                         </div> <!-- /.modeleditor -->
 
           </div>
+        </form>
+      </div>
 
       </div>
-      </form>
     </div>
             <form  class="basic" id="form" action="${url(controller='editor',
                                 action='dimensions_update', dataset=c.dataset.name)}" 
