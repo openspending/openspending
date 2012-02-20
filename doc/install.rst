@@ -67,7 +67,13 @@ Having done that, you can copy configuration templates::
 Edit the configuration files to make sure you're pointing to a valid database 
 URL is set::
 
-    $ openspending.db.url = postgresql://{user}:{pass}@localhost/openspending
+    # TCP
+    openspending.db.url = postgresql://{user}:{pass}@localhost/openspending
+
+    or
+
+    # Local socket
+    openspending.db.url = postgresql:///openspending
 
 Initialize the database::
 
