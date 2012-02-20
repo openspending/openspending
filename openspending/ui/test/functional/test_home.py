@@ -7,4 +7,4 @@ class TestHomeController(ControllerTestCase):
         assert 'OpenSpending' in response
 
     def test_locale(self):
-        response = self.app.get(url(controller='home', action='locale'))
+        response = self.app.get(url(controller='home', action='set_locale'))
