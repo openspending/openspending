@@ -138,24 +138,3 @@ class DatasetController(BaseController):
         self._get_dataset(dataset)
         return to_jsonp(c.dataset.model)
 
-    def timeline(self, name):
-        self._get_dataset(name)
-        c.dataset = Dataset.by_name(name)
-        view = View.by_name(c.dataset, "default")
-        viewstate = ViewState(c.dataset, view, None)
-        data = []
-        meta = []
-        for entry, year_data in viewstate.aggregates:
-            meta.append({"label": entry.get("label"),
-                         "description": entry.get("description", ""),
-                         "name": entry.get("name"),
-                         "index": len(meta),
-                         "taxonomy": entry.get("taxonomy")})
-            sorted_year_data = sorted(year_data.items(), key=lambda kv: kv[0])
-            data.append([{"x": k, "y": v,
-                          "meta": len(meta) - 1} for
-                         k, v in sorted_year_data])
-        c.data = json.dumps(data)
-        c.meta = json.dumps(meta)
-        return render('dataset/timeline.html')
-
