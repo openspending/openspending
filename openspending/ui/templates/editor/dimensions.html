@@ -163,7 +163,15 @@
                 </div>
 
       <div class="span9">
-
+        <div py:if="c.saved"
+          class="alert block-message alert-success"  i18n:msg="">
+          <strong>Your model was saved.</strong> You can now try to load a 
+          sample of the data by returning back to the dashboard.
+          <div class="alert-actions">
+            <a class="btn btn-small" href="${h.url(controller='editor',
+              action='index', dataset=c.dataset.name)}">Visit dashboard</a>
+          </div>
+        </div>
                                 <py:if test="len(c.errors.keys())">
                   <div class="alert block-message alert-error">
                                         <p>

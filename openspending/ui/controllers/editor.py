@@ -74,7 +74,7 @@ class EditorController(BaseController):
         return self.core_edit(dataset, errors=errors)
 
     def dimensions_edit(self, dataset, errors={}, mapping=None, 
-            format='html'):
+            format='html', saved=False):
 
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
@@ -87,47 +87,39 @@ class EditorController(BaseController):
             mapping = c.source.analysis['mapping']
         c.fill = {'mapping': json.dumps(mapping, indent=2)}
         c.errors = errors
+        c.saved = saved
         if len(c.dataset):
             return render('editor/dimensions_errors.html')
         return render('editor/dimensions.html', form_fill=c.fill)
     
     def dimensions_update(self, dataset, format='html'):
-        dry_run = False
-
         self._get_dataset(dataset)
-
-        operation = request.params.get('operation', 'Save')
-        if operation == 'Verify':
-            dry_run = True
 
         require.dataset.update(c.dataset)
         if len(c.dataset):
             abort(400, _("You cannot edit the dimensions model when " \
                     "data is loaded for the dataset."))
 
-        errors, mapping = {}, None
+        errors, mapping, saved = {}, None, False
         try:
             mapping = json.loads(request.params.get('mapping'))
             model = c.dataset.model
             model['mapping'] = mapping
             schema = mapping_schema(ValidationState(model))
             new_mapping =  schema.deserialize(mapping)
-            if not dry_run:
-            # erm...
-                c.dataset.data['mapping'] = new_mapping
-                c.dataset.drop()
-                c.dataset._load_model()
-                c.dataset.generate()
-                db.session.commit()
-                h.flash_success(_("The mapping has been updated."))
-            else:
-                h.flash_success(_("The mapping has been validated successfully."))
+            c.dataset.data['mapping'] = new_mapping
+            c.dataset.drop()
+            c.dataset._load_model()
+            c.dataset.generate()
+            db.session.commit()
+            #h.flash_success(_("The mapping has been updated."))
+            saved = True
         except (ValueError, TypeError, AttributeError):
             abort(400, _("The mapping data could not be decoded as JSON!"))
         except Invalid, i:
             errors = i.asdict()
         return self.dimensions_edit(dataset, errors=errors, 
-                mapping=mapping)
+                mapping=mapping, saved=saved)
     
     def views_edit(self, dataset, errors={}, views=None, 
             format='html'):
