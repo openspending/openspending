@@ -105,7 +105,6 @@ class DimensionController(BaseController):
 
         self._make_browser()
         if format == 'json':
-            response.content_disposition = 'attachment; filename=%s.json' % attachment_name
             return c.browser.to_jsonp()
         elif format == 'csv':
             response.content_disposition = 'attachment; filename=%s.csv' % attachment_name

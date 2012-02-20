@@ -226,7 +226,7 @@ class Browser(object):
 
     def to_jsonp(self):
         facets = dict([(k, self.facet_values(k)) for k in self.facets])
-        return write_browser_json(self.all_entries, self.stats, facets, response)
+        return write_browser_json(self.entries, self.stats, facets, response)
 
     def to_csv(self):
         return write_csv(self.all_entries, response)
