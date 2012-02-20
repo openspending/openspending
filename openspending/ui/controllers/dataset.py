@@ -75,7 +75,10 @@ class DatasetController(BaseController):
         return render('dataset/new_cta.html')
 
     def new(self, errors={}):
-        c.currencies = sorted(CURRENCIES.items(), key=lambda (k,v): v)
+        c.key_currencies = sorted([(r,n) for (r, (n, k)) in CURRENCIES.items() if k], 
+                key=lambda (k,v): v)
+        c.all_currencies = sorted([(r,n) for (r, (n, k)) in CURRENCIES.items() if not k], 
+                key=lambda (k,v): v)
         require.account.create()
         errors = [(k[len('dataset.'):], v) for k, v in errors.items()]
         c.have_error = bool(errors)

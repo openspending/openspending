@@ -39,7 +39,10 @@ class EditorController(BaseController):
     def core_edit(self, dataset, errors={}, format='html'):
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
-        c.currencies = sorted(CURRENCIES.items(), key=lambda (k,v): v)
+        c.key_currencies = sorted([(r,n) for (r, (n, k)) in CURRENCIES.items() if k], 
+                key=lambda (k,v): v)
+        c.all_currencies = sorted([(r,n) for (r, (n, k)) in CURRENCIES.items() if not k], 
+                key=lambda (k,v): v)
         c.languages = sorted(LANGUAGES.items(), key=lambda (k,v): v)
         c.territories = sorted(COUNTRIES.items(), key=lambda (k,v): v)
         errors = [(k[len('dataset.'):], v) for k, v in errors.items()]

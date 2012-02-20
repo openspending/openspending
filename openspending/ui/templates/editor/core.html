@@ -26,9 +26,16 @@
               <label class="control-label" for="currency">Currency</label>
               <div class="controls">
                 <select name="currency">
-                  <py:for each="code, name in c.currencies">
-                    <option value="${code}">${name} (${code})</option>
-                  </py:for>
+                  <optgroup label="Commonly used currencies">
+                    <py:for each="code, name in c.key_currencies">
+                      <option value="${code}">${name} (${code})</option>
+                    </py:for>
+                  </optgroup>
+                  <optgroup label="All currencies">
+                    <py:for each="code, name in c.all_currencies">
+                      <option value="${code}">${name} (${code})</option>
+                    </py:for>
+                  </optgroup>
                 </select>
               </div>
             </div>
