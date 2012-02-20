@@ -48,7 +48,7 @@ def load_source(source_id, sample=False):
         importer.run(max_lines=1000, max_errors=1000)
     else:
         importer.run()
-        index_dataset.delay(source.dataset.name)
+    index_dataset.delay(source.dataset.name)
 
 
 @task(ignore_result=True)
