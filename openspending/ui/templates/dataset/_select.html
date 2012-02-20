@@ -1,0 +1,37 @@
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:py="http://genshi.edgewall.org/"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  py:strip=""
+  >
+  <xi:include href="../_util.html" />  
+
+  <py:def function="dataset_select()">
+    <!-- templates/dataset/_select.html -->
+    <div class="modal big-modal hide fade" id="datasets">
+      <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <h3>Oh my what a lot of datasets</h3>
+      </div>
+      <div class="modal-body">
+        List all the datasets.
+                  <a href="${h.url_for(controller='dataset',
+                    action='index')}" i18n:msg="count">All datasets (${c.datasets.count()})...</a>
+                  <py:if test="can.dataset.create()">
+                    <a href="${h.url_for(controller='dataset',
+                      action='new')}">Import a dataset...</a>
+                  </py:if>
+                  <py:if test="not can.dataset.create()">
+                    <a href="${h.url_for(controller='dataset',
+                      action='cta')}">Import a dataset...</a>
+                  </py:if>
+      </div>
+    </div>
+  </py:def>
+
+
+</html>
+
+
+
