@@ -1,0 +1,46 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  py:strip="">
+  <xi:include href="_nav.html" />
+
+  <py:def function="nav_class">nav-editor</py:def>
+
+  <py:def function="page_title">${c.dataset.label or c.dataset.name}</py:def>
+  
+  <div py:def="content">
+    ${editor_nav('dimensions')}
+    <div class="row">
+      <div class="span8 offset4">
+        <py:if test="len(c.dataset)">
+          <div class="alert block-message alert-warning">
+            <p>
+            <strong>You cannot edit dimensions while data is loaded.</strong>
+            In order to modify the dimensions model, you'll have to 
+            delete all the data that is currently loaded from the database.
+            </p>
+            <form method="POST" action="${h.url(controller='editor',
+              action='drop', dataset=c.dataset.name)}">
+              <input type="submit" class="btn btn-danger" 
+                value="Delete loaded data" />
+            </form>
+          </div>
+        </py:if>
+        
+        <py:if test="not c.source">
+          <div class="alert block-message alert-warning">
+            <p>
+            <strong>You need to define at least one data source.</strong>
+            In order to create a dimensions model, at least on data source
+            needs to be available.
+            </p>
+          </div>
+        </py:if>
+      </div>
+    </div>
+  </div>
+
+  <xi:include href="../layout.html" />
+</html>
+
+

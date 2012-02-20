@@ -14,10 +14,10 @@
     ${editor_nav('index')}
 
     <div class="row">
-      <div class="span12">
+      <div class="span8">
         <py:choose test="">
           <div py:when="not c.has_sources" 
-            class="alert-message block-message info">
+            class="alert block-message alert-info">
             <p i18n:msg="">
             <strong>Congratulations, your dataset is now created.</strong> Next, you'll need
             to link to a source file that contains the data (or a sample for testing
@@ -39,7 +39,7 @@
           </div>
 
           <div py:when="c.source and not c.source.analysis"
-            class="alert-message block-message info"  i18n:msg="">
+            class="alert block-message alert-info"  i18n:msg="">
             <strong>Let me see...</strong> The data is now being checked to
             see if it can be imported. This should not take very long.
             <div class="alert-actions">
@@ -48,14 +48,14 @@
           </div>
 
           <div py:when="c.source and 'columns' in c.source.analysis and not c.dataset.mapping"
-            class="alert-message block-message success"  i18n:msg="">
+            class="alert block-message alert-success"  i18n:msg="">
             <strong>Good stuff!</strong> Your data is now ready. Next,
             create a <strong>data model</strong> to structure the dataset.
             <div class="alert-actions">
-              <a class="btn small" href="${h.url(controller='editor',
+              <a class="btn btn-small" href="${h.url(controller='editor',
                 action='dimensions_edit', dataset=c.dataset.name)}">Create
                 a model</a>
-              <a class="btn small" href="${h.url(controller='help',
+              <a class="btn btn-small" href="${h.url(controller='help',
                 action='page', path='api-olap.html')}">Learn
                 more</a>
             </div>
@@ -64,7 +64,7 @@
         <div py:if="c.has_sources">
           <h3>Source files</h3>
           ${sources_list(c.dataset)}
-          <a class="btn success small" data-backdrop="true" data-controls-modal="new-source" href="#">Add a source</a>
+          <a class="btn btn-success small" data-backdrop="true" data-controls-modal="new-source" href="#">Add a source</a>
         </div>
       </div>
       <div class="span4">
@@ -77,45 +77,46 @@
         <py:if test="c.entries_count">
           <form method="POST" action="${h.url(controller='editor',
             action='drop', dataset=c.dataset.name)}">
-            <input type="submit" class="btn danger" 
+            <input type="submit" class="btn btn-danger" 
               value="Delete loaded data" />
-            <span class="help-block">Delete all loaded data to fix 
-              errors and re-edit the data dimensions.</span>
+            <p class="help-block">Delete all loaded data to fix 
+              errors and re-edit the data dimensions.</p>
           </form>
         </py:if>
         <py:if test="not c.entries_count">
-          <a href="#" class="btn danger disabled">Delete loaded data</a>
-          <span class="help-block">You can remove the loaded data
-            at any time and start over.</span>
+          <a href="#" class="btn btn-danger disabled">Delete loaded data</a>
+          <p class="help-block">You can remove the loaded data
+            at any time and start over.</p>
           <br/>
         </py:if>
 
         <py:if test="c.dataset.private and c.entries_count">
           <form method="POST" action="${h.url(controller='editor',
             action='publish', dataset=c.dataset.name)}">
-            <input type="submit" class="btn success" value="Make public" />
-            <span class="help-block">After you've performed some QA,
-              let the world see this dataset.</span>
+            <input type="submit" class="btn btn-success" value="Make public" />
+            <p class="help-block">After you've performed some QA,
+              let the world see this dataset.</p>
           </form>
         </py:if>
         <py:if test="c.dataset.private and not c.entries_count">
-            <a class="btn success disabled">Make public</a>
-            <span class="help-block">After you've performed some QA,
-              let the world see this dataset.</span>
+            <a class="btn btn-success disabled">Make public</a>
+            <p class="help-block">After you've performed some QA,
+              let the world see this dataset.</p>
         </py:if>
         <py:if test="not c.dataset.private">
           <form method="POST" action="${h.url(controller='editor',
             action='retract', dataset=c.dataset.name)}">
-            <input type="submit" class="btn danger" value="Retract" />
-            <span class="help-block">If you have noted serious quality
-              issues or legal issues, you can un-publish this dataset.</span>
+            <input type="submit" class="btn btn-danger" value="Retract" />
+            <p class="help-block">If you have noted serious quality
+              issues or legal issues, you can un-publish this dataset.</p>
           </form>
         </py:if>
 
         <form method="POST" action="${h.url(controller='editor',
           action='delete', dataset=c.dataset.name)}">
-          <input type="submit" class="btn danger" value="Delete entire dataset" />
-          <span class="help-block" i18n:comment="Warning message on deletion">This action cannot be undone.</span>
+          <input type="submit" class="btn btn-danger" value="Delete entire dataset" />
+          <p class="help-block" i18n:comment="Warning message on deletion">This
+          action cannot be undone.</p>
         </form>
 
         <br/>
@@ -134,7 +135,7 @@
             ${new_form()}
           </div>
           <div class="modal-footer">
-             <input value="Create" class="btn success" type="submit" />
+             <input value="Create" class="btn btn-success" type="submit" />
            </div>
         </form>
       </div>

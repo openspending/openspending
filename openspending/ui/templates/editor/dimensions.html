@@ -15,158 +15,157 @@
         position: relative;
         height: 305px;
       }
-      #action_buttons li a {
-            vertical-align: middle;
-            text-align: center;
-            width: 80%;
-          }
-
-          #action_buttons li {
-            list-style-type: none;
-          }
 
       #column-names .used {
-            text-decoration: line-through;
-            background-color: #ffffff;
-          }
+        text-decoration: line-through;
+        background-color: #ffffff;
+      }
 
       #column-names-container {
         text-align: right;
-          }
-          #column-names-container h3 {
-            padding: 5px;
-          }
-          #column-names-container li {
-            list-style-type: none;
+      }
+
+      #column-names-container h3 {
+        padding: 5px;
+      }
+      
+      #column-names-container li {
+        list-style-type: none;
+      }
+
+      .rm_dimension {
+        float: right;
       }
     </style>
 
-        <script>
-          var validDimensionType = function(ty) {
-            var validTypes = [ 'attribute', 'value', 'date', 'measure' ];
-            return ($$.inArray(ty, validTypes) !== -1);
+    <script>
+      var validDimensionType = function(ty) {
+        var validTypes = [ 'attribute', 'value', 'date', 'measure' ];
+        return ($$.inArray(ty, validTypes) !== -1);
       };
-        </script>
+    </script>
   </py:def>
 
   <div py:def="content">
     ${editor_nav('dimensions')}
-          <div id="m1"><div class="forms dimensions_widget"><form action="#">
-    <div class="row">
-      <div class="span4">
-
-        <py:if test="c.can_edit">
-                  <div class='formpart' id='action_buttons'>
-                        <ul>
-<!--                      <li><a class='btn add_attribute_dimension' href='#'>Add single column</a></li>
-                          <li><a class='btn add_compound_dimension' href='#'>Add Multi-column</a></li>
-                          <li><a class='btn add_date_dimension' href='#'>Add Date</a></li>
-                          <li><a class='btn add_measure' href='#'>Add Measure</a></li> -->
-                          <li><a class='btn' data-backdrop="static"
+    
+    <div id="m1">
+      <div class="dimensions_widget">
+        <div class="row">
+            <div class="span3">
+              <p>
+                <a class='btn btn-primary' data-backdrop="static"
                                 data-controls-modal="add-dimension"
-                                data-keyboard="false" href='#'>Add Dimension</a></li>
-                          <li><a class='btn' data-backdrop="true"
-                data-controls-modal="check-uniques"
-                data-keyboard="true" href='#'>Set Unique Dimensions</a></li>
-                          <li><a class='btn rm_all_dimensions' href='#'>Delete All Dimensions</a></li>
-                        </ul>
+                                data-keyboard="false" href='#'>
+                  <i class="icon-plus icon-white"></i>
+                  Add Dimension</a>
+              </p>
+              <p class="help-block">
+                Make sure your dimensions import all source data columns.<br/><br/>
+              </p>
+
+              <p>
+                <a class='btn btn-primary' data-backdrop="true"
+                                data-controls-modal="check-uniques"
+                                data-keyboard="true" href='#'>Set Unique Dimensions</a>
+              </p>
+              <p class="help-block">
+                Identify the dimensions that help to identify each entry.<br/><br/>
+              </p>
+
+              <h3>Exisiting Dimensions</h3>
+              <div class="well">
+                <ul id="names-hook" class="dimension-names nav nav-list">
+                </ul>
+              </div>
+
+
+              <!-- Unique dimensions selector window. --> 
+              <div id="check-uniques" class="modal hide fade">
+                <div class="modal-header">
+                  <h3>Specify which dimensions identify an entry uniquely</h3>
+                </div>
+                <form action='#'>
+                  <div class="modal-body">
+                    <ul id="uniques" style="list-style: none;">
+                    </ul>
+                  </div>
+                  <div class="modal-footer">
+                    <a class='btn set_uniques btn-success'>Update</a>
+                  </div>
+                </form>
+              </div>
+
+              <!-- Add dimension window. -->
+              <div id="add-dimension" class="modal hide fade">
+                <div class="modal-header">
+                  <h3>Add new dimension</h3>
+                </div>
+                <form action='#' class="form-horizontal">
+                  <div class="modal-body">
+                    <div style="padding: 4px">
+                      <p>
+                        The name you choose should only contain letters, numbers and dashes (i.e., no spaces)
+                      </p>
+                      <p i18n:msg="">
+                        Where the dimension represents the ultimate source or destination of the funds, 
+                        call it <code>from</code> or <code>to</code>.
+                      </p>
+                      </div>
+                        <div class="control-group">
+                          <label for="new-dimension-name">Name</label>
+                          <div class="controls">
+                            <input type='text' name='new-dimension-name' value='' />
+                          </div>
+                        </div>
+                        <div class="control-group">
+                          <label for="new-dimension-type">Type</label>
+                          <div class="controls">
+                            <label class="checkbox">
+                              <input id='dimension_type' type="radio" name="new-dimension-type" value="compound" />
+                              Dimension
+                              <p class="help-block">
+                                A defined set, like suppliers or classifications, with 
+                                multiple attributes (e.g. supplier name and VAT number).
+                              </p>
+                            </label>
+                            <label class="checkbox">
+                              <input id='dimension_type' type="radio" name="new-dimension-type" value="attribute" />
+                              Attribute
+                              <p class="help-block">
+                                A simple value, e.g. descriptions or transaction IDs.
+                              </p>
+                            </label>
+                            <label class="checkbox">
+                              <input id='dimension_type' type="radio" name="new-dimension-type" value="date" />
+                              Date
+                              <p class="help-block">
+                                Temporal value, e.g. start of project, date of disbursement.
+                              </p>
+                            </label>
+                            <label class="checkbox">
+                              <input id='dimension_type' type="radio" name="new-dimension-type" value="measure" />
+                              Measure
+                              <p class="help-block">
+                                Monetary information, e.g. amount disbursed or allocated.
+                              </p>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <a class='btn cancel_add_dimension btn-danger'>Cancel</a>
+                        <a class='btn add_dimension btn-success'>Add</a>
+                      </div>
+                    </form>
                   </div>
 
+                </div>
 
-
-      <div id="check-uniques" class="modal hide fade">
-        <div class="modal-header">
-          <h3>Specify which dimensions identify an entry uniquely</h3>
-        </div>
-                <form action='#'>
-          <div class="modal-body">
-                        <ul id="uniques" style="list-style: none;">
-                        </ul>
-          </div>
-          <div class="modal-footer">
-                        <a class='btn set_uniques success'>Update</a>
-          </div>
-                </form>
-      </div>
-
-
-      <div id="add-dimension" class="modal hide fade">
-        <div class="modal-header">
-          <h3>Add new dimension</h3>
-        </div>
-                <form action='#'>
-          <div class="modal-body">
-                        <div style="padding: 4px">
-                          <p>
-                                The name you choose should only contain letters, numbers and dashes (i.e., no spaces)
-                          </p>
-                          <p i18n:msg="">Where the dimension represents the ultimate source or destination of the funds, call it <code>from</code> or <code>to</code>.
-                                </p>
-                        </div>
-                        <dl>                      
-                          <dt><label>Type:</label></dt>
-                          <dd>
-                                <select id='dimension_type' name='new-dimension-type'>
-                                  <option value='attribute'>Single CSV column</option>
-                                  <option value='compound'>Multiple CSV columns</option>
-                                  <option value='date'>Date</option>
-                                  <option value='measure'>Measure</option>
-                                </select>
-                          </dd>
-                          
-                          <dt><label>Name:</label></dt>
-                          <dd>
-                                <input type='text' name='new-dimension-name' value='' />
-                          </dd>
-                        </dl>
-          </div>
-          <div class="modal-footer">
-                        <a class='btn cancel_add_dimension cancel'>Cancel</a>
-                        <a class='btn add_dimension success'>Add</a>
-          </div>
-                </form>
-      </div>
-
-
-
-                </py:if>
-
-        <py:if test="c.can_edit and c.source and 'columns' in c.source.analysis">
-         <div id='column-names-container'>
-          <h3>Source data columns:</h3>
-          <ul id='column-names'>
-            <li py:for="col in c.source.analysis['columns']">
-              <code>${col}</code>
-            </li>
-          </ul>
-                 </div>
-        </py:if>
-
-      </div>
-      <div class="span12">
-        <py:if test="not c.can_edit">
-          <div class="alert-message block-message warning">
-            <strong>You cannot edit dimensions while data is
-              loaded.</strong>
-            In order to modify the dimensions model, you'll have to 
-            delete all the data that is currently loaded from the database.
-          
-            <div class="alert-actions">
-              <form method="POST" action="${h.url(controller='editor',
-                action='drop', dataset=c.dataset.name)}">
-                <input type="submit" class="btn danger" 
-                  value="Delete loaded data" />
-                <a href="${h.url(controller='dimension', action='index',
-                  dataset=c.dataset.name)}" class="btn">
-                  See dimensions</a>
-              </form>
-            </div>
-          </div>
-        </py:if>
-        <py:if test="c.can_edit">
+      <div class="span9">
 
                                 <py:if test="len(c.errors.keys())">
-                  <div class="alert-message block-message error">
+                  <div class="alert block-message alert-error">
                                         <p>
                                           The dimensions mapping could not be saved as it 
                                           contains some errors:
@@ -177,49 +176,79 @@
                   </div>
                                 </py:if>
                  
-                  <ul class="tabs">
-
-                                          <li class="dropdown" data-dropdown="dropdown" style="float: left">
-                                                <a href="#" class="dropdown-toggle" id="dimension-count">Dimensions (?)</a>
-                                                <ul  id="names-hook" class="dimension-names dropdown-menu">
-                                                </ul>
-                                          </li>
-
-                        <li><a href="dimensions_src">Advanced</a></li>
-                        <li class="active"><a href="#help">Help</a></li>
-                  </ul>
-
+          <div class="forms">
+          <form action="#" id="editor-form">
           <div class="modeleditor tab-content dimensions">
                         <div class='tab-pane active' id='help'>
-                          <div class='forms'>
-                                <form action="#">
-
+                          <div>
                                   <!-- Dimension mapping -->
-                                        <h3>Dimension mapping</h3>
+                                        <h2>Dimension mapping</h2>
                                         <p i18n:msg="">
-                                          The first and most important step in the creation of a model is
-                                          the mapping of columns in the data file to "dimensions", the logical
-                                          divisions of the dataset. The four required dimensions, <code>amount</code>,
-                                          <code>time</code>, <code>from</code>, and <code>to</code> are laid
-                                          out below, and you can add your own dimensions using the links at
-                                          the bottom of the page.
+                                          To create a model for your dataset,
+                                          you need to translate the columns in 
+                                          the data file to "dimensions", the logical
+                                          divisions of the dataset. A dimension
+                                          can be any property of a line item or 
+                                          transaction that should be presented
+                                          within OpenSpending.
                                         </p>
-        <h3>What do I do here?</h3>
-        To create a model, you need to define the dimensions of your dataset
-        in a JSON (JavaScript Object Notation) schema. Using the
-        auto-generated schema, you likely need to define
-        measures and compound dimensions.
-        <ul>
-          <li><strong><a
-            href="http://docs.openspending.org/en/latest/model/design.html#dimension-and-mapping-definitions">Schema
-            documentation</a></strong></li>
-          <li><a href="${h.url(controller='help', action='page',
-            path='api-olap.html')}">Background: How does OpenSpending store data?</a></li>
-          <li><a href="http://wiki.openspending.org/Mapping_Format">Schema wiki</a></li>
-        </ul>
+                                        <p>
+                                          There are four core dimensions, <code>amount</code>,
+                                          <code>time</code> &mdash; which are
+                                          mandatory &mdash; as well as
+                                          <code>from</code> for the spender,
+                                          and <code>to</code> for the
+                                          recipient of a specific transaction. 
+                                        </p>
+                                        <p>
+                                          Beyond that, you can add your own
+                                          dimensions to describe aspects such
+                                          as classification schemes,
+                                          descriptions, transaction IDs and any
+                                          other details present in the source
+                                          data.
+                                        </p>
+                                        <h3>What do I do here?</h3>
+                                        <p>
+                                          First off, make sure to set up the
+                                          model to conform to these basic
+                                          requirements:
+                                        </p>
+                                        <ul>
+                                          <li>Create <code>amount</code> with the core 
+                                          financial measure of the dataset and 
+                                          <code>time</code> to represent the most 
+                                          representative temporal
+                                          dimension.</li>
+                                          <li>If your data is transactional and 
+                                          contains the name of a department or 
+                                          body spending the funds, make sure to 
+                                          include a <code>from</code> dimension.</li>
+                                          <li>If the data mentions a recipient,
+                                          such as a supplier, set
+                                          <code>to</code>.</li>
+                                          <li>Set a unique key combination so
+                                          that the values within that
+                                          combination are different between all 
+                                          entries in the dataset. This can
+                                          later be used for updating the
+                                          dataset.</li>
+                                        </ul>
+                                        <p>
+                                          After you've done these basic things,
+                                          make sure to also create dimensions
+                                          to cover any other aspects present in 
+                                          the source data. You can group
+                                          related columns into a single
+                                          dimension, for example if each row 
+                                          mentions both a company's name and
+                                          its VAT number.
 
-
-                                </form>
+                                        </p>
+                                        <ul>
+                                          <li><a href="${h.url(controller='help', action='page',
+                                            path='api-olap.html')}">Background: How does OpenSpending store data?</a></li>
+                                        </ul>
                           </div> <!-- /.forms -->
 
                           <!-- Dimension column field template -->
@@ -229,7 +258,6 @@
                                   <td><select class='column' name='$${prefix(fieldName)}[column]'></select></td>
                                   <td>
                                         <select name='$${prefix(fieldName)}[datatype]'>
-                                          <option value=''></option>
                                           <option value='string'>string</option>
                                           <option value='float'>float</option>
                                           <option value='id'>id</option>
@@ -237,8 +265,11 @@
                                         </select>
                                   </td>
                                   <td>
+                                    <input type='short' class='span3' name='$${prefix(fieldName)}[default_value]' placeholder="Default Value" />
+                                  </td>
+                                  <td>
                                         {{if required(fieldName) != true}}
-                                        <a href='#' class='field_rm'>&times;</a>
+                                        <a href='#' class='field_rm'><i class="icon-remove"></i></a>
                                         {{/if}}
                                   </td>
                                 </tr>
@@ -246,55 +277,101 @@
 
                           <!-- Dimension template -->
                           <script id='tpl_dimension' type='text/x-jquery-tmpl'>
+                            <div class="form-horizontal">
                                 <input type='hidden' name='$${name}[type]' value='$${data.type}' />
                                 {{if meta.fixedDataType}}
                                 <input type='hidden' name='$${name}[datatype]' value='$${data.datatype}' />
                                 {{/if}}
                                 <legend>$${name} ($${data.type})</legend>
                                 {{if meta.helpText}}<p>$${meta.helpText}</p>{{/if}}
-                                <dl>
-                                  {{if validDimensionType(data.type)}}
-                                  <dt><label>Column:</label></dt>
-                                  <dd>
-                                        <select class='column' name='$${name}[column]'></select>
-                                  </dd>
-                                  {{if !meta.fixedDataType}}
-                                  <dt><label>Data type:</label></dt>
-                                  <dd>
-                                        <select name='$${name}[datatype]'>
-                                          <option value='string'>string</option>
-                                          <option value='float'>float</option>
-                                          <option value='id'>id</option>
-                                          <option value='date'>date</option>
-                                        </select>
-                                  </dd>
-                                  {{/if}}
-                                  {{/if}}
-                                  <dt><label>Label:</label></dt>
-                                  <dd>
-                                        <input type='text' name='$${name}[label]' value='$${data.label}' />
-                                  </dd>
-                                  <dt><label>Description:</label></dt>
-                                  <dd>
-                                        <textarea class='short' name='$${name}[description]'>$${data.description}</textarea>
-                                  </dd>
-                                  <dt><label>Unique key?</label></dt>
-                                  <dd>
-                                        <select class='boolean' name='$${name}[key]' value='$${data.key}'>
-                                          <option value="false">No</option>
-                                          <option value="true">Yes</option>
-                                        </select>
-                                  </dd>
-                                </dl>
-                                
+
+                                <div class="control-group">
+                                  <label class="control-label">Label:</label>
+                                  <div class="controls">
+                                    <input type='text' name='$${name}[label]' value='$${data.label}' />
+                                    <p class="help-block">
+                                      A human-readable title for this
+                                      dimension.
+                                    </p>
+                                  </div>
+                                </div>
+                                <div class="control-group">
+                                  <div class="controls">
+                                    <label class="checkbox">
+                                      <input type='checkbox' name='$${name}[key]' value='true' />
+                                      Include in unique key
+                                    </label>
+                                    <p class="help-block">
+                                      Make this dimension part of the set of
+                                      uniquely identifying values for each
+                                      column.
+                                    </p>
+                                  </div>
+                                </div>
+
+                                {{if validDimensionType(data.type)}}
+                                <div class="control-group">
+                                  <label class="control-label">Column:</label>
+                                  <div class="controls">
+                                    <select class='column' name='$${name}[column]'></select>
+                                    <p class="help-block">
+                                      Source column in the source CSV file.
+                                    </p>
+                                  </div>
+                                </div>
+                                <hr/>
+                                <div class="control-group">
+                                  <label class="control-label">Default value:</label>
+                                  <div class="controls">
+                                    <input class='short' name='$${name}[default_value]' />
+                                    <p class="help-block">
+                                      Empty cells will be padded with this
+                                      value.
+                                    </p>
+                                  </div>
+                                </div>
+                                {{if !meta.fixedDataType}}
+                                  <div class="control-group">
+                                    <label class="control-label">Data type:</label>
+                                    <div class="controls">
+                                      <select name='$${name}[datatype]'>
+                                        <option value='string'>string</option>
+                                        <option value='float'>float</option>
+                                        <option value='id'>id</option>
+                                        <option value='date'>date</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                {{/if}}
+                                {{/if}}
+                                <div class="control-group">
+                                  <label class="control-label">Description:</label>
+                                  <div class="controls">
+                                    <textarea class='short' name='$${name}[description]'>$${data.description}</textarea>
+                                  </div>
+                                </div>
+                                <div class="control-group">
+                                  <div class="controls">
+                                    <label class="checkbox">
+                                      <input type='checkbox' name='$${name}[facet]' value='true' />
+                                      Use as facet in entries browser
+                                    </label>
+                                    <p class="help-block">
+                                      Select a few dimensions which are useful
+                                      to slice the dataset by.
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
                                 {{if !(validDimensionType(data.type))}}
-                                <div><table class='fields'>
+                                <div><table class='table table-condensed table-striped fields'>
                                   <thead>
                                         <tr>
-                                          <td>Field name</td>
-                                          <td>Column</td>
-                                          <td>Type</td>
-                                          <td>&nbsp;</td>
+                                          <th>Field</th>
+                                          <th>Column</th>
+                                          <th>Type</th>
+                                          <th>Default</th>
+                                          <th>&nbsp;</th>
                                         </tr>
                                   </thead>
                                   <tbody>
@@ -305,69 +382,62 @@
                                 </table></div>
                                 <a class='btn add_field' href='#'>Add a field</a>
                                 {{/if}}
-                                <a class="btn rm_dimension $${name}" rm-dim="$${name}" href="#">Delete dimension</a>
                           </script>
 
 
                         </div> <!-- /.modeleditor -->
 
           </div>
-        </py:if>
+        </form>
+      </div>
 
-                                  <form  class="basic" id="form" action="${url(controller='editor',
+      </div>
+    </div>
+            <form  class="basic" id="form" action="${url(controller='editor',
                                 action='dimensions_update', dataset=c.dataset.name)}" 
                                         method="POST">
 
                                         <textarea id="mapping" name="mapping" style="display: none">${c.fill['mapping']}</textarea>
-                                    <div class="actions">
-                                          <input id="verify" value="Verify" class="btn" name="operation" type="submit" />
-                                          <input id="save" value="Save" class="btn success" name="operation" type="submit" />
-
+                                    <div class="form-actions">
+                                          <input id="save" value="Save Dimensions" class="btn btn-success" type="submit" />
+                                          <input type="button" class='btn btn-danger rm_all_dimensions' value="Delete All Dimensions" />
                                     </div>
                   </form>
-
-      </div>
-    </div>
-          </form></div></div>
+          </div></div>
 
 
   </div>
 
   <py:def function="scripts">
-
-
     ${script_tag('vendor/jquery.tmpl')}
-
-        ${script_tag('vendor/bootstrap-tabs')}
+    ${script_tag('vendor/bootstrap-tabs')}
     ${script_tag('vendor/bootstrap-modal')}
 
-        <script>
-          $(function($) {
-            $('.tabs').tabs();
-          });
+    <script>
+      $(function($) {
+        $('.tabs').tabs();
+      });
     </script>
 
     <script type="text/javascript" src="${h.static('app/dimensions-editor/main.js')}"></script>
     <script type="text/javascript" src="${h.static('app/dimensions-editor/modelEditorInit.js')}"></script>
 
-    <py:if test="c.can_edit">
-        <script>
-          jQuery(function($) {
-            var config = {
-              dataset: "${c.dataset.name}",
-                  source: "${c.source.id}",
-                  editorSelector: "#m1",
-                  fallbackSelector: '#mapping',
-              namesHook: '#names-hook'
-            };
+    <script>
+      jQuery(function($) {
+        var config = {
+          dataset: "${c.dataset.name}",
+          source: "${c.source.id}",
+          editorSelector: "#m1",
+          fallbackSelector: '#mapping',
+          namesHook: '#names-hook'
+          };
 
         $(document).ready(function () {
           $('.dimensions_widget').show();
           initModelEditor($, config);
         });
-          });
-        </script>
-    </py:if>
+      });
+    </script>
   </py:def>
 
   <xi:include href="../layout.html" />

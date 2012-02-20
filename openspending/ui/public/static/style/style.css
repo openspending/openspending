@@ -1,7 +1,11 @@
 
 /* Bootstrap overrides */
 body {
-  padding-top: 60px;
+  padding-top: 40px;
+}
+
+.page-header {
+  padding-bottom: 0;
 }
 
 .topbar .menu-dropdown, .dropdown-menu {
@@ -19,6 +23,8 @@ input, textarea, button, select, .btn {
 }
 
 /* Replicate pagination */
+
+/*
 .pager {
   display: inline-block;
   height: 36px;
@@ -35,8 +41,6 @@ input, textarea, button, select, .btn {
 .pager a, .pager .pager_dotdot, .pager .pager_curpage {
   margin: 0px;
   line-height: 34px;
-  /*border-right: 1px solid;
-  border-right-color: rgba(0, 0, 0, 0.15);*/
   text-decoration: none;
   padding: 0 14px;
 }
@@ -44,6 +48,7 @@ input, textarea, button, select, .btn {
 .pager a:hover, .pager .active a {
   color: black;
 }
+*/
 
 /* Custom theming */
 @font-face {
@@ -56,8 +61,17 @@ input, textarea, button, select, .btn {
   src: url('/static/fonts/share/Share-Regular.otf') format("opentype");
 }
 
+@font-face {
+  font-family: 'OpenSansLight';
+  src: url('/static/fonts/opensans/opensans-light-webfont.eot');
+  src: url('/static/fonts/opensans/opensans-light-webfont.eot?#iefix') format('embedded-opentype'), url('/static/fonts/opensans/opensans-light-webfont.woff') format('woff'), url('/static/fonts/opensans/opensans-light-webfont.ttf') format('truetype'), url('/static/fonts/opensans/opensans-light-webfont.svg#OpenSansLight') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .brand, .topbar, h1, h2, h3 {
   font-family: Share;
+  font-weight: normal;
   letter-spacing: -0.06em;
 }
 
@@ -65,24 +79,20 @@ input, textarea, button, select, .btn {
   text-decoration: none;
 }
 
-.tabs li.dropdown {
+.nav-tabs li.dropdown {
   float: right;
 }
 
-.tabs ul.dropdown-menu {
-  min-width: 6em;
+.nav-tabs ul.dropdown-menu.times {
+  min-width: 100px;
 }
 
-.tabs li.admin a {
+.nav-tabs li.admin a {
   color: red;
 }
 
 .representations {
   float: right;
-}
-
-.nav {
-  font-size: 105%;
 }
 
 .nav select { 
@@ -93,38 +103,52 @@ input, textarea, button, select, .btn {
   height: 19px;
 }
 
-.nav select.locale { 
-  width: 120px;
-}
-
-li.locale { 
-  text-align: right;
-}
-
 .topbar div > ul .dropdown-menu li.current-locale a {
   color: #ccc;
+}
+
+.dropdown-menu.locale-dropdown {
+  min-width: 150px;
 }
 
 .modal form {
   margin-bottom: 0px;
 }
 
-footer ul {
-  list-style-type: none;
-  margin: 0em;
+form .error {
+  color: #B94A48;
 }
 
-footer ul li {
-  display: inline-block;
-  padding-right: 2em;
+/* 
+ * Footer styles based on OKFN brand design. 
+ */
+
+footer,
+footer p {
+  font-family: "OpenSansLight", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
 }
 
-footer p.right {
-  float: right;
+footer {
+  background: #222222 url('../img/okfn-watermark.png') top right no-repeat;
+  margin-top: 50px;
+  padding: 0;
 }
 
-footer img {
-  margin-bottom: -3px;
+footer > .inner {
+  background: url('../img/footer-bevel.png') top repeat-x;
+  padding: 10px 0 30px 0;
+  color: #fff;
+  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.2);
+  min-height: 190px;
+}
+
+footer ul.footer-links {
+}
+
+footer a, footer a:hover {
+  color: #AEEBDF;
 }
 
 /* Front page */

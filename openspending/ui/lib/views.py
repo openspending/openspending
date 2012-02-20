@@ -3,6 +3,7 @@ This module implements views on the database.
 '''
 import logging
 from collections import defaultdict
+from datetime import datetime
 
 from openspending.model import Dataset
 from openspending.ui.lib.cache import AggregationCache
@@ -148,7 +149,13 @@ def _set_time_context(request, c):
         c.state['time'] = req_time
     c.time = c.state.get('time')
     if c.time not in c.times and len(c.times):
-        c.time = c.dataset.default_time or c.times[-1]
+        current_year = str(datetime.utcnow().year)
+        if c.dataset.default_time:
+            c.time = c.dataset.default_time
+        elif current_year in c.times:
+            c.time = current_year
+        else:
+            c.time = c.times[-1]
     # TODO: more clever way to set comparison time
     c.time_before = None
     if c.time and c.time in c.times:

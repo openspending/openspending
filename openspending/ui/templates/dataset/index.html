@@ -13,7 +13,7 @@
     <p>The database contains the following datasets:</p>
 
     <div class="row">
-      <div class="span-two-thirds"> 
+      <div class="span8"> 
         <div py:for="dataset in c.results">
           <h3><a class="dataset-name" href="${url(controller='dataset',
             action='view', dataset=dataset.name)}">
@@ -26,7 +26,7 @@
           <br/>
         </div>
       </div>
-      <div class="span-one-third">
+      <div class="span4">
         <h3>Countries</h3>
         <ul>
           <li py:for="(territory, count) in c.territory_options">

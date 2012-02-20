@@ -10,13 +10,10 @@
   <!-- templates/layout.html top -->
 
   <py:if test="len(_form_errors)">
-    <div py:match="input|select" py:strip="" py:with="error = _form_errors.get(str(select('@name')))">
-      <div class="clearfix error" py:if="error">
-        ${select('.')}
-        <span class="help-inline" py:if="error" py:content="error"></span>
-      </div>
-      <py:if test="not error">
-        ${select('.')}
+    <div py:match="input|select|textarea" py:strip="" py:with="error = _form_errors.get(str(select('@name')))">
+      ${select('.')}
+      <py:if test="error">
+        <p class="help-block error" py:content="error"></p>
       </py:if>
     </div>
   </py:if>
@@ -47,36 +44,38 @@
 
   <body>
 
-    <div class="topbar" data-dropdown="dropdown">
-      <div class="fill">
+    <div class="navbar navbar-fixed-top" data-dropdown="dropdown">
+      <div class="navbar-inner">
         <div class="container">
           <a class="brand" href="/" xml:lang="en"><span class="green">Open</span>Spending</a>
-          <ul class="nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="${g.blog_link}">Spending Blog</a></li>
-            <li class="dropdown">
-              <a href="/datasets" class="dropdown-toggle">Datasets</a>
-              <ul class="dropdown-menu">
-                <li py:for="dataset in c.datasets.limit(15)">
-                  <a href="${h.dataset_url(dataset)}">${dataset.label}</a>
-                </li>
-                <li class="divider"></li>
-                <li><a href="${h.url_for(controller='dataset',
-                  action='index')}" i18n:msg="count">All datasets (${c.datasets.count()})...</a></li>
-                <py:if test="can.dataset.create()">
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a href="/">Home</a></li>
+              <li><a href="${g.blog_link}">Spending Blog</a></li>
+              <li class="dropdown">
+                <a href="/datasets" class="dropdown-toggle">Datasets</a>
+                <ul class="dropdown-menu">
+                  <li py:for="dataset in c.datasets.limit(15)">
+                    <a href="${h.dataset_url(dataset)}">${dataset.label}</a>
+                  </li>
+                  <li class="divider"></li>
                   <li><a href="${h.url_for(controller='dataset',
-                    action='new')}">Import a dataset...</a></li>
-                </py:if>
-                <py:if test="not can.dataset.create()">
-                  <li><a href="${h.url_for(controller='dataset',
-                    action='cta')}">Import a dataset...</a></li>
-                </py:if>
-              </ul>
-            </li>
-            <li><a href="http://wiki.openspending.org/">About</a></li>
-            <li><a href="${h.url(controller='help', action='page', path='contact.html')}">Contact</a></li>
-          </ul>
-          <ul class="nav secondary-nav">
+                    action='index')}" i18n:msg="count">All datasets (${c.datasets.count()})...</a></li>
+                  <py:if test="can.dataset.create()">
+                    <li><a href="${h.url_for(controller='dataset',
+                      action='new')}">Import a dataset...</a></li>
+                  </py:if>
+                  <py:if test="not can.dataset.create()">
+                    <li><a href="${h.url_for(controller='dataset',
+                      action='cta')}">Import a dataset...</a></li>
+                  </py:if>
+                </ul>
+              </li>
+              <li><a href="http://wiki.openspending.org/">About</a></li>
+              <li><a href="${h.url(controller='help', action='page', path='contact.html')}">Contact</a></li>
+            </ul>
+          </div>
+          <ul class="nav pull-right">
             <li py:if="c.account is None">
               <a href="/login">Login/Register</a>
             </li>
@@ -86,16 +85,10 @@
             </py:if>
             <li class="dropdown">
               <a class="dropdown-toggle">Language</a>
-              <ul class="dropdown-menu">
+              <ul class="dropdown-menu locale-dropdown">
                 <li py:for="l in c.detected_l10n_languages" class="locale ${'current-locale' if l[0] == c.language else ''}">
                     <a class="select-locale" data-locale="${l[0]}">${l[1]}</a>
                 </li>
-                <!-- option py:match="option[@class='locale']" py:attrs="select('@*')"
-                  selected="${c.detected_l10n_languages and (str(select('@value')) == c.language) or None}"
-                  py:content="select('text()')" />
-                <select name="locale" class="locale" id="select-locale">
-                  <option py:for="l in c.detected_l10n_languages" class="locale" value="${l[0]}">${l[1]}</option>
-                  </select-->
               </ul>
              </li>
           </ul>
@@ -106,34 +99,50 @@
     <div class="container">
       <py:with vars="messages = list(h._flash.pop_messages())">
         <div py:if="len(messages)">
-          <div class="alert-message ${m.category}" py:for="m in messages">
+          <div class="alert alert-${m.category}" py:for="m in messages">
             ${m.message}
           </div>
         </div>
-        </py:with>
+      </py:with>
+
 <!-- ************************************************************************************************** -->
         <!-- templates/layout.html content include start -->
         ${content()}
         <!-- templates/layout.html content include end -->
 <!-- ************************************************************************************************** -->
 
-      <footer>
-      <p class="right">&copy;
-      <a href="http://okfn.org">Open Knowledge Foundation</a>, 2011
-      <a href="http://opendefinition.org"><img src="http://assets.okfn.org/images/ok_buttons/od_80x15_blue.png" alt="Open Content" /></a>
-      </p>
-
-      <ul>
-        <li><a href="${h.url(controller='help', action='page', path='index.html')}">Help</a></li>
-        <li><a href="${g.wiki_link}">Wiki</a></li>
-        <li><a href="${g.lists_link}">Mailing List</a></li>
-        <li><a href="${h.url(controller='help', action='page', path='api.html')}">API</a></li>
-        <li><a href="http://okfn.org/privacy-policy/">Privacy</a></li>
-        <li><a href="${h.url(controller='help', action='page', path='contact.html')}">Contact</a></li>
-      </ul>
-      </footer>
-
     </div> <!-- /container -->
+    
+    <footer>
+      <div class="inner">
+        <div class="container">
+          <p i18n:msg="okfn">
+            This is an <a href="http://okfn.org">Open Knowledge Foundation</a>
+            project.
+          </p>
+
+          <ul class="footer-links span4 pull-left">
+            <li><a href="${h.url(controller='help', action='page', path='index.html')}">Help</a></li>
+            <li><a href="${g.wiki_link}">Wiki</a></li>
+            <li><a href="${g.lists_link}">Mailing List</a></li>
+          </ul>
+          <ul class="footer-links span4 pull-left">
+            <li><a href="${h.url(controller='help', action='page', path='api.html')}">API</a></li>
+            <li><a href="http://okfn.org/privacy-policy/">Privacy</a></li>
+            <li><a href="${h.url(controller='help', action='page', path='contact.html')}">Contact</a></li>
+          </ul>
+          
+          <p i18n:msg="code,data,opendef">
+          All <a href="http://www.gnu.org/licenses/agpl.html">code</a> 
+          and <a href="http://opendatacommons.org/licenses/odbl/">data</a> is 
+          openly licensed in accordance with the 
+          <a href="http://opendefinition.org/">open definition</a>.
+          <br/>
+          <a href="http://opendefinition.org"><img src="http://assets.okfn.org/images/ok_buttons/od_80x15_blue.png" alt="Open Content" /></a>
+          </p>
+        </div>
+      </div>
+    </footer>
 
     ${script_tag('vendor/jquery')}
     ${script_tag('vendor/underscore')}
