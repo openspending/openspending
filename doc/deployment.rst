@@ -83,7 +83,7 @@ assumed. The key differences in a production install are these:
 
     (env)~/var/srvc/openspending.org$ pip install -r pip-site.txt
 
-* Set up git submodules in src/openspending, as in :doc:`install`.
+* Set up git submodules, help, and catalogs in src/openspending, as in :doc:`install`.
 
 * Set up site.ini as in :doc:`install`, with additional attention paid to:
 
