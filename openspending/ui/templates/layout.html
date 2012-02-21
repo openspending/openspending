@@ -11,12 +11,29 @@
   <!-- templates/layout.html top -->
 
   <py:if test="len(_form_errors)">
-    <div py:match="input|select|textarea" py:strip="" py:with="error = _form_errors.get(str(select('@name')))">
+    <div py:match="input" py:strip="" py:with="error = _form_errors.get(str(select('@name')))">
       ${select('.')}
       <py:if test="error">
         <p class="help-block error" py:content="error"></p>
       </py:if>
     </div>
+    <div py:match="select" py:strip="" py:with="error = _form_errors.get(str(select('@name')))">
+      <select py:attrs="select('@*')"
+          py:with="select_name = str(select('@name'))"
+          py:content="select('option|optgroup')" />
+      <py:if test="error">
+        <p class="help-block error" py:content="error"></p>
+      </py:if>
+    </div>
+    <div py:match="textarea" py:strip="" py:with="error = _form_errors.get(str(select('@name')))">
+      <textarea py:attrs="select('@*')"
+          py:with="select_name = str(select('@name'))"
+          py:content="select('text()')" />
+      <py:if test="error">
+        <p class="help-block error" py:content="error"></p>
+      </py:if>
+    </div>
+
   </py:if>
 
   <head>
