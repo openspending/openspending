@@ -8,6 +8,7 @@
     setupNewSource($('#new-source'));
 
     setupLocales();
+    setupDatasetListing();
   });
 
 function getCkanDatasetInfo(datasetUrl) {
@@ -86,6 +87,31 @@ function setupLocales() {
             });
       window.location.reload();
     });
+}
+
+function updateDatasetListing(params) {
+  params = params || {};
+  var $el = $('#datasets');
+  var jqxhr = $.ajax({
+    url: '/datasets.json',
+    data: params
+    })
+  jqxhr.then(function(out) {
+    var $list = $el.find('.listing').first();
+    $list.empty();
+    var template = Handlebars.compile($("#listing-template").html());
+    $list.append(template({datasets: out}));
+    if ($el.is(':hidden')) {
+      $el.modal({backdrop: false});
+    }
+  });
+}
+
+function setupDatasetListing() {
+  $('.list-datasets').click(function(event) {
+    updateDatasetListing();
+    return false;
+  });
 }
 
 // end the local closure

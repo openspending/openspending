@@ -8,7 +8,13 @@
   <xi:include href="../_util.html" />  
 
   <py:def function="dataset_select()">
-    <!-- templates/dataset/_select.html -->
+  <!-- templates/dataset/_select.html -->
+  <script id="listing-template" type="text/x-handlebars-template">
+    {{#datasets}}
+      <li><a href="/{{name}}">{{label}}</a></li>
+    {{/datasets}}
+  </script>
+
     <div class="modal big-modal hide fade" id="datasets">
       <div class="modal-header">
         <a class="close" data-dismiss="modal">×</a>
@@ -16,6 +22,7 @@
       </div>
       <div class="modal-body">
         List all the datasets.
+        <ul class='listing'></ul>
                   <a href="${h.url_for(controller='dataset',
                     action='index')}" i18n:msg="count">All datasets (${c.datasets.count()})...</a>
                   <py:if test="can.dataset.create()">
