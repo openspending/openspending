@@ -115,6 +115,20 @@ input, textarea, button, select, .btn {
   margin-bottom: 0px;
 }
 
+#datasets {
+    max-height: 500px;
+    overflow: hidden;
+}
+
+#datasets ul li {
+    margin-bottom: 0.8em;
+}
+
+#datasets .box {
+    overflow-y: scroll;
+    max-height: 300px;
+}
+
 form .error {
   color: #B94A48;
 }
