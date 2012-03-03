@@ -9,7 +9,7 @@ which aims to track government finance around the world.
 
 ## Developer installation
 
-Please see docs/install.rst or http://docs.openspending.org/en/latest/install.html.
+Please see doc/install.rst or http://docs.openspending.org/en/latest/install.html.
 
 ## Issue tracking
 
