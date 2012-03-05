@@ -18,6 +18,8 @@ from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.base import require
 from openspending.ui.lib.views import View, ViewState, handle_request
 from openspending.reference.currency import CURRENCIES
+from openspending.reference.country import COUNTRIES
+from openspending.reference.language import LANGUAGES
 from openspending.validation.model.dataset import dataset_schema
 from openspending.validation.model.common import ValidationState
 from openspending.ui.controllers.entry import EntryController
@@ -32,44 +34,45 @@ class DatasetController(BaseController):
         for item in self.extensions:
             item.index(c, request, response, c.results)
 
-        if format == 'json':
-            return to_jsonp(map(lambda d: d.as_dict(),
-                                c.datasets))
-        elif format == 'csv':
-            results = map(lambda d: d.as_dict(), c.datasets)
-            return write_csv(results, response)
-        else:
-            c.query = request.params.items()
-            c.add_filter = lambda f, v: '?' + urlencode(c.query +
-                    [(f, v)] if (f, v) not in c.query else c.query)
-            c.del_filter = lambda f, v: '?' + urlencode([(k,x) for k, x in
-                c.query if (k,x) != (f,v)])
-            c.results = c.datasets
-            for language in request.params.getall('languages'):
-                l = db.aliased(DatasetLanguage)
-                c.results = c.results.join(l, Dataset._languages)
-                c.results = c.results.filter(l.code==language)
-            for territory in request.params.getall('territories'):
-                t = db.aliased(DatasetTerritory)
-                c.results = c.results.join(t, Dataset._territories)
-                c.results = c.results.filter(t.code==territory)
-            c.results = list(c.results)
-            c.territory_options = DatasetTerritory.dataset_counts(c.results)
-            c.language_options = DatasetLanguage.dataset_counts(c.results)
-            return render('dataset/index.html')
+        c.query = request.params.items()
+        c.add_filter = lambda f, v: '?' + urlencode(c.query +
+                [(f, v)] if (f, v) not in c.query else c.query)
+        c.del_filter = lambda f, v: '?' + urlencode([(k,x) for k, x in
+            c.query if (k,x) != (f,v)])
+        c.results = c.datasets
+        for language in request.params.getall('languages'):
+            l = db.aliased(DatasetLanguage)
+            c.results = c.results.join(l, Dataset._languages)
+            c.results = c.results.filter(l.code==language)
+        for territory in request.params.getall('territories'):
+            t = db.aliased(DatasetTerritory)
+            c.results = c.results.join(t, Dataset._territories)
+            c.results = c.results.filter(t.code==territory)
+        c.results = list(c.results)
+        c.territory_options = [{'code': code,
+                                'count': count,
+                                'url': h.url_for(controller='dataset',
+                                    action='index', territories=code),
+                                'label': COUNTRIES.get(code, code)} \
+            for (code, count) in DatasetTerritory.dataset_counts(c.results)]
+        c.language_options = [{'code': code,
+                               'count': count,
+                               'url': h.url_for(controller='dataset',
+                                    action='index', languages=code),
+                               'label': LANGUAGES.get(code, code)} \
+            for (code, count) in DatasetLanguage.dataset_counts(c.results)]
 
-    def territories(self):
-        q = db.select([DatasetTerritory.code, 
-                       db.func.count(DatasetTerritory.dataset_id)],
-            group_by=DatasetTerritory.code,
-            order_by=db.func.count(DatasetTerritory.dataset_id).desc())
-        result = {}
-        for territory, count in db.session.bind.execute(q).fetchall():
-            result[territory] = {'count': count,
-                                 'label': h.COUNTRIES[territory],
-                                 'url': h.url_for(controller='dataset',
-                                     action='index', territories=territory)}
-        return to_jsonp(result)
+        if format == 'json':
+            results = map(lambda d: d.as_dict(), c.results)
+            return to_jsonp({
+                'datasets': results,
+                'territories': c.territory_options,
+                'languages': c.language_options
+                })
+        elif format == 'csv':
+            results = map(lambda d: d.as_dict(), c.results)
+            return write_csv(results, response)
+        return render('dataset/index.html')
 
     def cta(self):
         return render('dataset/new_cta.html')

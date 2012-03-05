@@ -30,12 +30,26 @@ Listing datasets
 
   GET /datasets.json
 
-All datasets are listed, including their core metadata. This call does 
-not have any parameters. Supported formats are HTML and JSON.
+All datasets are listed, including their core metadata. Additionally, certain 
+parameters are given as facets (i.e. territories and languages of the
+datasets). Both ``territories`` and ``languages`` can also be passed in as 
+query parameters to filter the result set. Supported formats are HTML, CSV and JSON.
 
 .. code-block:: javascript
 
-  [
+  
+  "territories": [
+    /* ... */
+    {
+      "count": 2,
+      "url": "/datasets?territories=BH",
+      "code": "BH",
+      "label": "Bahrain"
+    },
+    /* ... */
+  ],
+  "languages": /* Like territories. */
+  "datasets": [
     {
       "name": "cra",
       "label": "Country Regional Analysis v2009",

@@ -76,6 +76,8 @@ class DatasetFacetMixin(object):
     @classmethod
     def dataset_counts(cls, datasets):
         ds_ids = [d.id for d in datasets]
+        if not len(ds_ids):
+            return []
         q = db.select([cls.code, db.func.count(cls.dataset_id)],
             cls.dataset_id.in_(ds_ids), group_by=cls.code,
             order_by=db.func.count(cls.dataset_id).desc())

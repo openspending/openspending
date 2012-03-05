@@ -23,9 +23,9 @@ class TestDatasetController(ControllerTestCase):
     def test_index_json(self):
         response = self.app.get(url(controller='dataset', action='index', format='json'))
         obj = json.loads(response.body)
-        h.assert_equal(len(obj), 1)
-        h.assert_equal(obj[0]['name'], 'cra')
-        h.assert_equal(obj[0]['label'], 'Country Regional Analysis v2009')
+        h.assert_equal(len(obj['datasets']), 1)
+        h.assert_equal(obj['datasets'][0]['name'], 'cra')
+        h.assert_equal(obj['datasets'][0]['label'], 'Country Regional Analysis v2009')
     
     def test_index_hide_private(self):
         cra = Dataset.by_name('cra')
@@ -33,7 +33,7 @@ class TestDatasetController(ControllerTestCase):
         db.session.commit()
         response = self.app.get(url(controller='dataset', action='index', format='json'))
         obj = json.loads(response.body)
-        h.assert_equal(len(obj), 0)
+        h.assert_equal(len(obj['datasets']), 0)
 
     def test_index_csv(self):
         response = self.app.get(url(controller='dataset', action='index', format='csv'))

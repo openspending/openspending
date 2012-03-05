@@ -29,22 +29,22 @@
       <div class="span4">
         <h3>Countries</h3>
         <ul>
-          <li py:for="(territory, count) in c.territory_options">
-            <a py:if="not ('territories', territory) in c.query" 
-              href="${c.add_filter('territories', territory)}">${h.COUNTRIES[territory]}</a>
-            <a py:if="('territories', territory) in c.query" class="unfilter" 
-              href="${c.del_filter('territories', territory)}">${h.COUNTRIES[territory]}</a>
-            (${count})
+          <li py:for="territory in c.territory_options">
+          <a py:if="not ('territories', territory.get('code')) in c.query" 
+              href="${c.add_filter('territories', territory.get('code'))}">${territory.get('label')}</a>
+          <a py:if="('territories', territory.get('code')) in c.query" class="unfilter" 
+              href="${c.del_filter('territories', territory.get('code'))}">${territory.get('label')}</a>
+            (${territory.get('count')})
           </li>
         </ul>
         <h3>Languages</h3>
         <ul>
-          <li py:for="(language, count) in c.language_options">
-            <a py:if="not ('languages', language) in c.query"
-              href="${c.add_filter('languages', language)}">${h.LANGUAGES[language]}</a>
-            <a py:if="('languages', language) in c.query" class="unfilter"
-              href="${c.del_filter('languages', language)}">${h.LANGUAGES[language]}</a>
-            (${count})
+          <li py:for="language in c.language_options">
+          <a py:if="not ('languages', language.get('code')) in c.query"
+              href="${c.add_filter('languages', language.get('code'))}">${language.get('label')}</a>
+        <a py:if="('languages', language.get('code')) in c.query" class="unfilter"
+              href="${c.del_filter('languages', language.get('code'))}">${language.get('label')}</a>
+            (${language.get('count')})
           </li>
         </ul>
       </div>
