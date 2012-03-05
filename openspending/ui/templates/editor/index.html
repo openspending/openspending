@@ -31,10 +31,9 @@
             </ul>
 
             <div class="alert-actions">
-              <a class="btn small" data-backdrop="true"
-                data-controls-modal="new-source"
-                data-keyboard="true"
-                href="#">Add a source</a>
+              <a class="btn small" 
+                data-toggle="modal"
+                href="#new-source">Add a source</a>
             </div>
           </div>
 
@@ -61,7 +60,7 @@
         <div py:if="c.has_sources">
           <h3>Source files</h3>
           ${sources_list(c.dataset)}
-          <a class="btn btn-success small" data-backdrop="true" data-controls-modal="new-source" href="#">Add a source</a>
+          <a class="btn btn-success small" data-toggle="modal" href="#new-source">Add a source</a>
         </div>
       </div>
       <div class="span4">
@@ -139,12 +138,6 @@
     </div>
     
     <py:def function="scripts">
-      ${script_tag('vendor/bootstrap-modal')}
-      <script>
-        /*jQuery(document).ready(function($) {
-          $('#  foo new-source').modal(options)
-        });*/
-      </script>
     </py:def>
 
   </div>
