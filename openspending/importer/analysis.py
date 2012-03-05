@@ -8,12 +8,14 @@ from openspending.lib.util import slugify
 
 log = logging.getLogger(__name__)
 
+
 class LocalDateType(DateType):
     formats = ["%Y", "%Y-%m", "%Y-%m-%d"]
 
 LIMITED_TYPES = list(TYPES)
 LIMITED_TYPES.remove(DateType)
 LIMITED_TYPES.append(LocalDateType)
+
 
 def frequent_values(sample):
     values = defaultdict(lambda: defaultdict(int))
@@ -22,9 +24,10 @@ def frequent_values(sample):
             values[i][value.value] += 1
     sorted_values = []
     for idx, column in values.items():
-        frequent = sorted(column.items(), key=lambda (v,c): c, reverse=True)
+        frequent = sorted(column.items(), key=lambda (v, c): c, reverse=True)
         sorted_values.append(frequent[:5])
     return sorted_values
+
 
 def analyze_csv(url, sample=1000):
     try:
@@ -52,8 +55,8 @@ def analyze_csv(url, sample=1000):
             else:
                 meta['type'] = 'attribute'
             mapping[name] = meta
-        return {'columns': [h.value for h in headers], 
+        return {'columns': [h.value for h in headers], \
                 'mapping': mapping}
     except Exception, e:
+        log.exception(e)
         return {'error': unicode(e)}
-

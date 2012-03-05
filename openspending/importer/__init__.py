@@ -12,6 +12,7 @@ from openspending.importer import util
 
 log = logging.getLogger(__name__)
 
+
 class BaseImporter(object):
 
     def __init__(self, source):
@@ -28,7 +29,7 @@ class BaseImporter(object):
 
         self.dry_run = dry_run
         self.raise_errors = raise_errors
-        
+
         before_count = len(self.dataset)
 
         self.row_number = 0
@@ -106,7 +107,7 @@ class BaseImporter(object):
 
         msg = "'%s' (%s) could not be generated from column '%s'" \
               " (value: %s): %s"
-        msg = msg % (invalid.node.name, invalid.datatype, 
+        msg = msg % (invalid.node.name, invalid.datatype, \
                      invalid.column, invalid.value, invalid.msg)
         log.warn(msg)
         self._log(log_record)
@@ -138,5 +139,3 @@ class CSVImporter(BaseImporter):
         except udr.EmptyCSVError as e:
             self.log_exception(e)
             return ()
-
-
