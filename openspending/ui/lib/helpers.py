@@ -91,10 +91,11 @@ def static(url):
 def render_entry_custom_html(dataset, entry):
     """Render dataset ``datasets``'s custom html for entry ``entry``"""
     if dataset.entry_custom_html:
-        return _render_custom_html(dataset.entry_custom_html, 
+        return _render_custom_html(dataset.entry_custom_html,
                 'entry', entry)
     else:
         return None
+
 
 def _render_custom_html(tpl, name, obj):
     if tpl:
@@ -119,6 +120,7 @@ def member_url(dataset, dimension, member, **kwargs):
 def dataset_url(dataset, **kwargs):
     return url_for(controller='dataset',
                    action='view', dataset=dataset.name, **kwargs)
+
 
 def entry_url(dataset, entry, **kwargs):
     kwargs.setdefault('action', 'view')
@@ -171,7 +173,8 @@ def format_number_with_commas(number):
             return "-"
         s = str(int(number))
     except TypeError:
-        msg = "Value was not numeric: %s (type: %s)" % (repr(number), type(number))
+        msg = "Value was not numeric: %s (type: %s)" \
+            % (repr(number), type(number))
         raise TypeError(msg)
 
     groups = []

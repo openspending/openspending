@@ -141,4 +141,4 @@ class CSVImporter(BaseImporter):
         row_set.register_processor(headers_processor(headers))
         row_set.register_processor(offset_processor(1))
         for row in row_set:
-            yield dict([(c.column, c) for c in row])
+            yield dict([(c.column, c.value) for c in row])
