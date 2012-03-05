@@ -137,9 +137,8 @@ class CSVImporter(BaseImporter):
         fh = urlopen(self.source.url)
         row_set = CSVRowSet('data', fh, window=3)
         headers = list(row_set.sample)[0]
-        headers = [c.value.decode('utf-8') for c in headers]
+        headers = [c.value for c in headers]
         row_set.register_processor(headers_processor(headers))
         row_set.register_processor(offset_processor(1))
-        t = lambda c: c.value.decode('utf-8') if c.value is not None else None
         for row in row_set:
-            yield dict([(c.column, t(c)) for c in row])
+            yield dict([(c.column, c) for c in row])
