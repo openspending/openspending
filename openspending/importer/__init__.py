@@ -2,13 +2,14 @@ import logging
 import traceback
 from datetime import datetime
 
+from urllib import urlopen
+from messytables import CSVRowSet, headers_processor, \
+  offset_processor
+
 from openspending.model import Run, LogRecord
 from openspending.model import meta as db
 from openspending.validation.model import Invalid
 from openspending.validation.data import convert_types
-from openspending.lib import unicode_dict_reader as udr
-
-from openspending.importer import util
 
 log = logging.getLogger(__name__)
 
@@ -56,16 +57,16 @@ class BaseImporter(object):
                 raise
 
         if self.row_number == 0:
-            self.log_exception(ValueError("Didn't read any lines of data"), 
+            self.log_exception(ValueError("Didn't read any lines of data"),
                     error='')
 
         num_loaded = len(self.dataset) - before_count
-        if not self.errors and num_loaded < (self.row_number-1):
+        if not self.errors and num_loaded < (self.row_number - 1):
             self.log_exception(ValueError("The number of entries loaded is "
                 "smaller than the number of source rows read."),
                 error="%s rows were read, but only %s entries created. "
-                    "Check the unique key criteria, entries seem to overlap." % \
-                    (self.row_number, num_loaded))
+                    "Check the unique key criteria, entries seem to overlap." \
+                    % (self.row_number, num_loaded))
 
         if self.errors:
             self._run.status = Run.STATUS_FAILED
@@ -133,9 +134,12 @@ class CSVImporter(BaseImporter):
 
     @property
     def lines(self):
-        try:
-            csv = util.urlopen_lines(self.source.url)
-            return udr.UnicodeDictReader(csv)
-        except udr.EmptyCSVError as e:
-            self.log_exception(e)
-            return ()
+        fh = urlopen(self.source.url)
+        row_set = CSVRowSet('data', fh, window=3)
+        headers = list(row_set.sample)[0]
+        headers = [c.value.decode('utf-8') for c in headers]
+        row_set.register_processor(headers_processor(headers))
+        row_set.register_processor(offset_processor(1))
+        t = lambda c: c.value.decode('utf-8') if c.value is not None else None
+        for row in row_set:
+            yield dict([(c.column, t(c)) for c in row])
