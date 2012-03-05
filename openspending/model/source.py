@@ -38,7 +38,7 @@ class Source(db.Model):
         return True
 
     def __repr__(self):
-        return "<Source(%s,%s)>" % (self.dataset.name, self.name)
+        return "<Source(%s,%s)>" % (self.dataset.name, self.url)
 
     @classmethod
     def by_id(cls, id):
