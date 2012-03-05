@@ -21,7 +21,7 @@
             <py:if test="'columns' in source.analysis">
               <span class="label label-info">OK</span>
             </py:if>
-            <a href="${source.url}">${source.name}</a>
+            <a href="${source.url}">${h.readable_url(source.url)}</a>
             <py:if test="'error' in source.analysis">
               &mdash; <strong>${source.analysis['error']}</strong>
             </py:if>

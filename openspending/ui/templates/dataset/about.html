@@ -39,7 +39,7 @@
             <br/>
             <ul py:if="len(c.sources)">
               <li py:for="source in c.sources">
-                <a href="${source.url}">${source.name}</a>
+                <a href="${source.url}">${h.readable_url(source.url)}</a>
               </li>
             </ul>
           </div>

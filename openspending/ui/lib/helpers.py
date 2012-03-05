@@ -22,8 +22,10 @@ from openspending.lib.util import slugify
 from openspending.lib.jsonexport import to_jsonp, to_json
 import math
 
+
 def markdown(*args, **kwargs):
     return literal(_markdown(*args, **kwargs))
+
 
 def markdown_preview(text, length=140):
     md = html.fromstring(unicode(markdown(text)))
@@ -31,7 +33,6 @@ def markdown_preview(text, length=140):
     if length: 
         text = truncate(text, length=length, whole_word=True)
     return text
-
 
 
 _flash = _Flash()
@@ -53,6 +54,12 @@ def render_value(value):
     if isinstance(value, dict):
         return value.get('label', value.get('name', value))
     return value
+
+
+def readable_url(url):
+    if len(url) > 55:
+        return url[:15] + " .. " + url[len(url) - 25:]
+    return url
 
 
 def entity_slug(entity):

@@ -92,7 +92,12 @@
                 <py:otherwise>${key}</py:otherwise>
               </td>
               <td py:choose="">
-                ${h.dimension_link(c.dataset.name, key, value)}
+                <py:when test="c.desc.get(key) and c.desc.get(key).datatype=='url'">
+                  <a href="${value}">${h.readable_url(value)}</a>
+                </py:when>
+                <py:otherwise>
+                  ${h.dimension_link(c.dataset.name, key, value)}
+                </py:otherwise>
               </td>
               <td width="20%">
                 <span class="help-inline">${c.desc.get(key).description}</span>

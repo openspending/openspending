@@ -13,6 +13,7 @@ from openspending.lib.jsonexport import jsonpify
 
 log = logging.getLogger(__name__)
 
+
 def statistic_normalize(dataset, result, per, statistic):
     drilldowns = []
     values = {}
@@ -31,11 +32,13 @@ def statistic_normalize(dataset, result, per, statistic):
     result['drilldown'] = drilldowns
     return result
 
+
 def cellget(cell, key):
     val = cell.get(key)
     if isinstance(val, dict):
         return val.get('name', val.get('id'))
     return val
+
 
 class ApiController(BaseController):
     @jsonpify

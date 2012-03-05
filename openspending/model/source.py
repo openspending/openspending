@@ -18,7 +18,7 @@ class Source(db.Model):
     dataset_id = db.Column(db.Integer, db.ForeignKey('dataset.id'))
     dataset = db.relationship(Dataset,
                               backref=db.backref('sources', lazy='dynamic',
-                                                 order_by='Source.created_at.desc()'))
+                                order_by='Source.created_at.desc()'))
 
     creator_id = db.Column(db.Integer, db.ForeignKey('account.id'))
     creator = db.relationship(Account,
@@ -27,13 +27,7 @@ class Source(db.Model):
     def __init__(self, dataset, creator, url):
         self.dataset = dataset
         self.creator = creator
-        self.url = url 
-
-    @property
-    def name(self):
-        if len(self.url) > 55:
-            return self.url[:15] + " .. " + self.url[len(self.url)-25:]
-        return self.url
+        self.url = url
 
     @property
     def loadable(self):
@@ -57,5 +51,3 @@ class Source(db.Model):
             "dataset": self.dataset.name,
             "created_at": self.created_at
             }
-    
-

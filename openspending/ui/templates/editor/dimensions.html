@@ -66,8 +66,7 @@
 
               <p>
                 <a class='btn btn-primary' data-backdrop="true"
-                                data-toggle="modal"
-                                data-keyboard="true" href='#check-uniques'>Set Unique Dimensions</a>
+                                data-toggle="modal" href='#check-uniques'>Set Unique Dimensions</a>
               </p>
               <p class="help-block">
                 Identify the dimensions that help to identify each entry.<br/><br/>
@@ -272,6 +271,7 @@
                                           <option value='float'>float</option>
                                           <option value='id'>id</option>
                                           <option value='date'>date</option>
+                                          <option value='url'>url</option>
                                         </select>
                                   </td>
                                   <td>
@@ -349,6 +349,7 @@
                                         <option value='float'>float</option>
                                         <option value='id'>id</option>
                                         <option value='date'>date</option>
+                                        <option value='url'>url</option>
                                       </select>
                                     </div>
                                   </div>
@@ -420,14 +421,6 @@
 
   <py:def function="scripts">
     ${script_tag('vendor/jquery.tmpl')}
-    ${script_tag('vendor/bootstrap-tabs')}
-    ${script_tag('vendor/bootstrap-modal')}
-
-    <script>
-      $(function($) {
-        $('.tabs').tabs();
-      });
-    </script>
 
     <script type="text/javascript" src="${h.static('app/dimensions-editor/main.js')}"></script>
     <script type="text/javascript" src="${h.static('app/dimensions-editor/modelEditorInit.js')}"></script>
