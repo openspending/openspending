@@ -5,15 +5,18 @@ import openspending.command.celery
 
 log = logging.getLogger(__name__)
 
+
 @task(ignore_result=True)
 def ping():
     log.info("Pong.")
+
 
 @task(ignore_result=True)
 def analyze_all_sources():
     from openspending.model import Source, meta as db
     for source in db.session.query(Source):
         analyze_source.delay(source.id)
+
 
 @task(ignore_result=True)
 def analyze_source(source_id):
@@ -22,6 +25,7 @@ def analyze_source(source_id):
     source = Source.by_id(source_id)
     if not source:
         log.error("No such source: %s", source_id)
+        return
     log.info("Analyzing: %s", source.url)
     source.analysis = analyze_csv(source.url)
     if 'error' in source.analysis:
@@ -29,6 +33,7 @@ def analyze_source(source_id):
     else:
         log.info("Columns: %r", source.analysis.get('columns'))
     db.session.commit()
+
 
 @task(ignore_result=True)
 def load_source(source_id, sample=False):
