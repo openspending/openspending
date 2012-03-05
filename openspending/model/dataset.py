@@ -24,13 +24,14 @@ from openspending.model.dimension import Measure
 
 log = logging.getLogger(__name__)
 
+
 class Dataset(TableHandler, db.Model):
     """ The dataset is the core entity of any access to data. All
     requests to the actual data store are routed through it, as well
     as data loading and model generation.
 
     The dataset keeps an in-memory representation of the data model
-    (including all dimensions and measures) which can be used to 
+    (including all dimensions and measures) which can be used to
     generate necessary queries.
     """
     __tablename__ = 'dataset'
@@ -121,11 +122,11 @@ class Dataset(TableHandler, db.Model):
                 self.dimensions)
 
     def init(self):
-        """ Create a SQLAlchemy model for the current dataset model, 
-        without creating the tables and columns. This needs to be 
+        """ Create a SQLAlchemy model for the current dataset model,
+        without creating the tables and columns. This needs to be
         called both for access to the data and in order to generate
         the model physically. """
-        self.bind = db.engine #.connect()
+        self.bind = db.engine
         self.meta = db.MetaData()
         #self.tx = self.bind.begin()
         self.meta.bind = db.engine
@@ -145,9 +146,9 @@ class Dataset(TableHandler, db.Model):
         for dim in self.dimensions:
             if isinstance(dim, CompoundDimension):
                 self.table.append_constraint(ForeignKeyConstraint(
-                    [ dim.name+'_id' ], [ dim.table.name + '.id' ],
+                    [dim.name + '_id'], [dim.table.name + '.id'],
                     #use_alter=True,
-                    name='fk_'+self.name+'_'+dim.name
+                    name='fk_' + self.name + '_' + dim.name
                 ))
         self._generate_table()
         self._is_generated = True
@@ -164,9 +165,9 @@ class Dataset(TableHandler, db.Model):
         #self.tx = self.bind.begin()
 
     def _make_key(self, data):
-        """ Generate a unique identifier for an entry. This is better 
+        """ Generate a unique identifier for an entry. This is better
         than SQL auto-increment because it is stable across mutltiple
-        loads and thus creates stable URIs for entries. 
+        loads and thus creates stable URIs for entries.
         """
         uniques = [self.name]
         for field in self.fields:
@@ -179,7 +180,7 @@ class Dataset(TableHandler, db.Model):
         return hash_values(uniques)
 
     def load(self, data):
-        """ Handle a single entry of data in the mapping source format, 
+        """ Handle a single entry of data in the mapping source format,
         i.e. with all needed columns. This will propagate to all dimensions
         and set values as appropriate. """
         entry = dict()
@@ -209,7 +210,7 @@ class Dataset(TableHandler, db.Model):
         """ For a given ``key``, find a column to indentify it in a query.
         A ``key`` is either the name of a simple attribute (e.g. ``time``)
         or of an attribute of a complex dimension (e.g. ``to.label``). The
-        returned key is using an alias, so it can be used in a query 
+        returned key is using an alias, so it can be used in a query
         directly. """
         attr = None
         if '.' in key:
@@ -222,9 +223,9 @@ class Dataset(TableHandler, db.Model):
 
     def entries(self, conditions="1=1", order_by=None, limit=None,
             offset=0, step=10000):
-        """ Generate a fully denormalized view of the entries on this 
+        """ Generate a fully denormalized view of the entries on this
         table. This view is nested so that each dimension will be a hash
-        of its attributes. 
+        of its attributes.
 
         This is somewhat similar to the entries collection in the fully
         denormalized schema before OpenSpending 0.11 (MongoDB).
@@ -245,7 +246,7 @@ class Dataset(TableHandler, db.Model):
             qoffset = offset + (step * i)
             qlimit = step
             if limit is not None:
-                qlimit = min(limit-(step*i), step)
+                qlimit = min(limit - (step * i), step)
             if qlimit <= 0:
                 break
 
@@ -273,14 +274,15 @@ class Dataset(TableHandler, db.Model):
 
                             # TODO: backwards-compat?
                             if isinstance(self[field], CompoundDimension):
-                                result[field]['taxonomy'] = self[field].taxonomy
+                                result[field]['taxonomy'] = \
+                                    self[field].taxonomy
                         result[field][attr] = v
                 yield result
 
-    def aggregate(self, measure='amount', drilldowns=None, cuts=None, 
+    def aggregate(self, measure='amount', drilldowns=None, cuts=None,
             page=1, pagesize=10000, order=None):
-        """ Query the dataset for a subset of cells based on cuts and 
-        drilldowns. It returns a structure with a list of drilldown items 
+        """ Query the dataset for a subset of cells based on cuts and
+        drilldowns. It returns a structure with a list of drilldown items
         and a summary about the slice cutted by the query.
 
         ``measure``
@@ -311,7 +313,7 @@ class Dataset(TableHandler, db.Model):
         Raises:
 
         :exc:`ValueError`
-            If a cube is not yet computed. Call :meth:`compute` to compute 
+            If a cube is not yet computed. Call :meth:`compute` to compute
             the cube.
         :exc:`KeyError`
             If a drilldown, cut or order dimension is not part of this
@@ -334,13 +336,14 @@ class Dataset(TableHandler, db.Model):
         drilldowns = drilldowns or []
         order = order or []
         joins = self.alias
-        fields = [db.func.sum(self.alias.c[measure]).label(measure), 
+        fields = [db.func.sum(self.alias.c[measure]).label(measure),
                   db.func.count(self.alias.c.id).label("entries")]
         labels = {
             'year': self['time']['year'].column_alias.label('year'),
             'month': self['time']['yearmonth'].column_alias.label('month'),
             }
-        dimensions = set(drilldowns + [k for k,v in cuts] + [o[0] for o in order])
+        dimensions = set(drilldowns + \
+            [k for k, v in cuts] + [o[0] for o in order])
         for dimension in dimensions:
             if dimension in labels:
                 _name = 'time'
@@ -374,7 +377,7 @@ class Dataset(TableHandler, db.Model):
                 column = self.key(key)
             filters[column].add(value)
         for attr, values in filters.items():
-            conditions.append(db.or_(*[attr==v for v in values]))
+            conditions.append(db.or_(*[attr == v for v in values]))
 
         order_by = []
         for key, direction in order:
@@ -419,15 +422,15 @@ class Dataset(TableHandler, db.Model):
                         key = 'num_entries'
                     result[key] = value
             drilldown.append(result)
-        offset = ((page-1)*pagesize)
+        offset = ((page - 1) * pagesize)
 
         # do we really need all this:
         summary['num_drilldowns'] = len(drilldown)
         summary['page'] = page
-        summary['pages'] = int(math.ceil(len(drilldown)/float(pagesize)))
+        summary['pages'] = int(math.ceil(len(drilldown) / float(pagesize)))
         summary['pagesize'] = pagesize
 
-        return {'drilldown': drilldown[offset:offset+pagesize],
+        return {'drilldown': drilldown[offset:offset + pagesize],
                 'summary': summary}
 
     def __repr__(self):
@@ -438,7 +441,8 @@ class Dataset(TableHandler, db.Model):
         """ Get all distinct times mentioned in the dataset. """
         # TODO: make this a more generic distinct_attribute function
         field = self['time'][attribute].column_alias
-        query = db.select([field.label(attribute)], self['time'].alias, distinct=True)
+        query = db.select([field.label(attribute)], self['time'].alias,
+                           distinct=True)
         rp = self.bind.execute(query)
         return sorted([r[attribute] for r in rp.fetchall()])
 
@@ -463,12 +467,12 @@ class Dataset(TableHandler, db.Model):
     @classmethod
     def all_by_account(cls, account):
         """ Query available datasets based on dataset visibility. """
-        criteria = [cls.private==False]
+        criteria = [cls.private == False]
         if account is not None:
             criteria += ["1=1" if account.admin else "1=2",
-                         cls.managers.any(type(account).id==account.id)]
+                         cls.managers.any(type(account).id == account.id)]
         q = db.session.query(cls).filter(db.or_(*criteria))
-        q= q.order_by(cls.label.asc())
+        q = q.order_by(cls.label.asc())
         return q
 
     @classmethod
