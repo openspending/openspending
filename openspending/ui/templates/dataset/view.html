@@ -9,13 +9,31 @@
 
   <py:def function="page_title">${c.dataset.label or c.dataset.name}</py:def>
 
+  <py:def function="optional_head">
+    <!-- templates/dataset/view.html optional_head -->
+    <link py:if="c.viewstyle is not None" rel="stylesheet" href="${c.viewstyle}" type="text/css"/>
+  </py:def>
+
+  <py:def function="scripts">
+    <!-- templates/dataset/view.html scripts -->
+    <script py:if="c.viewscript is not None" type="text/javascript" src="${c.viewscript}"></script>
+    <script py:if="c.viewfunc is not None" type="text/javascript">
+      new ${c.viewfunc}('widget',
+                       {dataset: '${c.dataset.name}',
+                        api: '/api',
+                        time: '${c.time}',
+                       },
+                       ${c.viewjson})
+    </script>
+  </py:def>
+
   <div py:def="content">
     ${dataset_nav(c.view.name if c.view else 'search')}
 
     <!-- templates/dataset/view.html content -->
 
     <div py:if="c.view" class="row">
-      <div class="span12" id="vis"></div>
+      <div class="span12"><div id="widget" style="width: auto; height: 400px"/></div>
     </div>
 
     <div py:if="c.view" class="row">

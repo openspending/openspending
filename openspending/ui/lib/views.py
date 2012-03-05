@@ -4,9 +4,11 @@ This module implements views on the database.
 import logging
 from collections import defaultdict
 from datetime import datetime
+from pylons import config
 
 from openspending.model import Dataset
 from openspending.ui.lib.cache import AggregationCache
+from openspending.lib.jsonexport import to_json
 
 log = logging.getLogger(__name__)
 
@@ -14,6 +16,7 @@ class View(object):
 
     def __init__(self, dataset, view):
         self.dataset = dataset
+        self.config = view
         self.entity = view.get('entity').lower().strip()
         self.filters = view.get('filters', {})
         if self.entity == 'entity':
@@ -25,6 +28,7 @@ class View(object):
                                   view.get('breakdown'))
         self.cuts = view.get('cuts', 
                              view.get('view_filters', {}))
+        self.widget = view.get('widget')
 
     def match(self, obj, dimension=None):
         if isinstance(obj, Dataset):
@@ -173,4 +177,10 @@ def handle_request(request, c, obj, dimension=None):
 
     _set_time_context(request, c)
     c.viewstate = ViewState(obj, c.view, c.time)
-
+    if c.view is not None:
+        c.viewstyle = config.get('openspending.plugins.%s.css_url' % c.view.widget)
+        c.viewscript = config.get('openspending.plugins.%s.js_url' % c.view.widget)
+        c.viewfunc = config.get('openspending.plugins.%s.func' % c.view.widget)
+        c.viewjson = to_json(c.view.config)
+    else:
+        c.viewjson = to_json({})

@@ -112,13 +112,11 @@ Installing optional plugins
 Additionally to the core software, there are a number of extensions that can 
 be installed. These include: 
 
-* Treemaps - support for displaying views as treemaps.
 * DataTables - support for displaying views as tables.
 
 To install these, it is recommended you create a file named ``pip-sources.txt``
 with the following contents::
 
-  -e git+http://github.com/okfn/openspending.plugins.treemap#egg=openspending.plugins.treemap
   -e git+http://github.com/okfn/openspending.plugins.datatables#egg=openspending.plugins.datatables
 
 This can then be installed with a simple pip command:: 
@@ -128,7 +126,7 @@ This can then be installed with a simple pip command::
 If you want to enable the plugins, also add the following directive to your
 configuration file (e.g. ``development.ini``)::
   
-  openspending.plugins = treemap datatables
+  openspending.plugins = datatables
 
 
 Setup Solr
