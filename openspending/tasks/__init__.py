@@ -60,5 +60,3 @@ def load_source(source_id, sample=False):
 def index_dataset(dataset_name):
     from openspending.lib.solr_util import build_index
     build_index(dataset_name)
-
-

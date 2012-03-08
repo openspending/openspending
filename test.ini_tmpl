@@ -23,3 +23,5 @@ set debug = False
 # all data from solr. Use with caution.
 
 openspending.solr.url = http://localhost:18983/solr
+
+celery.always.eager = true

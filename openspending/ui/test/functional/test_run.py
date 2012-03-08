@@ -1,12 +1,9 @@
-import csv
-import json
-from StringIO import StringIO
-
 from .. import ControllerTestCase, url, helpers as h
 from openspending.test.unit.importer.test_csv import csvimport_fixture
-from openspending.model import Dataset, Source, Account, Run, LogRecord, meta as db
+from openspending.model import Account, meta as db
 from openspending.importer import CSVImporter
 from openspending.ui.lib.helpers import readable_url
+
 
 class TestRunController(ControllerTestCase):
 
@@ -20,18 +17,18 @@ class TestRunController(ControllerTestCase):
         self.importer.run()
 
     def test_view_run(self):
-        response = self.app.get(url(controller='run', 
+        response = self.app.get(url(controller='run',
             action='view', dataset=self.source.dataset.name,
-            source=self.source.id, 
+            source=self.source.id,
             id=self.importer._run.id),
             extra_environ={'REMOTE_USER': 'test'},
             expect_errors=True)
         assert readable_url(self.source.url).encode('utf-8') in response.body
-    
+
     def test_view_run_does_not_exist(self):
-        response = self.app.get(url(controller='run', 
+        response = self.app.get(url(controller='run',
             action='view', dataset=self.source.dataset.name,
-            source=self.source.id, 
+            source=self.source.id,
             id=47347893),
             extra_environ={'REMOTE_USER': 'test'},
             expect_errors=True)

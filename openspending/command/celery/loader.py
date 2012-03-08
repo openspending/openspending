@@ -56,4 +56,3 @@ class PylonsLoader(BaseLoader):
         Import task modules.
         """
         self.import_default_modules()
-
