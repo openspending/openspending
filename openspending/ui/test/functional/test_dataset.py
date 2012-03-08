@@ -117,26 +117,43 @@ class TestDatasetController(ControllerTestCase):
         h.assert_equal(len(obj), 36)
         h.assert_equal(obj[0]['amount'], '46000000.0')
 
-    def test_explorer(self):
-        h.skip("Not Yet Implemented!")
+    def test_embed(self):
+        response = self.app.get(url(controller='dataset', action='embed',
+                                    dataset='cra'),
+                        params={'widget': 'treemap'})
+        assert u"Embedded" in response.body, response.body
+        response = self.app.get(url(controller='dataset', action='embed',
+                                    dataset='cra'),
+            expect_errors=True)
+        assert "400" in response.status, response.status
 
-    def test_timeline(self):
-        h.skip("Not Yet Implemented!")
+    def test_embed_state(self):
+        response = self.app.get(url(controller='dataset', action='embed',
+                                    dataset='cra'),
+                        params={'widget': 'treemap',
+                                'state': '{"foo":"banana"}'})
+        assert u"banana" in response.body, response.body
+        response = self.app.get(url(controller='dataset', action='embed',
+                                    dataset='cra'),
+                        params={'widget': 'treemap',
+                                'state': '{"foo:"banana"}'},
+            expect_errors=True)
+        assert "400" in response.status, response.status
 
     def test_new_form(self):
-        response = self.app.get(url(controller='dataset', action='new'), 
+        response = self.app.get(url(controller='dataset', action='new'),
             params={'limit': '20'})
         assert "Import a dataset" in response.body
         assert 'Import from a DataHub Dataset' in response.body, response.body
-    
+
     def test_create_dataset(self):
         response = self.app.post(url(controller='dataset', action='create'))
         assert "Import a dataset" in response.body
         assert "Required" in response.body
 
-        params = {'name': 'testds', 'label': 'Test Dataset', 
+        params = {'name': 'testds', 'label': 'Test Dataset',
                   'description': 'I\'m a banana!', 'currency': 'EUR'}
-        
+
         response = self.app.post(url(controller='dataset', action='create'),
                 params=params, extra_environ={'REMOTE_USER': 'test'})
         assert "302" in response.status

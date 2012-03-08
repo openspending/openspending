@@ -23,10 +23,19 @@
     <link href="${h.static('style/style.css')}" rel="stylesheet" />
     <!-- link href="${h.static('style/embed.css')}" rel="stylesheet" / -->
     <style>
-        body {
-            padding-top: 0px;
+        body, html, #widget {
+            padding: 0px;
+            margin: 0px;
+            width: 100%;
+            height: 100%;
+        }
+
+        #widget {
+            width: 100%;
+            height: 100%;
         }
     </style>
+    <link rel="stylesheet" href="/static/app/treemap/css/treemap.css" type="text/css" />
     
     <py:if test="defined('optional_head')">
       ${optional_head()}
@@ -36,13 +45,27 @@
   <!-- templates/dataset/embed.html body -->
 
   <body>
-    <img id="kitten" src="http://placekitten.com/700/500" />
+    <div id="widget"></div>
 
     ${script_tag('vendor/jquery')}
     ${script_tag('vendor/underscore')}
     ${script_tag('vendor/handlebars')}
     ${script_tag('vendor/bootstrap')}
     ${script_tag('utils/utils')}
+
+    <script type="text/javascript" src="/static/app/treemap/js/treemap.js"></script>
+    <script>
+        var state = ${h.json.dumps(c.state, indent=2)};
+        var context = {
+            dataset: "${c.dataset.name}",
+            siteUrl: "",
+            time: 2011
+            };
+
+        (function ($) {
+            new OpenSpending.TreeMap($('#widget'), context, state);
+        })(jQuery);
+    </script>
 
     ${analytics()}
   </body>

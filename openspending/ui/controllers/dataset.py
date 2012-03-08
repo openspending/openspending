@@ -2,7 +2,7 @@ import logging
 from urllib import urlencode
 
 from pylons import request, response, tmpl_context as c
-from pylons.controllers.util import redirect
+from pylons.controllers.util import redirect, abort
 from pylons.i18n import _
 from colander import SchemaNode, String, Invalid
 
@@ -150,4 +150,12 @@ class DatasetController(BaseController):
         return to_jsonp(c.dataset.model)
 
     def embed(self, dataset):
+        self._get_dataset(dataset)
+        c.widget = request.params.get('widget')
+        if c.widget is None:
+            abort(400, _("No widget type has been specified."))
+        try:
+            c.state = json.loads(request.params.get('state', '{}'))
+        except ValueError as ve:
+            abort(400, unicode(ve))
         return render('dataset/embed.html')
