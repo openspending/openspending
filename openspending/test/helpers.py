@@ -1,3 +1,7 @@
+# Shut up nose DeprecationWarnings
+import warnings
+warnings.filterwarnings('ignore', 'The compiler package is deprecated and removed in Python 3.x.')
+
 from nose.tools import *
 from nose.plugins.skip import SkipTest
 from mock import Mock, patch, MagicMock
@@ -56,7 +60,7 @@ def clean_all():
     clean_db()
     clean_solr()
 
-def make_account(name='test', fullname='Test User', 
+def make_account(name='test', fullname='Test User',
                  email='test@example.com'):
     from openspending.model import Account
     account = Account()
