@@ -92,7 +92,7 @@
                 <py:otherwise>${key}</py:otherwise>
               </td>
               <td py:choose="">
-                <py:when test="c.desc.get(key) and c.desc.get(key).datatype=='url'">
+                <py:when test="c.desc.get(key) and hasattr(c.desc.get(key), 'datatype') and c.desc.get(key).datatype=='url'">
                   <a href="${value}">${h.readable_url(value)}</a>
                 </py:when>
                 <py:otherwise>
