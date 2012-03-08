@@ -86,7 +86,7 @@
               <li><a href="/logout">Logout</a></li>
             </py:if>
             <li class="dropdown">
-              <a class="dropdown-toggle">Language</a>
+              <a class="dropdown-toggle" data-toggle="dropdown">Language</a>
               <ul class="dropdown-menu locale-dropdown">
                 <li py:for="l in c.detected_l10n_languages" class="locale ${'current-locale' if l[0] == c.language else ''}">
                     <a class="select-locale" data-locale="${l[0]}">${l[1]}</a>
