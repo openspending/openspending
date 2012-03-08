@@ -12,6 +12,7 @@ from openspending.lib.jsonexport import to_json
 
 log = logging.getLogger(__name__)
 
+
 class View(object):
 
     def __init__(self, dataset, view):
@@ -24,11 +25,11 @@ class View(object):
         self.name = view.get('name')
         self.label = view.get('label')
         self.dimension = view.get('dimension')
-        self.drilldown = view.get('drilldown', 
+        self.drilldown = view.get('drilldown',
                                   view.get('breakdown'))
-        self.cuts = view.get('cuts', 
+        self.cuts = view.get('cuts',
                              view.get('view_filters', {}))
-        self.widget = view.get('widget')
+        self.widget = view.get('widget', 'treemap')
 
     def match(self, obj, dimension=None):
         if isinstance(obj, Dataset):
