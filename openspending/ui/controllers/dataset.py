@@ -13,7 +13,7 @@ from openspending.plugins.interfaces import IDatasetController
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import to_jsonp
 from openspending.lib import json
-from openspending.ui.lib import helpers as h
+from openspending.ui.lib import helpers as h, widgets
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.base import require
 from openspending.ui.lib.views import View, ViewState, handle_request
@@ -155,6 +155,7 @@ class DatasetController(BaseController):
         if c.widget is None:
             abort(400, _("No widget type has been specified."))
         try:
+            c.widget = widgets.get_widget(c.widget)
             c.state = json.loads(request.params.get('state', '{}'))
         except ValueError as ve:
             abort(400, unicode(ve))

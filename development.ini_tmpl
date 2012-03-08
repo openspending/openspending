@@ -56,9 +56,9 @@ openspending.solr.url = http://localhost:8983/solr
 # Plugins (space-delimited list)
 # openspending.plugins =
 
-openspending.plugins.treemap.css_url = /static/app/treemap/css/treemap.css
-openspending.plugins.treemap.js_url = /static/app/treemap/js/treemap.js
-openspending.plugins.treemap.func = OpenSpending.TreeMap
+# Widgets
+openspending.widgets_base = http://assets.openspending.org/widgets
+openspending.widgets = treemap bubbletree
 
 # Relative path to static files
 # openspending.static_path = /static

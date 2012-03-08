@@ -35,7 +35,9 @@
             height: 100%;
         }
     </style>
-    <link rel="stylesheet" href="/static/app/treemap/css/treemap.css" type="text/css" />
+
+    <!-- TODO: Load this from the widget itself. -->
+    <link rel="stylesheet" href="${c.widget.base}/css/${c.widget.name}.css" type="text/css" />
     
     <py:if test="defined('optional_head')">
       ${optional_head()}
@@ -53,7 +55,7 @@
     ${script_tag('vendor/bootstrap')}
     ${script_tag('utils/utils')}
 
-    <script type="text/javascript" src="/static/app/treemap/js/treemap.js"></script>
+    <script type="text/javascript" src="${c.widget.js}"></script>
     <script>
         var state = ${h.json.dumps(c.state, indent=2)};
         var context = {
@@ -63,7 +65,7 @@
             };
 
         (function ($) {
-            new OpenSpending.TreeMap($('#widget'), context, state);
+            new ${c.widget.class_name}($('#widget'), context, state);
         })(jQuery);
     </script>
 
