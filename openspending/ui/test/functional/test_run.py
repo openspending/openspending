@@ -6,6 +6,7 @@ from .. import ControllerTestCase, url, helpers as h
 from openspending.test.unit.importer.test_csv import csvimport_fixture
 from openspending.model import Dataset, Source, Account, Run, LogRecord, meta as db
 from openspending.importer import CSVImporter
+from openspending.ui.lib.helpers import readable_url
 
 class TestRunController(ControllerTestCase):
 
@@ -25,7 +26,7 @@ class TestRunController(ControllerTestCase):
             id=self.importer._run.id),
             extra_environ={'REMOTE_USER': 'test'},
             expect_errors=True)
-        assert self.source.name.encode('utf-8') in response.body
+        assert readable_url(self.source.url).encode('utf-8') in response.body
     
     def test_view_run_does_not_exist(self):
         response = self.app.get(url(controller='run', 
@@ -35,4 +36,3 @@ class TestRunController(ControllerTestCase):
             extra_environ={'REMOTE_USER': 'test'},
             expect_errors=True)
         assert '404' in response.status, response.status
-    

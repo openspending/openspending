@@ -6,14 +6,14 @@
   
   <py:def function="nav_class">nav-source</py:def>
 
-  <py:def function="page_title">Report: ${c.source.name}</py:def>
+  <py:def function="page_title">Report: ${h.readable_url(c.source.url)}</py:def>
   
   <div py:def="content">
     ${editor_nav('index')}
 
     <h3>
       Report:
-      ${c.source.name}
+      ${h.readable_url(c.source.url)}
       (${c.run.records.count()} Errors, ${c.run.status})
     </h3>
     <div py:if="not (c.num_data or c.num_system)" 
