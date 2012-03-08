@@ -11,13 +11,13 @@
 
   <py:def function="optional_head">
     <!-- templates/dataset/view.html optional_head -->
-    <link py:if="hasattr('viewstyle', c) and c.viewstyle is not None" rel="stylesheet" href="${c.viewstyle}" type="text/css"/>
+    <link py:if="hasattr(c, 'viewstyle') and c.viewstyle is not None" rel="stylesheet" href="${c.viewstyle}" type="text/css"/>
   </py:def>
 
   <py:def function="scripts">
     <!-- templates/dataset/view.html scripts -->
-    <script py:if="hasattr('viewscript', c) and c.viewscript is not None" type="text/javascript" src="${c.viewscript}"></script>
-    <script py:if="hasattr('viewfunc', c) and c.viewfunc is not None" type="text/javascript">
+    <script py:if="hasattr(c, 'viewscript') and c.viewscript is not None" type="text/javascript" src="${c.viewscript}"></script>
+    <script py:if="hasattr(c, 'viewfunc') and c.viewfunc is not None" type="text/javascript">
       new ${c.viewfunc}('widget',
                        {dataset: '${c.dataset.name}',
                         siteUrl: '',
