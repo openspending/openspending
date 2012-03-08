@@ -68,6 +68,7 @@ def make_map():
 
     map.connect('/api/rest/', controller='rest', action='index')
     map.connect('/api/2/aggregate', controller='api2', action='aggregate')
+    map.connect('/api/2/search', controller='api2', action='search')
 
     map.connect('/500', controller='error', action='render', code="500")
 
@@ -88,13 +89,13 @@ def make_map():
     map.connect('/{dataset}/editor/core', controller='editor', action='core_edit')
     map.connect('/{dataset}/editor/dimensions', controller='editor',
             action='dimensions_update', conditions=dict(method=['POST']))
-    map.connect('/{dataset}/editor/dimensions', controller='editor', 
+    map.connect('/{dataset}/editor/dimensions', controller='editor',
             action='dimensions_edit')
-    map.connect('/{dataset}/editor/dimensions_src', controller='editor', 
+    map.connect('/{dataset}/editor/dimensions_src', controller='editor',
             action='dimensions_edit', mode='source')
     map.connect('/{dataset}/editor/views', controller='editor',
             action='views_update', conditions=dict(method=['POST']))
-    map.connect('/{dataset}/editor/views', controller='editor', 
+    map.connect('/{dataset}/editor/views', controller='editor',
             action='views_edit')
     map.connect('/{dataset}/editor/publish', controller='editor',
             action='publish', conditions=dict(method=['POST']))
@@ -104,7 +105,7 @@ def make_map():
             action='drop', conditions=dict(method=['POST']))
     map.connect('/{dataset}/editor/delete', controller='editor',
             action='delete', conditions=dict(method=['POST']))
-    
+
     map.connect('/{dataset}/sources', controller='source',
             action='create', conditions=dict(method=['POST']))
     map.connect('/{dataset}/sources.{format}', controller='source',
@@ -113,9 +114,9 @@ def make_map():
     map.connect('/{dataset}/sources/{id}', controller='source', action='view')
     map.connect('/{dataset}/sources/{id}/load', controller='source',
             action='load', conditions=dict(method=['POST']))
-    map.connect('/{dataset}/sources/{source}/runs/{id}', 
+    map.connect('/{dataset}/sources/{source}/runs/{id}',
             controller='run', action='view')
-    map.connect('/{dataset}/sources/{source}/analysis.{format}', 
+    map.connect('/{dataset}/sources/{source}/analysis.{format}',
                 controller='source', action='analysis')
 
     map.connect('/{dataset}/entries.{format}', controller='entry',
@@ -124,7 +125,7 @@ def make_map():
     map.connect('/{dataset}/entries/{id}.{format}', controller='entry', action='view')
     map.connect('/{dataset}/entries/{id}', controller='entry', action='view')
     map.connect('/{dataset}/entries/{id}/{action}', controller='entry')
-    
+
     map.connect('/{dataset}/dimensions.{format}',
                 controller='dimension', action='index')
     map.connect('/{dataset}/dimensions',
@@ -140,7 +141,7 @@ def make_map():
     #            controller='dimension', action='view', format='csv')
     map.connect('/{dataset}/{dimension}',
                 controller='dimension', action='view')
-    
+
     map.connect('/{dataset}/{dimension}/{name}.json',
                 controller='dimension', action='member', format='json')
     map.connect('/{dataset}/{dimension}/{name}.csv',

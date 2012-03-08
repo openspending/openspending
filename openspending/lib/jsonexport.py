@@ -50,14 +50,16 @@ def generate_browser_json(entries, stats, facets, callback):
         first = False
     yield ']})' if callback else ']}'
 
-def to_json(data):
-    return json.dumps(data, default=default_json, indent=2)
+def to_json(data, indent=2):
+    return json.dumps(data, default=default_json, indent=indent)
 
 def to_jsonp(data):
-    result = to_json(data)
+    is_xhr = request.headers.get('x-requested-with', '').lower() == 'xmlhttprequest'
+    indent = None if is_xhr else 2
+    result = to_json(data, indent=indent)
+
     if 'callback' in request.params:
         response.headers['Content-Type'] = 'text/javascript'
-        log.debug("Returning JSONP wrapped action output")
         # The parameter is a unicode object, which we don't want (as it
         # causes Pylons to complain when we return a unicode object from
         # this function).  All reasonable values of this parameter will
@@ -66,9 +68,7 @@ def to_jsonp(data):
         result = '%s(%s);' % (cbname, result)
     else:
         response.headers['Content-Type'] = 'application/json'
-        log.debug("Returning JSON wrapped action output")
     return result
-
 
 @decorator
 def jsonpify(func, *args, **kwargs):

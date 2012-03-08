@@ -1,1 +1,0 @@
-from openspending.validationtest import *

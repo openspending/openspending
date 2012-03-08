@@ -1,7 +1,7 @@
 import cgi
 
 from paste.urlparser import PkgResourcesParser
-from pylons import request, tmpl_context as c
+from pylons import request, response, tmpl_context as c
 from pylons.controllers.util import forward, abort
 from pylons.middleware import error_document_template
 from webhelpers.html.builder import literal
@@ -26,6 +26,12 @@ class ErrorController(BaseController):
     def document(self):
         """Render the error document - show custom template for 404"""
         resp = request.environ.get('pylons.original_response')
+
+        # Don't do fancy error documents for JSON
+        if resp.headers['Content-Type'] in ['text/javascript', 'application/json']:
+            response.headers['Content-Type'] = resp.headers['Content-Type']
+            return resp.body
+
         code = cgi.escape(request.GET.get('code', str(resp.status_int)))
         content = (literal(resp.body) or
                    cgi.escape(request.GET.get('message', '')))

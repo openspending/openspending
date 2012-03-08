@@ -21,7 +21,7 @@ class TestApi2Controller(ControllerTestCase):
                           (u'pages', 1),
                           (u'pagesize', 10000)])
 
-    def test_drilldown(self):
+    def test_aggregate_drilldown(self):
         response = self.app.get(url(controller='api2', action='aggregate',
                                     dataset='cra', drilldown='cofog1|cofog2'))
         h.assert_equal(response.status, '200 OK')
@@ -29,7 +29,7 @@ class TestApi2Controller(ControllerTestCase):
         h.assert_equal(result['summary']['num_drilldowns'], 6)
         h.assert_equal(result['summary']['amount'], -371500000.0)
 
-    def test_measures(self):
+    def test_aggregate_measures(self):
         response = self.app.get(url(controller='api2', action='aggregate',
                                     dataset='cra', cut='year:2009',
                                     measure='total'))
@@ -38,7 +38,7 @@ class TestApi2Controller(ControllerTestCase):
         h.assert_equal(result['summary']['num_drilldowns'], 1)
         h.assert_equal(result['summary']['total'], 57300000.0)
 
-    def test_cut(self):
+    def test_aggregate_cut(self):
         response = self.app.get(url(controller='api2', action='aggregate',
                                     dataset='cra', cut='year:2009'))
         h.assert_equal(response.status, '200 OK')
@@ -46,7 +46,7 @@ class TestApi2Controller(ControllerTestCase):
         h.assert_equal(result['summary']['num_drilldowns'], 1)
         h.assert_equal(result['summary']['amount'], 57300000.0)
 
-    def test_order(self):
+    def test_aggregate_order(self):
         def unique(seq):
             result = []
             for item in seq:
@@ -72,3 +72,9 @@ class TestApi2Controller(ControllerTestCase):
         h.assert_equal(unique(order),
                          map(unicode, [2010, 2009, 2008, 2007, 2006, 2005, 2004,
                              2003]))
+
+    def test_search(self):
+        response = self.app.get(url(controller='api2', action='search', dataset='cra'))
+        result = json.loads(response.body)
+
+        h.assert_true('search', result['message'])
