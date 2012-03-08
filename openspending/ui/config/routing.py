@@ -79,6 +79,7 @@ def make_map():
     map.connect('/{dataset}/explorer', controller='dataset', action='explorer')
     map.connect('/{dataset}/model.{format}', controller='dataset', action='model')
     map.connect('/{dataset}/model', controller='dataset', action='model')
+    map.connect('/{dataset}/embed', controller='dataset', action='embed')
     map.connect('/{dataset}/meta', controller='dataset', action='about')
     map.connect('/{dataset}/timeline', controller='dataset', action='timeline')
 

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  >
+
+  <xi:include href="../_util.html" />
+  <!-- templates/dataset/embed.html top -->
+
+  <head>
+    <meta charset="utf-8" />
+    <title>Embedded Visualisation - ${g.site_title}</title>
+    <link rel="shortcut icon" href="${h.static('img/favicon.ico')}" type="image/x-icon" />
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="${h.static('style/bootstrap.css')}" rel="stylesheet" />
+    <link href="${h.static('style/style.css')}" rel="stylesheet" />
+    <!-- link href="${h.static('style/embed.css')}" rel="stylesheet" / -->
+    <style>
+        body {
+            padding-top: 0px;
+        }
+    </style>
+    
+    <py:if test="defined('optional_head')">
+      ${optional_head()}
+    </py:if>
+  </head>
+
+  <!-- templates/dataset/embed.html body -->
+
+  <body>
+    <img id="kitten" src="http://placekitten.com/700/500" />
+
+    ${script_tag('vendor/jquery')}
+    ${script_tag('vendor/underscore')}
+    ${script_tag('vendor/handlebars')}
+    ${script_tag('vendor/bootstrap')}
+    ${script_tag('utils/utils')}
+
+    ${analytics()}
+  </body>
+</html>
+
+
+

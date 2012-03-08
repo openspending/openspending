@@ -103,7 +103,7 @@ class DatasetController(BaseController):
             dataset.managers.append(c.account)
             db.session.add(dataset)
             db.session.commit()
-            redirect(h.url_for(controller='editor', action='index', 
+            redirect(h.url_for(controller='editor', action='index',
                                dataset=dataset.name))
         except Invalid, i:
             errors = i.asdict()
@@ -144,3 +144,5 @@ class DatasetController(BaseController):
         self._get_dataset(dataset)
         return to_jsonp(c.dataset.model)
 
+    def embed(self, dataset):
+        return render('dataset/embed.html')
