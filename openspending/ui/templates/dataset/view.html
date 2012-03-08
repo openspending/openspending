@@ -18,7 +18,7 @@
     <!-- templates/dataset/view.html scripts -->
     <script py:if="hasattr(c, 'viewscript') and c.viewscript is not None" type="text/javascript" src="${c.viewscript}"></script>
     <script py:if="hasattr(c, 'viewfunc') and c.viewfunc is not None" type="text/javascript">
-      new ${c.viewfunc}('widget',
+      new ${c.viewfunc}($('#widget'),
                        {dataset: '${c.dataset.name}',
                         siteUrl: '',
                         time: '${c.time}',
