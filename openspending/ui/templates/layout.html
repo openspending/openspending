@@ -39,8 +39,11 @@
   <head>
     <meta charset="utf-8" />
     <title>${page_title()} - ${g.site_title}</title>
-    <meta name="description" content="We're enabling anyone to explore,
-    visualize and track government spending." />
+    <meta name="description" py:if="defined('page_description')" 
+      content="${page_description()}" />
+    <meta name="description" py:if="not defined('page_description')" 
+      content="We're enabling anyone to explore, visualize and track government spending." />
+    
     <meta name="author" content="Open Knowledge Foundation" />
     <link rel="shortcut icon" href="${h.static('img/favicon.ico')}" type="image/x-icon" />
 
@@ -71,7 +74,7 @@
               <li><a href="/">Home</a></li>
               <li><a href="${g.blog_link}">Spending Blog</a></li>
               <li class="dropdown">
-                <a class='list-datasets' href="#datasets">Datasets</a>
+                <a class='list-datasets ${"active" if c.dataset else ""}' href="#datasets">Datasets</a>
               </li>
               <li><a href="http://wiki.openspending.org/">About</a></li>
               <li><a href="${h.url(controller='help', action='page', path='contact.html')}">Contact</a></li>

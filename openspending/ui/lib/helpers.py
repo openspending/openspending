@@ -28,6 +28,8 @@ def markdown(*args, **kwargs):
 
 
 def markdown_preview(text, length=140):
+    if not text:
+        return ''
     md = html.fromstring(unicode(markdown(text)))
     text = md.text_content()
     if length: 

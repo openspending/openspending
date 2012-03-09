@@ -13,6 +13,8 @@
     ${share_scripts()}
   </py:def>
 
+  <py:def function="page_description()">${h.markdown_preview(c.entry.get('description', ''))}</py:def>
+
   <div py:def="content" class="entry-page">
     <!-- templates/entry/view.html -->
     <ul class="breadcrumb">
