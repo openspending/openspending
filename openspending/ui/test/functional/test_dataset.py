@@ -26,7 +26,7 @@ class TestDatasetController(ControllerTestCase):
         h.assert_equal(len(obj['datasets']), 1)
         h.assert_equal(obj['datasets'][0]['name'], 'cra')
         h.assert_equal(obj['datasets'][0]['label'], 'Country Regional Analysis v2009')
-    
+
     def test_index_hide_private(self):
         cra = Dataset.by_name('cra')
         cra.private = True
@@ -48,7 +48,7 @@ class TestDatasetController(ControllerTestCase):
         h.assert_true('Country Regional Analysis v2009' in response,
                       "'Country Regional Analysis v2009' not in response!")
         h.assert_true('36 Entries' in response, "'36 spending entries' not in response!")
-    
+
     def test_view_private(self):
         cra = Dataset.by_name('cra')
         cra.private = True
@@ -75,7 +75,7 @@ class TestDatasetController(ControllerTestCase):
         obj = json.loads(response.body)
         h.assert_equal(obj['name'], 'cra')
         h.assert_equal(obj['label'], 'Country Regional Analysis v2009')
-    
+
     def test_model_json(self):
         response = self.app.get(url(controller='dataset', action='model',
                                     dataset='cra', format='json'))
@@ -98,24 +98,24 @@ class TestDatasetController(ControllerTestCase):
             dataset='cra'))
         h.assert_true('36 entries' in response, "'36 entries' not in response!")
 
-    def test_entries_json(self):
-        response = self.app.get(url(controller='entry', action='index',
-                                    dataset='cra', format='json'),
-                                params={'limit': '20'})
-        obj = json.loads(response.body)
-        h.assert_equal(len(obj['facets']), 2)
-        #h.assert_equal(obj['stats']['count'], 36)
-        h.assert_equal(len(obj['results']), 20)
-        h.assert_equal(obj['results'][0]['amount'], 46000000)
+    def test_entries_json_export(self):
+        response = self.app.get(url(controller='entry',
+                                    action='index_export',
+                                    dataset='cra',
+                                    format='json'))
 
-    def test_entries_csv(self):
-        response = self.app.get(url(controller='entry', action='index',
-                                    dataset='cra', format='csv'),
-                                params={'limit': '20'})
+        obj = [json.loads(l) for l in response.body.splitlines()]
+        h.assert_equal(len(obj), 36)
+
+    def test_entries_csv_export(self):
+        response = self.app.get(url(controller='entry',
+                                    action='index_export',
+                                    dataset='cra',
+                                    format='csv'))
+
         r = csv.DictReader(StringIO(response.body))
         obj = [l for l in r]
         h.assert_equal(len(obj), 36)
-        h.assert_equal(obj[0]['amount'], '46000000.0')
 
     def test_explorer(self):
         h.skip("Not Yet Implemented!")
@@ -124,19 +124,19 @@ class TestDatasetController(ControllerTestCase):
         h.skip("Not Yet Implemented!")
 
     def test_new_form(self):
-        response = self.app.get(url(controller='dataset', action='new'), 
+        response = self.app.get(url(controller='dataset', action='new'),
             params={'limit': '20'})
         assert "Import a dataset" in response.body
         assert 'Import from a DataHub Dataset' in response.body, response.body
-    
+
     def test_create_dataset(self):
         response = self.app.post(url(controller='dataset', action='create'))
         assert "Import a dataset" in response.body
         assert "Required" in response.body
 
-        params = {'name': 'testds', 'label': 'Test Dataset', 
+        params = {'name': 'testds', 'label': 'Test Dataset',
                   'description': 'I\'m a banana!', 'currency': 'EUR'}
-        
+
         response = self.app.post(url(controller='dataset', action='create'),
                 params=params, extra_environ={'REMOTE_USER': 'test'})
         assert "302" in response.status

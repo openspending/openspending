@@ -22,6 +22,16 @@ def default_json(obj):
         return obj.isoformat()
     raise TypeError("%r is not JSON serializable" % obj)
 
+def write_json(entries, response, filename=None):
+    response.content_type = 'application/json'
+    if filename:
+        response.content_disposition = 'attachment; filename=%s' % filename
+    return generate_json(entries)
+
+def generate_json(entries):
+    for e in entries:
+        yield to_json(e, indent=None) + '\n'
+
 def write_browser_json(entries, stats, facets, response):
     """ Streaming support for large result sets, specific to the browser as
     the data is enveloped. """
