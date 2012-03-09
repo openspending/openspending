@@ -7,6 +7,22 @@
   <py:def function="page_title">Dimension: ${c.dimension.label or c.dimension.name}</py:def>
   
   <div py:def="content">
+    <ul class="breadcrumb">
+      <li>
+        <i class="icon-home"></i>
+        <a href="${h.url_for(controller='dataset', action='view', dataset=c.dataset.name)}">
+          ${c.dataset.label}</a>
+        <span class="divider">/</span>
+      </li>
+      <li class="active">
+        ${c.dimension.label}
+      </li>
+      <div class="representations">
+        <a href="${url(controller='dimension', action='view', dataset=c.dataset.name,
+          dimension=c.dimension.name, format='json')}">
+          <img src="${h.static('img/icons/json.png')}" alt="JSON" xml:lang="en" /></a>
+      </div>
+    </ul>
     <h2 class="page-header">
       ${c.dataset.label}:
       ${c.dimension.label or c.dimension.name}

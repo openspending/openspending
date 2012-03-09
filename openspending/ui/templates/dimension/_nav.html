@@ -8,14 +8,30 @@
   <xi:include href="../_util.html" />  
 
   <py:def function="member_nav(section)">
-    <h2 class="page-header">
+    <ul class="breadcrumb">
+      <li>
+        <i class="icon-home"></i>
+        <a href="${h.url_for(controller='dataset', action='view', dataset=c.dataset.name)}">
+          ${c.dataset.label}</a>
+        <span class="divider">/</span>
+      </li>
+      <li>
+        <a href="${h.url_for(controller='dimension', action='view', dataset=c.dataset.name,
+                             dimension=c.dimension)}">
+          ${c.dataset[c.dimension].label}</a>
+        <span class="divider">/</span>
+      </li>
+      <li class="active">
+        ${c.member.label}
+      </li>
       <div class="representations">
         <a href="${url(controller='dimension', action='member', dataset=c.dataset.name,
           name=c.member['name'], dimension=c.dimension, format='json')}">
           <img src="${h.static('img/icons/json.png')}" alt="JSON" xml:lang="en" /></a>
       </div>
+    </ul>
+    <h2 class="page-header">
       ${c.member.label}
-      <small>${c.dataset.label}</small>
     </h2>
     
     <div class="tabbable">

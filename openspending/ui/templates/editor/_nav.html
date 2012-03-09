@@ -7,12 +7,21 @@
   >
 
   <py:def function="editor_nav(section)">
-    <h2 class="page-header">
+    <ul class="breadcrumb">
+      <li>
+        <i class="icon-home"></i>
+        <a href="${h.url_for(controller='dataset', action='view', dataset=c.dataset.name)}">
+          ${c.dataset.label}</a>
+        <span class="divider">/</span>
+      </li>
+      <li class="active">Manage the dataset</li>
+
       <div class="representations">
-        <a href="${url(controller='dataset', action='view', dataset=c.dataset.name, format='json')}"><img src="${h.static('img/icons/json.png')}" alt="JSON" xml:lang="en" /></a>
+        <a href="${url(controller='dataset', action='model', dataset=c.dataset.name, format='json')}"><img src="${h.static('img/icons/json.png')}" alt="JSON" xml:lang="en" /></a>
       </div>
+    </ul>
+    <h2 class="page-header">
       ${c.dataset.label} 
-      <small>Manage the dataset</small>
     </h2>
 
     <div class="tabbable">
@@ -28,9 +37,6 @@
         <li class="${'active' if section == 'core' else ''}">
             <a href="${url(controller='editor', action='core_edit',
               dataset=c.dataset.name)}">Meta</a></li>
-        <li class="">
-            <a href="${url(controller='dataset', action='view',
-              dataset=c.dataset.name)}">Dataset view &raquo;</a></li>
       </ul>
     </div>
   </py:def>
