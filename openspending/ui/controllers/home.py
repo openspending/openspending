@@ -59,6 +59,9 @@ class HomeController(BaseController):
             import openspending.version
             return openspending.version.__version__
 
+    def sitemap(self):
+        return render('home/sitemap.xml')
+
     def ping(self):
         from openspending.tasks import ping
         ping.delay()
