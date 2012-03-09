@@ -25,6 +25,7 @@
                        },
                        ${c.viewjson})
     </script>
+    ${share_scripts()}
   </py:def>
 
   <div py:def="content">
@@ -52,6 +53,7 @@
     <py:if test="c.view is None">
       <xi:include href="../_browser.html" />
     </py:if>
+    ${share_body()}
   </div>
 
   <xi:include href="../layout.html" />

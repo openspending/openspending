@@ -8,6 +8,11 @@
 
   <py:def function="page_title">Entry Details</py:def>
 
+  <py:def function="scripts">
+    <!-- templates/dimension/view.html scripts -->
+    ${share_scripts()}
+  </py:def>
+
   <div py:def="content" class="entry-page">
     <!-- templates/entry/view.html -->
     <ul class="breadcrumb">
@@ -128,6 +133,8 @@
       <h3>Notes:</h3>
       <dd>${h.markdown(c.entry.get('description'))}</dd>
     </py:if>
+
+    ${share_body()}
   </div><!-- /.content -->
 
   <xi:include href="../layout.html" />

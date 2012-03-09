@@ -25,6 +25,7 @@
                        },
                        ${c.viewjson})
     </script>
+    ${share_scripts()}
   </py:def>
 
   <div py:def="content">
@@ -41,6 +42,8 @@
         <div id="detail" />
       </div>
     </div>
+
+    ${share_body()}
   </div>
 
   <xi:include href="../layout.html" />

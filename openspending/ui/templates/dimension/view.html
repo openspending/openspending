@@ -6,6 +6,11 @@
 
   <py:def function="page_title">Dimension: ${c.dimension.label or c.dimension.name}</py:def>
   
+  <py:def function="scripts">
+    <!-- templates/dimension/view.html scripts -->
+    ${share_scripts()}
+  </py:def>
+
   <div py:def="content">
     <ul class="breadcrumb">
       <li>
@@ -62,7 +67,7 @@
         ${c.page.pager()}
       </div>
     </div>
-
+    ${share_body()}
   </div>
 
   <xi:include href="../layout.html" />

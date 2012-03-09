@@ -10,6 +10,11 @@
 
   <py:def function="page_title">${c.dataset.label or c.dataset.name}</py:def>
 
+  <py:def function="scripts">
+    <!-- templates/dataset/about.html scripts -->
+    ${share_scripts()}
+  </py:def>
+
   <div py:def="content">
     <!-- templates/dataset/about.html -->
 
@@ -79,6 +84,8 @@
         ${dimensions_list(c.dataset.dimensions)}
       </div>
     </div>
+
+    ${share_body()}
   </div>
 
   <xi:include href="../layout.html" />

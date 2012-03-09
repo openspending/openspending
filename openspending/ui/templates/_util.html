@@ -30,6 +30,24 @@
     </script>
   </py:def>  
 
+  <py:def function="share_scripts()">
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">stLight.options({publisher: "ur-74a5b4dd-616a-419a-ba12-b7e5e84e437"}); </script>
+  </py:def>
+
+  <py:def function="share_body()">
+    <div class="row">
+      <div class="span12">
+        <span class='st_twitter_hcount' displayText='Tweet'></span>
+        <span class='st_facebook_hcount' displayText='Facebook'></span>
+        <span class='st_plusone_hcount' displayText='Google +1'></span>
+        <span class='st_delicious_hcount' displayText='Delicious'></span>
+        <span class='st_email_hcount' displayText='Email'></span>
+      </div>
+    </div>
+  </py:def>
+
   <div py:def="entries_page(dataset, page)">
     <!-- templates/_util.html entries_page -->
     <table class="table table-striped table-condensed">
