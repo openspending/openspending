@@ -2,11 +2,11 @@ from collections import OrderedDict
 import logging
 
 from pylons import request, response, tmpl_context as c
-from pylons.controllers.util import abort, etag_cache
+from pylons.controllers.util import etag_cache
 
 from openspending import model
 from openspending.lib.browser import Browser
-from openspending.lib.jsonexport import jsonpify, to_jsonp, write_browser_json
+from openspending.lib.jsonexport import jsonpify
 from openspending.ui.lib.base import BaseController, require
 from openspending.ui.lib.cache import AggregationCache
 
@@ -70,7 +70,7 @@ class ParamParser(object):
                 if direction not in ('asc', 'desc'):
                     self.error('Order direction can be "asc" or "desc". We '
                                'got "%s" in "order=%s"' %
-                               (direction, order_param))
+                               (direction, order))
                     return
 
                 if direction == 'asc':
@@ -114,12 +114,12 @@ class AggregateParamParser(ParamParser):
             return []
         return drilldown.split('|')
 
-    def parse_cut(self, cut):
-        if cut is None:
+    def parse_cut(self, cuts):
+        if cuts is None:
             return []
 
         result = []
-        for c in cut.split('|'):
+        for cut in cuts.split('|'):
             try:
                 dimension, value = cut.split(':')
             except ValueError:
@@ -127,7 +127,7 @@ class AggregateParamParser(ParamParser):
                            'with request cut_parameters in the form '
                            '"cut=dimension:value|dimension:value". '
                            'We got: "cut=%s"' %
-                           cut)
+                           cuts)
                 return
             else:
                 result.append((dimension, value))
@@ -193,6 +193,9 @@ class SearchParamParser(ParamParser):
 
         return None
 
+    def parse_pagesize(self, pagesize):
+        return min(100, self._to_int('pagesize', pagesize))
+
     def parse_facet_field(self, facet_field):
         if facet_field is None:
             return
@@ -238,16 +241,21 @@ class Api2Controller(BaseController):
 
         return result
 
+    @jsonpify
     def search(self):
         parser = SearchParamParser(request.params)
         parser.parse()
 
         if parser.errors:
             response.status = 400
-            return to_jsonp({'errors': parser.errors})
+            return {'errors': parser.errors}
 
         params = parser.output.copy()
 
         b = Browser(**params)
         stats, facets, entries = b.execute()
-        return write_browser_json(entries, stats, facets, response)
+        return {
+            'stats': stats,
+            'facets': facets,
+            'results': list(entries)
+        }
