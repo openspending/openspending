@@ -10,13 +10,29 @@
 
   <div py:def="content" class="entry-page">
     <!-- templates/entry/view.html -->
-
-    <h2 class="page-header" i18n:msg="dataset_label">
+    <ul class="breadcrumb">
+      <li>
+        <i class="icon-home"></i>
+        <a href="${h.url_for(controller='dataset', action='view', dataset=c.dataset.name)}">
+          ${c.dataset.label}</a>
+        <span class="divider">/</span>
+      </li>
+      <li>
+        <a href="${h.url_for(controller='entry', action='index', dataset=c.dataset.name)}">
+          Entries</a>
+        <span class="divider">/</span>
+      </li>
+      <li class="active" i18n:msg="currency,amount,time">
+        ${c.dataset.currency} ${h.format_number_with_commas(c.amount)} on ${c.time.get('label')}
+      </li>
       <div class="representations">
         <a href="${url(controller='entry', action='view', dataset=c.dataset.name, id=c.id, format='json')}">
           <img src="${h.static('img/icons/json.png')}" alt="JSON" xml:lang="en" />
         </a>
       </div>
+    </ul>
+    <h2 class="page-header" i18n:msg="dataset_label">
+      
       Entry in ${c.dataset.label}
       <small>Detailed View of Transaction</small>
     </h2>
@@ -63,7 +79,7 @@
           <div class="currency">${c.currency}</div>
           <div class="date">
             <img src="${h.static('img/icons/calendar_alt_stroke_16x16.png')}" />
-            ${c.time.get('name')}
+            ${c.time.get('label')}
           </div>
         </div><!-- /.number -->
       </div><!-- /.amount -->
