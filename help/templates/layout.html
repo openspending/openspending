@@ -22,16 +22,7 @@
 
 {%- macro relbar() %}
     <div class="related span12">
-      <ul class="breadcrumb">
-        {%- block rootrellink %}
-        <li><a href="{{ pathto(master_doc) }}">{{ shorttitle|e }}</a><span class="divider">{{ reldelim1 }}</span></li>
-        {%- endblock %}
-        {%- for parent in parents %}
-        <li><a href="{{ parent.link|e }}" {% if loop.last %}{{ accesskey("U") }}{% endif %}>{{ parent.title }}</a><span class="divider">{{ reldelim1 }}</span></li>
-        {%- endfor %}
-        <li class="active">{{ title|striptags|e }}</li>
-        {%- block relbaritems %} {% endblock %}
-      </ul>
+      
     </div>
 {%- endmacro %}
 
@@ -138,6 +129,16 @@
   </py:def>
 
   <div py:def="content" class="help-page">
+    <ul class="breadcrumb">
+      {%- block rootrellink %}
+      <li><a href="{{ pathto(master_doc) }}">{{ shorttitle|e }}</a><span class="divider">{{ reldelim1 }}</span></li>
+      {%- endblock %}
+      {%- for parent in parents %}
+      <li><a href="{{ parent.link|e }}" {% if loop.last %}{{ accesskey("U") }}{% endif %}>{{ parent.title }}</a><span class="divider">{{ reldelim1 }}</span></li>
+      {%- endfor %}
+      <li class="active">{{ title|striptags|e }}</li>
+      {%- block relbaritems %} {% endblock %}
+    </ul>
     <h2 class="page-header">{{ title|striptags|e }}</h2>
     <div class="row">
       <div span="12">
