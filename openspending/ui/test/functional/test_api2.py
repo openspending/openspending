@@ -74,7 +74,40 @@ class TestApi2Controller(ControllerTestCase):
                              2003]))
 
     def test_search(self):
-        response = self.app.get(url(controller='api2', action='search', dataset='cra'))
+        response = self.app.get(url(controller='api2', action='search'))
         result = json.loads(response.body)
 
-        h.assert_true('search', result['message'])
+        h.assert_equal(result['stats']['results_count'], 36)
+        h.assert_equal(result['stats']['results_count_query'], 36)
+        h.assert_equal(result['facets'], {})
+        h.assert_equal(len(result['results']), 36)
+
+    def test_search_page_pagesize(self):
+        response = self.app.get(url(controller='api2', action='search', page=2, pagesize=10))
+        result = json.loads(response.body)
+
+        h.assert_equal(result['stats']['results_count'], 10)
+        h.assert_equal(result['stats']['results_count_query'], 36)
+
+    def test_search_q(self):
+        response = self.app.get(url(controller='api2', action='search', q="Ministry of Justice"))
+        result = json.loads(response.body)
+
+        h.assert_equal(result['stats']['results_count'], 5)
+        h.assert_equal(result['stats']['results_count_query'], 5)
+        h.assert_equal(result['results'][0]['id'], "06dafa7250420ab1dc616d2bbbe310c9ad6e485e")
+
+    def test_search_filter(self):
+        response = self.app.get(url(controller='api2', action='search', filter="pog:P13 S091105"))
+        result = json.loads(response.body)
+
+        h.assert_equal(result['stats']['results_count'], 5)
+        h.assert_equal(result['stats']['results_count_query'], 5)
+        h.assert_equal(result['results'][0]['id'], "06dafa7250420ab1dc616d2bbbe310c9ad6e485e")
+
+    def test_search_facet(self):
+        response = self.app.get(url(controller='api2', action='search', pagesize=0, facet_field="dataset"))
+        result = json.loads(response.body)
+
+        h.assert_equal(len(result['facets']['dataset']), 1)
+        h.assert_equal(result['facets']['dataset'][0], ['cra', 36])
