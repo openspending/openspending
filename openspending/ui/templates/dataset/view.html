@@ -19,16 +19,27 @@
 
   <py:def function="scripts">
     <!-- templates/dataset/view.html scripts -->
+    <script type="text/javascript" src="http://localhost/openspendingjs/lib/embed.js"></script>
+
+
     <script py:if="hasattr(c, 'widget')" type="text/javascript" src="${c.widget.js}"></script>
     <script py:if="hasattr(c, 'widget')">
         var context = {
             dataset: '${c.dataset.name}',
-            siteUrl: '',
+            siteUrl: '${h.url_for(controller='home', action='index', qualified=True).rstrip('/')}',
             time: '${c.time}'
             };
 
         (function ($) {
-            new ${c.widget.class_name}($('#widget'), context, ${c.viewjson});
+            var widget = new ${c.widget.class_name}($('#widget'), context, ${c.viewjson});
+            
+            widget.then(function(w) {
+              var embedder = new OpenSpending.Embedder(w, context, '${c.widget.name}');  
+              $("#embed-link").click(function(e) {
+                embedder.render();
+                return false;
+              });
+            });
         })(jQuery);
     </script>
     ${share_scripts()}
@@ -42,6 +53,7 @@
     <div py:if="c.view" class="row">
       <div class="span12"><div id="widget" style="width: auto; height: 400px"/></div>
     </div>
+    <a href="" id="embed-link">Embed</a>
 
     <div py:if="c.view" class="row">
       <div class="span12">
