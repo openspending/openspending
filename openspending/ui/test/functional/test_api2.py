@@ -111,3 +111,18 @@ class TestApi2Controller(ControllerTestCase):
 
         h.assert_equal(len(result['facets']['dataset']), 1)
         h.assert_equal(result['facets']['dataset'][0], ['cra', 36])
+
+    def test_search_order(self):
+        response = self.app.get(url(controller='api2', action='search', order="amount:asc"))
+        result = json.loads(response.body)
+
+        amounts = [r['amount'] for r in result['results']]
+
+        h.assert_equal(amounts, sorted(amounts))
+
+        response = self.app.get(url(controller='api2', action='search', order="amount:desc"))
+        result = json.loads(response.body)
+
+        amounts = [r['amount'] for r in result['results']]
+
+        h.assert_equal(amounts, sorted(amounts)[::-1])

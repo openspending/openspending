@@ -52,6 +52,35 @@ class ParamParser(object):
     def parse_pagesize(self, pagesize):
         return self._to_int('pagesize', pagesize)
 
+    def parse_order(self, order):
+        if order is None:
+            return []
+
+        result = []
+        for part in order.split('|'):
+            try:
+                dimension, direction = part.split(':')
+            except ValueError:
+                self.error('Wrong format for "order". It has to be '
+                           'specified with request parameters in the form '
+                           '"order=dimension:direction|dimension:direction". '
+                           'We got: "order=%s"' % order)
+                return
+            else:
+                if direction not in ('asc', 'desc'):
+                    self.error('Order direction can be "asc" or "desc". We '
+                               'got "%s" in "order=%s"' %
+                               (direction, order_param))
+                    return
+
+                if direction == 'asc':
+                    reverse = False
+                else:
+                    reverse = True
+
+                result.append((dimension, reverse))
+        return result
+
     def _to_int(self, name, value):
         try:
             return int(value)
@@ -104,35 +133,6 @@ class AggregateParamParser(ParamParser):
                 result.append((dimension, value))
         return result
 
-    def parse_order(self, order):
-        if order is None:
-            return []
-
-        result = []
-        for part in order.split('|'):
-            try:
-                dimension, direction = part.split(':')
-            except ValueError:
-                self.error('Wrong format for "order". It has to be '
-                           'specified with request parameters in the form '
-                           '"order=dimension:direction|dimension:direction". '
-                           'We got: "order=%s"' % order)
-                return
-            else:
-                if direction not in ('asc', 'desc'):
-                    self.error('Order direction can be "asc" or "desc". We '
-                               'got "%s" in "order=%s"' %
-                               (direction, order_param))
-                    return
-
-                if direction == 'asc':
-                    reverse = False
-                else:
-                    reverse = True
-
-                result.append((dimension, reverse))
-        return result
-
     def parse_measure(self, measure):
         if self.output.get('dataset') is None:
             return
@@ -151,6 +151,7 @@ class SearchParamParser(ParamParser):
     defaults['dataset'] = None
     defaults['page'] = 1
     defaults['pagesize'] = 100
+    defaults['order'] = None
     defaults['facet_field'] = None
     defaults['facet_page'] = 1
     defaults['facet_pagesize'] = 100
@@ -191,12 +192,6 @@ class SearchParamParser(ParamParser):
         self.output['filter']['dataset'] = [ds.name for ds in datasets]
 
         return None
-
-    def parse_page(self, page):
-        return self._to_int('page', page)
-
-    def parse_pagesize(self, pagesize):
-        return min(100, self._to_int('pagesize', pagesize))
 
     def parse_facet_field(self, facet_field):
         if facet_field is None:
