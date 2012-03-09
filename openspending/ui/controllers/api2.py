@@ -30,39 +30,41 @@ class ParamParser(object):
         for key in self.params.keys():
             parser = 'parse_{0}'.format(key)
             if hasattr(self, parser):
-                result = getattr(self, parser)()
-                if result is not None:
-                    self.output[key] = result
+                result = getattr(self, parser)(self.params[key])
+            else:
+                result = self.params[key]
+
+            if result is not None:
+                self.output[key] = result
 
     def error(self, msg):
         self.errors.append(msg)
 
-    def parse_dataset(self):
-        name = self.params['dataset']
-        if name is None:
+    def parse_dataset(self, dataset_name):
+        if dataset_name is None:
             self.error('dataset name not provided')
             return
 
-        dataset = model.Dataset.by_name(name)
+        dataset = model.Dataset.by_name(dataset_name)
         if dataset is None:
-            self.error('no dataset with name "%s"' % name)
+            self.error('no dataset with name "%s"' % dataset_name)
             return
 
         require.dataset.read(dataset)
         return dataset
 
-    def parse_page(self):
-        return self._to_int('page')
+    def parse_page(self, page):
+        return self._to_int('page', page)
 
-    def parse_pagesize(self):
-        return self._to_int('pagesize')
+    def parse_pagesize(self, pagesize):
+        return self._to_int('pagesize', pagesize)
 
-    def _to_int(self, param_name):
+    def _to_int(self, name, value):
         try:
-            return int(self.params[param_name])
+            return int(value)
         except ValueError:
             self.error('"%s" has to be an integer, it is: %s' %
-                       (param_name, self.params[param_name]))
+                       (name, value))
 
 class AggregateParamParser(ParamParser):
     defaults = ParamParser.defaults.copy()
@@ -73,15 +75,12 @@ class AggregateParamParser(ParamParser):
         'measure': 'amount'
     })
 
-    def parse_drilldown(self):
-        drilldown = self.params['drilldown']
+    def parse_drilldown(self, drilldown):
         if drilldown is None:
             return []
         return drilldown.split('|')
 
-    def parse_cut(self):
-        cut = self.params['cut']
-
+    def parse_cut(self, cut):
         if cut is None:
             return []
 
@@ -100,9 +99,7 @@ class AggregateParamParser(ParamParser):
                 result.append((dimension, value))
         return result
 
-    def parse_order(self):
-        order = self.params['order']
-
+    def parse_order(self, order):
         if order is None:
             return []
 
@@ -131,22 +128,29 @@ class AggregateParamParser(ParamParser):
                 result.append((dimension, reverse))
         return result
 
-    def parse_measure(self):
+    def parse_measure(self, measure):
         if self.output.get('dataset') is None:
             return
 
-        name = self.params['measure']
-
         measure_names = (m.name for m in self.output['dataset'].measures)
-        if name not in measure_names:
+        if measure not in measure_names:
             print self.output['dataset'].measures
-            self.error('no measure with name "%s"' % name)
+            self.error('no measure with name "%s"' % measure)
             return
 
-        return name
+        return measure
 
 class SearchParamParser(ParamParser):
-    pass
+    defaults = ParamParser.defaults.copy()
+    defaults.update({
+        'q': '',
+        'page': 1,
+        'pagesize': 1000,
+        'facets_fields': None,
+        'facets_page': 1,
+        'facets_pagesize': 100,
+        'filters': None
+    })
 
 class Api2Controller(BaseController):
 
@@ -162,12 +166,11 @@ class Api2Controller(BaseController):
             response.status = 400
             return {'errors': parser.errors}
 
-        params = parser.output
+        params = parser.output.copy()
         # FIXME: these names should be consistent throughout the API
         params['cuts'] = params.pop('cut')
         params['drilldowns'] = params.pop('drilldown')
         dataset = params.pop('dataset')
-
 
         try:
             cache = AggregationCache(dataset)
