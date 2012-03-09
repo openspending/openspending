@@ -8,6 +8,19 @@
 
   <py:def function="page_title">${c.dataset.label or c.dataset.name}</py:def>
 
+  <py:def function="optional_head">
+    <link rel="stylesheet" href="${h.static('js/vendor/chosen/chosen.css')}" type="text/css"/>
+  </py:def>
+
+  <py:def function="scripts">
+    <script type="text/javascript" src="${h.static('js/vendor/chosen/chosen.jquery.min.js')}"></script>
+    <script>
+      jQuery(function($) {
+        $(".chzn-select").chosen();
+      });
+    </script>
+  </py:def>  
+
   <div py:def="content">
     ${editor_nav('core')}
     <div class="row">
@@ -19,13 +32,13 @@
             <div class="control-group">
               <label class="control-label" for="label">Title</label>
               <div class="controls">
-                <input class="input-xlarge" name="label" placeholder="My Dataset" />
+                <input class="input-xlarge span4" name="label" placeholder="My Dataset" />
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="currency">Currency</label>
               <div class="controls">
-                <select name="currency">
+                <select name="currency" class="chzn-select span4">
                   <optgroup label="Commonly used currencies">
                     <py:for each="code, name in c.key_currencies">
                       <option value="${code}">${name} (${code})</option>
@@ -42,7 +55,7 @@
             <div class="control-group">
               <label class="control-label" for="territories">Countries</label>
               <div class="controls">
-                <select name="territories" multiple="multiple" class="span7">
+                <select name="territories" multiple="multiple" class="chzn-select span4">
                   <py:for each="code, name in c.territories">
                     <option value="${code}">${name} (${code})</option>
                   </py:for>
@@ -52,7 +65,7 @@
             <div class="control-group">
               <label class="control-label" for="languages">Languages</label>
               <div class="controls">
-                <select name="languages" multiple="multiple" class="span7">
+                <select name="languages" multiple="multiple" class="chzn-select span4">
                   <py:for each="code, name in c.languages">
                     <option value="${code}">${name} (${code})</option>
                   </py:for>
