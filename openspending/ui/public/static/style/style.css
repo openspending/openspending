@@ -22,6 +22,14 @@ input, textarea, button, select, .btn {
   -webkit-transform-style: inherit;
 }
 
+a {
+  color: #99c862;
+}
+
+a:hover, a:active {
+  color: #6A8A45;
+}
+
 /* Replicate pagination */
 
 /*
@@ -204,6 +212,11 @@ footer ul.footer-links {
 
 footer a, footer a:hover {
   color: #AEEBDF;
+}
+
+footer a.twitter {
+  background: url(../img/icons/twitter.png) no-repeat;
+  padding-left: 20px;
 }
 
 /* Front page */
