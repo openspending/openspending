@@ -11,6 +11,7 @@ class Browser(object):
                  filter=None,
                  page=1,
                  pagesize=100,
+                 order=None,
                  facet_field=None,
                  facet_page=1,
                  facet_pagesize=100):
@@ -20,6 +21,7 @@ class Browser(object):
             'filter': filter if filter is not None else {},
             'page': page,
             'pagesize': pagesize,
+            'order': order if order is not None else [('score', True), ('amount', True)],
             'facet_field': facet_field if facet_field is not None else [],
             'facet_page': facet_page,
             'facet_pagesize': facet_pagesize
@@ -51,14 +53,12 @@ class Browser(object):
         return json.loads(data)
 
 def _build_query(params):
-    filters = params['filter'].copy()
-
     query = {
         'q':     params['q'] or '*:*',
-        'fq':    _build_fq(filters),
+        'fq':    _build_fq(params['filter']),
         'wt':    'json',
         'fl':    'id, dataset',
-        'sort':  'score desc, amount desc',
+        'sort':  _build_sort(params['order']),
         # FIXME: In a future version of the API, we really should use
         #        offset/limit rather than page/pagesize.
         'start': (params['page'] - 1) * params['pagesize'],
@@ -90,6 +90,9 @@ def _build_fq(filters):
         else:
             fq.append(' OR '.join(map(lambda v: fq_for(key, v), value)))
     return fq
+
+def _build_sort(order):
+    return ['{0} {1}'.format(field, 'desc' if reverse else 'asc') for field, reverse in order]
 
 def _parse_facets(facets):
     out = []

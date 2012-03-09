@@ -55,7 +55,7 @@ class TestBrowser(TestCase):
         h.assert_equal(solr_args['fq'], [])
         h.assert_equal(solr_args['wt'], 'json')
         h.assert_equal(solr_args['fl'], 'id, dataset')
-        h.assert_equal(solr_args['sort'], 'score desc, amount desc')
+        h.assert_equal(solr_args['sort'], ['score desc', 'amount desc'])
         h.assert_equal(solr_args['start'], 0)
         h.assert_equal(solr_args['rows'], 100)
 
@@ -114,12 +114,16 @@ class TestBrowser(TestCase):
         h.assert_equal(solr_args['facet.field'], ['foo', 'bar'])
 
     def test_facets_page_pagesize(self):
-        b = Browser(self.dataset, facet_field=['one'], facet_page=2, facet_pagesize=50)
+        b = Browser(facet_field=['one'], facet_page=2, facet_pagesize=50)
         b.execute()
 
         _, solr_args = self.conn.raw_query.call_args
         h.assert_equal(solr_args['facet.offset'], 50)
         h.assert_equal(solr_args['facet.limit'], 50)
 
+    def test_order(self):
+        b = Browser(order=[('amount', False), ('something.id', True)])
+        b.execute()
 
-
+        _, solr_args = self.conn.raw_query.call_args
+        h.assert_equal(solr_args['sort'], ['amount asc', 'something.id desc'])
