@@ -1,7 +1,7 @@
 
 /* Bootstrap overrides */
 body {
-  padding-top: 40px;
+  padding-top: 50px;
 }
 
 .page-header {
@@ -67,6 +67,41 @@ input, textarea, button, select, .btn {
   src: url('/static/fonts/opensans/opensans-light-webfont.eot?#iefix') format('embedded-opentype'), url('/static/fonts/opensans/opensans-light-webfont.woff') format('woff'), url('/static/fonts/opensans/opensans-light-webfont.ttf') format('truetype'), url('/static/fonts/opensans/opensans-light-webfont.svg#OpenSansLight') format('svg');
   font-weight: normal;
   font-style: normal;
+}
+
+.navbar {
+  background-color: #fff;
+  background-image: none;
+}
+
+.navbar-inner {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  background-color: #fff;
+  -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  background: url(../img/noise.png), -webkit-linear-gradient(top, #fff, #eee); 
+  background-image: url(../img/noise.png), -moz-linear-gradient(top, #fff, #eee); 
+  background-image: url(../img/noise.png), -ms-linear-gradient(top, #fff, #eee); 
+  background-image: url(../img/noise.png), -o-linear-gradient(top, #fff, #eee); 
+  background-image:  url(../img/noise.png), linear-gradient(to bottom, #fff, #eee);*/
+}
+
+.navbar-inner .brand, 
+.navbar-inner .nav li a {
+  color: #000;
+  text-shadow: none;
+}
+
+.navbar-inner .nav li a {
+  font-family: "Share", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+}
+
+.navbar-inner .nav li a:hover,
+.navbar-inner .nav li a.active {
+  color: #99C862;
 }
 
 .brand, .topbar, h1, h2, h3 {
