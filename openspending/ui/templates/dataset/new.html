@@ -5,6 +5,19 @@
   <py:def function="nav_class">nav-account</py:def>
 
   <py:def function="page_title">Import a dataset</py:def>
+
+  <py:def function="optional_head">
+    <link rel="stylesheet" href="${h.static('js/vendor/chosen/chosen.css')}" type="text/css"/>
+  </py:def>
+
+  <py:def function="scripts">
+    <script type="text/javascript" src="${h.static('js/vendor/chosen/chosen.jquery.min.js')}"></script>
+    <script>
+      jQuery(function($) {
+        $(".chzn-select").chosen();
+      });
+    </script>
+  </py:def>  
   
   <div py:def="content" class="dataset new">
     <!-- templates/dataset/new.html content -->
@@ -59,13 +72,13 @@
             <div class="control-group">
               <label class="control-label" for="label">Title</label>
               <div class="controls">
-                <input name="label" placeholder="My Dataset" />
+                <input name="label" class="span4" placeholder="My Dataset" />
               </div>
             </div>
             <div class="control-group">
               <label class="control-label" for="name">Identifier</label>
               <div class="controls">
-                <input name="name" placeholder="my_dataset" />
+                <input name="name" class="span4" placeholder="my_dataset" />
                 <p class="help-block">The identifier will become part of the
                   dataset URL and cannot be changed later. It may only 
                   contain alphanumeric characters, dashes and underscores.</p>
@@ -74,7 +87,7 @@
             <div class="control-group">
               <label class="control-label" for="currency">Currency</label>
               <div class="controls">
-                <select name="currency">
+                <select name="currency" class="chzn-select span4">
                   <optgroup label="Commonly used currencies">
                     <py:for each="code, name in c.key_currencies">
                       <option value="${code}">${name} (${code})</option>
@@ -89,9 +102,29 @@
               </div>
             </div>
             <div class="control-group">
+              <label class="control-label" for="territories">Countries</label>
+              <div class="controls">
+                <select name="territories" multiple="multiple" class="chzn-select span4">
+                  <py:for each="code, name in c.territories">
+                    <option value="${code}">${name} (${code})</option>
+                  </py:for>
+                </select>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="languages">Languages</label>
+              <div class="controls">
+                <select name="languages" multiple="multiple" class="chzn-select span4">
+                  <py:for each="code, name in c.languages">
+                    <option value="${code}">${name} (${code})</option>
+                  </py:for>
+                </select>
+              </div>
+            </div>
+            <div class="control-group">
               <label class="control-label" for="description">Description</label>
               <div class="controls">
-                <textarea class="xxlarge" rows="4" name="description"></textarea>
+                <textarea class="xxlarge span4" rows="4" name="description"></textarea>
               </div>
             </div>
           </fieldset>

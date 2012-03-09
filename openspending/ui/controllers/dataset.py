@@ -78,10 +78,12 @@ class DatasetController(BaseController):
         return render('dataset/new_cta.html')
 
     def new(self, errors={}):
-        c.key_currencies = sorted([(r,n) for (r, (n, k)) in CURRENCIES.items() if k], 
-                key=lambda (k,v): v)
-        c.all_currencies = sorted([(r,n) for (r, (n, k)) in CURRENCIES.items() if not k], 
-                key=lambda (k,v): v)
+        c.key_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if k], 
+                key=lambda (k, v): v)
+        c.all_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if not k], 
+                key=lambda (k, v): v)
+        c.languages = sorted(LANGUAGES.items(), key=lambda (k, v): v)
+        c.territories = sorted(COUNTRIES.items(), key=lambda (k, v): v)
         require.account.create()
         errors = [(k[len('dataset.'):], v) for k, v in errors.items()]
         c.have_error = bool(errors)
@@ -92,9 +94,12 @@ class DatasetController(BaseController):
     def create(self):
         require.account.create()
         try:
-            model = {'dataset': request.params}
+            dataset = dict(request.params)
+            dataset['territories'] = request.params.getall('territories')
+            dataset['languages'] = request.params.getall('languages')
+            model = {'dataset': dataset}
             schema = dataset_schema(ValidationState(model))
-            data = schema.deserialize(request.params)
+            data = schema.deserialize(dataset)
             if Dataset.by_name(data['name']):
                 raise Invalid(SchemaNode(String(), name='dataset.name'),
                     _("A dataset with this identifer already exists!"))
