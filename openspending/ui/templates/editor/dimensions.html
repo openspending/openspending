@@ -36,6 +36,17 @@
       .rm_dimension {
         float: right;
       }
+
+      #add-dimension .well {
+        overflow-y: scroll;
+        max-height: 350px;
+
+      }
+
+      #add-dimension li.used {
+        color: #ddd;
+        text-decoration:line-through;
+      }
     </style>
 
     <script>
@@ -96,25 +107,25 @@
               </div>
 
               <!-- Add dimension window. -->
-              <div id="add-dimension" class="modal hide fade">
+              <div id="add-dimension" class="modal big-modal hide fade">
                 <div class="modal-header">
                   <h3>Add new dimension</h3>
                 </div>
                 <form action='#' class="form-horizontal">
                   <div class="modal-body">
-                    <div style="padding: 4px">
-                      <p>
-                        The name you choose should only contain letters, numbers and dashes (i.e., no spaces)
-                      </p>
-                      <p i18n:msg="">
-                        Where the dimension represents the ultimate source or destination of the funds, 
-                        call it <code>from</code> or <code>to</code>.
-                      </p>
-                      </div>
+                    <div class="row">
+                    <div class="span6">
                         <div class="control-group">
                           <label for="new-dimension-name">Name</label>
                           <div class="controls">
                             <input type='text' name='new-dimension-name' value='' />
+                            <p class="help-block">
+                              The name you choose should only contain letters, numbers and dashes (i.e., no spaces)
+                            </p>
+                            <p i18n:msg="" class="help-block">
+                              Where the dimension represents the ultimate source or destination of the funds, 
+                              call it <code>from</code> or <code>to</code>.
+                            </p>
                           </div>
                         </div>
                         <div class="control-group">
@@ -151,6 +162,14 @@
                             </label>
                           </div>
                         </div>
+                      </div>
+                      <div class="span3">
+                      <h3>Unmapped source data columns</h3>
+                      <div class="well">
+                          <ul id="new-dimension-columns"></ul>
+                      </div>
+                    </div>
+                    </div>
                       </div>
                       <div class="modal-footer">
                         <a class='btn cancel_add_dimension btn-danger'>Cancel</a>
