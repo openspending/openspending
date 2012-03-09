@@ -6,13 +6,12 @@
 
 
   <py:def function="scripts">
-    <script type="text/javascript" src="/static/js/vendor/jquery.js"></script>
-  	<script type="text/javascript" src="/static/js/vendor/raphael-min.js"></script>
-	  <script type="text/javascript" src="/static/js/vendor/kartograph/kartograph.min.js"></script>
-  	<script type="text/javascript" src="/static/js/vendor/chroma.pack.min.js"></script>
-  	<script type="text/javascript" src="/static/app/spending-map/load.js"></script>
+    ${script_tag('lib/vendor/raphael-min')}
+    ${script_tag('lib/vendor/raphael-min')}
+    ${script_tag('lib/vendor/kartograph/kartograph.min')}
+    ${script_tag('lib/vendor/chroma.pack.min')}
+    ${script_tag('app/spending-map/load')}
   </py:def>
-
 
   <py:def function="page_title">Welcome</py:def>
   <div py:def="content">

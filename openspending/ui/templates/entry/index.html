@@ -10,8 +10,21 @@
   <div py:def="content">
     <!-- templates/entry/index.html -->
     ${dataset_nav('search')}
-    <xi:include href="../_browser.html" />
+
+    <table cellpadding="0" cellspacing="0" border="0" class="display" id="os_datatable">
+    </table>
+
   </div>
+
+  <py:def function="scripts">
+    ${script_tag('lib/vendor/datatables/js/jquery.dataTables')}
+    ${script_tag('app/datatables/openspending.datatables')}
+    <script>
+      OpenSpending.$(function() {
+        new OpenSpending.DataTable(document.getElementById('os_datatable'));
+      });
+    </script>
+  </py:def>
 
   <xi:include href="../layout.html" />
 </html>

@@ -420,10 +420,9 @@
   </div>
 
   <py:def function="scripts">
-    ${script_tag('vendor/jquery.tmpl')}
-
-    <script type="text/javascript" src="${h.static('app/dimensions-editor/main.js')}"></script>
-    <script type="text/javascript" src="${h.static('app/dimensions-editor/modelEditorInit.js')}"></script>
+    ${script_tag('lib/vendor/jquery.tmpl')}
+    ${script_tag('app/dimensions-editor/main')}
+    ${script_tag('app/dimensions-editor/modelEditorInit')}
 
     <script>
       jQuery(function($) {
