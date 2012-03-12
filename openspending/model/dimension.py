@@ -160,7 +160,7 @@ class CompoundDimension(Dimension, TableHandler):
             self._pk_cache[name] = pk
         return {self.column.name: pk}
 
-    def members(self, conditions="1=1", limit=0, offset=0):
+    def members(self, conditions="1=1", limit=None, offset=0):
         """ Get a listing of all the members of the dimension (i.e. all the
         distinct values) matching the filter in ``conditions``. This can also be
         used to find a single individual member, e.g. a dimension value

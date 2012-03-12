@@ -41,7 +41,7 @@ class TestCompoundDimension(DatabaseTestCase):
     def test_basic_properties(self):
         assert self.entity.name=='to', self.entity.name
         assert self.classifier.name=='function', self.classifier.name
-        
+
     def test_generated_tables(self):
         #assert not hasattr(self.entity, 'table'), self.entity
         #self.ds.generate()
@@ -64,3 +64,13 @@ class TestCompoundDimension(DatabaseTestCase):
         assert 'name' in self.entity.table.c, self.entity.table.c
         assert 'label' in self.entity.table.c, self.entity.table.c
 
+    def test_members(self):
+        self.ds.generate()
+        self.entity.load(self.ds.bind, {'name': 'one', 'label': 'Label One'})
+        self.entity.load(self.ds.bind, {'name': 'two', 'label': 'Label Two'})
+
+        members = list(self.entity.members())
+        h.assert_equal(len(members), 2)
+
+        members = list(self.entity.members(self.entity.alias.c.name == 'one'))
+        h.assert_equal(len(members), 1)
