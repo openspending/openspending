@@ -4,11 +4,11 @@ from pylons import request, response, tmpl_context as c
 from pylons.controllers.util import abort, redirect
 from pylons.i18n import _
 
+from openspending.lib.browser import Browser
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IEntryController
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.views import handle_request
-from openspending.ui.lib.browser import Browser
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import write_json, to_jsonp
 from openspending.ui.lib import helpers as h
@@ -24,8 +24,8 @@ class EntryController(BaseController):
         handle_request(request, c, c.dataset)
         url = h.url_for(controller='entry', action='index', dataset=c.dataset.name)
 
-        c.browser = Browser(c.dataset, request.params, url=url)
-        c.browser.facet_by_dimensions()
+        c.facet_dimensions = c.dataset.facet_dimensions
+        c.facets = _fetch_facets(c.facet_dimensions)
 
         return render('entry/index.html')
 
@@ -77,3 +77,15 @@ class EntryController(BaseController):
         else:
             return render('entry/view.html')
 
+def _fetch_facets(dimensions):
+    fields = [d.name for d in dimensions]
+    _, facets, _ = Browser(pagesize=0, facet_field=fields).execute()
+
+    for dim in dimensions:
+        if dim.is_compound:
+            member_names = [x[0] for x in facets[dim.name]]
+            facet_values = [x[1] for x in facets[dim.name]]
+            members = dim.members(dim.alias.c.name.in_(member_names))
+            facets[dim.name] = zip(members, facet_values)
+
+    return facets
