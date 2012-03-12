@@ -13,9 +13,9 @@ from openspending.model import Dataset, AttributeDimension, \
 class TestDataset(DatabaseTestCase):
 
     def setup(self):
-        super(TestDataset, self).setup()        
+        super(TestDataset, self).setup()
         self.ds = Dataset(SIMPLE_MODEL)
-    
+
     #def teardown(self):
     #    #db.metadata.drop_all(engine=db.engine)
     #    pass
@@ -56,7 +56,7 @@ class TestDataset(DatabaseTestCase):
         cols = self.ds.table.c
         assert 'id' in cols
         assert isinstance(cols['id'].type, Unicode)
-        # TODO: 
+        # TODO:
         assert 'time_id' in cols
         assert isinstance(cols['time_id'].type, Integer)
         assert 'amount' in cols
@@ -79,7 +79,7 @@ class TestDatasetLoad(DatabaseTestCase):
         self.ds = Dataset(SIMPLE_MODEL)
         self.ds.generate()
         self.engine = db.engine
-    
+
     def test_load_all(self):
         load_dataset(self.ds)
         resn = self.engine.execute(self.ds.table.select()).fetchall()
@@ -87,7 +87,7 @@ class TestDatasetLoad(DatabaseTestCase):
         row0 = resn[0]
         assert row0['amount']==200, row0.items()
         assert row0['field']=='foo', row0.items()
-    
+
     def test_flush(self):
         load_dataset(self.ds)
         resn = self.engine.execute(self.ds.table.select()).fetchall()
@@ -95,7 +95,7 @@ class TestDatasetLoad(DatabaseTestCase):
         self.ds.flush()
         resn = self.engine.execute(self.ds.table.select()).fetchall()
         assert len(resn)==0,resn
-    
+
     def test_drop(self):
         tn = self.engine.table_names()
         assert 'test__entry' in tn, tn
@@ -125,7 +125,7 @@ class TestDatasetLoad(DatabaseTestCase):
 
     def test_aggregate_or_cut(self):
         load_dataset(self.ds)
-        res = self.ds.aggregate(cuts=[('field', u'foo'), 
+        res = self.ds.aggregate(cuts=[('field', u'foo'),
                                       ('field', u'bar')])
         assert res['summary']['num_entries']==4, res
         assert res['summary']['amount']==1190, res
@@ -143,7 +143,7 @@ class TestDatasetLoad(DatabaseTestCase):
         assert res['summary']['num_entries']==6, res
         assert res['summary']['amount']==2690, res
         assert len(res['drilldown'])==5, res['drilldown']
-    
+
     def test_aggregate_by_attribute(self):
         load_dataset(self.ds)
         res = self.ds.aggregate(drilldowns=['function.label'])
