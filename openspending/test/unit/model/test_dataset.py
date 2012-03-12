@@ -69,6 +69,8 @@ class TestDataset(DatabaseTestCase):
         assert isinstance(cols['function_id'].type, Integer)
         assert_raises(KeyError, cols.__getitem__, 'foo')
 
+    def test_facet_dimensions(self):
+        h.assert_equal([d.name for d in self.ds.facet_dimensions], ['to'])
 
 class TestDatasetLoad(DatabaseTestCase):
 
