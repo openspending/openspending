@@ -16,7 +16,7 @@ from openspending.lib import json
 from openspending.ui.lib import helpers as h, widgets
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.base import require
-from openspending.ui.lib.views import View, ViewState, handle_request
+from openspending.ui.lib.views import handle_request
 from openspending.reference.currency import CURRENCIES
 from openspending.reference.country import COUNTRIES
 from openspending.reference.language import LANGUAGES
@@ -25,6 +25,7 @@ from openspending.validation.model.common import ValidationState
 from openspending.ui.controllers.entry import EntryController
 
 log = logging.getLogger(__name__)
+
 
 class DatasetController(BaseController):
 
@@ -43,11 +44,11 @@ class DatasetController(BaseController):
         for language in request.params.getall('languages'):
             l = db.aliased(DatasetLanguage)
             c.results = c.results.join(l, Dataset._languages)
-            c.results = c.results.filter(l.code==language)
+            c.results = c.results.filter(l.code == language)
         for territory in request.params.getall('territories'):
             t = db.aliased(DatasetTerritory)
             c.results = c.results.join(t, Dataset._territories)
-            c.results = c.results.filter(t.code==territory)
+            c.results = c.results.filter(t.code == territory)
         c.results = list(c.results)
         c.territory_options = [{'code': code,
                                 'count': count,
@@ -78,9 +79,9 @@ class DatasetController(BaseController):
         return render('dataset/new_cta.html')
 
     def new(self, errors={}):
-        c.key_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if k], 
+        c.key_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if k],
                 key=lambda (k, v): v)
-        c.all_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if not k], 
+        c.all_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if not k],
                 key=lambda (k, v): v)
         c.languages = sorted(LANGUAGES.items(), key=lambda (k, v): v)
         c.territories = sorted(COUNTRIES.items(), key=lambda (k, v): v)
@@ -144,6 +145,13 @@ class DatasetController(BaseController):
         self._get_dataset(dataset)
         c.dataset_name = c.dataset.name
         return render('dataset/explorer.html')
+
+    def visualize(self, dataset):
+        self._get_dataset(dataset)
+        handle_request(request, c, c.dataset)
+        widget_names = widgets.list_widgets()
+        c.widgets = dict([(n, widgets.get_widget(n)) for n in widget_names])
+        return render('dataset/visualize.html')
 
     def model(self, dataset, format='json'):
         self._get_dataset(dataset)

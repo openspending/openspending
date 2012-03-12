@@ -12,11 +12,13 @@ def get_widget(name):
     if not name in list_widgets():
         raise ValueError(_("No widget named '%s' exists.") % name)
     base_url = urljoin(app_globals.script_root + '/', 'widgets/')
+    prefix = urljoin(base_url, name)
+
     widget_class = ''.join([p.capitalize() for p in name.split('_')])
     widget_class = 'OpenSpending.' + widget_class
     return {
-        'js': '%s/main.js' % urljoin(base_url, name),
-        'base': urljoin(base_url, name),
+        'js': '%s/main.js' % prefix,
+        'base': prefix,
         'class_name': widget_class,
         'name': name
         }
