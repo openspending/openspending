@@ -55,7 +55,7 @@ class TestBrowser(TestCase):
         h.assert_equal(solr_args['fq'], [])
         h.assert_equal(solr_args['wt'], 'json')
         h.assert_equal(solr_args['fl'], 'id, dataset')
-        h.assert_equal(solr_args['sort'], ['score desc', 'amount desc'])
+        h.assert_equal(solr_args['sort'], 'score desc, amount desc')
         h.assert_equal(solr_args['start'], 0)
         h.assert_equal(solr_args['rows'], 100)
 
@@ -126,4 +126,4 @@ class TestBrowser(TestCase):
         b.execute()
 
         _, solr_args = self.conn.raw_query.call_args
-        h.assert_equal(solr_args['sort'], ['amount asc', 'something.id desc'])
+        h.assert_equal(solr_args['sort'], 'amount asc, something.id desc')

@@ -49,7 +49,9 @@ class Browser(object):
         return stats, facets, entries
 
     def query(self):
-        data = solr.get_connection().raw_query(**_build_query(self.params))
+        conn = solr.get_connection()
+        conn.debug = True
+        data = conn.raw_query(**_build_query(self.params))
         return json.loads(data)
 
 def _build_query(params):
@@ -92,7 +94,10 @@ def _build_fq(filters):
     return fq
 
 def _build_sort(order):
-    return ['{0} {1}'.format(field, 'desc' if reverse else 'asc') for field, reverse in order]
+    sort = []
+    for field, reverse in order:
+        sort.append('{0} {1}'.format(field, 'desc' if reverse else 'asc'))
+    return ', '.join(sort)
 
 def _parse_facets(facets):
     out = []
