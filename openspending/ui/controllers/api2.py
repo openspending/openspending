@@ -53,7 +53,7 @@ class ParamParser(object):
         return self._to_int('pagesize', pagesize)
 
     def parse_order(self, order):
-        if order is None:
+        if not order:
             return []
 
         result = []
@@ -97,7 +97,7 @@ class AggregateParamParser(ParamParser):
     defaults['measure'] = 'amount'
 
     def parse_dataset(self, dataset_name):
-        if dataset_name is None:
+        if not dataset_name:
             self.error('dataset name not provided')
             return
 
@@ -110,12 +110,12 @@ class AggregateParamParser(ParamParser):
         return dataset
 
     def parse_drilldown(self, drilldown):
-        if drilldown is None:
+        if not drilldown:
             return []
         return drilldown.split('|')
 
     def parse_cut(self, cuts):
-        if cuts is None:
+        if not cuts:
             return []
 
         result = []
@@ -157,7 +157,7 @@ class SearchParamParser(ParamParser):
     defaults['facet_pagesize'] = 100
 
     def parse_filter(self, filter):
-        if filter is None:
+        if not filter:
             return {}
 
         filters = {}
@@ -178,7 +178,7 @@ class SearchParamParser(ParamParser):
     def parse_dataset(self, dataset):
         datasets = []
 
-        if dataset is None:
+        if not dataset:
             datasets = model.Dataset.all_by_account(c.account)
         else:
             for name in dataset.split('|'):
@@ -197,7 +197,7 @@ class SearchParamParser(ParamParser):
         return min(100, self._to_int('pagesize', pagesize))
 
     def parse_facet_field(self, facet_field):
-        if facet_field is None:
+        if not facet_field:
             return
 
         return facet_field.split('|')
