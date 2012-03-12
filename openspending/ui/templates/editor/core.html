@@ -9,11 +9,11 @@
   <py:def function="page_title">${c.dataset.label or c.dataset.name}</py:def>
 
   <py:def function="optional_head">
-    <link rel="stylesheet" href="${h.static('js/vendor/chosen/chosen.css')}" type="text/css"/>
+    <link rel="stylesheet" href="${g.script_root + '/lib/vendor/chosen/chosen.css'}" type="text/css"/>
   </py:def>
 
   <py:def function="scripts">
-    <script type="text/javascript" src="${h.static('js/vendor/chosen/chosen.jquery.min.js')}"></script>
+    ${script_tag('lib/vendor/chosen/chosen.jquery.min')}
     <script>
       jQuery(function($) {
         $(".chzn-select").chosen();

@@ -52,7 +52,4 @@ class Globals(object):
             False
         ))
 
-        if self.debug:
-            self.script_root = '/static/js'
-        else:
-            self.script_root = 'http://assets.openspending.org/openspendingjs'
+        self.script_root = config.get('openspending.script_root', '/static/js')
