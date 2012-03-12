@@ -10,7 +10,7 @@
         templating issues -->
 
   <py:def function="script_tag(name)">
-    <script src="${h.static('js/%s.js' % name)}"></script>
+    <script src="${'%s/%s.js' % (g.script_root, name)}"></script>
   </py:def>
 
   <span py:def="currency_symbols(currency)">

@@ -158,12 +158,20 @@
       </div>
     </footer>
 
-    ${script_tag('vendor/jquery')}
-    ${script_tag('vendor/underscore')}
-    ${script_tag('vendor/handlebars')}
-    ${script_tag('vendor/bootstrap')}
-    ${script_tag('utils/utils')}
-    <script type="text/javascript" src="/static/jslocal/app.js"></script>
+    ${script_tag('lib/vendor/jquery')}
+    ${script_tag('lib/vendor/underscore')}
+    ${script_tag('lib/vendor/handlebars')}
+    ${script_tag('lib/vendor/bootstrap')}
+
+    <script>
+      var OpenSpending = {
+        $: jQuery.sub(),
+        script_root: "${g.script_root}"
+      };
+    </script>
+
+    ${script_tag('lib/utils/utils')}
+    ${script_tag('lib/main')}
 
     <py:if test="defined('scripts')">
       ${scripts()}
