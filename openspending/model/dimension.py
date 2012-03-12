@@ -26,6 +26,11 @@ class Dimension(object):
     def drop(self, bind):
         del self.column
 
+    @property
+    def is_compound(self):
+        """ Test whether or not this dimension object is compound. """
+        return isinstance(self, CompoundDimension)
+
     def __getitem__(self, name):
         raise KeyError()
 

@@ -11,15 +11,32 @@ from openspending.test import DatabaseTestCase, helpers as h
 from openspending.model import meta as db
 from openspending.model import Dataset
 
+class TestAttributeDimension(DatabaseTestCase):
+    def setup(self):
+        super(TestAttributeDimension, self).setup()
+        self.engine = db.engine
+        self.meta = db.metadata
+        self.meta.bind = self.engine
+        self.ds = Dataset(SIMPLE_MODEL)
+        self.field = self.ds['field']
+
+    def test_is_compound(self):
+        h.assert_false(self.field.is_compound)
+
+
 class TestCompoundDimension(DatabaseTestCase):
 
     def setup(self):
-        self.engine = db.engine 
-        self.meta = db.metadata #MetaData()
+        super(TestCompoundDimension, self).setup()
+        self.engine = db.engine
+        self.meta = db.metadata
         self.meta.bind = self.engine
         self.ds = Dataset(SIMPLE_MODEL)
         self.entity = self.ds['to']
         self.classifier = self.ds['function']
+
+    def test_is_compound(self):
+        h.assert_true(self.entity.is_compound)
 
     def test_basic_properties(self):
         assert self.entity.name=='to', self.entity.name
