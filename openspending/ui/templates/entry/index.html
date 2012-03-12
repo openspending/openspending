@@ -56,7 +56,7 @@
                  .parents('tr')
                  .siblings().hide();
 
-          table.addFilter($(this).data('key'), $(this).data('value'));
+          table.addFilter($(this).attr('data-key'), $(this).attr('data-value'));
           table.draw();
 
           return false;
@@ -68,7 +68,7 @@
                  .parents('tr')
                  .siblings().show();
 
-          table.removeFilter($(this).data('key'));
+          table.removeFilter($(this).attr('data-key'));
           table.draw();
 
           return false;
