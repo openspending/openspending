@@ -63,6 +63,9 @@ def readable_url(url):
         return url[:15] + " .. " + url[len(url) - 25:]
     return url
 
+def site_url():
+    return url_for(controller='home', action='index', qualified=True).rstrip('/')
+
 
 def entity_slug(entity):
     '''generate an ascii slug for an entity.

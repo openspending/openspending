@@ -26,7 +26,7 @@
     <script py:if="hasattr(c, 'widget')">
         var context = {
             dataset: '${c.dataset.name}',
-            siteUrl: '${h.url_for(controller='home', action='index', qualified=True).rstrip('/')}',
+            siteUrl: '${h.site_url()}',
             time: '${c.time}'
             };
 

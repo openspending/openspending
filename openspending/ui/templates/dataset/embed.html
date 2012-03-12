@@ -49,18 +49,18 @@
   <body>
     <div id="widget"></div>
 
-    ${script_tag('vendor/jquery')}
-    ${script_tag('vendor/underscore')}
-    ${script_tag('vendor/handlebars')}
-    ${script_tag('vendor/bootstrap')}
-    ${script_tag('utils/utils')}
+    ${script_tag('lib/vendor/jquery')}
+    ${script_tag('lib/vendor/underscore')}
+    ${script_tag('lib/vendor/handlebars')}
+    ${script_tag('lib/vendor/bootstrap')}
+    ${script_tag('lib/utils/utils')}
 
     <script type="text/javascript" src="${c.widget.js}"></script>
     <script>
         var state = ${h.json.dumps(c.state, indent=2)};
         var context = {
             dataset: "${c.dataset.name}",
-            siteUrl: "",
+            siteUrl: "${h.site_url()}",
             time: 2011
             };
 
