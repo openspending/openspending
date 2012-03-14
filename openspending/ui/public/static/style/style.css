@@ -30,6 +30,11 @@ a:hover, a:active {
   color: #6A8A45;
 }
 
+.nav-pills .active > a, 
+.nav-pills .active > a:hover {
+  background-color: #99c862;
+}
+
 /* Replicate pagination */
 
 /*
