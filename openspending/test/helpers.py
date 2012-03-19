@@ -20,7 +20,7 @@ def load_fixture(name, manager=None):
     Load fixture data into the database.
     """
     from openspending.validation.data import convert_types
-    fh = open(fixture_path('%s.js' % name), 'r')
+    fh = fixture_file('%s.js' % name)
     data = json.load(fh)
     fh.close()
     dataset = Dataset(data)
@@ -29,7 +29,7 @@ def load_fixture(name, manager=None):
     db.session.add(dataset)
     db.session.commit()
     dataset.generate()
-    fh = open(fixture_path('%s.csv' % name), 'r')
+    fh = fixture_file('%s.csv' % name)
     reader = csv.DictReader(fh)
     for row in reader:
         entry = convert_types(data['mapping'], row)
