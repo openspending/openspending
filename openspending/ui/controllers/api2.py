@@ -4,6 +4,7 @@ from pylons import request, response, tmpl_context as c
 from pylons.controllers.util import etag_cache
 
 from openspending import model
+from openspending.lib import util
 from openspending.lib.browser import Browser
 from openspending.lib.jsonexport import jsonpify
 from openspending.lib.paramparser import AggregateParamParser, SearchParamParser
@@ -54,16 +55,35 @@ class Api2Controller(BaseController):
             response.status = 400
             return {'errors': errors}
 
-        if params['filter']['dataset']:
-            for dataset in params['filter'].get('dataset', []):
-                  require.dataset.read(dataset)
-        else:
-            params['filter']['dataset'] = [ds.name for ds in model.Dataset.all_by_account(c.account)]
+        expand_facets = params.pop('expand_facet_dimensions')
+
+        datasets = params.pop('dataset', None)
+        if datasets is None:
+            datasets = model.Dataset.all_by_account(c.account)
+            expand_facets = False
+
+        for dataset in datasets:
+            require.dataset.read(dataset)
 
         b = Browser(**params)
         stats, facets, entries = b.execute()
+
+        if expand_facets and len(datasets) == 1:
+            _expand_facets(facets, datasets[0])
+
         return {
             'stats': stats,
             'facets': facets,
             'results': list(entries)
         }
+
+def _expand_facets(facets, dataset):
+    dim_names = [d.name for d in dataset.dimensions]
+    for name in facets.keys():
+        if name in dim_names and dataset[name].is_compound:
+            dim = dataset[name]
+            member_names = [x[0] for x in facets[name]]
+            facet_values = [x[1] for x in facets[name]]
+            members = dim.members(dim.alias.c.name.in_(member_names))
+            members = util.sort_by_reference(member_names, members, lambda x: x['name'])
+            facets[name] = zip(members, facet_values)

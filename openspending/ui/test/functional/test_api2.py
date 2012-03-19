@@ -5,6 +5,7 @@ class TestApi2Controller(ControllerTestCase):
     def setup(self):
         super(TestApi2Controller, self).setup()
         h.load_fixture('cra')
+        h.clean_and_reindex_solr()
 
     def test_aggregate(self):
         response = self.app.get(url(controller='api2', action='aggregate',
@@ -111,6 +112,31 @@ class TestApi2Controller(ControllerTestCase):
 
         h.assert_equal(len(result['facets']['dataset']), 1)
         h.assert_equal(result['facets']['dataset'][0], ['cra', 36])
+
+    def test_search_expand_facet_dimensions(self):
+        response = self.app.get(url(controller='api2',
+                                    action='search',
+                                    dataset='cra',
+                                    pagesize=0,
+                                    facet_field="from|to.name",
+                                    expand_facet_dimensions="1"))
+        result = json.loads(response.body)
+
+        hra = {"taxonomy": "from", "description": "", "id": 5, "name": "999", "label": "ENG_HRA"}
+
+        h.assert_equal(result['facets']['from'][0][0], hra)
+        h.assert_equal(result['facets']['to.name'][0][0], 'society')
+
+    def test_search_expand_facet_dimensions_no_dataset(self):
+        response = self.app.get(url(controller='api2',
+                                    action='search',
+                                    pagesize=0,
+                                    facet_field="from",
+                                    expand_facet_dimensions="1"))
+        result = json.loads(response.body)
+
+        # facets should *NOT* be expanded unless exactly 1 dataset was specified
+        h.assert_equal(result['facets']['from'][0][0], '999')
 
     def test_search_order(self):
         response = self.app.get(url(controller='api2', action='search', order="amount:asc"))

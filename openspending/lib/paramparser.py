@@ -142,6 +142,7 @@ class SearchParamParser(ParamParser):
     defaults['facet_field'] = None
     defaults['facet_page'] = 1
     defaults['facet_pagesize'] = 100
+    defaults['expand_facet_dimensions'] = None
 
     def parse_filter(self, filter):
         if not filter:
@@ -175,7 +176,7 @@ class SearchParamParser(ParamParser):
 
         self._output['filter']['dataset'] = [ds.name for ds in datasets]
 
-        return None
+        return datasets
 
     def parse_pagesize(self, pagesize):
         return min(100, self._to_int('pagesize', pagesize))
@@ -191,3 +192,6 @@ class SearchParamParser(ParamParser):
 
     def parse_facet_pagesize(self, pagesize):
         return min(100, self._to_int('facet_pagesize', pagesize))
+
+    def parse_expand_facet_dimensions(self, expand_facet_dimensions):
+        return expand_facet_dimensions is not None

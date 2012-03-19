@@ -104,6 +104,7 @@ class TestSearchParamParser(TestCase):
 
         out, err = SearchParamParser({'dataset': 'foo|bar'}).parse()
         h.assert_equal(out['filter']['dataset'], ['foo', 'bar'])
+        h.assert_equal([x.name for x in out['dataset']], ['foo', 'bar'])
 
         out, err = SearchParamParser({'dataset': 'baz'}).parse()
         h.assert_true('no dataset with name "baz"' in err[0])
@@ -130,3 +131,9 @@ class TestSearchParamParser(TestCase):
         out, err = SearchParamParser({'facet_pagesize': '140'}).parse()
         h.assert_equal(out['facet_pagesize'], 100)
 
+    def test_expand_facet_dimensions(self):
+        out, err = SearchParamParser({}).parse()
+        h.assert_equal(out['expand_facet_dimensions'], False)
+
+        out, err = SearchParamParser({'expand_facet_dimensions': ''}).parse()
+        h.assert_equal(out['expand_facet_dimensions'], True)
