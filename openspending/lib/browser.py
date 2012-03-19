@@ -49,9 +49,7 @@ class Browser(object):
         return stats, facets, entries
 
     def query(self):
-        conn = solr.get_connection()
-        conn.debug = True
-        data = conn.raw_query(**_build_query(self.params))
+        data = solr.get_connection().raw_query(**_build_query(self.params))
         return json.loads(data)
 
 def _build_query(params):
