@@ -5,7 +5,7 @@ import dataset as ds
 
 
 def create(dataset):
-    return ds.read(dataset)
+    return logged_in() and ds.read(dataset)
 
 
 def read(dataset, view):
@@ -13,7 +13,7 @@ def read(dataset, view):
 
 
 def update(dataset, view):
-    if tmpl_context.account and tmpl_context.account == view.account:
+    if logged_in() and tmpl_context.account == view.account:
         return True
     return ds.edit(dataset)
 

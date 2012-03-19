@@ -18,6 +18,44 @@ from openspending.lib.jsonexport import to_jsonp
 log = logging.getLogger(__name__)
 
 
+class JSONSchemaType(colander.SchemaType):
+    def serialize(self, node, appstruct):
+        return json.dumps(appstruct)
+
+    def deserialize(self, node, cstruct):
+        try:
+            return json.loads(cstruct)
+        except Exception as exc:
+            raise colander.Invalid(node, unicode(exc))
+
+
+def valid_widget_name(widget):
+    if widget in widgets.list_widgets():
+        return True
+    return _("Invalid widget type: %r") % widget
+
+
+class CreateView(colander.MappingSchema):
+    label = colander.SchemaNode(colander.String())
+    widget = colander.SchemaNode(colander.String(),
+        validator=colander.Function(valid_widget_name))
+    description = colander.SchemaNode(colander.String(),
+        missing=None)
+    state = colander.SchemaNode(JSONSchemaType())
+
+
+def make_name(dataset, label):
+    from openspending.lib.util import slugify
+    from itertools import count
+    name = name_orig = slugify(label)
+    view = View.by_name(dataset, name)
+    for i in count():
+        if view is None:
+            return name
+        name = name_orig + str(i)
+        view = View.by_name(dataset, name)
+
+
 class ViewController(BaseController):
 
     def _get_view(self, dataset, name):
@@ -36,20 +74,40 @@ class ViewController(BaseController):
         else:
             return render('view/index.html')
 
-    def new(self, dataset):
+    def new(self, dataset, errors={}):
         self._get_dataset(dataset)
         handle_request(request, c, c.dataset)
         c.widgets = dict([(n, widgets.get_widget(n)) \
             for n in widgets.list_widgets()])
+        c.errors = errors
         return render('view/new.html')
 
     def create(self, dataset):
         self._get_dataset(dataset)
         require.view.create(c.dataset)
+        handle_request(request, c, c.dataset)
+        try:
+            data = CreateView().deserialize(request.params)
+            view = View(c.dataset, c.account, data['widget'],
+                        data['state'])
+            view.name = make_name(c.dataset, data['label'])
+            view.label = data['label']
+            view.description = data['description']
+            view.public = True
+            db.session.add(view)
+            db.session.commit()
+            redirect(h.url_for(controller='view', action='view',
+                dataset=c.dataset.name, name=view.name))
+        except colander.Invalid as inv:
+            return self.new(dataset, errors=inv.asdict())
 
     def view(self, dataset, name, format='html'):
         self._get_view(dataset, name)
-        return render('view/view.html')
+        print format
+        if format == 'json':
+            return to_jsonp(c.view.as_dict())
+        else:
+            return render('view/view.html')
 
     def embed(self, dataset):
         self._get_dataset(dataset)

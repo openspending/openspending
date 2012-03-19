@@ -1,3 +1,5 @@
+import json
+
 from .. import ControllerTestCase, url, helpers as h
 
 
@@ -22,6 +24,31 @@ class TestViewController(ControllerTestCase):
             action='new', dataset='cra'),
             extra_environ={'REMOTE_USER': 'test'})
         assert 'Select visualisation' in response.body
+
+    def test_create_noauth(self):
+        response = self.app.post(url(controller='view', action='create',
+                                    dataset='cra'),
+                        params={'widget': 'treemap',
+                                'label': 'I am a banana!',
+                                'state': '{"foo":"banana"}'},
+                        expect_errors=True)
+        assert '403' in response.status, response.status
+
+    def test_create(self):
+        response = self.app.post(url(controller='view', action='create',
+                                    dataset='cra'),
+                        params={'widget': 'treemap',
+                                'label': 'I am a banana!',
+                                'state': '{"foo":"banana"}'},
+                        extra_environ={'REMOTE_USER': 'test'})
+        assert '302' in response.status, response.status
+        assert '/cra/views/i-am-a-banana' in response.headers.get('location'), \
+            response.headers
+        response = self.app.get(url(controller='view', action='view',
+                                    dataset='cra', name='i-am-a-banana',
+                                    format='json'))
+        data = json.loads(response.body)
+        assert data['widget']=='treemap', data
 
     def test_embed(self):
         response = self.app.get(url(controller='view', action='embed',
