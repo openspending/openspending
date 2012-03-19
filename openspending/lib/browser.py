@@ -3,6 +3,7 @@ from collections import defaultdict
 
 from openspending import model
 from openspending.lib import solr_util as solr
+from openspending.lib import util
 
 class Browser(object):
 
@@ -106,9 +107,8 @@ def _parse_facets(facets):
     return out
 
 def _get_entries(docs):
-    # Make a mapping between id and original index, to preserve
-    # the results order
-    ids_map = dict((d['id'], idx) for idx, d in enumerate(docs))
+    # List of ids in Solr return order
+    ids = [d['id'] for d in docs]
 
     # partition the entries by dataset (so we make only N queries
     # for N datasets)
@@ -123,10 +123,5 @@ def _get_entries(docs):
         query = dataset.alias.c.id.in_(ids)
         entries.extend(dataset.entries(query))
 
-    # shuffle these entries back into the correct order
-    entries_ordered = [None] * len(entries)
-    for entry in entries:
-        entries_ordered[ids_map[entry['id']]] = entry
-
-    for entry in entries_ordered:
+    for entry in util.sort_by_reference(ids, entries, lambda x: x['id']):
         yield entry

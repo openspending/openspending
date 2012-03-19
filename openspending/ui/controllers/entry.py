@@ -4,6 +4,7 @@ from pylons import request, response, tmpl_context as c
 from pylons.controllers.util import abort, redirect
 from pylons.i18n import _
 
+from openspending.lib import util
 from openspending.lib.browser import Browser
 from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IEntryController
@@ -86,6 +87,7 @@ def _fetch_facets(dimensions):
             member_names = [x[0] for x in facets[dim.name]]
             facet_values = [x[1] for x in facets[dim.name]]
             members = dim.members(dim.alias.c.name.in_(member_names))
+            members = util.sort_by_reference(member_names, members, lambda x: x['name'])
             facets[dim.name] = zip(members, facet_values)
 
     return facets
