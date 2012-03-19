@@ -132,7 +132,7 @@ class BaseController(WSGIController):
                     mimetype in request.headers.get("Accept", ""):
                 return mimeformat
         return "html"
-       
+
     def _get_dataset(self, dataset):
         c.dataset = model.Dataset.by_name(dataset)
         if c.dataset is None:
