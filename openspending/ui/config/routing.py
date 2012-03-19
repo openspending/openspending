@@ -78,12 +78,17 @@ def make_map():
     map.connect('/{dataset}.{format}', controller='dataset', action='view')
     map.connect('/{dataset}', controller='dataset', action='view')
     map.connect('/{dataset}/explorer', controller='dataset', action='explorer')
-    map.connect('/{dataset}/visualize', controller='dataset', action='visualize')
     map.connect('/{dataset}/model.{format}', controller='dataset', action='model')
     map.connect('/{dataset}/model', controller='dataset', action='model')
-    map.connect('/{dataset}/embed', controller='dataset', action='embed')
     map.connect('/{dataset}/meta', controller='dataset', action='about')
     map.connect('/{dataset}/timeline', controller='dataset', action='timeline')
+
+    map.connect('/{dataset}/views', controller='view', action='index')
+    map.connect('/{dataset}/views/new', controller='view', action='new')
+    map.connect('/{dataset}/views', controller='view', action='create',
+        conditions=dict(method=['POST']))
+    map.connect('/{dataset}/views/{name}', controller='view', action='view')
+    map.connect('/{dataset}/embed', controller='view', action='embed')
 
     map.connect('/{dataset}/editor', controller='editor', action='index')
     map.connect('/{dataset}/editor/core', controller='editor',
@@ -91,9 +96,9 @@ def make_map():
     map.connect('/{dataset}/editor/core', controller='editor', action='core_edit')
     map.connect('/{dataset}/editor/dimensions', controller='editor',
             action='dimensions_update', conditions=dict(method=['POST']))
-    map.connect('/{dataset}/editor/dimensions', controller='editor', 
+    map.connect('/{dataset}/editor/dimensions', controller='editor',
             action='dimensions_edit')
-    map.connect('/{dataset}/editor/dimensions_src', controller='editor', 
+    map.connect('/{dataset}/editor/dimensions_src', controller='editor',
             action='dimensions_edit', mode='source')
     map.connect('/{dataset}/editor/views', controller='editor',
             action='views_update', conditions=dict(method=['POST']))

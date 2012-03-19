@@ -117,37 +117,15 @@ class TestDatasetController(ControllerTestCase):
         h.assert_equal(len(obj), 36)
         h.assert_equal(obj[0]['amount'], '46000000.0')
 
-    def test_embed(self):
-        response = self.app.get(url(controller='dataset', action='embed',
-                                    dataset='cra'),
-                        params={'widget': 'treemap'})
-        assert u"Embedded" in response.body, response.body
-        response = self.app.get(url(controller='dataset', action='embed',
-                                    dataset='cra'),
-            expect_errors=True)
-        assert "400" in response.status, response.status
-
-    def test_embed_state(self):
-        response = self.app.get(url(controller='dataset', action='embed',
-                                    dataset='cra'),
-                        params={'widget': 'treemap',
-                                'state': '{"foo":"banana"}'})
-        assert u"banana" in response.body, response.body
-        response = self.app.get(url(controller='dataset', action='embed',
-                                    dataset='cra'),
-                        params={'widget': 'treemap',
-                                'state': '{"foo:"banana"}'},
-            expect_errors=True)
-        assert "400" in response.status, response.status
-
     def test_new_form(self):
         response = self.app.get(url(controller='dataset', action='new'),
-            params={'limit': '20'})
+            params={'limit': '20'}, extra_environ={'REMOTE_USER': 'test'})
         assert "Import a dataset" in response.body
         assert 'Import from a DataHub Dataset' in response.body, response.body
 
     def test_create_dataset(self):
-        response = self.app.post(url(controller='dataset', action='create'))
+        response = self.app.post(url(controller='dataset', action='create'),
+            extra_environ={'REMOTE_USER': 'test'})
         assert "Import a dataset" in response.body
         assert "Required" in response.body
 

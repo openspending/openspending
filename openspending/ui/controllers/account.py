@@ -19,6 +19,7 @@ from openspending.ui.lib.security import generate_password_hash
 
 log = logging.getLogger(__name__)
 
+
 class AccountController(BaseController):
 
     def login(self):

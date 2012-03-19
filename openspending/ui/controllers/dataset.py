@@ -2,7 +2,7 @@ import logging
 from urllib import urlencode
 
 from pylons import request, response, tmpl_context as c
-from pylons.controllers.util import redirect, abort
+from pylons.controllers.util import redirect
 from pylons.i18n import _
 from colander import SchemaNode, String, Invalid
 
@@ -12,8 +12,8 @@ from openspending.plugins.core import PluginImplementations
 from openspending.plugins.interfaces import IDatasetController
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import to_jsonp
-from openspending.lib import json
-from openspending.ui.lib import helpers as h, widgets
+
+from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.base import require
 from openspending.ui.lib.views import handle_request
@@ -38,8 +38,8 @@ class DatasetController(BaseController):
         c.query = request.params.items()
         c.add_filter = lambda f, v: '?' + urlencode(c.query +
                 [(f, v)] if (f, v) not in c.query else c.query)
-        c.del_filter = lambda f, v: '?' + urlencode([(k,x) for k, x in
-            c.query if (k,x) != (f,v)])
+        c.del_filter = lambda f, v: '?' + urlencode([(k, x) for k, x in
+            c.query if (k, x) != (f, v)])
         c.results = c.datasets
         for language in request.params.getall('languages'):
             l = db.aliased(DatasetLanguage)
@@ -79,13 +79,13 @@ class DatasetController(BaseController):
         return render('dataset/new_cta.html')
 
     def new(self, errors={}):
+        require.dataset.create()
         c.key_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if k],
                 key=lambda (k, v): v)
         c.all_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if not k],
                 key=lambda (k, v): v)
         c.languages = sorted(LANGUAGES.items(), key=lambda (k, v): v)
         c.territories = sorted(COUNTRIES.items(), key=lambda (k, v): v)
-        require.account.create()
         errors = [(k[len('dataset.'):], v) for k, v in errors.items()]
         c.have_error = bool(errors)
         c.dataset_info_style = '' if errors else 'display: none;'
@@ -93,7 +93,7 @@ class DatasetController(BaseController):
                 form_fill=request.params if errors else {'currency': 'USD'})
 
     def create(self):
-        require.account.create()
+        require.dataset.create()
         try:
             dataset = dict(request.params)
             dataset['territories'] = request.params.getall('territories')
@@ -146,25 +146,6 @@ class DatasetController(BaseController):
         c.dataset_name = c.dataset.name
         return render('dataset/explorer.html')
 
-    def visualize(self, dataset):
-        self._get_dataset(dataset)
-        handle_request(request, c, c.dataset)
-        widget_names = widgets.list_widgets()
-        c.widgets = dict([(n, widgets.get_widget(n)) for n in widget_names])
-        return render('dataset/visualize.html')
-
     def model(self, dataset, format='json'):
         self._get_dataset(dataset)
         return to_jsonp(c.dataset.model)
-
-    def embed(self, dataset):
-        self._get_dataset(dataset)
-        c.widget = request.params.get('widget')
-        if c.widget is None:
-            abort(400, _("No widget type has been specified."))
-        try:
-            c.widget = widgets.get_widget(c.widget)
-            c.state = json.loads(request.params.get('state', '{}'))
-        except ValueError as ve:
-            abort(400, unicode(ve))
-        return render('dataset/embed.html')

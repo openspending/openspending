@@ -15,10 +15,11 @@ from openspending.ui.lib import helpers as h
 
 log = logging.getLogger(__name__)
 
+
 class EntryController(BaseController):
 
     extensions = PluginImplementations(IEntryController)
-    
+
     def index(self, dataset, format='html'):
         self._get_dataset(dataset)
         handle_request(request, c, c.dataset)
@@ -37,7 +38,7 @@ class EntryController(BaseController):
 
     def view(self, dataset, id, format='html'):
         self._get_dataset(dataset)
-        entries = list(c.dataset.entries(c.dataset.alias.c.id==id))
+        entries = list(c.dataset.entries(c.dataset.alias.c.id == id))
         if not len(entries) == 1:
             abort(404, _('Sorry, there is no entry %r') % id)
         c.entry = entries.pop()
@@ -49,7 +50,7 @@ class EntryController(BaseController):
         c.amount = c.entry.get('amount')
         c.time = c.entry.get('time')
 
-        c.custom_html = h.render_entry_custom_html(c.dataset, 
+        c.custom_html = h.render_entry_custom_html(c.dataset,
                                                    c.entry)
 
         excluded_keys = ('time', 'amount', 'currency', 'from',

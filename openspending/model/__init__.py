@@ -12,6 +12,7 @@ from openspending.model.account import Account
 from openspending.model.source import Source
 from openspending.model.run import Run
 from openspending.model.log_record import LogRecord
+from openspending.model.view import View
 
 # shut up useless SA warning:
 import warnings
@@ -26,6 +27,3 @@ def init_model(engine):
     db.engine = engine
     db.metadata.bind = engine
     db.session = orm.scoped_session(sm)
-    
-
-
