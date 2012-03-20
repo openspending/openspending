@@ -39,15 +39,9 @@
   <head>
     <meta charset="utf-8" />
     <title>${page_title()} - ${g.site_title}</title>
-    <meta name="description" content="We're enabling anyone to explore,
-    visualize and track government spending." />
+    <meta name="description" content="We're enabling anyone to explore, visualize and track government spending." />
     <meta name="author" content="Open Knowledge Foundation" />
     <link rel="shortcut icon" href="${h.static('img/favicon.ico')}" type="image/x-icon" />
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
 
     <!-- Le styles -->
     <link href="${h.static('style/bootstrap.css')}" rel="stylesheet" />
@@ -56,6 +50,11 @@
     <py:if test="defined('optional_head')">
       ${optional_head()}
     </py:if>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
 
   <!-- templates/layout.html body -->
@@ -116,7 +115,7 @@
       ${dataset_select()}
 
     </div> <!-- /container -->
-    
+
     <footer>
       <div class="inner">
         <div class="container">
@@ -142,11 +141,11 @@
             <li><a href="http://okfn.org/privacy-policy/">Privacy</a></li>
             <li><a href="${h.url(controller='help', action='page', path='contact.html')}">Contact</a></li>
           </ul>
-          
+
           <p i18n:msg="code,data,opendef">
-          All <a href="http://www.gnu.org/licenses/agpl.html">code</a> 
-          and <a href="http://opendatacommons.org/licenses/odbl/">data</a> is 
-          openly licensed in accordance with the 
+          All <a href="http://www.gnu.org/licenses/agpl.html">code</a>
+          and <a href="http://opendatacommons.org/licenses/odbl/">data</a> is
+          openly licensed in accordance with the
           <a href="http://opendefinition.org/">open definition</a>.
           <br/>
           <a href="http://opendefinition.org"><img src="http://assets.okfn.org/images/ok_buttons/od_80x15_blue.png" alt="Open Content" /></a>
@@ -160,15 +159,9 @@
     ${script_tag('lib/vendor/handlebars')}
     ${script_tag('lib/vendor/bootstrap')}
 
-    <script>
-      var OpenSpending = {
-        $: jQuery.sub(),
-        script_root: "${g.script_root}"
-      };
-    </script>
-
+    ${script_tag('lib/boot')}
+    <script>OpenSpending.scriptRoot = "${g.script_root}";</script>
     ${script_tag('lib/utils/utils')}
-    ${script_tag('lib/main')}
 
     <py:if test="defined('scripts')">
       ${scripts()}
