@@ -23,11 +23,6 @@ class EntryController(BaseController):
     def index(self, dataset):
         self._get_dataset(dataset)
         handle_request(request, c, c.dataset)
-        url = h.url_for(controller='entry', action='index', dataset=c.dataset.name)
-
-        c.facet_dimensions = c.dataset.facet_dimensions
-        c.facets = _fetch_facets(c.facet_dimensions)
-
         return render('entry/index.html')
 
     def index_export(self, dataset, format):
@@ -77,17 +72,3 @@ class EntryController(BaseController):
             return write_csv([c.entry], response)
         else:
             return render('entry/view.html')
-
-def _fetch_facets(dimensions):
-    fields = [d.name for d in dimensions]
-    _, facets, _ = Browser(pagesize=0, facet_field=fields).execute()
-
-    for dim in dimensions:
-        if dim.is_compound:
-            member_names = [x[0] for x in facets[dim.name]]
-            facet_values = [x[1] for x in facets[dim.name]]
-            members = dim.members(dim.alias.c.name.in_(member_names))
-            members = util.sort_by_reference(member_names, members, lambda x: x['name'])
-            facets[dim.name] = zip(members, facet_values)
-
-    return facets

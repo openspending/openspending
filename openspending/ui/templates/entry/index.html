@@ -11,7 +11,12 @@
     <!-- templates/entry/index.html -->
     ${dataset_nav('search')}
 
-    <xi:include href="../_browser.html" />
+    <div id="openspending_browser" class="row">
+      <div class="span9 browser_datatable">
+      </div>
+      <div class="span3 browser_faceter">
+      </div>
+    </div>
   </div>
 
   <py:def function="optional_head">
@@ -21,59 +26,18 @@
   <py:def function="scripts">
     ${script_tag('lib/vendor/datatables/js/jquery.dataTables')}
     ${script_tag('app/data_table/openspending.data_table')}
+    ${script_tag('app/faceter/openspending.faceter')}
+    ${script_tag('app/browser/openspending.browser')}
     <script>
-      OpenSpending.$(function() {
-        window.table = new OpenSpending.DataTable(
-          document.getElementById('os_datatable'),
-          {
-            sorting: [[3, 'desc']], // Initial sort: amount desc
-            columnDefs: [
-              { aTargets: [0], mDataProp: 'time.name' },
-              { aTargets: [1], mDataProp: 'from.label' },
-              { aTargets: [2], mDataProp: 'to.label' },
-              {
-                aTargets: [3],
-                mDataProp: function (data) {
-                  return OpenSpending.Utils.formatAmountWithCommas(data.amount);
-                }
-              },
-              {
-                aTargets: [4],
-                bSortable: false,
-                mDataProp: function (data) {
-                  return '<a href="/${c.dataset.name}/entries/' +  data.id + '">details&raquo;</a>'
-                }
-              }
-            ],
-            defaultParams: { dataset: "${c.dataset.name}" }
-          }
+      (function () {
+        "use strict";
+
+        var b = new OpenSpending.Browser(
+          document.getElementById('openspending_browser'),
+          "${c.dataset.name}"
         );
-
-        // Set up filters
-        $('.filter').live('click', function () {
-          $(this).removeClass('filter')
-                 .addClass('unfilter')
-                 .parents('tr')
-                 .siblings().hide();
-
-          table.addFilter($(this).attr('data-key'), $(this).attr('data-value'));
-          table.draw();
-
-          return false;
-        });
-
-        $('.unfilter').live('click', function () {
-          $(this).removeClass('unfilter')
-                 .addClass('filter')
-                 .parents('tr')
-                 .siblings().show();
-
-          table.removeFilter($(this).attr('data-key'));
-          table.draw();
-
-          return false;
-        });
-      });
+        b.init();
+      }());
     </script>
   </py:def>
 
