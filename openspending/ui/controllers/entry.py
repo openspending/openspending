@@ -4,8 +4,6 @@ from pylons import request, response, tmpl_context as c
 from pylons.controllers.util import abort
 from pylons.i18n import _
 
-from openspending.plugins.core import PluginImplementations
-from openspending.plugins.interfaces import IEntryController
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.views import handle_request
 from openspending.ui.lib.browser import Browser
@@ -17,8 +15,6 @@ log = logging.getLogger(__name__)
 
 class EntryController(BaseController):
 
-    extensions = PluginImplementations(IEntryController)
-    
     def index(self, dataset, format='html'):
         self._get_dataset(dataset)
         handle_request(request, c, c.dataset)
@@ -49,7 +45,7 @@ class EntryController(BaseController):
         c.amount = c.entry.get('amount')
         c.time = c.entry.get('time')
 
-        c.custom_html = h.render_entry_custom_html(c.dataset, 
+        c.custom_html = h.render_entry_custom_html(c.dataset,
                                                    c.entry)
 
         excluded_keys = ('time', 'amount', 'currency', 'from',
@@ -62,9 +58,6 @@ class EntryController(BaseController):
                 if key in c.desc and \
                         not key in excluded_keys:
                     c.extras[key] = c.entry[key]
-
-        for item in self.extensions:
-            item.read(c, request, response, c.entry)
 
         if format == 'json':
             return to_jsonp(c.entry)

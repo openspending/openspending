@@ -8,8 +8,6 @@ from colander import SchemaNode, String, Invalid
 
 from openspending.model import Dataset, DatasetTerritory, \
         DatasetLanguage, meta as db
-from openspending.plugins.core import PluginImplementations
-from openspending.plugins.interfaces import IDatasetController
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import to_jsonp
 from openspending.lib import json
@@ -28,12 +26,7 @@ log = logging.getLogger(__name__)
 
 class DatasetController(BaseController):
 
-    extensions = PluginImplementations(IDatasetController)
-
     def index(self, format='html'):
-        for item in self.extensions:
-            item.index(c, request, response, c.results)
-
         c.query = request.params.items()
         c.add_filter = lambda f, v: '?' + urlencode(c.query +
                 [(f, v)] if (f, v) not in c.query else c.query)
@@ -78,9 +71,9 @@ class DatasetController(BaseController):
         return render('dataset/new_cta.html')
 
     def new(self, errors={}):
-        c.key_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if k], 
+        c.key_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if k],
                 key=lambda (k, v): v)
-        c.all_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if not k], 
+        c.all_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if not k],
                 key=lambda (k, v): v)
         c.languages = sorted(LANGUAGES.items(), key=lambda (k, v): v)
         c.territories = sorted(COUNTRIES.items(), key=lambda (k, v): v)
@@ -122,9 +115,6 @@ class DatasetController(BaseController):
 
         if c.view is None and format == 'html':
             return EntryController().index(dataset, format)
-
-        for item in self.extensions:
-            item.read(c, request, response, c.dataset)
 
         if format == 'json':
             return to_jsonp(c.dataset.as_dict())

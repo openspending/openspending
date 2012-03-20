@@ -4,9 +4,6 @@ from pylons import request, tmpl_context as c, response
 from pylons.controllers.util import abort
 from pylons.i18n import _
 
-from openspending.plugins.core import PluginImplementations
-from openspending.plugins.interfaces import IDimensionController
-
 from openspending import model
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.page import Page
@@ -22,8 +19,6 @@ log = logging.getLogger(__name__)
 PAGE_SIZE = 100
 
 class DimensionController(BaseController):
-
-    extensions = PluginImplementations(IDimensionController)
 
 
     def _get_member(self, dataset, dimension_name, name):
@@ -61,7 +56,7 @@ class DimensionController(BaseController):
 
         page = self._get_page('page')
         cache = AggregationCache(c.dataset)
-        result = cache.aggregate(drilldowns=[dimension], page=page, 
+        result = cache.aggregate(drilldowns=[dimension], page=page,
                                  pagesize=PAGE_SIZE)
         items = result.get('drilldown', [])
         c.values = [(d.get(dimension), d.get('amount')) for d in items]
@@ -84,9 +79,6 @@ class DimensionController(BaseController):
         handle_request(request, c, c.member, c.dimension)
         if c.view is None:
             self._make_browser()
-
-        for item in self.extensions:
-            item.read(c, request, response, c.member)
 
         if format == 'json':
             return to_jsonp(c.member)

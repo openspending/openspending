@@ -11,8 +11,6 @@ from solr import SolrConnection, SolrException
 
 from openspending import model
 from openspending.lib.util import flatten
-from openspending.plugins.core import PluginImplementations
-from openspending.plugins.interfaces import ISolrSearch
 
 log = logging.getLogger(__name__)
 
@@ -154,8 +152,6 @@ def extend_entry(entry, dataset):
         if k.endswith(".label"):
             entry[k + "_str"] = entry[k]
             entry[k + "_facet"] = entry[k]
-    for item in PluginImplementations(ISolrSearch):
-        entry = item.update_index(entry)
     return entry
 
 def optimize():

@@ -15,9 +15,6 @@ from webhelpers import markdown
 
 from openspending.model import init_model
 
-from openspending.plugins import core as plugins
-from openspending.plugins.interfaces import IConfigurable, IConfigurer
-
 from openspending.ui.config import routing
 from openspending.ui.lib import app_globals
 from openspending.ui.lib import helpers
@@ -72,12 +69,6 @@ def load_environment(global_conf, app_conf):
     # Initialize config with the basic options
     config.init_app(global_conf, app_conf, package='openspending.ui', paths=paths)
 
-    plugins.load_all(config)
-
-    # Allow plugins implementing IConfigurer to modify the config.
-    for plugin in plugins.PluginImplementations(IConfigurer):
-        plugin.configure(config)
-
     config['routes.map'] = routing.make_map()
     config['pylons.app_globals'] = app_globals.Globals()
     config['pylons.h'] = helpers
@@ -115,8 +106,3 @@ def load_environment(global_conf, app_conf):
     # Configure Solr
     import openspending.lib.solr_util as solr
     solr.configure(config)
-
-    # Plugin configuration.
-    for plugin in plugins.PluginImplementations(IConfigurable):
-        plugin.configure(config)
-

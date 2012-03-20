@@ -22,9 +22,6 @@ from repoze.who.classifiers import (default_request_classifier,
                                     default_challenge_decider)
 from repoze.who.plugins.friendlyform import FriendlyFormPlugin
 
-from openspending.plugins import core as plugins
-from openspending.plugins.interfaces import IMiddleware
-
 from openspending.ui.config.environment import load_environment
 from openspending.ui.lib.authenticator import (UsernamePasswordAuthenticator,
                                                ApiKeyAuthenticator)
@@ -116,9 +113,5 @@ def make_app(global_conf, full_stack=True, static_files=True, **app_conf):
         )
         static_parsers = [static_app, app]
         app = Cascade(static_parsers)
-
-    # Plugin middleware
-    for plugin in plugins.PluginImplementations(IMiddleware):
-        app = plugin.setup_middleware(app)
 
     return app
