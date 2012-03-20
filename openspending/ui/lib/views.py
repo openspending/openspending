@@ -181,6 +181,6 @@ def handle_request(request, c, obj, dimension=None):
     c.viewstate = ViewState(obj, c.view, c.time)
     if c.view is not None:
         c.widget = widgets.get_widget(c.view.widget)
-        c.viewjson = to_json(c.view.config)
+        c.viewjson = c.view.config
     else:
-        c.viewjson = to_json({})
+        c.viewjson = {}

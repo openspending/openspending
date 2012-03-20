@@ -58,12 +58,12 @@ def make_name(dataset, label):
 
 class ViewController(BaseController):
 
-    def _get_view(self, dataset, name):
+    def _get_named_view(self, dataset, name):
         self._get_dataset(dataset)
-        c.view = View.by_name(c.dataset, name)
-        if c.view is None:
+        c.named_view = View.by_name(c.dataset, name)
+        if c.named_view is None:
             abort(404, _('Sorry, there is no view %r') % name)
-        require.view.read(c.dataset, c.view)
+        require.view.read(c.dataset, c.named_view)
 
     def index(self, dataset, format='html'):
         self._get_dataset(dataset)
@@ -102,10 +102,11 @@ class ViewController(BaseController):
             return self.new(dataset, errors=inv.asdict())
 
     def view(self, dataset, name, format='html'):
-        self._get_view(dataset, name)
-        print format
+        self._get_named_view(dataset, name)
+        handle_request(request, c, c.dataset)
+        c.widget = widgets.get_widget(c.named_view.widget)
         if format == 'json':
-            return to_jsonp(c.view.as_dict())
+            return to_jsonp(c.named_view.as_dict())
         else:
             return render('view/view.html')
 

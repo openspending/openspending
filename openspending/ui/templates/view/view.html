@@ -4,18 +4,21 @@
   py:strip="">
   
   <xi:include href="../dataset/_nav.html" />
+  <xi:include href="../view/_widgets.html" />
   
   <py:def function="nav_class">nav-dataset</py:def>
 
-  <py:def function="page_title">${c.view.label} - ${c.dataset.label or c.dataset.name}</py:def>
+  <py:def function="page_title">${c.named_view.label} - ${c.dataset.label or c.dataset.name}</py:def>
 
   <py:def function="optional_head">
+    ${widget_css(c.widget)}
   </py:def>
 
-  <py:def function="page_description()">${h.markdown_preview(c.view.description or c.dataset.description)}</py:def>
+  <py:def function="page_description()">${h.markdown_preview(c.named_view.description or c.dataset.description)}</py:def>
 
   <py:def function="scripts">
     <!-- templates/dataset/view.html scripts -->
+    ${widget_js(c.widget, c.named_view.state, c.time)}
     ${share_scripts()}
   </py:def>
 
@@ -23,6 +26,9 @@
     ${dataset_nav('views')}
 
     <!-- templates/view/view.html content -->
+    <div class="row">
+      <div class="span12"><div id="widget" style="width: auto; height: 600px"/></div>
+    </div>
     
     ${share_body()}
   </div>

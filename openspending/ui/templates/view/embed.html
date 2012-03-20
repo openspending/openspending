@@ -6,6 +6,7 @@
   >
 
   <xi:include href="../_util.html" />
+  <xi:include href="../view/_widgets.html" />
   <!-- templates/dataset/embed.html top -->
 
   <head>
@@ -36,8 +37,7 @@
         }
     </style>
 
-    <!-- TODO: Load this from the widget itself. -->
-    <link rel="stylesheet" href="${c.widget.base}/css/${c.widget.name}.css" type="text/css" />
+    ${widget_css(c.widget)}
     
     <py:if test="defined('optional_head')">
       ${optional_head()}
@@ -47,7 +47,7 @@
   <!-- templates/dataset/embed.html body -->
 
   <body>
-    <div id="widget"></div>
+    ${widget_elem(c.widget)}
 
     ${script_tag('lib/vendor/jquery')}
     ${script_tag('lib/vendor/underscore')}
@@ -55,20 +55,7 @@
     ${script_tag('lib/vendor/bootstrap')}
     ${script_tag('lib/utils/utils')}
 
-    <script type="text/javascript" src="${c.widget.js}"></script>
-    <script>
-        var state = ${h.json.dumps(c.state, indent=2)};
-        var context = {
-            dataset: "${c.dataset.name}",
-            siteUrl: "${h.site_url()}",
-            time: 2011
-            };
-
-        (function ($) {
-            new ${c.widget.class_name}($('#widget'), context, state);
-        })(jQuery);
-    </script>
-
+    ${widget_js(c.widget, c.state, '')}
     ${analytics()}
   </body>
 </html>

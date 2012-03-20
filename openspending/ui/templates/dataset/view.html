@@ -4,6 +4,7 @@
   py:strip="">
   
   <xi:include href="_nav.html" />
+  <xi:include href="../view/_widgets.html" />
   
   <py:def function="nav_class">nav-dataset</py:def>
 
@@ -11,8 +12,7 @@
 
   <py:def function="optional_head">
     <!-- templates/dataset/view.html optional_head -->
-    <!-- TODO: Load this from the widget itself. -->
-    <link py:if="hasattr(c, 'widget')" rel="stylesheet" href="${c.widget.base}/css/${c.widget.name}.css" type="text/css" />
+    ${widget_css(c.widget)}
   </py:def>
 
   <py:def function="page_description()">${h.markdown_preview(c.dataset.description)}</py:def>
@@ -21,19 +21,10 @@
     <!-- templates/dataset/view.html scripts -->
     <script type="text/javascript" src="http://localhost/openspendingjs/lib/embed.js"></script>
 
-
-    <script py:if="hasattr(c, 'widget')" type="text/javascript" src="${c.widget.js}"></script>
+    ${widget_js(c.widget, c.viewjson, c.time)}
     <script py:if="hasattr(c, 'widget')">
-        var context = {
-            dataset: '${c.dataset.name}',
-            siteUrl: '${h.site_url()}',
-            time: '${c.time}'
-            };
-
         (function ($) {
-            var widget = new ${c.widget.class_name}($('#widget'), context, ${c.viewjson});
-            
-            widget.then(function(w) {
+            window.widget.then(function(w) {
               var embedder = new OpenSpending.Embedder(w, context, '${c.widget.name}');  
               $("#embed-link").click(function(e) {
                 embedder.render();
@@ -53,7 +44,7 @@
     <div py:if="c.view" class="row">
       <div class="span12"><div id="widget" style="width: auto; height: 400px"/></div>
     </div>
-    <a href="" id="embed-link">Embed</a>
+    <a href="" class="btn" id="embed-link"><i class="icon-share"></i>Embed</a>
 
     <div py:if="c.view" class="row">
       <div class="span12">

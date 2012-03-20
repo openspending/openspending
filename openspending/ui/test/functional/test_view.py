@@ -44,11 +44,16 @@ class TestViewController(ControllerTestCase):
         assert '302' in response.status, response.status
         assert '/cra/views/i-am-a-banana' in response.headers.get('location'), \
             response.headers
+
         response = self.app.get(url(controller='view', action='view',
                                     dataset='cra', name='i-am-a-banana',
                                     format='json'))
         data = json.loads(response.body)
         assert data['widget']=='treemap', data
+
+        response = self.app.get(url(controller='view', action='view',
+                                    dataset='cra', name='i-am-a-banana'))
+        assert 'title>I am a banana!' in response.body, response
 
     def test_embed(self):
         response = self.app.get(url(controller='view', action='embed',
