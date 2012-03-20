@@ -16,7 +16,6 @@
 
   <py:def function="scripts">
     <!-- templates/dataset/view.html scripts -->
-    ${share_scripts()}
   </py:def>
 
   <div py:def="content">
@@ -25,12 +24,10 @@
     <!-- templates/view/index.html content -->
     <div class="row">
       <ul py:for="view in c.views">
-        <li><a href="${h.url_for(controller='view', action='view', dataset=c.dataset.name, name=c.view.name)}"
+        <li><a href="${h.url_for(controller='view', action='view', dataset=c.dataset.name, name=view.name)}"
           >${c.view.label}</a></li>
       </ul>
     </div>
-
-    ${share_body()}
   </div>
 
   <xi:include href="../layout.html" />
