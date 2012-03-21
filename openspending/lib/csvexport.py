@@ -5,8 +5,10 @@ from StringIO import StringIO
 
 from openspending.lib.util import flatten
 
-def write_csv(entries, response):
+def write_csv(entries, response, filename=None):
     response.content_type = 'text/csv'
+    if filename:
+        response.content_disposition = 'attachment; filename=%s' % filename
     return generate_csv(entries)
 
 def generate_csv(entries):

@@ -47,24 +47,24 @@
 
   <py:def function="scripts">
     <!-- templates/dataset/explorer.html scripts -->
-    ${script_tag('vendor/backbone')}
-    ${script_tag('vendor/jquery.json-2.2')}
-    ${script_tag('vendor/jquery.history')}
-    ${script_tag('vendor/jquery.tooltip')}
-    ${script_tag('vendor/jquery-ui/jquery-ui')}
-    ${script_tag('vendor/raphael')}
-    ${script_tag('vendor/vis4')}
-    ${script_tag('vendor/Tween')}
-    ${script_tag('vendor/bubbletree/1.0/bubbletree')}
+    ${script_tag('lib/vendor/backbone')}
+    ${script_tag('lib/vendor/jquery.json-2.2')}
+    ${script_tag('lib/vendor/jquery.history')}
+    ${script_tag('lib/vendor/jquery.tooltip')}
+    ${script_tag('lib/vendor/jquery-ui/jquery-ui')}
+    ${script_tag('lib/vendor/raphael')}
+    ${script_tag('lib/vendor/vis4')}
+    ${script_tag('lib/vendor/Tween')}
+    ${script_tag('lib/vendor/bubbletree/1.0/bubbletree')}
 
     <!-- our scripts -->
-    ${script_tag('utils/utils')}
-    ${script_tag('datastore')}
-    ${script_tag('model')}
-    ${script_tag('aggregator')}
+    ${script_tag('lib/utils/utils')}
+    ${script_tag('lib/datastore')}
+    ${script_tag('lib/model')}
+    ${script_tag('lib/aggregator')}
 
     <!-- this app -->
-    <script type="text/javascript" src="${h.static('app/explorer-v2/js/explorer.js')}"></script>
+    ${script_tag('app/explorer-v2/js/explorer')}
 
     <script type="text/javascript">
 jQuery(document).ready(function($) {

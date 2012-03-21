@@ -121,6 +121,10 @@ class Dataset(TableHandler, db.Model):
         return filter(lambda d: isinstance(d, CompoundDimension),
                 self.dimensions)
 
+    @property
+    def facet_dimensions(self):
+        return [d for d in self.dimensions if d.facet]
+
     def init(self):
         """ Create a SQLAlchemy model for the current dataset model,
         without creating the tables and columns. This needs to be

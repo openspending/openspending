@@ -60,6 +60,7 @@ def make_map():
 
     map.connect('/api/rest/', controller='rest', action='index')
     map.connect('/api/2/aggregate', controller='api2', action='aggregate')
+    map.connect('/api/2/search', controller='api2', action='search')
 
     map.connect('/500', controller='error', action='render', code="500")
 
@@ -111,8 +112,7 @@ def make_map():
     map.connect('/{dataset}/sources/{source}/analysis.{format}',
                 controller='source', action='analysis')
 
-    map.connect('/{dataset}/entries.{format}', controller='entry',
-            action='index')
+    map.connect('/{dataset}/entries.{format}', controller='entry', action='index_export')
     map.connect('/{dataset}/entries', controller='entry', action='index')
     map.connect('/{dataset}/entries/{id}.{format}', controller='entry', action='view')
     map.connect('/{dataset}/entries/{id}', controller='entry', action='view')

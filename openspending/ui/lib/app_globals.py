@@ -51,3 +51,8 @@ class Globals(object):
             'openspending.sandbox_mode',
             False
         ))
+
+        if self.debug:
+            self.script_root = '/static/js'
+        else:
+            self.script_root = 'http://assets.openspending.org/openspendingjs'

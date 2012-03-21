@@ -9,7 +9,6 @@ from openspending.model import Dataset, CompoundDimension, meta as db
 class TestDimensionController(ControllerTestCase):
 
     def setup(self):
-
         super(TestDimensionController, self).setup()
         h.load_fixture('cra')
         h.clean_and_reindex_solr()
@@ -81,10 +80,8 @@ class TestDimensionController(ControllerTestCase):
         h.assert_equal(result.status, '200 OK')
 
         # Links to entries json and csv and entries listing
-        h.assert_true('<a href="/cra/cofog1/3.json">'
-                        in result)
-        h.assert_true('<a href="/cra/cofog1/3/entries">Search</a>'
-                        in result)
+        h.assert_true('<a href="/cra/cofog1/3.json">' in result)
+        h.assert_true('<a href="/cra/cofog1/3/entries">Search</a>' in result)
 
     def test_view_member_json(self):
         url_ = member_url(self.cra.name, 'cofog1', self.member, format='json')
@@ -108,8 +105,8 @@ class TestDimensionController(ControllerTestCase):
         h.assert_equal(result.status, '200 OK')
         h.assert_equal(result.content_type, 'application/json')
 
-        json_data = json.loads(result.body)
-        h.assert_equal(len(json_data['results']), 5)
+        json_data = [json.loads(l) for l in result.body.splitlines()]
+        h.assert_equal(len(json_data), 5)
 
     def test_view_entries_csv(self):
         url_ = url(controller='dimension', action='entries', format='csv',
@@ -131,5 +128,4 @@ class TestDimensionController(ControllerTestCase):
         result = self.app.get(url_)
         h.assert_equal(result.status, '200 OK')
         h.assert_equal(result.content_type, 'text/html')
-        h.assert_true(('Public order and safety') in result)
-        h.assert_equal(result.body.count('details'), 5)
+        # Content is filled in by client-side code.

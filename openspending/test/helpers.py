@@ -1,3 +1,7 @@
+# Shut up nose DeprecationWarnings
+import warnings
+warnings.filterwarnings('ignore', 'The compiler package is deprecated and removed in Python 3.x.')
+
 from nose.tools import *
 from nose.plugins.skip import SkipTest
 from mock import Mock, patch, MagicMock
@@ -16,7 +20,7 @@ def load_fixture(name, manager=None):
     Load fixture data into the database.
     """
     from openspending.validation.data import convert_types
-    fh = open(fixture_path('%s.js' % name), 'r')
+    fh = fixture_file('%s.js' % name)
     data = json.load(fh)
     fh.close()
     dataset = Dataset(data)
@@ -25,7 +29,7 @@ def load_fixture(name, manager=None):
     db.session.add(dataset)
     db.session.commit()
     dataset.generate()
-    fh = open(fixture_path('%s.csv' % name), 'r')
+    fh = fixture_file('%s.csv' % name)
     reader = csv.DictReader(fh)
     for row in reader:
         entry = convert_types(data['mapping'], row)
@@ -56,7 +60,7 @@ def clean_all():
     clean_db()
     clean_solr()
 
-def make_account(name='test', fullname='Test User', 
+def make_account(name='test', fullname='Test User',
                  email='test@example.com'):
     from openspending.model import Account
     account = Account()

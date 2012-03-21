@@ -299,10 +299,6 @@ table th, table td {
   padding: 5px;
 }
 
-div.dataTables_wrapper {
-  min-height: 0px;
-}
-
 table td.num,
 table th.num {
     text-align: right;
@@ -317,9 +313,14 @@ table th.num {
 }
 
 .no-desc {
-    font-style: italic;
+  font-style: italic;
 }
 
+.dataTables_length select {
+  width: auto;
+  display: inline;
+  vertical-align: top;
+}
 
 /* Browser */
 .facets {
@@ -341,6 +342,7 @@ table th.num {
 }
 
 .unfilter {
+  font-weight: bold;
   color: red !important;
 }
 

@@ -1,35 +1,33 @@
 import logging
 
 from pylons import request, response, tmpl_context as c
-from pylons.controllers.util import abort
+from pylons.controllers.util import abort, redirect
 from pylons.i18n import _
 
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.views import handle_request
-from openspending.ui.lib.browser import Browser
 from openspending.lib.csvexport import write_csv
-from openspending.lib.jsonexport import to_jsonp
+from openspending.lib.jsonexport import write_json, to_jsonp
 from openspending.ui.lib import helpers as h
 
 log = logging.getLogger(__name__)
 
 class EntryController(BaseController):
 
-    def index(self, dataset, format='html'):
+    def index(self, dataset):
         self._get_dataset(dataset)
         handle_request(request, c, c.dataset)
-        url = h.url_for(controller='entry', action='index',
-                    dataset=c.dataset.name)
-        c.browser = Browser(c.dataset, request.params, url=url)
-        c.browser.facet_by_dimensions()
+        return render('entry/index.html')
+
+    def index_export(self, dataset, format):
+        self._get_dataset(dataset)
 
         if format == 'json':
-            return c.browser.to_jsonp()
-        elif format == 'csv':
-            response.content_disposition = 'attachment; filename=%s.csv' % c.dataset.name
-            return c.browser.to_csv()
+            return write_json(c.dataset.entries(), response, filename=c.dataset.name + '.json')
+        if format == 'csv':
+            return write_csv(c.dataset.entries(), response, filename=c.dataset.name + '.csv')
         else:
-            return render('entry/index.html')
+            return redirect(h.url_for(controller='entry', action='index'))
 
     def view(self, dataset, id, format='html'):
         self._get_dataset(dataset)
@@ -65,4 +63,3 @@ class EntryController(BaseController):
             return write_csv([c.entry], response)
         else:
             return render('entry/view.html')
-
