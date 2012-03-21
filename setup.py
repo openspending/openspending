@@ -46,7 +46,7 @@ setup(
         "Babel==0.9.6",
         "colander==0.9.3",
         "distribute>=0.6.10",
-        "mock==0.7.2",
+        "mock==0.8.0",
         "sphinx==1.0.7",
         "argparse==1.2.1",
         "celery==2.4.4",

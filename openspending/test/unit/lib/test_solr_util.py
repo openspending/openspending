@@ -24,12 +24,8 @@ class TestSolrUtil(TestCase):
         h.assert_equal(solr.http_pass, None)
 
     def test_configure(self):
-        returns = ['myurl', 'myuser', 'mypass']
-        def mock_config(*args):
-            return returns.pop(0)
-
         config = h.Mock()
-        config.get.side_effect = mock_config
+        config.get.side_effect = ['myurl', 'myuser', 'mypass']
         solr.configure(config)
 
         h.assert_equal(solr.url, 'myurl')
