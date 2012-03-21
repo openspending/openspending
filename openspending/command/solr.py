@@ -9,7 +9,7 @@ def delete(dataset):
     return 0
 
 def optimize():
-    solr.optimize()
+    solr.get_connection().optimize()
     return 0
 
 def clean():

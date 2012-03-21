@@ -83,10 +83,6 @@ def clean_and_reindex_solr():
     for dataset in db.session.query(Dataset):
         _solr.build_index(dataset.name)
 
-def skip_if_stubbed_solr():
-    if type(_solr.get_connection()) == _solr._Stub:
-        skip("Not running test with stubbed Solr.")
-
 def skip(*args, **kwargs):
     raise SkipTest(*args, **kwargs)
 

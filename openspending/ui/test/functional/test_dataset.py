@@ -8,7 +8,6 @@ from openspending.model import Dataset, meta as db
 class TestDatasetController(ControllerTestCase):
 
     def setup(self):
-        h.skip_if_stubbed_solr()
 
         super(TestDatasetController, self).setup()
         h.load_fixture('cra')

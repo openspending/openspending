@@ -9,8 +9,7 @@ from openspending.model import Dataset, CompoundDimension, meta as db
 class TestDimensionController(ControllerTestCase):
 
     def setup(self):
-        h.skip_if_stubbed_solr()
-        
+
         super(TestDimensionController, self).setup()
         h.load_fixture('cra')
         h.clean_and_reindex_solr()
