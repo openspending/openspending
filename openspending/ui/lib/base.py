@@ -17,20 +17,16 @@ from openspending.auth import require
 import openspending.auth as can
 from openspending import model
 from openspending.ui import i18n
-from openspending.plugins.core import PluginImplementations
-from openspending.plugins.interfaces import IGenshiStreamFilter, IRequest
 
 import logging
 log = logging.getLogger(__name__)
-
 
 ACCEPT_MIMETYPES = {
     "application/json": "json",
     "text/javascript": "json",
     "application/javascript": "json",
     "text/csv": "csv"
-    }
-
+}
 
 def render(template_name,
            extra_vars=None,
@@ -61,14 +57,9 @@ def render(template_name,
         filler = HTMLFormFiller(data=form_fill)
         stream = stream | filler
 
-    for item in PluginImplementations(IGenshiStreamFilter):
-        stream = item.filter(stream)
-
     return literal(stream.render(method=method, encoding=None))
 
 class BaseController(WSGIController):
-
-    items = PluginImplementations(IRequest)
 
     def __call__(self, environ, start_response):
         """Invoke the Controller"""
@@ -100,18 +91,12 @@ class BaseController(WSGIController):
         c.dataset = None
         self._detect_dataset_subdomain()
 
-        for item in self.items:
-            item.before(request, c)
-
         c.detected_l10n_languages = i18n.get_language_pairs()
 
     def __after__(self):
         if session.get('state', {}) != c.state:
             session['state'] = c.state
             session.save()
-
-        for item in self.items:
-            item.after(request, c)
 
         db.session.close()
 

@@ -17,5 +17,3 @@ pip install psycopg2
 pip install translationstring
 pip install -e git+http://github.com/okfn/osvalidate#egg=osvalidate
 pip install -e git+http://github.com/okfn/openspending#egg=openspending
-pip install -e git+http://github.com/okfn/openspending.plugins.treemap#egg=openspending.plugins.treemap
-pip install -e git+http://github.com/okfn/openspending.plugins.datatables#egg=openspending.plugins.datatables

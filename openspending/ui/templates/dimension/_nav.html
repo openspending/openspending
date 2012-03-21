@@ -18,7 +18,7 @@
       <li>
         <a href="${h.url_for(controller='dimension', action='view', dataset=c.dataset.name,
                              dimension=c.dimension)}">
-          ${c.dataset[c.dimension].label}</a>
+          ${c.dimension.label}</a>
         <span class="divider">/</span>
       </li>
       <li class="active">
@@ -26,7 +26,7 @@
       </li>
       <div class="representations">
         <a href="${url(controller='dimension', action='member', dataset=c.dataset.name,
-          name=c.member['name'], dimension=c.dimension, format='json')}">
+          name=c.member['name'], dimension=c.dimension.name, format='json')}">
           <img src="${h.static('img/icons/json.png')}" alt="JSON" xml:lang="en" /></a>
       </div>
     </ul>
@@ -42,14 +42,14 @@
           </py:if>
           <py:if test="view.name!=section">
             <li><a href="${h.url(controller='dimension', action='member',
-                dataset=c.dataset.name, dimension=c.dimension,
+                dataset=c.dataset.name, dimension=c.dimension.name,
                 name=c.member.name, _view=view.name)}">
               ${view.label}</a></li>
           </py:if>
         </py:for>
         <li class="${'active' if section == 'search' else ''}">
             <a href="${url(controller='dimension', action='entries',
-              dataset=c.dataset.name, dimension=c.dimension, name=c.member.name)}">Search</a></li>
+              dataset=c.dataset.name, dimension=c.dimension.name, name=c.member.name)}">Search</a></li>
         <py:if test="'opencorporates_uri' in c.member and c.member.opencorporates_uri">
           <li class="">
           <a href="${c.member.opencorporates_uri}" title="${c.member.label} on OpenCorporates"><img src="/static/img/icons/external_link.gif" /> OpenCorporates</a></li>

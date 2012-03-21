@@ -9,15 +9,12 @@ from pylons.controllers.util import redirect, abort
 from pylons.decorators.cache import beaker_cache
 from pylons.i18n import _
 
-from openspending.plugins.core import PluginImplementations
-from openspending.plugins.interfaces import IDatasetController
 from openspending.ui.i18n import set_session_locale
 from openspending.ui.lib import views
 from openspending.ui.lib.base import BaseController, render, require
 from openspending.ui.lib.helpers import flash_success, flash_error
 
 log = logging.getLogger(__name__)
-
 
 class HelpController(BaseController):
 

@@ -75,8 +75,6 @@ assumed. The key differences in a production install are these:
     psycopg2
     gunicorn
     -e git+http://github.com/okfn/openspending#egg=openspending
-    -e git+http://github.com/okfn/openspending.plugins.treemap#egg=openspending.plugins.treemap
-    -e git+http://github.com/okfn/openspending.plugins.datatables#egg=openspending.plugins.datatables
 
   This means that updates can be installed easily and quickly by running
   the same command used for the initial setup::

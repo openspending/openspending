@@ -6,8 +6,6 @@ from .. import ControllerTestCase, url, helpers as h
 class TestViewController(ControllerTestCase):
 
     def setup(self):
-        h.skip_if_stubbed_solr()
-
         super(TestViewController, self).setup()
         self.user = h.make_account('test')
         h.load_fixture('cra', self.user)

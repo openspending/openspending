@@ -9,9 +9,38 @@
   
   <div py:def="content">
     ${member_nav('search')}
-
-    <xi:include href="../_browser.html" />
+    <div id="openspending_browser" class="row">
+      <div class="span9 browser_datatable">
+      </div>
+      <div class="span3 browser_faceter">
+      </div>
+    </div>
   </div>
+
+  <py:def function="optional_head">
+    ${style_tag('lib/vendor/datatables/css/jquery.dataTables')}
+  </py:def>
+
+  <py:def function="scripts">
+    ${script_tag('lib/vendor/datatables/js/jquery.dataTables')}
+    ${script_tag('app/data_table/openspending.data_table')}
+    ${script_tag('app/faceter/openspending.faceter')}
+    ${script_tag('app/browser/openspending.browser')}
+    <script>
+      (function () {
+        "use strict";
+
+        var b = new OpenSpending.Browser(
+          document.getElementById('openspending_browser'),
+          "${c.dataset.name}"
+        );
+
+        b.addFilter("${c.dimension.name}", "${c.member.name}");
+        b.init();
+
+      }());
+    </script>
+  </py:def>
 
   <xi:include href="../layout.html" />
 </html>

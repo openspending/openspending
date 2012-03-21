@@ -1,8 +1,8 @@
 <html xmlns:py="http://genshi.edgewall.org/"
   xmlns:i18n="http://genshi.edgewall.org/i18n"
   xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+
   <xi:include href="../dataset/_nav.html" />
-  
   <py:def function="nav_class">nav-dataset</py:def>
 
   <py:def function="page_title">${c.dataset.label}</py:def>
@@ -11,18 +11,33 @@
     <!-- templates/entry/index.html -->
     ${dataset_nav('search')}
 
-    <table cellpadding="0" cellspacing="0" border="0" class="display" id="os_datatable">
-    </table>
-
+    <div id="openspending_browser" class="row">
+      <div class="span9 browser_datatable">
+      </div>
+      <div class="span3 browser_faceter">
+      </div>
+    </div>
   </div>
+
+  <py:def function="optional_head">
+    ${style_tag('lib/vendor/datatables/css/jquery.dataTables')}
+  </py:def>
 
   <py:def function="scripts">
     ${script_tag('lib/vendor/datatables/js/jquery.dataTables')}
-    ${script_tag('app/datatables/openspending.datatables')}
+    ${script_tag('app/data_table/openspending.data_table')}
+    ${script_tag('app/faceter/openspending.faceter')}
+    ${script_tag('app/browser/openspending.browser')}
     <script>
-      OpenSpending.$(function() {
-        new OpenSpending.DataTable(document.getElementById('os_datatable'));
-      });
+      (function () {
+        "use strict";
+
+        var b = new OpenSpending.Browser(
+          document.getElementById('openspending_browser'),
+          "${c.dataset.name}"
+        );
+        b.init();
+      }());
     </script>
   </py:def>
 

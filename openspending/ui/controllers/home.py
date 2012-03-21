@@ -8,8 +8,6 @@ from pylons.controllers.util import redirect
 from pylons.decorators.cache import beaker_cache
 from pylons.i18n import _
 
-from openspending.plugins.core import PluginImplementations
-from openspending.plugins.interfaces import IDatasetController
 from openspending.ui.i18n import set_session_locale
 from openspending.ui.lib import views
 from openspending.ui.lib.base import BaseController, render, require
@@ -17,16 +15,13 @@ from openspending.ui.lib.helpers import flash_success, flash_error
 
 log = logging.getLogger(__name__)
 
-
 class HomeController(BaseController):
-
-    extensions = PluginImplementations(IDatasetController)
 
     def index(self):
         # TODO decide if we want this.
         #featured_dataset = config.get("openspending.default_dataset")
         return render('home/index.html')
-    
+
     def getinvolved(self):
         return render('home/getinvolved.html')
 

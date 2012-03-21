@@ -8,7 +8,6 @@ from openspending.ui.lib.helpers import readable_url
 class TestRunController(ControllerTestCase):
 
     def setup(self):
-        h.skip_if_stubbed_solr()
 
         super(TestRunController, self).setup()
         self.source = csvimport_fixture('import_errors')

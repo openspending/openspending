@@ -8,7 +8,6 @@ from openspending.model import Dataset, Source, meta as db
 class TestEditorController(ControllerTestCase):
 
     def setup(self):
-        h.skip_if_stubbed_solr()
 
         super(TestEditorController, self).setup()
         self.user = h.make_account('test')

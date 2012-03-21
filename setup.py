@@ -43,11 +43,10 @@ setup(
         "repoze.who-friendlyform==1.0.8",
         "Unidecode==0.04.9",
         "solrpy==0.9.4",
-        "pyutilib.component.core==4.3.1",
         "Babel==0.9.6",
         "colander==0.9.3",
         "distribute>=0.6.10",
-        "mock==0.7.2",
+        "mock==0.8.0",
         "sphinx==1.0.7",
         "argparse==1.2.1",
         "celery==2.4.4",
@@ -61,7 +60,7 @@ setup(
     ],
 
     packages=filter(package_filter, find_packages()),
-    namespace_packages=['openspending', 'openspending.plugins'],
+    namespace_packages=['openspending'],
     package_data={
         'openspending.ui': (
             files_in_pkgdir('openspending.ui', 'public') +

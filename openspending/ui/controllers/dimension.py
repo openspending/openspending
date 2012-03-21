@@ -1,29 +1,23 @@
 import logging
 
 from pylons import request, tmpl_context as c, response
-from pylons.controllers.util import abort
+from pylons.controllers.util import abort, redirect
 from pylons.i18n import _
-
-from openspending.plugins.core import PluginImplementations
-from openspending.plugins.interfaces import IDimensionController
 
 from openspending import model
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.page import Page
 from openspending.ui.lib.views import handle_request
 from openspending.ui.lib.helpers import url_for
-from openspending.ui.lib.browser import Browser
 from openspending.ui.lib.cache import AggregationCache
 from openspending.lib.csvexport import write_csv
-from openspending.lib.jsonexport import to_jsonp
+from openspending.lib.jsonexport import write_json, to_jsonp
 
 log = logging.getLogger(__name__)
 
 PAGE_SIZE = 100
 
 class DimensionController(BaseController):
-
-    extensions = PluginImplementations(IDimensionController)
 
 
     def _get_member(self, dataset, dimension_name, name):
@@ -36,6 +30,7 @@ class DimensionController(BaseController):
                 if not len(members):
                     abort(404, _('Sorry, there is no member named %r')
                             % name)
+                c.dimension = dimension
                 c.member = members.pop()
                 c.num_entries = dimension.num_entries(cond)
                 return
@@ -61,15 +56,13 @@ class DimensionController(BaseController):
 
         page = self._get_page('page')
         cache = AggregationCache(c.dataset)
-        result = cache.aggregate(drilldowns=[dimension], page=page, 
+        result = cache.aggregate(drilldowns=[dimension], page=page,
                                  pagesize=PAGE_SIZE)
         items = result.get('drilldown', [])
         c.values = [(d.get(dimension), d.get('amount')) for d in items]
 
         if format == 'json':
-            return to_jsonp({
-                "values": c.values,
-                "meta": c.dimension.as_dict()})
+            return to_jsonp({"values": c.values, "meta": c.dimension.as_dict()})
 
         c.page = Page(c.values, page=page,
                       item_count=result['summary']['num_drilldowns'],
@@ -81,15 +74,14 @@ class DimensionController(BaseController):
     def member(self, dataset, dimension, name, format="html"):
         self._get_member(dataset, dimension, name)
 
-        handle_request(request, c, c.member, c.dimension)
-        if c.view is None:
-            self._make_browser()
+        handle_request(request, c, c.member, c.dimension.name)
 
-        for item in self.extensions:
-            item.read(c, request, response, c.member)
+        # If there are no views set up, then go direct to the entries search page
+        if c.view is None and format is "html":
+            return redirect(url_for(controller='dimension', action='entries'))
 
         if format == 'json':
-            return to_jsonp(c.member)
+            return write_json([c.member], response)
         elif format == 'csv':
             return write_csv([c.member], response)
         else:
@@ -99,26 +91,14 @@ class DimensionController(BaseController):
     def entries(self, dataset, dimension, name, format='html'):
         self._get_member(dataset, dimension, name)
 
-        handle_request(request, c, c.member, c.dimension)
+        handle_request(request, c, c.member, c.dimension.name)
 
+        entries = c.dataset.entries(c.dimension.alias.c.name == c.member['name'])
         attachment_name = '__'.join([dataset, dimension, name])
 
-        self._make_browser()
         if format == 'json':
-            return c.browser.to_jsonp()
+            return write_json(entries, response, filename=attachment_name + '.json')
         elif format == 'csv':
-            response.content_disposition = 'attachment; filename=%s.csv' % attachment_name
-            return c.browser.to_csv()
+            return write_csv(entries, response, filename=attachment_name + '.csv')
         else:
             return render('dimension/entries.html')
-
-
-    def _make_browser(self):
-        url = url_for(controller='dimension', action='entries',
-                dataset=c.dataset.name,
-                dimension=c.dimension,
-                name=c.member['name'])
-        c.browser = Browser(c.dataset, request.params, url=url)
-        c.browser.filter_by("+%s:\"%s\"" % (c.dimension, c.member['name']))
-        c.browser.facet_by_dimensions()
-

@@ -105,12 +105,10 @@ def valid_jsonp(response, callback):
 class TestApiSearch(ControllerTestCase):
 
     def setup(self):
-        h.skip_if_stubbed_solr()
 
         super(TestApiSearch, self).setup()
         h.load_fixture('cra')
-        solr.drop('*:*')
-        solr.build_index(dataset_name='cra')
+        h.clean_and_reindex_solr()
 
     def test_search_01_no_query(self):
         response = self.app.get(url(controller='api', action='search'))

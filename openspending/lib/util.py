@@ -41,3 +41,33 @@ def slugify(text, delimiter='-'):
         result.extend(unidecode(word).split())
     return unicode(delimiter.join(result))
 
+
+def sort_by_reference(ref, sort, sort_fn=None):
+    """
+
+    Sort the iterable ``sort`` by ``sort_fn`` (if omitted, the whole object
+    will be used to sort) according the order defined by the list given in
+    ``ref``.
+
+    Will raise nasty errors if ``ref`` and ``sort`` aren't 1-to-1, and doesn't
+    currently perform any error-checking to ensure that they are.
+
+    Example:
+
+        ids = [4, 7, 1, 3]
+        objs = [{'id': 1}, {'id': 7}, {'id': 4}, {'id': 3}]
+
+        sorted = sort_list_pair(ids, objs, lambda x: x['id'])
+        # => [{'id': 4}, {'id': 7}, {'id': 1}, {'id': 3}]
+
+    """
+    if sort_fn is None:
+        sort_fn = lambda x: x
+
+    ref_map = dict((r, idx) for idx, r in enumerate(ref))
+
+    ordered = [None] * len(ref)
+    for x in sort:
+        ordered[ref_map[sort_fn(x)]] = x
+
+    return ordered
