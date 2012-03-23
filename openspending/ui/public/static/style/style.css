@@ -505,6 +505,30 @@ table.sources ul.runs {
   margin-bottom: 0px;
 }
 
+/* Query builder CSS */
+.query-builder select, 
+.query-builder input, 
+.query-builder .help-block {
+  margin-bottom: 0.4em;
+}
+
+.query-builder .help-block {
+  margin-top: 0em;
+  color: #999;
+}
+
+.query-builder .form-horizontal .control-group {
+  margin-bottom: 10px;
+}
+
+.query-builder form {
+  margin: 0px;
+}
+
+.query-builder .fields {
+  padding-top: 1em;
+}
+
 /* Bubbletree vs. Bootstrap specific fixes. */
 .bubbletree .label {
   padding: 0px;

@@ -12,6 +12,7 @@
   <py:def function="optional_head">
     <!-- templates/dataset/explorer.html optional_head -->
 
+    <link rel="stylesheet" href="http://localhost/openspendingjs/widgets/treemap/css/treemap.css" type="text/css" />
     <style>
       .inactive a {
         color: #ddd;
@@ -19,7 +20,11 @@
       }
 
       #editor {
-        min-height: 20em;
+        min-height: 50em;
+      }
+
+      #editor .treemap-vis {
+        min-height: 400px; 
       }
 
     </style>
@@ -29,6 +34,7 @@
     <!-- templates/dataset/explorer.html scripts -->
     ${script_tag('lib/vendor/backbone')}
     ${script_tag('lib/widgets')}
+    ${script_tag('app/bob/bob')}
 
     <script type="text/javascript">
       var widgets = ${h.json.dumps(c.widgets)};
