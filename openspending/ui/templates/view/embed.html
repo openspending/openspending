@@ -36,8 +36,6 @@
             height: 100%;
         }
     </style>
-
-    ${widget_css(c.widget)}
     
     <py:if test="defined('optional_head')">
       ${optional_head()}
@@ -49,11 +47,14 @@
   <body>
     ${widget_elem(c.widget)}
 
+    ${script_tag('lib/vendor/yepnope.min')}
     ${script_tag('lib/vendor/jquery')}
     ${script_tag('lib/vendor/underscore')}
     ${script_tag('lib/vendor/handlebars')}
     ${script_tag('lib/vendor/bootstrap')}
     ${script_tag('lib/utils/utils')}
+
+    <script>OpenSpending.scriptRoot = "${g.script_root}";</script>
 
     ${widget_js(c.widget, c.state, '')}
     ${analytics()}
