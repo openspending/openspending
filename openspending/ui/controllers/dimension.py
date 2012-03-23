@@ -78,7 +78,7 @@ class DimensionController(BaseController):
 
         # If there are no views set up, then go direct to the entries search page
         if c.view is None and format is "html":
-            return redirect(url_for(controller='dimension', action='entries'))
+            return redirect(url_for(controller='dimension', dataset=dataset, dimension=dimension, name=name, action='entries'))
 
         if format == 'json':
             return write_json([c.member], response)
