@@ -6,6 +6,8 @@ body {
 
 .page-header {
   padding-bottom: 0;
+  margin-bottom: 10px;
+  border: 0px;
 }
 
 .topbar .menu-dropdown, .dropdown-menu {
