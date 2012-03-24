@@ -103,6 +103,16 @@ class TestBrowser(TestCase):
         h.assert_equal(solr_args['start'], 50)
         h.assert_equal(solr_args['rows'], 50)
 
+    def test_fractional_page_pagesize(self):
+        b = Browser(page=2.5, pagesize=50)
+        b.execute()
+
+        _, solr_args = self.conn.raw_query.call_args
+        # Use assert_is rather than assert_equal to verify
+        # that it's an integer.
+        h.assert_is(solr_args['start'], 75)
+        h.assert_equal(solr_args['rows'], 50)
+
     def test_facets(self):
         b = Browser(facet_field=['foo', 'bar'])
         b.execute()

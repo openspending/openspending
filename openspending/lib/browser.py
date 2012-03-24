@@ -62,7 +62,10 @@ def _build_query(params):
         'sort':  _build_sort(params['order']),
         # FIXME: In a future version of the API, we really should use
         #        offset/limit rather than page/pagesize.
-        'start': (params['page'] - 1) * params['pagesize'],
+        #
+        # NB: we permit fractional page sizes to overcome the limits of
+        # page/pagesize vs offset/limit
+        'start': int((params['page'] - 1) * params['pagesize']),
         'rows':  params['pagesize'],
     }
     if params['facet_field']:
@@ -71,7 +74,9 @@ def _build_query(params):
             'facet.field': params['facet_field'],
             'facet.mincount': 1,
             'facet.sort': 'count',
-            'facet.offset': (params['facet_page'] - 1) * params['facet_pagesize'],
+            # NB: we permit fractional page sizes to overcome the limits of
+            # page/pagesize vs offset/limit
+            'facet.offset': int((params['facet_page'] - 1) * params['facet_pagesize']),
             'facet.limit': params['facet_pagesize']
         })
     return query

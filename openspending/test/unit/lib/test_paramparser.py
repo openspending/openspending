@@ -13,7 +13,7 @@ class TestParamParser(TestCase):
     def test_page(self):
         out, err = ParamParser({'page': 'foo'}).parse()
         h.assert_equal(len(err), 1)
-        h.assert_true('"page" has to be an integer' in err[0])
+        h.assert_true('"page" has to be a number' in err[0])
 
     def test_pagesize(self):
         out, err = ParamParser({'pagesize': 'foo'}).parse()
