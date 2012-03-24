@@ -35,7 +35,7 @@ class ParamParser(object):
         self._errors.append(msg)
 
     def parse_page(self, page):
-        return self._to_float('page', page)
+        return max(1, self._to_float('page', page))
 
     def parse_pagesize(self, pagesize):
         return self._to_int('pagesize', pagesize)
@@ -195,10 +195,10 @@ class SearchParamParser(ParamParser):
         return facet_field.split('|')
 
     def parse_facet_page(self, page):
-        return self._to_int('facet_page', page)
+        return max(1, self._to_float('facet_page', page))
 
     def parse_facet_pagesize(self, pagesize):
-        return min(100, self._to_float('facet_pagesize', pagesize))
+        return min(100, self._to_int('facet_pagesize', pagesize))
 
     def parse_expand_facet_dimensions(self, expand_facet_dimensions):
         return expand_facet_dimensions is not None

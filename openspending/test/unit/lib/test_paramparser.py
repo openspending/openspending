@@ -15,6 +15,12 @@ class TestParamParser(TestCase):
         h.assert_equal(len(err), 1)
         h.assert_true('"page" has to be a number' in err[0])
 
+    def test_page_fractional(self):
+        out, err = ParamParser({'page': '1.2'}).parse()
+        h.assert_equal(out['page'], 1.2)
+        out, err = ParamParser({'page': '0.2'}).parse()
+        h.assert_equal(out['page'], 1)
+
     def test_pagesize(self):
         out, err = ParamParser({'pagesize': 'foo'}).parse()
         h.assert_equal(len(err), 1)
@@ -123,6 +129,12 @@ class TestSearchParamParser(TestCase):
     def test_facet_page(self):
         out, err = SearchParamParser({'facet_page': '14'}).parse()
         h.assert_equal(out['facet_page'], 14)
+
+    def test_facet_page_fractional(self):
+        out, err = SearchParamParser({'facet_page': '1.7'}).parse()
+        h.assert_equal(out['facet_page'], 1.7)
+        out, err = SearchParamParser({'facet_page': '0.6'}).parse()
+        h.assert_equal(out['facet_page'], 1)
 
     def test_facet_pagesize(self):
         out, err = SearchParamParser({'facet_pagesize': '73'}).parse()
