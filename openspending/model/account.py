@@ -36,6 +36,10 @@ class Account(db.Model):
     def __init__(self):
         pass
 
+    @property
+    def display_name(self):
+        return self.fullname or self.name
+
     @classmethod
     def by_name(cls, name):
         return db.session.query(cls).filter_by(name=name).first()

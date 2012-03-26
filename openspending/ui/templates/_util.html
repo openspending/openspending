@@ -95,7 +95,7 @@
 
   <div py:def="view_times()" class="view-panel last" py:strip="True">
     <!-- templates/_util.html view_times -->
-    <li py:if="c.view" class="dropdown">
+    <li py:if="c.view" class="dropdown time-select">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">${c.time} <b class="caret"></b></a>
       <ul class="dropdown-menu times">
         <py:for each="time in c.times">

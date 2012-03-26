@@ -20,12 +20,13 @@
       }
 
       #editor {
-        min-height: 50em;
+        height: 50em;
+        position: relative;
       }
 
-      #editor .treemap-vis {
+      /*#editor .treemap-vis {
         min-height: 400px; 
-      }
+      }*/
 
     </style>
   </py:def>
@@ -58,18 +59,10 @@
     <!-- templates/dataset/explorer.html content -->
     ${dataset_nav('visualize')}
 
-    <ul id="stages" class="nav nav-pills">
-      <li id='menu-choose' class="active">
-        <a href='#'>1. Select visualisation</a>
-      </li>
-      <li id='menu-configure' class="inactive"><a href='#'>2. Configure</a></li>
-      <li id='menu-use' class="inactive"><a href='#'>3. Save and embed</a></li>
-    </ul>
-
     <div id="editor">
       
     </div>
-
+    
     <script id="widget-finalize" type="text/x-handlebars-template">
       <div class='row'>
         <div class='span6'>

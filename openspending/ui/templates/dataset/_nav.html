@@ -31,9 +31,23 @@
         <li class="${'active' if section == 'about' else ''}">
             <a href="${h.url(controller='dataset', action='about',
               dataset=c.dataset.name)}">About</a></li>
-        <li class="${'active' if section == 'explorer' else ''}">
-        <a href="${h.url(controller='dataset', action='explorer',
-              dataset=c.dataset.name)}">Explore</a></li>
+        <li class="dropdown ${'active' if section == 'views' else ''}">
+          <a class="dropdown-toggle"
+             data-toggle="dropdown"
+             href="#">
+             Visualisations
+             <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li py:for="view in c.dataset.views">
+              <a href="${h.url(controller='view', action='view',
+              dataset=c.dataset.name, name=view.name)}">${view.label}</a>
+            </li>
+            <li py:if="c.dataset.views.count()" class='divider'></li>
+            <li><a href="${h.url(controller='view', action='new',
+              dataset=c.dataset.name)}">Create a visualisation...</a></li>
+          </ul>
+        </li>
         <li py:if="can.dataset.update(c.dataset)" class="admin">
             <a href="${url(controller='editor', action='index',
               dataset=c.dataset.name)}">Manage</a></li>

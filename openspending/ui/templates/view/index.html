@@ -23,10 +23,15 @@
 
     <!-- templates/view/index.html content -->
     <div class="row">
-      <ul py:for="view in c.views">
-        <li><a href="${h.url_for(controller='view', action='view', dataset=c.dataset.name, name=view.name)}"
-          >${view.label}</a></li>
-      </ul>
+      <div class="span8">
+        <ul py:for="view in c.views" class="unstyled">
+          <li>
+            <h3><a href="${h.url_for(controller='view', action='view', dataset=c.dataset.name, name=view.name)}">
+              ${view.label}</a></h3>
+            <span class="label label-info">${c.view.widget}</span> by ${view.account.display_name}
+          </li>
+        </ul>
+      </div>  
     </div>
   </div>
 

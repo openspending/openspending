@@ -129,7 +129,7 @@ a:hover, a:active {
   text-decoration: none;
 }
 
-.nav-tabs li.dropdown {
+.nav-tabs li.dropdown.time-select {
   float: right;
 }
 
