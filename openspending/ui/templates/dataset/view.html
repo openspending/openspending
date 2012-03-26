@@ -18,19 +18,24 @@
 
   <py:def function="scripts">
     <!-- templates/dataset/view.html scripts -->
-    <script type="text/javascript" src="http://localhost/openspendingjs/lib/embed.js"></script>
+    <script type="text/javascript" src="http://localhost/openspendingjs/lib/widgets.js"></script>
+    <script type="text/javascript" src="http://localhost/openspendingjs/app/bob/bob.js"></script>
 
     ${widget_js(c.widget, c.viewjson, c.time)}
     <script py:if="hasattr(c, 'widget')">
-        (function ($) {
-            window.widget.then(function(w) {
-              var embedder = new OpenSpending.Embedder(w, context, '${c.widget.name}');  
-              $("#embed-link").click(function(e) {
-                embedder.render();
-                return false;
-              });
+      (function ($) {
+          window.widget.then(function(w) {
+            var embedder = new OpenSpending.Widgets.Embedder(w, context, '${c.widget.name}');  
+            $("#widget-embed-link").click(function(e) {
+              embedder.render();
+              return false;
             });
-        })(jQuery);
+            $("#widget-edit-link").click(function(e) {
+              w.configure(null);
+              return false;
+            });
+          });
+      })(jQuery);
     </script>
     ${share_scripts()}
   </py:def>
@@ -39,11 +44,11 @@
     ${dataset_nav(c.view.name if c.view else 'search')}
 
     <!-- templates/dataset/view.html content -->
-
     <div py:if="c.view" class="row">
       <div class="span12"><div id="widget" style="width: auto; height: 400px"/></div>
     </div>
-    <a href="" class="btn" id="embed-link"><i class="icon-share"></i>Embed</a>
+    <a href="#" class="btn" id="widget-embed-link"><i class="icon-share"></i> Embed</a>
+    <a href="#" class="btn" id="widget-edit-link"><i class="icon-cog"></i> Edit</a>
 
     <div py:if="c.view" class="row">
       <div class="span12">
