@@ -111,7 +111,7 @@ a:hover, a:active {
 
 .navbar-inner .nav li a {
   font-family: "Share", Helvetica, Arial, sans-serif;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .navbar-inner .nav li a:hover,
@@ -233,12 +233,12 @@ footer a.twitter {
 }
 
 #fp-blurb {
+  
 	position: absolute;
 	left: 640px;
 	top: 0;
 	padding: 10px;
-	font-size: 13px;
-	line-height: 18px;
+	line-height: 222222px;
 	background: rgba(0, 0, 0, 0.5);
 	border-bottom-right-radius: 10px;
 	border-top-right-radius: 10px;
@@ -247,8 +247,9 @@ footer a.twitter {
 
 #fp-blurb p {
 	color: #fff;
-	font-size: 1.1em;
-	margin: 20px 10px 10px;
+  font-family: "Share", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+	margin: 170px 10px 10px;
 	line-height: 1.6em;
 }
 
