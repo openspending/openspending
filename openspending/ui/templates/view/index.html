@@ -1,0 +1,40 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  py:strip="">
+  
+  <xi:include href="../dataset/_nav.html" />
+  
+  <py:def function="nav_class">nav-dataset</py:def>
+
+  <py:def function="page_title">Library of visualisations - ${c.dataset.label or c.dataset.name}</py:def>
+
+  <py:def function="optional_head">
+  </py:def>
+
+  <py:def function="page_description()">${h.markdown_preview(c.dataset.description)}</py:def>
+
+  <py:def function="scripts">
+    <!-- templates/dataset/view.html scripts -->
+  </py:def>
+
+  <div py:def="content">
+    ${dataset_nav('views')}
+
+    <!-- templates/view/index.html content -->
+    <div class="row">
+      <div class="span8">
+        <ul py:for="view in c.views" class="unstyled">
+          <li>
+            <h3><a href="${h.url_for(controller='view', action='view', dataset=c.dataset.name, name=view.name)}">
+              ${view.label}</a></h3>
+            <span class="label label-info">${c.view.widget}</span> by ${view.account.display_name}
+          </li>
+        </ul>
+      </div>  
+    </div>
+  </div>
+
+  <xi:include href="../layout.html" />
+</html>
+

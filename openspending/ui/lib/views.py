@@ -9,6 +9,7 @@ from pylons import config
 from openspending.model import Dataset
 from openspending.ui.lib.cache import AggregationCache
 from openspending.lib.jsonexport import to_json
+from openspending.ui.lib import widgets
 
 log = logging.getLogger(__name__)
 
@@ -139,10 +140,9 @@ class ViewState(object):
             # sort aggregations by time
             if self.time is not None:
                 self._aggregates = sorted(self._aggregates,
-                                          reverse=True,
-                                          key=lambda (k, v): v.get(self.time, 0))
+                                    reverse=True,
+                                    key=lambda (k, v): v.get(self.time, 0))
         return self._aggregates
-
 
 
 def _set_time_context(request, c):
@@ -166,6 +166,7 @@ def _set_time_context(request, c):
     if c.time and c.time in c.times:
         c.time_before = c.times[c.times.index(c.time) - 1]
 
+
 def handle_request(request, c, obj, dimension=None):
     view_name = request.params.get('_view', 'default')
     c.available_views = View.available(c.dataset, obj, dimension)
@@ -179,9 +180,7 @@ def handle_request(request, c, obj, dimension=None):
     _set_time_context(request, c)
     c.viewstate = ViewState(obj, c.view, c.time)
     if c.view is not None:
-        c.viewstyle = config.get('openspending.plugins.%s.css_url' % c.view.widget)
-        c.viewscript = config.get('openspending.plugins.%s.js_url' % c.view.widget)
-        c.viewfunc = config.get('openspending.plugins.%s.func' % c.view.widget)
-        c.viewjson = to_json(c.view.config)
+        c.widget = widgets.get_widget(c.view.widget)
+        c.viewjson = c.view.config
     else:
-        c.viewjson = to_json({})
+        c.viewjson = {}

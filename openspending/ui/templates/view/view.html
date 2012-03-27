@@ -3,25 +3,24 @@
   xmlns:xi="http://www.w3.org/2001/XInclude"
   py:strip="">
   
-  <xi:include href="_nav.html" />
+  <xi:include href="../dataset/_nav.html" />
   <xi:include href="../view/_widgets.html" />
   
   <py:def function="nav_class">nav-dataset</py:def>
 
-  <py:def function="page_title">${c.dataset.label or c.dataset.name}</py:def>
+  <py:def function="page_title">${c.named_view.label} - ${c.dataset.label or c.dataset.name}</py:def>
 
   <py:def function="optional_head">
-    <!-- templates/dataset/view.html optional_head -->
   </py:def>
 
-  <py:def function="page_description()">${h.markdown_preview(c.dataset.description)}</py:def>
+  <py:def function="page_description()">${h.markdown_preview(c.named_view.description or c.dataset.description)}</py:def>
 
   <py:def function="scripts">
     <!-- templates/dataset/view.html scripts -->
     <script type="text/javascript" src="http://localhost/openspendingjs/lib/widgets.js"></script>
     <script type="text/javascript" src="http://localhost/openspendingjs/app/bob/bob.js"></script>
 
-    ${widget_js(c.widget, c.viewjson, c.time)}
+    ${widget_js(c.widget, c.named_view.state, '')}
     <script py:if="hasattr(c, 'widget')">
       (function ($) {
           window.widget.then(function(w) {
@@ -41,11 +40,10 @@
   </py:def>
 
   <div py:def="content">
-    ${dataset_nav(c.view.name if c.view else 'search')}
+    ${dataset_nav('views')}
 
-    <!-- templates/dataset/view.html content -->
-
-    <div py:if="c.view" class="row">
+    <!-- templates/view/view.html content -->
+    <div class="row">
       <div class="span12"><div id="widget" style="width: auto; height: 400px"/></div>
     </div>
 
@@ -54,15 +52,9 @@
         <a href="#" class="btn btn-mini" id="widget-embed-link"><i class="icon-share"></i> Embed</a>
         <a href="#" class="btn btn-mini" id="widget-edit-link"><i class="icon-cog"></i> Change</a>
       </div>
-      <h3>${c.view.label}</h3>
+       <p>${c.named_view.description}</p>
     </div>
-
-    <div py:if="c.view" class="row">
-      <div class="span12">
-        <div id="detail" />
-      </div>
-    </div>
-
+    
     ${share_body()}
   </div>
 

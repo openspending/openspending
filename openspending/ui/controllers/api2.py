@@ -10,6 +10,7 @@ from openspending.lib.jsonexport import jsonpify
 from openspending.lib.paramparser import AggregateParamParser, SearchParamParser
 from openspending.ui.lib.base import BaseController, require
 from openspending.ui.lib.cache import AggregationCache
+from openspending.ui.lib.hypermedia import entry_apply_links, drilldowns_apply_links
 
 log = logging.getLogger(__name__)
 
@@ -32,6 +33,9 @@ class Api2Controller(BaseController):
         try:
             cache = AggregationCache(dataset)
             result = cache.aggregate(**params)
+            if 'drilldown' in result:
+                result['drilldown'] = drilldowns_apply_links(dataset.name,
+                    result['drilldown'])
 
             if cache.cache_enabled and 'cache_key' in result['summary']:
                 if 'Pragma' in response.headers:
@@ -67,6 +71,7 @@ class Api2Controller(BaseController):
 
         b = Browser(**params)
         stats, facets, entries = b.execute()
+        entries = [entry_apply_links(d.name, e) for d, e in entries]
 
         if expand_facets and len(datasets) == 1:
             _expand_facets(facets, datasets[0])
@@ -74,7 +79,7 @@ class Api2Controller(BaseController):
         return {
             'stats': stats,
             'facets': facets,
-            'results': list(entries)
+            'results': entries
         }
 
 def _expand_facets(facets, dataset):

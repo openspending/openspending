@@ -1,0 +1,127 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  py:strip="">
+
+  <xi:include href="../dataset/_nav.html" />
+
+  <py:def function="nav_class">nav-dataset</py:def>
+
+  <py:def function="page_title">Create a visualisation</py:def>
+
+  <py:def function="optional_head">
+    <!-- templates/dataset/explorer.html optional_head -->
+
+    <link rel="stylesheet" href="http://localhost/openspendingjs/widgets/treemap/css/treemap.css" type="text/css" />
+    <style>
+      .inactive a {
+        color: #ddd;
+        cursor: default;
+      }
+
+      #editor {
+        position: relative;
+      }
+
+      #editor-inner {
+        height: 40em;
+      }
+
+    </style>
+  </py:def>
+
+  <py:def function="scripts">
+    <!-- templates/dataset/explorer.html scripts -->
+    ${script_tag('lib/vendor/backbone')}
+    ${script_tag('lib/widgets')}
+    ${script_tag('app/bob/bob')}
+
+    <script type="text/javascript">
+      var widgets = ${h.json.dumps(c.widgets)};
+
+      jQuery(function($) {
+        window.app = new OpenSpending.Widgets.Editor({
+          elem: $('#editor'),
+          widgets: widgets,
+          context: {
+              dataset: '${c.dataset.name}',
+              siteUrl: '${h.site_url()}'
+            }
+        });
+      });
+    </script>
+  </py:def>
+
+  <py:def function="page_title">Visualize</py:def>
+  
+  <div py:def="content" id="content" py:strip="">
+    <!-- templates/dataset/explorer.html content -->
+    ${dataset_nav('visualize')}
+
+    <div id="editor">
+      
+    </div>
+    
+    <script id="widget-finalize" type="text/x-handlebars-template">
+      <div class='row'>
+        <div class='span6'>
+          <form class='form-horizontal' method='POST' id='save-view'
+            action="${h.url_for(controller='view', action='create', dataset=c.dataset.name)}">
+            <h3>Name your visualisation</h3>
+            <p>
+                You can store your visualisation with a name so that you can come back to it 
+                later and it will become visible to others. 
+            </p>
+            <py:if test="c.can_save">  
+              <div class='control-group'>
+                <label class='control-label' for='label'>Title:</label>
+                <div class='controls'><input id='field-label' name='label' class='span3' /></div>
+              </div>
+              <div class='control-group'>
+                <label class='control-label' for='description'>Description:</label>
+                <div class='controls'><textarea name='description' class='span3'></textarea></div>
+              </div>
+              <div class="form-actions">
+                <input value="Save" class="btn btn-success" id="form-save" type="submit" />
+              </div>
+              <input type='hidden' id='field-widget' name='widget' />
+              <input type='hidden' id='field-state' name='state' />
+            </py:if>
+            <py:if test="not c.can_save">
+              <div class="alert alert-info span4">
+                You need to be signed in to save a view. 
+              </div>
+            </py:if>
+          </form>
+        </div>
+        <div class='span6' id='embedder'>
+          <form class='form-horizontal'>
+            <div class='row'>
+              <h3>Embed in another website</h3>
+              <p>
+                If you don't save this visualisation, you can still copy and paste the 
+                embed code below, to embed the widget in another website, such as a blog or 
+                article.
+              </p>
+              <div class='span3'>
+                  <div class='control-group'>
+                    <label class='control-label' for='width'>Width:</label>
+                    <div class='controls'><input id='width' class='span1' value='700' /></div>
+                  </div>
+                  <div class='control-group'>
+                    <label class='control-label' for='height'>Height:</label>
+                    <div class='controls'><input id='height' class='span1' value='400' /></div>
+                  </div>
+              </div>
+              <div class='span3'>
+                  <textarea id='embedcode' class='xlarge' rows='4'></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </script>
+  </div>
+
+  <xi:include href="../layout.html" />
+</html>

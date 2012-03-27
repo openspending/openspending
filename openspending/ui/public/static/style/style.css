@@ -6,6 +6,8 @@ body {
 
 .page-header {
   padding-bottom: 0;
+  margin-bottom: 10px;
+  border: 0px;
 }
 
 .topbar .menu-dropdown, .dropdown-menu {
@@ -22,6 +24,8 @@ input, textarea, button, select, .btn {
   -webkit-transform-style: inherit;
 }
 
+
+/*
 a {
   color: #99c862;
 }
@@ -29,6 +33,12 @@ a {
 a:hover, a:active {
   color: #6A8A45;
 }
+
+.nav-pills .active > a, 
+.nav-pills .active > a:hover {
+  background-color: #99c862;
+}
+*/
 
 /* Replicate pagination */
 
@@ -86,9 +96,11 @@ a:hover, a:active {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
   background-color: #fff;
+  /*
   -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  */
   background: url(../img/noise.png), -webkit-linear-gradient(top, #fff, #eee); 
   background-image: url(../img/noise.png), -moz-linear-gradient(top, #fff, #eee); 
   background-image: url(../img/noise.png), -ms-linear-gradient(top, #fff, #eee); 
@@ -104,7 +116,7 @@ a:hover, a:active {
 
 .navbar-inner .nav li a {
   font-family: "Share", Helvetica, Arial, sans-serif;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .navbar-inner .nav li a:hover,
@@ -122,7 +134,7 @@ a:hover, a:active {
   text-decoration: none;
 }
 
-.nav-tabs li.dropdown {
+.nav-tabs li.dropdown.time-select {
   float: right;
 }
 
@@ -226,12 +238,12 @@ footer a.twitter {
 }
 
 #fp-blurb {
+  
 	position: absolute;
 	left: 640px;
 	top: 0;
 	padding: 10px;
-	font-size: 13px;
-	line-height: 18px;
+	line-height: 222222px;
 	background: rgba(0, 0, 0, 0.5);
 	border-bottom-right-radius: 10px;
 	border-top-right-radius: 10px;
@@ -240,8 +252,9 @@ footer a.twitter {
 
 #fp-blurb p {
 	color: #fff;
-	font-size: 1.1em;
-	margin: 20px 10px 10px;
+  font-family: "Share", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+	margin: 170px 10px 10px;
 	line-height: 1.6em;
 }
 
@@ -325,11 +338,11 @@ table th.num {
 /* Browser */
 .facets {
   display: block;
-  max-height: 15em;
+  max-height: 20em;
   overflow-y: scroll;
   width: 100%;
   border-bottom: 1px solid #ddd;
-  border-left: 1px solid #ddd;
+  /*border-left: 1px solid #ddd;*/
   border-radius: 0px;
 }
 
@@ -498,6 +511,60 @@ table.sources td.top {
 
 table.sources ul.runs {
   margin-bottom: 0px;
+}
+
+/* Query builder CSS */
+.query-builder select, 
+.query-builder input, 
+.query-builder .help-block {
+  margin-bottom: 0.4em;
+}
+
+.query-builder .help-block {
+  margin-top: 0em;
+  color: #999;
+}
+
+.query-builder .form-horizontal .control-group {
+  margin-bottom: 10px;
+}
+
+.query-builder form {
+  margin: 0px;
+}
+
+.query-builder .fields {
+  padding-top: 1em;
+}
+
+/* Widgets */
+
+#widgets-select-list td.desc {
+  vertical-align: top;
+  padding-left: 1em;
+}
+
+#widgets-select-list td.preview,
+#widgets-select-list td.preview img {
+  width: 150px;
+  height: 100px;
+}
+
+#widgets-select-list td.preview img {
+  border: 1px solid #aaa;
+  -webkit-box-shadow: 0px 0px 4px 0px #aaa;
+     -moz-box-shadow: 0px 0px 4px 0px #aaa;
+          box-shadow: 0px 0px 4px 0px #aaa;
+}
+
+
+.widget-context.well {
+  margin-top: 10px;
+  padding: 7px;
+}
+
+.widget-context.well p {
+  padding-top: 2px;
 }
 
 /* Bubbletree vs. Bootstrap specific fixes. */

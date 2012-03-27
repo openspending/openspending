@@ -1,22 +1,22 @@
 # Translations template for openspending.
 # Copyright (C) 2012 ORGANIZATION
 # This file is distributed under the same license as the openspending project.
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenSpending\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-03-08 10:54+0100\n"
-"PO-Revision-Date: 2012-03-08 09:54+0000\n"
-"Last-Translator: pudo <friedrich@pudo.org>\n"
-"Language-Team: Slovak (http://www.transifex.net/projects/p/openspending/language/sk/)\n"
+"POT-Creation-Date: 2012-02-13 21:03+0100\n"
+"PO-Revision-Date: 2012-03-21 16:17+0100\n"
+"Last-Translator: Friedrich Lindenberg <friedrich.lindenberg@okfn.org>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
-"Language: sk\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
 #: openspending/ui/controllers/account.py:38
 msgid "Login name already exists, please choose a different one"
@@ -44,7 +44,7 @@ msgstr "Nesprávne prihlasovacie meno alebo heslo!"
 msgid "You have been logged out."
 msgstr "Boli ste odhlásený."
 
-#: openspending/ui/controllers/dataset.py:100
+#: openspending/ui/controllers/dataset.py:94
 msgid "A dataset with this identifer already exists!"
 msgstr "Dátový súbor s týmto identifikátorom už existuje!"
 
@@ -63,54 +63,60 @@ msgstr "Prepáčte, neexistuje dimenzia s názvom %r"
 msgid "This is not a dimension"
 msgstr "Toto nie je dimenzia"
 
-#: openspending/ui/controllers/editor.py:71
+#: openspending/ui/controllers/editor.py:68
 msgid "The dataset has been updated."
 msgstr "Dátový súbor bol aktualizovaný."
 
-#: openspending/ui/controllers/editor.py:100
-msgid ""
-"You cannot edit the dimensions model when data is loaded for the dataset."
+#: openspending/ui/controllers/editor.py:102
+msgid "You cannot edit the dimensions model when data is loaded for the dataset."
 msgstr "Nemôžete upravovať dimenzie, pokiaľ sú dáta používané v dátovom súbore."
 
-#: openspending/ui/controllers/editor.py:118
+#: openspending/ui/controllers/editor.py:119
+msgid "The mapping has been updated."
+msgstr "Mapovanie bolo aktualizované."
+
+#: openspending/ui/controllers/editor.py:121
+msgid "The mapping has been validated successfully."
+msgstr "Mapovanie bolo úspešne potvrdené."
+
+#: openspending/ui/controllers/editor.py:123
 msgid "The mapping data could not be decoded as JSON!"
 msgstr "Dáta mapovania sa nepodarilo dekódovať ako JSON!"
 
-#: openspending/ui/controllers/editor.py:142
+#: openspending/ui/controllers/editor.py:147
 msgid "The views have been updated."
 msgstr "Pohľady boli aktualizované."
 
-#: openspending/ui/controllers/editor.py:144
+#: openspending/ui/controllers/editor.py:149
 msgid "The views could not be decoded as JSON!"
 msgstr "Pohľady nebolo možné dekódovať ako JSON!"
 
-#: openspending/ui/controllers/editor.py:158
+#: openspending/ui/controllers/editor.py:162
 msgid "The dataset has been cleared."
 msgstr "Dátový súbor bol vymazaný."
 
-#: openspending/ui/controllers/editor.py:166
+#: openspending/ui/controllers/editor.py:170
 msgid "This dataset is already public!"
 msgstr "Tento dátový súbor už bol zverejnený!"
 
-#: openspending/ui/controllers/editor.py:171
+#: openspending/ui/controllers/editor.py:175
 #, python-format
-msgid ""
-"Congratulations, the dataset has been published. It is now available at: %s"
+msgid "Congratulations, the dataset has been published. It is now available at: %s"
 msgstr "Gratulujeme, dátový súbor bol zverejnený a teraz je dostupný na: %s"
 
-#: openspending/ui/controllers/editor.py:180
+#: openspending/ui/controllers/editor.py:184
 msgid "This dataset is already private!"
 msgstr "Tento dataset už bol nastavený ako súkromný!"
 
-#: openspending/ui/controllers/editor.py:184
+#: openspending/ui/controllers/editor.py:188
 msgid "The dataset has been retracted. It is no longer visible to others."
 msgstr "Dátový súbor bol nastavený ako skrytý. Nie je viac viditeľný pre ostatných."
 
-#: openspending/ui/controllers/editor.py:196
+#: openspending/ui/controllers/editor.py:199
 msgid "The dataset has been deleted."
 msgstr "Dátový súbor bol odstránený."
 
-#: openspending/ui/controllers/entry.py:42
+#: openspending/ui/controllers/entry.py:43
 #, python-format
 msgid "Sorry, there is no entry %r"
 msgstr "Prepáčte, záznam %r neexistuje."
@@ -121,7 +127,7 @@ msgstr "Prepáčte, vybraný pomocný súbor nebol nájdený."
 
 #: openspending/ui/controllers/home.py:65
 msgid "Sent ping!"
-msgstr "[UNTRANSLATED] Sent ping!"
+msgstr "Sent ping!"
 
 #: openspending/ui/controllers/run.py:23
 #: openspending/ui/controllers/source.py:56
@@ -147,16 +153,19 @@ msgstr "Načítavanie..."
 msgid "Sorry, there is no dataset named %r"
 msgstr "Prepáčte, neexistuje dátový súbor s názvom %r"
 
-#: openspending/ui/templates/400.html:5 openspending/ui/templates/403.html:5
-#: openspending/ui/templates/404.html:5 openspending/ui/templates/500.html:5
+#: openspending/ui/templates/400.html:5
+#: openspending/ui/templates/403.html:5
+#: openspending/ui/templates/404.html:5
+#: openspending/ui/templates/500.html:5
 msgid "nav-home"
-msgstr "[UNTRANSLATED] nav-home"
+msgstr "nav-home"
 
 #: openspending/ui/templates/400.html:9
 msgid "Invalid request."
 msgstr "Neplatná požiadavka."
 
-#: openspending/ui/templates/400.html:10 openspending/ui/templates/403.html:10
+#: openspending/ui/templates/400.html:10
+#: openspending/ui/templates/403.html:10
 #: openspending/ui/templates/404.html:10
 #: openspending/ui/templates/run/view.html:32
 #: openspending/ui/templates/run/view.html:51
@@ -186,7 +195,9 @@ msgstr "Zdroj nebol nájdený"
 msgid ""
 "[1:%(message)s]: Maybe the URL is misspelled or the \n"
 "      data has been deleted."
-msgstr "[1:%(message)s]: Možná chyba v URL alebo \n dáta boli vymazané."
+msgstr ""
+"[1:%(message)]: Možná chyba v URL alebo \n"
+" dáta boli vymazané."
 
 #: openspending/ui/templates/500.html:9
 msgid "Something went wrong"
@@ -201,12 +212,15 @@ msgid ""
 ":\n"
 "      Sorry, there seems to be an internal problem in OpenSpending.\n"
 "      The problem has now been reported and we're on it."
-msgstr ":\n      Prepáčte, zdá sa že máme interný problém v OpenSpending.\n      Problém bol nahlásený a pracujeme na ňom."
+msgstr ""
+":\n"
+"      Prepáčte, zdá sa že máme interný problém v OpenSpending.\n"
+"      Problém bol nahlásený a pracujeme na ňom."
 
 #: openspending/ui/templates/_browser.html:36
 #, python-format
 msgid "[1:%(entries)s entries] found."
-msgstr "[1:%(entries)s] nájdených."
+msgstr "[1:%(entries)] nájdených."
 
 #: openspending/ui/templates/_browser.html:52
 msgid "No entries with this property."
@@ -240,109 +254,87 @@ msgstr "Čiastka"
 msgid "details»"
 msgstr "detaily»"
 
-#: openspending/ui/templates/layout.html:71
+#: openspending/ui/templates/layout.html:53
 msgid "Home"
 msgstr "Domov"
 
-#: openspending/ui/templates/layout.html:72
+#: openspending/ui/templates/layout.html:54
 msgid "Spending Blog"
 msgstr "Spending Blog"
 
-#: openspending/ui/templates/layout.html:74
+#: openspending/ui/templates/layout.html:56
 msgid "Datasets"
 msgstr "Datasety"
 
-#: openspending/ui/templates/layout.html:76
+#: openspending/ui/templates/layout.html:62
+#, python-format
+msgid "All datasets (%(count)s)..."
+msgstr "Všetky dátové súbory (%(count)s)..."
+
+#: openspending/ui/templates/layout.html:66
+#: openspending/ui/templates/layout.html:70
+msgid "Import a dataset..."
+msgstr "Importovať dátový súbor..."
+
+#: openspending/ui/templates/layout.html:74
 #: openspending/ui/templates/dataset/_nav.html:34
 msgid "About"
 msgstr "O projekte"
 
-#: openspending/ui/templates/layout.html:77
-#: openspending/ui/templates/layout.html:143
+#: openspending/ui/templates/layout.html:75
+#: openspending/ui/templates/layout.html:132
 msgid "Contact"
 msgstr "Kontakt"
 
-#: openspending/ui/templates/layout.html:82
+#: openspending/ui/templates/layout.html:80
 msgid "Login/Register"
 msgstr "Prihlásenie/Registrácia"
 
-#: openspending/ui/templates/layout.html:85
+#: openspending/ui/templates/layout.html:83
 msgid "Settings"
 msgstr "Nastavenia"
 
-#: openspending/ui/templates/layout.html:86
+#: openspending/ui/templates/layout.html:84
 msgid "Logout"
 msgstr "Odhlásiť sa"
 
-#: openspending/ui/templates/layout.html:89
+#: openspending/ui/templates/layout.html:87
 msgid "Language"
 msgstr "Jazyk"
 
-#: openspending/ui/templates/layout.html:123
+#: openspending/ui/templates/layout.html:119
 msgid ""
 "This is an [1:Open Knowledge Foundation]\n"
 "            project."
-msgstr "Toto je projekt [1:Open Knowledge Foundation]\n ."
-
-#: openspending/ui/templates/layout.html:129
-msgid "The easiest way to find and share data"
 msgstr ""
+"Toto je projekt [1:Open Knowledge Foundation]\n"
+" ."
 
-#: openspending/ui/templates/layout.html:129
-msgid "The Data Hub"
-msgstr ""
-
-#: openspending/ui/templates/layout.html:130
-msgid "The Open Database Of The Corporate World"
-msgstr ""
-
-#: openspending/ui/templates/layout.html:130
-msgid "OpenCorporates.com"
-msgstr ""
-
-#: openspending/ui/templates/layout.html:131
-msgid ""
-"Where Does My Money Go\n"
-"              (UK)"
-msgstr ""
-
-#: openspending/ui/templates/layout.html:133
-msgid "OffenerHaushalt (DE)"
-msgstr ""
-
-#: openspending/ui/templates/layout.html:134
-msgid "OKFN Labs"
-msgstr ""
-
-#: openspending/ui/templates/layout.html:135
-msgid "YourTopia"
-msgstr ""
-
-#: openspending/ui/templates/layout.html:138
-msgid "Wiki"
-msgstr "Wiki"
-
-#: openspending/ui/templates/layout.html:139
-msgid "Mailing List"
-msgstr "Mailing List "
-
-#: openspending/ui/templates/layout.html:140
-msgid "API"
-msgstr "API"
-
-#: openspending/ui/templates/layout.html:141
+#: openspending/ui/templates/layout.html:125
 msgid "Help"
 msgstr "Pomoc"
 
-#: openspending/ui/templates/layout.html:142
+#: openspending/ui/templates/layout.html:126
+msgid "Wiki"
+msgstr "Wiki"
+
+#: openspending/ui/templates/layout.html:127
+msgid "Mailing List"
+msgstr "Mailing List "
+
+#: openspending/ui/templates/layout.html:130
+msgid "API"
+msgstr "API"
+
+#: openspending/ui/templates/layout.html:131
 msgid "Privacy"
 msgstr "Súkromie"
 
-#: openspending/ui/templates/layout.html:152
+#: openspending/ui/templates/layout.html:141
 msgid "Open Content"
 msgstr "Open Content"
 
-#: openspending/ui/templates/layout.html:146
+#: openspending/ui/templates/layout.html:135
 msgid ""
 "All [1:code] \n"
 "          and [2:data] is \n"
@@ -350,14 +342,20 @@ msgid ""
 "          [3:open definition].\n"
 "          [4:]\n"
 "          [5:[6:]]"
-msgstr "[UNTRANSLATED] All [1:code] \n          and [2:data] is \n          openly licensed in accordance with the \n          [3:open definition].\n          [4:]\n          [5:[6:]]"
+msgstr ""
+"All [1:code] \n"
+"          and [2:data] is \n"
+"          openly licensed in accordance with the \n"
+"          [3:open definition].\n"
+"          [4:]\n"
+"          [5:[6:]]"
 
 #: openspending/ui/templates/account/login.html:5
 #: openspending/ui/templates/account/settings.html:5
 #: openspending/ui/templates/dataset/new.html:5
 #: openspending/ui/templates/dataset/new_cta.html:5
 msgid "nav-account"
-msgstr "[UNTRANSLATED] nav-account"
+msgstr "nav-account"
 
 #: openspending/ui/templates/account/login.html:7
 #: openspending/ui/templates/account/login.html:13
@@ -407,7 +405,9 @@ msgstr "Nastavenia účtu"
 msgid ""
 "Leave both fields blank to keep\n"
 "                your current password."
-msgstr "Nechajte obe polia prázdne pre zachovanie \n                Vášho súčasného hesla."
+msgstr ""
+"Nechajte obe polia prázdne pre zachovanie \n"
+"                Vášho súčasného hesla."
 
 #: openspending/ui/templates/account/settings.html:44
 msgid "API Key"
@@ -417,7 +417,9 @@ msgstr "API kľúč"
 msgid ""
 "Use this key to access the OpenSpending\n"
 "                API programmatically."
-msgstr "Použite tento kľúč na vstup do OpenSpending\n                API."
+msgstr ""
+"Použite tento kľúč na vstup do OpenSpending\n"
+"                API."
 
 #: openspending/ui/templates/dataset/_nav.html:14
 msgid "Entries"
@@ -438,26 +440,11 @@ msgstr "Preskúmať"
 msgid "Manage"
 msgstr "Spravovať"
 
-#: openspending/ui/templates/dataset/_select.html:68
-msgid "OpenSpending — mapping the money."
-msgstr ""
-
-#: openspending/ui/templates/dataset/_select.html:76
-#: openspending/ui/templates/dataset/_select.html:80
-#: openspending/ui/templates/dataset/new.html:7
-#: openspending/ui/templates/dataset/new.html:11
-#: openspending/ui/templates/dataset/new_cta.html:7
-msgid "Import a dataset"
-msgstr "Importovať dátový súbor"
-
-#: openspending/ui/templates/dataset/_select.html:82
-msgid "Close"
-msgstr ""
-
 #: openspending/ui/templates/dataset/about.html:9
 #: openspending/ui/templates/dataset/dropdb.html:5
 #: openspending/ui/templates/dataset/explorer.html:6
 #: openspending/ui/templates/dataset/index.html:5
+#: openspending/ui/templates/dataset/timeline.html:6
 #: openspending/ui/templates/dataset/view.html:8
 #: openspending/ui/templates/dimension/index.html:6
 #: openspending/ui/templates/dimension/view.html:5
@@ -466,12 +453,12 @@ msgstr ""
 #: openspending/ui/templates/home/index.html:5
 #: openspending/ui/templates/home/reporterror.html:5
 msgid "nav-dataset"
-msgstr "[UTNRANSLATED] nav-dataset"
+msgstr "nav-dataset"
 
 #: openspending/ui/templates/dataset/about.html:23
-#: openspending/ui/templates/dataset/new.html:92
-#: openspending/ui/templates/dimension/member.html:39
-#: openspending/ui/templates/editor/core.html:63
+#: openspending/ui/templates/dataset/new.html:85
+#: openspending/ui/templates/dimension/member.html:19
+#: openspending/ui/templates/editor/core.html:56
 #: openspending/ui/templates/entry/view.html:80
 msgid "Description"
 msgstr "Popis"
@@ -491,7 +478,11 @@ msgid ""
 "              for this dataset. If you want to look at the exact data \n"
 "              that is used to generate aggregates, you can also use a \n"
 "              [1:bulk export]."
-msgstr "Toto je zoznam všetkých zdrojových dát zaregistrovaných\n              pre tento dátový súbor. Ak sa chcete pozrieť na konkrétne dáta \n             ,  ktoré sú použité na vytvorenie agregátov, môžete použiť tiež \n              [1:bulk export]."
+msgstr ""
+"Toto je zoznam všetkých zdrojových dát zaregistrovaných\n"
+"              pre tento dátový súbor. Ak sa chcete pozrieť na konkrétne dáta \n"
+"             ,  ktoré sú použité na vytvorenie agregátov, môžete použiť tiež \n"
+"              [1:bulk export]."
 
 #: openspending/ui/templates/dataset/about.html:47
 msgid "Team"
@@ -502,7 +493,10 @@ msgid ""
 "These people are the managers of the dataset. They can\n"
 "              make modifications to its schema and are responsible\n"
 "              to make sure the data is accurate."
-msgstr "Títo ľudia spravujú dátový súbor. Môžu\n             robiť úpravy v jeho schéme a sú zodpovdní \n             za zaistenie správnosti údajov."
+msgstr ""
+"Títo ľudia spravujú dátový súbor. Môžu\n"
+"             robiť úpravy v jeho schéme a sú zodpovdní \n"
+"             za zaistenie správnosti údajov."
 
 #: openspending/ui/templates/dataset/about.html:61
 msgid "Measures"
@@ -512,7 +506,9 @@ msgstr "Veľkosti"
 msgid ""
 "Measures are the numeric properties of each entry in this \n"
 "          dataset."
-msgstr "Veľkosti sú numerické vlastnosti každého záznamu v tomto \n          datátovom súbore."
+msgstr ""
+"Veľkosti sú numerické vlastnosti každého záznamu v tomto \n"
+"          datátovom súbore."
 
 #: openspending/ui/templates/dataset/about.html:74
 msgid "Dimensions"
@@ -522,7 +518,9 @@ msgstr "Dimenzie"
 msgid ""
 "Dimensions are different aspects of the dataset, such as the\n"
 "          spender, recipient or classifications that apply."
-msgstr "Dimenzie sú rôzne aspekty datasetu, ako napríklad\n          vydal (spender), príjemca, alebo iná použitá klasifikácia."
+msgstr ""
+"Dimenzie sú rôzne aspekty datasetu, ako napríklad\n"
+"          vydal (spender), príjemca, alebo iná použitá klasifikácia."
 
 #: openspending/ui/templates/dataset/dropdb.html:7
 msgid "Database erased"
@@ -533,14 +531,12 @@ msgid "OpenSpending: mapping the money"
 msgstr "OpenSpending: mapujeme peniaze"
 
 #: openspending/ui/templates/dataset/dropdb.html:13
-msgid ""
-"The database should now have been erased. You'll even have to create a new "
-"user to log in again."
+msgid "The database should now have been erased. You'll even have to create a new user to log in again."
 msgstr "Databáza by teraz mala byť odstránená. Budete musieť vytvoriť nového používateľa, aby ste sa mohli opätovne prihlásiť."
 
 #: openspending/ui/templates/dataset/explorer.html:83
 msgid "Explorer"
-msgstr "[UNTRANSLATED] Explorer"
+msgstr ""
 
 #: openspending/ui/templates/dataset/explorer.html:90
 msgid "back »"
@@ -559,14 +555,20 @@ msgid "The database contains the following datasets:"
 msgstr "Databáza obsahuje nasledujúce dátové súbory:"
 
 #: openspending/ui/templates/dataset/index.html:30
-#: openspending/ui/templates/editor/core.html:43
+#: openspending/ui/templates/editor/core.html:36
 msgid "Countries"
 msgstr "Krajiny"
 
 #: openspending/ui/templates/dataset/index.html:40
-#: openspending/ui/templates/editor/core.html:53
+#: openspending/ui/templates/editor/core.html:46
 msgid "Languages"
 msgstr "Jazyky"
+
+#: openspending/ui/templates/dataset/new.html:7
+#: openspending/ui/templates/dataset/new.html:11
+#: openspending/ui/templates/dataset/new_cta.html:7
+msgid "Import a dataset"
+msgstr "Importovať dátový súbor"
 
 #. List of steps to take
 #: openspending/ui/templates/dataset/new.html:14
@@ -582,7 +584,18 @@ msgid ""
 "            [10:[11:import] the data,]\n"
 "            [12:and generate [13:visualized views].]\n"
 "          ]"
-msgstr "[UNTRANSLATED] Pokiaľ máte dátový súbor obsahujúci výdavky alebo rozpočet \n          ,ktorým môžete prispieť, prosím zadajte základné informácie \n          sem.\n          [1:][2:]In the next steps, you'll\n          [3:\n            [4:add references to [5:data sources],]\n            [6:create a [7:data model] to describe the format,]\n            [8:[9:test] the correctness of your model,]\n            [10:[11:import] the data,]\n            [12:and generate [13:visualized views].]\n          ]"
+msgstr ""
+"NEPRELOZENE Pokiaľ máte dátový súbor obsahujúci výdavky alebo rozpočet \n"
+"          ,ktorým môžete prispieť, prosím zadajte základné informácie \n"
+"          sem.\n"
+"          [1:][2:]In the next steps, you'll\n"
+"          [3:\n"
+"            [4:add references to [5:data sources],]\n"
+"            [6:create a [7:data model] to describe the format,]\n"
+"            [8:[9:test] the correctness of your model,]\n"
+"            [10:[11:import] the data,]\n"
+"            [12:and generate [13:visualized views].]\n"
+"          ]"
 
 #: openspending/ui/templates/dataset/new.html:33
 msgid "Import from a DataHub Dataset"
@@ -593,11 +606,14 @@ msgid ""
 "Paste the url of your [1:http://thedatahub.org/] dataset\n"
 "            and we will take care of pulling all the relevant information automatically\n"
 "            (though you will get a chance to review and amend it)."
-msgstr "Sem vložte url vášho [1:http://thedatahub.org/] datasetu\n            a my sa postaráme o automatické vybratie relevantných informácií\n            (dáme vám však možnosť na prezretie a úpravy)."
+msgstr ""
+"Sem vložte url vášho [1:http://thedatahub.org/] datasetu\n"
+"            a my sa postaráme o automatické vybratie relevantných informácií\n"
+"            (dáme vám však možnosť na prezretie a úpravy)."
 
 #: openspending/ui/templates/dataset/new.html:45
 msgid "OR"
-msgstr "[UNTRANSLATED] OR"
+msgstr "OR"
 
 #: openspending/ui/templates/dataset/new.html:48
 msgid "Dataset not yet on the DataHub?"
@@ -607,7 +623,9 @@ msgstr "Dátový súbor sa ešte nenachádza v DataHub?"
 msgid ""
 "No problem! You can still import your dataset as long as the\n"
 "            data file is online somewhere."
-msgstr "Nevadí! Stále môžete importovať váš dataset, pokiaľ\n            je dátový súbor dostupný niekde na internete."
+msgstr ""
+"Nevadí! Stále môžete importovať váš dataset, pokiaľ\n"
+"            je dátový súbor dostupný niekde na internete."
 
 #: openspending/ui/templates/dataset/new.html:51
 msgid "Get Started »"
@@ -627,22 +645,15 @@ msgid ""
 "The identifier will become part of the\n"
 "                  dataset URL and cannot be changed later. It may only \n"
 "                  contain alphanumeric characters, dashes and underscores."
-msgstr "Identifikátor sa stane súčasťou\n                  URL dátového súboru a neskôr už nemôže byť zmenený. Môže \n                  obsahovať iba alfanumerické znaky, pomlčky a podčiarkovníky."
+msgstr ""
+"Identifikátor sa stane súčasťou\n"
+"                  URL dátového súboru a neskôr už nemôže byť zmenený. Môže \n"
+"                  obsahovať iba alfanumerické znaky, pomlčky a podčiarkovníky."
 
 #: openspending/ui/templates/dataset/new.html:75
 #: openspending/ui/templates/editor/core.html:26
 msgid "Currency"
 msgstr "Mena"
-
-#: openspending/ui/templates/dataset/new.html:78
-#: openspending/ui/templates/editor/core.html:29
-msgid "Commonly used currencies"
-msgstr ""
-
-#: openspending/ui/templates/dataset/new.html:83
-#: openspending/ui/templates/editor/core.html:34
-msgid "All currencies"
-msgstr ""
 
 #: openspending/ui/templates/dataset/new_cta.html:11
 msgid "Contribute your local data!"
@@ -658,7 +669,15 @@ msgid ""
 "        aims to facilitate the presentation of financial information so \n"
 "        anyone - whether data geek or concerned citizen - can contribute \n"
 "        their local city budget or spending reports."
-msgstr "[UNTRANSLATED] We're trying to gather [1:the world's spending\n          information]\n        in a common\n        database so that we can provide common tools for [2:analysis,\n          visualization and comparison]. OpenSpending is an open platform that\n        aims to facilitate the presentation of financial information so \n        anyone - whether data geek or concerned citizen - can contribute \n        their local city budget or spending reports."
+msgstr ""
+"NEPRELOZENE We're trying to gather [1:the world's spending\n"
+"          information]\n"
+"        in a common\n"
+"        database so that we can provide common tools for [2:analysis,\n"
+"          visualization and comparison]. OpenSpending is an open platform that\n"
+"        aims to facilitate the presentation of financial information so \n"
+"        anyone - whether data geek or concerned citizen - can contribute \n"
+"        their local city budget or spending reports."
 
 #: openspending/ui/templates/dataset/new_cta.html:24
 msgid "Why should you contribute?"
@@ -681,7 +700,12 @@ msgid ""
 "          [9:Sign up to contribute]\n"
 "          [10:Learn more]\n"
 "        ]"
-msgstr "[UNTRANSLATED] There are many projects that aim to track financial information. All\n        require these basic services, which we aim to provide:\n         [1:]  [2:]\n        [3:\n          [4:Data loading and validation facilities.]\n          [5:Common visualization types (treemaps, charts, and the bubble\n          tree).]\n          [6:Full-text search for all entries.]\n          [7:Means to track provenance and provide access to the raw\n          data.]\n        ]\n        [8:\n          [9:Sign up to contribute]\n          [10:Learn more]\n        ]"
+msgstr ""
+
+#: openspending/ui/templates/dataset/timeline.html:8
+#: openspending/ui/templates/dataset/timeline.html:39
+msgid "Timeline"
+msgstr "Časová os"
 
 #: openspending/ui/templates/dimension/_nav.html:39
 #: openspending/ui/templates/dimension/_nav.html:44
@@ -694,7 +718,7 @@ msgstr "PublicBodies.org"
 
 #: openspending/ui/templates/dimension/entries.html:6
 msgid "nav-dimension"
-msgstr "[UNTRANSLATED] nav-dimension"
+msgstr "nav-dimension"
 
 #: openspending/ui/templates/dimension/entries.html:8
 #, python-format
@@ -719,7 +743,7 @@ msgstr "Dimenzie v"
 msgid ""
 "%(dataset_label)s: Dimensions\n"
 "      [1:Facets of the dataset.]"
-msgstr "[UNTRANSLATED] %(dataset_label)s: Dimensions\n      [1:Facets of the dataset.]"
+msgstr ""
 
 #: openspending/ui/templates/dimension/index.html:15
 #, python-format
@@ -728,9 +752,9 @@ msgstr "%(dataset)s obsahuje nasledujúce dimenzie:"
 
 #: openspending/ui/templates/dimension/member.html:6
 msgid "nav-member"
-msgstr "[UNTRANSLATED] nav-member"
+msgstr "nav-member"
 
-#: openspending/ui/templates/dimension/member.html:40
+#: openspending/ui/templates/dimension/member.html:20
 #, python-format
 msgid "No description is available for %(member_label)s"
 msgstr "Neexistuje popis pre %(member_label)s"
@@ -740,9 +764,7 @@ msgid "Dimension:"
 msgstr "Dimenzie:"
 
 #: openspending/ui/templates/dimension/view.html:20
-msgid ""
-"All figures are total financial involvement, not just funds received or "
-"spent."
+msgid "All figures are total financial involvement, not just funds received or spent."
 msgstr "Všetky čísla predstavujú celkovú finančnú účasť, nie iba prijaté alebo použité prostriedky."
 
 #: openspending/ui/templates/dimension/view.html:27
@@ -791,7 +813,7 @@ msgstr "Prezretie dátového súboru »"
 #: openspending/ui/templates/editor/index.html:9
 #: openspending/ui/templates/editor/views.html:7
 msgid "nav-editor"
-msgstr "[UNTRANSLATED] nav-editor"
+msgstr "nav-editor"
 
 #: openspending/ui/templates/editor/dimensions.html:60
 msgid "Add Dimension"
@@ -801,114 +823,107 @@ msgstr "Pridať dimenziu"
 msgid "Make sure your dimensions import all source data columns."
 msgstr "Uistite sa, že vaše dimenzie importujú všetky stĺpce zdrojových dát."
 
-#: openspending/ui/templates/editor/dimensions.html:69
+#: openspending/ui/templates/editor/dimensions.html:70
 msgid "Set Unique Dimensions"
 msgstr "Nastavte jedinečné dimenzie"
 
-#: openspending/ui/templates/editor/dimensions.html:71
+#: openspending/ui/templates/editor/dimensions.html:72
 msgid "Identify the dimensions that help to identify each entry."
 msgstr "Označte dimenzie, ktoré pomáhajú identifikovať každý záznam."
 
-#: openspending/ui/templates/editor/dimensions.html:75
+#: openspending/ui/templates/editor/dimensions.html:76
 msgid "Exisiting Dimensions"
 msgstr "Existujúce dimenzie"
 
-#: openspending/ui/templates/editor/dimensions.html:85
+#: openspending/ui/templates/editor/dimensions.html:86
 msgid "Specify which dimensions identify an entry uniquely"
 msgstr "Špecifikujte, ktoré dimenzie jednoznačne identifikujú každý záznam "
 
-#: openspending/ui/templates/editor/dimensions.html:93
+#: openspending/ui/templates/editor/dimensions.html:94
 msgid "Update"
 msgstr "Aktualizovať"
 
-#: openspending/ui/templates/editor/dimensions.html:101
+#: openspending/ui/templates/editor/dimensions.html:102
 msgid "Add new dimension"
 msgstr "Pridať novú dimenziu"
 
-#: openspending/ui/templates/editor/dimensions.html:106
-msgid ""
-"The name you choose should only contain letters, numbers and dashes (i.e., "
-"no spaces)"
+#: openspending/ui/templates/editor/dimensions.html:107
+msgid "The name you choose should only contain letters, numbers and dashes (i.e., no spaces)"
 msgstr "Názov, ktorý vyberiete, by mal obsahovať iba písmená, číslice a pomlčky (žiadne medzery)"
 
-#: openspending/ui/templates/editor/dimensions.html:109
+#: openspending/ui/templates/editor/dimensions.html:110
 msgid ""
 "Where the dimension represents the ultimate source or destination of the funds, \n"
 "                        call it [1:from] or [2:to]."
-msgstr "[UNTRANSLATED] Where the dimension represents the ultimate source or destination of the funds, \n                        call it [1:from] or [2:to]."
+msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:115
+#: openspending/ui/templates/editor/dimensions.html:116
 msgid "Name"
 msgstr "Názov"
 
-#: openspending/ui/templates/editor/dimensions.html:121
+#: openspending/ui/templates/editor/dimensions.html:122
 msgid "Type"
 msgstr "Typ"
 
-#: openspending/ui/templates/editor/dimensions.html:124
+#: openspending/ui/templates/editor/dimensions.html:125
 #: openspending/ui/templates/entry/view.html:78
 msgid "Dimension"
 msgstr "Dimenzia"
 
-#: openspending/ui/templates/editor/dimensions.html:126
+#: openspending/ui/templates/editor/dimensions.html:127
 msgid ""
 "A defined set, like suppliers or classifications, with \n"
 "                                multiple attributes (e.g. supplier name and VAT number)."
-msgstr "Definovaný set s \n viacerými atribútmi (napr. meno dodávateľa a DIČ) ako napríklad dodávatelia alebo klasifikácie."
+msgstr ""
+"Definovaný set s \n"
+" viacerými atribútmi (napr. meno dodávateľa a DIČ) ako napríklad dodávatelia alebo klasifikácie."
 
-#: openspending/ui/templates/editor/dimensions.html:132
+#: openspending/ui/templates/editor/dimensions.html:133
 #: openspending/ui/templates/run/view.html:49
 msgid "Attribute"
 msgstr "Atribút"
 
-#: openspending/ui/templates/editor/dimensions.html:134
+#: openspending/ui/templates/editor/dimensions.html:135
 msgid "A simple value, e.g. descriptions or transaction IDs."
 msgstr "Jednoduchá hodnota, napr: ID popisu alebo transakcie."
 
-#: openspending/ui/templates/editor/dimensions.html:139
+#: openspending/ui/templates/editor/dimensions.html:140
 msgid "Date"
 msgstr "Dátum"
 
-#: openspending/ui/templates/editor/dimensions.html:141
+#: openspending/ui/templates/editor/dimensions.html:142
 msgid "Temporal value, e.g. start of project, date of disbursement."
 msgstr "Časová hodnota, napr. začiatok projektu, dátum vyplatenia."
 
-#: openspending/ui/templates/editor/dimensions.html:146
+#: openspending/ui/templates/editor/dimensions.html:147
 msgid "Measure"
 msgstr "Veľkosť"
 
-#: openspending/ui/templates/editor/dimensions.html:148
+#: openspending/ui/templates/editor/dimensions.html:149
 msgid "Monetary information, e.g. amount disbursed or allocated."
 msgstr "Peňažná informácia, napr. suma, ktorá bola vyplatená alebo vyhradená."
 
-#: openspending/ui/templates/editor/dimensions.html:156
+#: openspending/ui/templates/editor/dimensions.html:157
 msgid "Cancel"
 msgstr "Zrušiť"
 
-#: openspending/ui/templates/editor/dimensions.html:157
+#: openspending/ui/templates/editor/dimensions.html:158
 msgid "Add"
 msgstr "Pridať"
 
-#: openspending/ui/templates/editor/dimensions.html:165
-msgid ""
-"[1:Your model was saved.] You can now try to load a \n"
-"          sample of the data by returning back to the dashboard.\n"
-"          [2:\n"
-"            [3:Visit dashboard]\n"
-"          ]"
-msgstr ""
-
-#: openspending/ui/templates/editor/dimensions.html:176
+#: openspending/ui/templates/editor/dimensions.html:169
 msgid ""
 "The dimensions mapping could not be saved as it \n"
 "                                          contains some errors:"
-msgstr "Mapovanie dimenzií nebolo možné uložiť, pretože \n                                          obsahuje chyby:"
+msgstr ""
+"Mapovanie dimenzií nebolo možné uložiť, pretože \n"
+"                                          obsahuje chyby:"
 
-#: openspending/ui/templates/editor/dimensions.html:192
+#: openspending/ui/templates/editor/dimensions.html:184
 msgid "Dimension mapping"
 msgstr "Mapovanie dimenzií"
 
-#: openspending/ui/templates/editor/dimensions.html:193
+#: openspending/ui/templates/editor/dimensions.html:185
 msgid ""
 "To create a model for your dataset,\n"
 "                                          you need to translate the columns in \n"
@@ -917,53 +932,64 @@ msgid ""
 "                                          can be any property of a line item or \n"
 "                                          transaction that should be presented\n"
 "                                          within OpenSpending."
-msgstr "[UNTRANSLATED] Na vytvorenie modelu pre váš dataset\n                                          musíte preložiť stĺpce vo \n                                          vašom dátovom súbore na \"dimenzie\", logické\n                                          rozdelenie datasetu. Dimenzia\n                                          môže byť akákoľvek vlastnosť riadkovej položky alebo \n                                          transakcia, ktorá by mala byť prezentovaná\n                                          v OpenSpending."
+msgstr ""
+"NEPRELOZENE Na vytvorenie modelu pre váš dataset\n"
+"                                          musíte preložiť stĺpce vo \n"
+"                                          vašom dátovom súbore na \"dimenzie\", logické\n"
+"                                          rozdelenie datasetu. Dimenzia\n"
+"                                          môže byť akákoľvek vlastnosť riadkovej položky alebo \n"
+"                                          transakcia, ktorá by mala byť prezentovaná\n"
+"                                          v OpenSpending."
 
-#: openspending/ui/templates/editor/dimensions.html:202
+#: openspending/ui/templates/editor/dimensions.html:194
 msgid "There are four core dimensions,"
 msgstr "Existujú štyri základné dimenzie,"
 
-#: openspending/ui/templates/editor/dimensions.html:203
-#: openspending/ui/templates/editor/dimensions.html:227
+#: openspending/ui/templates/editor/dimensions.html:195
+#: openspending/ui/templates/editor/dimensions.html:217
 msgid "amount"
 msgstr "čiastka"
 
-#: openspending/ui/templates/editor/dimensions.html:204
-#: openspending/ui/templates/editor/dimensions.html:229
+#: openspending/ui/templates/editor/dimensions.html:196
+#: openspending/ui/templates/editor/dimensions.html:219
 msgid "time"
 msgstr "čas"
 
-#: openspending/ui/templates/editor/dimensions.html:204
+#: openspending/ui/templates/editor/dimensions.html:196
 msgid ""
 "— which are\n"
 "                                          mandatory — as well as"
-msgstr "— ktoré sú\n                                         povinné— rovnako ako"
+msgstr ""
+"— ktoré sú\n"
+"                                         povinné— rovnako ako"
 
-#: openspending/ui/templates/editor/dimensions.html:206
-#: openspending/ui/templates/editor/dimensions.html:235
+#: openspending/ui/templates/editor/dimensions.html:198
+#: openspending/ui/templates/editor/dimensions.html:225
 msgid "from"
 msgstr "od"
 
-#: openspending/ui/templates/editor/dimensions.html:206
+#: openspending/ui/templates/editor/dimensions.html:198
 msgid ""
 "for the spender,\n"
 "                                          and"
-msgstr "pre výdajcu prostriedkov,\n                                          a"
+msgstr ""
+"pre výdajcu prostriedkov,\n"
+"                                          a"
 
-#: openspending/ui/templates/editor/dimensions.html:207
-#: openspending/ui/templates/editor/dimensions.html:238
+#: openspending/ui/templates/editor/dimensions.html:199
+#: openspending/ui/templates/editor/dimensions.html:228
 msgid "to"
 msgstr "do"
 
-#: openspending/ui/templates/editor/dimensions.html:207
+#: openspending/ui/templates/editor/dimensions.html:199
 msgid ""
 "for the\n"
-"                                          recipient of a specific transaction\n"
-"                                          — both of those must be\n"
-"                                          dimensions if they exist."
+"                                          recipient of a specific transaction."
 msgstr ""
+"pre\n"
+"                                          príjemcu konkrétnej transakcie."
 
-#: openspending/ui/templates/editor/dimensions.html:212
+#: openspending/ui/templates/editor/dimensions.html:202
 msgid ""
 "Beyond that, you can add your own\n"
 "                                          dimensions to describe aspects such\n"
@@ -971,59 +997,75 @@ msgid ""
 "                                          descriptions, transaction IDs and any\n"
 "                                          other details present in the source\n"
 "                                          data."
-msgstr "Okrem toho môžete pridať vaše vlastné\n                                          dimenzie na opísanie aspektov ako\n                                          klasifikačné schémy,\n                                          opisy, ID transakcií a akékoľvek\n                                          iné detaily nachádzajúce sa v zdrojových\n                                          dátach."
+msgstr ""
+"Okrem toho môžete pridať vaše vlastné\n"
+"                                          dimenzie na opísanie aspektov ako\n"
+"                                          klasifikačné schémy,\n"
+"                                          opisy, ID transakcií a akékoľvek\n"
+"                                          iné detaily nachádzajúce sa v zdrojových\n"
+"                                          dátach."
 
-#: openspending/ui/templates/editor/dimensions.html:220
+#: openspending/ui/templates/editor/dimensions.html:210
 msgid "What do I do here?"
 msgstr "Čo tu mám urobiť?"
 
-#: openspending/ui/templates/editor/dimensions.html:221
+#: openspending/ui/templates/editor/dimensions.html:211
 msgid ""
 "First off, make sure to set up the\n"
 "                                          model to conform to these basic\n"
 "                                          requirements:"
-msgstr "V prvom rade, uistite sa, že model je nastavený tak\n                                          aby sa prispôsobil týmto základným\n                                         požiadavkam:"
+msgstr ""
+"V prvom rade, uistite sa, že model je nastavený tak\n"
+"                                          aby sa prispôsobil týmto základným\n"
+"                                         požiadavkam:"
 
-#: openspending/ui/templates/editor/dimensions.html:227
+#: openspending/ui/templates/editor/dimensions.html:217
 msgid "Create"
 msgstr "Vytvoriť"
 
-#: openspending/ui/templates/editor/dimensions.html:227
+#: openspending/ui/templates/editor/dimensions.html:217
 msgid ""
 "with the core \n"
 "                                          financial measure of the dataset and"
-msgstr "so základnou\n                                          finančnou veľkosť dátového súboru"
+msgstr ""
+"so základnou\n"
+"                                          finančnou veľkosť dátového súboru"
 
-#: openspending/ui/templates/editor/dimensions.html:229
+#: openspending/ui/templates/editor/dimensions.html:219
 msgid ""
 "to represent the most \n"
 "                                          representative temporal\n"
 "                                          dimension."
-msgstr "na prezentovanie najviac \n                                          reprezentatívnej časovejl\n                                          dimenzie."
+msgstr ""
+"na prezentovanie najviac \n"
+"                                          reprezentatívnej časovejl\n"
+"                                          dimenzie."
 
-#: openspending/ui/templates/editor/dimensions.html:232
+#: openspending/ui/templates/editor/dimensions.html:222
 msgid ""
 "If your data is transactional and \n"
 "                                          contains the name of a department or \n"
 "                                          body spending the funds, make sure to \n"
 "                                          include a"
-msgstr "Ak sú vaše dáta transakčné a \n                                          obsahujú meno oddelenia alebo \n                                          orgánu, ktorý nakladá s prostriedkami, uistite sa, že \n                                          zahrniete"
+msgstr ""
+"Ak sú vaše dáta transakčné a \n"
+"                                          obsahujú meno oddelenia alebo \n"
+"                                          orgánu, ktorý nakladá s prostriedkami, uistite sa, že \n"
+"                                          zahrniete"
 
-#: openspending/ui/templates/editor/dimensions.html:235
+#: openspending/ui/templates/editor/dimensions.html:225
 msgid "dimension."
 msgstr "dimenziu."
 
-#: openspending/ui/templates/editor/dimensions.html:236
+#: openspending/ui/templates/editor/dimensions.html:226
 msgid ""
 "If the data mentions a recipient,\n"
 "                                          such as a supplier, set"
-msgstr "Ak sa v dátach spomína príjemca,\n                                          ako napr. dodávateľ, nastavte"
-
-#: openspending/ui/templates/editor/dimensions.html:238
-msgid "as another dimension."
 msgstr ""
+"Ak sa v dátach spomína príjemca,\n"
+"                                          ako napr. dodávateľ, nastavte"
 
-#: openspending/ui/templates/editor/dimensions.html:239
+#: openspending/ui/templates/editor/dimensions.html:229
 msgid ""
 "Set a unique key combination so\n"
 "                                          that the values within that\n"
@@ -1031,9 +1073,15 @@ msgid ""
 "                                          entries in the dataset. This can\n"
 "                                          later be used for updating the\n"
 "                                          dataset."
-msgstr "Nastavte jedinečnú kombináciu kľúčov tak\n                                          aby hodnoty v rámci\n                                          tejto kombinácie boli rôzne medzi všetkými \n                                          záznamami v datasete. Toto môže\n                                          byť neskôr využité pri aktualizovaní\n                                          datasetu."
+msgstr ""
+"Nastavte jedinečnú kombináciu kľúčov tak\n"
+"                                          aby hodnoty v rámci\n"
+"                                          tejto kombinácie boli rôzne medzi všetkými \n"
+"                                          záznamami v datasete. Toto môže\n"
+"                                          byť neskôr využité pri aktualizovaní\n"
+"                                          datasetu."
 
-#: openspending/ui/templates/editor/dimensions.html:246
+#: openspending/ui/templates/editor/dimensions.html:236
 msgid ""
 "After you've done these basic things,\n"
 "                                          make sure to also create dimensions\n"
@@ -1043,9 +1091,17 @@ msgid ""
 "                                          dimension, for example if each row \n"
 "                                          mentions both a company's name and\n"
 "                                          its VAT number."
-msgstr "Potom, čo ste zvládli tieto základné veci,\n                                          uistite sa, že vytvoríte dimenzie\n                                          pokrývajúce každý ďalší aspekt obsiahnutý \n                                          v zdroji dát. Možete zoskupiť\n                                          súvisiace stĺpce do jednej \n                                          dimenzie, napríklad, ak každý riadok \n                                          obsahuje aj meno spoločnosti \n                                          aj jej DIČ."
+msgstr ""
+"Potom, čo ste zvládli tieto základné veci,\n"
+"                                          uistite sa, že vytvoríte dimenzie\n"
+"                                          pokrývajúce každý ďalší aspekt obsiahnutý \n"
+"                                          v zdroji dát. Možete zoskupiť\n"
+"                                          súvisiace stĺpce do jednej \n"
+"                                          dimenzie, napríklad, ak každý riadok \n"
+"                                          obsahuje aj meno spoločnosti \n"
+"                                          aj jej DIČ."
 
-#: openspending/ui/templates/editor/dimensions.html:259
+#: openspending/ui/templates/editor/dimensions.html:249
 msgid "Background: How does OpenSpending store data?"
 msgstr "Pozadie: Ako OpenSpending uchováva dáta?"
 
@@ -1057,7 +1113,9 @@ msgstr "Nemôžete upravovať dimenzie pokiaľ máte načítané dáta."
 msgid ""
 "In order to modify the dimensions model, you'll have to \n"
 "            delete all the data that is currently loaded from the database."
-msgstr "Na to, aby ste mohli upraviť model dimenzií, musíte \n            vymazať všetky dáta, ktoré sú momentálne načítane z databázy."
+msgstr ""
+"Na to, aby ste mohli upraviť model dimenzií, musíte \n"
+"            vymazať všetky dáta, ktoré sú momentálne načítane z databázy."
 
 #: openspending/ui/templates/editor/dimensions_errors.html:33
 msgid "You need to define at least one data source."
@@ -1067,112 +1125,144 @@ msgstr "Musíte definovať aspoň jeden zdroj dát."
 msgid ""
 "In order to create a dimensions model, at least on data source\n"
 "            needs to be available."
-msgstr "Na to, aby ste vytvorili model dimenzií, musíte mať k dispozícii aspoň jeden zdroj dát\n .            "
+msgstr ""
+"Na to, aby ste vytvorili model dimenzií, musíte mať k dispozícii aspoň jeden zdroj dát\n"
+" .            "
 
 #: openspending/ui/templates/editor/index.html:21
 msgid ""
 "[1:Congratulations, your dataset is now created.] Next, you'll need\n"
 "            to link to a source file that contains the data (or a sample for testing\n"
 "            if your dataset is very large!). The data must be in the CSV format."
-msgstr "[1:Blahoželáme, váš dataset je teraz vytvorený.] Ďalej budete potrebovať\n           prepojiť zdrojový súbor, ktorý obsahuje dáta (alebo vzorku na testovanie\n           ak je váš dataset príliš veľký!). Dáta musia byť v CSV formáte."
+msgstr ""
+"[1:Blahoželáme, váš dataset je teraz vytvorený.] Ďalej budete potrebovať\n"
+"           prepojiť zdrojový súbor, ktorý obsahuje dáta (alebo vzorku na testovanie\n"
+"           ak je váš dataset príliš veľký!). Dáta musia byť v CSV formáte."
 
 #: openspending/ui/templates/editor/index.html:27
 msgid ""
 "Learn about [1:how to export CSV] from various common\n"
 "                applications."
-msgstr "Zistiť [1:ako exportovať CSV] z rôznych bežných\n                aplikácií."
+msgstr ""
+"Zistiť [1:ako exportovať CSV] z rôznych bežných\n"
+"                aplikácií."
 
 #: openspending/ui/templates/editor/index.html:29
 msgid ""
 "Help on [1:common data wrangling tasks] needed to clean\n"
 "                source data."
-msgstr "[UNTRANSLATED] Help on [1:common data wrangling tasks] needed to clean\n                source data."
+msgstr ""
 
-#: openspending/ui/templates/editor/index.html:36
-#: openspending/ui/templates/editor/index.html:63
+#: openspending/ui/templates/editor/index.html:37
+#: openspending/ui/templates/editor/index.html:67
 msgid "Add a source"
 msgstr "Pridať zdroj"
 
-#: openspending/ui/templates/editor/index.html:40
+#: openspending/ui/templates/editor/index.html:41
 msgid ""
 "[1:Let me see...] The data is now being checked to\n"
 "            see if it can be imported. This should not take very long.\n"
 "            [2:\n"
 "              [3:Refresh]\n"
 "            ]"
-msgstr "[1:Počkajte, prosím...] Dáta sa práve kontrolujú, aby sa zistilo,\n            či ich bude možné importovať. Nemalo by to trvať veľmi dlho.\n            [2:\n              [3:Obnoviť]\n            ]"
+msgstr ""
+"[1:Počkajte, prosím...] Dáta sa práve kontrolujú, aby sa zistilo,\n"
+"            či ich bude možné importovať. Nemalo by to trvať veľmi dlho.\n"
+"            [2:\n"
+"              [3:Obnoviť]\n"
+"            ]"
 
-#: openspending/ui/templates/editor/index.html:49
+#: openspending/ui/templates/editor/index.html:50
 msgid ""
 "[1:Good stuff!] Your data is now ready. Next,\n"
 "            create a [2:data model] to structure the dataset.\n"
 "            [3:\n"
 "              [4:Create\n"
 "                a model]\n"
+"              [5:Learn\n"
+"                more]\n"
 "            ]"
 msgstr ""
+"[1:Dobrá práca!] Vaše dáta sú teraz pripravené. Ďalej\n"
+"           vytvorte [2:dátový model] na štruktúrovanie datasetu.\n"
+"            [3:\n"
+"              [4:Vytvoriť\n"
+"                model]\n"
+"              [5:Dozvedieť sa\n"
+"                viac]\n"
+"            ]"
 
-#: openspending/ui/templates/editor/index.html:61
+#: openspending/ui/templates/editor/index.html:65
 msgid "Source files"
 msgstr "Zdrojové súbory"
 
-#: openspending/ui/templates/editor/index.html:67
+#: openspending/ui/templates/editor/index.html:71
 msgid "Summary"
 msgstr "Zhrnutie"
 
-#: openspending/ui/templates/editor/index.html:69
+#: openspending/ui/templates/editor/index.html:73
 msgid "Entries loaded:"
 msgstr "Načítané záznamy:"
 
-#: openspending/ui/templates/editor/index.html:70
+#: openspending/ui/templates/editor/index.html:74
 msgid "Searchable:"
 msgstr "Prehľadávateľné:"
 
-#: openspending/ui/templates/editor/index.html:72
+#: openspending/ui/templates/editor/index.html:76
 msgid "Dataset Actions"
 msgstr "Akcie datasetu"
 
-#: openspending/ui/templates/editor/index.html:78
+#: openspending/ui/templates/editor/index.html:82
 msgid ""
 "Delete all loaded data to fix \n"
 "              errors and re-edit the data dimensions."
-msgstr "Vymazať všetky načítané dáta, opraviť \n              chyby a upraviť dátové dimenzie."
+msgstr ""
+"Vymazať všetky načítané dáta, opraviť \n"
+"              chyby a upraviť dátové dimenzie."
 
-#: openspending/ui/templates/editor/index.html:83
+#: openspending/ui/templates/editor/index.html:87
 msgid "Delete loaded data"
 msgstr "Vymazať načítané dáta"
 
-#: openspending/ui/templates/editor/index.html:84
+#: openspending/ui/templates/editor/index.html:88
 msgid ""
 "You can remove the loaded data\n"
 "            at any time and start over."
-msgstr "Načítané dáta môžete kedykoľvek odstrániť\n            a začať od začiatku."
+msgstr ""
+"Načítané dáta môžete kedykoľvek odstrániť\n"
+"            a začať od začiatku."
 
-#: openspending/ui/templates/editor/index.html:93
-#: openspending/ui/templates/editor/index.html:99
+#: openspending/ui/templates/editor/index.html:97
+#: openspending/ui/templates/editor/index.html:103
 msgid ""
 "After you've performed some QA,\n"
 "              let the world see this dataset."
-msgstr "Ukážte tento dataset svetu potom ako zodpoviete pár jednoduchých otázok \n ."
+msgstr ""
+"Ukážte tento dataset svetu potom ako zodpoviete pár jednoduchých otázok \n"
+" ."
 
-#: openspending/ui/templates/editor/index.html:98
+#: openspending/ui/templates/editor/index.html:102
 msgid "Make public"
 msgstr "Zverejniť"
 
-#: openspending/ui/templates/editor/index.html:106
+#: openspending/ui/templates/editor/index.html:110
 msgid ""
 "If you have noted serious quality\n"
 "              issues or legal issues, you can un-publish this dataset."
-msgstr "Ak ste narazili na vážne problémy týkajúce sa kvality\n              alebo právnych záležitostí, môžete zrušiť zverejnenie datasetu."
+msgstr ""
+"Ak ste narazili na vážne problémy týkajúce sa kvality\n"
+"              alebo právnych záležitostí, môžete zrušiť zverejnenie datasetu."
 
 #. Warning message on deletion
-#: openspending/ui/templates/editor/index.html:114
+#: openspending/ui/templates/editor/index.html:118
 msgid ""
 "This\n"
 "          action cannot be undone."
-msgstr "Táto\n          akcia už nemôže byť zmenená."
+msgstr ""
+"Táto\n"
+"          akcia už nemôže byť zmenená."
 
-#: openspending/ui/templates/editor/index.html:128
+#: openspending/ui/templates/editor/index.html:132
 msgid "Create a new data source"
 msgstr "Vytvoriť nový dátový zdroj"
 
@@ -1182,7 +1272,11 @@ msgid ""
 "          not have a graphical interface yet. If you still want to use it, \n"
 "          please check out the [2:documentation]\n"
 "          for the 'views' system."
-msgstr "[UNTRANSLATED] [1:Here be dragons.] The visualizations editor does \n          not have a graphical interface yet. If you still want to use it, \n          please check out the [2:documentation]\n          for the 'views' system."
+msgstr ""
+"NEPRELOZENE [1:Here be dragons.] The visualizations editor does \n"
+"          not have a graphical interface yet. If you still want to use it, \n"
+"          please check out the [2:documentation]\n"
+"          for the 'views' system."
 
 #: openspending/ui/templates/editor/views.html:33
 msgid "Available Dimensions"
@@ -1192,11 +1286,13 @@ msgstr "Dostupné dimenzie"
 msgid ""
 "The views could not be saved as they contain some \n"
 "                errors:"
-msgstr "Pohľad nemohol byť uložený, keďže obsahuje  \n                chyby:"
+msgstr ""
+"Pohľad nemohol byť uložený, keďže obsahuje  \n"
+"                chyby:"
 
 #: openspending/ui/templates/entry/view.html:7
 msgid "nav-entry"
-msgstr "[UNTRANSLATED] nav-entry"
+msgstr "nav-entry"
 
 #: openspending/ui/templates/entry/view.html:9
 msgid "Entry Details"
@@ -1216,9 +1312,16 @@ msgid ""
 "      ]\n"
 "      Entry in %(dataset_label)s\n"
 "      [4:Detailed View of Transaction]"
-msgstr "[UNTRANSLATED] [1:\n        [2:\n          [3:]\n        ]\n      ]\n      Entry in %(dataset_label)s\n      [4:Detailed View of Transaction]"
+msgstr ""
+"NEPRELOZENE [1:\n"
+"        [2:\n"
+"          [3:]\n"
+"        ]\n"
+"      ]\n"
+"      Entry in %(dataset_label)s\n"
+"      [4:Detailed View of Transaction]"
 
-#: openspending/ui/templates/entry/view.html:112
+#: openspending/ui/templates/entry/view.html:107
 msgid "Notes:"
 msgstr "Poznámky:"
 
@@ -1240,21 +1343,29 @@ msgstr "Vitajte"
 msgid ""
 "Do you want to help map government finance from all around the globe?\n"
 "      [1:Get involved] in Open Spending!"
-msgstr "Chcete pomôcť mapovať vládne financie z celého sveta?\n      [1:Zapojte sa] do Open Spending!"
+msgstr ""
+"Chcete pomôcť mapovať vládne financie z celého sveta?\n"
+"      [1:Zapojte sa] do Open Spending!"
 
 #: openspending/ui/templates/home/index.html:30
 msgid ""
 "Our aim is to track every government and corporate financial transaction \n"
 "        across the world and present it in useful and engaging forms for everyone\n"
 "        from a school-child to a data geek."
-msgstr "Našim cieľom je zdokumentovať každú vládnu a spoločenskú finančnú transakciu\n        na celom svete a prezentovať ju v užitočnej a zaujímavej forme pre každého\n        , od žiakov po expertov."
+msgstr ""
+"Našim cieľom je zdokumentovať každú vládnu a spoločenskú finančnú transakciu\n"
+"        na celom svete a prezentovať ju v užitočnej a zaujímavej forme pre každého\n"
+"        , od žiakov po expertov."
 
 #: openspending/ui/templates/home/index.html:34
 msgid ""
 "We're an open community that anyone is invited to join! We're looking for\n"
 "        researchers, coders and citizen activists to join us and to help gather and\n"
 "        understand financial data."
-msgstr "Sme otvorená komunita, v ktorej je každý vítaný! Hľadáme\n        výskumníkov, kóderov a občianskych aktivistov, ktorí by sa k nám pridali a pomohli zbierať a \n        pochopiť finančné dáta."
+msgstr ""
+"Sme otvorená komunita, v ktorej je každý vítaný! Hľadáme\n"
+"        výskumníkov, kóderov a občianskych aktivistov, ktorí by sa k nám pridali a pomohli zbierať a \n"
+"        pochopiť finančné dáta."
 
 #: openspending/ui/templates/home/index.html:45
 msgid ""
@@ -1264,7 +1375,13 @@ msgid ""
 "          dataset] to explore or visit our\n"
 "          [3:Spending Blog], where we highlight\n"
 "          spending stories and methods of analyzing the information."
-msgstr "OpenSpending prináša finančné informácie [1:z množstva\n        rôznych krajín] a zdrojov.\n        [2:Vyberte si\n          dataset] ktorý by ste chceli preskúmať, alebo navštívte náš\n          [3:Spending Blog], kde upozorňujeme na\n          jednotlivé prípady výdavkov a popisujeme metódy analyzovania informácií."
+msgstr ""
+"OpenSpending prináša finančné informácie [1:z množstva\n"
+"        rôznych krajín] a zdrojov.\n"
+"        [2:Vyberte si\n"
+"          dataset] ktorý by ste chceli preskúmať, alebo navštívte náš\n"
+"          [3:Spending Blog], kde upozorňujeme na\n"
+"          jednotlivé prípady výdavkov a popisujeme metódy analyzovania informácií."
 
 #: openspending/ui/templates/home/index.html:55
 msgid "Investigate"
@@ -1277,7 +1394,12 @@ msgid ""
 "        list]. When you've found interesting information in the data,\n"
 "      become a contributor to the \n"
 "      [2:Spending Blog] to share your findings."
-msgstr "Máte otázky týkajúce sa výdavkov? Pýtajte sa a pomáhajte hľadať odpovede v\n      našom [1:diskusnom \n        fóre]. Ak ste v dátach našli zaujímavú informáciu,\n      stante sa prispievateľom na  \n      [2:Spending Blogu] a podeľte sa o svoje zistenia."
+msgstr ""
+"Máte otázky týkajúce sa výdavkov? Pýtajte sa a pomáhajte hľadať odpovede v\n"
+"      našom [1:diskusnom \n"
+"        fóre]. Ak ste v dátach našli zaujímavú informáciu,\n"
+"      stante sa prispievateľom na  \n"
+"      [2:Spending Blogu] a podeľte sa o svoje zistenia."
 
 #: openspending/ui/templates/home/index.html:65
 msgid "Contribute"
@@ -1289,7 +1411,10 @@ msgid ""
 "        looking for spending data from all over the world. [1:Import a\n"
 "          dataset] from your country or local community to visualize \n"
 "        and explore government expenditure."
-msgstr "Je váš štát, kraj alebo mesto na OpenSpending? Hľadáme\n        údaje o výdavkoch z celého sveta. [1:Importujte        dátový súbor] z vášho štátu alebo miestnej samosprávy na vizualizáciu \n        a preskúmanie výdavkov vlád/zastupiteľstiev."
+msgstr ""
+"Je váš štát, kraj alebo mesto na OpenSpending? Hľadáme\n"
+"        údaje o výdavkoch z celého sveta. [1:Importujte        dátový súbor] z vášho štátu alebo miestnej samosprávy na vizualizáciu \n"
+"        a preskúmanie výdavkov vlád/zastupiteľstiev."
 
 #: openspending/ui/templates/home/reporterror.html:7
 msgid "Report an issue"
@@ -1305,26 +1430,33 @@ msgid ""
 "      or misrepresented data or that is implausible in terms of the amount\n"
 "      spent, the recipient or the spender, please help us flag these item by\n"
 "      filling out the form below."
-msgstr "Ak si všimnete akékoľvek výdavky, ktoré sa zdajú byť založené na chybných\n      alebo skreslených dátach, alebo sú nepravdepodobné čo sa týka objemu\n      ktorý bol použitý, príjemcu alebo vynakladateľa prostriedkov, prosím, pomôžte nám ich označiť\n      tak, že vyplníte formulár uvedený nižšie."
+msgstr ""
+"Ak si všimnete akékoľvek výdavky, ktoré sa zdajú byť založené na chybných\n"
+"      alebo skreslených dátach, alebo sú nepravdepodobné čo sa týka objemu\n"
+"      ktorý bol použitý, príjemcu alebo vynakladateľa prostriedkov, prosím, pomôžte nám ich označiť\n"
+"      tak, že vyplníte formulár uvedený nižšie."
 
 #: openspending/ui/templates/home/rest.html:5
 msgid "nav-api"
-msgstr "[UNTRANSLATED] nav-api"
+msgstr "nav-api"
 
 #: openspending/ui/templates/home/rest.html:7
 msgid "REST API"
-msgstr "[UNTRANSLATED] ]REST API"
+msgstr "REST API"
 
 #: openspending/ui/templates/home/rest.html:10
 msgid "The Store's REST API"
-msgstr "[UNTRANSLATED] The Store's REST API"
+msgstr "NEPRELOZENE The Store's REST API"
 
 #: openspending/ui/templates/home/rest.html:12
 msgid ""
 "This API returns JSON versions of the store's domain objects.\n"
 "    The URLs are generally the same as the URLs used by the web interface for\n"
 "    the same objects, but with \"/api/rest\" prepended."
-msgstr "[UNTRANSLATED] This API returns JSON versions of the store's domain objects.\n    The URLs are generally the same as the URLs used by the web interface for\n    the same objects, but with \"/api/rest\" prepended."
+msgstr ""
+"NEPRELOZENE This API returns JSON versions of the store's domain objects.\n"
+"    The URLs are generally the same as the URLs used by the web interface for\n"
+"    the same objects, but with \"/api/rest\" prepended."
 
 #: openspending/ui/templates/home/rest.html:17
 msgid "Here are some examples:"
@@ -1334,19 +1466,24 @@ msgstr "Tu je niekoľko príkladov:"
 msgid ""
 "The JSON response generally contains the same information as the\n"
 "    corresponding web page, but in more detail."
-msgstr "JSON odpoveď vo všeobecnosti obsahuje tú istú informáciu ako\n    korešpondujúca webstránka, ale detailnejšie."
+msgstr ""
+"JSON odpoveď vo všeobecnosti obsahuje tú istú informáciu ako\n"
+"    korešpondujúca webstránka, ale detailnejšie."
 
 #: openspending/ui/templates/home/rest.html:29
 msgid ""
 "A JSONP object is returned if a [1:callback] parameter is\n"
 "    supplied (usually by appending \"?callback=myfun\" or\n"
 "    similar)."
-msgstr "[UNTRANSLATED] JSONP object is returned if a [1:callback] parameter is\n    supplied (usually by appending \"?callback=myfun\" or\n    similar)."
+msgstr ""
+"NEPRELOZENE JSONP object is returned if a [1:callback] parameter is\n"
+"    supplied (usually by appending \"?callback=myfun\" or\n"
+"    similar)."
 
 #: openspending/ui/templates/run/view.html:7
 #: openspending/ui/templates/source/new.html:8
 msgid "nav-source"
-msgstr "[UNTRANSLATED] nav-source"
+msgstr "nav-source"
 
 #: openspending/ui/templates/run/view.html:9
 #: openspending/ui/templates/run/view.html:14
@@ -1367,7 +1504,9 @@ msgid ""
 "      successfully. This does not mean the data is stored in a form \n"
 "      which is semantically useful, though, so don't forget to \n"
 "      sanity-check a few entries!"
-msgstr "Zdroj bol úspešne\n      načítaný. To však neznamená, že dáta sú uchované vo forme      ktorá by bola sémanticky zmysluplná, takže nezabudnite pre istotu      skontrolovať niekoľko záznamov!"
+msgstr ""
+"Zdroj bol úspešne\n"
+"      načítaný. To však neznamená, že dáta sú uchované vo forme      ktorá by bola sémanticky zmysluplná, takže nezabudnite pre istotu      skontrolovať niekoľko záznamov!"
 
 #: openspending/ui/templates/run/view.html:30
 msgid "Level"
@@ -1445,3 +1584,4 @@ msgstr "Musí byť zvolený priamo           platný CSV súbor. HTML stránky a
 #: openspending/ui/templates/source/new.html:17
 msgid "Create a data source"
 msgstr "Vytvoriť dátový zdroj"
+

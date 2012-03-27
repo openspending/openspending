@@ -6,6 +6,7 @@
   >
 
   <xi:include href="../_util.html" />
+  <xi:include href="../view/_widgets.html" />
   <!-- templates/dataset/embed.html top -->
 
   <head>
@@ -23,8 +24,16 @@
     <link href="${h.static('style/style.css')}" rel="stylesheet" />
     <!-- link href="${h.static('style/embed.css')}" rel="stylesheet" / -->
     <style>
-        body {
-            padding-top: 0px;
+        body, html, #widget {
+            padding: 0px;
+            margin: 0px;
+            width: 100%;
+            height: 100%;
+        }
+
+        #widget {
+            width: 100%;
+            height: 100%;
         }
     </style>
     
@@ -36,14 +45,18 @@
   <!-- templates/dataset/embed.html body -->
 
   <body>
-    <img id="kitten" src="http://placekitten.com/700/500" />
+    ${widget_elem(c.widget)}
 
-    ${script_tag('vendor/jquery')}
-    ${script_tag('vendor/underscore')}
-    ${script_tag('vendor/handlebars')}
-    ${script_tag('vendor/bootstrap')}
-    ${script_tag('utils/utils')}
+    ${script_tag('lib/vendor/yepnope.min')}
+    ${script_tag('lib/vendor/jquery')}
+    ${script_tag('lib/vendor/underscore')}
+    ${script_tag('lib/vendor/handlebars')}
+    ${script_tag('lib/vendor/bootstrap')}
+    ${script_tag('lib/utils/utils')}
 
+    <script>OpenSpending.scriptRoot = "${g.script_root}";</script>
+
+    ${widget_js(c.widget, c.state, '')}
     ${analytics()}
   </body>
 </html>

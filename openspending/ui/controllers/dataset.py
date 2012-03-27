@@ -10,11 +10,12 @@ from openspending.model import Dataset, DatasetTerritory, \
         DatasetLanguage, meta as db
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import to_jsonp
-from openspending.lib import json
+
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.base import require
-from openspending.ui.lib.views import View, ViewState, handle_request
+from openspending.ui.lib.views import handle_request
+from openspending.ui.lib.hypermedia import dataset_apply_links
 from openspending.reference.currency import CURRENCIES
 from openspending.reference.country import COUNTRIES
 from openspending.reference.language import LANGUAGES
@@ -24,23 +25,24 @@ from openspending.ui.controllers.entry import EntryController
 
 log = logging.getLogger(__name__)
 
+
 class DatasetController(BaseController):
 
     def index(self, format='html'):
         c.query = request.params.items()
         c.add_filter = lambda f, v: '?' + urlencode(c.query +
                 [(f, v)] if (f, v) not in c.query else c.query)
-        c.del_filter = lambda f, v: '?' + urlencode([(k,x) for k, x in
-            c.query if (k,x) != (f,v)])
+        c.del_filter = lambda f, v: '?' + urlencode([(k, x) for k, x in
+            c.query if (k, x) != (f, v)])
         c.results = c.datasets
         for language in request.params.getall('languages'):
             l = db.aliased(DatasetLanguage)
             c.results = c.results.join(l, Dataset._languages)
-            c.results = c.results.filter(l.code==language)
+            c.results = c.results.filter(l.code == language)
         for territory in request.params.getall('territories'):
             t = db.aliased(DatasetTerritory)
             c.results = c.results.join(t, Dataset._territories)
-            c.results = c.results.filter(t.code==territory)
+            c.results = c.results.filter(t.code == territory)
         c.results = list(c.results)
         c.territory_options = [{'code': code,
                                 'count': count,
@@ -57,6 +59,7 @@ class DatasetController(BaseController):
 
         if format == 'json':
             results = map(lambda d: d.as_dict(), c.results)
+            results = [dataset_apply_links(r) for r in results]
             return to_jsonp({
                 'datasets': results,
                 'territories': c.territory_options,
@@ -71,13 +74,13 @@ class DatasetController(BaseController):
         return render('dataset/new_cta.html')
 
     def new(self, errors={}):
+        require.dataset.create()
         c.key_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if k],
                 key=lambda (k, v): v)
         c.all_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if not k],
                 key=lambda (k, v): v)
         c.languages = sorted(LANGUAGES.items(), key=lambda (k, v): v)
         c.territories = sorted(COUNTRIES.items(), key=lambda (k, v): v)
-        require.account.create()
         errors = [(k[len('dataset.'):], v) for k, v in errors.items()]
         c.have_error = bool(errors)
         c.dataset_info_style = '' if errors else 'display: none;'
@@ -85,7 +88,7 @@ class DatasetController(BaseController):
                 form_fill=request.params if errors else {'currency': 'USD'})
 
     def create(self):
-        require.account.create()
+        require.dataset.create()
         try:
             dataset = dict(request.params)
             dataset['territories'] = request.params.getall('territories')
@@ -117,9 +120,7 @@ class DatasetController(BaseController):
             return EntryController().index(dataset, format)
 
         if format == 'json':
-            return to_jsonp(c.dataset.as_dict())
-        elif format == 'csv':
-            return write_csv([c.dataset.as_dict()], response)
+            return to_jsonp(dataset_apply_links(c.dataset.as_dict()))
         else:
             return render('dataset/view.html')
 
@@ -137,7 +138,6 @@ class DatasetController(BaseController):
 
     def model(self, dataset, format='json'):
         self._get_dataset(dataset)
-        return to_jsonp(c.dataset.model)
-
-    def embed(self, dataset):
-        return render('dataset/embed.html')
+        model = c.dataset.model
+        model['dataset'] = dataset_apply_links(model['dataset'])
+        return to_jsonp(model)

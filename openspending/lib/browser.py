@@ -126,7 +126,7 @@ def _get_entries(docs):
     for ds_name, ids in by_dataset.iteritems():
         dataset = model.Dataset.by_name(ds_name)
         query = dataset.alias.c.id.in_(ids)
-        entries.extend(dataset.entries(query))
+        entries.extend([(dataset, e) for e in dataset.entries(query)])
 
-    for entry in util.sort_by_reference(ids, entries, lambda x: x['id']):
-        yield entry
+    for dataset, entry in util.sort_by_reference(ids, entries, lambda x: x[1]['id']):
+        yield dataset, entry

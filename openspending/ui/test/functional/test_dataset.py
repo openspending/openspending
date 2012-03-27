@@ -46,7 +46,7 @@ class TestDatasetController(ControllerTestCase):
         response = self.app.get(url(controller='dataset', action='view', dataset='cra'))
         h.assert_true('Country Regional Analysis v2009' in response,
                       "'Country Regional Analysis v2009' not in response!")
-        h.assert_true('36 Entries' in response, "'36 spending entries' not in response!")
+        #h.assert_true('36 Entries' in response, "'36 spending entries' not in response!")
 
     def test_view_private(self):
         cra = Dataset.by_name('cra')
@@ -56,7 +56,7 @@ class TestDatasetController(ControllerTestCase):
             dataset='cra'), status=403)
         h.assert_false('Country Regional Analysis v2009' in response,
                       "'Country Regional Analysis v2009' not in response!")
-        h.assert_false('36 spending entries' in response, "'36 spending entries' not in response!")
+        #h.assert_false('36 spending entries' in response, "'36 spending entries' not in response!")
 
     def test_about_has_format_links(self):
         url_ = url(controller='dataset', action='about', dataset='cra')
@@ -83,15 +83,6 @@ class TestDatasetController(ControllerTestCase):
         h.assert_equal(obj['dataset']['name'], 'cra')
         h.assert_equal(obj['dataset']['label'], 'Country Regional Analysis v2009')
 
-    def test_view_csv(self):
-        response = self.app.get(url(controller='dataset', action='view',
-                                    dataset='cra', format='csv'))
-        r = csv.DictReader(StringIO(response.body))
-        obj = [l for l in r]
-        h.assert_equal(len(obj), 1)
-        h.assert_equal(obj[0]['name'], 'cra')
-        h.assert_equal(obj[0]['label'], 'Country Regional Analysis v2009')
-
     def test_entries(self):
         response = self.app.get(url(controller='entry', action='index', dataset='cra'))
 
@@ -114,20 +105,15 @@ class TestDatasetController(ControllerTestCase):
         obj = [l for l in r]
         h.assert_equal(len(obj), 36)
 
-    def test_explorer(self):
-        h.skip("Not Yet Implemented!")
-
-    def test_timeline(self):
-        h.skip("Not Yet Implemented!")
-
     def test_new_form(self):
         response = self.app.get(url(controller='dataset', action='new'),
-            params={'limit': '20'})
+            params={'limit': '20'}, extra_environ={'REMOTE_USER': 'test'})
         assert "Import a dataset" in response.body
         assert 'Import from a DataHub Dataset' in response.body, response.body
 
     def test_create_dataset(self):
-        response = self.app.post(url(controller='dataset', action='create'))
+        response = self.app.post(url(controller='dataset', action='create'),
+            extra_environ={'REMOTE_USER': 'test'})
         assert "Import a dataset" in response.body
         assert "Required" in response.body
 

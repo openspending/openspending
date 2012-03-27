@@ -46,5 +46,3 @@ class Run(db.Model):
 
     def __repr__(self):
         return "<Run(%s,%s)>" % (self.source.id, self.id)
-
-

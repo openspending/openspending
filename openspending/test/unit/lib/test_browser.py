@@ -66,7 +66,7 @@ class TestBrowser(TestCase):
         b = Browser()
         _, _, entries = b.execute()
 
-        h.assert_equal(list(entries), make_entries([1, 2, 3]))
+        h.assert_equal(map(lambda (a, b): b, entries), make_entries([1, 2, 3]))
 
     def test_entries_stats(self):
         self.conn.raw_query.return_value = make_response([1, 2, 3])
