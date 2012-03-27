@@ -70,7 +70,6 @@ class DimensionController(BaseController):
                       presliced_list=True)
         return render('dimension/view.html')
 
-
     def member(self, dataset, dimension, name, format="html"):
         self._get_member(dataset, dimension, name)
 
@@ -78,7 +77,8 @@ class DimensionController(BaseController):
 
         # If there are no views set up, then go direct to the entries search page
         if c.view is None and format is "html":
-            return redirect(url_for(controller='dimension', action='entries'))
+            return redirect(url_for(controller='dimension', action='entries',
+                dataset=c.dataset.name, dimension=dimension, name=name))
 
         if format == 'json':
             return write_json([c.member], response)
@@ -86,7 +86,6 @@ class DimensionController(BaseController):
             return write_csv([c.member], response)
         else:
             return render('dimension/member.html')
-
 
     def entries(self, dataset, dimension, name, format='html'):
         self._get_member(dataset, dimension, name)
