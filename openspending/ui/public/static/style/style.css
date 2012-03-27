@@ -24,6 +24,8 @@ input, textarea, button, select, .btn {
   -webkit-transform-style: inherit;
 }
 
+
+/*
 a {
   color: #99c862;
 }
@@ -36,6 +38,7 @@ a:hover, a:active {
 .nav-pills .active > a:hover {
   background-color: #99c862;
 }
+*/
 
 /* Replicate pagination */
 
@@ -93,9 +96,11 @@ a:hover, a:active {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
   background-color: #fff;
+  /*
   -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  */
   background: url(../img/noise.png), -webkit-linear-gradient(top, #fff, #eee); 
   background-image: url(../img/noise.png), -moz-linear-gradient(top, #fff, #eee); 
   background-image: url(../img/noise.png), -ms-linear-gradient(top, #fff, #eee); 
@@ -530,6 +535,32 @@ table.sources ul.runs {
 
 .query-builder .fields {
   padding-top: 1em;
+}
+
+/* Widgets */
+
+#widgets-select-list td.desc {
+  vertical-align: top;
+  padding-left: 1em;
+}
+
+#widgets-select-list td.preview,
+#widgets-select-list td.preview img {
+  width: 150px;
+  height: 100px;
+}
+
+#widgets-select-list td.preview img {
+  border: 1px solid #aaa;
+  -webkit-box-shadow: 0px 0px 4px 0px #aaa;
+     -moz-box-shadow: 0px 0px 4px 0px #aaa;
+          box-shadow: 0px 0px 4px 0px #aaa;
+}
+
+
+.widget-context.well {
+  margin-top: 10px;
+  padding: 7px;
 }
 
 /* Bubbletree vs. Bootstrap specific fixes. */

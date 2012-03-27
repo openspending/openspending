@@ -20,7 +20,8 @@ def get_widget(name):
         'js': '%s/main.js' % prefix,
         'base': prefix,
         'class_name': widget_class,
-        'name': name
+        'name': name,
+        'preview': prefix + '/preview.png'
         }
 
 
