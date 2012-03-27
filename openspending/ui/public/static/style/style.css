@@ -338,11 +338,11 @@ table th.num {
 /* Browser */
 .facets {
   display: block;
-  max-height: 15em;
+  max-height: 20em;
   overflow-y: scroll;
   width: 100%;
   border-bottom: 1px solid #ddd;
-  border-left: 1px solid #ddd;
+  /*border-left: 1px solid #ddd;*/
   border-radius: 0px;
 }
 
