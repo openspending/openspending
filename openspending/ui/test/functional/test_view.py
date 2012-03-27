@@ -21,7 +21,7 @@ class TestViewController(ControllerTestCase):
         response = self.app.get(url(controller='view',
             action='new', dataset='cra'),
             extra_environ={'REMOTE_USER': 'test'})
-        assert 'Select visualisation' in response.body
+        assert 'widgets.js' in response.body
 
     def test_create_noauth(self):
         response = self.app.post(url(controller='view', action='create',
