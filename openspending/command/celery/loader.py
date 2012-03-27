@@ -12,8 +12,13 @@ SCHEDULE = {
         "task": "openspending.tasks.analyze_all_sources",
         "schedule": crontab(hour=3, minute=30),
         "args": ()
-        },
-    }
+    },
+    "clean_sessions": {
+        "task": "openspending.tasks.clean_sessions",
+        "schedule": crontab(hour=2, minute=30),
+        "args": ()
+    },
+}
 
 class PylonsSettingsProxy(object):
     """Pylons Settings Proxy
@@ -21,7 +26,7 @@ class PylonsSettingsProxy(object):
     Proxies settings from pylons.config
 
     """
-    
+
     def get(self, key, default=None):
         try:
             return self[key]
@@ -39,7 +44,7 @@ class PylonsSettingsProxy(object):
     def __setattr__(self, key, value):
         pylons_key = to_pylons(key)
         config[pylons_key] = value
-        
+
 
 class PylonsLoader(BaseLoader):
     """Pylons celery loader
