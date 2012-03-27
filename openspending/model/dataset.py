@@ -426,7 +426,7 @@ class Dataset(TableHandler, db.Model):
                         key = 'num_entries'
                     result[key] = value
             drilldown.append(result)
-        offset = ((page - 1) * pagesize)
+        offset = int((page - 1) * pagesize)
 
         # do we really need all this:
         summary['num_drilldowns'] = len(drilldown)
