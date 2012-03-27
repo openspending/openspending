@@ -201,29 +201,18 @@
    <field name="_id" type="string" indexed="true" stored="true" required="true" /> 
    <field name="amount" type="tdouble" indexed="true" stored="true" />
    <field name="dataset" type="string" indexed="true" stored="true" />
-   <field name="name" type="string" indexed="true" stored="true" />
    <field name="*.name" type="string" indexed="true" stored="true" />
    <field name="*.label" type="textgen" indexed="true" stored="true" />
-   <field name="currency" type="string" indexed="true" stored="true" />
-   <field name="time.from.parsed" type="date" indexed="true" stored="true" sortMissingLast="true" />
-   <field name="time.to.parsed" type="date" indexed="true" stored="true" sortMissingLast="true" />
    <field name="time.*" type="string" indexed="true" stored="true" sortMissingLast="true" omitNorms="true" />
-   <field name="location" type="text_ws" indexed="true" stored="true" />
-   <field name="from" type="string" indexed="true" stored="true" />
-   <field name="to" type="string" indexed="true" stored="true" />
-   <field name="description" type="textgen" indexed="true" />
-   <field name="*.description" type="textgen" indexed="true" />
-   <field name="classifiers" type="string" indexed="true" multiValued="true" />
-   <field name="entities" type="string" indexed="true" multiValued="true" />
    <dynamicField name="*" type="string" indexed="true" stored="true"/>
-   <dynamicField name="*_str" type="string" indexed="true" stored="true"/>
+   <dynamicField name="*.label_str" type="string" indexed="true" stored="true"/>
    <dynamicField name="*_dt" type="date" indexed="true" stored="true"/>
    <dynamicField name="*_facet" type="string" omitNorms="true" indexed="true" />
 
    <!-- catchall text field that indexes tokens both normally and in reverse for efficient
         leading wildcard queries. -->
    <field name="text" type="text" indexed="true" stored="false" multiValued="true"/>
-   <field name="text_rev" type="text_rev" indexed="true" stored="false" multiValued="true"/>
+   <!--field name="text_rev" type="text_rev" indexed="true" stored="false" multiValued="true"/-->
  </fields>
 
  <uniqueKey>_id</uniqueKey>
@@ -231,27 +220,9 @@
  <solrQueryParser defaultOperator="AND"/>
 
  <!-- standard text field search -->
- <copyField source="dataset"  dest="text" />
- <copyField source="dataset.title"  dest="text" />
- <copyField source="name"  dest="text" />
- <copyField source="amount"  dest="text" />
- <copyField source="time"  dest="text" />
- <copyField source="location"  dest="text" />
- <copyField source="location"  dest="location_facet" />
- <copyField source="from"  dest="text" />
- <copyField source="to"  dest="text" />
- <copyField source="*title"  dest="text" />
- <copyField source="*name"  dest="text" />
- <copyField source="*description"  dest="text" />
- <copyField source="*label"  dest="text" />
- <copyField source="from.title"  dest="from_facet" />
- <copyField source="to.title"  dest="to_facet" />
- <copyField source="description"  dest="text" />
  <copyField source="*"  dest="text" />
- <copyField source="*_str"  dest="text" />
- <copyField source="*_dt"  dest="text" />
 
  <!-- Copying every field into text_rev, to allow for initial poking about
       Wildcard search on the code fields could be handy perhaps. -->
- <copyField source="text" dest="text_rev" />
+ <!--copyField source="text" dest="text_rev" /-->
 </schema>

@@ -6,9 +6,10 @@ from unidecode import unidecode
 def flatten(data, sep='.'):
     out = {}
     for k, v in data.items():
+        ksep = k + sep
         if isinstance(v, dict):
             for ik, iv in flatten(v, sep).items():
-                out[k + sep + ik] = iv
+                out[ksep + ik] = iv
         else:
             out[k] = v
     return out

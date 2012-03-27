@@ -91,7 +91,7 @@ def extend_entry(entry, dataset):
             vk = k[:len(k)-len(".name")]
             entry[vk] = v
         if k.endswith(".label"):
-            entry[k + "_str"] = entry[k]
+            #entry[k + "_str"] = entry[k]
             entry[k + "_facet"] = entry[k]
     return entry
 
