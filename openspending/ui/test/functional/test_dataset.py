@@ -56,7 +56,7 @@ class TestDatasetController(ControllerTestCase):
             dataset='cra'), status=403)
         h.assert_false('Country Regional Analysis v2009' in response,
                       "'Country Regional Analysis v2009' not in response!")
-        h.assert_false('36 spending entries' in response, "'36 spending entries' not in response!")
+        #h.assert_false('36 spending entries' in response, "'36 spending entries' not in response!")
 
     def test_about_has_format_links(self):
         url_ = url(controller='dataset', action='about', dataset='cra')
