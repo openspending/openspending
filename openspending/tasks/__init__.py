@@ -76,6 +76,7 @@ def clean_sessions():
     sessions_dir = os.path.join(cache_dir, 'sessions')
     if not os.path.isdir(sessions_dir):
         log.warn("No 'sessions' directory found in %s, skipping clean_sessions task!", cache_dir)
+        return
 
     # remove all session files with an atime more than 1 day ago
     return subprocess.call(['find', sessions_dir, '-type', 'f', '!', '-atime', '0', '-delete'])
