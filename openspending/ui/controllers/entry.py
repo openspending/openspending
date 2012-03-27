@@ -6,6 +6,7 @@ from pylons.i18n import _
 
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.views import handle_request
+from openspending.ui.lib.hypermedia import entry_apply_links
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import write_json, to_jsonp
 from openspending.ui.lib import helpers as h
@@ -23,10 +24,15 @@ class EntryController(BaseController):
     def index_export(self, dataset, format):
         self._get_dataset(dataset)
 
+        # TODO include html_urls in dumps.
+        #processor = lambda e: entry_apply_links(c.dataset.name, e)
+
         if format == 'json':
-            return write_json(c.dataset.entries(), response, filename=c.dataset.name + '.json')
+            return write_json(c.dataset.entries(), response,
+                filename=c.dataset.name + '.json')
         if format == 'csv':
-            return write_csv(c.dataset.entries(), response, filename=c.dataset.name + '.csv')
+            return write_csv(c.dataset.entries(), response,
+                filename=c.dataset.name + '.csv')
         else:
             return redirect(h.url_for(controller='entry', action='index'))
 
@@ -35,7 +41,7 @@ class EntryController(BaseController):
         entries = list(c.dataset.entries(c.dataset.alias.c.id == id))
         if not len(entries) == 1:
             abort(404, _('Sorry, there is no entry %r') % id)
-        c.entry = entries.pop()
+        c.entry = entry_apply_links(dataset, entries.pop())
 
         c.id = c.entry.get('id')
         c.from_ = c.entry.get('from')

@@ -15,6 +15,7 @@ from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.base import require
 from openspending.ui.lib.views import handle_request
+from openspending.ui.lib.hypermedia import dataset_apply_links
 from openspending.reference.currency import CURRENCIES
 from openspending.reference.country import COUNTRIES
 from openspending.reference.language import LANGUAGES
@@ -58,6 +59,7 @@ class DatasetController(BaseController):
 
         if format == 'json':
             results = map(lambda d: d.as_dict(), c.results)
+            results = [dataset_apply_links(r) for r in results]
             return to_jsonp({
                 'datasets': results,
                 'territories': c.territory_options,
@@ -118,9 +120,7 @@ class DatasetController(BaseController):
             return EntryController().index(dataset, format)
 
         if format == 'json':
-            return to_jsonp(c.dataset.as_dict())
-        elif format == 'csv':
-            return write_csv([c.dataset.as_dict()], response)
+            return to_jsonp(dataset_apply_links(c.dataset.as_dict()))
         else:
             return render('dataset/view.html')
 
@@ -138,4 +138,6 @@ class DatasetController(BaseController):
 
     def model(self, dataset, format='json'):
         self._get_dataset(dataset)
-        return to_jsonp(c.dataset.model)
+        model = c.dataset.model
+        model['dataset'] = dataset_apply_links(model['dataset'])
+        return to_jsonp(model)

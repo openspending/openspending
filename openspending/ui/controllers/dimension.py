@@ -10,6 +10,8 @@ from openspending.ui.lib.page import Page
 from openspending.ui.lib.views import handle_request
 from openspending.ui.lib.helpers import url_for
 from openspending.ui.lib.cache import AggregationCache
+from openspending.ui.lib.hypermedia import dimension_apply_links, \
+    member_apply_links, entry_apply_links
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import write_json, to_jsonp
 
@@ -17,15 +19,15 @@ log = logging.getLogger(__name__)
 
 PAGE_SIZE = 100
 
-class DimensionController(BaseController):
 
+class DimensionController(BaseController):
 
     def _get_member(self, dataset, dimension_name, name):
         self._get_dataset(dataset)
         c.dimension = dimension_name
         for dimension in c.dataset.compounds:
             if dimension.name == dimension_name:
-                cond = dimension.alias.c.name==name
+                cond = dimension.alias.c.name == name
                 members = list(dimension.members(cond, limit=1))
                 if not len(members):
                     abort(404, _('Sorry, there is no member named %r')
@@ -36,14 +38,14 @@ class DimensionController(BaseController):
                 return
         abort(404, _('Sorry, there is no dimension named %r') % dimension_name)
 
-
     def index(self, dataset, format='html'):
         self._get_dataset(dataset)
         if format == 'json':
-            return to_jsonp([d.as_dict() for d in c.dataset.dimensions])
+            dimensions = [dimension_apply_links(dataset, d.as_dict()) \
+                for d in c.dataset.dimensions]
+            return to_jsonp(dimensions)
         else:
             return render('dimension/index.html')
-
 
     def view(self, dataset, dimension, format='html'):
         self._get_dataset(dataset)
@@ -59,10 +61,12 @@ class DimensionController(BaseController):
         result = cache.aggregate(drilldowns=[dimension], page=page,
                                  pagesize=PAGE_SIZE)
         items = result.get('drilldown', [])
-        c.values = [(d.get(dimension), d.get('amount')) for d in items]
+        c.values = [(member_apply_links(dataset, dimension, d.get(dimension)), \
+            d.get('amount')) for d in items]
 
         if format == 'json':
-            return to_jsonp({"values": c.values, "meta": c.dimension.as_dict()})
+            dimension = dimension_apply_links(dataset, c.dimension.as_dict())
+            return to_jsonp({"values": c.values, "meta": dimension})
 
         c.page = Page(c.values, page=page,
                       item_count=result['summary']['num_drilldowns'],
@@ -80,10 +84,11 @@ class DimensionController(BaseController):
             return redirect(url_for(controller='dimension', action='entries',
                 dataset=c.dataset.name, dimension=dimension, name=name))
 
+        member = [member_apply_links(dataset, dimension, c.member)]
         if format == 'json':
-            return write_json([c.member], response)
+            return write_json(member, response)
         elif format == 'csv':
-            return write_csv([c.member], response)
+            return write_csv(member, response)
         else:
             return render('dimension/member.html')
 
@@ -93,6 +98,7 @@ class DimensionController(BaseController):
         handle_request(request, c, c.member, c.dimension.name)
 
         entries = c.dataset.entries(c.dimension.alias.c.name == c.member['name'])
+        entries = (entry_apply_links(dataset, e) for e in entries)
         attachment_name = '__'.join([dataset, dimension, name])
 
         if format == 'json':
