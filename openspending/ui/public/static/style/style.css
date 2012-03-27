@@ -563,6 +563,10 @@ table.sources ul.runs {
   padding: 7px;
 }
 
+.widget-context.well p {
+  padding-top: 2px;
+}
+
 /* Bubbletree vs. Bootstrap specific fixes. */
 .bubbletree .label {
   padding: 0px;

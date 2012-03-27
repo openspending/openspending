@@ -17,7 +17,25 @@
 
   <py:def function="scripts">
     <!-- templates/dataset/view.html scripts -->
-    ${widget_js(c.widget, c.named_view.state, c.time)}
+    <script type="text/javascript" src="http://localhost/openspendingjs/lib/widgets.js"></script>
+    <script type="text/javascript" src="http://localhost/openspendingjs/app/bob/bob.js"></script>
+
+    ${widget_js(c.widget, c.named_view.state, '')}
+    <script py:if="hasattr(c, 'widget')">
+      (function ($) {
+          window.widget.then(function(w) {
+            var embedder = new OpenSpending.Widgets.Embedder(w, context, '${c.widget.name}');  
+            $("#widget-embed-link").click(function(e) {
+              embedder.render();
+              return false;
+            });
+            $("#widget-edit-link").click(function(e) {
+              w.configure(null);
+              return false;
+            });
+          });
+      })(jQuery);
+    </script>
     ${share_scripts()}
   </py:def>
 
@@ -29,8 +47,12 @@
       <div class="span12"><div id="widget" style="width: auto; height: 400px"/></div>
     </div>
 
-    <div class="row">
-      <p>${c.named_view.description}</p>
+    <div class="well widget-context">
+      <div class="pull-right">
+        <a href="#" class="btn btn-mini" id="widget-embed-link"><i class="icon-share"></i> Embed</a>
+        <a href="#" class="btn btn-mini" id="widget-edit-link"><i class="icon-cog"></i> Change</a>
+      </div>
+       <p>${c.named_view.description}</p>
     </div>
     
     ${share_body()}
