@@ -575,6 +575,8 @@ table.sources ul.runs {
 
 .dataTables_wrapper .dataTables_filter label {
   font-size: 0em;
+  float: none;
+  width: 99%;
 }
 
 .dataTables_wrapper .dataTables_filter input {
