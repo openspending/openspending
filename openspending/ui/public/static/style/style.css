@@ -567,6 +567,26 @@ table.sources ul.runs {
   padding-top: 2px;
 }
 
+/* Datatables style modding */
+.dataTables_wrapper .dataTables_filter {
+  float: none;
+  text-align: left;
+}
+
+.dataTables_wrapper .dataTables_filter label {
+  font-size: 0em;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+  padding: 0.5em;
+  width: 99%;
+  margin-bottom: 1em;
+}
+
+.dataTables_wrapper .table.dataTable {
+  margin-bottom: 1em;
+}
+
 /* Bubbletree vs. Bootstrap specific fixes. */
 .bubbletree .label {
   padding: 0px;
