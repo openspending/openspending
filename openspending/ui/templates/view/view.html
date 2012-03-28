@@ -17,7 +17,7 @@
 
   <py:def function="scripts">
     <!-- templates/dataset/view.html scripts -->
-    ${widget_js(c.widget, c.named_view.state, '', handles=True)}
+    ${widget_js('widget', c.widget, c.named_view.state, '', handles=True)}
     ${share_scripts()}
   </py:def>
 

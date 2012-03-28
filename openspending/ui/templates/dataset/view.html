@@ -19,7 +19,10 @@
   <py:def function="scripts">
     <!-- templates/dataset/view.html scripts -->
 
-    ${widget_js(c.widget, c.viewjson, c.time, handles=True)}
+    <py:if test="c.view">
+      ${widget_js('vis_widget', c.view.vis_widget, c.view.vis_state, c.time, handles=True)}
+      ${widget_js('table_widget', c.view.table_widget, c.view.table_state, c.time, handles=False)}
+    </py:if>
     ${share_scripts()}
   </py:def>
 
@@ -29,7 +32,7 @@
     <!-- templates/dataset/view.html content -->
 
     <div py:if="c.view" class="row">
-      <div class="span12"><div id="widget" style="width: auto; height: 400px"/></div>
+      <div class="span12"><div id="vis_widget" style="width: auto; height: 400px"/></div>
     </div>
 
     <div class="well widget-context">
@@ -41,9 +44,7 @@
     </div>
 
     <div py:if="c.view" class="row">
-      <div class="span12">
-        <div id="detail" />
-      </div>
+      <div class="span12"><div id="table_widget"/></div>
     </div>
 
     ${share_body()}

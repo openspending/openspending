@@ -30,7 +30,6 @@ class View(object):
                                   view.get('breakdown'))
         self.cuts = view.get('cuts',
                              view.get('view_filters', {}))
-        self.widget = view.get('widget', 'treemap')
 
     def match(self, obj, dimension=None):
         if isinstance(obj, Dataset):
@@ -71,6 +70,28 @@ class View(object):
                 views.append(view)
         return views
 
+    @property
+    def vis_state(self):
+        return {
+            'drilldown': self.drilldown,
+            'cuts': self.cuts
+            }
+
+    @property
+    def vis_widget(self):
+        return widgets.get_widget('treemap')
+
+    @property
+    def table_state(self):
+        return {
+            'drilldowns': [self.drilldown],
+            'cuts': self.cuts
+            }
+
+    @property
+    def table_widget(self):
+        return widgets.get_widget('aggregate_table')
+
 
 def _set_time_context(request, c):
     # TODO: this is an unholy mess that needs to be killed
@@ -106,8 +127,3 @@ def handle_request(request, c, obj, dimension=None):
         return
 
     _set_time_context(request, c)
-    if c.view is not None:
-        c.widget = widgets.get_widget(c.view.widget)
-        c.viewjson = c.view.config
-    else:
-        c.viewjson = {}

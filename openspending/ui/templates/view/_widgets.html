@@ -12,29 +12,28 @@
     <div id="widget"></div>
   </py:def>
 
-  <py:def function="widget_js(widget, state, time, handles=False)" py:if="widget">
+  <py:def function="widget_js(name, widget, state, time, handles=False)" py:if="widget">
     <!-- templates/view/_widgets.html widget_js -->
     <script type="text/javascript" src="http://localhost/openspendingjs/lib/widgets.js"></script>
     <script type="text/javascript" src="http://localhost/openspendingjs/app/bob/bob.js"></script>
     <script type="text/javascript" src="${widget.js}"></script>
     <script defer="defer">
-        var state = ${h.json.dumps(state, indent=2)};
-        var context = {
-            dataset: "${c.dataset.name}",
-            siteUrl: "${h.site_url()}",
-            time: "${time}"
-            };
-
         $(function() {
-            window.widget = new ${widget.class_name}($('#widget'), context, state);
-            ${handles_js(widget) if handles else ''}
+            var state = ${h.json.dumps(state, indent=2)};
+            var context = {
+              dataset: "${c.dataset.name}",
+              siteUrl: "${h.site_url()}",
+              time: "${time}"
+              };
+            window.wdg_${name} = new ${widget.class_name}($('#${name}'), context, state);
+            ${handles_js(name, widget) if handles else ''}
         });
     </script>
   </py:def>
 
-  <py:def function="handles_js(widget)">
-    window.widget.then(function(w) {
-      var embedder = new OpenSpending.Widgets.Embedder(w, context, '${c.widget.name}');  
+  <py:def function="handles_js(name, widget)">
+    window.wdg_${name}.then(function(w) {
+      var embedder = new OpenSpending.Widgets.Embedder(w, context, '${widget.name}');  
       $("#widget-embed-link").click(function(e) {
         embedder.render();
         return false;

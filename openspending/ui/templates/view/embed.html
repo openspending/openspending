@@ -55,8 +55,7 @@
     ${script_tag('lib/utils/utils')}
 
     <script>OpenSpending.scriptRoot = "${g.script_root}";</script>
-
-    ${widget_js(c.widget, c.state, '')}
+    ${widget_js('widget', c.widget, c.state, '', handles=False)}
     ${analytics()}
   </body>
 </html>
