@@ -58,7 +58,7 @@ openspending.solr.url = http://localhost:8983/solr
 
 # Widgets
 openspending.widgets_base = http://assets.openspending.org/widgets
-openspending.widgets = treemap bubbletree
+openspending.widgets = treemap bubbletree aggregate_table
 
 # Relative path to static files
 # openspending.static_path = /static

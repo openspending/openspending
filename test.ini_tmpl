@@ -25,6 +25,6 @@ set debug = False
 openspending.solr.url = http://localhost:18983/solr
 
 openspending.widgets_base = http://localhost/openspendingjs/widgets/
-openspending.widgets = treemap bubbletree
+openspending.widgets = treemap bubbletree aggregate_table
 
 celery.always.eager = true

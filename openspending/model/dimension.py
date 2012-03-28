@@ -41,6 +41,7 @@ class Dimension(object):
         # FIXME: legacy support
         d = self._data.copy()
         d['key'] = self.name
+        d['name'] = self.name
         return d
 
 

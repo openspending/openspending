@@ -6,10 +6,9 @@ from pylons.i18n import _
 
 from openspending import model
 from openspending.ui.lib.base import BaseController, render
-from openspending.ui.lib.page import Page
 from openspending.ui.lib.views import handle_request
 from openspending.ui.lib.helpers import url_for
-from openspending.ui.lib.cache import AggregationCache
+from openspending.ui.lib.widgets import get_widget
 from openspending.ui.lib.hypermedia import dimension_apply_links, \
     member_apply_links, entry_apply_links
 from openspending.lib.csvexport import write_csv
@@ -56,22 +55,11 @@ class DimensionController(BaseController):
         if not isinstance(c.dimension, model.Dimension):
             abort(404, _('This is not a dimension'))
 
-        page = self._get_page('page')
-        cache = AggregationCache(c.dataset)
-        result = cache.aggregate(drilldowns=[dimension], page=page,
-                                 pagesize=PAGE_SIZE)
-        items = result.get('drilldown', [])
-        c.values = [(member_apply_links(dataset, dimension, d.get(dimension)), \
-            d.get('amount')) for d in items]
-
         if format == 'json':
             dimension = dimension_apply_links(dataset, c.dimension.as_dict())
-            return to_jsonp({"values": c.values, "meta": dimension})
-
-        c.page = Page(c.values, page=page,
-                      item_count=result['summary']['num_drilldowns'],
-                      items_per_page=PAGE_SIZE,
-                      presliced_list=True)
+            return to_jsonp(dimension)
+        c.widget = get_widget('aggregate_table')
+        c.widget_state = {'drilldowns': [c.dimension.name]}
         return render('dimension/view.html')
 
     def member(self, dataset, dimension, name, format="html"):

@@ -1,6 +1,7 @@
 <html xmlns:py="http://genshi.edgewall.org/"
   xmlns:i18n="http://genshi.edgewall.org/i18n"
   xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+  <xi:include href="../view/_widgets.html" />
 
   <py:def function="nav_class">nav-dataset</py:def>
 
@@ -8,11 +9,17 @@
   
   <py:def function="scripts">
     <!-- templates/dimension/view.html scripts -->
+    ${widget_js(c.widget, c.widget_state, '', handles=True)}
     ${share_scripts()}
   </py:def>
 
   <div py:def="content">
     <ul class="breadcrumb">
+      <div class="representations">
+        <a href="${url(controller='dimension', action='view', dataset=c.dataset.name,
+          dimension=c.dimension.name, format='json')}">
+          <img src="${h.static('img/icons/json.png')}" alt="JSON" xml:lang="en" /></a>
+      </div>
       <li>
         <i class="icon-home"></i>
         <a href="${h.url_for(controller='dataset', action='view', dataset=c.dataset.name)}">
@@ -22,11 +29,6 @@
       <li class="active">
         ${c.dimension.label}
       </li>
-      <div class="representations">
-        <a href="${url(controller='dimension', action='view', dataset=c.dataset.name,
-          dimension=c.dimension.name, format='json')}">
-          <img src="${h.static('img/icons/json.png')}" alt="JSON" xml:lang="en" /></a>
-      </div>
     </ul>
     <h2 class="page-header">
       ${c.dataset.label}:
@@ -34,37 +36,17 @@
     </h2>
 
     <div class="row">
-      <div class="span4">
-        <div py:if="c.dimension.description">
-          ${h.markdown(c.dimension.description)}
+      <div class='span12'>
+        <div class="well widget-context">
+          <div class="pull-right">
+            <a href="#" class="btn btn-mini" id="widget-embed-link"><i class="icon-share"></i> Embed</a>
+            <a href="#" class="btn btn-mini" id="widget-edit-link"><i class="icon-cog"></i> Change</a>
+          </div>
+          <p>${c.dimension.description} &nbsp;</p>
         </div>
-        <i>All figures are total financial involvement, not just funds received or spent.</i>
       </div>
-
-      <div class="span8">
-        <table class="table table-striped table-condensed">
-          <thead>
-            <tr>
-              <th>Value</th>
-              <th class="num" i18n:msg="currency">Sum (${c.dataset.currency})</th>
-            </tr>
-          </thead>
-          <tbody> 
-            <tr py:for="(v, s) in c.page">
-              <td py:if="isinstance(v, dict) and v['name']">
-                ${h.dimension_link(c.dataset.name, c.dimension.name, v)}
-              </td>
-              <td py:if="isinstance(v, dict) and not v['name']">
-                (Empty)
-              </td>
-              <td py:if="not isinstance(v, dict)">
-                ${v or _('(Empty)')}
-              </td>
-              <td class="num">${h.format_number_with_commas(s)}</td>
-            </tr>
-          </tbody>
-        </table>
-        ${c.page.pager()}
+      <div class='span12'>
+        <div id="widget" style="width: auto; height: auto"/>
       </div>
     </div>
     ${share_body()}
