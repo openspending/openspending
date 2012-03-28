@@ -9,6 +9,12 @@
 
   <py:def function="member_nav(section)">
     <ul class="breadcrumb">
+      
+      <div class="representations">
+        <a href="${url(controller='dimension', action='member', dataset=c.dataset.name,
+          name=c.member['name'], dimension=c.dimension.name, format='json')}">
+          <img src="${h.static('img/icons/json.png')}" alt="JSON" xml:lang="en" /></a>
+      </div>
       <li>
         <i class="icon-home"></i>
         <a href="${h.url_for(controller='dataset', action='view', dataset=c.dataset.name)}">
@@ -24,11 +30,6 @@
       <li class="active">
         ${c.member.label}
       </li>
-      <div class="representations">
-        <a href="${url(controller='dimension', action='member', dataset=c.dataset.name,
-          name=c.member['name'], dimension=c.dimension.name, format='json')}">
-          <img src="${h.static('img/icons/json.png')}" alt="JSON" xml:lang="en" /></a>
-      </div>
     </ul>
     <h2 class="page-header">
       ${c.member.label}
