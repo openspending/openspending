@@ -28,21 +28,3 @@ class TestViews(DatabaseTestCase):
 
         h.assert_raises(ValueError, View.by_name, self.dataset, 
                 cfa, 'not-there')
-
-    def test_dimensions(self):
-        view = self.get_view("default", entity='entity',
-                dimension='from',
-                cuts={"label": "Hello"})
-
-        assert len(view.base_dimensions) == 3
-        assert not None in view.base_dimensions, view.base_dimensions
-        assert "label" in view.base_dimensions, view.base_dimensions
-        assert "from" in view.base_dimensions, view.base_dimensions
-        assert "year" in view.base_dimensions, view.base_dimensions
-
-        view = self.get_view("default", entity='entity',
-                dimension="from", drilldown="hello")
-
-        assert "hello" in view.full_dimensions, view.full_dimensions
-        assert "hello" not in view.base_dimensions, view.base_dimensions
-        assert len(view.full_dimensions) == 3

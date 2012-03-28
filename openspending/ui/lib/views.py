@@ -71,85 +71,13 @@ class View(object):
                 views.append(view)
         return views
 
-    @property
-    def base_dimensions(self):
-        dimensions = [self.dimension, 'year']
-        dimensions.extend(self.cuts.keys())
-        return dimensions
-
-    @property
-    def full_dimensions(self):
-        dimensions = self.base_dimensions
-        if self.drilldown:
-            dimensions.append(self.drilldown)
-        return dimensions
-
-
-class ViewState(object):
-
-    def __init__(self, obj, view, time):
-        self.obj = obj
-        self.view = view
-        self.time = time
-
-        self._totals = None
-        self._aggregates = None
-
-    @property
-    def dataset(self):
-        return self.view.dataset
-
-    @property
-    def cuts(self):
-        _filters = self.view.cuts.items()
-        if isinstance(self.obj, dict):
-            _filters.append((self.view.dimension, self.obj['name']))
-        return _filters
-
-    @property
-    def totals(self):
-        if self._totals is None:
-            self._totals = {}
-            cache = AggregationCache(self.dataset)
-            results = cache.aggregate(drilldowns=['year'], 
-                                      cuts=self.cuts)
-            for entry in results.get('drilldown'):
-                self._totals[str(entry.get('year'))] = entry.get('amount')
-        return self._totals
-
-    @property
-    def aggregates(self):
-        if self._aggregates is None:
-            if self.view.drilldown is None:
-                return []
-            res = defaultdict(dict)
-            drilldowns = {}
-            query = ['year', self.view.drilldown]
-            cache = AggregationCache(self.dataset)
-            results = cache.aggregate(drilldowns=query,
-                                      cuts=self.cuts)
-            for entry in results.get('drilldown'):
-                d = entry.get(self.view.drilldown)
-                # Get a hashable key for the drilldown
-                key = d['id'] if isinstance(d, dict) else d
-                # Store a reference to this drilldown
-                drilldowns[key] = d
-                # Store drilldown value for this year
-                res[key][str(entry.get('year'))] = entry.get('amount')
-            self._aggregates = [(drilldowns[k], v) for k, v in res.items()]
-            # sort aggregations by time
-            if self.time is not None:
-                self._aggregates = sorted(self._aggregates,
-                                    reverse=True,
-                                    key=lambda (k, v): v.get(self.time, 0))
-        return self._aggregates
-
 
 def _set_time_context(request, c):
     # TODO: this is an unholy mess that needs to be killed
     # with fire.
     req_time = request.params.get('_time')
-    c.times = c.dataset.times()
+    c.times = [m['year'] for m in c.dataset['time'].members()]
+    c.times = list(set(c.times))
     if req_time in c.times:
         c.state['time'] = req_time
     c.time = c.state.get('time')
@@ -178,7 +106,6 @@ def handle_request(request, c, obj, dimension=None):
         return
 
     _set_time_context(request, c)
-    c.viewstate = ViewState(obj, c.view, c.time)
     if c.view is not None:
         c.widget = widgets.get_widget(c.view.widget)
         c.viewjson = c.view.config
