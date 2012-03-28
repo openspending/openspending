@@ -101,6 +101,7 @@ a:hover, a:active {
   -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   */
+  filter: none;
   background: url(../img/noise.png), -webkit-linear-gradient(top, #fff, #eee); 
   background-image: url(../img/noise.png), -moz-linear-gradient(top, #fff, #eee); 
   background-image: url(../img/noise.png), -ms-linear-gradient(top, #fff, #eee); 

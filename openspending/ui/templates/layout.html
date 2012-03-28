@@ -164,7 +164,7 @@
     ${script_tag('lib/vendor/bootstrap')}
 
     ${script_tag('lib/boot')}
-    <script>OpenSpending.scriptRoot = "${g.script_root}";</script>
+    <script defer="defer">OpenSpending.scriptRoot = "${g.script_root}";</script>
     ${script_tag('lib/utils/utils')}
 
     <py:if test="defined('scripts')">

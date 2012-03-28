@@ -22,20 +22,20 @@
     <script type="text/javascript" src="http://localhost/openspendingjs/app/bob/bob.js"></script>
 
     ${widget_js(c.widget, c.viewjson, c.time)}
-    <script py:if="hasattr(c, 'widget')">
-      (function ($) {
-          window.widget.then(function(w) {
-            var embedder = new OpenSpending.Widgets.Embedder(w, context, '${c.widget.name}');  
-            $("#widget-embed-link").click(function(e) {
-              embedder.render();
-              return false;
-            });
-            $("#widget-edit-link").click(function(e) {
-              w.configure(null);
-              return false;
-            });
+    <script py:if="hasattr(c, 'widget')" defer="defer">
+      $(function() {
+        window.widget.then(function(w) {
+          var embedder = new OpenSpending.Widgets.Embedder(w, context, '${c.widget.name}');  
+          $("#widget-embed-link").click(function(e) {
+            embedder.render();
+            return false;
           });
-      })(jQuery);
+          $("#widget-edit-link").click(function(e) {
+            w.configure(null);
+            return false;
+          });
+        });
+      });
     </script>
     ${share_scripts()}
   </py:def>

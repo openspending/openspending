@@ -2,6 +2,7 @@
   xmlns:i18n="http://genshi.edgewall.org/i18n"
   xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
   <xi:include href="_nav.html" />  
+  <xi:include href="../view/_widgets.html" />
   
   <py:def function="nav_class">nav-member</py:def>
 
@@ -16,20 +17,25 @@
   </py:def>
 
   <py:def function="scripts">
-    <!-- templates/dimension/member.html scripts -->
-    <script py:if="hasattr(c, 'widget')" type="text/javascript" src="${c.widget.js}"></script>
-    <script py:if="hasattr(c, 'widget')">
-        var context = {
-            dataset: '${c.dataset.name}',
-            siteUrl: '',
-            dimension: '${c.dimension}',
-            member: '${c.member.name}',
-            time: '${c.time}'
-            };
+    <!-- templates/dataset/view.html scripts -->
+    <script type="text/javascript" src="http://localhost/openspendingjs/lib/widgets.js"></script>
+    <script type="text/javascript" src="http://localhost/openspendingjs/app/bob/bob.js"></script>
 
-        (function ($) {
-            new ${c.widget.class_name}($('#widget'), context, ${c.viewjson});
-        })(jQuery);
+    ${widget_js(c.widget, c.viewjson, c.time)}
+    <script py:if="hasattr(c, 'widget')">
+      (function ($) {
+          window.widget.then(function(w) {
+            var embedder = new OpenSpending.Widgets.Embedder(w, context, '${c.widget.name}');  
+            $("#widget-embed-link").click(function(e) {
+              embedder.render();
+              return false;
+            });
+            $("#widget-edit-link").click(function(e) {
+              w.configure(null);
+              return false;
+            });
+          });
+      })(jQuery);
     </script>
     ${share_scripts()}
   </py:def>
@@ -41,11 +47,18 @@
       <div class="span12"><div id="widget" style="width: auto; height: 400px"/></div>
     </div>
 
-    <div class="row" py:if="c.member.get('description')">
-      <div class="span12">
-        <h3>Description</h3>
-        ${h.markdown(c.member.get('description'))}
+
+    <div class="well widget-context">
+      <div class="pull-right">
+        <a href="#" class="btn btn-mini" id="widget-embed-link"><i class="icon-share"></i> Embed</a>
+        <a href="#" class="btn btn-mini" id="widget-edit-link"><i class="icon-cog"></i> Change</a>
       </div>
+      <p>
+        <py:if test="c.member.get('description') and len(c.member.get('description'))">
+          ${h.markdown(c.member.get('description'))}
+        </py:if>
+        &nbsp;
+      </p>
     </div>
 
     <div py:if="c.view" class="row">
