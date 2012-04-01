@@ -346,8 +346,7 @@ class Dataset(TableHandler, db.Model):
             'year': self['time']['year'].column_alias.label('year'),
             'month': self['time']['yearmonth'].column_alias.label('month'),
             }
-        dimensions = set(drilldowns + \
-            [k for k, v in cuts] + [o[0] for o in order])
+        dimensions = set(drilldowns + [k for k, v in cuts])
         for dimension in dimensions:
             if dimension in labels:
                 _name = 'time'
@@ -384,16 +383,19 @@ class Dataset(TableHandler, db.Model):
             conditions.append(db.or_(*[attr == v for v in values]))
 
         order_by = []
+        if order is None or not len(order):
+            order = [(measure, 'desc')]
         for key, direction in order:
-            if key in labels:
+            if key == measure:
+                column = db.func.sum(self.alias.c[measure]).label(measure)
+            elif key in labels:
                 column = labels[key]
             else:
                 column = self.key(key)
             order_by.append(column.desc() if direction else column.asc())
 
         query = db.select(fields, conditions, joins,
-                       order_by=order_by or [measure + ' desc'],
-                       group_by=group_by, use_labels=True)
+                       order_by=order_by, group_by=group_by, use_labels=True)
         summary = {measure: 0.0, 'num_entries': 0}
         drilldown = []
         rp = self.bind.execute(query)
