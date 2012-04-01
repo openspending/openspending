@@ -14,8 +14,8 @@
 
   <py:def function="widget_js(name, widget, state, time, handles=False)" py:if="widget">
     <!-- templates/view/_widgets.html widget_js -->
-    <script type="text/javascript" src="http://localhost/openspendingjs/lib/widgets.js"></script>
-    <script type="text/javascript" src="http://localhost/openspendingjs/app/bob/bob.js"></script>
+    ${script_tag('lib/widgets')}
+    ${script_tag('app/bob/bob')}
     <script type="text/javascript" src="${widget.js}"></script>
     <script defer="defer">
         $(function() {
