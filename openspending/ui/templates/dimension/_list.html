@@ -13,10 +13,10 @@
           action='view', dataset=c.dataset.name,
           dimension=dimension.name)}">
           <strong>${dimension.label or dimension.name}</strong>
+          <py:if test="dimension.key">
+            <abbr title="Part of unique key"><i class='icon-star'></i></abbr>
+          </py:if>
         </a>
-        <div py:if="dimension.description">
-          ${h.markdown(dimension.description)}
-        </div>
       </li>
     </ul>
   </py:def>
