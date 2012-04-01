@@ -89,7 +89,6 @@ class BaseController(WSGIController):
         c.items_per_page = int(request.params.get('items_per_page', 20))
         c.datasets = model.Dataset.all_by_account(c.account)
         c.dataset = None
-        self._detect_dataset_subdomain()
 
         c.detected_l10n_languages = i18n.get_language_pairs()
 
@@ -99,17 +98,6 @@ class BaseController(WSGIController):
             session.save()
 
         db.session.close()
-
-    def _detect_dataset_subdomain(self):
-        http_host = request.environ.get('HTTP_HOST').lower()
-        if http_host.startswith('www.'):
-            http_host = http_host[len('www.'):]
-        if not '.' in http_host:
-            return
-        dataset_name, domain = http_host.split('.', 1)
-        for dataset in c.datasets:
-            if dataset.name.lower() == dataset_name:
-                c.dataset = dataset
 
     def _detect_format(self, format):
         for mimetype, mimeformat in self.accept_mimetypes.items():

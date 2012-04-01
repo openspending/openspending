@@ -19,6 +19,7 @@ class UsernamePasswordAuthenticator(object):
             return account.name
         return None
 
+
 class ApiKeyAuthenticator(object):
     implements(IAuthenticator)
 
@@ -26,11 +27,10 @@ class ApiKeyAuthenticator(object):
         authorization = AUTHORIZATION(environ)
         try:
             authmeth, auth = authorization.split(' ', 1)
-        except ValueError: # not enough values to unpack
+        except ValueError:
+            # not enough values to unpack
             return None
         if authmeth.lower() == 'apikey':
             acc = Account.by_api_key(auth.strip())
             if acc is not None:
                 return acc.name
-
-
