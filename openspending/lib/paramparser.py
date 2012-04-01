@@ -1,4 +1,4 @@
-from collections import OrderedDict
+from ordereddict import OrderedDict
 from openspending import model
 
 class ParamParser(object):
