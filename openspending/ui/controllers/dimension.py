@@ -9,6 +9,7 @@ from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.views import handle_request
 from openspending.ui.lib.helpers import url_for
 from openspending.ui.lib.widgets import get_widget
+from openspending.lib.paramparser import DistinctParamParser
 from openspending.ui.lib.hypermedia import dimension_apply_links, \
     member_apply_links, entry_apply_links
 from openspending.lib.csvexport import write_csv
@@ -20,6 +21,15 @@ PAGE_SIZE = 100
 
 
 class DimensionController(BaseController):
+
+    def _get_dimension(self, dataset, dimension):
+        self._get_dataset(dataset)
+        try:
+            c.dimension = c.dataset[dimension]
+        except KeyError:
+            abort(404, _('This is not a dimension'))
+        if not isinstance(c.dimension, model.Dimension):
+            abort(404, _('This is not a dimension'))
 
     def _get_member(self, dataset, dimension_name, name):
         self._get_dataset(dataset)
@@ -47,20 +57,26 @@ class DimensionController(BaseController):
             return render('dimension/index.html')
 
     def view(self, dataset, dimension, format='html'):
-        self._get_dataset(dataset)
-        try:
-            c.dimension = c.dataset[dimension]
-        except KeyError:
-            abort(404, _('This is not a dimension'))
-        if not isinstance(c.dimension, model.Dimension):
-            abort(404, _('This is not a dimension'))
-
+        self._get_dimension(dataset, dimension)
         if format == 'json':
             dimension = dimension_apply_links(dataset, c.dimension.as_dict())
             return to_jsonp(dimension)
         c.widget = get_widget('aggregate_table')
         c.widget_state = {'drilldowns': [c.dimension.name]}
         return render('dimension/view.html')
+
+    def distinct(self, dataset, dimension, format='json'):
+        self._get_dimension(dataset, dimension)
+        parser = DistinctParamParser(c.dimension, request.params)
+        params, errors = parser.parse()
+        if errors:
+            response.status = 400
+            return {'errors': errors}
+
+        q = params.get('attribute').column_alias.ilike(params.get('q') + '%')
+        offset = int((params.get('page') - 1) * params.get('pagesize'))
+        members = c.dimension.members(q, offset=offset, limit=params.get('pagesize'))
+        return to_jsonp(list(members))
 
     def member(self, dataset, dimension, name, format="html"):
         self._get_member(dataset, dimension, name)

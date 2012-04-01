@@ -202,3 +202,28 @@ class SearchParamParser(ParamParser):
 
     def parse_expand_facet_dimensions(self, expand_facet_dimensions):
         return expand_facet_dimensions is not None
+
+
+class DistinctParamParser(ParamParser):
+    defaults = ParamParser.defaults.copy()
+    defaults['q'] = ''
+    defaults['attribute'] = None
+    defaults['page'] = 1
+    defaults['pagesize'] = 100
+
+    def __init__(self, dimension, params):
+        self.dimension = dimension
+
+        self.params = self.defaults.copy()
+        self.params.update(params)
+
+    def parse_attribute(self, attribute):
+        if not isinstance(self.dimension, model.CompoundDimension):
+            return self.dimension
+        try:
+            return self.dimension[attribute]
+        except KeyError:
+            return self.dimension['label']
+
+    def parse_pagesize(self, pagesize):
+        return min(100, self._to_int('pagesize', pagesize))

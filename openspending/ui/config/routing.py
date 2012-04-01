@@ -135,6 +135,13 @@ def make_map():
     #map.connect('/{dataset}/dimensions/{dimension}',
     #            controller='dimension', action='view')
 
+    map.connect('/{dataset}/{dimension}.distinct.json',
+                controller='dimension', action='distinct', format='json')
+    #map.connect('/{dataset}/{dimension}.csv',
+    #            controller='dimension', action='view', format='csv')
+    map.connect('/{dataset}/{dimension}.distinct',
+                controller='dimension', action='distinct')
+
     map.connect('/{dataset}/{dimension}.json',
                 controller='dimension', action='view', format='json')
     #map.connect('/{dataset}/{dimension}.csv',

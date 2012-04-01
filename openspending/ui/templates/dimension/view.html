@@ -5,11 +5,11 @@
 
   <py:def function="nav_class">nav-dataset</py:def>
 
-  <py:def function="page_title">Dimension: ${c.dimension.label or c.dimension.name}</py:def>
+  <py:def function="page_title">${c.dimension.label or c.dimension.name}</py:def>
   
   <py:def function="scripts">
     <!-- templates/dimension/view.html scripts -->
-    ${widget_js(c.widget, c.widget_state, '', handles=True)}
+    ${widget_js('widget', c.widget, c.widget_state, '', handles=True)}
     ${share_scripts()}
   </py:def>
 
@@ -31,7 +31,6 @@
       </li>
     </ul>
     <h2 class="page-header">
-      ${c.dataset.label}:
       ${c.dimension.label or c.dimension.name}
     </h2>
 

@@ -60,6 +60,19 @@ class AttributeDimension(Dimension, Attribute):
     def __repr__(self):
         return "<AttributeDimension(%s)>" % self.name
 
+    def members(self, conditions="1=1", limit=None, offset=0):
+        """ Get a listing of all the members of the dimension (i.e. all the
+        distinct values) matching the filter in ``conditions``. """
+        query = db.select([self.column_alias], conditions,
+                          limit=limit, offset=offset, distinct=True)
+        rp = self.dataset.bind.execute(query)
+        while True:
+            row = rp.fetchone()
+            if row is None:
+                break
+            yield row[0]
+
+
 class Measure(Attribute):
     """ A value on the facts table that can be subject to aggregation,
     and is specific to this one fact. This would typically be some
@@ -78,6 +91,7 @@ class Measure(Attribute):
 
     def __repr__(self):
         return "<Metric(%s)>" % self.name
+
 
 class CompoundDimension(Dimension, TableHandler):
     """ A compound dimension is an outer table on the star schema, i.e. an
@@ -101,7 +115,7 @@ class CompoundDimension(Dimension, TableHandler):
         """ This will return a query fragment that can be used to establish
         an aliased join between the fact table and the dimension table.
         """
-        return from_clause.join(self.alias, self.alias.c.id==self.column_alias)
+        return from_clause.join(self.alias, self.alias.c.id == self.column_alias)
 
     def flush(self, bind):
         """ Clear all data in the dimension table but keep the table structure

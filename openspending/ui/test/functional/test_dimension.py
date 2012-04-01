@@ -29,15 +29,7 @@ class TestDimensionController(ControllerTestCase):
         h.assert_true('Paid by' in response, "'Paid by' not in response!")
         h.assert_true('Paid to' in response, "'Paid to' not in response!")
         h.assert_true('Programme Object Group' in response, "'Programme Object Group' not in response!")
-        h.assert_true('Central government' in response, "'Central government' not in response!")
-
-    def test_index_descriptions(self):
-        response = self.app.get(url(controller='dimension', dataset='cra',
-                                    action='index'))
-        h.assert_true('The entity that the money was paid from.' in response,
-                      "'The entity that the money was paid from.' not in response!")
-        h.assert_true('Central government, local government or public' in response,
-                      "'Central government, local government or public' not in response!")
+        h.assert_true('CG, LG or PC' in response, "'CG, LG or PC' not in response!")
 
     def test_index_json(self):
         response = self.app.get(url(controller='dimension', dataset='cra',
@@ -63,6 +55,23 @@ class TestDimensionController(ControllerTestCase):
                                     format='json'))
         obj = json.loads(response.body)
         h.assert_equal(obj['key'], 'from')
+
+    def test_distinct_json(self):
+        response = self.app.get(url(controller='dimension', dataset='cra',
+                                    action='distinct', dimension='from',
+                                    format='json'))
+        obj = json.loads(response.body)
+        assert len(obj) == 5, obj
+        assert obj[0]['name'] == 'Dept032', obj[0]
+
+        q = 'Ministry of Ju'
+        response = self.app.get(url(controller='dimension', dataset='cra',
+                                    action='distinct', dimension='from',
+                                    format='json', q=q))
+        obj = json.loads(response.body)
+        assert len(obj) == 1, obj
+        assert obj[0]['label'].startswith(q), obj[0]
+
 
     def test_view_csv(self):
         h.skip("CSV dimension view not yet implemented!")
