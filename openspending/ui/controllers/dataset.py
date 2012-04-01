@@ -132,9 +132,8 @@ class DatasetController(BaseController):
         return render('dataset/about.html')
 
     def explorer(self, dataset):
-        self._get_dataset(dataset)
-        c.dataset_name = c.dataset.name
-        return render('dataset/explorer.html')
+        redirect(h.url_for(controller='view', action='new',
+                           dataset=dataset))
 
     def model(self, dataset, format='json'):
         self._get_dataset(dataset)
