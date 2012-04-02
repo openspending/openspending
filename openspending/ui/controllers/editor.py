@@ -48,7 +48,8 @@ class EditorController(BaseController):
         c.territories = sorted(COUNTRIES.items(), key=lambda (k, v): v)
 
         if 'time' in c.dataset:
-            c.available_times = [m['year'] for m in c.dataset['time'].members()]
+            c.available_times = [m['time']['year'] for m in c.dataset['time'].members()]
+            c.available_times = sorted(set(c.available_times), reverse=True)
         else:
             c.available_times = []
 
@@ -81,7 +82,7 @@ class EditorController(BaseController):
             errors = i.asdict()
         return self.core_edit(dataset, errors=errors)
 
-    def dimensions_edit(self, dataset, errors={}, mapping=None, 
+    def dimensions_edit(self, dataset, errors={}, mapping=None,
             format='html', saved=False):
 
         self._get_dataset(dataset)
@@ -99,7 +100,7 @@ class EditorController(BaseController):
         if len(c.dataset):
             return render('editor/dimensions_errors.html')
         return render('editor/dimensions.html', form_fill=c.fill)
-    
+
     def dimensions_update(self, dataset, format='html'):
         self._get_dataset(dataset)
 

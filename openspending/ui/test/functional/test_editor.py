@@ -15,64 +15,68 @@ class TestEditorController(ControllerTestCase):
         #h.clean_and_reindex_solr()
 
     def test_overview(self):
-        response = self.app.get(url(controller='editor', 
+        response = self.app.get(url(controller='editor',
             action='index', dataset='cra'),
             extra_environ={'REMOTE_USER': 'test'})
         assert 'Manage the dataset' in response.body
 
     def test_core_edit_mask(self):
-        response = self.app.get(url(controller='editor', 
+        response = self.app.get(url(controller='editor',
             action='core_edit', dataset='cra'),
             extra_environ={'REMOTE_USER': 'test'})
         assert 'EUR' in response.body
         assert 'Update' in response.body
 
     def test_core_update(self):
-        response = self.app.post(url(controller='editor', 
+        self.app.post(url(controller='editor',
             action='core_update', dataset='cra'),
             params={'name': 'cra', 'label': 'Common Rough Act',
                     'description': 'I\'m a banana', 'currency': 'EUR',
-                    'languages': 'en', 'territories': 'gb'},
+                    'languages': 'en', 'territories': 'gb',
+                    'default_time': 2009},
             extra_environ={'REMOTE_USER': 'test'})
         cra = Dataset.by_name('cra')
-        assert cra.label=='Common Rough Act', cra.label
-        assert cra.currency=='EUR', cra.currency
-    
+        assert cra.label == 'Common Rough Act', cra.label
+        assert cra.currency == 'EUR', cra.currency
+
     def test_core_update_invalid_label(self):
-        response = self.app.post(url(controller='editor', 
+        response = self.app.post(url(controller='editor',
             action='core_update', dataset='cra'),
             params={'name': 'cra', 'label': '',
                     'description': 'I\'m a banana', 'currency': 'GBP'},
             extra_environ={'REMOTE_USER': 'test'})
         assert 'Required' in response.body
         cra = Dataset.by_name('cra')
-        assert cra.label!='', cra.label
-    
+        assert cra.label != '', cra.label
+
     def test_core_update_invalid_language(self):
-        response = self.app.post(url(controller='editor', 
+        response = self.app.post(url(controller='editor',
             action='core_update', dataset='cra'),
-            params={'name': 'cra', 'label': 'CRA', 'languages': 'esperanto', 
-                    'description': 'I\'m a banana', 'currency': 'GBP'},
+            params={'name': 'cra', 'label': 'CRA', 'languages': 'esperanto',
+                    'description': 'I\'m a banana', 'currency': 'GBP',
+                    'default_time': 2009},
             extra_environ={'REMOTE_USER': 'test'})
         assert not 'updated' in response.body
         cra = Dataset.by_name('cra')
         assert not 'esperanto' in cra.languages
-    
+
     def test_core_update_invalid_territory(self):
-        response = self.app.post(url(controller='editor', 
+        response = self.app.post(url(controller='editor',
             action='core_update', dataset='cra'),
-            params={'name': 'cra', 'label': 'CRA', 'territories': 'su', 
-                    'description': 'I\'m a banana', 'currency': 'GBP'},
+            params={'name': 'cra', 'label': 'CRA', 'territories': 'su',
+                    'description': 'I\'m a banana', 'currency': 'GBP',
+                    'default_time': 2009},
             extra_environ={'REMOTE_USER': 'test'})
         assert not 'updated' in response.body
         cra = Dataset.by_name('cra')
         assert not 'su' in cra.territories
-    
+
     def test_core_update_invalid_currency(self):
         response = self.app.post(url(controller='editor', 
             action='core_update', dataset='cra'),
             params={'name': 'cra', 'label': 'Common Rough Act',
-                    'description': 'I\'m a banana', 'currency': 'glass pearls'},
+                    'description': 'I\'m a banana', 'currency': 'glass pearls',
+                    'default_time': 2009},
             extra_environ={'REMOTE_USER': 'test'})
         assert 'not a valid currency' in response.body
         cra = Dataset.by_name('cra')

@@ -42,7 +42,7 @@ class DimensionController(BaseController):
                     abort(404, _('Sorry, there is no member named %r')
                             % name)
                 c.dimension = dimension
-                c.member = members.pop()
+                c.member = members.pop()[dimension_name]
                 c.num_entries = dimension.num_entries(cond)
                 return
         abort(404, _('Sorry, there is no dimension named %r') % dimension_name)
@@ -76,7 +76,10 @@ class DimensionController(BaseController):
         q = params.get('attribute').column_alias.ilike(params.get('q') + '%')
         offset = int((params.get('page') - 1) * params.get('pagesize'))
         members = c.dimension.members(q, offset=offset, limit=params.get('pagesize'))
-        return to_jsonp(list(members))
+        return to_jsonp({
+            'results': list(members),
+            'count': c.dimension.num_entries(q)
+            })
 
     def member(self, dataset, dimension, name, format="html"):
         self._get_member(dataset, dimension, name)

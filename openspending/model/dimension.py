@@ -3,6 +3,7 @@ from openspending.model import meta as db
 from openspending.model.attribute import Attribute
 from openspending.model.common import TableHandler, ALIAS_PLACEHOLDER
 
+
 class Dimension(object):
     """ A base class for dimensions. A dimension is any property of an entry
     that can serve to describe it beyond its purely numeric ``Measure``.  """
@@ -63,14 +64,25 @@ class AttributeDimension(Dimension, Attribute):
     def members(self, conditions="1=1", limit=None, offset=0):
         """ Get a listing of all the members of the dimension (i.e. all the
         distinct values) matching the filter in ``conditions``. """
-        query = db.select([self.column_alias], conditions,
-                          limit=limit, offset=offset, distinct=True)
+        count = db.func.count(self.dataset.alias.c.id).label('_count')
+        query = db.select([self.column_alias, count], conditions,
+            group_by=[self.column_alias], order_by=[count.desc()],
+            limit=limit, offset=offset)
         rp = self.dataset.bind.execute(query)
         while True:
             row = rp.fetchone()
             if row is None:
                 break
-            yield row[0]
+            yield dict(zip(rp.keys(), row))
+
+    def num_entries(self, conditions="1=1"):
+        """ Return the count of entries on the dataset fact table having the
+        dimension set to a value matching the filter given by ``conditions``.
+        """
+        query = db.select([db.func.count(self.column_alias)],
+                          conditions, distinct=True)
+        rp = self.dataset.bind.execute(query)
+        return rp.fetchone()[0]
 
 
 class Measure(Attribute):
@@ -180,16 +192,23 @@ class CompoundDimension(Dimension, TableHandler):
         distinct values) matching the filter in ``conditions``. This can also be
         used to find a single individual member, e.g. a dimension value
         identified by its name. """
-        query = db.select([self.alias], conditions,
-                          limit=limit, offset=offset)
+        count = db.func.count(self.dataset.alias.c.id).label('_count')
+        fields = [self.alias, count]
+        joins = self.join(self.dataset.alias)
+        query = db.select(fields, conditions, joins,
+            limit=limit, offset=offset,
+            group_by=list(self.alias.columns),
+            order_by=[count.desc()])
         rp = self.dataset.bind.execute(query)
         while True:
             row = rp.fetchone()
             if row is None:
                 break
             member = dict(row.items())
+            count = member['_count']
+            del member['_count']
             member['taxonomy'] = self.taxonomy
-            yield member
+            yield {self.name: member, '_count': count}
 
     def num_entries(self, conditions="1=1"):
         """ Return the count of entries on the dataset fact table having the

@@ -1,10 +1,9 @@
-import csv
 import json
-from StringIO import StringIO
 
 from .. import ControllerTestCase, url, helpers as h
 from openspending.ui.lib.helpers import member_url
 from openspending.model import Dataset, CompoundDimension, meta as db
+
 
 class TestDimensionController(ControllerTestCase):
 
@@ -17,11 +16,10 @@ class TestDimensionController(ControllerTestCase):
             if isinstance(dimension, CompoundDimension) and \
                     dimension.name == 'cofog1':
                 members = list(dimension.members(
-                    dimension.alias.c.name=='3',
+                    dimension.alias.c.name == '3',
                     limit=1))
-                self.member = members.pop()
+                self.member = members.pop()['cofog1']
                 break
-
 
     def test_index(self):
         response = self.app.get(url(controller='dimension', dataset='cra',
@@ -60,17 +58,17 @@ class TestDimensionController(ControllerTestCase):
         response = self.app.get(url(controller='dimension', dataset='cra',
                                     action='distinct', dimension='from',
                                     format='json'))
-        obj = json.loads(response.body)
+        obj = json.loads(response.body)['results']
         assert len(obj) == 5, obj
-        assert obj[0]['name'] == 'Dept032', obj[0]
+        assert obj[0]['from']['name'] == 'Dept032', obj[0]
 
         q = 'Ministry of Ju'
         response = self.app.get(url(controller='dimension', dataset='cra',
                                     action='distinct', dimension='from',
                                     format='json', q=q))
-        obj = json.loads(response.body)
+        obj = json.loads(response.body)['results']
         assert len(obj) == 1, obj
-        assert obj[0]['label'].startswith(q), obj[0]
+        assert obj[0]['from']['label'].startswith(q), obj[0]
 
 
     def test_view_csv(self):

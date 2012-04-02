@@ -18,7 +18,7 @@ def default_year(dataset):
     """ Guess a reasonable default year for this dataset or use
     the year specified on the dataset object. """
     current_year = str(datetime.utcnow().year)
-    times = [m['year'] for m in dataset['time'].members()]
+    times = [m['time']['year'] for m in dataset['time'].members()]
     times = list(set(times))
     if dataset.default_time:
         return dataset.default_time
