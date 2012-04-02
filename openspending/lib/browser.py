@@ -128,5 +128,6 @@ def _get_entries(docs):
         query = dataset.alias.c.id.in_(ids)
         entries.extend([(dataset, e) for e in dataset.entries(query)])
 
-    for dataset, entry in util.sort_by_reference(ids, entries, lambda x: x[1]['id']):
+    entries = util.sort_by_reference(ids, entries, lambda x: x[1]['id'])
+    for dataset, entry in filter(lambda e: e is not None, entry):
         yield dataset, entry
