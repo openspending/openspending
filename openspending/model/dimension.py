@@ -79,8 +79,8 @@ class AttributeDimension(Dimension, Attribute):
         """ Return the count of entries on the dataset fact table having the
         dimension set to a value matching the filter given by ``conditions``.
         """
-        query = db.select([db.func.count(self.column_alias)],
-                          conditions, distinct=True)
+        query = db.select([db.func.count(db.func.distinct(self.column_alias))],
+                          conditions)
         rp = self.dataset.bind.execute(query)
         return rp.fetchone()[0]
 
@@ -215,7 +215,7 @@ class CompoundDimension(Dimension, TableHandler):
         dimension set to a value matching the filter given by ``conditions``.
         """
         joins = self.join(self.dataset.alias)
-        query = db.select([db.func.count(self.column_alias)],
+        query = db.select([db.func.count(db.func.distinct(self.column_alias))],
                           conditions, joins)
         rp = self.dataset.bind.execute(query)
         return rp.fetchone()[0]
