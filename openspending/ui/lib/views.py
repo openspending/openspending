@@ -2,13 +2,9 @@
 This module implements views on the database.
 '''
 import logging
-from collections import defaultdict
 from datetime import datetime
-from pylons import config
 
 from openspending.model import Dataset
-from openspending.ui.lib.cache import AggregationCache
-from openspending.lib.jsonexport import to_json
 from openspending.ui.lib import widgets
 
 log = logging.getLogger(__name__)
