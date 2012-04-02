@@ -23,6 +23,7 @@ from openspending.validation.model.common import ValidationState
 
 log = logging.getLogger(__name__)
 
+
 class EditorController(BaseController):
 
     def index(self, dataset, format='html'):
@@ -33,23 +34,29 @@ class EditorController(BaseController):
         c.source = c.dataset.sources.first()
         c.index_count = solr.dataset_entries(c.dataset.name)
         c.index_percentage = 0 if not c.entries_count else \
-            int((float(c.index_count)/float(c.entries_count))*1000)
+            int((float(c.index_count) / float(c.entries_count)) * 1000)
         return render('editor/index.html')
 
     def core_edit(self, dataset, errors={}, format='html'):
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
-        c.key_currencies = sorted([(r,n) for (r, (n, k)) in CURRENCIES.items() if k], 
-                key=lambda (k,v): v)
-        c.all_currencies = sorted([(r,n) for (r, (n, k)) in CURRENCIES.items() if not k], 
-                key=lambda (k,v): v)
-        c.languages = sorted(LANGUAGES.items(), key=lambda (k,v): v)
-        c.territories = sorted(COUNTRIES.items(), key=lambda (k,v): v)
+        c.key_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if k],
+                key=lambda (k, v): v)
+        c.all_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if not k],
+                key=lambda (k, v): v)
+        c.languages = sorted(LANGUAGES.items(), key=lambda (k, v): v)
+        c.territories = sorted(COUNTRIES.items(), key=lambda (k, v): v)
+
+        if 'time' in c.dataset:
+            c.available_times = [m['year'] for m in c.dataset['time'].members()]
+        else:
+            c.available_times = []
+
         errors = [(k[len('dataset.'):], v) for k, v in errors.items()]
         fill = c.dataset.as_dict()
         if errors:
             fill.update(request.params)
-        return render('editor/core.html', form_errors=dict(errors), 
+        return render('editor/core.html', form_errors=dict(errors),
                 form_fill=fill)
 
     def core_update(self, dataset, format='html'):
@@ -65,6 +72,7 @@ class EditorController(BaseController):
             c.dataset.label = data['label']
             c.dataset.currency = data['currency']
             c.dataset.description = data['description']
+            c.dataset.default_time = data['default_time']
             c.dataset.territories = data['territories']
             c.dataset.languages = data['languages']
             db.session.commit()

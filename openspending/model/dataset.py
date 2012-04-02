@@ -110,6 +110,13 @@ class Dataset(TableHandler, db.Model):
                 return field
         raise KeyError()
 
+    def __contains__(self, name):
+        try:
+            self[name]
+            return True
+        except KeyError:
+            return False
+
     @property
     def fields(self):
         """ Both the dimensions and metrics in this dataset. """
