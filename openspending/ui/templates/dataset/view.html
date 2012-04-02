@@ -20,8 +20,8 @@
     <!-- templates/dataset/view.html scripts -->
 
     <py:if test="c.view">
-      ${widget_js('vis_widget', c.view.vis_widget, c.view.vis_state, c.time, handles=True)}
-      ${widget_js('table_widget', c.view.table_widget, c.view.table_state, c.time, handles=False)}
+      ${widget_js('vis_widget', c.view.vis_widget, c.view.vis_state, handles=True)}
+      ${widget_js('table_widget', c.view.table_widget, c.view.table_state, handles=False)}
     </py:if>
     ${share_scripts()}
   </py:def>

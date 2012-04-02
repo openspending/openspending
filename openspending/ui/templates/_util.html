@@ -50,18 +50,5 @@
     </div>
   </py:def>
 
-  <div py:def="view_times()" class="view-panel last" py:strip="True">
-    <!-- templates/_util.html view_times -->
-    <li py:if="c.view" class="dropdown time-select">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">${c.time} <b class="caret"></b></a>
-      <ul class="dropdown-menu times">
-        <py:for each="time in c.times">
-          <li py:if="c.time != time">
-            <a href="?_view=${c.view.name}&amp;_time=${time}">${time}</a>
-          </li>
-        </py:for>
-      </ul>
-    </li>
-  </div>
 </html>
 

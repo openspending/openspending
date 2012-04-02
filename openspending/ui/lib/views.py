@@ -14,6 +14,19 @@ from openspending.ui.lib import widgets
 log = logging.getLogger(__name__)
 
 
+def default_year(dataset):
+    """ Guess a reasonable default year for this dataset or use
+    the year specified on the dataset object. """
+    current_year = str(datetime.utcnow().year)
+    times = [m['year'] for m in dataset['time'].members()]
+    times = list(set(times))
+    if dataset.default_time:
+        return dataset.default_time
+    if not len(times) or current_year in times:
+        return current_year
+    return max(times)
+
+
 class View(object):
 
     def __init__(self, dataset, view):
@@ -30,6 +43,7 @@ class View(object):
                                   view.get('breakdown'))
         self.cuts = view.get('cuts',
                              view.get('view_filters', {}))
+        self.year = default_year(dataset)
 
     def match(self, obj, dimension=None):
         if isinstance(obj, Dataset):
@@ -74,7 +88,8 @@ class View(object):
     def vis_state(self):
         return {
             'drilldown': self.drilldown,
-            'cuts': self.cuts
+            'cuts': self.cuts,
+            'year': self.year
             }
 
     @property
@@ -85,35 +100,13 @@ class View(object):
     def table_state(self):
         return {
             'drilldowns': [self.drilldown],
-            'cuts': self.cuts
+            'cuts': self.cuts,
+            'year': self.year
             }
 
     @property
     def table_widget(self):
         return widgets.get_widget('aggregate_table')
-
-
-def _set_time_context(request, c):
-    # TODO: this is an unholy mess that needs to be killed
-    # with fire.
-    req_time = request.params.get('_time')
-    c.times = [m['year'] for m in c.dataset['time'].members()]
-    c.times = list(set(c.times))
-    if req_time in c.times:
-        c.state['time'] = req_time
-    c.time = c.state.get('time')
-    if c.time not in c.times and len(c.times):
-        current_year = str(datetime.utcnow().year)
-        if c.dataset.default_time:
-            c.time = c.dataset.default_time
-        elif current_year in c.times:
-            c.time = current_year
-        else:
-            c.time = c.times[-1]
-    # TODO: more clever way to set comparison time
-    c.time_before = None
-    if c.time and c.time in c.times:
-        c.time_before = c.times[c.times.index(c.time) - 1]
 
 
 def handle_request(request, c, obj, dimension=None):
@@ -125,5 +118,3 @@ def handle_request(request, c, obj, dimension=None):
     except ValueError:
         c.view = None
         return
-
-    _set_time_context(request, c)

@@ -538,6 +538,17 @@ table.sources ul.runs {
   padding-top: 1em;
 }
 
+.query-builder .num {
+  display: inline-block;
+  margin-right: 1em;
+}
+
+.query-builder .slider {
+  margin-top: 0.2em;
+  display: inline-block;
+  width: 75%;
+}
+
 /* Widgets */
 
 #widgets-select-list td.desc {

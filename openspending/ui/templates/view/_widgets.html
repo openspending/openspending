@@ -12,7 +12,7 @@
     <div id="widget"></div>
   </py:def>
 
-  <py:def function="widget_js(name, widget, state, time, handles=False)" py:if="widget">
+  <py:def function="widget_js(name, widget, state, handles=False)" py:if="widget">
     <!-- templates/view/_widgets.html widget_js -->
     ${script_tag('lib/widgets')}
     ${script_tag('app/bob/bob')}
@@ -23,7 +23,6 @@
             var context = {
               dataset: "${c.dataset.name}",
               siteUrl: "${h.site_url()}",
-              time: "${time}"
               };
             window.wdg_${name} = new ${widget.class_name}($('#${name}'), context, state);
             ${handles_js(name, widget) if handles else ''}
