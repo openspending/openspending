@@ -1,6 +1,5 @@
 import logging
 import json
-import math
 
 from pylons.controllers.util import redirect
 from pylons import request, tmpl_context as c
