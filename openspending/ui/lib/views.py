@@ -25,13 +25,10 @@ def default_year(dataset):
 
 class View(object):
 
-    def __init__(self, dataset, view):
+    def __init__(self, dataset, obj, view):
         self.dataset = dataset
-        self.config = view
+        self.obj = obj
         self.entity = view.get('entity').lower().strip()
-        self.filters = view.get('filters', {})
-        if self.entity == 'entity':
-            self.filters['taxonomy'] = 'entity'
         self.name = view.get('name')
         self.label = view.get('label')
         self.dimension = view.get('dimension')
@@ -66,7 +63,7 @@ class View(object):
         raises: ``ValueError`` if the view does not exist.
         """
         for data in dataset.data.get('views', []):
-            view = cls(dataset, data)
+            view = cls(dataset, obj, data)
             if view.name == name and view.match(obj, dimension):
                 return view
         raise ValueError("View %s does not exist." % name)
@@ -75,16 +72,24 @@ class View(object):
     def available(cls, dataset, obj, dimension=None):
         views = []
         for data in dataset.data.get('views', []):
-            view = View(dataset, data)
+            view = View(dataset, obj, data)
             if view.match(obj, dimension):
                 views.append(view)
         return views
 
     @property
+    def full_cuts(self):
+        cuts = dict(self.cuts.items())
+        if self.dimension.lower() != 'dataset' and \
+           self.entity.lower() != 'dataset':
+            cuts[self.dimension] = self.obj.get('name')
+        return cuts
+
+    @property
     def vis_state(self):
         return {
             'drilldown': self.drilldown,
-            'cuts': self.cuts,
+            'cuts': self.full_cuts,
             'year': self.year
             }
 
@@ -96,7 +101,7 @@ class View(object):
     def table_state(self):
         return {
             'drilldowns': [self.drilldown],
-            'cuts': self.cuts,
+            'cuts': self.full_cuts,
             'year': self.year
             }
 
