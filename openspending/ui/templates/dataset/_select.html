@@ -11,6 +11,7 @@
   <!-- templates/dataset/_select.html -->
   <script id="listing-template" type="text/x-handlebars-template">
     <div class="span3">
+      <input id='datasets-filter-query' placeholder='Filter..' />
       {{#hasTerritories}}
         <h3>Countries</h3>
         <select class="filter-datasets" name="territories">
@@ -46,43 +47,41 @@
     </div>
     <div class="span6">
       <div class="box well">
-      <ul class="unstyled">
-        {{#datasets}}
-          <li>
-            <h3><a href="/{{name}}">{{label}}</a></h3>
-            <span class="label label-info">{{currency}}</span>
-            {{tagline}}
-          </li>
-        {{/datasets}}
-        {{^datasets}}
-          No matching datasets were found.
-        {{/datasets}}
+      <ul id='datasets-list' class="unstyled">
       </ul>
       </div>
     </div>
   </script>
 
-    <div class="modal big-modal hide fade" id="datasets">
-      <div class="modal-header">
-        <a class="close" data-dismiss="modal">×</a>
-        <h3>OpenSpending &mdash; mapping the money.</h3>
-      </div>
-      <div class="modal-body">
-        <div class="row listing"></div>
-      </div>
-      <div class="modal-footer">
-        <py:if test="can.dataset.create()">
-          <a class="btn btn-success" href="${h.url_for(controller='dataset',
-            action='new')}">Import a dataset</a>
-        </py:if>
-        <py:if test="not can.dataset.create()">
-          <a class="btn btn-success" href="${h.url_for(controller='dataset',
-            action='cta')}">Import a dataset</a>
-        </py:if>
-        <a data-dismiss="modal" class="btn">Close</a>
-      </div>
+  <script id="listing-item-template" type="text/x-handlebars-template">
+    <li>
+      <h3><a href="/{{name}}">{{label}}</a></h3>
+      <span class="label label-info">{{currency}}</span>
+      {{tagline}}
+    </li>
+  </script>  
+
+  <div class="modal big-modal hide fade" id="datasets">
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal">×</a>
+      <h3>OpenSpending &mdash; mapping the money.</h3>
     </div>
-  </py:def>
+    <div class="modal-body">
+      <div class="row listing"></div>
+    </div>
+    <div class="modal-footer">
+      <py:if test="can.dataset.create()">
+        <a class="btn btn-success" href="${h.url_for(controller='dataset',
+          action='new')}">Import a dataset</a>
+      </py:if>
+      <py:if test="not can.dataset.create()">
+        <a class="btn btn-success" href="${h.url_for(controller='dataset',
+          action='cta')}">Import a dataset</a>
+      </py:if>
+      <a data-dismiss="modal" class="btn">Close</a>
+    </div>
+  </div>
+</py:def>
 
 
 </html>
