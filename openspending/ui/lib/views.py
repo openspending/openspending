@@ -29,6 +29,7 @@ class View(object):
         self.dataset = dataset
         self.obj = obj
         self.entity = view.get('entity').lower().strip()
+        self.filters = view.get('filters', {})
         self.name = view.get('name')
         self.label = view.get('label')
         self.dimension = view.get('dimension')
