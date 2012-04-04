@@ -549,6 +549,43 @@ table.sources ul.runs {
   width: 75%;
 }
 
+ul.ui-autocomplete {
+  list-style: none;
+  padding: 4px 0;
+  background-color: #fff;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-style: solid;
+  border-width: 1px;
+
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+}
+
+ul.ui-autocomplete li a {
+  max-width: 400px;
+  display: block;
+  padding: 3px 15px;
+  clear: both;
+  font-weight: normal;
+  line-height: 18px;
+  color: #333;
+}
+
+ul.ui-autocomplete li a:hover,
+ul.ui-autocomplete li a.ui-state-hover,
+ul.ui-autocomplete li a.ui-state-active {
+  color: white;
+  text-decoration: none;
+  background-color: #08C;
+}
+
 /* Widgets */
 
 #widgets-select-list td.desc {
