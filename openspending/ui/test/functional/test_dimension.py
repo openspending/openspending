@@ -18,7 +18,7 @@ class TestDimensionController(ControllerTestCase):
                 members = list(dimension.members(
                     dimension.alias.c.name == '3',
                     limit=1))
-                self.member = members.pop()['cofog1']
+                self.member = members.pop()
                 break
 
     def test_index(self):
@@ -60,7 +60,7 @@ class TestDimensionController(ControllerTestCase):
                                     format='json'))
         obj = json.loads(response.body)['results']
         assert len(obj) == 5, obj
-        assert obj[0]['from']['name'] == 'Dept032', obj[0]
+        assert obj[0]['name'] == 'Dept032', obj[0]
 
         q = 'Ministry of Ju'
         response = self.app.get(url(controller='dimension', dataset='cra',
@@ -68,7 +68,7 @@ class TestDimensionController(ControllerTestCase):
                                     format='json', q=q))
         obj = json.loads(response.body)['results']
         assert len(obj) == 1, obj
-        assert obj[0]['from']['label'].startswith(q), obj[0]
+        assert obj[0]['label'].startswith(q), obj[0]
 
 
     def test_view_csv(self):

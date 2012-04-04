@@ -91,6 +91,5 @@ def _expand_facets(facets, dataset):
             member_names = [x[0] for x in facets[name]]
             facet_values = [x[1] for x in facets[name]]
             members = dim.members(dim.alias.c.name.in_(member_names))
-            members = [m[name] for m in members]
             members = util.sort_by_reference(member_names, members, lambda x: x['name'])
             facets[name] = zip(members, facet_values)

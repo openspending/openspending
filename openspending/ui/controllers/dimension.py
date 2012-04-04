@@ -42,7 +42,7 @@ class DimensionController(BaseController):
                     abort(404, _('Sorry, there is no member named %r')
                             % name)
                 c.dimension = dimension
-                c.member = members.pop()[dimension_name]
+                c.member = members.pop()
                 c.num_entries = dimension.num_entries(cond)
                 return
         abort(404, _('Sorry, there is no dimension named %r') % dimension_name)

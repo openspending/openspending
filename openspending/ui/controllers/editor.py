@@ -47,7 +47,7 @@ class EditorController(BaseController):
         c.territories = sorted(COUNTRIES.items(), key=lambda (k, v): v)
 
         if 'time' in c.dataset:
-            c.available_times = [m['time']['year'] for m in c.dataset['time'].members()]
+            c.available_times = [m['year'] for m in c.dataset['time'].members()]
             c.available_times = sorted(set(c.available_times), reverse=True)
         else:
             c.available_times = []
