@@ -353,14 +353,13 @@ class Dataset(TableHandler, db.Model):
             'year': self['time']['year'].column_alias.label('year'),
             'month': self['time']['yearmonth'].column_alias.label('month'),
             }
-        dimensions = set(drilldowns + [k for k, v in cuts])
-        for dimension in dimensions:
+        dimensions = [d for d in drilldowns] + [k for k, v in cuts]
+        dimensions = [d.split('.')[0] for d in dimensions]
+        for dimension in set(dimensions):
             if dimension in labels:
-                _name = 'time'
-            else:
-                _name = dimension.split('.')[0]
-            if _name not in [c.table.name for c in joins.columns]:
-                joins = self[_name].join(joins)
+                dimension = 'time'
+            if dimension not in [c.table.name for c in joins.columns]:
+                joins = self[dimension].join(joins)
 
         group_by = []
         for key in dimensions:
