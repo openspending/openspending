@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: OpenSpending\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2012-03-08 10:54+0100\n"
-"PO-Revision-Date: 2012-03-08 09:54+0000\n"
-"Last-Translator: pudo <friedrich@pudo.org>\n"
+"PO-Revision-Date: 2012-03-26 12:15+0000\n"
+"Last-Translator: ilabastida <ilabastida@ub.edu>\n"
 "Language-Team: Catalan (http://www.transifex.net/projects/p/openspending/language/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -287,37 +287,37 @@ msgstr "Això és un projecte de l'[1:Open Knowledge \n           Foundation]."
 
 #: openspending/ui/templates/layout.html:129
 msgid "The easiest way to find and share data"
-msgstr ""
+msgstr "La manera més senzilla de trobar i compartir dades"
 
 #: openspending/ui/templates/layout.html:129
 msgid "The Data Hub"
-msgstr ""
+msgstr "El Data Hub"
 
 #: openspending/ui/templates/layout.html:130
 msgid "The Open Database Of The Corporate World"
-msgstr ""
+msgstr "The Open Database Of The Corporate World"
 
 #: openspending/ui/templates/layout.html:130
 msgid "OpenCorporates.com"
-msgstr ""
+msgstr "OpenCorporates.com"
 
 #: openspending/ui/templates/layout.html:131
 msgid ""
 "Where Does My Money Go\n"
 "              (UK)"
-msgstr ""
+msgstr "Where Does My Money Go\n              (UK)"
 
 #: openspending/ui/templates/layout.html:133
 msgid "OffenerHaushalt (DE)"
-msgstr ""
+msgstr "OffenerHaushalt (DE)"
 
 #: openspending/ui/templates/layout.html:134
 msgid "OKFN Labs"
-msgstr ""
+msgstr "OKFN Labs"
 
 #: openspending/ui/templates/layout.html:135
 msgid "YourTopia"
-msgstr ""
+msgstr "YourTopia"
 
 #: openspending/ui/templates/layout.html:138
 msgid "Wiki"
@@ -351,7 +351,7 @@ msgid ""
 "          [3:open definition].\n"
 "          [4:]\n"
 "          [5:[6:]]"
-msgstr ""
+msgstr "Tot [1:el codi] \n          i [2:les dades] estan\n          subjectes a una llicència oberta d'acord amb la\n          [3:definició d'obert].\n          [4:]\n          [5:[6:]]"
 
 #: openspending/ui/templates/account/login.html:5
 #: openspending/ui/templates/account/settings.html:5
@@ -441,7 +441,7 @@ msgstr "Gestiona"
 
 #: openspending/ui/templates/dataset/_select.html:68
 msgid "OpenSpending — mapping the money."
-msgstr ""
+msgstr "OpenSpending —  mostrant l'assignació dels diners."
 
 #: openspending/ui/templates/dataset/_select.html:76
 #: openspending/ui/templates/dataset/_select.html:80
@@ -453,7 +453,7 @@ msgstr "Importar un conjunt de dades"
 
 #: openspending/ui/templates/dataset/_select.html:82
 msgid "Close"
-msgstr ""
+msgstr "Tancar"
 
 #: openspending/ui/templates/dataset/about.html:9
 #: openspending/ui/templates/dataset/dropdb.html:5
@@ -594,7 +594,7 @@ msgid ""
 "Paste the url of your [1:http://thedatahub.org/] dataset\n"
 "            and we will take care of pulling all the relevant information automatically\n"
 "            (though you will get a chance to review and amend it)."
-msgstr ""
+msgstr "Enganxeu la URL del vostre [1:http://thedatahub.org/] conjunt de dades\n            i nosaltres ens ocuparem d'extreure tota la informació rellevant de manera automàtica\n            (encara tindreu l'oportunitat de revisar-la i corregir-la)."
 
 #: openspending/ui/templates/dataset/new.html:45
 msgid "OR"
@@ -638,12 +638,12 @@ msgstr "Moneda"
 #: openspending/ui/templates/dataset/new.html:78
 #: openspending/ui/templates/editor/core.html:29
 msgid "Commonly used currencies"
-msgstr ""
+msgstr "Divises d'ús comú"
 
 #: openspending/ui/templates/dataset/new.html:83
 #: openspending/ui/templates/editor/core.html:34
 msgid "All currencies"
-msgstr ""
+msgstr "Totes les divises"
 
 #: openspending/ui/templates/dataset/new_cta.html:11
 msgid "Contribute your local data!"
@@ -659,7 +659,7 @@ msgid ""
 "        aims to facilitate the presentation of financial information so \n"
 "        anyone - whether data geek or concerned citizen - can contribute \n"
 "        their local city budget or spending reports."
-msgstr ""
+msgstr "Estem intenta recollir [1:la informació mundial\n          de la despesa]\n        en una base de dades\n        comunar per tal de poder oferir unes eines senzilles per [2:l'anàlisi,\n          la visualització i la comparació]. OpenSpending és una plataforma oberta que té\n        com a objectiu facilitar la presentació d'informació econòmica per tal que \n        qualsevol - sigui un expert en dades o un ciutadà preocupat - hi pugui contribuir\n        amb el pressupost o els informes de la despesa de la seva ciutat."
 
 #: openspending/ui/templates/dataset/new_cta.html:24
 msgid "Why should you contribute?"
@@ -682,7 +682,7 @@ msgid ""
 "          [9:Sign up to contribute]\n"
 "          [10:Learn more]\n"
 "        ]"
-msgstr ""
+msgstr "Hi ha molts projectes que tenen com objectiu fer un seguiment de la informació financera. Tots inclouen\n        aquests serveis bàsics, que volem oferir:\n         [1:]  [2:]\n        [3:\n          [4:Espais per carregar i validar dades.]\n          [5:Tipus de visualització d'ús comú (diagrames en arbre, en bombolla i\n         gràfiques).]\n          [6:Cerca a text complet per a totes les entrades.]\n          [7:Mitjans per fer un seguiment de la procedència i oferir accés a dades\n          en brut.]\n        ]\n        [8:\n          [9:Registreu-vos per participar-hi]\n          [10:Apreneu-ne més]\n        ]"
 
 #: openspending/ui/templates/dimension/_nav.html:39
 #: openspending/ui/templates/dimension/_nav.html:44
@@ -836,7 +836,7 @@ msgstr "El nom que escolliu només ha d'incloure lletres, nombre o guionets (i.e
 msgid ""
 "Where the dimension represents the ultimate source or destination of the funds, \n"
 "                        call it [1:from] or [2:to]."
-msgstr ""
+msgstr "On la dimensió representa l'última font o la destinació dels fons, \n                        anomena-ho [1:de] o [2:a]."
 
 #: openspending/ui/templates/editor/dimensions.html:115
 msgid "Name"
@@ -897,7 +897,7 @@ msgid ""
 "          [2:\n"
 "            [3:Visit dashboard]\n"
 "          ]"
-msgstr ""
+msgstr "[1:El vostre model s'ha desat.] Ara podeu provar de carregar una \n          mostra de les dades tornant a l'escriptori.\n          [2:\n            [3:Visiteu l'escriptori]\n          ]"
 
 #: openspending/ui/templates/editor/dimensions.html:176
 msgid ""
@@ -918,7 +918,7 @@ msgid ""
 "                                          can be any property of a line item or \n"
 "                                          transaction that should be presented\n"
 "                                          within OpenSpending."
-msgstr ""
+msgstr "Per crear un model per al vostre conjunt de dades,\n                                          heu de traduir les columnes en\n                                          el fitxer de dades a \"dimensions\", les divisions\n                                          lògiques del conjunt de dades. Una dimensió\n                                          pot ser qualsevol propietat d'un element o transacció\n                                          de la línia que hauria d'aparèixer a\n                                          OpenSpending."
 
 #: openspending/ui/templates/editor/dimensions.html:202
 msgid "There are four core dimensions,"
@@ -962,7 +962,7 @@ msgid ""
 "                                          recipient of a specific transaction\n"
 "                                          — both of those must be\n"
 "                                          dimensions if they exist."
-msgstr ""
+msgstr "per al\n                                          beneficiari d'una transacció especifica \n                                          — ambdós han de ser\n                                          dimensions si existeixen."
 
 #: openspending/ui/templates/editor/dimensions.html:212
 msgid ""
@@ -972,7 +972,7 @@ msgid ""
 "                                          descriptions, transaction IDs and any\n"
 "                                          other details present in the source\n"
 "                                          data."
-msgstr ""
+msgstr "Més enllà d'això, podeu afegire-hi les vostres pròpies\n                                          dimensions per descriure aspectes com\n                                          esquemes de classificació,\n                                          descripcions, IDs de transacció i qualsevol\n                                          altre detall present en les fonts de les\n                                          dades."
 
 #: openspending/ui/templates/editor/dimensions.html:220
 msgid "What do I do here?"
@@ -983,7 +983,7 @@ msgid ""
 "First off, make sure to set up the\n"
 "                                          model to conform to these basic\n"
 "                                          requirements:"
-msgstr ""
+msgstr "Primer, assegureu-vos d'establir el\n                                          model per complir amb aquests requisits\n                                          bàsics:"
 
 #: openspending/ui/templates/editor/dimensions.html:227
 msgid "Create"
@@ -993,14 +993,14 @@ msgstr "Crear"
 msgid ""
 "with the core \n"
 "                                          financial measure of the dataset and"
-msgstr ""
+msgstr "amb el nucli \n                                          de la mesura financera del conjunt de dades i"
 
 #: openspending/ui/templates/editor/dimensions.html:229
 msgid ""
 "to represent the most \n"
 "                                          representative temporal\n"
 "                                          dimension."
-msgstr ""
+msgstr "per representar la dimensió \n                                          temporal més\n                                          representativa."
 
 #: openspending/ui/templates/editor/dimensions.html:232
 msgid ""
@@ -1008,7 +1008,7 @@ msgid ""
 "                                          contains the name of a department or \n"
 "                                          body spending the funds, make sure to \n"
 "                                          include a"
-msgstr ""
+msgstr "Si les vostres dades són transaccionals i\n                                          contenen el nom d'un department o\n                                          unitat de despresa dels fons, assegureu-vos\n                                          d'incloure un"
 
 #: openspending/ui/templates/editor/dimensions.html:235
 msgid "dimension."
@@ -1022,7 +1022,7 @@ msgstr "If the data mentions a recipient,\n                                     
 
 #: openspending/ui/templates/editor/dimensions.html:238
 msgid "as another dimension."
-msgstr ""
+msgstr "com una altra dimensió."
 
 #: openspending/ui/templates/editor/dimensions.html:239
 msgid ""
@@ -1032,7 +1032,7 @@ msgid ""
 "                                          entries in the dataset. This can\n"
 "                                          later be used for updating the\n"
 "                                          dataset."
-msgstr ""
+msgstr "Establiu una combinació de tecles única per tal que\n                                          els valors en aquesta\n                                          combinació siguin diferents entre totes\n                                          les entrades del conjunt de dades. Això pot\n                                          ser utilitzat més tard per actualitzar el\n                                          conjunt."
 
 #: openspending/ui/templates/editor/dimensions.html:246
 msgid ""
@@ -1068,7 +1068,7 @@ msgstr "Heu de definir com a mínim una font de les dades."
 msgid ""
 "In order to create a dimensions model, at least on data source\n"
 "            needs to be available."
-msgstr ""
+msgstr "Per crear un model de dimensions, almenys cal que una font\n            de dades estigui disponible."
 
 #: openspending/ui/templates/editor/index.html:21
 msgid ""
@@ -1087,7 +1087,7 @@ msgstr "Apengueu [1:com exportar un CSV] des de diferents aplicacions\n         
 msgid ""
 "Help on [1:common data wrangling tasks] needed to clean\n"
 "                source data."
-msgstr ""
+msgstr "Ajuda en [1:les tasques communes de discussió de dades] necessàries per netejar\n                les fonts de les deades."
 
 #: openspending/ui/templates/editor/index.html:36
 #: openspending/ui/templates/editor/index.html:63
@@ -1101,7 +1101,7 @@ msgid ""
 "            [2:\n"
 "              [3:Refresh]\n"
 "            ]"
-msgstr ""
+msgstr "[1:Deixeu-me veure...] Ara les dades s'estan comprovant per\n            veure si poden der importades. Això no trigarà gaire.\n            [2:\n              [3:Refreca]\n            ]"
 
 #: openspending/ui/templates/editor/index.html:49
 msgid ""
@@ -1111,7 +1111,7 @@ msgid ""
 "              [4:Create\n"
 "                a model]\n"
 "            ]"
-msgstr ""
+msgstr "[1:Coses bones!] Les vostres dades estan llestes. Ara cal,\n            crear un [2:model de dades] per estructurar el conjunt de dades.\n            [3:\n              [4:Crear\n                un model]\n            ]"
 
 #: openspending/ui/templates/editor/index.html:61
 msgid "Source files"
@@ -1183,7 +1183,7 @@ msgid ""
 "          not have a graphical interface yet. If you still want to use it, \n"
 "          please check out the [2:documentation]\n"
 "          for the 'views' system."
-msgstr ""
+msgstr "[1:Hic sunt dracones.] L'editor de visualitzacions encara\n          no té una interfície gràfica. No obstant aixó, si voleu utilitzar-lo, \n          si us plau consulteu la [2:documentació]\n          per al sistema de 'vistes'."
 
 #: openspending/ui/templates/editor/views.html:33
 msgid "Available Dimensions"
@@ -1248,7 +1248,7 @@ msgid ""
 "Our aim is to track every government and corporate financial transaction \n"
 "        across the world and present it in useful and engaging forms for everyone\n"
 "        from a school-child to a data geek."
-msgstr ""
+msgstr "El nostre objectiu és fer un seguiment de les transaccions de cada govern i cada institució financera\n        arreu del món i presentar-la d'una manera útil i participativa per a tothom\n        des d'un escolar a un expert en dades."
 
 #: openspending/ui/templates/home/index.html:34
 msgid ""
@@ -1265,7 +1265,7 @@ msgid ""
 "          dataset] to explore or visit our\n"
 "          [3:Spending Blog], where we highlight\n"
 "          spending stories and methods of analyzing the information."
-msgstr "OpenSpending presenta informació financera [1:de ffrom many\n        països diferents] i les fonts.\n        [2:Escolliu un\n          conjunt de dades] per explorar o visiteu el nostre\n          [3:Blog de la despesa], on destaquem\n          les històries de la despesa i el mètodes d'anàlisi de la informació."
+msgstr "OpenSpending presenta informació financera [1:de molts\n        països diferents] i les fonts.\n        [2:Escolliu un\n          conjunt de dades] per explorar o visiteu el nostre\n          [3:Blog de la despesa], on destaquem\n          les històries de la despesa i el mètodes d'anàlisi de la informació."
 
 #: openspending/ui/templates/home/index.html:55
 msgid "Investigate"
@@ -1278,7 +1278,7 @@ msgid ""
 "        list]. When you've found interesting information in the data,\n"
 "      become a contributor to the \n"
 "      [2:Spending Blog] to share your findings."
-msgstr ""
+msgstr "Teniu preguntes sobre la despesa? Pregunteu i ajudeu a respondre-les a\n      la nostra [1:llista de\n        discussió]. Quan trobeu informació interessant en les dades,\n      esdevingueu un partipant en el \n      [2:Blog de la despesa] per compartir les vostres troballes."
 
 #: openspending/ui/templates/home/index.html:65
 msgid "Contribute"
@@ -1290,7 +1290,7 @@ msgid ""
 "        looking for spending data from all over the world. [1:Import a\n"
 "          dataset] from your country or local community to visualize \n"
 "        and explore government expenditure."
-msgstr ""
+msgstr "Encara no hi ha el teu país, estat o ciutat a OpenSpending? Estem\n        cercant les dades de despesa de tot el món. [1:Importa un\n          conjunt de dades] del teu país o de la teva comunitat per visualitzar\n        i explorar la despesa pública."
 
 #: openspending/ui/templates/home/reporterror.html:7
 msgid "Report an issue"
@@ -1368,7 +1368,7 @@ msgid ""
 "      successfully. This does not mean the data is stored in a form \n"
 "      which is semantically useful, though, so don't forget to \n"
 "      sanity-check a few entries!"
-msgstr ""
+msgstr "La font s'ha carregat\n      correctament. Això no significa que les dades estiguin emmagatzemades\n      d'una manera que sigui útil semànticament, per tant, no oblideu \n      revisar amb cura unes quantes entrades!"
 
 #: openspending/ui/templates/run/view.html:30
 msgid "Level"
@@ -1440,7 +1440,7 @@ msgid ""
 "This must point directly at a\n"
 "            valid CSV file. HTML landing pages or other formats, such as\n"
 "            Excel, will not work."
-msgstr ""
+msgstr "Això ha d¡apuntar directamenta a un\n            fitxer CSV vàlid. Pàgines d'arribada HTML  o altres formars, com per exemple\n            Excel, no funcionaran."
 
 #: openspending/ui/templates/source/new.html:10
 #: openspending/ui/templates/source/new.html:17

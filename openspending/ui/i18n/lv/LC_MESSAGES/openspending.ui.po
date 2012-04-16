@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the openspending project.
 # 
 # Translators:
+#   <linda.austere@gmail.com>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenSpending\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2012-03-08 10:54+0100\n"
-"PO-Revision-Date: 2012-03-08 09:54+0000\n"
-"Last-Translator: pudo <friedrich@pudo.org>\n"
+"PO-Revision-Date: 2012-03-28 14:17+0000\n"
+"Last-Translator: lindaa <linda.austere@gmail.com>\n"
 "Language-Team: Latvian (http://www.transifex.net/projects/p/openspending/language/lv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,16 +21,16 @@ msgstr ""
 
 #: openspending/ui/controllers/account.py:38
 msgid "Login name already exists, please choose a different one"
-msgstr ""
+msgstr "Šis lietotājvārds vairs nav pieejams. Lūdzu izvēlieties citu!"
 
 #: openspending/ui/controllers/account.py:42
 #: openspending/ui/controllers/account.py:72
 msgid "Passwords don't match!"
-msgstr ""
+msgstr "Paroles nesakrīt"
 
 #: openspending/ui/controllers/account.py:80
 msgid "Your settings have been updated."
-msgstr ""
+msgstr "Jūsu uzstādījumi ir atjaunināti"
 
 #: openspending/ui/controllers/account.py:91
 #, python-format
@@ -38,15 +39,15 @@ msgstr ""
 
 #: openspending/ui/controllers/account.py:94
 msgid "Incorrect user name or password!"
-msgstr ""
+msgstr "Nepareizs lietotājvārds vai parole"
 
 #: openspending/ui/controllers/account.py:98
 msgid "You have been logged out."
-msgstr ""
+msgstr "Jūs esat izreģistrējies"
 
 #: openspending/ui/controllers/dataset.py:100
 msgid "A dataset with this identifer already exists!"
-msgstr ""
+msgstr "Datu kopa ar šādu identifikatoru jau pastāv!"
 
 #: openspending/ui/controllers/dimension.py:37
 #, python-format
@@ -61,11 +62,11 @@ msgstr ""
 #: openspending/ui/controllers/dimension.py:58
 #: openspending/ui/controllers/dimension.py:60
 msgid "This is not a dimension"
-msgstr ""
+msgstr "Šī nav dimensija"
 
 #: openspending/ui/controllers/editor.py:71
 msgid "The dataset has been updated."
-msgstr ""
+msgstr "Datu kopa ir atjaunināta"
 
 #: openspending/ui/controllers/editor.py:100
 msgid ""
@@ -90,25 +91,25 @@ msgstr ""
 
 #: openspending/ui/controllers/editor.py:166
 msgid "This dataset is already public!"
-msgstr ""
+msgstr "Šī datu kopa jau ir publiska!"
 
 #: openspending/ui/controllers/editor.py:171
 #, python-format
 msgid ""
 "Congratulations, the dataset has been published. It is now available at: %s"
-msgstr ""
+msgstr "Apsveicam! Datu kopa ir publicēta un aplūkojama šeit:%s"
 
 #: openspending/ui/controllers/editor.py:180
 msgid "This dataset is already private!"
-msgstr ""
+msgstr "Šī datu kopa jau ir slēgta (privāta)!"
 
 #: openspending/ui/controllers/editor.py:184
 msgid "The dataset has been retracted. It is no longer visible to others."
-msgstr ""
+msgstr "Datu kopa ir atsaukta un vairs nav pieejama citiem lietotājiem"
 
 #: openspending/ui/controllers/editor.py:196
 msgid "The dataset has been deleted."
-msgstr ""
+msgstr "Datu kopa ir izdzēsta"
 
 #: openspending/ui/controllers/entry.py:42
 #, python-format
@@ -117,7 +118,7 @@ msgstr ""
 
 #: openspending/ui/controllers/help.py:32
 msgid "Sorry, the selected help file could not be found"
-msgstr ""
+msgstr "Atvainojiet, izvēlētais palīdzības fails nav atrasts"
 
 #: openspending/ui/controllers/home.py:65
 msgid "Sent ping!"
@@ -127,7 +128,7 @@ msgstr ""
 #: openspending/ui/controllers/source.py:56
 #, python-format
 msgid "There is no source '%s'"
-msgstr ""
+msgstr "Šī avota nav '%s'"
 
 #: openspending/ui/controllers/run.py:26
 #, python-format
@@ -136,11 +137,11 @@ msgstr ""
 
 #: openspending/ui/controllers/source.py:39
 msgid "The source has been created."
-msgstr ""
+msgstr "Ir izveidots jauns avots."
 
 #: openspending/ui/controllers/source.py:71
 msgid "Now loading..."
-msgstr ""
+msgstr "Ielādējas..."
 
 #: openspending/ui/lib/base.py:139
 #, python-format
@@ -150,11 +151,11 @@ msgstr ""
 #: openspending/ui/templates/400.html:5 openspending/ui/templates/403.html:5
 #: openspending/ui/templates/404.html:5 openspending/ui/templates/500.html:5
 msgid "nav-home"
-msgstr ""
+msgstr "nav-home"
 
 #: openspending/ui/templates/400.html:9
 msgid "Invalid request."
-msgstr ""
+msgstr "Nederīgs pieprasījums."
 
 #: openspending/ui/templates/400.html:10 openspending/ui/templates/403.html:10
 #: openspending/ui/templates/404.html:10
@@ -162,23 +163,23 @@ msgstr ""
 #: openspending/ui/templates/run/view.html:51
 #: openspending/ui/templates/source/_list.html:19
 msgid "Error"
-msgstr ""
+msgstr "Kļūda"
 
 #: openspending/ui/templates/403.html:9
 msgid "Access denied."
-msgstr ""
+msgstr "Pieeja ir liegta"
 
 #: openspending/ui/templates/403.html:13
 msgid "You may not have the relevant rights."
-msgstr ""
+msgstr "Iespējams, jums nav piekļuves tiesību"
 
 #: openspending/ui/templates/403.html:16
 msgid "You may need to login."
-msgstr ""
+msgstr "Iespējams, Jums nepieciešams reģistrēties"
 
 #: openspending/ui/templates/404.html:9
 msgid "Resource not found"
-msgstr ""
+msgstr "Avots nav atrasts"
 
 #. Advice regarding a 404 error
 #: openspending/ui/templates/404.html:11
@@ -186,97 +187,97 @@ msgstr ""
 msgid ""
 "[1:%(message)s]: Maybe the URL is misspelled or the \n"
 "      data has been deleted."
-msgstr ""
+msgstr "[1:%(message)s]: Iespējams, ka nepareizi ievadīta lapas adrese vai arī dati ir tikuši dzēsti"
 
 #: openspending/ui/templates/500.html:9
 msgid "Something went wrong"
-msgstr ""
+msgstr "Kaut kas ir nogājis greizi"
 
 #: openspending/ui/templates/500.html:10
 msgid "Internal Server Error"
-msgstr ""
+msgstr "Servera kļūda"
 
 #: openspending/ui/templates/500.html:13
 msgid ""
 ":\n"
 "      Sorry, there seems to be an internal problem in OpenSpending.\n"
 "      The problem has now been reported and we're on it."
-msgstr ""
+msgstr "Atvainojiet! Šķiet, ka Open Spending saskāries ar iekšēju kļūdu. Jūsu problēmziņojums ir pieņemts un mēs strādājam, lai to atrisinātu."
 
 #: openspending/ui/templates/_browser.html:36
 #, python-format
 msgid "[1:%(entries)s entries] found."
-msgstr ""
+msgstr "[1:%(entries)s entries]"
 
 #: openspending/ui/templates/_browser.html:52
 msgid "No entries with this property."
-msgstr ""
+msgstr "Nav ierakstu ar šo raksturlielumu"
 
 #. Label for active filters on the dataset 'Search' page
 #: openspending/ui/templates/_browser.html:87
 msgid "filter:"
-msgstr ""
+msgstr "filtrs:"
 
 #: openspending/ui/templates/_util.html:25
 msgid "Time"
-msgstr ""
+msgstr "Laiks"
 
 #: openspending/ui/templates/_util.html:26
 #: openspending/ui/templates/entry/view.html:47
 msgid "Spender"
-msgstr ""
+msgstr "Tērētājs"
 
 #: openspending/ui/templates/_util.html:27
 #: openspending/ui/templates/entry/view.html:35
 msgid "Recipient"
-msgstr ""
+msgstr "Finanšu līdzekļu saņēmējs"
 
 #: openspending/ui/templates/_util.html:28
 msgid "Amount"
-msgstr ""
+msgstr "Apjoms"
 
 #. Link to entry details (please leave arrow intact)
 #: openspending/ui/templates/_util.html:53
 msgid "details»"
-msgstr ""
+msgstr "detaļas»"
 
 #: openspending/ui/templates/layout.html:71
 msgid "Home"
-msgstr ""
+msgstr "Sākums"
 
 #: openspending/ui/templates/layout.html:72
 msgid "Spending Blog"
-msgstr ""
+msgstr "SpendingBlogs"
 
 #: openspending/ui/templates/layout.html:74
 msgid "Datasets"
-msgstr ""
+msgstr "Datu kopas"
 
 #: openspending/ui/templates/layout.html:76
 #: openspending/ui/templates/dataset/_nav.html:34
 msgid "About"
-msgstr ""
+msgstr "Par"
 
 #: openspending/ui/templates/layout.html:77
 #: openspending/ui/templates/layout.html:143
 msgid "Contact"
-msgstr ""
+msgstr "Kontakti"
 
 #: openspending/ui/templates/layout.html:82
 msgid "Login/Register"
-msgstr ""
+msgstr "Ierakstīties/Reģistrēties"
 
 #: openspending/ui/templates/layout.html:85
 msgid "Settings"
-msgstr ""
+msgstr "Uzstādījumi"
 
 #: openspending/ui/templates/layout.html:86
 msgid "Logout"
-msgstr ""
+msgstr "Izrakstīties"
 
 #: openspending/ui/templates/layout.html:89
 msgid "Language"
-msgstr ""
+msgstr "Valoda"
 
 #: openspending/ui/templates/layout.html:123
 msgid ""
@@ -320,27 +321,27 @@ msgstr ""
 
 #: openspending/ui/templates/layout.html:138
 msgid "Wiki"
-msgstr ""
+msgstr "Wiki"
 
 #: openspending/ui/templates/layout.html:139
 msgid "Mailing List"
-msgstr ""
+msgstr "Ziņu liste"
 
 #: openspending/ui/templates/layout.html:140
 msgid "API"
-msgstr ""
+msgstr "API"
 
 #: openspending/ui/templates/layout.html:141
 msgid "Help"
-msgstr ""
+msgstr "Palīdzība"
 
 #: openspending/ui/templates/layout.html:142
 msgid "Privacy"
-msgstr ""
+msgstr "Privātums"
 
 #: openspending/ui/templates/layout.html:152
 msgid "Open Content"
-msgstr ""
+msgstr "Brīvi pieejams saturs"
 
 #: openspending/ui/templates/layout.html:146
 msgid ""
@@ -357,14 +358,14 @@ msgstr ""
 #: openspending/ui/templates/dataset/new.html:5
 #: openspending/ui/templates/dataset/new_cta.html:5
 msgid "nav-account"
-msgstr ""
+msgstr "nav-account"
 
 #: openspending/ui/templates/account/login.html:7
 #: openspending/ui/templates/account/login.html:13
 #: openspending/ui/templates/account/login.html:17
 #: openspending/ui/templates/account/login.html:39
 msgid "Login"
-msgstr ""
+msgstr "Ierakstīties"
 
 #: openspending/ui/templates/account/login.html:10
 msgid "Sign in to OpenSpending"
@@ -374,26 +375,26 @@ msgstr ""
 #: openspending/ui/templates/account/login.html:57
 #: openspending/ui/templates/account/settings.html:30
 msgid "Password"
-msgstr ""
+msgstr "Parole"
 
 #: openspending/ui/templates/account/login.html:35
 msgid "Create an account"
-msgstr ""
+msgstr "Izveidojiet kontu"
 
 #: openspending/ui/templates/account/login.html:45
 #: openspending/ui/templates/account/settings.html:18
 msgid "Fullname"
-msgstr ""
+msgstr "Pilns vārds"
 
 #: openspending/ui/templates/account/login.html:51
 #: openspending/ui/templates/account/settings.html:24
 msgid "E-Mail"
-msgstr ""
+msgstr "E-pasts"
 
 #: openspending/ui/templates/account/login.html:63
 #: openspending/ui/templates/account/settings.html:36
 msgid "Password (repeat)"
-msgstr ""
+msgstr "Parole (atkārtoti)"
 
 #: openspending/ui/templates/account/settings.html:7
 msgid "Settings for:"
@@ -436,7 +437,7 @@ msgstr ""
 
 #: openspending/ui/templates/dataset/_nav.html:40
 msgid "Manage"
-msgstr ""
+msgstr "Pārvaldīt"
 
 #: openspending/ui/templates/dataset/_select.html:68
 msgid "OpenSpending — mapping the money."
@@ -448,7 +449,7 @@ msgstr ""
 #: openspending/ui/templates/dataset/new.html:11
 #: openspending/ui/templates/dataset/new_cta.html:7
 msgid "Import a dataset"
-msgstr ""
+msgstr "Importēt datu kopu"
 
 #: openspending/ui/templates/dataset/_select.html:82
 msgid "Close"
@@ -479,11 +480,11 @@ msgstr ""
 #: openspending/ui/templates/dataset/about.html:24
 #, python-format
 msgid "No description is available for %(label)s"
-msgstr ""
+msgstr " %(label)s apraksts nav pieejams"
 
 #: openspending/ui/templates/dataset/about.html:31
 msgid "Sources"
-msgstr ""
+msgstr "Avoti"
 
 #: openspending/ui/templates/dataset/about.html:32
 msgid ""
@@ -491,28 +492,28 @@ msgid ""
 "              for this dataset. If you want to look at the exact data \n"
 "              that is used to generate aggregates, you can also use a \n"
 "              [1:bulk export]."
-msgstr ""
+msgstr "Šī ir visu reģistrēto datu uzskaite šai datu kopai. Ja vēlaties aplūkot konkrētus datus, kuri tikuši izmantoti apkopojumu veidošanā, jūs varat lietot arī [1:bulk export]"
 
 #: openspending/ui/templates/dataset/about.html:47
 msgid "Team"
-msgstr ""
+msgstr "Komanda"
 
 #: openspending/ui/templates/dataset/about.html:48
 msgid ""
 "These people are the managers of the dataset. They can\n"
 "              make modifications to its schema and are responsible\n"
 "              to make sure the data is accurate."
-msgstr ""
+msgstr "Šie cilvēki ir datu kopas pārvaldītāji. Viņi var veikt izmaiņas tās izvietojumā un ir atbildīgi par datu kvalitāti."
 
 #: openspending/ui/templates/dataset/about.html:61
 msgid "Measures"
-msgstr ""
+msgstr "Mērījumi"
 
 #: openspending/ui/templates/dataset/about.html:62
 msgid ""
 "Measures are the numeric properties of each entry in this \n"
 "          dataset."
-msgstr ""
+msgstr "Mērījums ir katra datu kopas ieraksta skaitlisks raksturojums"
 
 #: openspending/ui/templates/dataset/about.html:74
 msgid "Dimensions"
@@ -522,7 +523,7 @@ msgstr ""
 msgid ""
 "Dimensions are different aspects of the dataset, such as the\n"
 "          spender, recipient or classifications that apply."
-msgstr ""
+msgstr "Dimensijas raksturo dažādus datu kopas raksturlielumus, piemēram            tērētāju, finansējuma saņēmēju vai citus piemērotus iedalījumus"
 
 #: openspending/ui/templates/dataset/dropdb.html:7
 msgid "Database erased"
@@ -540,11 +541,11 @@ msgstr ""
 
 #: openspending/ui/templates/dataset/explorer.html:83
 msgid "Explorer"
-msgstr ""
+msgstr "Explorer"
 
 #: openspending/ui/templates/dataset/explorer.html:90
 msgid "back »"
-msgstr ""
+msgstr "atgriezties »"
 
 #: openspending/ui/templates/dataset/index.html:7
 msgid "All datasets"
@@ -561,12 +562,12 @@ msgstr ""
 #: openspending/ui/templates/dataset/index.html:30
 #: openspending/ui/templates/editor/core.html:43
 msgid "Countries"
-msgstr ""
+msgstr "Valstis"
 
 #: openspending/ui/templates/dataset/index.html:40
 #: openspending/ui/templates/editor/core.html:53
 msgid "Languages"
-msgstr ""
+msgstr "Valodas"
 
 #. List of steps to take
 #: openspending/ui/templates/dataset/new.html:14
@@ -582,57 +583,57 @@ msgid ""
 "            [10:[11:import] the data,]\n"
 "            [12:and generate [13:visualized views].]\n"
 "          ]"
-msgstr ""
+msgstr "Ja jūsu rīcībā ir budžeta datu kopa, ar kuru jūs varat dalīties, lūdzu norādiet pamata informāciju par to \nšeit. \n[1:][2:]Nākamajos soļos jūs varēsiet\n[3:\n[4:pievienot atsauces uz [5:datu avotiem],]\n[6:izveidot [7:datu modeli] lai raksturotu to formātu,]\n[8:[9:testēt] jūsu modeļa pareizību,]\n[10:[11:importēt] datus,]\n[12:un radīt [13:datu vizualizāciju].]\n]"
 
 #: openspending/ui/templates/dataset/new.html:33
 msgid "Import from a DataHub Dataset"
-msgstr ""
+msgstr "Importēt no DataHub Datu kopas"
 
 #: openspending/ui/templates/dataset/new.html:34
 msgid ""
 "Paste the url of your [1:http://thedatahub.org/] dataset\n"
 "            and we will take care of pulling all the relevant information automatically\n"
 "            (though you will get a chance to review and amend it)."
-msgstr ""
+msgstr "Iekopējiet saiti uz jūsu [1:http://thedatahub.org/] datu kopu\nun mēs parūpēsimies par visas atbilstošās informācijas automātisku atrašanu \n(jums būs iespēja to pārlūkot un veikt labojumus)"
 
 #: openspending/ui/templates/dataset/new.html:45
 msgid "OR"
-msgstr ""
+msgstr "OR"
 
 #: openspending/ui/templates/dataset/new.html:48
 msgid "Dataset not yet on the DataHub?"
-msgstr ""
+msgstr "Šīs datu kopas vēl nav DataHub"
 
 #: openspending/ui/templates/dataset/new.html:49
 msgid ""
 "No problem! You can still import your dataset as long as the\n"
 "            data file is online somewhere."
-msgstr ""
+msgstr "Nekādu problēmu! Jūs vēl joprojām vara datu kopu importēt, ja vien\ndatu fails vēl joprojām ir pieejams Internetā"
 
 #: openspending/ui/templates/dataset/new.html:51
 msgid "Get Started »"
-msgstr ""
+msgstr "Sākt »"
 
 #: openspending/ui/templates/dataset/new.html:60
 #: openspending/ui/templates/editor/core.html:20
 msgid "Title"
-msgstr ""
+msgstr "Nosaukums"
 
 #: openspending/ui/templates/dataset/new.html:66
 msgid "Identifier"
-msgstr ""
+msgstr "Raksturotājs"
 
 #: openspending/ui/templates/dataset/new.html:69
 msgid ""
 "The identifier will become part of the\n"
 "                  dataset URL and cannot be changed later. It may only \n"
 "                  contain alphanumeric characters, dashes and underscores."
-msgstr ""
+msgstr "Raksturotājs kļūs par daļu no \ndatu kopas URL un nevarēs tikt izmainīts. Tas drīkst saturēt tikai burtus un ciparus, domu zīmes un zemsvītras"
 
 #: openspending/ui/templates/dataset/new.html:75
 #: openspending/ui/templates/editor/core.html:26
 msgid "Currency"
-msgstr ""
+msgstr "Valūta"
 
 #: openspending/ui/templates/dataset/new.html:78
 #: openspending/ui/templates/editor/core.html:29
@@ -646,7 +647,7 @@ msgstr ""
 
 #: openspending/ui/templates/dataset/new_cta.html:11
 msgid "Contribute your local data!"
-msgstr ""
+msgstr "Pievienojiet jūsu datus!"
 
 #: openspending/ui/templates/dataset/new_cta.html:13
 msgid ""
@@ -658,7 +659,7 @@ msgid ""
 "        aims to facilitate the presentation of financial information so \n"
 "        anyone - whether data geek or concerned citizen - can contribute \n"
 "        their local city budget or spending reports."
-msgstr ""
+msgstr "Mēs mēģinam apkopot informāciju par [1:pasaules budžeta\nizdevumiem]\nvienotā\ndatu bāzē, lai varētu veidot kopējus rīkus tās [2:analīzei,\nvizualizācijai un salīdzināšanai]. Open Spending ir atvērta platforma, kuras \nmērķis ir veicināt finanšu informācijas pieejamību un pārskatāmību, lai\nikviens - datu apsēstais vai vienkārši ieinteresēts pilsonis - varētu sniegt savu ieguldījumu\nsavas pilsētas budžeta tēriņu atspoguļošanai"
 
 #: openspending/ui/templates/dataset/new_cta.html:24
 msgid "Why should you contribute?"
@@ -879,7 +880,7 @@ msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:148
 msgid "Monetary information, e.g. amount disbursed or allocated."
-msgstr ""
+msgstr "Mēs mēģinam apkopot informāciju par [1:pasaules budžeta\nizdevumiem]\nvienotā\ndatu bāzē, lai varētu veidot kopējus rīkus tās [2:analīzei,\nvizualizācijai un salīdzināšanai]. Open Spending ir atvērta platforma, kuras \nmērķis ir veicināt finanšu informācijas pieejamību un pārskatāmību, lai\nikviens - datu apsēstais vai vienkārši ieinteresēts pilsonis - varētu sniegt savu ieguldījumu\nsavas pilsētas budžeta tēriņu atspoguļošanai"
 
 #: openspending/ui/templates/editor/dimensions.html:156
 msgid "Cancel"
@@ -1146,24 +1147,24 @@ msgstr ""
 msgid ""
 "You can remove the loaded data\n"
 "            at any time and start over."
-msgstr ""
+msgstr "Jūs vienmēr varat izdzēst ievietotos datus un sākt visu no jauna."
 
 #: openspending/ui/templates/editor/index.html:93
 #: openspending/ui/templates/editor/index.html:99
 msgid ""
 "After you've performed some QA,\n"
 "              let the world see this dataset."
-msgstr ""
+msgstr "Pēc tam, kad esat veicis QA, ļaujiet pasaulei ieraudzīt datu kopu"
 
 #: openspending/ui/templates/editor/index.html:98
 msgid "Make public"
-msgstr ""
+msgstr "Padarīt publiski pieejamu"
 
 #: openspending/ui/templates/editor/index.html:106
 msgid ""
 "If you have noted serious quality\n"
 "              issues or legal issues, you can un-publish this dataset."
-msgstr ""
+msgstr "Ja esa pamanījis nozīmīgus kvalitātes trūkumus vai juridiskas problēmas, jūs varad datu kopu dzēst"
 
 #. Warning message on deletion
 #: openspending/ui/templates/editor/index.html:114
@@ -1174,7 +1175,7 @@ msgstr ""
 
 #: openspending/ui/templates/editor/index.html:128
 msgid "Create a new data source"
-msgstr ""
+msgstr "Radīt jaunu datu avotu"
 
 #: openspending/ui/templates/editor/views.html:25
 msgid ""
@@ -1182,17 +1183,17 @@ msgid ""
 "          not have a graphical interface yet. If you still want to use it, \n"
 "          please check out the [2:documentation]\n"
 "          for the 'views' system."
-msgstr ""
+msgstr "[1:Here be dragons.] Vizualizāciju redaktoram vēl nav grafiskās saskarnes. Ja vēlaties to izmantot, lūdzu ieskatieties 'skatu' sistēmas [2:dokumentos]"
 
 #: openspending/ui/templates/editor/views.html:33
 msgid "Available Dimensions"
-msgstr ""
+msgstr "Pieejamās dimensijas"
 
 #: openspending/ui/templates/editor/views.html:53
 msgid ""
 "The views could not be saved as they contain some \n"
 "                errors:"
-msgstr ""
+msgstr "Skati netika saglabāti, jo tajos ir kļūdas:"
 
 #: openspending/ui/templates/entry/view.html:7
 msgid "nav-entry"
@@ -1204,7 +1205,7 @@ msgstr ""
 
 #: openspending/ui/templates/entry/view.html:17
 msgid "JSON"
-msgstr ""
+msgstr "JSON"
 
 #: openspending/ui/templates/entry/view.html:14
 #, python-format
@@ -1216,7 +1217,7 @@ msgid ""
 "      ]\n"
 "      Entry in %(dataset_label)s\n"
 "      [4:Detailed View of Transaction]"
-msgstr ""
+msgstr "[1:\n[2:\n[3:]\n]\n]\nEntry in %(dataset_label)s⏎\n [4:Detailed View of Transaction]"
 
 #: openspending/ui/templates/entry/view.html:112
 msgid "Notes:"

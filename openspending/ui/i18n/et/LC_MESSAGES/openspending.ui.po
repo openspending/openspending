@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the openspending project.
 # 
 # Translators:
-# Rivo Zängov <eraser@eraser.ee>, 2011.
+# Rivo Zängov <eraser@eraser.ee>, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenSpending\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2012-03-08 10:54+0100\n"
-"PO-Revision-Date: 2012-03-08 09:54+0000\n"
-"Last-Translator: pudo <friedrich@pudo.org>\n"
+"PO-Revision-Date: 2012-03-15 14:58+0000\n"
+"Last-Translator: Rivo Zängov <eraser@eraser.ee>\n"
 "Language-Team: Estonian (http://www.transifex.net/projects/p/openspending/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -141,7 +141,7 @@ msgstr ""
 
 #: openspending/ui/controllers/source.py:71
 msgid "Now loading..."
-msgstr ""
+msgstr "Laadimine"
 
 #: openspending/ui/lib/base.py:139
 #, python-format
@@ -155,7 +155,7 @@ msgstr ""
 
 #: openspending/ui/templates/400.html:9
 msgid "Invalid request."
-msgstr ""
+msgstr "Vigane päring."
 
 #: openspending/ui/templates/400.html:10 openspending/ui/templates/403.html:10
 #: openspending/ui/templates/404.html:10
@@ -317,7 +317,7 @@ msgstr ""
 
 #: openspending/ui/templates/layout.html:135
 msgid "YourTopia"
-msgstr ""
+msgstr "YourTopia"
 
 #: openspending/ui/templates/layout.html:138
 msgid "Wiki"
@@ -369,7 +369,7 @@ msgstr "Kasutajanimi"
 
 #: openspending/ui/templates/account/login.html:10
 msgid "Sign in to OpenSpending"
-msgstr ""
+msgstr "OpenSpending-usse sisse logimine"
 
 #: openspending/ui/templates/account/login.html:23
 #: openspending/ui/templates/account/login.html:57
@@ -437,7 +437,7 @@ msgstr "Avasta"
 
 #: openspending/ui/templates/dataset/_nav.html:40
 msgid "Manage"
-msgstr ""
+msgstr "Halda"
 
 #: openspending/ui/templates/dataset/_select.html:68
 msgid "OpenSpending — mapping the money."
@@ -453,7 +453,7 @@ msgstr ""
 
 #: openspending/ui/templates/dataset/_select.html:82
 msgid "Close"
-msgstr ""
+msgstr "Sule"
 
 #: openspending/ui/templates/dataset/about.html:9
 #: openspending/ui/templates/dataset/dropdb.html:5
@@ -484,7 +484,7 @@ msgstr ""
 
 #: openspending/ui/templates/dataset/about.html:31
 msgid "Sources"
-msgstr ""
+msgstr "Allikad"
 
 #: openspending/ui/templates/dataset/about.html:32
 msgid ""
@@ -496,7 +496,7 @@ msgstr ""
 
 #: openspending/ui/templates/dataset/about.html:47
 msgid "Team"
-msgstr ""
+msgstr "Meeskond"
 
 #: openspending/ui/templates/dataset/about.html:48
 msgid ""
@@ -545,7 +545,7 @@ msgstr ""
 
 #: openspending/ui/templates/dataset/explorer.html:90
 msgid "back »"
-msgstr ""
+msgstr "tagasi »"
 
 #: openspending/ui/templates/dataset/index.html:7
 msgid "All datasets"
@@ -562,12 +562,12 @@ msgstr ""
 #: openspending/ui/templates/dataset/index.html:30
 #: openspending/ui/templates/editor/core.html:43
 msgid "Countries"
-msgstr ""
+msgstr "Riigid"
 
 #: openspending/ui/templates/dataset/index.html:40
 #: openspending/ui/templates/editor/core.html:53
 msgid "Languages"
-msgstr ""
+msgstr "Keeled"
 
 #. List of steps to take
 #: openspending/ui/templates/dataset/new.html:14
@@ -598,7 +598,7 @@ msgstr ""
 
 #: openspending/ui/templates/dataset/new.html:45
 msgid "OR"
-msgstr ""
+msgstr "VÕI"
 
 #: openspending/ui/templates/dataset/new.html:48
 msgid "Dataset not yet on the DataHub?"
@@ -612,16 +612,16 @@ msgstr ""
 
 #: openspending/ui/templates/dataset/new.html:51
 msgid "Get Started »"
-msgstr ""
+msgstr "Alusta »"
 
 #: openspending/ui/templates/dataset/new.html:60
 #: openspending/ui/templates/editor/core.html:20
 msgid "Title"
-msgstr ""
+msgstr "Pealkiri"
 
 #: openspending/ui/templates/dataset/new.html:66
 msgid "Identifier"
-msgstr ""
+msgstr "Tuvastaja"
 
 #: openspending/ui/templates/dataset/new.html:69
 msgid ""
@@ -633,7 +633,7 @@ msgstr ""
 #: openspending/ui/templates/dataset/new.html:75
 #: openspending/ui/templates/editor/core.html:26
 msgid "Currency"
-msgstr ""
+msgstr "Valuuta"
 
 #: openspending/ui/templates/dataset/new.html:78
 #: openspending/ui/templates/editor/core.html:29
@@ -643,7 +643,7 @@ msgstr ""
 #: openspending/ui/templates/dataset/new.html:83
 #: openspending/ui/templates/editor/core.html:34
 msgid "All currencies"
-msgstr ""
+msgstr "Kõik valuutad"
 
 #: openspending/ui/templates/dataset/new_cta.html:11
 msgid "Contribute your local data!"
@@ -691,7 +691,7 @@ msgstr ""
 
 #: openspending/ui/templates/dimension/_nav.html:48
 msgid "PublicBodies.org"
-msgstr ""
+msgstr "PublicBodies.org"
 
 #: openspending/ui/templates/dimension/entries.html:6
 msgid "nav-dimension"
@@ -768,7 +768,7 @@ msgstr ""
 
 #: openspending/ui/templates/editor/_nav.html:21
 msgid "Dashboard"
-msgstr ""
+msgstr "Töölaud"
 
 #: openspending/ui/templates/editor/_nav.html:24
 msgid "Dimensions & Measures"
@@ -780,7 +780,7 @@ msgstr ""
 
 #: openspending/ui/templates/editor/_nav.html:30
 msgid "Meta"
-msgstr ""
+msgstr "META"
 
 #: openspending/ui/templates/editor/_nav.html:33
 msgid "Dataset view »"
@@ -820,7 +820,7 @@ msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:93
 msgid "Update"
-msgstr ""
+msgstr "Uuenda"
 
 #: openspending/ui/templates/editor/dimensions.html:101
 msgid "Add new dimension"
@@ -840,11 +840,11 @@ msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:115
 msgid "Name"
-msgstr ""
+msgstr "Nimi"
 
 #: openspending/ui/templates/editor/dimensions.html:121
 msgid "Type"
-msgstr ""
+msgstr "Tüüp"
 
 #: openspending/ui/templates/editor/dimensions.html:124
 #: openspending/ui/templates/entry/view.html:78
@@ -860,7 +860,7 @@ msgstr ""
 #: openspending/ui/templates/editor/dimensions.html:132
 #: openspending/ui/templates/run/view.html:49
 msgid "Attribute"
-msgstr ""
+msgstr "Omadus"
 
 #: openspending/ui/templates/editor/dimensions.html:134
 msgid "A simple value, e.g. descriptions or transaction IDs."
@@ -868,7 +868,7 @@ msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:139
 msgid "Date"
-msgstr ""
+msgstr "Kuupäev"
 
 #: openspending/ui/templates/editor/dimensions.html:141
 msgid "Temporal value, e.g. start of project, date of disbursement."
@@ -884,7 +884,7 @@ msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:156
 msgid "Cancel"
-msgstr ""
+msgstr "Loobu"
 
 #: openspending/ui/templates/editor/dimensions.html:157
 msgid "Add"
@@ -1141,7 +1141,7 @@ msgstr ""
 
 #: openspending/ui/templates/editor/index.html:83
 msgid "Delete loaded data"
-msgstr ""
+msgstr "Kustuta laaditud andmed"
 
 #: openspending/ui/templates/editor/index.html:84
 msgid ""
@@ -1158,7 +1158,7 @@ msgstr ""
 
 #: openspending/ui/templates/editor/index.html:98
 msgid "Make public"
-msgstr ""
+msgstr "Tee avalikuks"
 
 #: openspending/ui/templates/editor/index.html:106
 msgid ""
@@ -1175,7 +1175,7 @@ msgstr ""
 
 #: openspending/ui/templates/editor/index.html:128
 msgid "Create a new data source"
-msgstr ""
+msgstr "Loo uus andmeallikas"
 
 #: openspending/ui/templates/editor/views.html:25
 msgid ""
@@ -1352,11 +1352,11 @@ msgstr ""
 #: openspending/ui/templates/run/view.html:9
 #: openspending/ui/templates/run/view.html:14
 msgid "Report:"
-msgstr ""
+msgstr "Aruanne:"
 
 #: openspending/ui/templates/run/view.html:17
 msgid "Errors,"
-msgstr ""
+msgstr "Vead,"
 
 #: openspending/ui/templates/run/view.html:21
 msgid "Nothing to report!"
@@ -1372,35 +1372,35 @@ msgstr ""
 
 #: openspending/ui/templates/run/view.html:30
 msgid "Level"
-msgstr ""
+msgstr "Tase"
 
 #: openspending/ui/templates/run/view.html:31
 msgid "Message"
-msgstr ""
+msgstr "Sõnum"
 
 #: openspending/ui/templates/run/view.html:47
 msgid "Row"
-msgstr ""
+msgstr "Rida"
 
 #: openspending/ui/templates/run/view.html:48
 msgid "Column"
-msgstr ""
+msgstr "Veerg"
 
 #: openspending/ui/templates/source/_list.html:12
 msgid "Link"
-msgstr ""
+msgstr "Link"
 
 #: openspending/ui/templates/source/_list.html:13
 msgid "Operations"
-msgstr ""
+msgstr "Tegevused"
 
 #: openspending/ui/templates/source/_list.html:22
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: openspending/ui/templates/source/_list.html:30
 msgid "columns"
-msgstr ""
+msgstr "veerud"
 
 #: openspending/ui/templates/source/_list.html:48
 msgid "Test a sample"
@@ -1408,23 +1408,23 @@ msgstr ""
 
 #: openspending/ui/templates/source/_list.html:49
 msgid "Load"
-msgstr ""
+msgstr "Laadi"
 
 #: openspending/ui/templates/source/_list.html:59
 msgid "Reports"
-msgstr ""
+msgstr "Aruanded"
 
 #: openspending/ui/templates/source/_list.html:67
 msgid "Running"
-msgstr ""
+msgstr "Käimas"
 
 #: openspending/ui/templates/source/_list.html:70
 msgid "Complete"
-msgstr ""
+msgstr "Valmis"
 
 #: openspending/ui/templates/source/_list.html:73
 msgid "Errors"
-msgstr ""
+msgstr "Vead"
 
 #: openspending/ui/templates/source/_list.html:75
 #, python-format
@@ -1433,7 +1433,7 @@ msgstr ""
 
 #: openspending/ui/templates/source/_new_form.html:12
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: openspending/ui/templates/source/_new_form.html:15
 msgid ""
@@ -1445,4 +1445,4 @@ msgstr ""
 #: openspending/ui/templates/source/new.html:10
 #: openspending/ui/templates/source/new.html:17
 msgid "Create a data source"
-msgstr ""
+msgstr "Loo andmeallikas"
