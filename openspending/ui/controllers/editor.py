@@ -6,7 +6,7 @@ from pylons import request, tmpl_context as c
 from pylons.i18n import _
 from colander import Invalid
 
-from openspending.model import meta as db
+from openspending.model import Account, meta as db
 from openspending.lib import solr_util as solr
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render
@@ -154,6 +154,33 @@ class EditorController(BaseController):
             errors = i.asdict()
         return self.views_edit(dataset, errors=errors, views=views)
 
+    def team_edit(self, dataset, errors={}, accounts=None,
+            format='html'):
+        self._get_dataset(dataset)
+        require.dataset.update(c.dataset)
+        accounts = accounts or c.dataset.managers
+        c.accounts = json.dumps([a.as_dict() for a in accounts], indent=2)
+        c.errors = errors
+        return render('editor/team.html')
+
+    def team_update(self, dataset, format='html'):
+        self._get_dataset(dataset)
+        require.dataset.update(c.dataset)
+        errors, accounts = {}, []
+        for account_name in request.params.getall('accounts'):
+            account = Account.by_name(account_name)
+            if account is None:
+                errors[account_name] = _("User account cannot be found.")
+            else:
+                accounts.append(account)
+        if not c.account in accounts:
+            accounts.append(c.account)
+        if not len(errors):
+            c.dataset.managers = accounts
+            db.session.commit()
+            h.flash_success(_("The team has been updated."))
+        return self.team_edit(dataset, errors=errors, accounts=accounts)
+
     def drop(self, dataset):
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
@@ -164,7 +191,7 @@ class EditorController(BaseController):
         AggregationCache(c.dataset).invalidate()
         db.session.commit()
         h.flash_success(_("The dataset has been cleared."))
-        redirect(h.url_for(controller='editor', action='index', 
+        redirect(h.url_for(controller='editor', action='index',
                            dataset=c.dataset.name))
 
     def publish(self, dataset):

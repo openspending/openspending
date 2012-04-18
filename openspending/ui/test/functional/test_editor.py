@@ -150,6 +150,23 @@ class TestEditorController(ControllerTestCase):
             expect_errors=True)
         assert '400' in response.status, response.status
 
+    def test_team_edit_mask(self):
+        response = self.app.get(url(controller='editor', 
+            action='team_edit', dataset='cra'),
+            extra_environ={'REMOTE_USER': 'test'})
+        assert 'Add someone' in response.body
+        assert 'Save' in response.body
+    
+    def test_team_update(self):
+        response = self.app.post(url(controller='editor', 
+            action='team_update', dataset='cra'),
+            params={},
+            extra_environ={'REMOTE_USER': 'test'},
+            expect_errors=True)
+        assert '200' in response.status, response.status
+        cra = Dataset.by_name('cra')
+        assert len(cra.managers.all())==1, cra.managers
+
     def test_drop(self):
         cra = Dataset.by_name('cra')
         assert len(cra)==36, len(cra)

@@ -99,6 +99,10 @@ def make_map():
             action='views_update', conditions=dict(method=['POST']))
     map.connect('/{dataset}/editor/views', controller='editor',
             action='views_edit')
+    map.connect('/{dataset}/editor/team', controller='editor',
+            action='team_update', conditions=dict(method=['POST']))
+    map.connect('/{dataset}/editor/team', controller='editor',
+            action='team_edit')
     map.connect('/{dataset}/editor/publish', controller='editor',
             action='publish', conditions=dict(method=['POST']))
     map.connect('/{dataset}/editor/retract', controller='editor',
