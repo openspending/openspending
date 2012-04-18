@@ -6,6 +6,7 @@ from pylons.controllers.util import etag_cache
 from openspending import model
 from openspending.lib import util
 from openspending.lib.browser import Browser
+from openspending.lib.solr_util import SolrException
 from openspending.lib.jsonexport import jsonpify
 from openspending.lib.paramparser import AggregateParamParser, SearchParamParser
 from openspending.ui.lib.base import BaseController, require
@@ -70,7 +71,10 @@ class Api2Controller(BaseController):
             require.dataset.read(dataset)
 
         b = Browser(**params)
-        stats, facets, entries = b.execute()
+        try:
+            stats, facets, entries = b.execute()
+        except SolrException, e:
+            return {'errors': [unicode(e)]}
         entries = [entry_apply_links(d.name, e) for d, e in entries]
 
         if expand_facets and len(datasets) == 1:
