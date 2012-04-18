@@ -1,5 +1,7 @@
 from .. import ControllerTestCase, url, helpers as h
 from openspending.model import Account, meta as db
+import json
+
 
 class TestAccountController(ControllerTestCase):
 
@@ -26,3 +28,21 @@ class TestAccountController(ControllerTestCase):
 
     def test_after_logout(self):
         response = self.app.get(url(controller='account', action='after_logout'))
+
+    def test_distinct_json(self):
+        h.make_account()
+        response = self.app.get(url(controller='account', action='complete'),
+                                params={})
+        obj = json.loads(response.body)['results']
+        assert len(obj) == 1, obj
+        assert obj[0]['name'] == 'test', obj[0]
+
+        response = self.app.get(url(controller='account', action='complete'),
+                                params={'q': 'tes'})
+        obj = json.loads(response.body)['results']
+        assert len(obj) == 1, obj
+
+        response = self.app.get(url(controller='account', action='complete'),
+                                params={'q': 'foo'})
+        obj = json.loads(response.body)['results']
+        assert len(obj) == 0, obj

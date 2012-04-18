@@ -9,7 +9,7 @@ from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.views import handle_request
 from openspending.ui.lib.helpers import url_for
 from openspending.ui.lib.widgets import get_widget
-from openspending.lib.paramparser import DistinctParamParser
+from openspending.lib.paramparser import DistinctFieldParamParser
 from openspending.ui.lib.hypermedia import dimension_apply_links, \
     member_apply_links, entry_apply_links
 from openspending.lib.csvexport import write_csv
@@ -67,7 +67,7 @@ class DimensionController(BaseController):
 
     def distinct(self, dataset, dimension, format='json'):
         self._get_dimension(dataset, dimension)
-        parser = DistinctParamParser(c.dimension, request.params)
+        parser = DistinctFieldParamParser(c.dimension, request.params)
         params, errors = parser.parse()
         if errors:
             response.status = 400

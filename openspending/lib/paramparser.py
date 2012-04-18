@@ -207,15 +207,24 @@ class SearchParamParser(ParamParser):
 class DistinctParamParser(ParamParser):
     defaults = ParamParser.defaults.copy()
     defaults['q'] = ''
-    defaults['attribute'] = None
     defaults['page'] = 1
     defaults['pagesize'] = 100
 
-    def __init__(self, dimension, params):
-        self.dimension = dimension
-
+    def __init__(self, params):
         self.params = self.defaults.copy()
         self.params.update(params)
+
+    def parse_pagesize(self, pagesize):
+        return min(100, self._to_int('pagesize', pagesize))
+
+
+class DistinctFieldParamParser(DistinctParamParser):
+    defaults = DistinctParamParser.defaults.copy()
+    defaults['attribute'] = None
+
+    def __init__(self, dimension, params):
+        self.dimension = dimension
+        super(DistinctFieldParamParser, self).__init__(params)
 
     def parse_attribute(self, attribute):
         if not isinstance(self.dimension, model.CompoundDimension):
@@ -224,6 +233,3 @@ class DistinctParamParser(ParamParser):
             return self.dimension[attribute]
         except KeyError:
             return self.dimension['label']
-
-    def parse_pagesize(self, pagesize):
-        return min(100, self._to_int('pagesize', pagesize))

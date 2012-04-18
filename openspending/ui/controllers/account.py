@@ -13,9 +13,11 @@ from repoze.who.api import get_api
 from openspending.model import meta as db
 from openspending.model.account import Account, AccountRegister, \
     AccountSettings
+from openspending.lib.paramparser import DistinctParamParser
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render, require
 from openspending.ui.lib.security import generate_password_hash
+from openspending.lib.jsonexport import to_jsonp
 
 log = logging.getLogger(__name__)
 
@@ -86,6 +88,25 @@ class AccountController(BaseController):
         return render('account/settings.html',
                       form_fill=values,
                       form_errors=errors)
+
+    def complete(self, format='json'):
+        parser = DistinctParamParser(request.params)
+        params, errors = parser.parse()
+        if errors:
+            response.status = 400
+            return {'errors': errors}
+
+        query = db.session.query(Account)
+        filter_string = params.get('q') + '%'
+        query = query.filter(db.or_(Account.name.ilike(filter_string),
+                                    Account.fullname.ilike(filter_string)))
+        count = query.count()
+        query = query.limit(params.get('pagesize'))
+        query = query.offset(int((params.get('page') - 1) * params.get('pagesize')))
+        return to_jsonp({
+            'results': list(query),
+            'count': count
+            })
 
     def after_login(self):
         if c.account is not None:

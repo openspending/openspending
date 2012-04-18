@@ -20,6 +20,8 @@ def default_json(obj):
     '''
     if isinstance(obj, datetime):
         return obj.isoformat()
+    if hasattr(obj, 'as_dict'):
+        return obj.as_dict()
     raise TypeError("%r is not JSON serializable" % obj)
 
 def write_json(entries, response, filename=None):
