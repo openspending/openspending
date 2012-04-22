@@ -1,5 +1,6 @@
 from ordereddict import OrderedDict
 from openspending import model
+import hashlib
 
 class ParamParser(object):
     defaults = OrderedDict()
@@ -30,6 +31,11 @@ class ParamParser(object):
                 self._output[key] = result
 
         return self._output, self._errors
+
+    def key(self, *a):
+        params = sorted(self.params.items())
+        params.extend(a)
+        return hashlib.sha1(repr(params)).hexdigest()
 
     def _error(self, msg):
         self._errors.append(msg)

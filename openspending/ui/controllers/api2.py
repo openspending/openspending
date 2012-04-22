@@ -67,6 +67,8 @@ class Api2Controller(BaseController):
         for dataset in datasets:
             require.dataset.read(dataset)
 
+        etag_cache(parser.key(*[d.updated_at for d in datasets]))
+
         b = Browser(**params)
         try:
             stats, facets, entries = b.execute()

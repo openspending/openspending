@@ -3,9 +3,11 @@
 Provides the BaseController class for subclassing.
 """
 from time import time, gmtime, strftime
+import hashlib
 
 from pylons.controllers import WSGIController
 from pylons.templating import literal, pylons_globals
+from pylons.controllers.util import etag_cache
 from pylons import tmpl_context as c, request, response, config
 from pylons import app_globals, session
 from pylons.controllers.util import abort
@@ -54,6 +56,11 @@ def render(template_name,
     return literal(stream.render(method=method, encoding=None))
 
 
+def etag_cache_keygen(*a):
+    etag = hashlib.sha1(repr(a)).hexdigest()
+    etag_cache(etag)
+
+
 class BaseController(WSGIController):
 
     def __call__(self, environ, start_response):
@@ -82,14 +89,13 @@ class BaseController(WSGIController):
         c.datasets = model.Dataset.all_by_account(c.account)
         c.dataset = None
 
-        c.make_cookie = False
         c.detected_l10n_languages = i18n.get_language_pairs()
 
     def __after__(self):
         db.session.close()
         response.pragma = None
 
-        if not app_globals.cache_enabled and 'flash' in session._session():
+        if not app_globals.cache_enabled or 'flash' in session._session():
             return
 
         del response.cache_control.no_cache
@@ -97,8 +103,7 @@ class BaseController(WSGIController):
             session._current_obj().__dict__['_sess'] = None
             response.cache_control.public = True
         else:
-            #response.cache_control.private = True
-            response.cache_control.public = True
+            response.cache_control.private = True
         response.cache_control.max_age = 3600
 
     def _detect_format(self, format):

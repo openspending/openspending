@@ -6,6 +6,7 @@ from pylons.i18n import _
 
 from openspending import model
 from openspending.ui.lib.base import BaseController, render
+from openspending.ui.lib.base import etag_cache_keygen
 from openspending.ui.lib.views import handle_request
 from openspending.ui.lib.helpers import url_for
 from openspending.ui.lib.widgets import get_widget
@@ -49,6 +50,7 @@ class DimensionController(BaseController):
 
     def index(self, dataset, format='html'):
         self._get_dataset(dataset)
+        etag_cache_keygen(c.dataset.updated_at, format)
         if format == 'json':
             dimensions = [dimension_apply_links(dataset, d.as_dict()) \
                 for d in c.dataset.dimensions]
@@ -58,6 +60,7 @@ class DimensionController(BaseController):
 
     def view(self, dataset, dimension, format='html'):
         self._get_dimension(dataset, dimension)
+        etag_cache_keygen(c.dataset.updated_at, format)
         if format == 'json':
             dimension = dimension_apply_links(dataset, c.dimension.as_dict())
             return to_jsonp(dimension)
@@ -69,6 +72,8 @@ class DimensionController(BaseController):
         self._get_dimension(dataset, dimension)
         parser = DistinctFieldParamParser(c.dimension, request.params)
         params, errors = parser.parse()
+        etag_cache_keygen(c.dataset.updated_at, format, parser.key())
+
         if errors:
             response.status = 400
             return {'errors': errors}

@@ -13,7 +13,7 @@ from openspending.lib.jsonexport import to_jsonp
 
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render
-from openspending.ui.lib.base import require
+from openspending.ui.lib.base import require, etag_cache_keygen
 from openspending.ui.lib.views import handle_request
 from openspending.ui.lib.hypermedia import dataset_apply_links
 from openspending.reference.currency import CURRENCIES
@@ -110,6 +110,7 @@ class DatasetController(BaseController):
 
     def view(self, dataset, format='html'):
         self._get_dataset(dataset)
+        etag_cache_keygen(c.dataset.updated_at)
         c.num_entries = len(c.dataset)
 
         handle_request(request, c, c.dataset)
@@ -124,6 +125,7 @@ class DatasetController(BaseController):
 
     def about(self, dataset, format='html'):
         self._get_dataset(dataset)
+        etag_cache_keygen(c.dataset.updated_at)
         handle_request(request, c, c.dataset)
         c.sources = list(c.dataset.sources)
         c.managers = list(c.dataset.managers)
@@ -135,6 +137,7 @@ class DatasetController(BaseController):
 
     def model(self, dataset, format='json'):
         self._get_dataset(dataset)
+        etag_cache_keygen(c.dataset.updated_at)
         model = c.dataset.model
         model['dataset'] = dataset_apply_links(model['dataset'])
         return to_jsonp(model)

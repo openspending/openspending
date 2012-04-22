@@ -13,6 +13,7 @@ from openspending.ui.lib import helpers as h, widgets
 from openspending.lib import json
 from openspending.ui.lib.views import handle_request
 from openspending.ui.lib.base import BaseController, render, require
+from openspending.ui.lib.base import etag_cache_keygen
 from openspending import auth as can
 from openspending.lib.jsonexport import to_jsonp
 
