@@ -39,9 +39,6 @@ class Api2Controller(BaseController):
                     result['drilldown'])
 
             if cache.cache_enabled and 'cache_key' in result['summary']:
-                if 'Pragma' in response.headers:
-                    del response.headers['Pragma']
-                response.cache_control = 'public; max-age: 84600'
                 etag_cache(result['summary']['cache_key'])
 
         except (KeyError, ValueError) as ve:

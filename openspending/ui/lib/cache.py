@@ -4,7 +4,7 @@ import hashlib
 import logging
 
 from paste.deploy.converters import asbool
-from pylons import cache, config
+from pylons import cache, config, app_globals
 
 log = logging.getLogger(__name__)
 
@@ -18,8 +18,7 @@ class AggregationCache(object):
 
     def __init__(self, dataset, type='dbm'):
         self.dataset = dataset
-        opt = config.get('openspending.cache_enabled', 'True')
-        self.cache_enabled = asbool(opt) and \
+        self.cache_enabled = app_globals.cache_enabled and \
                 not self.dataset.private
         self.cache = cache.get_cache('DSCACHE_' + dataset.name,
                                      type=type)

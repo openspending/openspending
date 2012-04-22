@@ -82,8 +82,6 @@ class DatasetController(BaseController):
         c.languages = sorted(LANGUAGES.items(), key=lambda (k, v): v)
         c.territories = sorted(COUNTRIES.items(), key=lambda (k, v): v)
         errors = [(k[len('dataset.'):], v) for k, v in errors.items()]
-        c.have_error = bool(errors)
-        c.dataset_info_style = '' if errors else 'display: none;'
         return render('dataset/new.html', form_errors=dict(errors),
                 form_fill=request.params if errors else {'currency': 'USD'})
 

@@ -31,13 +31,7 @@ ACCEPT_MIMETYPES = {
 def render(template_name,
            extra_vars=None,
            form_fill=None, form_errors={},
-           suppress_cache=True,
            method='xhtml'):
-
-    if suppress_cache:
-        response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-        response.headers['Pragma'] = 'no-cache'
-        response.headers['Expires'] = '0'
 
     # Pull in extra vars if needed
     globs = extra_vars or {}
@@ -58,6 +52,7 @@ def render(template_name,
         stream = stream | filler
 
     return literal(stream.render(method=method, encoding=None))
+
 
 class BaseController(WSGIController):
 
@@ -83,21 +78,28 @@ class BaseController(WSGIController):
             c.account = None
 
         i18n.handle_request(request, c)
-        c.state = session.get('state', {})
 
-        c.q = ''
-        c.items_per_page = int(request.params.get('items_per_page', 20))
         c.datasets = model.Dataset.all_by_account(c.account)
         c.dataset = None
 
+        c.make_cookie = False
         c.detected_l10n_languages = i18n.get_language_pairs()
 
     def __after__(self):
-        if session.get('state', {}) != c.state:
-            session['state'] = c.state
-            session.save()
-
         db.session.close()
+        response.pragma = None
+
+        if not app_globals.cache_enabled and 'flash' in session._session():
+            return
+
+        del response.cache_control.no_cache
+        if len(session._session().keys()) == 2 and not len(request.cookies.keys()):
+            session._current_obj().__dict__['_sess'] = None
+            response.cache_control.public = True
+        else:
+            #response.cache_control.private = True
+            response.cache_control.public = True
+        response.cache_control.max_age = 3600
 
     def _detect_format(self, format):
         for mimetype, mimeformat in self.accept_mimetypes.items():

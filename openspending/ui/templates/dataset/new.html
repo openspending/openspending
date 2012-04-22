@@ -39,33 +39,7 @@
           </ul>
         </div>
       </div>
-      <div class="span8 import-options" py:if="not c.have_error">
-        <!-- do not display on error as only relevant when first importing -->
-        <div class="row">
-          <div class="span4 import-datahub">
-            <h3>Import from a DataHub Dataset</h3>
-            <p i18n:msg="">Paste the url of your <a
-              href="http://thedatahub.org">http://thedatahub.org/</a> dataset
-            and we will take care of pulling all the relevant information automatically
-            (though you will get a chance to review and amend it).</p>
-            <form class="basic">
-              <input name="datahubUrl" placeholder="DataHub Dataset Url" />
-              <br /><br />
-              <input value="Import &raquo;" class="btn" type="submit" />
-            </form>
-          </div>
-          <div class="span1">
-            <h3>OR</h3>
-          </div>
-          <div class="span3 import-nondatahub">
-            <h3>Dataset not yet on the DataHub?</h3>
-            <p>No problem! You can still import your dataset as long as the
-            data file is online somewhere.</p>
-            <a href="#dataset-info" class="btn">Get Started &raquo;</a>
-          </div>
-        </div>
-      </div>
-      <div class="span8 dataset-info" style="${c.dataset_info_style}">
+      <div class="span8 dataset-info">
         <form class="basic form-horizontal" id="login" action="/datasets" method="POST">
           <input name="ckan_uri" type="hidden" />
           <fieldset>

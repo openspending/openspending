@@ -52,4 +52,9 @@ class Globals(object):
             False
         ))
 
+        self.cache_enabled = asbool(config.get(
+            'openspending.cache_enabled',
+            True
+        ))
+
         self.script_root = config.get('openspending.script_root', '/static/js')
