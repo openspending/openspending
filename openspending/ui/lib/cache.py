@@ -35,7 +35,8 @@ class AggregationCache(object):
                                           pagesize=pagesize,
                                           order=order)
 
-        key_parts = (measure,
+        key_parts = (self.dataset.updated_at.isoformat(),
+                     measure,
                      sorted(drilldowns or []),
                      sorted(cuts or []),
                      order, page, pagesize)

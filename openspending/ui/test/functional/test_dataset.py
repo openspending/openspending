@@ -5,6 +5,7 @@ from StringIO import StringIO
 from .. import ControllerTestCase, url, helpers as h
 from openspending.model import Dataset, meta as db
 
+
 class TestDatasetController(ControllerTestCase):
 
     def setup(self):
@@ -84,7 +85,7 @@ class TestDatasetController(ControllerTestCase):
         h.assert_equal(obj['dataset']['label'], 'Country Regional Analysis v2009')
 
     def test_entries(self):
-        response = self.app.get(url(controller='entry', action='index', dataset='cra'))
+        self.app.get(url(controller='entry', action='index', dataset='cra'))
 
     def test_entries_json_export(self):
         response = self.app.get(url(controller='entry',
@@ -109,7 +110,6 @@ class TestDatasetController(ControllerTestCase):
         response = self.app.get(url(controller='dataset', action='new'),
             params={'limit': '20'}, extra_environ={'REMOTE_USER': 'test'})
         assert "Import a dataset" in response.body
-        assert 'Import from a DataHub Dataset' in response.body, response.body
 
     def test_create_dataset(self):
         response = self.app.post(url(controller='dataset', action='create'),

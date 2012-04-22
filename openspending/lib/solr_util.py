@@ -23,6 +23,7 @@ _client = None
 # Solr connection singleton
 _solr = None
 
+
 # Helper class to represent the UTC timezone.
 class UTC(datetime.tzinfo):
 
@@ -37,6 +38,7 @@ class UTC(datetime.tzinfo):
 
     __reduce__ = object.__reduce__
 
+
 def configure(config=None):
     global url
     global http_user
@@ -48,6 +50,7 @@ def configure(config=None):
     url = config.get('openspending.solr.url', url)
     http_user = config.get('openspending.solr.http_user', http_user)
     http_pass = config.get('openspending.solr.http_pass', http_pass)
+
 
 def get_connection():
     """Returns the global Solr connection, or creates one, as required."""
@@ -62,16 +65,19 @@ def get_connection():
 
     return _solr
 
+
 def drop_index(dataset_name):
     solr = get_connection()
     solr.delete_query('dataset:%s' % dataset_name)
     solr.commit()
+
 
 def dataset_entries(dataset_name):
     solr = get_connection()
     res = solr.raw_query(q='*:*', fq='dataset:"%s"' % dataset_name, rows=0, wt='json')
     res = json.loads(res)
     return res.get('response', {}).get('numFound')
+
 
 def extend_entry(entry, dataset):
     entry['dataset'] = dataset.name
@@ -88,12 +94,13 @@ def extend_entry(entry, dataset):
         else:
             entry[k] = _safe_unicode(entry[k])
         if k.endswith(".name"):
-            vk = k[:len(k)-len(".name")]
+            vk = k[:len(k) - len(".name")]
             entry[vk] = v
         if k.endswith(".label"):
             #entry[k + "_str"] = entry[k]
             entry[k + "_facet"] = entry[k]
     return entry
+
 
 def build_index(dataset_name):
     solr = get_connection()
@@ -111,6 +118,9 @@ def build_index(dataset_name):
             buf = []
     solr.add_many(buf)
     solr.commit()
+    dataset_.updated_at = datetime.datetime.utcnow()
+    model.db.session.commit()
+
 
 def _safe_unicode(s):
     if not isinstance(s, basestring):

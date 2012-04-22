@@ -1,5 +1,6 @@
 import logging
 import json
+from datetime import datetime
 
 from pylons.controllers.util import redirect
 from pylons import request, tmpl_context as c
@@ -114,7 +115,7 @@ class EditorController(BaseController):
             model = c.dataset.model
             model['mapping'] = mapping
             schema = mapping_schema(ValidationState(model))
-            new_mapping =  schema.deserialize(mapping)
+            new_mapping = schema.deserialize(mapping)
             c.dataset.data['mapping'] = new_mapping
             c.dataset.drop()
             c.dataset._load_model()
@@ -126,10 +127,10 @@ class EditorController(BaseController):
             abort(400, _("The mapping data could not be decoded as JSON!"))
         except Invalid, i:
             errors = i.asdict()
-        return self.dimensions_edit(dataset, errors=errors, 
+        return self.dimensions_edit(dataset, errors=errors,
                 mapping=mapping, saved=saved)
-    
-    def views_edit(self, dataset, errors={}, views=None, 
+
+    def views_edit(self, dataset, errors={}, views=None,
             format='html'):
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
@@ -137,7 +138,7 @@ class EditorController(BaseController):
         c.fill = {'views': json.dumps(views, indent=2)}
         c.errors = errors
         return render('editor/views.html', form_fill=c.fill)
-    
+
     def views_update(self, dataset, format='html'):
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
@@ -177,6 +178,7 @@ class EditorController(BaseController):
             accounts.append(c.account)
         if not len(errors):
             c.dataset.managers = accounts
+            c.dataset.updated_at = datetime.utcnow()
             db.session.commit()
             h.flash_success(_("The team has been updated."))
         return self.team_edit(dataset, errors=errors, accounts=accounts)
@@ -184,6 +186,7 @@ class EditorController(BaseController):
     def drop(self, dataset):
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
+        c.dataset.updated_at = datetime.utcnow()
         c.dataset.drop()
         solr.drop_index(c.dataset.name)
         c.dataset.init()
@@ -200,12 +203,13 @@ class EditorController(BaseController):
         if not c.dataset.private:
             abort(400, _("This dataset is already public!"))
         c.dataset.private = False
+        c.dataset.updated_at = datetime.utcnow()
         db.session.commit()
-        public_url = h.url_for(controller='dataset', action='view', 
+        public_url = h.url_for(controller='dataset', action='view',
                            dataset=c.dataset.name, qualified=True)
         h.flash_success(_("Congratulations, the dataset has been " \
                 "published. It is now available at: %s") % public_url)
-        redirect(h.url_for(controller='editor', action='index', 
+        redirect(h.url_for(controller='editor', action='index',
                            dataset=c.dataset.name))
 
     def retract(self, dataset):
@@ -214,11 +218,12 @@ class EditorController(BaseController):
         if c.dataset.private:
             abort(400, _("This dataset is already private!"))
         c.dataset.private = True
+        c.dataset.updated_at = datetime.utcnow()
         AggregationCache(c.dataset).invalidate()
         db.session.commit()
         h.flash_success(_("The dataset has been retracted. " \
                 "It is no longer visible to others."))
-        redirect(h.url_for(controller='editor', action='index', 
+        redirect(h.url_for(controller='editor', action='index',
                            dataset=c.dataset.name))
 
     def delete(self, dataset):

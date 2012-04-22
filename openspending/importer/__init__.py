@@ -74,6 +74,7 @@ class BaseImporter(object):
             self._run.status = Run.STATUS_COMPLETE
             log.info("Finished import with no errors!")
         self._run.time_end = datetime.utcnow()
+        self.dataset.updated_at = self._run.time_end
         db.session.commit()
 
     @property
