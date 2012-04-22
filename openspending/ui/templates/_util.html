@@ -22,7 +22,7 @@
   </span>
 
   <py:def function="analytics()">
-    <script type="text/javascript" py:if="not g.debug">
+    <script type="text/javascript" defer="defer" py:if="not g.debug">
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-8271754-17']);
       _gaq.push(['_trackPageview']);
@@ -37,7 +37,7 @@
   <py:def function="share_scripts()" py:if="not g.debug">
     <script type="text/javascript">var switchTo5x=true;</script>
     <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-    <script type="text/javascript">stLight.options({publisher: "ur-74a5b4dd-616a-419a-ba12-b7e5e84e437"}); </script>
+    <script type="text/javascript" defer="defer">stLight.options({publisher: "ur-74a5b4dd-616a-419a-ba12-b7e5e84e437"}); </script>
   </py:def>
 
   <py:def function="share_body()" py:if="not g.debug">
