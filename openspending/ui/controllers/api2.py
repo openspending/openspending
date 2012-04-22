@@ -10,6 +10,7 @@ from openspending.lib.solr_util import SolrException
 from openspending.lib.jsonexport import jsonpify
 from openspending.lib.paramparser import AggregateParamParser, SearchParamParser
 from openspending.ui.lib.base import BaseController, require
+from openspending.ui.lib.base import etag_cache_keygen
 from openspending.ui.lib.cache import AggregationCache
 from openspending.ui.lib.hypermedia import entry_apply_links, drilldowns_apply_links
 
@@ -38,6 +39,7 @@ class Api2Controller(BaseController):
                 result['drilldown'] = drilldowns_apply_links(dataset.name,
                     result['drilldown'])
 
+            response.last_modified = dataset.updated_at
             if cache.cache_enabled and 'cache_key' in result['summary']:
                 etag_cache(result['summary']['cache_key'])
 
@@ -67,7 +69,8 @@ class Api2Controller(BaseController):
         for dataset in datasets:
             require.dataset.read(dataset)
 
-        etag_cache(parser.key(*[d.updated_at for d in datasets]))
+        response.last_modified = max([d.updated_at for d in datasets])
+        etag_cache_keygen(parser.key(), response.last_modified)
 
         b = Browser(**params)
         try:

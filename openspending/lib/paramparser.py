@@ -32,9 +32,8 @@ class ParamParser(object):
 
         return self._output, self._errors
 
-    def key(self, *a):
+    def key(self):
         params = sorted(self.params.items())
-        params.extend(a)
         return hashlib.sha1(repr(params)).hexdigest()
 
     def _error(self, msg):

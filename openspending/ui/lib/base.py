@@ -3,6 +3,7 @@
 Provides the BaseController class for subclassing.
 """
 from time import time, gmtime, strftime
+from datetime import datetime, timedelta
 import hashlib
 
 from pylons.controllers import WSGIController
@@ -105,6 +106,9 @@ class BaseController(WSGIController):
         else:
             response.cache_control.private = True
         response.cache_control.max_age = 3600
+        response.last_modified = response.last_modified or datetime.utcnow()
+        response.expires = datetime.utcnow() + \
+            timedelta(seconds=response.cache_control.max_age)
 
     def _detect_format(self, format):
         for mimetype, mimeformat in self.accept_mimetypes.items():
