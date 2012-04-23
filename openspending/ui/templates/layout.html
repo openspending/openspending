@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+<html lang="${c.language}" xmlns="http://www.w3.org/1999/xhtml"
   xmlns:py="http://genshi.edgewall.org/"
   xmlns:i18n="http://genshi.edgewall.org/i18n"
   xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -155,16 +155,8 @@
       </div>
     </footer>
 
-    ${script_tag('lib/vendor/jquery')}
-    ${script_tag('lib/vendor/yepnope.min')}
-    ${script_tag('lib/vendor/underscore')}
-    ${script_tag('lib/vendor/handlebars')}
-    ${script_tag('lib/vendor/bootstrap')}
-
-    ${script_tag('lib/boot')}
-    <script defer="defer">OpenSpending.scriptRoot = "${h.script_root()}";</script>
-    ${script_tag('lib/utils/utils')}
-
+    ${script_boot()}
+    
     <py:if test="defined('scripts')">
       ${scripts()}
     </py:if>

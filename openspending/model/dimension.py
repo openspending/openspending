@@ -100,7 +100,7 @@ class Measure(Attribute):
         return from_clause
 
     def __repr__(self):
-        return "<Metric(%s)>" % self.name
+        return "<Measure(%s)>" % self.name
 
 
 class CompoundDimension(Dimension, TableHandler):

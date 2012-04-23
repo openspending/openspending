@@ -402,7 +402,11 @@ class Dataset(TableHandler, db.Model):
 
         query = db.select(fields, conditions, joins,
                        order_by=order_by, group_by=group_by, use_labels=True)
-        summary = {measure: 0.0, 'num_entries': 0}
+        summary = {
+            measure: 0.0,
+            'num_entries': 0,
+            'currency': {measure: self.currency}
+            }
         drilldown = []
         rp = self.bind.execute(query)
         while True:

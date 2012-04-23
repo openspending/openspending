@@ -58,6 +58,8 @@ def handle_request(request, tmpl_context):
     if locale is None:
         locale = get_default_locale()
 
+    tmpl_context.locale = locale
+
     options = [str(locale), locale.language, str(get_default_locale()),
         get_default_locale().language]
     for language in options:

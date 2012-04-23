@@ -47,15 +47,7 @@
   <body>
     ${widget_elem(c.widget)}
 
-    ${script_tag('lib/vendor/yepnope.min')}
-    ${script_tag('lib/vendor/jquery')}
-    ${script_tag('lib/vendor/underscore')}
-    ${script_tag('lib/vendor/handlebars')}
-    ${script_tag('lib/vendor/bootstrap')}
-    ${script_tag('lib/utils/utils')}
-    ${script_tag('lib/boot')}
-
-    <script defer="defer">OpenSpending.scriptRoot = "${h.script_root()}";</script>
+    ${script_boot()}
     ${widget_js('widget', c.widget, c.state, handles=False)}
     ${analytics()}
   </body>
