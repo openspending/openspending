@@ -9,9 +9,9 @@ from openspending.ui.lib.helpers import script_root
 log = logging.getLogger(__name__)
 
 
-def get_widget(name):
+def get_widget(name, force=False):
     """ Get a dict to describe various properties of a named widget. """
-    if not name in list_widgets():
+    if not force and not name in list_widgets():
         raise ValueError(_("No widget named '%s' exists.") % name)
     base_url = urljoin(script_root() + '/', 'widgets/')
     prefix = urljoin(base_url, name)

@@ -81,6 +81,10 @@ class ViewController(BaseController):
         handle_request(request, c, c.dataset)
         c.widgets = dict([(n, widgets.get_widget(n)) \
             for n in widgets.list_widgets()])
+        if 'dev_widget' in request.params and \
+            request.params.get('dev_widget') not in widgets.list_widgets():
+            n = request.params.get('dev_widget')
+            c.widgets[n] = widgets.get_widget(n, force=True)
         c.errors = errors
         c.can_save = can.view.create(c.dataset)
         return render('view/new.html')
