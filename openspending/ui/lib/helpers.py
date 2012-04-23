@@ -5,7 +5,7 @@ Consists of functions to typically be used within templates, but also
 available to Controllers. This module is available to templates as 'h'.
 """
 
-from pylons import config, url
+from pylons import config, url, tmpl_context, app_globals
 from routes import url_for
 from lxml import html
 from genshi.template import TextTemplate
@@ -63,8 +63,16 @@ def readable_url(url):
         return url[:15] + " .. " + url[len(url) - 25:]
     return url
 
+
 def site_url():
     return url_for(controller='home', action='index', qualified=True).rstrip('/')
+
+
+def script_root():
+    c = tmpl_context
+    if c.account and c.account.script_root and len(c.account.script_root.strip()):
+        return c.account.script_root
+    return app_globals.script_root
 
 
 def entity_slug(entity):

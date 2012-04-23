@@ -28,7 +28,8 @@ class Account(db.Model):
     password = db.Column(db.Unicode(2000))
     api_key = db.Column(db.Unicode(2000), default=make_uuid)
     admin = db.Column(db.Boolean, default=False)
-    
+    script_root = db.Column(db.Unicode(2000))
+
     datasets = db.relationship(Dataset,
             secondary=account_dataset_table,
             backref=db.backref('managers', lazy='dynamic'))
@@ -43,7 +44,7 @@ class Account(db.Model):
     @classmethod
     def by_name(cls, name):
         return db.session.query(cls).filter_by(name=name).first()
-    
+
     @classmethod
     def by_api_key(cls, api_key):
         return db.session.query(cls).filter_by(api_key=api_key).first()
@@ -76,4 +77,6 @@ class AccountSettings(colander.MappingSchema):
     password1 = colander.SchemaNode(colander.String(),
                                 missing=None, default=None)
     password2 = colander.SchemaNode(colander.String(),
+                                missing=None, default=None)
+    script_root = colander.SchemaNode(colander.String(),
                                 missing=None, default=None)

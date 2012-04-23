@@ -55,7 +55,7 @@
     ${script_tag('lib/utils/utils')}
     ${script_tag('lib/boot')}
 
-    <script>OpenSpending.scriptRoot = "${g.script_root}";</script>
+    <script defer="defer">OpenSpending.scriptRoot = "${h.script_root()}";</script>
     ${widget_js('widget', c.widget, c.state, handles=False)}
     ${analytics()}
   </body>

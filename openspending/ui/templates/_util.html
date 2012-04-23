@@ -10,11 +10,11 @@
         templating issues -->
 
   <py:def function="script_tag(name)">
-    <script type="text/javascript" src="${'%s/%s.js' % (g.script_root, name)}"></script>
+    <script type="text/javascript" src="${'%s/%s.js' % (h.script_root(), name)}"></script>
   </py:def>
 
   <py:def function="style_tag(name)">
-    <link rel="stylesheet" href="${'%s/%s.css' % (g.script_root, name)}" />
+    <link rel="stylesheet" href="${'%s/%s.css' % (h.script_root(), name)}" />
   </py:def>
 
   <span py:def="currency_symbols(currency)">

@@ -75,6 +75,7 @@ class AccountController(BaseController):
                                            _("Passwords don't match!"))
 
                 c.account.fullname = data['fullname']
+                c.account.script_root = data['script_root']
                 c.account.email = data['email']
                 if data['password1'] is not None and len(data['password1']):
                     c.account.password = generate_password_hash(data['password1'])
