@@ -334,6 +334,8 @@ possible:
 * ``label`` is assumed to be a human-readable identifier that will be used 
   as a title and heading for the dimension member pahe and references to the
   member in general.
+* ``uri`` contains a unified URI for the entity mentioned in this dimension, 
+  e.g. an OpenCorporates URI or a reference to a classificiation scheme.
 * ``color`` will be used when the dimension member is included in 
   visualizations. If no color is set, it will be selected from a pre-defined
   palette.

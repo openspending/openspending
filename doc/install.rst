@@ -22,7 +22,7 @@ Installation
 First, check out the source code from the repository, e.g. via git on 
 the command line::
 
-    $ git clone http://github.com/okfn/openspending.git
+    $ git clone http://github.com/openspending/openspending.git
     $ cd openspending
 
 We also highly recommend you use a virtualenv_ to isolate the installed 
@@ -43,12 +43,21 @@ This should be pretty painless. Just run::
 
     $ pip install -e .
 
-Another dependency is the ``openspendingjs`` module, which is included through
-git submodules by initializing submodules from the root of the ``openspending``
-install::
+Additionally to the core repository, you will need to check out two auxilliary
+repositories and symlink them into OpenSpending. The repos contain the 
+JavaScript components and the help system content for the site. The following 
+instructions will download and link in the JS files::
 
-    $ git submodule init
-    $ git submodule update 
+    $ git clone http://github.com/openspending/openspendingjs.git
+    $ ln -s openspendingjs openspending/ui/public/static/openspendingjs
+
+For the documentation, HTML templates also have to be generated from the Sphinx
+documentation project in order to display the help::
+
+    $ git clone http://github.com/openspending/docs.git site-docs
+    $ cd site-docs
+    $ make html
+    $ ln -s html ../openspending/ui/templates/help
 
 You will also need to install python bindings for your database. For example,
 for Postgresql you will want to install the psycopg2 library::

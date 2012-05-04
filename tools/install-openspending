@@ -15,5 +15,5 @@ set +u ; . pyenv/bin/activate ; set -u
 
 pip install psycopg2
 pip install translationstring
-pip install -e git+http://github.com/okfn/osvalidate#egg=osvalidate
-pip install -e git+http://github.com/okfn/openspending#egg=openspending
+pip install -e git+http://github.com/openspending/osvalidate#egg=osvalidate
+pip install -e git+http://github.com/openspending/openspending#egg=openspending

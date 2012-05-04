@@ -1,3 +1,0 @@
-[submodule "openspending/ui/public/openspendingjs"]
-	path = openspending/ui/public/openspendingjs
-	url = git://github.com/okfn/openspendingjs

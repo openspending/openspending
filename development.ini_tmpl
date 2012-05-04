@@ -63,6 +63,9 @@ openspending.widgets = treemap bubbletree aggregate_table
 # Relative path to static files
 # openspending.static_path = /static
 
+# JavaScript files root
+openspending.script_root = /static/openspendingjs
+
 # Static file cache version
 # openspending.static_cache_version =
 
