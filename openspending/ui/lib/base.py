@@ -87,6 +87,7 @@ class BaseController(WSGIController):
 
         i18n.handle_request(request, c)
 
+        c._cache_disabled = False
         c.datasets = model.Dataset.all_by_account(c.account)
         c.dataset = None
 
@@ -97,6 +98,9 @@ class BaseController(WSGIController):
         response.pragma = None
 
         if not app_globals.cache_enabled or 'flash' in session._session():
+            return
+
+        if c._cache_disabled:
             return
 
         del response.cache_control.no_cache
@@ -116,6 +120,9 @@ class BaseController(WSGIController):
                     mimetype in request.headers.get("Accept", ""):
                 return mimeformat
         return "html"
+
+    def _disable_cache(self):
+        c._cache_disabled = True
 
     def _get_dataset(self, dataset):
         c.dataset = model.Dataset.by_name(dataset)

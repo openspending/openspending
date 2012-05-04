@@ -28,6 +28,7 @@ class EditorController(BaseController):
 
     def index(self, dataset, format='html'):
         self._get_dataset(dataset)
+        self._disable_cache()
         require.dataset.update(c.dataset)
         c.entries_count = len(c.dataset)
         c.has_sources = c.dataset.sources.count() > 0
@@ -39,6 +40,7 @@ class EditorController(BaseController):
 
     def core_edit(self, dataset, errors={}, format='html'):
         self._get_dataset(dataset)
+        self._disable_cache()
         require.dataset.update(c.dataset)
         c.key_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if k],
                 key=lambda (k, v): v)
@@ -86,6 +88,7 @@ class EditorController(BaseController):
             format='html', saved=False):
 
         self._get_dataset(dataset)
+        self._disable_cache()
         require.dataset.update(c.dataset)
         # TODO: really split up dimensions and mapping editor.
         c.source = c.dataset.sources.first()
@@ -133,6 +136,7 @@ class EditorController(BaseController):
     def views_edit(self, dataset, errors={}, views=None,
             format='html'):
         self._get_dataset(dataset)
+        self._disable_cache()
         require.dataset.update(c.dataset)
         views = views or c.dataset.data.get('views', [])
         c.fill = {'views': json.dumps(views, indent=2)}
@@ -158,6 +162,7 @@ class EditorController(BaseController):
     def team_edit(self, dataset, errors={}, accounts=None,
             format='html'):
         self._get_dataset(dataset)
+        self._disable_cache()
         require.dataset.update(c.dataset)
         accounts = accounts or c.dataset.managers
         c.accounts = json.dumps([a.as_dict() for a in accounts], indent=2)

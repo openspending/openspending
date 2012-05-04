@@ -78,6 +78,7 @@ class ViewController(BaseController):
 
     def new(self, dataset, errors={}):
         self._get_dataset(dataset)
+        self._disable_cache()
         handle_request(request, c, c.dataset)
         c.widgets = dict([(n, widgets.get_widget(n)) \
             for n in widgets.list_widgets()])
