@@ -393,10 +393,13 @@ class Dataset(TableHandler, db.Model):
         total, num_entries = rp.fetchone()
 
         # query 2: get total count of drilldowns
-        query = db.select(['1'], conditions, joins, group_by=group_by)
-        query = db.select([db.func.count('1')], '1=1', query.alias('q'))
-        rp = dataset.bind.execute(query)
-        num_drilldowns, = rp.fetchone()
+        if len(group_by):
+            query = db.select(['1'], conditions, joins, group_by=group_by)
+            query = db.select([db.func.count('1')], '1=1', query.alias('q'))
+            rp = dataset.bind.execute(query)
+            num_drilldowns, = rp.fetchone()
+        else:
+            num_drilldowns = 1
 
         drilldown = []
         offset = int((page - 1) * pagesize)
