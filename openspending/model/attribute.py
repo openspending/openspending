@@ -25,7 +25,7 @@ class Attribute(object):
     def column_alias(self):
         return self.parent.alias.c[self.column.name]
 
-    def init(self, meta, table):
+    def init(self, meta, table, make_table=False):
         """ Make a model for this attribute, selecting the proper
         data type from attribute metadata.
         """
@@ -37,8 +37,9 @@ class Attribute(object):
             'float': db.Float,
                 }
         type_ = types.get(self.datatype, db.UnicodeText)
-        self.column = db.Column(self.name, type_)
-        table.append_column(self.column)
+        column = db.Column(self.name, type_)
+        table.append_column(column)
+        return column
 
     def generate(self, meta, table):
         """ Create the column on a given table. """
@@ -49,6 +50,6 @@ class Attribute(object):
 
     def __repr__(self):
         return "<Attribute(%s)>" % self.name
-    
+
     def as_dict(self):
         return self._data

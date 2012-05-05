@@ -152,14 +152,16 @@ class CompoundDimension(Dimension, TableHandler):
                 return attr
         raise KeyError()
 
-    def init(self, meta, entry_table):
-        self._init_table(meta, self.dataset.name, self.name)
-        for attr in self.attributes:
-            attr.init(meta, self.table)
-        self.column = db.Column(self.name + '_id', db.Integer, index=True)
-        entry_table.append_column(self.column)
-        alias_name = self.name.replace('_', ALIAS_PLACEHOLDER)
-        self.alias = self.table.alias(alias_name)
+    def init(self, meta, fact_table, make_table=True):
+        column = db.Column(self.name + '_id', db.Integer, index=True)
+        fact_table.append_column(column)
+        if make_table is True:
+            self._init_table(meta, self.dataset.name, self.name)
+            for attr in self.attributes:
+                attr.column = attr.init(meta, self.table)
+            alias_name = self.name.replace('_', ALIAS_PLACEHOLDER)
+            self.alias = self.table.alias(alias_name)
+        return column
 
     def generate(self, meta, entry_table):
         """ Create the table and column associated with this dimension

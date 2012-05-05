@@ -6,6 +6,7 @@ from nose.tools import *
 from nose.plugins.skip import SkipTest
 from mock import Mock, patch, MagicMock
 
+from datetime import datetime
 import os as _os
 import csv
 import json
@@ -24,6 +25,7 @@ def load_fixture(name, manager=None):
     data = json.load(fh)
     fh.close()
     dataset = Dataset(data)
+    dataset.updated_at = datetime.utcnow()
     if manager is not None:
         dataset.managers.append(manager)
     db.session.add(dataset)

@@ -73,8 +73,9 @@ class Api2Controller(BaseController):
         for dataset in datasets:
             require.dataset.read(dataset)
 
-        response.last_modified = max([d.updated_at for d in datasets])
-        etag_cache_keygen(parser.key(), response.last_modified)
+        if len(datasets):
+            response.last_modified = max([d.updated_at for d in datasets])
+            etag_cache_keygen(parser.key(), response.last_modified)
 
         b = Browser(**params)
         try:

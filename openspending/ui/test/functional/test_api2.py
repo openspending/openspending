@@ -17,6 +17,7 @@ class TestApi2Controller(ControllerTestCase):
         h.assert_equal(sorted(result.keys()), [u'drilldown', u'summary'])
         h.assert_equal(sorted(result['summary'].items()),
                          [(u'amount', -371500000.0),
+                          (u'currency', {u'amount': u'GBP'}),
                           (u'num_drilldowns', 1),
                           (u'num_entries', 36),
                           (u'page', 1),

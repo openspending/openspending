@@ -2,9 +2,36 @@
 from json import dumps, loads
 from sqlalchemy.types import Text, MutableType, TypeDecorator
 
-from openspending.model import meta as db 
+from openspending.model import meta as db
 
 ALIAS_PLACEHOLDER = u'‽'
+
+
+def decode_row(row, dataset):
+    from openspending.model.dimension import CompoundDimension
+
+    result = {}
+    for key, value in row.items():
+        if '_' in key:
+            dimension, attribute = key.split('_', 1)
+            dimension = dimension.replace(ALIAS_PLACEHOLDER, '_')
+            if dimension == 'entry':
+                result[attribute] = value
+            else:
+                if not dimension in result:
+                    result[dimension] = {}
+
+                    # TODO: backwards-compat?
+                    if isinstance(dataset[dimension], CompoundDimension):
+                        result[dimension]['taxonomy'] = \
+                                dataset[dimension].taxonomy
+                result[dimension][attribute] = value
+        else:
+            if key == 'entries':
+                key = 'num_entries'
+            result[key] = value
+    return result
+
 
 class JSONType(MutableType, TypeDecorator):
     impl = Text
@@ -24,7 +51,7 @@ class JSONType(MutableType, TypeDecorator):
 
 class TableHandler(object):
     """ Used by automatically generated objects such as datasets
-    and dimensions to generate, write and clear the table under 
+    and dimensions to generate, write and clear the table under
     its management. """
 
     def _init_table(self, meta, namespace, name, id_type=db.Integer):
@@ -33,8 +60,9 @@ class TableHandler(object):
         """
         name = namespace + '__' + name
         self.table = db.Table(name, meta)
-        col = db.Column('id', id_type, primary_key=True)
-        self.table.append_column(col)
+        if id_type is not None:
+            col = db.Column('id', id_type, primary_key=True)
+            self.table.append_column(col)
 
     def _generate_table(self):
         """ Create the given table if it does not exist. """
@@ -43,12 +71,11 @@ class TableHandler(object):
             self.table.create(db.engine)
 
     def _upsert(self, bind, data, unique_columns):
-        """ Upsert a set of values into the table. This will 
-        query for the set of unique columns and either update an 
+        """ Upsert a set of values into the table. This will
+        query for the set of unique columns and either update an
         existing row or create a new one. In both cases, the ID
-        of the changed row will be returned. 
-        """
-        key = db.and_(*[self.table.c[c]==data.get(c) for \
+        of the changed row will be returned. """
+        key = db.and_(*[self.table.c[c] == data.get(c) for \
                 c in unique_columns])
         q = self.table.update(key, data)
         if bind.execute(q).rowcount == 0:
@@ -71,8 +98,9 @@ class TableHandler(object):
             self.table.drop()
         del self.table
 
+
 class DatasetFacetMixin(object):
-    
+
     @classmethod
     def dataset_counts(cls, datasets):
         ds_ids = [d.id for d in datasets]
@@ -82,4 +110,3 @@ class DatasetFacetMixin(object):
             cls.dataset_id.in_(ds_ids), group_by=cls.code,
             order_by=db.func.count(cls.dataset_id).desc())
         return db.session.bind.execute(q).fetchall()
-

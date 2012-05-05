@@ -17,7 +17,7 @@ from openspending.model import meta as db
 from openspending.lib.util import hash_values
 
 from openspending.model.common import TableHandler, JSONType, \
-        ALIAS_PLACEHOLDER
+        ALIAS_PLACEHOLDER, decode_row
 from openspending.model.dimension import CompoundDimension, \
         AttributeDimension, DateDimension
 from openspending.model.dimension import Measure
@@ -145,7 +145,7 @@ class Dataset(TableHandler, db.Model):
         self._init_table(self.meta, self.name, 'entry',
                          id_type=db.Unicode(42))
         for field in self.fields:
-            field.init(self.meta, self.table)
+            field.column = field.init(self.meta, self.table)
         self.alias = self.table.alias('entry')
 
     def generate(self):
@@ -273,22 +273,7 @@ class Dataset(TableHandler, db.Model):
                         return
                     break
                 first_row = False
-                result = {}
-                for k, v in row.items():
-                    field, attr = k.split('_', 1)
-                    field = field.replace(ALIAS_PLACEHOLDER, '_')
-                    if field == 'entry':
-                        result[attr] = v
-                    else:
-                        if not field in result:
-                            result[field] = dict()
-
-                            # TODO: backwards-compat?
-                            if isinstance(self[field], CompoundDimension):
-                                result[field]['taxonomy'] = \
-                                    self[field].taxonomy
-                        result[field][attr] = v
-                yield result
+                yield decode_row(row, self)
 
     def aggregate(self, measure='amount', drilldowns=None, cuts=None,
             page=1, pagesize=10000, order=None):
@@ -346,30 +331,32 @@ class Dataset(TableHandler, db.Model):
         cuts = cuts or []
         drilldowns = drilldowns or []
         order = order or []
-        joins = self.alias
-        fields = [db.func.sum(self.alias.c[measure]).label(measure),
-                  db.func.count(self.alias.c.id).label("entries")]
+        joins = alias = self.alias
+        dataset = self
+        fields = [db.func.sum(alias.c[measure]).label(measure),
+                  db.func.count(alias.c.id).label("entries")]
+        stats_fields = list(fields)
         labels = {
-            'year': self['time']['year'].column_alias.label('year'),
-            'month': self['time']['yearmonth'].column_alias.label('month'),
+            'year': dataset['time']['year'].column_alias.label('year'),
+            'month': dataset['time']['yearmonth'].column_alias.label('month'),
             }
-        dimensions = [d for d in drilldowns] + [k for k, v in cuts]
+        dimensions = drilldowns + [k for k, v in cuts]
         dimensions = [d.split('.')[0] for d in dimensions]
         for dimension in set(dimensions):
             if dimension in labels:
                 dimension = 'time'
             if dimension not in [c.table.name for c in joins.columns]:
-                joins = self[dimension].join(joins)
+                joins = dataset[dimension].join(joins)
 
         group_by = []
-        for key in dimensions:
+        for key in drilldowns:
             if key in labels:
                 column = labels[key]
                 group_by.append(column)
                 fields.append(column)
             else:
-                column = self.key(key)
-                if '.' in key or column.table == self.alias:
+                column = dataset.key(key)
+                if '.' in key or column.table == alias:
                     fields.append(column)
                     group_by.append(column)
                 else:
@@ -383,71 +370,61 @@ class Dataset(TableHandler, db.Model):
             if key in labels:
                 column = labels[key]
             else:
-                column = self.key(key)
+                column = dataset.key(key)
             filters[column].add(value)
         for attr, values in filters.items():
             conditions.append(db.or_(*[attr == v for v in values]))
 
         order_by = []
         if order is None or not len(order):
-            order = [(measure, 'desc')]
+            order = [(measure, True)]
         for key, direction in order:
             if key == measure:
-                column = db.func.sum(self.alias.c[measure]).label(measure)
+                column = db.func.sum(alias.c[measure]).label(measure)
             elif key in labels:
                 column = labels[key]
             else:
-                column = self.key(key)
+                column = dataset.key(key)
             order_by.append(column.desc() if direction else column.asc())
 
-        query = db.select(fields, conditions, joins,
-                       order_by=order_by, group_by=group_by, use_labels=True)
-        summary = {
-            measure: 0.0,
-            'num_entries': 0,
-            'currency': {measure: self.currency}
-            }
+        # query 1: get overall sums.
+        query = db.select(stats_fields, conditions, joins)
+        rp = dataset.bind.execute(query)
+        total, num_entries = rp.fetchone()
+
+        # query 2: get total count of drilldowns
+        query = db.select(['1'], conditions, joins, group_by=group_by)
+        query = db.select([db.func.count('1')], '1=1', query.alias('q'))
+        rp = dataset.bind.execute(query)
+        num_drilldowns, = rp.fetchone()
+
         drilldown = []
-        rp = self.bind.execute(query)
+        offset = int((page - 1) * pagesize)
+
+        # query 3: get the actual data
+        query = db.select(fields, conditions, joins, order_by=order_by,
+                          group_by=group_by, use_labels=True,
+                          limit=pagesize, offset=offset)
+        rp = dataset.bind.execute(query)
         while True:
             row = rp.fetchone()
             if row is None:
                 break
-            result = {}
-            for key, value in row.items():
-                if key == measure:
-                    summary[measure] += value or 0
-                if key == 'entries':
-                    summary['num_entries'] += value or 0
-                if '_' in key:
-                    dimension, attribute = key.split('_', 1)
-                    dimension = dimension.replace(ALIAS_PLACEHOLDER, '_')
-                    if dimension == 'entry':
-                        result[attribute] = value
-                    else:
-                        if not dimension in result:
-                            result[dimension] = {}
-
-                            # TODO: backwards-compat?
-                            if isinstance(self[dimension], CompoundDimension):
-                                result[dimension]['taxonomy'] = \
-                                        self[dimension].taxonomy
-                        result[dimension][attribute] = value
-                else:
-                    if key == 'entries':
-                        key = 'num_entries'
-                    result[key] = value
+            result = decode_row(row, dataset)
             drilldown.append(result)
-        offset = int((page - 1) * pagesize)
 
-        # do we really need all this:
-        summary['num_drilldowns'] = len(drilldown)
-        summary['page'] = page
-        summary['pages'] = int(math.ceil(len(drilldown) / float(pagesize)))
-        summary['pagesize'] = pagesize
-
-        return {'drilldown': drilldown[offset:offset + pagesize],
-                'summary': summary}
+        return {
+                'drilldown': drilldown,
+                'summary': {
+                    measure: total,
+                    'num_entries': num_entries,
+                    'currency': {measure: dataset.currency},
+                    'num_drilldowns': num_drilldowns,
+                    'page': page,
+                    'pages': int(math.ceil(num_drilldowns / float(pagesize))),
+                    'pagesize': pagesize
+                    }
+                }
 
     def __repr__(self):
         return "<Dataset(%s:%s:%s)>" % (self.name, self.dimensions,
