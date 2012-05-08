@@ -195,6 +195,10 @@ form .error {
   margin: -250px 0 0 -392px;
 }
 
+.hidden {
+  display: none;
+}
+
 /* 
  * Footer styles based on OKFN brand design. 
  */

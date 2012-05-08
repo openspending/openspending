@@ -37,10 +37,20 @@
         embedder.render();
         return false;
       });
-      $("#widget-edit-link").click(function(e) {
-        w.configure(null);
-        return false;
-      });
+      if (w.configure !== undefined) {
+        $("#widget-edit-link").show();
+        $("#widget-edit-link").click(function(e) {
+          w.configure(null);
+          return false;
+        });
+      }
+      if (w.getDownloadURL !== undefined) {
+        $("#widget-download-link").show();
+        $("#widget-download-link").click(function(e) {
+          document.location.replace(w.getDownloadURL());
+          return false;
+        });
+      }
     });
   </py:def>
 
