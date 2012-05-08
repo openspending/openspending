@@ -37,8 +37,9 @@ class TestApi2Controller(ControllerTestCase):
                                     dataset='cra', drilldown='cofog1|cofog2',
                                     format='csv'))
         h.assert_equal(response.status, '200 OK')
-        result = DictReader(response.body)
-        print result
+        result = list(DictReader(response.body.split('\n')))
+        h.assert_equal(len(result), 6)
+        h.assert_equal(result[0]['cofog2.name'], '10.1')
 
     def test_aggregate_measures(self):
         response = self.app.get(url(controller='api2', action='aggregate',

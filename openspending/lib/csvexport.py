@@ -27,7 +27,6 @@ def generate_csv(entries):
         fields = sorted(row.keys())
         sio = StringIO()
         writer = csv.DictWriter(sio, fields)
-        print row
         if generate_headers:
             header = dict(zip(fields, fields))
             writer.writerow(header)
