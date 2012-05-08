@@ -56,6 +56,16 @@ class TestAggregateParamParser(TestCase):
         out, err = AggregateParamParser({'drilldown': 'foo|bar|baz'}).parse()
         h.assert_equal(out['drilldown'], ['foo', 'bar', 'baz'])
 
+    def test_format(self):
+        out, err = AggregateParamParser({'format': 'json'}).parse()
+        h.assert_equal(out['format'], 'json')
+
+        out, err = AggregateParamParser({'format': 'csv'}).parse()
+        h.assert_equal(out['format'], 'csv')
+
+        out, err = AggregateParamParser({'format': 'html'}).parse()
+        h.assert_equal(out['format'], 'json')
+
     @h.patch('openspending.lib.paramparser.model.Dataset')
     def test_cut(self, model_mock):
         ds = h.Mock()

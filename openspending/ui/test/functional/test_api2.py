@@ -1,4 +1,5 @@
 from openspending.lib import json
+from csv import DictReader
 from .. import ControllerTestCase, url, helpers as h
 
 class TestApi2Controller(ControllerTestCase):
@@ -29,6 +30,14 @@ class TestApi2Controller(ControllerTestCase):
         result = json.loads(response.body)
         h.assert_equal(result['summary']['num_drilldowns'], 6)
         h.assert_equal(result['summary']['amount'], -371500000.0)
+
+    def test_aggregate_drilldown_format_csv(self):
+        response = self.app.get(url(controller='api2', action='aggregate',
+                                    dataset='cra', drilldown='cofog1|cofog2',
+                                    format='csv'))
+        h.assert_equal(response.status, '200 OK')
+        result = DictReader(response.body)
+        print result
 
     def test_aggregate_measures(self):
         response = self.app.get(url(controller='api2', action='aggregate',

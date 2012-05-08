@@ -94,6 +94,7 @@ class AggregateParamParser(ParamParser):
     defaults['drilldown'] = None
     defaults['cut'] = None
     defaults['order'] = None
+    defaults['format'] = 'json'
     defaults['measure'] = 'amount'
 
     def parse_dataset(self, dataset_name):
@@ -112,6 +113,12 @@ class AggregateParamParser(ParamParser):
         if not drilldown:
             return []
         return drilldown.split('|')
+
+    def parse_format(self, format):
+        format = format.lower().strip()
+        if not format or not format in ('json', 'csv'):
+            return 'json'
+        return format
 
     def parse_cut(self, cuts):
         if not cuts:

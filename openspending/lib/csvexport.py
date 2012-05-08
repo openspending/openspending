@@ -20,12 +20,14 @@ def generate_csv(entries):
                 continue
             elif isinstance(v, datetime):
                 v = v.isoformat()
+            elif isinstance(v, float):
+                v = u'%.2f' % v
             row[unicode(k).encode('utf8')] = unicode(v).encode('utf8')
 
         fields = sorted(row.keys())
         sio = StringIO()
         writer = csv.DictWriter(sio, fields)
-
+        print row
         if generate_headers:
             header = dict(zip(fields, fields))
             writer.writerow(header)

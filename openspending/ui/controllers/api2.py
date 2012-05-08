@@ -7,7 +7,8 @@ from openspending import model
 from openspending.lib import util
 from openspending.lib.browser import Browser
 from openspending.lib.solr_util import SolrException
-from openspending.lib.jsonexport import jsonpify
+from openspending.lib.jsonexport import jsonpify, to_jsonp
+from openspending.lib.csvexport import write_csv
 from openspending.lib.paramparser import AggregateParamParser, SearchParamParser
 from openspending.ui.lib.base import BaseController, require
 from openspending.ui.lib.base import etag_cache_keygen
@@ -18,7 +19,6 @@ log = logging.getLogger(__name__)
 
 class Api2Controller(BaseController):
 
-    @jsonpify
     def aggregate(self):
         parser = AggregateParamParser(request.params)
         params, errors = parser.parse()
@@ -30,6 +30,7 @@ class Api2Controller(BaseController):
         params['cuts'] = params.pop('cut')
         params['drilldowns'] = params.pop('drilldown')
         dataset = params.pop('dataset')
+        format = params.pop('format')
         require.dataset.read(dataset)
 
         try:
@@ -48,7 +49,10 @@ class Api2Controller(BaseController):
             response.status = 400
             return {'errors': ['Invalid aggregation query: %r' % ve]}
 
-        return result
+        if format == 'csv':
+            return write_csv(result['drilldown'], response,
+                filename=dataset.name + '.csv')
+        return to_jsonp(result)
 
     @jsonpify
     def search(self):
