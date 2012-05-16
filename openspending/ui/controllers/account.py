@@ -25,10 +25,12 @@ log = logging.getLogger(__name__)
 class AccountController(BaseController):
 
     def login(self):
+        self._disable_cache()
         return render('account/login.html')
 
     def register(self):
         require.account.create()
+        self._disable_cache()
         errors, values = {}, None
         if request.method == 'POST':
             try:
@@ -64,6 +66,7 @@ class AccountController(BaseController):
 
     def settings(self):
         require.account.update(c.account)
+        self._disable_cache()
         errors, values = {}, c.account
         if request.method == 'POST':
             try:
@@ -91,6 +94,7 @@ class AccountController(BaseController):
                       form_errors=errors)
 
     def complete(self, format='json'):
+        self._disable_cache()
         parser = DistinctParamParser(request.params)
         params, errors = parser.parse()
         if errors:
@@ -110,6 +114,7 @@ class AccountController(BaseController):
             })
 
     def after_login(self):
+        self._disable_cache()
         if c.account is not None:
             h.flash_success(_("Welcome back, %s!") % c.account.name)
             redirect("/")
@@ -118,5 +123,6 @@ class AccountController(BaseController):
             redirect("/login")
 
     def after_logout(self):
+        self._disable_cache()
         h.flash_success(_("You have been logged out."))
         redirect("/")

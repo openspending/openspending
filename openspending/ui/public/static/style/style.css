@@ -287,9 +287,13 @@ footer a.twitter {
 }
 
 #fp-map svg path.bg {
-	stroke: #d3d0d0;
+	/*
+  stroke: #d3d0d0;
 	fill: #d3d0d0;
-	opacity: 0.5;
+  */
+  stroke: #fff;
+  fill: #fff; 
+	opacity: 1;
 }
 
 

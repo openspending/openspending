@@ -25,6 +25,7 @@ class ErrorController(BaseController):
 
     def document(self):
         """Render the error document - show custom template for 404"""
+        self._disable_cache()
         resp = request.environ.get('pylons.original_response')
 
         # Don't do fancy error documents for JSON

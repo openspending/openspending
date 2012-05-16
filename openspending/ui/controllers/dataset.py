@@ -95,7 +95,7 @@ class DatasetController(BaseController):
             model = {'dataset': dataset}
             schema = dataset_schema(ValidationState(model))
             data = schema.deserialize(dataset)
-            if Dataset.by_name(data['name']):
+            if Dataset.by_name(data['name']) is not None:
                 raise Invalid(SchemaNode(String(), name='dataset.name'),
                     _("A dataset with this identifer already exists!"))
             dataset = Dataset({'dataset': data})
