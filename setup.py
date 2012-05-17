@@ -51,9 +51,9 @@ setup(
         "argparse==1.2.1",
         "celery==2.4.4",
         "lxml>=2.0",
-        "messytables==0.2.0",
+        "messytables==0.2.1",
         "ordereddict>=1.1",
-        "osvalidate==2012-03-05.01"
+        "osvalidate==2012-05-17.01"
     ],
     setup_requires=[
         "PasteScript==1.7.5",

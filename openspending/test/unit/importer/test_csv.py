@@ -131,8 +131,12 @@ class TestCSVImporter(DatabaseTestCase):
         # http://trac.openspending.org/ticket/170
         h.assert_equal(importer.errors, 1)
 
-    def test_currency_sane(self):
-        h.skip("Not yet implemented")
+    def test_quoting(self):
+        source = csvimport_fixture('quoting')
+        importer = CSVImporter(source)
+        importer.run()
+        h.assert_equal(importer.errors, 0)
+
 
 class TestCSVImportDatasets(DatabaseTestCase):
 

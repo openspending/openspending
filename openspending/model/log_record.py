@@ -39,4 +39,6 @@ class LogRecord(db.Model):
     def by_id(cls, id):
         return db.session.query(cls).filter_by(id=id).first()
 
-
+    def __repr__(self):
+        return "<LogRecord(%s:%s:%s:%s:%s)>" % (self.category, self.level,
+            self.error, self.timestamp, self.message)
