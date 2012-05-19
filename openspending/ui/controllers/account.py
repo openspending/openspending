@@ -10,7 +10,7 @@ from pylons.i18n import _
 
 from repoze.who.api import get_api
 
-from openspending.model import meta as db
+from openspending.model import meta as db, Dataset
 from openspending.model.account import Account, AccountRegister, \
     AccountSettings
 from openspending.lib.paramparser import DistinctParamParser
@@ -93,6 +93,13 @@ class AccountController(BaseController):
                       form_fill=values,
                       form_errors=errors)
 
+    def dashboard(self, format='html'):
+        require.account.logged_in()
+        self._disable_cache()
+        c.account_datasets = sorted(c.account.datasets, key=lambda d: d.label)
+        c.account_views = sorted(c.account.views, key=lambda d: d.label)
+        return render('account/dashboard.html')
+
     def complete(self, format='json'):
         self._disable_cache()
         parser = DistinctParamParser(request.params)
@@ -117,10 +124,10 @@ class AccountController(BaseController):
         self._disable_cache()
         if c.account is not None:
             h.flash_success(_("Welcome back, %s!") % c.account.name)
-            redirect("/")
+            redirect(h.url_for(controller='account', action='dashboard'))
         else:
             h.flash_error(_("Incorrect user name or password!"))
-            redirect("/login")
+            redirect(h.url_for(controller='account', action='login'))
 
     def after_logout(self):
         self._disable_cache()

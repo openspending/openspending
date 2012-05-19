@@ -46,3 +46,16 @@ class TestAccountController(ControllerTestCase):
                                 params={'q': 'foo'})
         obj = json.loads(response.body)['results']
         assert len(obj) == 0, obj
+
+    def test_dashboard_not_logged_in(self):
+        response = self.app.get(url(controller='account', action='dashboard'),
+            status=403)
+        assert '403' in response.status, response.status
+
+    def test_dashboard(self):
+        test = h.make_account('test')
+        cra = h.load_fixture('cra', manager=test)
+        response = self.app.get(url(controller='account', action='dashboard'),
+                                extra_environ={'REMOTE_USER': str(test.name)})
+        assert '200' in response.status, response.status
+        assert cra.label in response, response
