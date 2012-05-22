@@ -70,6 +70,9 @@ openspending.solr.url = http://localhost:8983/solr
 # Relative path to static files
 # openspending.static_path = /static
 
+
+openspending.content_root = http://content.openspending.org
+
 # Static file cache version
 # openspending.static_cache_version =
 

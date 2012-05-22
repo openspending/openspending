@@ -37,6 +37,7 @@ setup(
                          # see https://gist.github.com/1214075
         "Pylons==1.0",
         "Genshi==0.6",
+        "requests==0.12.1",
         "SQLAlchemy==0.7.2",
         "sqlalchemy-migrate==0.7.1",
         "repoze.who==2.0",

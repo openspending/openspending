@@ -46,6 +46,14 @@ def make_map():
 
     map.connect('/help/*path', controller='help', action='page')
 
+    map.connect('/blog/*path', controller='content', action='view', section='blog')
+    map.connect('/blog', controller='content', action='view', section='blog',
+        path='index.html')
+    map.connect('/help/*path', controller='content', action='view', section='help')
+    map.connect('/meta/*path', controller='content', action='view', section='meta')
+    map.connect('/resources/*path', controller='content', action='view',
+        section='resources')
+
     map.connect('/datasets.{format}', controller='dataset', action='index')
     map.connect('/datasets/cta', controller='dataset', action='cta')
     map.connect('/datasets/territories', controller='dataset',
