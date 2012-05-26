@@ -71,12 +71,13 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li><a href="/">Home</a></li>
-              <li><a href="${g.blog_link}">Spending Blog</a></li>
+              <li><a href="${h.url(controller='content', action='view', section='blog', path='index.html')}">Spending Blog</a></li>
               <li class="dropdown">
                 <a class='list-datasets ${"active" if c.dataset else ""}' href="#datasets">Datasets</a>
               </li>
-              <li><a href="http://wiki.openspending.org/">About</a></li>
-              <li><a href="${h.url(controller='help', action='page', path='contact.html')}">Contact</a></li>
+              <li><a href="${h.url(controller='content', action='view', section='resources', path='index.html')}">Resources</a></li>
+              <li><a href="${h.url(controller='content', action='view', section='help', path='index.html')}">Guides</a></li>
+              <li><a href="${h.url(controller='content', action='view', section='meta', path='contact.html')}">Contact</a></li>
             </ul>
           </div>
           <ul class="nav pull-right">
@@ -138,10 +139,10 @@
           </ul>
           <ul class="footer-links span4 pull-left">
             <li><a href="http://twitter.com/openspending">Twitter</a></li>
-            <li><a href="${g.wiki_link}">Wiki</a> and <a href="${h.url(controller='help', action='page', path='index.html')}">Help</a></li>
+            <li><a href="${g.wiki_link}">Wiki</a> and <a href="${h.url(controller='content', action='view', section='help', path='index.html')}">Help</a></li>
             <li><a href="${g.lists_link}">Mailing List</a></li>
-            <li><a href="${h.url(controller='help', action='page', path='api.html')}">API</a></li>
-            <li><a href="http://okfn.org/privacy-policy/">Privacy</a> and <a href="${h.url(controller='help', action='page', path='contact.html')}">Contact</a></li>
+            <li><a href="${h.url(controller='content', action='view', section='help', path='api.html')}">API</a></li>
+            <li><a href="http://okfn.org/privacy-policy/">Privacy</a> and <a href="${h.url(controller='content', action='view', section='meta', path='contact.html')}">Contact</a></li>
           </ul>
 
           <p i18n:msg="code,data,opendef">

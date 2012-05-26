@@ -44,15 +44,19 @@ def make_map():
     map.connect('/after_login', controller='account', action='after_login')
     map.connect('/after_logout', controller='account', action='after_logout')
 
-    map.connect('/help/*path', controller='help', action='page')
-
     map.connect('/blog/*path', controller='content', action='view', section='blog')
     map.connect('/blog', controller='content', action='view', section='blog',
         path='index.html')
     map.connect('/help/*path', controller='content', action='view', section='help')
+    map.connect('/help', controller='content', action='view', section='help',
+        path='index.html')
     map.connect('/meta/*path', controller='content', action='view', section='meta')
+    map.connect('/meta', controller='content', action='view', section='meta',
+        path='index.html')
     map.connect('/resources/*path', controller='content', action='view',
         section='resources')
+    map.connect('/resources', controller='content', action='view',
+        section='resources', path='index.html')
 
     map.connect('/datasets.{format}', controller='dataset', action='index')
     map.connect('/datasets/cta', controller='dataset', action='cta')

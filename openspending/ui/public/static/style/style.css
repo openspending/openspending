@@ -662,3 +662,17 @@ ul.ui-autocomplete li a.ui-state-active {
 }
 
 
+/* Content section of the web site */
+#content-section img.inline-image {
+  max-width: 20em;
+  float: right;
+  padding-left: 1em;
+  padding-bottom: 1em;
+  padding-top: 1em;
+}
+
+
+
+
+
+
