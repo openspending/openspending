@@ -27,7 +27,8 @@ class ContentResource(object):
             if not self.exists() or not self.is_html():
                 return None
             data_res = requests.get(self.url)
-            self._doc = html.document_fromstring(data_res.content)
+            content = data_res.content.decode('utf-8')
+            self._doc = html.document_fromstring(content)
         return self._doc
 
     def _head(self):
@@ -47,12 +48,13 @@ class ContentResource(object):
         if self.doc is None:
             return None
         elem = self.doc.find(path)
-        print elem
         if elem is None:
             return None
         elem_strs = map(lambda c: html.tostring(c) + (c.tail or ''),
                         elem.getchildren())
-        return (elem.text or '') + '\n'.join(elem_strs)
+        text = (elem.text or '') + '\n'.join(elem_strs)
+        text = text.decode('utf-8')
+        return text
 
     @property
     def title(self):
@@ -65,4 +67,3 @@ class ContentResource(object):
     @property
     def html(self):
         return self.xpath_inner('.')
-
