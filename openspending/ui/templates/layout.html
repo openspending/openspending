@@ -71,13 +71,25 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li><a href="/">Home</a></li>
-              <li><a href="${h.url(controller='content', action='view', section='blog', path='index.html')}">Spending Blog</a></li>
+              <li><a class='${"active" if c.content_section=="blog" else ""}'
+                href="${h.url(controller='content', action='view', section='blog', path='index.html')}">Spending Blog</a></li>
               <li class="dropdown">
                 <a class='list-datasets ${"active" if c.dataset else ""}' href="#datasets">Datasets</a>
               </li>
-              <li><a href="${h.url(controller='content', action='view', section='resources', path='index.html')}">Community</a></li>
-              <li><a href="${h.url(controller='content', action='view', section='help', path='index.html')}">Help</a></li>
-              <li><a href="${h.url(controller='content', action='view', section='meta', path='contact.html')}">Contact</a></li>
+              <li class="dropdown">
+                <a class='${"active" if c.content_section=="resources" else ""} dropdown-toggle'
+                  data-toggle="dropdown">Community</a>
+                <ul class="dropdown-menu locale-dropdown">
+                  <li>
+                    <a href="/resources/wg/index.html">Working Group on Spending</a>
+                    <a href="/resources/gift/index.html">GIFT Report</a>
+                  </li>
+                </ul>
+              </li>
+              <li><a class='${"active" if c.content_section=="help" else ""}'
+               href="${h.url(controller='content', action='view', section='help', path='index.html')}">Help</a></li>
+              <li><a class='${"active" if c.content_section=="meta" else ""}'
+                href="${h.url(controller='content', action='view', section='meta', path='contact.html')}">About</a></li>
             </ul>
           </div>
           <ul class="nav pull-right">
@@ -139,7 +151,7 @@
           </ul>
           <ul class="footer-links span4 pull-left">
             <li><a href="http://twitter.com/openspending">Twitter</a></li>
-            <li><a href="${g.wiki_link}">Wiki</a> and <a href="${h.url(controller='content', action='view', section='help', path='index.html')}">Help</a></li>
+            <li><a href="${h.url(controller='content', action='view', section='help', path='index.html')}">Help</a></li>
             <li><a href="${g.lists_link}">Mailing List</a></li>
             <li><a href="${h.url(controller='content', action='view', section='help', path='api.html')}">API</a></li>
             <li><a href="http://okfn.org/privacy-policy/">Privacy</a> and <a href="${h.url(controller='content', action='view', section='meta', path='contact.html')}">Contact</a></li>
@@ -150,7 +162,7 @@
           and <a href="http://opendatacommons.org/licenses/odbl/">data</a> is
           openly licensed in accordance with the
           <a href="http://opendefinition.org/">open definition</a>.
-          <br/>
+          <br/><br/>
           <a href="http://opendefinition.org"><img src="http://assets.okfn.org/images/ok_buttons/od_80x15_blue.png" alt="Open Content" /></a>
           </p>
         </div>
