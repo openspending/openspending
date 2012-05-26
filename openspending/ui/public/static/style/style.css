@@ -1,3 +1,4 @@
+@import url('../fonts/opensans/stylesheet.css');
 
 /* Bootstrap overrides */
 body {
@@ -40,51 +41,10 @@ a:hover, a:active {
 }
 */
 
-/* Replicate pagination */
-
-/*
-.pager {
-  display: inline-block;
-  height: 36px;
-  margin: 18px 0;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.pager a, .pager .pager_dotdot, .pager .pager_curpage {
-  margin: 0px;
-  line-height: 34px;
-  text-decoration: none;
-  padding: 0 14px;
-}
-
-.pager a:hover, .pager .active a {
-  color: black;
-}
-*/
-
 /* Custom theming */
-@font-face {
-  font-family: Graublau;
-  src: url('/static/fonts/graublau/GraublauWeb.otf') format("opentype");
-}
-
 @font-face {
   font-family: Share;
   src: url('/static/fonts/share/Share-Regular.otf') format("opentype");
-}
-
-@font-face {
-  font-family: 'OpenSansLight';
-  src: url('/static/fonts/opensans/opensans-light-webfont.eot');
-  src: url('/static/fonts/opensans/opensans-light-webfont.eot?#iefix') format('embedded-opentype'), url('/static/fonts/opensans/opensans-light-webfont.woff') format('woff'), url('/static/fonts/opensans/opensans-light-webfont.ttf') format('truetype'), url('/static/fonts/opensans/opensans-light-webfont.svg#OpenSansLight') format('svg');
-  font-weight: normal;
-  font-style: normal;
 }
 
 .navbar {
@@ -116,8 +76,8 @@ a:hover, a:active {
 }
 
 .navbar-inner .nav li a {
-  font-family: "Share", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-family: "OpenSansRegular", Helvetica, Arial, sans-serif;
+  font-size: 12px;
 }
 
 .navbar-inner .nav li a:hover,
@@ -126,7 +86,7 @@ a:hover, a:active {
 }
 
 .brand, .topbar, h1, h2, h3 {
-  font-family: Share;
+  font-family: 'OpenSansRegular';
   font-weight: normal;
   letter-spacing: -0.06em;
 }
@@ -243,23 +203,22 @@ footer a.twitter {
 }
 
 #fp-blurb {
-  
 	position: absolute;
 	left: 640px;
 	top: 0;
 	padding: 10px;
 	line-height: 222222px;
-	background: rgba(0, 0, 0, 0.5);
+	background: rgba(0, 0, 0, 0);
 	border-bottom-right-radius: 10px;
 	border-top-right-radius: 10px;
 	min-height: 300px;
 }
 
 #fp-blurb p {
-	color: #fff;
-  font-family: "Share", Helvetica, Arial, sans-serif;
+	color: #333;
+  font-family: "OpenSansSemibold", Helvetica, Arial, sans-serif;
   font-size: 14px;
-	margin: 170px 10px 10px;
+	margin: 130px 10px 10px;
 	line-height: 1.6em;
 }
 
@@ -412,7 +371,6 @@ table th.num {
   font-size: 1.3em;
   font-weight: bolder;
   padding: 5px;
-  font-family: Graublau, sans-serif;
 }
 
 .entry-page .amount {
@@ -431,7 +389,6 @@ table th.num {
   border: 1px solid #ccc;
   font-weight: bolder;
   padding: 20px;
-  font-family: Graublau, sans-serif;
   -moz-border-radius: 12px;
   -webkit-border-radius: 12px;
   border-radius: 12px;
@@ -671,7 +628,14 @@ ul.ui-autocomplete li a.ui-state-active {
   padding-top: 1em;
 }
 
+.blog-post-preview {
+  border-bottom: 4px solid #eee;
+  margin-bottom: 2em;
+}
 
+.blog-post-preview h3 {
+  margin-bottom: 0.5em;
+}
 
 
 
