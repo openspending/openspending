@@ -89,7 +89,8 @@ class BaseController(WSGIController):
 
         c._cache_disabled = False
         c.datasets = model.Dataset.all_by_account(c.account)
-        c.dataset = None
+        c.content_section = c.dataset = None
+
 
         c.detected_l10n_languages = i18n.get_language_pairs()
 

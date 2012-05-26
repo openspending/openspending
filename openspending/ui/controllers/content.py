@@ -21,6 +21,7 @@ class ContentController(BaseController):
 
     def view(self, section, path):
         c.resource = ContentResource(section, path)
+        c.content_section = section
         if not c.resource.exists():
             abort(404, _("Sorry, the selected resource could not be found"))
         if not c.resource.is_html():
