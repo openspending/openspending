@@ -25,5 +25,5 @@ class ContentController(BaseController):
         if not c.resource.exists():
             abort(404, _("Sorry, the selected resource could not be found"))
         if not c.resource.is_html():
-            redirect(c.resource.url)
+            redirect(c.resource.url, code=301)
         return render('content/view.html')
