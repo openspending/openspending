@@ -13,7 +13,7 @@
     <div class="span3">
       <input id='datasets-filter-query' placeholder='Filter..' />
       {{#hasTerritories}}
-        <h3>Countries</h3>
+        <h4>Countries</h4>
         <select class="filter-datasets" name="territories">
           <option value="">Filter by country</option>
           {{#territories}}
@@ -29,7 +29,7 @@
       {{/hasTerritories}}
 
       {{#hasLanguages}}
-        <h3>Languages</h3>
+        <h4>Languages</h4>
         <select class="filter-datasets" name="languages">
           <option value="">Filter by language</option>
           {{#languages}}
@@ -55,7 +55,7 @@
 
   <script id="listing-item-template" type="text/x-handlebars-template">
     <li>
-      <h3><a href="/{{name}}">{{label}}</a></h3>
+      <h4><a href="/{{name}}">{{label}}</a></h4>
       <span class="label label-info">{{currency}}</span>
       {{tagline}}
     </li>
@@ -70,14 +70,8 @@
       <div class="row listing"></div>
     </div>
     <div class="modal-footer">
-      <py:if test="can.dataset.create()">
-        <a class="btn btn-success" href="${h.url_for(controller='dataset',
-          action='new')}">Import a dataset</a>
-      </py:if>
-      <py:if test="not can.dataset.create()">
-        <a class="btn btn-success" href="${h.url_for(controller='dataset',
-          action='cta')}">Import a dataset</a>
-      </py:if>
+      <a class="btn btn-success" href="${h.url_for(controller='dataset',
+        action='new')}">Import a dataset</a>
       <a data-dismiss="modal" class="btn">Close</a>
     </div>
   </div>
