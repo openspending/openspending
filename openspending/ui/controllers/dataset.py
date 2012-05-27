@@ -10,6 +10,7 @@ from openspending.model import Dataset, DatasetTerritory, \
         DatasetLanguage, meta as db
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import to_jsonp
+from openspending import auth as has
 
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render
@@ -70,11 +71,10 @@ class DatasetController(BaseController):
             return write_csv(results, response)
         return render('dataset/index.html')
 
-    def cta(self):
-        return render('dataset/new_cta.html')
-
     def new(self, errors={}):
         self._disable_cache()
+        if not has.dataset.create():
+            return render('dataset/new_cta.html')
         require.dataset.create()
         c.key_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if k],
                 key=lambda (k, v): v)

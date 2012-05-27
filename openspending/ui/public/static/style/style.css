@@ -213,13 +213,13 @@ footer a.twitter {
 
 #fp-blurb {
 	position: absolute;
-	left: 640px;
+	left: 635px;
 	top: 0;
 	padding: 10px;
 	border-bottom-right-radius: 10px;
 	border-top-right-radius: 10px;
-  margin: 60px 10px 10px;
-	min-height: 300px;
+  margin: 50px 10px 10px;
+	min-height: 200px;
   color: #333;
 }
 
@@ -637,9 +637,9 @@ ul.ui-autocomplete li a.ui-state-active {
 #content-section img.inline-image {
   max-width: 20em;
   float: right;
-  padding-left: 1em;
-  padding-bottom: 1em;
-  padding-top: 1em;
+  margin-left: 1em;
+  margin-bottom: 1em;
+  margin-top: 1em;
 }
 
 #content-section .top-image {
@@ -659,6 +659,16 @@ ul.ui-autocomplete li a.ui-state-active {
   color: #333;
 }
 
+#content-section h2, #content-section h3, #content-section h4 {
+  margin-bottom: 0.5em;
+}
+
+#content-section code {
+  padding: none;
+  background-color: transparent;
+  border: 0px;
+}
+
 #content-section .blog-post img {
   padding: 1px;
   border: 4px solid #eee;
@@ -673,7 +683,7 @@ ul.ui-autocomplete li a.ui-state-active {
 
 }
 
-#content-section .social-links img {
+.social-links img {
   padding-top: 1em;
   padding-right: 1em;
 }
