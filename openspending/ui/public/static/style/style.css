@@ -683,6 +683,10 @@ ul.ui-autocomplete li a.ui-state-active {
 
 }
 
+#content-section span.fail {
+  color: red;
+}
+
 .social-links img {
   padding-top: 1em;
   padding-right: 1em;
