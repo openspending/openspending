@@ -50,8 +50,8 @@ def make_map():
     map.connect('/help/*path', controller='content', action='view', section='help')
     map.connect('/help', controller='content', action='view', section='help',
         path='index.html')
-    map.connect('/meta/*path', controller='content', action='view', section='meta')
-    map.connect('/meta', controller='content', action='view', section='meta',
+    map.connect('/about/*path', controller='content', action='view', section='about')
+    map.connect('/about', controller='content', action='view', section='about',
         path='index.html')
     map.connect('/resources/*path', controller='content', action='view',
         section='resources')
