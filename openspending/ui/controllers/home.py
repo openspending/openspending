@@ -24,9 +24,6 @@ class HomeController(BaseController):
         c.blog = ContentResource('blog', 'home.html')
         return render('home/index.html')
 
-    def getinvolved(self):
-        return render('home/getinvolved.html')
-
     def index_subdomain(self):
         if hasattr(c, 'dataset') and c.dataset:
             require.dataset.read(c.dataset)
