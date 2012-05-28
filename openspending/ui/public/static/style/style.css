@@ -690,6 +690,51 @@ ul.ui-autocomplete li a.ui-state-active {
   padding-top: 1em;
 }
 
+#content-section .iconmatrix {
+  margin-bottom: 2em;
+}
+
+#content-section .iconmatrix tr th {
+  text-align: right;
+  vertical-align: top;
+  min-width: 123px;
+}
+
+#content-section .iconmatrix tr td {
+ vertical-align: top; 
+}
+
+#content-section .iconmatrix tr.icons th {
+  text-align: left;
+  border-bottom: 1px solid #aaa;
+}
+
+#content-section .iconmatrix tr.iconbar {
+  border-bottom: 1px solid #aaa; 
+}
+
+#content-section .iconmatrix td.inner,
+#content-section .iconmatrix th.inner {
+ border-right: 1px solid #aaa; 
+}
+
+#content-section .iconmatrix img {
+  padding: 2px;
+}
+
+#content-section .iconmatrix img.no {
+  opacity: 0.2;
+  -moz-opacity: 0.2;
+  filter:alpha(opacity=2);
+}
+
+#content-section .homework {
+  max-width: 250px;
+  min-width: 250px;
+  margin-left: 20px;
+  float: right;
+}
+
 #content-section span.fail {
   color: red;
 }
