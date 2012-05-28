@@ -59,6 +59,16 @@
               </div>
             </div>
             <div class="control-group">
+              <label class="control-label" for="territories">Category</label>
+              <div class="controls">
+                <select name="category" class="chzn-select span4">
+                  <py:for each="code, name in c.categories">
+                    <option value="${code}">${name}</option>
+                  </py:for>
+                </select>
+              </div>
+            </div>
+            <div class="control-group">
               <label class="control-label" for="currency">Currency</label>
               <div class="controls">
                 <select name="currency" class="chzn-select span4">

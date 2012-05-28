@@ -154,6 +154,11 @@ a:hover, a:active {
     max-height: 300px;
 }
 
+.dataset-listing-facets h4 {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
 form .error {
   color: #B94A48;
 }
@@ -696,12 +701,12 @@ ul.ui-autocomplete li a.ui-state-active {
 
 #content-section .iconmatrix tr th {
   text-align: right;
-  vertical-align: top;
   min-width: 123px;
 }
 
+#content-section .iconmatrix tr th,
 #content-section .iconmatrix tr td {
- vertical-align: top; 
+  vertical-align: top; 
 }
 
 #content-section .iconmatrix tr.icons th {

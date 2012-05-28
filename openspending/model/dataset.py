@@ -45,6 +45,7 @@ class Dataset(TableHandler, db.Model):
     schema_version = db.Column(db.Unicode())
     entry_custom_html = db.Column(db.Unicode())
     ckan_uri = db.Column(db.Unicode())
+    category = db.Column(db.Unicode())
     private = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
@@ -61,6 +62,7 @@ class Dataset(TableHandler, db.Model):
         self.name = dataset.get('name')
         self.description = dataset.get('description')
         self.currency = dataset.get('currency')
+        self.category = dataset.get('category')
         self.default_time = dataset.get('default_time')
         self.entry_custom_html = dataset.get('entry_custom_html')
         self.languages = dataset.get('languages', [])
@@ -447,6 +449,7 @@ class Dataset(TableHandler, db.Model):
             'default_time': self.default_time,
             'schema_version': self.schema_version,
             'currency': self.currency,
+            'category': self.category,
             'languages': list(self.languages),
             'territories': list(self.territories)
             }

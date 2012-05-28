@@ -54,7 +54,7 @@ setup(
         "lxml>=2.0",
         "messytables==0.2.1",
         "ordereddict>=1.1",
-        "osvalidate==2012-05-17.01"
+        "osvalidate==2012-05-29.01"
     ],
     setup_requires=[
         "PasteScript==1.7.5",

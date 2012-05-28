@@ -15,6 +15,7 @@ from openspending.ui.lib.base import require, abort
 from openspending.ui.lib.cache import AggregationCache
 from openspending.reference.currency import CURRENCIES
 from openspending.reference.country import COUNTRIES
+from openspending.reference.category import CATEGORIES
 from openspending.reference.language import LANGUAGES
 from openspending.validation.model.dataset import dataset_schema
 from openspending.validation.model.mapping import mapping_schema
@@ -48,6 +49,7 @@ class EditorController(BaseController):
                 key=lambda (k, v): v)
         c.languages = sorted(LANGUAGES.items(), key=lambda (k, v): v)
         c.territories = sorted(COUNTRIES.items(), key=lambda (k, v): v)
+        c.categories = sorted(CATEGORIES.items(), key=lambda (k, v): v)
 
         if 'time' in c.dataset:
             c.available_times = [m['year'] for m in c.dataset['time'].members()]
@@ -74,6 +76,7 @@ class EditorController(BaseController):
             data = schema.deserialize(data)
             c.dataset.label = data['label']
             c.dataset.currency = data['currency']
+            c.dataset.category = data['category']
             c.dataset.description = data['description']
             c.dataset.default_time = data['default_time']
             c.dataset.territories = data['territories']

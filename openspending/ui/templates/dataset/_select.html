@@ -10,7 +10,7 @@
   <py:def function="dataset_select()">
   <!-- templates/dataset/_select.html -->
   <script id="listing-template" type="text/x-handlebars-template">
-    <div class="span3">
+    <div class="span3 dataset-listing-facets">
       <input id='datasets-filter-query' placeholder='Filter..' />
       {{#hasTerritories}}
         <h4>Countries</h4>
@@ -43,6 +43,35 @@
           {{/languages}}
         </select>
       {{/hasLanguages}}
+
+      {{#hasCategories}}
+        <h4>Types of data</h4>
+        {{#categories}}
+          <label class="radio">
+            {{#selected}}
+            <input type="radio" value="{{category}}" name="category" 
+              class="filter-datasets" checked="checked" />
+            {{/selected}}
+            {{^selected}}
+            <input type="radio" value="{{category}}" name="category" 
+              class="filter-datasets" />
+            {{/selected}}
+            {{label}} ({{count}})
+          </label>
+        {{/categories}}
+        <label class="radio">
+          {{^hasSelectedCategory}}
+          <input type="radio" value="" name="category" checked="checked" 
+            class="filter-datasets" />
+          {{/hasSelectedCategory}}
+          {{#hasSelectedCategory}}
+          <input type="radio" value="" name="category" 
+            class="filter-datasets" />
+          {{/hasSelectedCategory}}
+          Any type
+        </label>
+      {{/hasCategories}}
+
       &nbsp;
     </div>
     <div class="span6">

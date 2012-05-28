@@ -33,11 +33,23 @@ class TestEditorController(ControllerTestCase):
             params={'name': 'cra', 'label': 'Common Rough Act',
                     'description': 'I\'m a banana', 'currency': 'EUR',
                     'languages': 'en', 'territories': 'gb',
-                    'default_time': 2009},
+                    'category': 'budget', 'default_time': 2009},
             extra_environ={'REMOTE_USER': 'test'})
         cra = Dataset.by_name('cra')
         assert cra.label == 'Common Rough Act', cra.label
         assert cra.currency == 'EUR', cra.currency
+
+    def test_core_update_invalid_category(self):
+        response = self.app.post(url(controller='editor',
+            action='core_update', dataset='cra'),
+            params={'name': 'cra', 'label': 'Common Rough Act',
+                    'description': 'I\'m a banana', 'currency': 'EUR',
+                    'languages': 'en', 'territories': 'gb',
+                    'category': 'foo', 'default_time': 2009},
+            extra_environ={'REMOTE_USER': 'test'})
+        assert 'valid category' in response.body
+        cra = Dataset.by_name('cra')
+        assert cra.label != 'Common Rough Act', cra.label
 
     def test_core_update_invalid_label(self):
         response = self.app.post(url(controller='editor',

@@ -118,7 +118,8 @@ class TestDatasetController(ControllerTestCase):
         assert "Required" in response.body
 
         params = {'name': 'testds', 'label': 'Test Dataset',
-                  'description': 'I\'m a banana!', 'currency': 'EUR'}
+                  'category': 'budget', 'description': 'I\'m a banana!',
+                  'currency': 'EUR'}
 
         response = self.app.post(url(controller='dataset', action='create'),
                 params=params, extra_environ={'REMOTE_USER': 'test'})

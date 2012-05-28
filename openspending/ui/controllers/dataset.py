@@ -19,6 +19,7 @@ from openspending.ui.lib.views import handle_request
 from openspending.ui.lib.hypermedia import dataset_apply_links
 from openspending.reference.currency import CURRENCIES
 from openspending.reference.country import COUNTRIES
+from openspending.reference.category import CATEGORIES
 from openspending.reference.language import LANGUAGES
 from openspending.validation.model.dataset import dataset_schema
 from openspending.validation.model.common import ValidationState
@@ -44,6 +45,10 @@ class DatasetController(BaseController):
             t = db.aliased(DatasetTerritory)
             c.results = c.results.join(t, Dataset._territories)
             c.results = c.results.filter(t.code == territory)
+        category = request.params.get('category')
+        if category:
+            c.results = c.results.filter(Dataset.category == category)
+
         c.results = list(c.results)
         c.territory_options = [{'code': code,
                                 'count': count,
@@ -58,11 +63,28 @@ class DatasetController(BaseController):
                                'label': LANGUAGES.get(code, code)} \
             for (code, count) in DatasetLanguage.dataset_counts(c.results)]
 
+        # TODO: figure out where to put this:
+        ds_ids = [d.id for d in c.results]
+        if len(ds_ids):
+            q = db.select([Dataset.category, db.func.count(Dataset.id)],
+                Dataset.id.in_(ds_ids), group_by=Dataset.category,
+                order_by=db.func.count(Dataset.id).desc())
+            c.category_options = [{'category': category,
+                                   'count': count,
+                                   'url': h.url_for(controller='dataset',
+                                        action='index', category=category),
+                                   'label': CATEGORIES.get(category, category)} \
+                for (category, count) in db.session.bind.execute(q).fetchall() \
+                if category is not None]
+        else:
+            c.category_options = []
+
         if format == 'json':
             results = map(lambda d: d.as_dict(), c.results)
             results = [dataset_apply_links(r) for r in results]
             return to_jsonp({
                 'datasets': results,
+                'categories': c.category_options,
                 'territories': c.territory_options,
                 'languages': c.language_options
                 })
@@ -82,6 +104,7 @@ class DatasetController(BaseController):
                 key=lambda (k, v): v)
         c.languages = sorted(LANGUAGES.items(), key=lambda (k, v): v)
         c.territories = sorted(COUNTRIES.items(), key=lambda (k, v): v)
+        c.categories = sorted(CATEGORIES.items(), key=lambda (k, v): v)
         errors = [(k[len('dataset.'):], v) for k, v in errors.items()]
         return render('dataset/new.html', form_errors=dict(errors),
                 form_fill=request.params if errors else {'currency': 'USD'})
