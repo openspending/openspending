@@ -683,6 +683,13 @@ ul.ui-autocomplete li a.ui-state-active {
 
 }
 
+#content-section .footnote {
+  color: #999;
+  font-size: 0.9em;
+  border-top: 1px solid #aaa;
+  padding-top: 1em;
+}
+
 #content-section span.fail {
   color: red;
 }
