@@ -647,6 +647,16 @@ ul.ui-autocomplete li a.ui-state-active {
   margin-top: 1em;
 }
 
+#content-section img.inline-image.large {
+  max-width: 460px;
+}
+
+#content-section img.inline-image.left {
+  float: left;
+  margin-left: 0em;
+  margin-right: 1em;
+}
+
 #content-section .top-image {
   /*margin-bottom: 1em;*/
   position: relative;
@@ -682,6 +692,11 @@ ul.ui-autocomplete li a.ui-state-active {
 #content-section img.screenshot {
   max-width: 570px;
   margin-left: 20px;
+}
+
+#content-section img.screenshot,
+#content-section img.shadow {
+  
   -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.35), inset 0 -1px 0 rgba(0, 0, 0, 0.8);
   -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.35), inset 0 -1px 0 rgba(0, 0, 0, 0.8);
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.35), inset 0 -1px 0 rgba(0, 0, 0, 0.8);
