@@ -4,6 +4,8 @@ This module implements views on the database.
 import logging
 from datetime import datetime
 
+from pylons.i18n import _
+
 from openspending.model import Dataset
 from openspending.ui.lib import widgets
 
@@ -30,8 +32,8 @@ class View(object):
         self.obj = obj
         self.entity = view.get('entity').lower().strip()
         self.filters = view.get('filters', {})
-        self.name = view.get('name')
-        self.label = view.get('label')
+        self.name = view.get('name') or 'untitled'
+        self.label = view.get('label') or _('Untitled')
         self.dimension = view.get('dimension')
         self.drilldown = view.get('drilldown',
                                   view.get('breakdown'))
