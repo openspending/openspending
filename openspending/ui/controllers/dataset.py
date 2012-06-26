@@ -139,7 +139,7 @@ class DatasetController(BaseController):
 
         handle_request(request, c, c.dataset)
 
-        if c.view is None and format == 'html':
+        if c.view is None:
             return EntryController().index(dataset, format)
 
         if format == 'json':
