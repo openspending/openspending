@@ -123,7 +123,7 @@ done by copying the Solr example configuration from the `Solr tarball`_, and
 replacing the default schema with one from OpenSpending.::
 
     $ cp -R apache-solr-3.5.0/example ./solr/
-    $ ln -sfT ../../../openspending_schema.xml ./solr/example/solr/conf/schema.xml
+    $ ln -sfT `pwd`/openspending_schema.xml ./solr/example/solr/conf/schema.xml
 
 .. _Solr tarball: http://www.apache.org/dyn/closer.cgi/lucene/solr/
 
