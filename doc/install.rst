@@ -28,7 +28,7 @@ the command line::
 We also highly recommend you use a virtualenv_ to isolate the installed 
 dependencies from the rest of your system.::
 
-    $ virtualenv --no-site-packages ./pyenv
+    $ virtualenv ./pyenv
 
 Now activate the environment. Your prompt will be prefixed with the name of
 the environment.::
