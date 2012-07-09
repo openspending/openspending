@@ -759,6 +759,10 @@ ul.ui-autocomplete li a.ui-state-active {
   color: red;
 }
 
+#content-section .heavy {
+  font-weight: bold;
+}
+
 .social-links img {
   padding-top: 1em;
   padding-right: 1em;
