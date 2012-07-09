@@ -13,7 +13,7 @@ Please see doc/install.rst or http://docs.openspending.org/en/latest/install.htm
 
 ## Issue tracking
 
-Please report bugs and submit feature requests at https://github.com/okfn/openspending/issues.
+Please report bugs and submit feature requests at https://github.com/openspending/openspending/issues.
 
 ## Licensing
 
