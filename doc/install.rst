@@ -92,7 +92,7 @@ Generate the help system documentation (this is used by the front-end
 and must be available, developer documents are separate). The output 
 will be copied to the web applications template directory::
 
-    $ (cd help && make clean html)
+    $ (cd doc && make clean html)
 
 Compile the translations:
 
