@@ -50,7 +50,7 @@ setup(
         "mock==0.8.0",
         "sphinx==1.0.7",
         "argparse==1.2.1",
-        "celery==2.4.4",
+        "celery==2.4.7",
         "lxml>=2.0",
         "messytables==0.2.1",
         "ordereddict>=1.1",
