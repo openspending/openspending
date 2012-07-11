@@ -41,7 +41,7 @@ preceding command.
 Having the virtualenv set up, you can install OpenSpending and its dependencies.
 This should be pretty painless. Just run::
 
-    $ pip install -e .
+    $ pip install -r requirements.txt -e .
 
 Additionally to the core repository, you will need to check out two auxilliary
 repositories and symlink them into OpenSpending. The repos contain the 
