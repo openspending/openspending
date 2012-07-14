@@ -38,7 +38,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'OpenSpending'
-copyright = u'2011, Open Knowledge Foundation'
+copyright = u'2012, Open Knowledge Foundation'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -91,7 +91,14 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  Major themes that come with
 # Sphinx are currently 'default' and 'sphinxdoc'.
-html_theme = 'default'
+sys.path.append(os.path.abspath('_themes'))
+html_theme_path = ['_themes']
+html_theme = 'sphinx-theme-okfn'
+html_theme_options = {
+    'logo_icon': 'http://assets.okfn.org/p/opendatahandbook/img/data-wrench-inverted.png',
+    'show_version': True
+    }
+
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
