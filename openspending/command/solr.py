@@ -4,6 +4,10 @@ def load(dataset):
     solr.build_index(dataset)
     return 0
 
+def loadall():
+    solr.build_all_index()
+    return 0
+
 def delete(dataset):
     solr.drop_index(dataset)
     return 0
@@ -20,6 +24,9 @@ def clean():
 
 def _load(args):
     return load(args.dataset)
+
+def _loadall(args):
+    return loadall()
 
 def _delete(args):
     return delete(args.dataset)
@@ -38,6 +45,9 @@ def configure_parser(subparsers):
     p = sp.add_parser('load', help='Load data for dataset into Solr')
     p.add_argument('dataset')
     p.set_defaults(func=_load)
+
+    p = sp.add_parser('loadall', help='Load data for all datasets into Solr')
+    p.set_defaults(func=_loadall)
 
     p = sp.add_parser('delete', help='Delete data for dataset from Solr')
     p.add_argument('dataset')

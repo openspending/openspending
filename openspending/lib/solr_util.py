@@ -85,6 +85,8 @@ def extend_entry(entry, dataset):
     entry = flatten(entry)
     entry['_id'] = dataset.name + '::' + unicode(entry['id'])
     for k, v in entry.items():
+        if k.endswith(".taxonomy") or k.endswith('.color'):
+            continue
         # this is similar to json encoding, but not the same.
         if isinstance(v, datetime.datetime) and not v.tzinfo:
             entry[k] = datetime.datetime(v.year, v.month, v.day, v.hour,
@@ -93,9 +95,9 @@ def extend_entry(entry, dataset):
             entry[k] = " ".join([unicode(vi) for vi in v])
         else:
             entry[k] = _safe_unicode(entry[k])
-        if k.endswith(".name"):
-            vk = k[:len(k) - len(".name")]
-            entry[vk] = v
+        #if k.endswith(".name"):
+        #    vk = k[:len(k) - len(".name")]
+        #    entry[vk] = v
         if k.endswith(".label"):
             #entry[k + "_str"] = entry[k]
             entry[k + "_facet"] = entry[k]
@@ -110,6 +112,8 @@ def build_index(dataset_name):
     buf = []
     for i, entry in enumerate(dataset_.entries()):
         ourdata = extend_entry(entry, dataset_)
+        #from pprint import pprint
+        #pprint(ourdata)
         buf.append(ourdata)
         if i and i % 1000 == 0:
             solr.add_many(buf)
@@ -121,6 +125,18 @@ def build_index(dataset_name):
     dataset_.updated_at = datetime.datetime.utcnow()
     model.db.session.commit()
 
+
+def build_all_index():
+    for dataset in model.db.session.query(model.Dataset):
+        try:
+            count = len(dataset)
+        except:
+            count = 0
+        if count is 0:
+            continue
+        log.info("Indexing: %s (%s entries)", dataset.label, count)
+        drop_index(dataset.name)
+        build_index(dataset.name)
 
 def _safe_unicode(s):
     if not isinstance(s, basestring):

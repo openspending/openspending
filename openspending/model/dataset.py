@@ -468,3 +468,4 @@ class Dataset(TableHandler, db.Model):
     @classmethod
     def by_name(cls, name):
         return db.session.query(cls).filter_by(name=name).first()
+

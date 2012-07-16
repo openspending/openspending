@@ -202,11 +202,9 @@
    <field name="amount" type="tdouble" indexed="true" stored="true" />
    <field name="dataset" type="string" indexed="true" stored="true" />
    <field name="*.name" type="string" indexed="true" stored="true" />
-   <field name="*.label" type="textgen" indexed="true" stored="true" />
+   <!--field name="*.label" type="textgen" indexed="true" stored="false" / -->
    <field name="time.*" type="string" indexed="true" stored="true" sortMissingLast="true" omitNorms="true" />
-   <dynamicField name="*" type="string" indexed="true" stored="true"/>
-   <dynamicField name="*.label_str" type="string" indexed="true" stored="true"/>
-   <dynamicField name="*_dt" type="date" indexed="true" stored="true"/>
+   <dynamicField name="*" type="string" indexed="true" stored="false"/>
    <dynamicField name="*_facet" type="string" omitNorms="true" indexed="true" />
 
    <!-- catchall text field that indexes tokens both normally and in reverse for efficient
