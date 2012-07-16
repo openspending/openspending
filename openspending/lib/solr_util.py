@@ -95,11 +95,10 @@ def extend_entry(entry, dataset):
             entry[k] = " ".join([unicode(vi) for vi in v])
         else:
             entry[k] = _safe_unicode(entry[k])
-        #if k.endswith(".name"):
-        #    vk = k[:len(k) - len(".name")]
-        #    entry[vk] = v
+        if k.endswith(".name"):
+            vk = k[:len(k) - len(".name")]
+            entry[vk] = v
         if k.endswith(".label"):
-            #entry[k + "_str"] = entry[k]
             entry[k + "_facet"] = entry[k]
     return entry
 

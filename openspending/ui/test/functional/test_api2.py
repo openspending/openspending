@@ -134,7 +134,7 @@ class TestApi2Controller(ControllerTestCase):
         result = json.loads(response.body)
 
         hra = {"taxonomy": "from", "description": "", "id": 5, "name": "999", "label": "ENG_HRA"}
-
+        
         h.assert_equal(result['facets']['from'][0][0], hra)
         h.assert_equal(result['facets']['to.name'][0][0], 'society')
 

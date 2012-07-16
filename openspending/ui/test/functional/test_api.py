@@ -122,7 +122,8 @@ class TestApiSearch(ControllerTestCase):
         out = json.loads(str(response.body))['response']
         assert out['numFound'] == 7, out['numFound']
         exp_entity = 'Department for Children, Schools and Families'
-        assert out['docs'][0]['from.label'] == exp_entity, out['docs'][0]
+        print out['docs'][0]
+        assert out['docs'][0]['from.label_facet'] == exp_entity, out['docs'][0]
 
     def test_search_03_jsonpify(self):
         callback = 'mycallback'

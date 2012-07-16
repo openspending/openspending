@@ -199,6 +199,7 @@
 
  <fields>
    <field name="_id" type="string" indexed="true" stored="true" required="true" /> 
+   <field name="id" type="string" indexed="true" stored="true" /> 
    <field name="amount" type="tdouble" indexed="true" stored="true" />
    <field name="dataset" type="string" indexed="true" stored="true" />
    <field name="*.name" type="string" indexed="true" stored="true" />
