@@ -133,7 +133,7 @@ def build_all_index():
             count = 0
         if count is 0:
             continue
-        log.info("Indexing: %s (%s entries)", dataset.label, count)
+        log.info("Indexing: %s (%s entries)", dataset.name, count)
         drop_index(dataset.name)
         build_index(dataset.name)
 
