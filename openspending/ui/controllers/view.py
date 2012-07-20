@@ -90,6 +90,13 @@ class ViewController(BaseController):
         c.can_save = can.view.create(c.dataset)
         return render('view/new.html')
 
+    def delete(self, dataset, name):
+        self._get_named_view(dataset, name)
+        if not can.view.delete(c.dataset, c.named_view):
+            abort(403, _("You are not authorized to delete this view."))
+        db.session.delete(c.named_view)
+        db.session.commit()
+
     def create(self, dataset):
         self._get_dataset(dataset)
         require.view.create(c.dataset)

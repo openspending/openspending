@@ -1,6 +1,7 @@
 import json
 
 from .. import ControllerTestCase, url, helpers as h
+from openspending.model import View, Dataset
 
 
 class TestViewController(ControllerTestCase):
@@ -16,6 +17,39 @@ class TestViewController(ControllerTestCase):
             action='index', dataset='cra'),
             extra_environ={'REMOTE_USER': 'test'})
         assert 'Library of visualisations' in response.body
+
+    def test_delete(self):
+        # TODO: Create the view using a fixture
+        self.app.post(url(controller='view', action='create',
+                                    dataset='cra'),
+                        params={'widget': 'treemap',
+                                'label': 'I am a banana!',
+                                'state': '{"foo":"banana"}'},
+                        extra_environ={'REMOTE_USER': 'test'})
+        response = self.app.delete(url(controller='view',
+            action='delete', dataset='cra', name='i-am-a-banana'),
+            extra_environ={'REMOTE_USER': 'test'})
+        dataset = Dataset.by_name('cra')
+        view = View.by_name(dataset, 'i-am-a-banana')
+        assert view is None
+        assert '200' in response.status
+
+    def test_delete_by_unauthorized_user(self):
+        # TODO: Create the view using a fixture
+        self.app.post(url(controller='view', action='create',
+                                    dataset='cra'),
+                        params={'widget': 'treemap',
+                                'label': 'I am a banana!',
+                                'state': '{"foo":"banana"}'},
+                        extra_environ={'REMOTE_USER': 'test'})
+        response = self.app.delete(url(controller='view',
+            action='delete', dataset='cra', name='i-am-a-banana'),
+            expect_errors=True,
+            extra_environ={'REMOTE_USER': 'unauthorized_user'})
+        dataset = Dataset.by_name('cra')
+        view = View.by_name(dataset, 'i-am-a-banana')
+        assert view is not None
+        assert '403' in response.status
 
     def test_new(self):
         response = self.app.get(url(controller='view',

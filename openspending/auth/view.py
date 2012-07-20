@@ -15,7 +15,7 @@ def read(dataset, view):
 def update(dataset, view):
     if logged_in() and tmpl_context.account == view.account:
         return True
-    return ds.edit(dataset)
+    return ds.update(dataset)
 
 
 def delete(dataset, view):
