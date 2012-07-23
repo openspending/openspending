@@ -6,7 +6,7 @@
 
   <py:def function="nav_class">nav-entry</py:def>
 
-  <py:def function="page_title">Entry Details</py:def>
+  <py:def function="page_title">${c.dataset.label} - ${c.dataset.currency} ${h.format_number_with_commas(c.amount)} on ${c.time.get('label')}</py:def>
 
   <py:def function="scripts">
     <!-- templates/dimension/view.html scripts -->
