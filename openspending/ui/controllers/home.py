@@ -24,18 +24,6 @@ class HomeController(BaseController):
         c.blog = ContentResource('blog', 'home.html')
         return render('home/index.html')
 
-    def index_subdomain(self):
-        if hasattr(c, 'dataset') and c.dataset:
-            require.dataset.read(c.dataset)
-            redirect(url(controller='dataset',
-                         action='view',
-                         name=c.dataset['name'],
-                         sub_domain=None))
-        else:
-            redirect(url(controller='home',
-                         action='index',
-                         sub_domain=None))
-
     def set_locale(self):
         locale = request.params.get('locale')
         if locale is not None:

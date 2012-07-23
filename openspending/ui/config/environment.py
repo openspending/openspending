@@ -106,3 +106,4 @@ def load_environment(global_conf, app_conf):
     # Configure Solr
     import openspending.lib.solr_util as solr
     solr.configure(config)
+

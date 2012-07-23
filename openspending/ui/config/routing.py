@@ -22,14 +22,6 @@ def make_map():
     map.connect('/_error_test/{action}', controller='error_test')
 
     # CUSTOM ROUTES HERE
-    if not asbool(config.get('openspending.sandbox_mode', False)):
-        map.sub_domains = True
-        # Ignore the ``www`` sub-domain
-        map.sub_domains_ignore = ['www', 'sandbox', 'staging']
-
-        map.connect('/', controller='home', action='index_subdomain',
-                    conditions={'sub_domain': True})
-
     map.connect('/', controller='home', action='index')
 
     map.connect('/getinvolved', controller='home', action='getinvolved')

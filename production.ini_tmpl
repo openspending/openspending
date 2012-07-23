@@ -39,9 +39,6 @@ set debug = false
 # Default dataset
 # openspending.default_dataset = cra
 
-# Sandbox mode: all users are admins by default
-openspending.sandbox_mode = false
-
 # Use celery for background jobs
 # openspending.use_celery = true
 
