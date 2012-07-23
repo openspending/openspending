@@ -4,6 +4,7 @@ from pylons import request, response, tmpl_context as c
 from pylons.controllers.util import etag_cache
 
 from openspending import model
+from openspending import auth as can
 from openspending.lib import util
 from openspending.lib.browser import Browser
 from openspending.lib.solr_util import SolrException
@@ -82,7 +83,14 @@ class Api2Controller(BaseController):
             stats, facets, entries = b.execute()
         except SolrException, e:
             return {'errors': [unicode(e)]}
-        entries = [entry_apply_links(d.name, e) for d, e in entries]
+
+        _entries = []
+        for dataset, entry in entries:
+            if not can.dataset.read(dataset):
+                continue
+            entry = entry_apply_links(dataset.name, entry)
+            entry['dataset'] = dataset.name
+            _entries.append(entry)
 
         if expand_facets and len(datasets) == 1:
             _expand_facets(facets, datasets[0])
@@ -90,7 +98,7 @@ class Api2Controller(BaseController):
         return {
             'stats': stats,
             'facets': facets,
-            'results': entries
+            'results': _entries
         }
 
 

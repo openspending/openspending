@@ -74,3 +74,4 @@ def sort_by_reference(ref, sort, sort_fn=None):
             ordered[ref_map[key]] = x
 
     return filter(lambda x: x is not None, ordered)
+

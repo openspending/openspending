@@ -130,5 +130,5 @@ def _get_entries(docs):
         entries.extend([(dataset, e) for e in dataset.entries(query)])
 
     entries = util.sort_by_reference(ids, entries, lambda x: x[1]['id'])
-    for dataset, entry in filter(lambda e: e is not None, entries):
+    for dataset, entry in entries:
         yield dataset, entry
