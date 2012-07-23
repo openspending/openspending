@@ -69,6 +69,8 @@ def sort_by_reference(ref, sort, sort_fn=None):
 
     ordered = [None] * len(ref)
     for x in sort:
-        ordered[ref_map[sort_fn(x)]] = x
+        key = sort_fn(x)
+        if key in ref_map:
+            ordered[ref_map[key]] = x
 
-    return ordered
+    return filter(lambda x: x is not None, ordered)

@@ -113,7 +113,7 @@ def _parse_facets(facets):
 
 def _get_entries(docs):
     # List of ids in Solr return order
-    print [docs]
+    # print [docs]
     ids = [d['id'] for d in docs]
 
     # partition the entries by dataset (so we make only N queries
