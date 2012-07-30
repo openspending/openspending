@@ -89,7 +89,8 @@ class Api2Controller(BaseController):
             if not can.dataset.read(dataset):
                 continue
             entry = entry_apply_links(dataset.name, entry)
-            entry['dataset'] = dataset.name
+            entry['dataset'] = { 'name': dataset.name,
+                                 'label': dataset.label }
             _entries.append(entry)
 
         if expand_facets and len(datasets) == 1:

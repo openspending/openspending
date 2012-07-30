@@ -94,6 +94,14 @@ class TestApi2Controller(ControllerTestCase):
         h.assert_equal(result['facets'], {})
         h.assert_equal(len(result['results']), 36)
 
+    def test_search_results_dataset(self):
+        response = self.app.get(url(controller='api2', action='search'))
+        result = json.loads(response.body)
+
+        expected_dataset = { 'name': 'cra', 'label': 'Country Regional Analysis v2009' }
+
+        h.assert_equal(result['results'][0]['dataset'], expected_dataset)
+
     def test_search_page_pagesize(self):
         response = self.app.get(url(controller='api2', action='search', page=2, pagesize=10))
         result = json.loads(response.body)
@@ -134,7 +142,7 @@ class TestApi2Controller(ControllerTestCase):
         result = json.loads(response.body)
 
         hra = {"taxonomy": "from", "description": "", "id": 5, "name": "999", "label": "ENG_HRA"}
-        
+
         h.assert_equal(result['facets']['from'][0][0], hra)
         h.assert_equal(result['facets']['to.name'][0][0], 'society')
 
