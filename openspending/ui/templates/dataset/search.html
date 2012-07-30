@@ -1,0 +1,33 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+
+  <py:def function="nav_class">nav-dataset</py:def>
+
+  <py:def function="page_title">Dataset Search</py:def>
+
+  <div py:def="content">
+    <!-- templates/dataset/search.html -->
+
+    <h2 class="page-header">Search</h2>
+    <div>
+      <form class="basic form-horizontal" id="search" action="/datasets/search" method="GET">
+        <input name="q" placeholder="search..." />
+        <input value="Search" class="btn btn-success" type="submit" />
+      </form>
+    </div>
+
+    <div id="results"></div>
+  </div>
+
+  <xi:include href="../layout.html" />
+  <script id="result-template" type="text/x-handlebars-template">
+    <p>
+    <h3><a href="{{html_url}}">{{dataset.label}} - {{amount}} on {{time.label}}</a></h3>
+    {{#values}}
+    <p><em>{{key}}:</em> {{value}}</p>
+    {{/values}}
+    </p>
+  </script>
+  ${script_tag('lib/search')}
+</html>

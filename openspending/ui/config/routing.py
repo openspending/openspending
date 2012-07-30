@@ -58,6 +58,7 @@ def make_map():
     map.connect('/datasets', controller='dataset', action='create',
             conditions=dict(method=['POST']))
     map.connect('/datasets', controller='dataset', action='index')
+    map.connect('/datasets/search', controller='dataset', action='search')
 
     map.connect('/api', controller='api', action='index')
     map.connect('/api/search', controller='api', action='search')

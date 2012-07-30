@@ -132,6 +132,9 @@ class DatasetController(BaseController):
             errors = i.asdict()
             return self.new(errors)
 
+    def search(self):
+        return render('dataset/search.html')
+
     def view(self, dataset, format='html'):
         self._get_dataset(dataset)
         etag_cache_keygen(c.dataset.updated_at)
