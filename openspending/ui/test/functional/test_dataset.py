@@ -127,3 +127,7 @@ class TestDatasetController(ControllerTestCase):
 
         ds = Dataset.by_name('testds')
         assert ds.label == params['label'], ds
+
+    def test_search_assigns_the_query_in_the_tmpl_context(self):
+        response = self.app.get(url(controller='dataset', action='search', q='the_query'))
+        assert 'the_query' == response.tmpl_context.query

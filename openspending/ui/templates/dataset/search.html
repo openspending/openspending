@@ -12,7 +12,7 @@
     <h2 class="page-header">Search</h2>
     <div>
       <form class="basic form-horizontal" id="search" action="/datasets/search" method="GET">
-        <input name="q" placeholder="search..." />
+        <input name="q" value="${c.query}" placeholder="search..." />
         <input value="Search" class="btn btn-success" type="submit" />
       </form>
     </div>
