@@ -375,6 +375,10 @@ table th.num {
     margin-bottom: 0em;
 }
 
+.highlight {
+    font-weight: bold;
+}
+
 /* Entry page */
 .entry-page .entities,
 .entry-page .amount {
