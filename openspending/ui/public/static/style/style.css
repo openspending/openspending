@@ -375,10 +375,6 @@ table th.num {
     margin-bottom: 0em;
 }
 
-.highlight {
-    font-weight: bold;
-}
-
 /* Entry page */
 .entry-page .entities,
 .entry-page .amount {
@@ -785,6 +781,19 @@ ul.ui-autocomplete li a.ui-state-active {
   margin-bottom: 0.5em;
 }
 
+/* Search page */
+
+#search-results {
+  min-height: 20px;
+}
+
+.spinner {
+  background: no-repeat url('../img/spinner.gif');
+}
+
+.highlight {
+    font-weight: bold;
+}
 
 
 

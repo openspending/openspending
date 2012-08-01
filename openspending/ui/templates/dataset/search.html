@@ -17,11 +17,11 @@
       </form>
     </div>
 
-    <div id="results"></div>
+    <div id="search-results"></div>
   </div>
 
   <xi:include href="../layout.html" />
-  <script id="result-template" type="text/x-handlebars-template">
+  <script id="search-result-template" type="text/x-handlebars-template">
     <p>
     <h3><a href="{{html_url}}">{{dataset.label}} - {{amount}} on {{time.label}}</a></h3>
     {{#values}}
