@@ -784,11 +784,11 @@ ul.ui-autocomplete li a.ui-state-active {
 /* Search page */
 
 #search-results {
-  min-height: 20px;
+  min-height: 32px;
 }
 
 .spinner {
-  background: no-repeat url('../img/spinner.gif');
+  background: no-repeat url('http://assets.okfn.org/images/icons/ajaxload-circle.gif');
 }
 
 .highlight {
