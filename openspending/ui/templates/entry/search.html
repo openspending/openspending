@@ -4,14 +4,14 @@
 
   <py:def function="nav_class">nav-dataset</py:def>
 
-  <py:def function="page_title">Dataset Search</py:def>
+  <py:def function="page_title">Entries Search</py:def>
 
   <div py:def="content">
-    <!-- templates/dataset/search.html -->
+    <!-- templates/entry/search.html -->
 
     <h2 class="page-header">Search</h2>
     <div>
-      <form class="basic form-horizontal" id="search" action="/datasets/search" method="GET">
+      <form class="basic form-horizontal" id="search" method="GET">
         <input name="q" value="${c.query}" placeholder="search..." />
         <input value="Search" class="btn btn-success" type="submit" />
       </form>

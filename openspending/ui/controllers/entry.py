@@ -70,3 +70,8 @@ class EntryController(BaseController):
             return write_csv([c.entry], response)
         else:
             return render('entry/view.html')
+
+    def search(self):
+        c.query = request.params.get('q')
+        return render('entry/search.html')
+
