@@ -31,7 +31,3 @@ class TestEntryController(ControllerTestCase):
         assert tpl % (t['id'], t['name']) in response, \
                'Custom HTML not present in rendered page!'
 
-    def test_search_assigns_the_query_in_the_tmpl_context(self):
-        response = self.app.get(url(controller='entry', action='search', q='the_query'))
-        assert 'the_query' == response.tmpl_context.query
-

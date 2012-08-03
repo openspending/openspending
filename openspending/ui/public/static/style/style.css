@@ -783,17 +783,12 @@ ul.ui-autocomplete li a.ui-state-active {
 
 /* Search page */
 
-#search-results {
-  min-height: 32px;
-}
-
 .spinner {
-  background: no-repeat url('http://assets.okfn.org/images/icons/ajaxload-circle.gif');
+  background: no-repeat center right url('http://assets.okfn.org/images/icons/ajaxload-circle.gif');
+  background-size: 20px;
 }
 
 .highlight {
     font-weight: bold;
 }
-
-
 
