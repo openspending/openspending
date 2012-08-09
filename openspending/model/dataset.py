@@ -218,6 +218,7 @@ class Dataset(TableHandler, db.Model):
         self._drop(self.bind)
         for dimension in self.dimensions:
             dimension.drop(self.bind)
+        self._is_generated = False
 
     def key(self, key):
         """ For a given ``key``, find a column to indentify it in a query.

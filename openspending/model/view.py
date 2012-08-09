@@ -28,17 +28,16 @@ class View(db.Model):
 
     dataset = db.relationship(Dataset,
                               backref=db.backref('views',
+                                  cascade='all,delete,delete-orphan',
                                   lazy='dynamic'))
 
     account = db.relationship(Account,
                               backref=db.backref('views',
+                                  cascade='all,delete,delete-orphan',
                                   lazy='dynamic'))
 
-    def __init__(self, dataset, account, widget, state={}):
-        self.dataset = dataset
-        self.account = account
-        self.widget = widget
-        self.state = state
+    def __init__(self):
+        pass
 
     @classmethod
     def by_id(cls, id):

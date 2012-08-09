@@ -103,8 +103,11 @@ class ViewController(BaseController):
         handle_request(request, c, c.dataset)
         try:
             data = CreateView().deserialize(request.params)
-            view = View(c.dataset, c.account, data['widget'],
-                        data['state'])
+            view = View()
+            view.dataset = c.dataset
+            view.account = c.account
+            view.widget = data['widget']
+            view.state = data['state']
             view.name = make_name(c.dataset, data['label'])
             view.label = data['label']
             view.description = data['description']
