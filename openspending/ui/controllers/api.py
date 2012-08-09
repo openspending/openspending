@@ -50,7 +50,7 @@ class ApiController(BaseController):
 
     def search(self):
         solrargs = dict(request.params)
-        rows = min(1000, request.params.get('rows', 10))
+        rows = min(1000, int(request.params.get('rows', 10)))
         q = request.params.get('q', '*:*')
         solrargs['q'] = q
         solrargs['rows'] = rows
