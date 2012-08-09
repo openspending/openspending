@@ -51,13 +51,10 @@ instructions will download and link in the JS files::
     $ git clone http://github.com/openspending/openspendingjs.git
     $ ln -s openspendingjs openspending/ui/public/static/openspendingjs
 
-For the documentation, HTML templates also have to be generated from the Sphinx
-documentation project in order to display the help::
-
-    $ git clone http://github.com/openspending/docs.git site-docs
-    $ cd site-docs
-    $ make html
-    $ ln -s html ../openspending/ui/templates/help
+The content parts of OpenSpending are built as a separate Jekyll project. For 
+instructions on how make changes to the content, please refer to 
+https://github.com/openspending/dotorg. If you want to develop the core application, 
+you can use the live content from content.openspending.org instead.
 
 You will also need to install python bindings for your database. For example,
 for Postgresql you will want to install the psycopg2 library::

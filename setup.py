@@ -32,29 +32,6 @@ setup(
     author_email='okfn-help at lists okfn org',
     url='http://github.com/okfn/openspending',
     install_requires=[
-        "WebOb==1.0.8",  # Explicitly specify WebOb 1.0.8, as with 1.1
-                         # integration with Pylons is broken:
-                         # see https://gist.github.com/1214075
-        "Pylons==1.0",
-        "Genshi==0.6",
-        "requests==0.12.1",
-        "SQLAlchemy==0.7.2",
-        "sqlalchemy-migrate==0.7.1",
-        "repoze.who==2.0",
-        "repoze.who-friendlyform==1.0.8",
-        "Unidecode==0.04.9",
-        "solrpy==0.9.4",
-        "Babel==0.9.6",
-        "colander==0.9.3",
-        "distribute>=0.6.10",
-        "mock==0.8.0",
-        "sphinx==1.0.7",
-        "argparse==1.2.1",
-        "celery==2.4.7",
-        "lxml>=2.0",
-        "messytables==0.2.1",
-        "ordereddict>=1.1",
-        "osvalidate==2012-05-29.01"
     ],
     setup_requires=[
         "PasteScript==1.7.5",
