@@ -94,8 +94,11 @@ class ViewController(BaseController):
         self._get_named_view(dataset, name)
         if not can.view.delete(c.dataset, c.named_view):
             abort(403, _("You are not authorized to delete this view."))
+        h.flash_success(_("'%s' has been deleted.") % c.named_view.label)
         db.session.delete(c.named_view)
         db.session.commit()
+        return redirect(h.url_for(controller='view',
+            action='index', dataset=c.dataset.name))
 
     def create(self, dataset):
         self._get_dataset(dataset)

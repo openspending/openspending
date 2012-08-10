@@ -32,7 +32,7 @@ class TestViewController(ControllerTestCase):
         dataset = Dataset.by_name('cra')
         view = View.by_name(dataset, 'i-am-a-banana')
         assert view is None
-        assert '200' in response.status
+        assert '302' in response.status
 
     def test_delete_by_unauthorized_user(self):
         # TODO: Create the view using a fixture

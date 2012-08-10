@@ -19,6 +19,11 @@
     <!-- templates/dataset/view.html scripts -->
     ${widget_js('widget', c.widget, c.named_view.state, handles=True)}
     ${share_scripts()}
+    <script type="text/javascript">
+      $("#view-delete-link").click(function(e) {
+        $("#delete-view").submit();
+      });
+    </script>
   </py:def>
 
   <div py:def="content">
@@ -31,13 +36,23 @@
 
     <div class="well widget-context">
       <div class="pull-right">
+        <py:if test="can.view.delete(c.dataset, c.named_view)">
+          <a href="#" class="btn btn-mini btn-danger"
+            id="view-delete-link"><i class="icon-trash icon-white"></i> Delete</a>
+        </py:if>
         <a href="#" class="btn btn-mini" id="widget-embed-link"><i class="icon-share"></i> Embed</a>
         <a href="#" class="btn btn-mini hidden" id="widget-edit-link"><i class="icon-cog"></i> Change</a>
         <a href="#" class="btn btn-mini hidden" id="widget-download-link"><i class="icon-download"></i> Data</a>
       </div>
        <p>${c.named_view.description}</p>
     </div>
-    
+
+    <form action="${h.url_for(controller='view', action='delete',
+      dataset=c.dataset.name, name=c.named_view.name)}"
+      method="POST" id="delete-view">
+      <input type="hidden" name="_method" value="DELETE" />
+    </form>
+
     ${share_body()}
   </div>
 
