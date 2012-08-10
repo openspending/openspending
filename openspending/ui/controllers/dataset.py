@@ -1,4 +1,5 @@
 import logging
+import json
 from urllib import urlencode
 
 from pylons import request, response, tmpl_context as c
@@ -136,15 +137,19 @@ class DatasetController(BaseController):
         self._get_dataset(dataset)
         etag_cache_keygen(c.dataset.updated_at)
         c.num_entries = len(c.dataset)
-
         handle_request(request, c, c.dataset)
 
-        if c.view is None:
-            return EntryController().index(dataset, format)
 
         if format == 'json':
             return to_jsonp(dataset_apply_links(c.dataset.as_dict()))
         else:
+            if c.view is None:
+                return EntryController().index(dataset, format)
+            if 'embed' in request.params:
+                return redirect(h.url_for(controller='view',
+                    action='embed', dataset=c.dataset.name,
+                    widget=c.view.vis_widget.get('name'),
+                    state=json.dumps(c.view.vis_state)))
             return render('dataset/view.html')
 
     def about(self, dataset, format='html'):

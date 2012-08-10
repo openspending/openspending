@@ -48,7 +48,7 @@
     ${widget_elem(c.widget)}
 
     ${script_boot()}
-    ${widget_js('widget', c.widget, c.state, handles=False)}
+    ${widget_js('widget', c.widget, c.state, handles=False, embed=True)}
     ${analytics()}
   </body>
 </html>

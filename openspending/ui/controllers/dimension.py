@@ -1,4 +1,5 @@
 import logging
+import json
 
 from pylons import request, tmpl_context as c, response
 from pylons.controllers.util import abort, redirect
@@ -88,20 +89,23 @@ class DimensionController(BaseController):
 
     def member(self, dataset, dimension, name, format="html"):
         self._get_member(dataset, dimension, name)
-
         handle_request(request, c, c.member, c.dimension.name)
-
-        # If there are no views set up, then go direct to the entries search page
-        if c.view is None and format is "html":
-            return redirect(url_for(controller='dimension', action='entries',
-                dataset=c.dataset.name, dimension=dimension, name=name))
-
         member = [member_apply_links(dataset, dimension, c.member)]
         if format == 'json':
             return write_json(member, response)
         elif format == 'csv':
             return write_csv(member, response)
         else:
+            # If there are no views set up, then go direct to the entries
+            # search page
+            if c.view is None:
+                return redirect(url_for(controller='dimension', action='entries',
+                    dataset=c.dataset.name, dimension=dimension, name=name))
+            if 'embed' in request.params:
+                return redirect(url_for(controller='view',
+                    action='embed', dataset=c.dataset.name,
+                    widget=c.view.vis_widget.get('name'),
+                    state=json.dumps(c.view.vis_state)))
             return render('dimension/member.html')
 
     def entries(self, dataset, dimension, name, format='html'):
