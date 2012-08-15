@@ -1,0 +1,46 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  py:strip="">
+  <xi:include href="_nav.html" />
+
+  <py:def function="nav_class">nav-editor</py:def>
+
+  <py:def function="page_title">${c.dataset.label or c.dataset.name}</py:def>
+
+
+
+  <div py:def="content">
+    ${editor_nav('templates')}
+    <div class="row">
+      <div class="offset2 span10">
+        <form class="basic form-horizontal" action="${url(controller='editor',
+          action='templates_update', dataset=c.dataset.name)}" method="POST">
+          <fieldset>
+            <div class="control-group">
+              <label class="control-label" for="serp_title">Title Template</label>
+              <div class="controls">
+                <input class="input-xlarge span4" name="serp_title"
+                placeholder="{{to.label}} - {{amount}}" />
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="serp_teaser">Teaser
+                Template</label>
+              <div class="controls">
+                <textarea class="input-xxlarge" rows="2"
+                  name="serp_teaser"></textarea>
+              </div>
+            </div>
+          </fieldset>
+          <div class="form-actions">
+            <input value="Update" class="btn btn-success" type="submit" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <xi:include href="../layout.html" />
+</html>
+

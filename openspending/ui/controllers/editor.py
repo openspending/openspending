@@ -136,6 +136,30 @@ class EditorController(BaseController):
         return self.dimensions_edit(dataset, errors=errors,
                 mapping=mapping, saved=saved)
 
+    def templates_edit(self, dataset, errors={}, values=None,
+            format='html'):
+        self._get_dataset(dataset)
+        self._disable_cache()
+        require.dataset.update(c.dataset)
+        c.fill = values or {'serp_title': c.dataset.serp_title,
+                            'serp_teaser': c.dataset.serp_teaser}
+        c.errors = errors
+        return render('editor/templates.html', form_fill=c.fill)
+
+    def templates_update(self, dataset, format='html'):
+        self._get_dataset(dataset)
+        require.dataset.update(c.dataset)
+        errors, values = {}, None
+        try:
+            values = dict(request.params.items())
+            c.dataset.serp_title = values.get('serp_title', None)
+            c.dataset.serp_teaser = values.get('serp_teaser', None)
+            db.session.commit()
+            h.flash_success(_("The templates have been updated."))
+        except Invalid, i:
+            errors = i.asdict()
+        return self.templates_edit(dataset, errors=errors, values=values)
+
     def views_edit(self, dataset, errors={}, views=None,
             format='html'):
         self._get_dataset(dataset)
@@ -243,3 +267,4 @@ class EditorController(BaseController):
         db.session.commit()
         h.flash_success(_("The dataset has been deleted."))
         redirect(h.url_for(controller='dataset', action='index'))
+

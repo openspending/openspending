@@ -39,6 +39,9 @@
         <li class="${'active' if section == 'core' else ''}">
             <a href="${url(controller='editor', action='core_edit',
               dataset=c.dataset.name)}">Meta</a></li>
+        <li class="${'active' if section == 'templates' else ''}">
+            <a href="${url(controller='editor', action='templates_edit',
+              dataset=c.dataset.name)}">Templates</a></li>
       </ul>
     </div>
   </py:def>

@@ -46,6 +46,8 @@ class Dataset(TableHandler, db.Model):
     entry_custom_html = db.Column(db.Unicode())
     ckan_uri = db.Column(db.Unicode())
     category = db.Column(db.Unicode())
+    serp_title = db.Column(db.Unicode(), nullable=True)
+    serp_teaser = db.Column(db.Unicode(), nullable=True)
     private = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
@@ -63,6 +65,8 @@ class Dataset(TableHandler, db.Model):
         self.description = dataset.get('description')
         self.currency = dataset.get('currency')
         self.category = dataset.get('category')
+        self.serp_title = dataset.get('serp_title')
+        self.serp_teaser = dataset.get('serp_teaser')
         self.default_time = dataset.get('default_time')
         self.entry_custom_html = dataset.get('entry_custom_html')
         self.languages = dataset.get('languages', [])
@@ -451,6 +455,8 @@ class Dataset(TableHandler, db.Model):
             'schema_version': self.schema_version,
             'currency': self.currency,
             'category': self.category,
+            'serp_title': self.serp_title,
+            'serp_teaser': self.serp_teaser,
             'languages': list(self.languages),
             'territories': list(self.territories)
             }
