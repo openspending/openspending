@@ -1,5 +1,3 @@
-@import url('../fonts/opensans/stylesheet.css');
-
 /* Bootstrap overrides */
 body {
   padding-top: 50px;
@@ -42,10 +40,6 @@ a:hover, a:active {
 */
 
 /* Custom theming */
-@font-face {
-  font-family: Share;
-  src: url('/static/fonts/share/Share-Regular.otf') format("opentype");
-}
 
 .navbar {
   background-color: #fff;
