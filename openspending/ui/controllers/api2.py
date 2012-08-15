@@ -67,16 +67,20 @@ class Api2Controller(BaseController):
         expand_facets = params.pop('expand_facet_dimensions')
 
         datasets = params.pop('dataset', None)
-        if datasets is None:
-            datasets = model.Dataset.all_by_account(c.account)
+        if datasets is None or not len(datasets):
+            datasets = model.Dataset.all_by_account(c.account).all()
             expand_facets = False
 
+        params['filter']['dataset'] = []
         for dataset in datasets:
             require.dataset.read(dataset)
+            params['filter']['dataset'].append(dataset.name)
 
-        if len(datasets):
-            response.last_modified = max([d.updated_at for d in datasets])
-            etag_cache_keygen(parser.key(), response.last_modified)
+        if not len(datasets):
+            return {'errors': [_("No dataset available.")]}
+        
+        response.last_modified = max([d.updated_at for d in datasets])
+        etag_cache_keygen(parser.key(), response.last_modified)
 
         b = Browser(**params)
         try:

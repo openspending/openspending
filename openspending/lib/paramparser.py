@@ -192,9 +192,6 @@ class SearchParamParser(ParamParser):
                     self._error('no dataset with name "%s"' % name)
                     return
                 datasets.append(dataset)
-
-        self._output['filter']['dataset'] = [ds.name for ds in datasets]
-
         return datasets
 
     def parse_pagesize(self, pagesize):
