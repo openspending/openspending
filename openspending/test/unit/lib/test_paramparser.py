@@ -102,7 +102,7 @@ class TestSearchParamParser(TestCase):
 
     def test_filter(self):
         out, err = SearchParamParser({'filter': 'foo:one|bar:two'}).parse()
-        h.assert_equal(out['filter'], {'foo': 'one', 'bar': 'two', 'dataset': []})
+        h.assert_equal(out['filter'], {'foo': 'one', 'bar': 'two'})
 
         out, err = SearchParamParser({'filter': 'foo:one|bar'}).parse()
         h.assert_true('Wrong format for "filter"' in err[0])
@@ -119,7 +119,6 @@ class TestSearchParamParser(TestCase):
         model_mock.by_name.side_effect = _mock_dataset
 
         out, err = SearchParamParser({'dataset': 'foo|bar'}).parse()
-        h.assert_equal(out['filter']['dataset'], ['foo', 'bar'])
         h.assert_equal([x.name for x in out['dataset']], ['foo', 'bar'])
 
         out, err = SearchParamParser({'dataset': 'baz'}).parse()
