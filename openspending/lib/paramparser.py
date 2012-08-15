@@ -90,6 +90,12 @@ class ParamParser(object):
             self._error('"%s" has to be an integer, it is: %s' %
                        (name, value))
 
+    def _to_bool(self, value):
+        # Note: Gka sagt, ja heisst im russischen nein. 
+        if value.lower().strip() in ['true', '1', 'yes', 'on']:
+            return True
+        return False
+
 class AggregateParamParser(ParamParser):
     defaults = ParamParser.defaults.copy()
     defaults['dataset'] = None
@@ -160,6 +166,7 @@ class SearchParamParser(ParamParser):
     defaults['category'] = None
     defaults['dataset'] = None
     defaults['page'] = 1
+    defaults['stats'] = 'false'
     defaults['pagesize'] = 100
     defaults['order'] = None
     defaults['facet_field'] = None
@@ -215,6 +222,9 @@ class SearchParamParser(ParamParser):
 
     def parse_facet_page(self, page):
         return max(1, self._to_float('facet_page', page))
+
+    def parse_stats(self, stats):
+        return self._to_bool(stats)
 
     def parse_facet_pagesize(self, pagesize):
         return min(100, self._to_int('facet_pagesize', pagesize))

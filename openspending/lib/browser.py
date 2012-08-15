@@ -13,6 +13,7 @@ class Browser(object):
                  page=1,
                  pagesize=100,
                  order=None,
+                 stats=False,
                  facet_field=None,
                  facet_page=1,
                  facet_pagesize=100):
@@ -23,6 +24,7 @@ class Browser(object):
             'page': page,
             'pagesize': pagesize,
             'order': order if order is not None else [('score', True), ('amount', True)],
+            'stats': stats,
             'facet_field': facet_field if facet_field is not None else [],
             'facet_page': facet_page,
             'facet_pagesize': facet_pagesize
@@ -40,6 +42,10 @@ class Browser(object):
             'results_count_query': q['response']['numFound'],
             'results_count': len(q['response']['docs'])
         }
+
+        if self.params['stats']:
+            stats.update(q.get('stats', {}).get('stats_fields', {}).\
+                    get('amount', {}))
 
         facets = q.get('facet_counts', {}).get('facet_fields', {})
         for k in facets.keys():
@@ -60,6 +66,8 @@ def _build_query(params):
         'wt':    'json',
         'fl':    'id, dataset',
         'sort':  _build_sort(params['order']),
+        'stats': str(params['stats']).lower(),
+        'stats.field': 'amount',
         # FIXME: In a future version of the API, we really should use
         #        offset/limit rather than page/pagesize.
         #
