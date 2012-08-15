@@ -782,7 +782,27 @@ ul.ui-autocomplete li a.ui-state-active {
   background-size: 20px;
 }
 
-.highlight {
+#search-results .highlight {
     font-weight: bold;
+}
+
+#search-results .result {
+  margin-bottom: 1em;
+}
+
+#search-results .result .title {
+  font-size: 1.2em;
+  line-height: 1.3em;
+  text-decoration: underline;
+  font-weight: normal;
+}
+
+#search-results .result .dataset {
+  font-size: 0.9em;
+  color: #999;
+}
+
+#search-results .result .dataset a {
+  color: #99C862;
 }
 

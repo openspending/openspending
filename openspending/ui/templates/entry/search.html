@@ -22,12 +22,20 @@
 
   <xi:include href="../layout.html" />
   <script id="search-result-template" type="text/x-handlebars-template">
-    <p>
-    <h3><a href="{{html_url}}">{{dataset.label}} - {{amount}} on {{time.label}}</a></h3>
-    {{#values}}
-    <p><em>{{key}}:</em> {{value}}</p>
-    {{/values}}
-    </p>
+    <div id='r-{{id}}' class='result'>
+      <div class='title'><a href="{{html_url}}">{{_title}}</a></div>
+      <div class='dataset'>
+        <a href='{{dataset.html_url}}'>{{dataset.label}}</a>
+        &middot; {{amount}} &middot; {{time.label}}
+      </div>
+      <div class='teaser'>{{_teaser}}</div>
+    </div>
+  </script>
+  <script id="search-result-teaser-template" type="text/x-handlebars-template">
+    {{description}}
+  </script>
+  <script id="search-result-title-template" type="text/x-handlebars-template">
+    {{to.label}}
   </script>
   ${script_tag('lib/vendor/jquery.highlight-3.min')}
   ${script_tag('lib/entries-search')}
