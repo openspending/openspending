@@ -14,7 +14,8 @@ from openspending.lib.paramparser import AggregateParamParser, SearchParamParser
 from openspending.ui.lib.base import BaseController, require
 from openspending.ui.lib.base import etag_cache_keygen
 from openspending.ui.lib.cache import AggregationCache
-from openspending.ui.lib.hypermedia import entry_apply_links, drilldowns_apply_links
+from openspending.ui.lib.hypermedia import entry_apply_links, \
+        drilldowns_apply_links, dataset_apply_links
 
 log = logging.getLogger(__name__)
 
@@ -96,8 +97,7 @@ class Api2Controller(BaseController):
             if not can.dataset.read(dataset):
                 continue
             entry = entry_apply_links(dataset.name, entry)
-            entry['dataset'] = { 'name': dataset.name,
-                                 'label': dataset.label }
+            entry['dataset'] = dataset_apply_links(dataset.as_dict())
             _entries.append(entry)
 
         if expand_facets and len(datasets) == 1:
