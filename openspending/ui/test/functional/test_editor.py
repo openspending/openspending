@@ -179,6 +179,22 @@ class TestEditorController(ControllerTestCase):
         cra = Dataset.by_name('cra')
         assert len(cra.managers.all())==1, cra.managers
 
+    def test_templates_edit_mask(self):
+        response = self.app.get(url(controller='editor', 
+            action='templates_edit', dataset='cra'),
+            extra_environ={'REMOTE_USER': 'test'})
+        assert 'Update' in response.body
+    
+    def test_templates_update(self):
+        response = self.app.post(url(controller='editor', 
+            action='templates_update', dataset='cra'),
+            params={'serp_title': 'BANANA'},
+            extra_environ={'REMOTE_USER': 'test'},
+            expect_errors=True)
+        assert '200' in response.status, response.status
+        cra = Dataset.by_name('cra')
+        assert cra.serp_title=='BANANA', cra.serp_title
+
     def test_drop(self):
         cra = Dataset.by_name('cra')
         assert len(cra)==36, len(cra)

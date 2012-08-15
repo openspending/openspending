@@ -98,9 +98,8 @@ class TestApi2Controller(ControllerTestCase):
         response = self.app.get(url(controller='api2', action='search'))
         result = json.loads(response.body)
 
-        expected_dataset = { 'name': 'cra', 'label': 'Country Regional Analysis v2009' }
-
-        h.assert_equal(result['results'][0]['dataset'], expected_dataset)
+        h.assert_equal(result['results'][0]['dataset']['name'], 'cra')
+        h.assert_equal(result['results'][0]['dataset']['label'],'Country Regional Analysis v2009')
 
     def test_search_page_pagesize(self):
         response = self.app.get(url(controller='api2', action='search', page=2, pagesize=10))
