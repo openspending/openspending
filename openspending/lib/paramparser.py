@@ -1,6 +1,9 @@
 from ordereddict import OrderedDict
-from openspending import model
 import hashlib
+
+from openspending import model
+from openspending.reference.category import CATEGORIES
+
 
 class ParamParser(object):
     defaults = OrderedDict()
@@ -9,7 +12,6 @@ class ParamParser(object):
     defaults['order'] = None
 
     def __init__(self, params):
-
         self.params = self.defaults.copy()
         self.params.update(params)
 
@@ -145,6 +147,7 @@ class AggregateParamParser(ParamParser):
 
         measure_names = (m.name for m in self._output['dataset'].measures)
         if measure not in measure_names:
+
             self._error('no measure with name "%s"' % measure)
             return
 
@@ -154,6 +157,7 @@ class SearchParamParser(ParamParser):
     defaults = ParamParser.defaults.copy()
     defaults['q'] = ''
     defaults['filter'] = None
+    defaults['category'] = None
     defaults['dataset'] = None
     defaults['page'] = 1
     defaults['pagesize'] = 100
@@ -196,6 +200,12 @@ class SearchParamParser(ParamParser):
 
     def parse_pagesize(self, pagesize):
         return min(100, self._to_int('pagesize', pagesize))
+
+    def parse_category(self, category):
+        category = category.lower().strip() if category else None
+        if category in CATEGORIES:
+            return category
+        return None
 
     def parse_facet_field(self, facet_field):
         if not facet_field:

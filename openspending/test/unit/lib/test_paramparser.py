@@ -135,6 +135,12 @@ class TestSearchParamParser(TestCase):
         out, err = SearchParamParser({'facet_field': 'foo|bar|baz'}).parse()
         h.assert_equal(out['facet_field'], ['foo', 'bar', 'baz'])
 
+    def test_category(self):
+        out, err = SearchParamParser({'category': 'banana'}).parse()
+        h.assert_equal('category' in out, False)
+        out, err = SearchParamParser({'category': 'spending'}).parse()
+        h.assert_equal(out['category'], 'spending')
+
     def test_facet_page(self):
         out, err = SearchParamParser({'facet_page': '14'}).parse()
         h.assert_equal(out['facet_page'], 14)

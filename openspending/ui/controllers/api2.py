@@ -68,7 +68,10 @@ class Api2Controller(BaseController):
 
         datasets = params.pop('dataset', None)
         if datasets is None or not len(datasets):
-            datasets = model.Dataset.all_by_account(c.account).all()
+            q = model.Dataset.all_by_account(c.account)
+            if params.get('category'):
+                q = q.filter_by(category=params.pop('category'))
+            datasets = q.all()
             expand_facets = False
 
         params['filter']['dataset'] = []
