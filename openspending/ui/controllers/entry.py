@@ -72,5 +72,6 @@ class EntryController(BaseController):
             return render('entry/view.html')
 
     def search(self):
+        c.content_section = 'search'
         return render('entry/search.html')
 
