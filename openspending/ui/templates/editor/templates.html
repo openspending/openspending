@@ -13,14 +13,27 @@
   <div py:def="content">
     ${editor_nav('templates')}
     <div class="row">
-      <div class="offset2 span10">
+      <div class="span4">
+        <div class="alert alert-block">
+          <p>
+          In this section, you can configure how transactions from this dataset
+          are represented in global search results. This is an advanced option 
+          that you can skip.
+          </p>
+          <p>
+          Templates are composed using the <a href="http://mustache.github.com/mustache.5.html">Mustache</a>
+          syntax and they can make use of the dimensions and attributes defined for this dataset.
+          </p>
+        </div>
+      </div>
+      <div class="span8">
         <form class="basic form-horizontal" action="${url(controller='editor',
           action='templates_update', dataset=c.dataset.name)}" method="POST">
           <fieldset>
             <div class="control-group">
               <label class="control-label" for="serp_title">Title Template</label>
               <div class="controls">
-                <input class="input-xlarge span4" name="serp_title"
+                <input class="input-xlarge span5" name="serp_title"
                 placeholder="{{to.label}} - {{amount}}" />
               </div>
             </div>
@@ -28,7 +41,7 @@
               <label class="control-label" for="serp_teaser">Teaser
                 Template</label>
               <div class="controls">
-                <textarea class="input-xxlarge" rows="2"
+                <textarea class="input-xlarge span5" rows="2"
                   name="serp_teaser"></textarea>
               </div>
             </div>

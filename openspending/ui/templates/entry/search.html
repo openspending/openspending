@@ -4,20 +4,46 @@
 
   <py:def function="nav_class">nav-dataset</py:def>
 
-  <py:def function="page_title">Entries Search</py:def>
+  <py:def function="page_title">Search</py:def>
 
   <div py:def="content">
     <!-- templates/entry/search.html -->
+    <ul class='breadcrumb'>
+      <li>
+        <i class="icon-search"></i>
+        <a href="#">Search OpenSpending</a>
+      </li>
+    </ul>
 
-    <h2 class="page-header">Search</h2>
-    <div>
-      <form class="basic form-horizontal" id="search" method="GET">
-        <input name="q" placeholder="search..." />
-        <input value="Search" class="btn btn-success" type="submit" />
-      </form>
+    
+    <div class="row">
+      <div class="span4 search-sidebar">
+        <form class="basic well" id="search" method="GET">
+          <input name="q" placeholder="Search OpenSpending" class="search" />
+          <p class="help-text">
+            Transactional data is more detailed than planning
+            information from budgets.
+          </p>
+          <label class="radio">
+            <input type="radio" class="select-category" value="spending"
+              name='norbert' checked="selected" /> 
+              Transactions
+          </label>
+          <label class="radio">
+            <input type="radio" class="select-category" value="any"
+              name='norbert' />
+              All data
+            </label>
+            <br/>
+          <input type="submit" class="btn" value="Search" />
+          
+          <div id="pagination-info"></div>
+        </form>
+      </div>
+      <div class="span8">
+        <div id="search-results"></div>
+      </div>
     </div>
-
-    <div id="search-results"></div>
   </div>
 
   <xi:include href="../layout.html" />

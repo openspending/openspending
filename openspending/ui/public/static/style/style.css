@@ -268,7 +268,18 @@ footer a.twitter {
 	opacity: 1;
 }
 
+#fp-search {
+  margin-top: 10px;
+  padding: 4px;
+  margin-bottom: 10px;
+  margin-top: 0px;
+}
 
+#fp-search input {
+  padding: 6px;
+  font-size: 1.1em;
+  margin-bottom: 0px;
+}
 
 /* Table layouts */
 
@@ -780,6 +791,16 @@ ul.ui-autocomplete li a.ui-state-active {
 .spinner {
   background: no-repeat center right url('http://assets.okfn.org/images/icons/ajaxload-circle.gif');
   background-size: 20px;
+}
+
+.search-sidebar input.search {
+    font-size: 1.2em;
+    padding: 0.3em;
+    width: 96%;
+}
+
+.search-sidebar input {
+  margin-bottom: 0.7em;
 }
 
 #search-results .highlight {
