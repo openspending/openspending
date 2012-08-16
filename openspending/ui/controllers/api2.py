@@ -75,14 +75,14 @@ class Api2Controller(BaseController):
             datasets = q.all()
             expand_facets = False
 
+        if not len(datasets):
+            return {'errors': [_("No dataset available.")]}
+
         params['filter']['dataset'] = []
         for dataset in datasets:
             require.dataset.read(dataset)
             params['filter']['dataset'].append(dataset.name)
 
-        if not len(datasets):
-            return {'errors': [_("No dataset available.")]}
-        
         response.last_modified = max([d.updated_at for d in datasets])
         etag_cache_keygen(parser.key(), response.last_modified)
 
@@ -94,8 +94,6 @@ class Api2Controller(BaseController):
 
         _entries = []
         for dataset, entry in entries:
-            if not can.dataset.read(dataset):
-                continue
             entry = entry_apply_links(dataset.name, entry)
             entry['dataset'] = dataset_apply_links(dataset.as_dict())
             _entries.append(entry)

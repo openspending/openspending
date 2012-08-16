@@ -51,8 +51,7 @@ class Browser(object):
         for k in facets.keys():
             facets[k] = _parse_facets(facets[k])
 
-        entries = _get_entries(q['response']['docs'])
-
+        entries = list(_get_entries(q['response']['docs']))
         return stats, facets, entries
 
     def query(self):
@@ -132,9 +131,9 @@ def _get_entries(docs):
 
     # create a great big list of entries, one per doc
     entries = []
-    for ds_name, ids in by_dataset.iteritems():
+    for ds_name, ds_ids in by_dataset.iteritems():
         dataset = model.Dataset.by_name(ds_name)
-        query = dataset.alias.c.id.in_(ids)
+        query = dataset.alias.c.id.in_(ds_ids)
         entries.extend([(dataset, e) for e in dataset.entries(query)])
 
     entries = util.sort_by_reference(ids, entries, lambda x: x[1]['id'])

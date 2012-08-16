@@ -50,7 +50,8 @@ class Dataset(TableHandler, db.Model):
     serp_teaser = db.Column(db.Unicode(), nullable=True)
     private = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow,
+                           onupdate=datetime.utcnow)
     data = db.Column(JSONType, default=dict)
 
     languages = db.association_proxy('_languages', 'code')
