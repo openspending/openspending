@@ -19,22 +19,13 @@
 
   <py:def function="script_boot()">
     <!-- script boot section -->
-
-    ${script_tag('lib/vendor/jquery')}
-    ${script_tag('lib/vendor/yepnope.min')}
-    ${script_tag('lib/vendor/base64')}
-    ${script_tag('lib/vendor/accounting.min')}
-    ${script_tag('lib/vendor/underscore')}
-    ${script_tag('lib/vendor/handlebars')}
-    ${script_tag('lib/vendor/bootstrap')}
-
-    ${script_tag('lib/boot')}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    ${script_tag('prod/boot')}
     <script defer="defer">
       OpenSpending.scriptRoot = "${h.script_root()}";
       OpenSpending.localeGroupSeparator = "${c.locale.number_symbols.get('group')}";
       OpenSpending.localeDecimalSeparator = "${c.locale.number_symbols.get('decimal')}";
     </script>
-    ${script_tag('lib/utils/utils')}
     <!-- end script boot section -->
   </py:def>
 
