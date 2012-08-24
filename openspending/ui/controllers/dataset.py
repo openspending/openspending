@@ -1,6 +1,7 @@
 import logging
 import json
 from urllib import urlencode
+from datetime import datetime
 
 from pylons import request, response, tmpl_context as c
 from pylons.controllers.util import redirect
@@ -79,6 +80,11 @@ class DatasetController(BaseController):
                 if category is not None]
         else:
             c.category_options = []
+
+        c._must_revalidate = True
+        if len(c.results):
+            dt = max([r.updated_at for r in c.results])
+            etag_cache_keygen(dt)
 
         if format == 'json':
             results = map(lambda d: d.as_dict(), c.results)

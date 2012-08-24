@@ -88,6 +88,7 @@ class BaseController(WSGIController):
         i18n.handle_request(request, c)
 
         c._cache_disabled = False
+        c._must_revalidate = False
         c.datasets = model.Dataset.all_by_account(c.account)
         c.content_section = c.dataset = None
 
@@ -110,10 +111,12 @@ class BaseController(WSGIController):
             response.cache_control.public = True
         else:
             response.cache_control.private = True
-        response.cache_control.max_age = 3600
-        response.last_modified = response.last_modified or datetime.utcnow()
-        response.expires = datetime.utcnow() + \
-            timedelta(seconds=response.cache_control.max_age)
+
+        response.cache_control.must_revalidate = c._must_revalidate
+        if not c._must_revalidate:
+            response.cache_control.max_age = 3600 * 6
+            response.expires = datetime.utcnow() + \
+                timedelta(seconds=response.cache_control.max_age)
 
     def _detect_format(self, format):
         for mimetype, mimeformat in self.accept_mimetypes.items():
