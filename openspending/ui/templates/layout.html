@@ -81,18 +81,7 @@
                 href="${h.url(controller='entry', action='search')}">Search</a></li>
               <li class="dropdown">
                 <a class='${"active" if c.content_section=="resources" else ""} dropdown-toggle'
-                  data-toggle="dropdown">Community</a>
-                <ul class="dropdown-menu locale-dropdown">
-                  <li>
-                    <a href="/resources/wg/index.html">Working Group on Open Spending Data</a>
-                    <a href="/resources/gift/index.html">Report: Technology for Fiscal Transparency</a>
-                    <a href="/resources/eu/index.html">Briefing: European Union Spending</a>
-                    <a href="/resources/iati/index.html">Briefing: Aid Transparency</a>
-                    <a href="/resources/mobi/index.html">Briefing: OpenSpending.mobi</a>
-                    <a href="/resources/standard/index.html">Standard for Transactional Spending Data</a>
-                    <a href="/resources/handbook/ch001_introduction.html">Spending Data Handbook</a>
-                  </li>
-                </ul>
+                  href="/resources/index.html">Community</a>
               </li>
               <li><a class='${"active" if c.content_section=="help" else ""}'
                href="${h.url(controller='content', action='view', section='help', path='index.html')}">Help</a></li>
