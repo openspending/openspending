@@ -28,8 +28,7 @@ class EntryController(BaseController):
         #processor = lambda e: entry_apply_links(c.dataset.name, e)
 
         if format == 'json':
-            return write_json(c.dataset.entries(), response,
-                filename=c.dataset.name + '.json')
+            return write_json(c.dataset.entries(), response)
         if format == 'csv':
             return write_csv(c.dataset.entries(), response,
                 filename=c.dataset.name + '.csv')

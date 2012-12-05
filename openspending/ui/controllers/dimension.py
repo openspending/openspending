@@ -115,11 +115,11 @@ class DimensionController(BaseController):
 
         entries = c.dataset.entries(c.dimension.alias.c.name == c.member['name'])
         entries = (entry_apply_links(dataset, e) for e in entries)
-        attachment_name = '__'.join([dataset, dimension, name])
 
         if format == 'json':
-            return write_json(entries, response, filename=attachment_name + '.json')
+            return write_json(entries, response)
         elif format == 'csv':
+            attachment_name = '__'.join([dataset, dimension, name])
             return write_csv(entries, response, filename=attachment_name + '.csv')
         else:
             return render('dimension/entries.html')
