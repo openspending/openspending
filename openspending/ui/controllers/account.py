@@ -18,6 +18,7 @@ from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render, require
 from openspending.ui.lib.security import generate_password_hash
 from openspending.lib.jsonexport import to_jsonp
+from openspending.lib.mailer import send_reset_link
 
 log = logging.getLogger(__name__)
 
@@ -133,3 +134,42 @@ class AccountController(BaseController):
         self._disable_cache()
         h.flash_success(_("You have been logged out."))
         redirect("/")
+
+    def trigger_reset(self):
+        self._disable_cache()
+        if request.method == 'GET':
+            return render('account/trigger_reset.html')
+        email = request.params.get('email')
+        if email is None or not len(email):
+            h.flash_error(_("Please enter an email address!"))
+            return render('account/trigger_reset.html')
+        account = Account.by_email(email)
+        if account is None:
+            h.flash_error(_("No user is registered under this address!"))
+            return render('account/trigger_reset.html')
+        send_reset_link(account)
+
+        h.flash_success(_("You've received an email with a link to reset your "
+            + "password. Please check your inbox."))
+        redirect(h.url_for(controller='account', action='login'))
+
+    def do_reset(self):
+        email = request.params.get('email')
+        if email is None or not len(email):
+            h.flash_error(_("The reset link is invalid!"))
+            redirect(h.url_for(controller='account', action='login'))
+        account = Account.by_email(email)
+        if account is None:
+            h.flash_error(_("No user is registered under this address!"))
+            redirect(h.url_for(controller='account', action='login'))
+        if request.params.get('token') != account.token:
+            h.flash_error(_("The reset link is invalid!"))
+            redirect(h.url_for(controller='account', action='login'))
+        who_api = request.environ['repoze.who.plugins']['auth_tkt']
+        headers = who_api.remember(request.environ,
+                {'repoze.who.userid': account.name})
+        response.headers.extend(headers)
+        h.flash_success(_("Thanks! You have now been signed in - please change "
+            + "your password!"))
+        redirect(h.url_for(controller='account', action='settings'))
+

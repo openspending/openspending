@@ -35,6 +35,8 @@ def make_map():
     map.connect('/accounts/_complete', controller='account', action='complete')
     map.connect('/after_login', controller='account', action='after_login')
     map.connect('/after_logout', controller='account', action='after_logout')
+    map.connect('/account/forgotten', controller='account', action='trigger_reset')
+    map.connect('/account/reset', controller='account', action='do_reset')
 
     map.connect('/blog/*path', controller='content', action='view', section='blog')
     map.connect('/blog', controller='content', action='view', section='blog',

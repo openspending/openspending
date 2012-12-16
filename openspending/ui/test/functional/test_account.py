@@ -1,5 +1,6 @@
 from .. import ControllerTestCase, url, helpers as h
 from openspending.model import Account, meta as db
+from openspending.lib.mailer import MailerException
 import json
 
 
@@ -28,6 +29,35 @@ class TestAccountController(ControllerTestCase):
 
     def test_after_logout(self):
         response = self.app.get(url(controller='account', action='after_logout'))
+
+    def test_trigger_reset_get(self):
+        response = self.app.get(url(controller='account', action='trigger_reset'))
+        assert 'email address you used to register your account' in response.body, response.body
+
+    def test_trigger_reset_post_fail(self):
+        response = self.app.post(url(controller='account', action='trigger_reset'),
+                params={'emailx': "foo@bar"})
+        assert 'Please enter an email address' in response.body, response.body
+        response = self.app.post(url(controller='account', action='trigger_reset'),
+                params={'email': "foo@bar"})
+        assert 'No user is registered' in response.body, response.body
+
+    @h.raises(MailerException)
+    def test_trigger_reset_post_ok(self):
+        account = h.make_account()
+        response = self.app.post(url(controller='account', action='trigger_reset'),
+                params={'email': "test@example.com"})
+
+    def test_reset_get(self):
+        response = self.app.get(url(controller='account', action='do_reset',
+                                    token='huhu',
+                                    email='huhu@example.com'))
+        assert '/login' in response.headers['location'], response.headers
+        account = h.make_account()
+        response = self.app.get(url(controller='account', action='do_reset',
+                                    token=account.token,
+                                    email=account.email))
+        assert '/settings' in response.headers['location'], response.headers
 
     def test_distinct_json(self):
         h.make_account()

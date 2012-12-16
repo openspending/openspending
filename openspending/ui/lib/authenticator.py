@@ -34,3 +34,4 @@ class ApiKeyAuthenticator(object):
             acc = Account.by_api_key(auth.strip())
             if acc is not None:
                 return acc.name
+

@@ -1,5 +1,6 @@
 import colander
 import uuid
+import hmac
 
 from openspending.model import meta as db
 from openspending.model.dataset import Dataset
@@ -41,9 +42,21 @@ class Account(db.Model):
     def display_name(self):
         return self.fullname or self.name
 
+    @property
+    def token(self):
+        h = hmac.new('')
+        h.update(self.api_key)
+        if self.password:
+            h.update(self.password)
+        return h.hexdigest()
+
     @classmethod
     def by_name(cls, name):
         return db.session.query(cls).filter_by(name=name).first()
+
+    @classmethod
+    def by_email(cls, email):
+        return db.session.query(cls).filter_by(email=email).first()
 
     @classmethod
     def by_api_key(cls, api_key):

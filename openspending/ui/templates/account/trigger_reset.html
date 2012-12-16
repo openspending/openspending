@@ -1,0 +1,31 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+
+  <py:def function="nav_class">nav-account</py:def>
+
+  <py:def function="page_title" i18n:msg="name">Password reset</py:def>
+
+  <div py:def="content">
+    <h2 class="page-header">Reset your password</h2>
+
+    <div class="row">
+      <div class="span4">
+        <p>If you have forgotten the password for your account, you can
+        request an email with a link that will allow you to reset your
+        account password.</p>
+      </div>
+      <div class="span8">
+        <p>
+          Please enter the email address you used to register your account:
+        </p>
+        <form action="${h.url(controller='account', action='trigger_reset')}" method="POST" class="form-inline">
+          <input type="text" class="input-large span5" name="email" placeholder="Email" />
+          <button type="submit" class="btn">Request a reset</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <xi:include href="../layout.html" />
+</html>
