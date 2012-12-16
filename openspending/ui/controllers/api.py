@@ -44,7 +44,7 @@ class ApiController(BaseController):
     @jsonpify
     def index(self):
         out = {
-            'doc': 'See %s' % app_globals.api_link
+            'doc': 'http://openspending.org/help/api.html'
             }
         return out
 

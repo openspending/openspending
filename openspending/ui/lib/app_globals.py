@@ -18,40 +18,6 @@ class Globals(object):
             'openspending.site_title',
             'OpenSpending'
         )
-        self.site_slogan = config.get(
-            'openspending.site_slogan',
-            'Mapping the money.'
-        )
-        self.site_logo = config.get(
-            'openspending.site_logo',
-            '/images/datastore-logo.png'
-        )
-        self.default_dataset = config.get(
-            'openspending.default_dataset',
-            'cra'
-        )
-        self.wiki_link = config.get(
-            'openspending.wiki_link',
-            'http://wiki.openspending.org'
-        )
-        self.blog_link = config.get(
-            'openspending.blog_link',
-            'http://wheredoesmymoneygo.org/blog/'
-        )
-        self.api_link = config.get(
-            'openspending.api_link',
-            'http://wiki.openspending.org/API'
-        )
-        self.lists_link = config.get(
-            'openspending.lists_link',
-            'http://lists.okfn.org/mailman/listinfo/openspending-discuss'
-        )
-        self.forum_link = config.get('openspending.forum_link')
-        self.sandbox_mode = asbool(config.get(
-            'openspending.sandbox_mode',
-            False
-        ))
-
         self.cache_enabled = asbool(config.get(
             'openspending.cache_enabled',
             True
