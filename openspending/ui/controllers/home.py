@@ -8,6 +8,7 @@ from pylons.controllers.util import redirect
 from pylons.decorators.cache import beaker_cache
 from pylons.i18n import _
 
+from openspending.lib.solr_util import dataset_entries
 from openspending.ui.i18n import set_session_locale
 from openspending.ui.lib import views
 from openspending.ui.lib.base import BaseController, render, require
@@ -19,9 +20,8 @@ log = logging.getLogger(__name__)
 class HomeController(BaseController):
 
     def index(self):
-        # TODO decide if we want this.
-        #featured_dataset = config.get("openspending.default_dataset")
         c.blog = ContentResource('blog', 'home.html')
+        c.num_entries = dataset_entries(None)
         return render('home/index.html')
 
     def set_locale(self):

@@ -74,7 +74,8 @@ def drop_index(dataset_name):
 
 def dataset_entries(dataset_name):
     solr = get_connection()
-    res = solr.raw_query(q='*:*', fq='dataset:"%s"' % dataset_name, rows=0, wt='json')
+    f = 'dataset:"%s"' % dataset_name if dataset_name else ''
+    res = solr.raw_query(q='*:*', fq=f, rows=0, wt='json')
     res = json.loads(res)
     return res.get('response', {}).get('numFound')
 
