@@ -60,6 +60,15 @@ class HomeController(BaseController):
                                    qualified=True),
                     'lastmod': dataset.updated_at
                     })
+            for dim in dataset.compounds:
+                if dim.name == 'time':
+                    continue
+                sitemaps.append({
+                    'loc': h.url_for(controller='dimension', action='sitemap',
+                                   dataset=dataset.name, dimension=dim.name,
+                                   qualified=True),
+                    'lastmod': dataset.updated_at
+                    })
         return sitemapindex(sitemaps)
 
     def sitemap(self):

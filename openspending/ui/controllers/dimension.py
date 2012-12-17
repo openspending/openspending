@@ -6,7 +6,8 @@ from pylons.controllers.util import abort, redirect
 from pylons.i18n import _
 
 from openspending import model
-from openspending.ui.lib.base import BaseController, render
+from openspending.ui.lib.base import BaseController, render, \
+        sitemap, etag_cache_keygen
 from openspending.ui.lib.base import etag_cache_keygen
 from openspending.ui.lib.views import handle_request
 from openspending.ui.lib.helpers import url_for
@@ -68,6 +69,21 @@ class DimensionController(BaseController):
         c.widget = get_widget('aggregate_table')
         c.widget_state = {'drilldowns': [c.dimension.name]}
         return render('dimension/view.html')
+
+    def sitemap(self, dataset, dimension):
+        self._get_dimension(dataset, dimension)
+        etag_cache_keygen(c.dataset.updated_at, 'xml')
+        pages = []
+        # TODO: Make this work for dimensions with more than 30,000 members.
+        for member in c.dimension.members(limit=30000):
+            pages.append({
+                'loc': url_for(controller='dimension', action='member',
+                    dataset=dataset, dimension=dimension, name=member.get('name'),
+                    qualified=True),
+                'lastmod': c.dataset.updated_at
+                })
+        return sitemap(pages)
+
 
     def distinct(self, dataset, dimension, format='json'):
         self._get_dimension(dataset, dimension)

@@ -159,6 +159,9 @@ def make_map():
     map.connect('/{dataset}/{dimension}.distinct',
                 controller='dimension', action='distinct')
 
+    map.connect('/{dataset}/{dimension}.sitemap.xml',
+                controller='dimension', action='sitemap')
+
     map.connect('/{dataset}/{dimension}.json',
                 controller='dimension', action='view', format='json')
     map.connect('/{dataset}/{dimension}',
