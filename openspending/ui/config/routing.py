@@ -140,7 +140,7 @@ def make_map():
     map.connect('/{dataset}/sources/{source}/analysis.{format}',
                 controller='source', action='analysis')
 
-    map.connect('/{dataset}/entries.{format}', controller='entry', action='index_export')
+    map.connect('/{dataset}/entries.{format}', controller='entry', action='index')
     map.connect('/{dataset}/entries', controller='entry', action='index')
     map.connect('/{dataset}/entries/{id}.{format}', controller='entry', action='view')
     map.connect('/{dataset}/entries/{id}', controller='entry', action='view')

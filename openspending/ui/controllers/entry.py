@@ -18,22 +18,14 @@ class EntryController(BaseController):
 
     def index(self, dataset, format='html'):
         self._get_dataset(dataset)
+
+        if format in ['json', 'csv']:
+            return redirect(h.url_for(controller='api2', action='search',
+                format=format, dataset=dataset,
+                **request.params))
+
         handle_request(request, c, c.dataset)
         return render('entry/index.html')
-
-    def index_export(self, dataset, format):
-        self._get_dataset(dataset)
-
-        # TODO include html_urls in dumps.
-        #processor = lambda e: entry_apply_links(c.dataset.name, e)
-
-        if format == 'json':
-            return write_json(c.dataset.entries(), response)
-        if format == 'csv':
-            return write_csv(c.dataset.entries(), response,
-                filename=c.dataset.name + '.csv')
-        else:
-            return redirect(h.url_for(controller='entry', action='index'))
 
     def view(self, dataset, id, format='html'):
         self._get_dataset(dataset)

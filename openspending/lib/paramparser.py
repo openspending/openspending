@@ -173,6 +173,7 @@ class SearchParamParser(ParamParser):
     defaults['facet_page'] = 1
     defaults['facet_pagesize'] = 100
     defaults['expand_facet_dimensions'] = None
+    defaults['format'] = 'json'
 
     def parse_filter(self, filter):
         if not filter:
@@ -192,6 +193,12 @@ class SearchParamParser(ParamParser):
                 filters[key] = value
 
         return filters
+
+    def parse_format(self, format):
+        format = format.lower().strip()
+        if not format or not format in ('json', 'csv'):
+            return 'json'
+        return format
 
     def parse_dataset(self, dataset):
         datasets = []

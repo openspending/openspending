@@ -21,19 +21,26 @@ log = logging.getLogger(__name__)
 
 class Api2Controller(BaseController):
 
+    def _response_params(self, params):
+        for k, v in params.items():
+            k = k.replace('_', ' ').replace('-', ' ').split()
+            k = '-'.join(['X'] + [l.capitalize() for l in k])
+            response.headers[k] = unicode(v).encode('ascii', 'ignore')
+
     def aggregate(self):
         parser = AggregateParamParser(request.params)
         params, errors = parser.parse()
 
         if errors:
             response.status = 400
-            return {'errors': errors}
+            return to_jsonp({'errors': errors})
 
         params['cuts'] = params.pop('cut')
         params['drilldowns'] = params.pop('drilldown')
         dataset = params.pop('dataset')
         format = params.pop('format')
         require.dataset.read(dataset)
+        self._response_params(params)
 
         try:
             cache = AggregationCache(dataset)
@@ -49,23 +56,27 @@ class Api2Controller(BaseController):
         except (KeyError, ValueError) as ve:
             log.exception(ve)
             response.status = 400
-            return {'errors': ['Invalid aggregation query: %r' % ve]}
+            return to_jsonp({'errors': [ve]})
 
         if format == 'csv':
             return write_csv(result['drilldown'], response,
                 filename=dataset.name + '.csv')
         return to_jsonp(result)
 
-    @jsonpify
     def search(self):
         parser = SearchParamParser(request.params)
         params, errors = parser.parse()
 
         if errors:
             response.status = 400
-            return {'errors': errors}
+            return to_jsonp({'errors': errors})
 
         expand_facets = params.pop('expand_facet_dimensions')
+
+        format = params.pop('format')
+        if format == 'csv':
+            params['stats'] = False
+            params['facet_field'] = None
 
         datasets = params.pop('dataset', None)
         if datasets is None or not len(datasets):
@@ -98,14 +109,19 @@ class Api2Controller(BaseController):
             entry['dataset'] = dataset_apply_links(dataset.as_dict())
             _entries.append(entry)
 
+        self._response_params(params)
+        if format == 'csv':
+            return write_csv(_entries, response,
+                filename='entries.csv')
+
         if expand_facets and len(datasets) == 1:
             _expand_facets(facets, datasets[0])
 
-        return {
+        return to_jsonp({
             'stats': stats,
             'facets': facets,
             'results': _entries
-        }
+            })
 
 
 def _expand_facets(facets, dataset):

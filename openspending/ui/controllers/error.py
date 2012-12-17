@@ -29,7 +29,7 @@ class ErrorController(BaseController):
         resp = request.environ.get('pylons.original_response')
 
         # Don't do fancy error documents for JSON
-        if resp.headers['Content-Type'] in ['text/javascript', 'application/json']:
+        if resp.headers['Content-Type'] in ['text/javascript', 'application/json', 'text/csv']:
             response.headers['Content-Type'] = resp.headers['Content-Type']
             return resp.body
 

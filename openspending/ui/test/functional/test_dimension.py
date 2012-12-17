@@ -102,11 +102,11 @@ class TestDimensionController(ControllerTestCase):
                    dimension='cofog1',
                    name=self.member['name'])
         result = self.app.get(url_)
-
+        result = result.follow()
         h.assert_equal(result.status, '200 OK')
         h.assert_equal(result.content_type, 'application/json')
 
-        json_data = [json.loads(l) for l in result.body.splitlines()]
+        json_data = json.loads(result.body).get('results')
         h.assert_equal(len(json_data), 5)
 
     def test_view_entries_csv(self):
@@ -115,7 +115,7 @@ class TestDimensionController(ControllerTestCase):
                    dimension='cofog1',
                    name=self.member['name'])
         result = self.app.get(url_)
-
+        result = result.follow()
         h.assert_equal(result.status, '200 OK')
         h.assert_equal(result.content_type, 'text/csv')
         h.assert_true('amount,' in result.body)  # csv headers

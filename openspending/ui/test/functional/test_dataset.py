@@ -89,19 +89,20 @@ class TestDatasetController(ControllerTestCase):
 
     def test_entries_json_export(self):
         response = self.app.get(url(controller='entry',
-                                    action='index_export',
+                                    action='index',
                                     dataset='cra',
                                     format='json'))
-
-        obj = [json.loads(l) for l in response.body.splitlines()]
-        h.assert_equal(len(obj), 36)
+        assert '/api/2/search' in response.headers['Location'], response.headers
+        assert 'format=json' in response.headers['Location'], response.headers
 
     def test_entries_csv_export(self):
         response = self.app.get(url(controller='entry',
-                                    action='index_export',
+                                    action='index',
                                     dataset='cra',
                                     format='csv'))
-
+        assert '/api/2/search' in response.headers['Location'], response.headers
+        assert 'format=csv' in response.headers['Location'], response.headers
+        response = response.follow()
         r = csv.DictReader(StringIO(response.body))
         obj = [l for l in r]
         h.assert_equal(len(obj), 36)
