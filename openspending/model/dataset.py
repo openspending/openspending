@@ -241,7 +241,7 @@ class Dataset(TableHandler, db.Model):
         return self.alias.c[dimension.column.name]
 
     def entries(self, conditions="1=1", order_by=None, limit=None,
-            offset=0, step=10000):
+            offset=0, step=10000, fields=None):
         """ Generate a fully denormalized view of the entries on this
         table. This view is nested so that each dimension will be a hash
         of its attributes.
@@ -252,10 +252,14 @@ class Dataset(TableHandler, db.Model):
         if not self.is_generated:
             return
 
+        if fields is None:
+            fields = self.fields
+
         joins = self.alias
         for d in self.dimensions:
-            joins = d.join(joins)
-        selects = [f.selectable for f in self.fields] + [self.alias.c.id]
+            if d in fields:
+                joins = d.join(joins)
+        selects = [f.selectable for f in fields] + [self.alias.c.id]
 
         # enforce stable sorting:
         if order_by is None:

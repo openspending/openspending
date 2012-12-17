@@ -2,6 +2,7 @@ import logging
 import os
 import random
 import subprocess
+from datetime import datetime
 
 from pylons import request, response, tmpl_context as c, url, config
 from pylons.controllers.util import redirect
@@ -11,9 +12,11 @@ from pylons.i18n import _
 from openspending.lib.solr_util import dataset_entries
 from openspending.ui.i18n import set_session_locale
 from openspending.ui.lib import views
-from openspending.ui.lib.base import BaseController, render, require
+from openspending.ui.lib.base import BaseController, render, require, \
+        sitemap, sitemapindex
 from openspending.ui.lib.helpers import flash_success, flash_error
 from openspending.ui.lib.content import ContentResource
+from openspending.ui.lib import helpers as h
 
 log = logging.getLogger(__name__)
 
@@ -41,8 +44,39 @@ class HomeController(BaseController):
             import openspending.version
             return openspending.version.__version__
 
+    def sitemap_index(self):
+        sitemaps = [{'loc': h.url_for(controller='home', action='sitemap', qualified=True),
+                     'lastmod': datetime.utcnow()}]
+        for dataset in c.datasets:
+            sitemaps.append({
+                'loc': h.url_for(controller='dataset', action='sitemap',
+                               dataset=dataset.name, qualified=True),
+                'lastmod': dataset.updated_at
+                })
+            for ep in range(1, (len(dataset)/30000)+2):
+                sitemaps.append({
+                    'loc': h.url_for(controller='entry', action='sitemap',
+                                   dataset=dataset.name, page=ep,
+                                   qualified=True),
+                    'lastmod': dataset.updated_at
+                    })
+        return sitemapindex(sitemaps)
+
     def sitemap(self):
-        return render('home/sitemap.xml')
+        sections = ['blog', 'resources', 'about', 'help']
+        base = h.url_for(controller='home', action='index', qualified=True)
+        pages = []
+        for section in sections:
+            pages.append({
+                'loc': base + section + '/index.html',
+                'lastmod': datetime.utcnow(),
+                'freq': 'daily',
+                'priority': 0.9
+                })
+        return sitemap(pages)
+
+    def favicon(self):
+        return redirect('/static/img/favicon.ico', code=301)
 
     def ping(self):
         from openspending.tasks import ping

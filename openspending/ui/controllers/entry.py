@@ -4,7 +4,7 @@ from pylons import request, response, tmpl_context as c
 from pylons.controllers.util import abort, redirect
 from pylons.i18n import _
 
-from openspending.ui.lib.base import BaseController, render
+from openspending.ui.lib.base import BaseController, render, sitemap
 from openspending.ui.lib.views import handle_request
 from openspending.ui.lib.hypermedia import entry_apply_links
 from openspending.lib.csvexport import write_csv
@@ -66,3 +66,17 @@ class EntryController(BaseController):
         c.content_section = 'search'
         return render('entry/search.html')
 
+    def sitemap(self, dataset, page):
+        self._get_dataset(dataset)
+        limit = 30000
+        pages = []
+        for entry in c.dataset.entries(limit=limit,
+                                       offset=(int(page) - 1) * limit,
+                                       step=limit, fields=[]):
+            pages.append({
+                'loc': h.url_for(controller='entry', action='view',
+                                 dataset=dataset, id=entry.get('id'),
+                                 qualified=True),
+                'lastmod': c.dataset.updated_at
+                })
+        return sitemap(pages)
