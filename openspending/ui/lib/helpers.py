@@ -103,16 +103,16 @@ def entry_description(entry):
             entry.get('from').get('label'),
             entry.get('to').get('label')
             ])
-    if 'description' in entry:
+    if isinstance(entry.get('description'), basestring):
         fragments.append(entry.get('description'))
     else:
         for k, v in entry.items():
             if k in ['from', 'to', 'taxonomy', 'html_url']:
                 continue
-            if isinstance(v, basestring):
-                fragments.append(v)
             if isinstance(v, dict):
                 fragments.append(v.get('label'))
+            elif isinstance(v, basestring):
+                fragments.append(v)
     description = " - ".join(fragments)
     return markdown_preview(description)
 
