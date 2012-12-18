@@ -30,8 +30,11 @@ def markdown(*args, **kwargs):
 def markdown_preview(text, length=140):
     if not text:
         return ''
-    md = html.fromstring(unicode(markdown(text)))
-    text = md.text_content()
+    try:
+        md = html.fromstring(unicode(markdown(text)))
+        text = md.text_content()
+    except:
+        pass
     if length: 
         text = truncate(text, length=length, whole_word=True)
     return text
@@ -73,22 +76,6 @@ def script_root():
     if c.account and c.account.script_root and len(c.account.script_root.strip()):
         return c.account.script_root
     return app_globals.script_root
-
-
-def entity_slug(entity):
-    '''generate an ascii slug for an entity.
-
-    ``entity``
-        A dict-like ``entity`` object
-
-    Returns: `str`
-    '''
-    slug_source = entity.get('label', '')
-    if not slug_source:
-        slug_source = entity.get('name', '')
-    if not slug_source:
-        slug_source = str(entity['_id'])
-    return slugify(slug_source)
 
 
 def static(url):
