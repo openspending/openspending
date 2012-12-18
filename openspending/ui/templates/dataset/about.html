@@ -9,13 +9,13 @@
   <py:def function="nav_class">nav-dataset</py:def>
 
   <py:def function="page_title">${c.dataset.label or c.dataset.name}</py:def>
+  <py:def function="page_description()">${h.markdown_preview(c.dataset.description)}</py:def>
 
   <py:def function="scripts">
     <!-- templates/dataset/about.html scripts -->
     ${share_scripts()}
   </py:def>
 
-  <py:def function="page_description()">${h.markdown_preview(c.dataset.description)}</py:def>
 
   <div py:def="content">
     <!-- templates/dataset/about.html -->

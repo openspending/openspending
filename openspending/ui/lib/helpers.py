@@ -27,7 +27,7 @@ def markdown(*args, **kwargs):
     return literal(_markdown(*args, **kwargs))
 
 
-def markdown_preview(text, length=140):
+def markdown_preview(text, length=150):
     if not text:
         return ''
     try:
@@ -37,7 +37,7 @@ def markdown_preview(text, length=140):
         pass
     if length: 
         text = truncate(text, length=length, whole_word=True)
-    return text
+    return text.replace('\n', ' ')
 
 
 _flash = _Flash()
@@ -95,6 +95,26 @@ def render_entry_custom_html(dataset, entry):
                 'entry', entry)
     else:
         return None
+
+def entry_description(entry):
+    fragments = []
+    if 'from' in entry and 'to' in entry:
+        fragments.extend([
+            entry.get('from').get('label'),
+            entry.get('to').get('label')
+            ])
+    if 'description' in entry:
+        fragments.append(entry.get('description'))
+    else:
+        for k, v in entry.items():
+            if k in ['from', 'to', 'taxonomy', 'html_url']:
+                continue
+            if isinstance(v, basestring):
+                fragments.append(v)
+            if isinstance(v, dict):
+                fragments.append(v.get('label'))
+    description = " - ".join(fragments)
+    return markdown_preview(description)
 
 
 def _render_custom_html(tpl, name, obj):

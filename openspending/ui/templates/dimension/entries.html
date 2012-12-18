@@ -6,7 +6,9 @@
   <py:def function="nav_class">nav-dimension</py:def>
 
   <py:def function="page_title"><span py:strip="" i18n:msg="entry_label">${c.member['label']} - Entries</span></py:def>
+  <py:def function="page_description()">${h.entry_description(c.member)}</py:def>
   
+
   <div py:def="content">
     ${member_nav('search')}
     <div id="openspending_browser" class="row">

@@ -6,14 +6,13 @@
 
   <py:def function="nav_class">nav-entry</py:def>
 
-  <py:def function="page_title">${c.dataset.label} - ${c.dataset.currency} ${h.format_number_with_commas(c.amount)} on ${c.time.get('label')}</py:def>
-
+  <py:def function="page_title"><py:if test="'to' in c.desc">${c.to.get('label')} - </py:if>${c.dataset.currency} ${h.format_number_with_commas(c.amount)} - ${c.dataset.label}</py:def>
+  <py:def function="page_description()">${h.entry_description(c.entry)}</py:def>
+  
   <py:def function="scripts">
     <!-- templates/dimension/view.html scripts -->
     ${share_scripts()}
   </py:def>
-
-  <py:def function="page_description()">${h.markdown_preview(c.entry.get('description', ''))}</py:def>
 
   <div py:def="content" class="entry-page">
     <!-- templates/entry/view.html -->
@@ -52,7 +51,7 @@
     <br/>
     
     <div class="row">
-      <div class="entities span5">
+      <div class="entities span4">
         <py:if test="'from' in c.desc">
           <span>
             ${c.desc.get('from', {}).label or _('Recipient')}:
@@ -79,7 +78,7 @@
         </py:if>
       </div><!-- /.entities -->
 
-      <div class="amount span6">
+      <div class="amount span7">
         <div class="number">
           <img src="${h.static('img/icons/cd_16x16.png')}" />
           ${h.format_number_with_commas(c.amount)}
@@ -100,7 +99,6 @@
             <tr>
               <th>Dimension</th>
               <th>Value</th>
-              <th>Description</th>
             </tr>
           </thead>
           <tbody>
@@ -121,9 +119,6 @@
                 <py:otherwise>
                   ${h.dimension_link(c.dataset.name, key, value)}
                 </py:otherwise>
-              </td>
-              <td width="20%">
-                <span class="help-inline">${c.desc.get(key).description}</span>
               </td>
             </tr>
           </tbody>

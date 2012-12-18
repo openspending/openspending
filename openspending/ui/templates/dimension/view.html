@@ -6,6 +6,7 @@
   <py:def function="nav_class">nav-dataset</py:def>
 
   <py:def function="page_title">${c.dimension.label or c.dimension.name}</py:def>
+  <py:def function="page_description()">${h.markdown_preview(c.dimension.description or c.dataset.description)}</py:def>
   
   <py:def function="scripts">
     <!-- templates/dimension/view.html scripts -->
