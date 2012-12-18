@@ -44,6 +44,10 @@ class Source(db.Model):
     def by_id(cls, id):
         return db.session.query(cls).filter_by(id=id).first()
 
+    @classmethod
+    def all(cls):
+        return db.session.query(cls)
+
     def as_dict(self):
         return {
             "id": self.id,

@@ -31,9 +31,9 @@ parser.add_argument('config', help='Paste configuration file')
 
 subparsers = parser.add_subparsers(title='subcommands')
 
-from . import db, solr, user, importer
+from . import db, solr, user, importer, archive
 
-for mod in (db, solr, user, importer):
+for mod in (db, solr, user, importer, archive):
     mod.configure_parser(subparsers)
 
 try:
