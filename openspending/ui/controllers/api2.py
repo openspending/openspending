@@ -56,7 +56,7 @@ class Api2Controller(BaseController):
         except (KeyError, ValueError) as ve:
             log.exception(ve)
             response.status = 400
-            return to_jsonp({'errors': [ve]})
+            return to_jsonp({'errors': [unicode(ve)]})
 
         if format == 'csv':
             return write_csv(result['drilldown'], response,
