@@ -27,7 +27,7 @@ def sizeof_fmt(num):
 
 def update_source(archive_dir, source):
     if source.dataset is None:
-        continue
+        return
     fname = file_name(archive_dir, source)
     fname_tmp = fname + '.tmp'
     log.info("Fetching %s to %s", source.url, fname)
