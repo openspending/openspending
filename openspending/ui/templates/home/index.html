@@ -35,7 +35,7 @@
     <div class="span8">
       <form action="${url(controller='entry', action='search')}"
             method="GET" class="well" id="fp-search">
-        <input name="q" class="span7" placeholder="Search ${c.num_entries} government transactions in ${c.datasets.count()} datasets..." />
+        <input name="q" class="span7" placeholder="Search ${h.format_number_with_commas(c.num_entries)} government transactions in ${c.datasets.count()} datasets..." />
         <input type="submit" class="btn" value="Search" />
       </form>
       ${h.literal(c.blog.html)}
