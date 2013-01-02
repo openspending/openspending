@@ -76,10 +76,9 @@ class ApiController(BaseController):
     def aggregate(self):
         dataset_name = request.params.get('dataset', request.params.get('slice'))
         dataset = model.Dataset.by_name(dataset_name)
-        require.dataset.read(dataset)
-
         if dataset is None:
             abort(400, "Dataset %s not found" % dataset_name)
+        require.dataset.read(dataset)
 
         drilldowns, cuts, statistics = [], [], []
         for key, value in sorted(request.params.items()):
