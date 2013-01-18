@@ -28,7 +28,7 @@ the command line::
 We also highly recommend you use a virtualenv_ to isolate the installed 
 dependencies from the rest of your system.::
 
-    $ virtualenv ./pyenv
+    $ virtualenv ./pyenv --distribute
 
 Now activate the environment. Your prompt will be prefixed with the name of
 the environment.::
@@ -89,6 +89,7 @@ Generate the help system documentation (this is used by the front-end
 and must be available, developer documents are separate). The output 
 will be copied to the web applications template directory::
 
+    $ git submodule init && git submodule update
     $ (cd doc && make clean html)
 
 Compile the translations:
@@ -120,7 +121,7 @@ done by copying the Solr example configuration from the `Solr tarball`_, and
 replacing the default schema with one from OpenSpending.::
 
     $ cp -R apache-solr-3.6.1/* ./solr/
-    $ ln -sfT `pwd`/openspending_schema.xml ./solr/example/solr/conf/schema.xml
+    $ ln -sfT <full path to openspending>/solr/openspending_schema.xml ./solr/example/solr/conf/schema.xml
 
 .. _Solr tarball: http://www.apache.org/dyn/closer.cgi/lucene/solr/
 
