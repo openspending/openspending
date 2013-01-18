@@ -15,6 +15,8 @@ class UsernamePasswordAuthenticator(object):
         account = Account.by_name(identity['login'])
         if account is None:
             return None
+        if account.password is None:
+            return None
         if check_password_hash(account.password, identity['password']):
             return account.name
         return None
