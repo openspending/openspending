@@ -148,7 +148,7 @@ Run the tests.::
 
 Import a sample dataset: ::
 
-    $ ostool development.ini csvimport --model http://mk.ucant.org/info/data/sample-openspending-model.json http://mk.ucant.org/info/data/sample-openspending-dataset.csv
+    $ ostool development.ini csvimport --model https://dl.dropbox.com/u/3250791/sample-openspending-model.json http://mk.ucant.org/info/data/sample-openspending-dataset.csv
     $ ostool development.ini solr load openspending-example
 
 Verify that the data is visible at http://127.0.0.1:5000/openspending-example/entries
