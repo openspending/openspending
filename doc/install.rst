@@ -120,7 +120,7 @@ Create a configuration home directory to use with Solr. This is most easily
 done by copying the Solr example configuration from the `Solr tarball`_, and 
 replacing the default schema with one from OpenSpending.::
 
-    $ cp -R apache-solr-3.6.1/* ./solr/
+    $ cp -R apache-solr-4.1.0/* ./solr/
     $ ln -sfT <full path to openspending>/solr/openspending_schema.xml ./solr/example/solr/conf/schema.xml
 
 .. _Solr tarball: http://www.apache.org/dyn/closer.cgi/lucene/solr/
