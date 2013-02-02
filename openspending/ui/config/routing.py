@@ -53,6 +53,7 @@ def make_map():
     map.connect('/resources', controller='content', action='view',
         section='resources', path='index.html')
 
+    map.connect('/datasets.rss', controller='dataset', action='feed_rss')
     map.connect('/datasets.{format}', controller='dataset', action='index')
     map.connect('/datasets/cta', controller='dataset', action='cta')
     map.connect('/datasets/territories', controller='dataset',
