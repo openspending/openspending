@@ -7,7 +7,7 @@ Requirements
 * Python_ >= 2.7, with pip_ and virtualenv_   
 * PostgreSQL_ >= 8.4
 * RabbitMQ_ >= 2.6.1
-* `Apache Solr`_
+* `Apache Solr`_ >= 4.0.0
 
 .. _Python: http://www.python.org/
 .. _PostgreSQL: http://www.postgres.org/
@@ -120,7 +120,7 @@ Create a configuration home directory to use with Solr. This is most easily
 done by copying the Solr example configuration from the `Solr tarball`_, and 
 replacing the default schema with one from OpenSpending.::
 
-    $ cp -R apache-solr-3.6.1/* ./solr/
+    $ cp -R apache-solr-4.1.0/* ./solr/
     $ ln -sfT <full path to openspending>/solr/openspending_schema.xml ./solr/example/solr/conf/schema.xml
 
 .. _Solr tarball: http://www.apache.org/dyn/closer.cgi/lucene/solr/
