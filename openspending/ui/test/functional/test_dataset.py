@@ -129,3 +129,20 @@ class TestDatasetController(ControllerTestCase):
         ds = Dataset.by_name('testds')
         assert ds.label == params['label'], ds
 
+    def test_feeds(self):
+        response = self.app.get(url(controller='dataset', action='feed_rss'),
+                                expect_errors=True)
+        assert "403" in response.status
+        response = self.app.get(url(controller='dataset', action='feed_rss'),
+                                expect_errors=True,
+                                extra_environ={'REMOTE_USER': 'test'})
+        assert "403" in response.status
+        admin_user = h.make_account('admin')
+        admin_user.admin = True
+        db.session.add(admin_user)
+        db.session.commit()
+        response = self.app.get(url(controller='dataset', action='feed_rss'),
+            extra_environ={'REMOTE_USER': 'admin'})
+        assert '<title>Recently Created Datasets</title>' in response
+        assert '<item><title>Country Regional Analysis v2009' in response
+        assert 'application/xml' in response.content_type
