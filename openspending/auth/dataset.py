@@ -24,6 +24,3 @@ def delete(dataset):
         elif tmpl_context.account in dataset.managers:
             return True
     return False
-
-def list_changes():
-    return logged_in() and tmpl_context.account.admin
