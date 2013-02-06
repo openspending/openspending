@@ -101,6 +101,7 @@ class DatasetController(BaseController):
         elif format == 'csv':
             results = map(lambda d: d.as_dict(), c.results)
             return write_csv(results, response)
+        c.show_rss = True
         return render('dataset/index.html')
 
     def new(self, errors={}):
@@ -199,9 +200,10 @@ class DatasetController(BaseController):
         return to_jsonp(model)
 
     def feed_rss(self):
-        require.dataset.list_changes()
-        feed_items = db.session.query(Dataset).order_by(Dataset.created_at. \
-                                                        desc()).limit(20)
+        q = db.session.query(Dataset)
+        if not (c.account and c.account.admin):
+            q = q.filter_by(private = False)
+        feed_items = q.order_by(Dataset.created_at.desc()).limit(20)
         items = []
         for feed_item in feed_items:
             items.append({

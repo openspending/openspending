@@ -130,13 +130,47 @@ class TestDatasetController(ControllerTestCase):
         assert ds.label == params['label'], ds
 
     def test_feeds(self):
+        # Anonymous user with one public dataset
         response = self.app.get(url(controller='dataset', action='feed_rss'),
                                 expect_errors=True)
-        assert "403" in response.status
+        assert 'application/xml' in response.content_type
+        assert '<title>Recently Created Datasets</title>' in response
+        assert '<item><title>Country Regional Analysis v2009' in response
+        cra = Dataset.by_name('cra')
+        cra.private = True
+        db.session.add(cra)
+        db.session.commit()
+
+        # Anonymous user with one private dataset
+        response = self.app.get(url(controller='dataset', action='feed_rss'),
+                                expect_errors=True)
+        assert 'application/xml' in response.content_type
+        assert '<title>Recently Created Datasets</title>' in response
+        assert '<item><title>Country Regional Analysis v2009' not in response
+
+        # Logged in user with one public dataset
+        cra.private = False
+        db.session.add(cra)
+        db.session.commit()
         response = self.app.get(url(controller='dataset', action='feed_rss'),
                                 expect_errors=True,
                                 extra_environ={'REMOTE_USER': 'test'})
-        assert "403" in response.status
+        assert 'application/xml' in response.content_type
+        assert '<title>Recently Created Datasets</title>' in response
+        assert '<item><title>Country Regional Analysis v2009' in response
+
+        # Logged in user with one private dataset
+        cra.private = True
+        db.session.add(cra)
+        db.session.commit()
+        response = self.app.get(url(controller='dataset', action='feed_rss'),
+                                expect_errors=True,
+                                extra_environ={'REMOTE_USER': 'test'})
+        assert 'application/xml' in response.content_type
+        assert '<title>Recently Created Datasets</title>' in response
+        assert '<item><title>Country Regional Analysis v2009' not in response
+
+        # Logged in admin user with one private dataset
         admin_user = h.make_account('admin')
         admin_user.admin = True
         db.session.add(admin_user)
@@ -146,3 +180,8 @@ class TestDatasetController(ControllerTestCase):
         assert '<title>Recently Created Datasets</title>' in response
         assert '<item><title>Country Regional Analysis v2009' in response
         assert 'application/xml' in response.content_type
+
+        response = self.app.get(url(controller='dataset', action='index'))
+        assert ('<link rel="alternate" type="application/rss+xml" title="'
+            'Latest Datasets on OpenSpending" href="/datasets.rss" />' in
+            response)
