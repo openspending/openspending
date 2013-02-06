@@ -200,8 +200,10 @@ class DatasetController(BaseController):
         return to_jsonp(model)
 
     def feed_rss(self):
-        feed_items = db.session.query(Dataset).filter_by(private = False). \
-                     order_by(Dataset.created_at.desc()).limit(20)
+        q = db.session.query(Dataset)
+        if not (c.account and c.account.admin):
+            q = q.filter_by(private = False)
+        feed_items = q.order_by(Dataset.created_at.desc()).limit(20)
         items = []
         for feed_item in feed_items:
             items.append({
@@ -214,9 +216,9 @@ class DatasetController(BaseController):
                                           feed_item.managers if
                                           person.fullname]),
                 })
-        feed = Rss201rev2Feed(_('Recently Updated Datasets'), url(
+        feed = Rss201rev2Feed(_('Recently Created Datasets'), url(
             controller='home', action='index', qualified=True), _('Recently '
-            'updated public datasets in the OpenSpending Platform'),
+            'created datasets in the OpenSpending Platform'),
             author_name='Openspending')
         for item in items:
             feed.add_item(**item)
