@@ -46,7 +46,7 @@
     <meta name="author" content="Open Knowledge Foundation" />
     <link rel="shortcut icon" href="${h.static('img/favicon.ico')}" type="image/x-icon" />
     <link rel="alternate" type="application/rss+xml" title="Latest Datasets on OpenSpending"
-      href="${h.url(controller='dataset', action='feed_rss')}" />
+      href="${h.url(controller='dataset', action='feed_rss')}" py:if="c.show_rss" />
 
     <!-- Le styles -->
     <link rel="stylesheet"
