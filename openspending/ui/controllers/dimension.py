@@ -58,7 +58,12 @@ class DimensionController(BaseController):
                 for d in c.dataset.dimensions]
             return to_jsonp(dimensions)
         else:
-            return render('dimension/index.html')
+            from jinja2 import Template
+            filename = "openspending/ui/dynamic/dimension/index.html"
+            base = file(filename).read()
+            template = Template(base)
+            return template.render({})
+            #return render('dimension/index.html')
 
     def view(self, dataset, dimension, format='html'):
         self._get_dimension(dataset, dimension)
