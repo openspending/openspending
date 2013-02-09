@@ -63,7 +63,9 @@ class DimensionController(BaseController):
             base = file(filename).read()
             template = Template(base)
             params = {
-                "dataset_label": c.dataset.label
+                "dataset_label": c.dataset.label,
+                "dimensions": c.dataset.dimensions,
+                "dataset_name": c.dataset.name
                 }
             return template.render(params)
             #return render('dimension/index.html')

@@ -8,12 +8,25 @@
   <py:def function="page_title"><span py:strip="" i18n:msg="dataset_label">Dimensions in {{ dataset_label }}</span></py:def>
   
   <div py:def="content">
-    <h2 class="page-header" i18n:msg="dataset_label">${c.dataset.label}: Dimensions
+    <h2 class="page-header" i18n:msg="dataset_label">{{ dataset_label }}: Dimensions
       <small>Facets of the dataset.</small></h2>
     <div class="row">
       <div class="span12">
-        <p i18n:msg="dataset">${c.dataset.label} has the following dimensions:</p>
-        ${dimensions_list(c.dataset.dimensions)}
+        <p i18n:msg="dataset">{{ dataset_label }} has the following dimensions:</p>
+		<ul>
+		{% for dimension in dimensions %}	
+		  <li>
+			<a class="dimension-name" href="/{{ dataset }}/{{ dimension.name }}">
+			  <strong>{{ dimension.label }}</strong> <!-- or dimension name -->
+			  <!-- <py:if test="dimension.key">
+				<abbr title="Part of unique key"><i class='icon-star'></i></abbr>
+			  </py:if> -->
+			</a>
+		  </li>
+		
+		{% endfor %}
+		</ul>
+
       </div>
     </div>
   </div>
