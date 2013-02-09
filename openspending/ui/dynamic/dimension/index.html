@@ -5,7 +5,7 @@
   
   <py:def function="nav_class">nav-dataset</py:def>
 
-  <py:def function="page_title"><span py:strip="" i18n:msg="dataset_label">Dimensions in ${c.dataset.label}</span></py:def>
+  <py:def function="page_title"><span py:strip="" i18n:msg="dataset_label">Dimensions in {{ dataset_label }}</span></py:def>
   
   <div py:def="content">
     <h2 class="page-header" i18n:msg="dataset_label">${c.dataset.label}: Dimensions
