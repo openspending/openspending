@@ -39,12 +39,14 @@
   <head>
     <meta charset="utf-8" />
     <title>${page_title()} - ${g.site_title}</title>
-    <meta name="description" py:if="defined('page_description')" 
+    <meta name="description" py:if="defined('page_description')"
       content="${page_description()}" />
-    <meta name="description" py:if="not defined('page_description')" 
+    <meta name="description" py:if="not defined('page_description')"
       content="We're enabling anyone to explore, visualize and track government spending." />
     <meta name="author" content="Open Knowledge Foundation" />
     <link rel="shortcut icon" href="${h.static('img/favicon.ico')}" type="image/x-icon" />
+    <link rel="alternate" type="application/rss+xml" title="Latest Datasets on OpenSpending"
+      href="${h.url(controller='dataset', action='feed_rss')}" />
 
     <!-- Le styles -->
     <link rel="stylesheet"
@@ -168,7 +170,7 @@
     </footer>
 
     ${script_boot()}
-    
+
     <py:if test="defined('scripts')">
       ${scripts()}
     </py:if>
