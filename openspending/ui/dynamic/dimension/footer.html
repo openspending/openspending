@@ -37,7 +37,7 @@
 
       <!-- script boot section -->
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-      ${script_tag('prod/boot')}
+      {{ script_boot }}
       <script defer="defer">
 		OpenSpending.scriptRoot = "{{ script_root }}";
 		OpenSpending.localeGroupSeparator = "{{ number_symbols_group }}";
@@ -45,10 +45,19 @@
       </script>
       <!-- end script boot section -->
 
+    <!-- should run scripts() if defined?! -->
 
-    <py:if test="defined('scripts')">
-      ${scripts()}
-    </py:if>
+	<!-- should be gated on g.debug, wherever that's defined?! -->
+    <script type="text/javascript" defer="defer">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-8271754-17']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
 
-    ${analytics()}
   </body>
+</html>

@@ -1,8 +1,5 @@
-<html xmlns:py="http://genshi.edgewall.org/"
-  xmlns:i18n="http://genshi.edgewall.org/i18n"
-  xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
-  <xi:include href="_list.html" />  
-  
+{% include 'header.html' %}
+
   <py:def function="nav_class">nav-dataset</py:def>
 
   <py:def function="page_title"><span py:strip="" i18n:msg="dataset_label">Dimensions in {{ dataset_label }}</span></py:def>
@@ -31,6 +28,5 @@
     </div>
   </div>
 
-  {% include 'footer.html' %}
-</html>
+{% include 'footer.html' %}
 

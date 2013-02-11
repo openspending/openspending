@@ -71,7 +71,9 @@ class DimensionController(BaseController):
                 "dataset_label": c.dataset.label,
                 "dimensions": c.dataset.dimensions,
                 "dataset_name": c.dataset.name,
+                "language": c.language,
                 "script_root": h.script_root(),
+                "script_boot": h.script_tag('prod/boot'),
                 "number_symbols_group": c.locale.number_symbols.get('group'),
                 "number_symbols_decimal": c.locale.number_symbols.get('decimal')
                 }
