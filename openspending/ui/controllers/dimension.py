@@ -18,7 +18,7 @@ from openspending.ui.lib.hypermedia import dimension_apply_links, \
     member_apply_links, entry_apply_links
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import write_json, to_jsonp
-
+from openspending.ui.dynamic import templating
 log = logging.getLogger(__name__)
 
 PAGE_SIZE = 100
@@ -59,27 +59,8 @@ class DimensionController(BaseController):
                 for d in c.dataset.dimensions]
             return to_jsonp(dimensions)
         else:
-            from jinja2 import Template, FileSystemLoader
-            from jinja2.environment import Environment
-
-            env = Environment()
-            env.loader = FileSystemLoader('openspending/ui/dynamic/dimension')
-            filename = "index.html"
-            template = env.get_template(filename)
-
-            params = {
-                "dataset_label": c.dataset.label,
-                "dimensions": c.dataset.dimensions,
-                "dataset_name": c.dataset.name,
-                "language": c.language,
-                "script_root": h.script_root(),
-                "script_boot": h.script_tag('prod/boot'),
-                "bootstrap_css": h.static('style/bootstrap.css'),
-                "style_css": h.static('style/style.css'),
-                "number_symbols_group": c.locale.number_symbols.get('group'),
-                "number_symbols_decimal": c.locale.number_symbols.get('decimal')
-                }
-            return template.render(params)
+            return templating.render('openspending/ui/dynamic/dimension',
+                                     'index.html')
             #return render('dimension/index.html')
 
     def view(self, dataset, dimension, format='html'):
