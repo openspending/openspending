@@ -58,10 +58,14 @@ class DimensionController(BaseController):
                 for d in c.dataset.dimensions]
             return to_jsonp(dimensions)
         else:
-            from jinja2 import Template
-            filename = "openspending/ui/dynamic/dimension/index.html"
-            base = file(filename).read()
-            template = Template(base)
+            from jinja2 import Template, FileSystemLoader
+            from jinja2.environment import Environment
+
+            env = Environment()
+            env.loader = FileSystemLoader('openspending/ui/dynamic/dimension')
+            filename = "index.html"
+            template = env.get_template(filename)
+
             params = {
                 "dataset_label": c.dataset.label,
                 "dimensions": c.dataset.dimensions,
