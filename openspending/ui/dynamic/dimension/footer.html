@@ -34,3 +34,21 @@
         </div>
       </div>
     </footer>
+
+      <!-- script boot section -->
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+      ${script_tag('prod/boot')}
+      <script defer="defer">
+		OpenSpending.scriptRoot = "{{ script_root }}";
+		OpenSpending.localeGroupSeparator = "{{ number_symbols_group }}";
+		OpenSpending.localeDecimalSeparator = "{{ number_symbols_decimal }}";
+      </script>
+      <!-- end script boot section -->
+
+
+    <py:if test="defined('scripts')">
+      ${scripts()}
+    </py:if>
+
+    ${analytics()}
+  </body>

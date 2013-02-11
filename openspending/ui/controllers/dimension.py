@@ -10,6 +10,7 @@ from openspending.ui.lib.base import BaseController, render, \
         sitemap, etag_cache_keygen
 from openspending.ui.lib.base import etag_cache_keygen
 from openspending.ui.lib.views import handle_request
+from openspending.ui.lib import helpers as h
 from openspending.ui.lib.helpers import url_for
 from openspending.ui.lib.widgets import get_widget
 from openspending.lib.paramparser import DistinctFieldParamParser
@@ -69,7 +70,10 @@ class DimensionController(BaseController):
             params = {
                 "dataset_label": c.dataset.label,
                 "dimensions": c.dataset.dimensions,
-                "dataset_name": c.dataset.name
+                "dataset_name": c.dataset.name,
+                "script_root": h.script_root(),
+                "number_symbols_group": c.locale.number_symbols.get('group'),
+                "number_symbols_decimal": c.locale.number_symbols.get('decimal')
                 }
             return template.render(params)
             #return render('dimension/index.html')
