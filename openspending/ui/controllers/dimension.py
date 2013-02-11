@@ -74,6 +74,8 @@ class DimensionController(BaseController):
                 "language": c.language,
                 "script_root": h.script_root(),
                 "script_boot": h.script_tag('prod/boot'),
+                "bootstrap_css": h.static('style/bootstrap.css'),
+                "style_css": h.static('style/style.css'),
                 "number_symbols_group": c.locale.number_symbols.get('group'),
                 "number_symbols_decimal": c.locale.number_symbols.get('decimal')
                 }

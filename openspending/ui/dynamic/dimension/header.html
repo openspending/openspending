@@ -24,8 +24,8 @@
     <!-- Le styles -->
     <link rel="stylesheet"
     href="http://assets.openspending.org/branding/fonts/opensans/stylesheet.css" />
-    <link href="${h.static('style/bootstrap.css')}" rel="stylesheet" />
-    <link href="${h.static('style/style.css')}" rel="stylesheet" />
+    <link href="{{ bootstrap_css }}" rel="stylesheet" />
+    <link href="{{ style_css }}" rel="stylesheet" />
 
     <py:if test="defined('optional_head')">
       ${optional_head()}
