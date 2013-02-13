@@ -1,0 +1,1515 @@
+# Translations template for openspending.
+# Copyright (C) 2012 ORGANIZATION
+# This file is distributed under the same license as the openspending project.
+# 
+# Translators:
+# Sukma Budi <sukmabudi@yahoo.com>, 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenSpending\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2012-08-09 10:23+0200\n"
+"PO-Revision-Date: 2013-02-10 14:10+0000\n"
+"Last-Translator: demank <sukmabudi@yahoo.com>\n"
+"Language-Team: Indonesian (http://www.transifex.com/projects/p/openspending/language/id/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
+"Language: id\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: openspending/ui/controllers/account.py:43
+msgid "Login name already exists, please choose a different one"
+msgstr "Nama login sudah ada, silahkan pilih nama yang berbeda"
+
+#: openspending/ui/controllers/account.py:47
+#: openspending/ui/controllers/account.py:78
+msgid "Passwords don't match!"
+msgstr "Password tidak cocok!"
+
+#: openspending/ui/controllers/account.py:87
+msgid "Your settings have been updated."
+msgstr "Setelan anda telah diperbarui."
+
+#: openspending/ui/controllers/account.py:126
+#, python-format
+msgid "Welcome back, %s!"
+msgstr "Selamat datang kembali, %s!"
+
+#: openspending/ui/controllers/account.py:129
+msgid "Incorrect user name or password!"
+msgstr "Username atau password salah!"
+
+#: openspending/ui/controllers/account.py:134
+msgid "You have been logged out."
+msgstr "Anda telah keluar."
+
+#: openspending/ui/controllers/content.py:26
+msgid "Sorry, the selected resource could not be found"
+msgstr "Maaf, sumberdaya terpilih tidak ditemukan"
+
+#: openspending/ui/controllers/dataset.py:123
+msgid "A dataset with this identifer already exists!"
+msgstr "Kumpulan data dengan identitas ini sudah ada!"
+
+#: openspending/ui/controllers/dimension.py:31
+#: openspending/ui/controllers/dimension.py:33
+msgid "This is not a dimension"
+msgstr "Ini bukanlah sebuah dimensi"
+
+#: openspending/ui/controllers/dimension.py:43
+#, python-format
+msgid "Sorry, there is no member named %r"
+msgstr "Maaf, tidak ada anggota dengan nama %r"
+
+#: openspending/ui/controllers/dimension.py:49
+#, python-format
+msgid "Sorry, there is no dimension named %r"
+msgstr "Maaf, tidak ada dimensi dengan nama %r"
+
+#: openspending/ui/controllers/editor.py:85
+msgid "The dataset has been updated."
+msgstr "Kumpulan data telah diperbarui."
+
+#: openspending/ui/controllers/editor.py:115
+msgid ""
+"You cannot edit the dimensions model when data is loaded for the dataset."
+msgstr "Anda tidak dapat mengedit model dimensi ketika data sedang dimuat untuk kumpulan data."
+
+#: openspending/ui/controllers/editor.py:133
+msgid "The mapping data could not be decoded as JSON!"
+msgstr "Pemetaan data tidak dapat didekode sebagai JSON!"
+
+#: openspending/ui/controllers/editor.py:158
+msgid "The views have been updated."
+msgstr "Tampilan telah diperbarui."
+
+#: openspending/ui/controllers/editor.py:160
+msgid "The views could not be decoded as JSON!"
+msgstr "Tampilan tidak dapat didekode sebagai JSON!"
+
+#: openspending/ui/controllers/editor.py:182
+msgid "User account cannot be found."
+msgstr "Akun pengguna tidak dapat ditemukan."
+
+#: openspending/ui/controllers/editor.py:191
+msgid "The team has been updated."
+msgstr "Tim telah diperbarui."
+
+#: openspending/ui/controllers/editor.py:204
+msgid "The dataset has been cleared."
+msgstr "Kumpulan data telah dibersihkan."
+
+#: openspending/ui/controllers/editor.py:212
+msgid "This dataset is already public!"
+msgstr "Kumpulan data ini sudah publik!"
+
+#: openspending/ui/controllers/editor.py:218
+#, python-format
+msgid ""
+"Congratulations, the dataset has been published. It is now available at: %s"
+msgstr "Selamat, kumpulan data tersebut telah dipublikasikan. Sekarang telah tersedia di: %s"
+
+#: openspending/ui/controllers/editor.py:227
+msgid "This dataset is already private!"
+msgstr "Kumpulan data ini sudah privat!"
+
+#: openspending/ui/controllers/editor.py:232
+msgid "The dataset has been retracted. It is no longer visible to others."
+msgstr "Kumpulan data sudah ditarik kemabli. Ia tidak lagi terlihat oleh yang lain."
+
+#: openspending/ui/controllers/editor.py:244
+msgid "The dataset has been deleted."
+msgstr "Kumpulan data telah dihapus."
+
+#: openspending/ui/controllers/entry.py:43
+#, python-format
+msgid "Sorry, there is no entry %r"
+msgstr "Maaf, tidak ada masukan %r"
+
+#: openspending/ui/controllers/home.py:50
+msgid "Sent ping!"
+msgstr "Kirim ping!"
+
+#: openspending/ui/controllers/run.py:32
+#: openspending/ui/controllers/source.py:56
+#, python-format
+msgid "There is no source '%s'"
+msgstr "Tidak ada sumber '%s'"
+
+#: openspending/ui/controllers/run.py:35
+#, python-format
+msgid "There is no run '%s'"
+msgstr "Tidak ada yang menjalankan '%s'"
+
+#: openspending/ui/controllers/source.py:39
+msgid "The source has been created."
+msgstr "Sumber telah dibuat."
+
+#: openspending/ui/controllers/source.py:71
+msgid "Now loading..."
+msgstr "Dimuat sekarang..."
+
+#: openspending/ui/controllers/view.py:37
+#, python-format
+msgid "Invalid widget type: %r"
+msgstr "Tipe widget tidak sah: %r"
+
+#: openspending/ui/controllers/view.py:67
+#, python-format
+msgid "Sorry, there is no view %r"
+msgstr "Maaf, tidak ada tampilan %r"
+
+#: openspending/ui/controllers/view.py:96
+msgid "You are not authorized to delete this view."
+msgstr "Anda tidak punya izin untuk menghapus tampilan ini."
+
+#: openspending/ui/controllers/view.py:132
+msgid "No widget type has been specified."
+msgstr "Tidak ada tipe widget yang dispesifikasikan."
+
+#: openspending/ui/lib/base.py:131
+#, python-format
+msgid "Sorry, there is no dataset named %r"
+msgstr "Maaf, tidak ada kumpulan data dengan nama %r"
+
+#: openspending/ui/lib/views.py:36
+msgid "Untitled"
+msgstr "Tak berjudul"
+
+#: openspending/ui/lib/widgets.py:15
+#, python-format
+msgid "No widget named '%s' exists."
+msgstr "Tidak ada widget '%s'."
+
+#: openspending/ui/templates/400.html:5 openspending/ui/templates/403.html:5
+#: openspending/ui/templates/404.html:5 openspending/ui/templates/500.html:5
+msgid "nav-home"
+msgstr "nav-beranda"
+
+#: openspending/ui/templates/400.html:9
+msgid "Invalid request."
+msgstr "Permintaan tidak sah"
+
+#: openspending/ui/templates/400.html:10 openspending/ui/templates/403.html:10
+#: openspending/ui/templates/404.html:10
+#: openspending/ui/templates/run/view.html:32
+#: openspending/ui/templates/run/view.html:51
+#: openspending/ui/templates/source/_list.html:19
+msgid "Error"
+msgstr "Galat"
+
+#: openspending/ui/templates/403.html:9
+msgid "Access denied."
+msgstr "Akses ditolak."
+
+#: openspending/ui/templates/403.html:13
+msgid "You may not have the relevant rights."
+msgstr "Anda mungkin tidak punya izin yang relevan."
+
+#: openspending/ui/templates/403.html:16
+msgid "You may need to login."
+msgstr "Anda mungkin harus masuk."
+
+#: openspending/ui/templates/404.html:9
+msgid "Resource not found"
+msgstr "Sumberdaya tidak ditemukan"
+
+#. Advice regarding a 404 error
+#: openspending/ui/templates/404.html:11
+#, python-format
+msgid ""
+"[1:%(message)s]: Maybe the URL is misspelled or the \n"
+"      data has been deleted."
+msgstr "[1:%(message)s]: Mungkin URL salah tulis atau \n      data telah dihapus."
+
+#: openspending/ui/templates/500.html:9
+msgid "Something went wrong"
+msgstr "Sesuatu telah bermasalah"
+
+#: openspending/ui/templates/500.html:10
+msgid "Internal Server Error"
+msgstr "Galat Internal Server"
+
+#: openspending/ui/templates/500.html:13
+msgid ""
+":\n"
+"      Sorry, there seems to be an internal problem in OpenSpending.\n"
+"      The problem has now been reported and we're on it."
+msgstr ":\n      Maaf, tampaknya ada masalah internal dalam OpenSpending.\n      Masalah tersebut kini telah dilaporkan dan kami sedang mengolahnya."
+
+#: openspending/ui/templates/layout.html:73
+msgid "Home"
+msgstr "Beranda"
+
+#: openspending/ui/templates/layout.html:75
+#: openspending/ui/templates/home/index.html:47
+msgid "Spending Blog"
+msgstr "Blog Pembelanja"
+
+#: openspending/ui/templates/layout.html:77
+msgid "Datasets"
+msgstr "Kumpulan data"
+
+#: openspending/ui/templates/layout.html:81
+msgid "Community"
+msgstr "Komunitas"
+
+#: openspending/ui/templates/layout.html:84
+msgid "Working Group on Open Spending Data"
+msgstr "Grup Kerja dalam Data Belanja Terbuka"
+
+#: openspending/ui/templates/layout.html:85
+msgid "Report: Technology for Fiscal Transparency"
+msgstr "Laporan: Teknologi untuk Transparansi Fiskal"
+
+#: openspending/ui/templates/layout.html:86
+msgid "Briefing: European Union Spending"
+msgstr "Pertemuan: Pembelanjaan Uni Eropa"
+
+#: openspending/ui/templates/layout.html:87
+msgid "Briefing: Aid Transparency"
+msgstr "Pertemuan: Transparansi Bantuan"
+
+#: openspending/ui/templates/layout.html:88
+msgid "Briefing: OpenSpending.mobi"
+msgstr "Pertemuan: OpenSpending.mobi"
+
+#: openspending/ui/templates/layout.html:89
+msgid "Standard for Transactional Spending Data"
+msgstr "Standar Data Transaksi Pembelanjaan"
+
+#: openspending/ui/templates/layout.html:94
+#: openspending/ui/templates/layout.html:158
+msgid "Help"
+msgstr "Bantuan"
+
+#: openspending/ui/templates/layout.html:96
+#: openspending/ui/templates/dataset/_nav.html:33
+msgid "About"
+msgstr "Tentang"
+
+#: openspending/ui/templates/layout.html:101
+msgid "Login/Register"
+msgstr "Masuk/Daftar"
+
+#: openspending/ui/templates/layout.html:104
+#: openspending/ui/templates/account/dashboard.html:7
+#: openspending/ui/templates/editor/_nav.html:29
+msgid "Dashboard"
+msgstr "Dasbor"
+
+#: openspending/ui/templates/layout.html:105
+msgid "Settings"
+msgstr "Setelan"
+
+#: openspending/ui/templates/layout.html:106
+msgid "Logout"
+msgstr "Keluar"
+
+#: openspending/ui/templates/layout.html:109
+msgid "Language"
+msgstr "Bahasa"
+
+#: openspending/ui/templates/layout.html:143
+msgid ""
+"This is an [1:Open Knowledge Foundation]\n"
+"            project."
+msgstr "Ini adalah [1:Open Knowledge Foundation]\n            project."
+
+#: openspending/ui/templates/layout.html:149
+msgid ""
+"Where Does My Money Go\n"
+"              (UK)"
+msgstr "Where Does My Money Go\n              (UK)"
+
+#: openspending/ui/templates/layout.html:151
+msgid "OffenerHaushalt (DE)"
+msgstr "OffenerHaushalt (DE)"
+
+#: openspending/ui/templates/layout.html:152
+msgid "The Open Database Of The Corporate World"
+msgstr "The Open Database Of The Corporate World"
+
+#: openspending/ui/templates/layout.html:152
+msgid "OpenCorporates.com"
+msgstr "OpenCorporates.com"
+
+#: openspending/ui/templates/layout.html:153
+msgid "OKFN Labs"
+msgstr "OKFN Labs"
+
+#: openspending/ui/templates/layout.html:154
+msgid "YourTopia"
+msgstr "YourTopia"
+
+#: openspending/ui/templates/layout.html:157
+msgid "Twitter"
+msgstr "Twitter"
+
+#: openspending/ui/templates/layout.html:159
+#: openspending/ui/templates/home/index.html:49
+msgid "Mailing List"
+msgstr "Mailing List"
+
+#: openspending/ui/templates/layout.html:160
+msgid "API"
+msgstr "API"
+
+#: openspending/ui/templates/layout.html:161
+msgid "Privacy"
+msgstr "Privasi"
+
+#: openspending/ui/templates/layout.html:161
+msgid "and"
+msgstr "dan"
+
+#: openspending/ui/templates/layout.html:161
+msgid "Contact"
+msgstr "Kontak"
+
+#: openspending/ui/templates/layout.html:171
+msgid "Open Content"
+msgstr "Konten Terbuka"
+
+#: openspending/ui/templates/layout.html:164
+msgid ""
+"All [1:code],\n"
+"          [2:content]\n"
+"          and [3:data] is\n"
+"          openly licensed in accordance with the\n"
+"          [4:open definition].\n"
+"          [5:][6:]\n"
+"          [7:[8:]]"
+msgstr "Semua [1:kode],\n          [2:konten]\n          dan [3:data] adalah\n          berlisensi terbuka berdasarkan\n          [4:definisi terbuka].\n          [5:][6:]\n          [7:[8:]]"
+
+#: openspending/ui/templates/account/dashboard.html:5
+#: openspending/ui/templates/account/login.html:5
+#: openspending/ui/templates/account/settings.html:5
+#: openspending/ui/templates/dataset/new.html:5
+#: openspending/ui/templates/dataset/new_cta.html:5
+msgid "nav-account"
+msgstr "nav-akun"
+
+#: openspending/ui/templates/account/dashboard.html:10
+msgid "Welcome back"
+msgstr "Selamat datang kembali"
+
+#: openspending/ui/templates/account/dashboard.html:17
+msgid "Your Datasets"
+msgstr "Kumpulan data Anda"
+
+#: openspending/ui/templates/account/dashboard.html:28
+msgid "Your Visualizations"
+msgstr "Visualisasi Anda"
+
+#: openspending/ui/templates/account/dashboard.html:32
+#: openspending/ui/templates/entry/view.html:9
+msgid "on"
+msgstr "pada"
+
+#: openspending/ui/templates/account/login.html:7
+#: openspending/ui/templates/account/login.html:13
+#: openspending/ui/templates/account/login.html:17
+#: openspending/ui/templates/account/login.html:39
+msgid "Login"
+msgstr "Masuk"
+
+#: openspending/ui/templates/account/login.html:10
+msgid "Sign in to OpenSpending"
+msgstr "Masuk ke OpenSpending"
+
+#: openspending/ui/templates/account/login.html:23
+#: openspending/ui/templates/account/login.html:57
+#: openspending/ui/templates/account/settings.html:30
+msgid "Password"
+msgstr "Password"
+
+#: openspending/ui/templates/account/login.html:35
+msgid "Create an account"
+msgstr "Buat sebuah akun"
+
+#: openspending/ui/templates/account/login.html:45
+#: openspending/ui/templates/account/settings.html:18
+msgid "Fullname"
+msgstr "Nama lengkap"
+
+#: openspending/ui/templates/account/login.html:51
+#: openspending/ui/templates/account/settings.html:24
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: openspending/ui/templates/account/login.html:63
+#: openspending/ui/templates/account/settings.html:36
+msgid "Password (repeat)"
+msgstr "Password (ulangi)"
+
+#: openspending/ui/templates/account/settings.html:7
+msgid "Settings for:"
+msgstr "Setelan untuk:"
+
+#: openspending/ui/templates/account/settings.html:10
+msgid "Account Settings"
+msgstr "Setelan Akun"
+
+#: openspending/ui/templates/account/settings.html:39
+msgid ""
+"Leave both fields blank to keep\n"
+"                your current password."
+msgstr "Biarkan kosong kedua field untuk menjaga\n                password anda saat ini."
+
+#: openspending/ui/templates/account/settings.html:44
+msgid "API Key"
+msgstr "Kunci API"
+
+#: openspending/ui/templates/account/settings.html:47
+msgid ""
+"Use this key to access the OpenSpending\n"
+"                API programmatically."
+msgstr "Gunakan kunci ini untuk mengakses API OpenSpending\n                secara pemrograman."
+
+#: openspending/ui/templates/account/settings.html:52
+msgid "Script Location"
+msgstr "Lokasi Skrip"
+
+#: openspending/ui/templates/account/settings.html:55
+msgid ""
+"Set a different location for JavaScript imports to develop\n"
+"              new widgets."
+msgstr "Setel sebuah lokasi berbeda untuk JavaScript yang diimpor\n              untuk membangun widget baru."
+
+#: openspending/ui/templates/content/view.html:5
+#: openspending/ui/templates/dataset/about.html:9
+#: openspending/ui/templates/dataset/dropdb.html:5
+#: openspending/ui/templates/dataset/index.html:5
+#: openspending/ui/templates/dataset/view.html:9
+#: openspending/ui/templates/dimension/index.html:6
+#: openspending/ui/templates/dimension/view.html:6
+#: openspending/ui/templates/entry/index.html:6
+#: openspending/ui/templates/entry/search.html:5
+#: openspending/ui/templates/home/index.html:5
+#: openspending/ui/templates/view/index.html:8
+#: openspending/ui/templates/view/new.html:8
+#: openspending/ui/templates/view/view.html:9
+msgid "nav-dataset"
+msgstr "nav-kumpulan data"
+
+#: openspending/ui/templates/dataset/_nav.html:30
+#: openspending/ui/templates/dimension/_nav.html:52
+#: openspending/ui/templates/entry/search.html:12
+msgid "Search"
+msgstr "Cari"
+
+#: openspending/ui/templates/dataset/_nav.html:37
+msgid "Visualisations"
+msgstr "Visualisasi"
+
+#: openspending/ui/templates/dataset/_nav.html:48
+msgid "Create a visualisation..."
+msgstr "Buat sebuah visualisasi..."
+
+#: openspending/ui/templates/dataset/_nav.html:53
+msgid "Manage"
+msgstr "Kelola"
+
+#: openspending/ui/templates/dataset/_select.html:96
+msgid "OpenSpending — mapping the money."
+msgstr "OpenSpending — memetakan keuangan."
+
+#: openspending/ui/templates/dataset/_select.html:103
+#: openspending/ui/templates/dataset/new.html:7
+#: openspending/ui/templates/dataset/new.html:24
+#: openspending/ui/templates/dataset/new_cta.html:7
+msgid "Import a dataset"
+msgstr "Impor sebuah kumpulan data"
+
+#: openspending/ui/templates/dataset/_select.html:104
+msgid "Close"
+msgstr "Tutup"
+
+#: openspending/ui/templates/dataset/about.html:30
+#: openspending/ui/templates/dataset/new.html:109
+#: openspending/ui/templates/editor/core.html:99
+#: openspending/ui/templates/entry/view.html:103
+msgid "Description"
+msgstr "Deskripsi"
+
+#: openspending/ui/templates/dataset/about.html:31
+#, python-format
+msgid "No description is available for %(label)s"
+msgstr "Tidak ada deskripsi tersedia untuk %(label)s"
+
+#: openspending/ui/templates/dataset/about.html:38
+msgid "Sources"
+msgstr "Sumber"
+
+#: openspending/ui/templates/dataset/about.html:39
+msgid ""
+"This is a listing of all source data that was registered\n"
+"              for this dataset. If you want to look at the exact data \n"
+"              that is used to generate aggregates, you can also use a \n"
+"              [1:bulk export]."
+msgstr "Ini adalah daftar dari semua sumber data yang telah terdaftar\n              untuk kumpulan data ini. Bila anda ingin melihat data eksaknya \n              yang digunakan untuk mengenerasi agregat, anda dapat pula menggunakan sebuah \n              [1:bulk export]."
+
+#: openspending/ui/templates/dataset/about.html:54
+#: openspending/ui/templates/editor/_nav.html:38
+msgid "Team"
+msgstr "Tim"
+
+#: openspending/ui/templates/dataset/about.html:55
+msgid ""
+"These people are the managers of the dataset. They can\n"
+"              make modifications to its schema and are responsible\n"
+"              to make sure the data is accurate."
+msgstr "Orang-orang ini adalah para pengelola kumpulan data. Mereka dapat\n              membuat modifikasi sesuai skemanya dan bertanggung jawab\n              untuk memastikan data tersebut akurat."
+
+#: openspending/ui/templates/dataset/about.html:68
+msgid "Measures"
+msgstr "Ukuran"
+
+#: openspending/ui/templates/dataset/about.html:69
+msgid ""
+"Measures are the numeric properties of each entry in this \n"
+"          dataset."
+msgstr "Ukuran adalah properti numerik dari setiap masukan pada \n          kumpulan data ini."
+
+#: openspending/ui/templates/dataset/about.html:81
+msgid "Dimensions"
+msgstr "Dimensi"
+
+#: openspending/ui/templates/dataset/about.html:82
+msgid ""
+"Dimensions are different aspects of the dataset, such as the\n"
+"          spender, recipient or classifications that apply."
+msgstr "Dimensi adalah aspek-aspek yang berbeda dari kumpulan data, seperti\n          pembelanja, penerima atau klasifikasi yang diterapkan."
+
+#: openspending/ui/templates/dataset/dropdb.html:7
+msgid "Database erased"
+msgstr "Basisdata dihapus"
+
+#: openspending/ui/templates/dataset/dropdb.html:12
+msgid "OpenSpending: mapping the money"
+msgstr "OpenSpending: memetakan uang"
+
+#: openspending/ui/templates/dataset/dropdb.html:13
+msgid ""
+"The database should now have been erased. You'll even have to create a new "
+"user to log in again."
+msgstr "Basisdata tersebut seharusnya sekarang sudah dihapus. Anda harus membuat sebuah pengguna baru untuk masuk lagi."
+
+#: openspending/ui/templates/dataset/index.html:7
+msgid "All datasets"
+msgstr "Semua kumpulan data"
+
+#: openspending/ui/templates/dataset/index.html:19
+msgid "Available data sets"
+msgstr "Kumpulan data tersedia"
+
+#: openspending/ui/templates/dataset/index.html:20
+msgid "The database contains the following datasets:"
+msgstr "Basisdata mengandung kumpulan data berikut:"
+
+#: openspending/ui/templates/dataset/index.html:37
+#: openspending/ui/templates/dataset/new.html:89
+#: openspending/ui/templates/editor/core.html:79
+msgid "Countries"
+msgstr "Negara"
+
+#: openspending/ui/templates/dataset/index.html:47
+#: openspending/ui/templates/dataset/new.html:99
+#: openspending/ui/templates/editor/core.html:89
+msgid "Languages"
+msgstr "Bahasa"
+
+#. List of steps to take
+#: openspending/ui/templates/dataset/new.html:27
+msgid ""
+"If you have a spending or budget dataset that \n"
+"          you can contribute, please give some basic information \n"
+"          here.\n"
+"          [1:][2:]In the next steps, you'll\n"
+"          [3:\n"
+"            [4:add references to [5:data sources],]\n"
+"            [6:create a [7:data model] to describe the format,]\n"
+"            [8:[9:test] the correctness of your model,]\n"
+"            [10:[11:import] the data,]\n"
+"            [12:and generate [13:visualized views].]\n"
+"          ]"
+msgstr "Bila anda punya kumpulan data pembelanjaan atau anggaran \n          yang dapat anda kontribusikan, mohon berikan beberapa informasi dasarnya \n          di sini.\n          [1:][2:]Dalam langkah selanjutnya, anda akan\n          [3:\n            [4:menambahkan referensi ke [5:sumber data],]\n            [6:membuat sebuah [7:model data] untuk menggambarkan formatnya,]\n            [8:[9:uji] kebenaran dari model anda,]\n            [10:[11:impor] data tersebut,]\n            [12:dan membuat [13:tampilan visualisasi].]\n          ]"
+
+#: openspending/ui/templates/dataset/new.html:47
+#: openspending/ui/templates/editor/core.html:33
+msgid "Title"
+msgstr "Judul"
+
+#: openspending/ui/templates/dataset/new.html:53
+msgid "Identifier"
+msgstr "Identitas"
+
+#: openspending/ui/templates/dataset/new.html:56
+msgid ""
+"The identifier will become part of the\n"
+"                  dataset URL and cannot be changed later. It may only \n"
+"                  contain alphanumeric characters, dashes and underscores."
+msgstr "Identitas menjadi bagian dari\n                  URL kumpulan data dan tidak dapat diubah nantinya. Ia mungkin hanya \n                  mengandung karakter alfanumerik, garis tengah dan garis bawah."
+
+#: openspending/ui/templates/dataset/new.html:62
+#: openspending/ui/templates/editor/core.html:39
+msgid "Category"
+msgstr "Kategori"
+
+#: openspending/ui/templates/dataset/new.html:72
+#: openspending/ui/templates/editor/core.html:49
+msgid "Currency"
+msgstr "Mata uang"
+
+#: openspending/ui/templates/dataset/new.html:75
+#: openspending/ui/templates/editor/core.html:52
+msgid "Commonly used currencies"
+msgstr "Mata uang yang umum digunakan"
+
+#: openspending/ui/templates/dataset/new.html:80
+#: openspending/ui/templates/editor/core.html:57
+msgid "All currencies"
+msgstr "Semua mata uang"
+
+#: openspending/ui/templates/dataset/new_cta.html:11
+msgid "Contribute your local data!"
+msgstr "Berkontribusi dengan data lokal anda!"
+
+#: openspending/ui/templates/dataset/new_cta.html:13
+msgid ""
+"We're trying to gather [1:the world's spending\n"
+"          information]\n"
+"        in a common\n"
+"        database so that we can provide common tools for [2:analysis,\n"
+"          visualization and comparison]. OpenSpending is an open platform that\n"
+"        aims to facilitate the presentation of financial information so \n"
+"        anyone - whether data geek or concerned citizen - can contribute \n"
+"        their local city budget or spending reports."
+msgstr "Kami berusaha untuk mengumpulkan [1:informasi pembelajaan\n          sedunia]\n        dalam sebuah basisdata\n        yang umum sehingga kami dapat menyediakan perangkat umum untuk [2:analisis,\n          visualisasi dan perbandingan]. OpenSpending adalah platform terbuka\n        yang bertujuan untuk memfasilitasi presentasi dari informasi keuangan \n        sehingga siapapun - baik itu pecandu data atau warga yang peduli - dapat berkontribusi \n        dengan anggaran lokal kota mereka atau laporan pembelanjaannya."
+
+#: openspending/ui/templates/dataset/new_cta.html:24
+msgid "Why should you contribute?"
+msgstr "Mengapa anda perlu berkontribusi?"
+
+#: openspending/ui/templates/dataset/new_cta.html:26
+msgid ""
+"There are many projects that aim to track financial information. All\n"
+"        require these basic services, which we aim to provide:\n"
+"         [1:]  [2:]\n"
+"        [3:\n"
+"          [4:Data loading and validation facilities.]\n"
+"          [5:Common visualization types (treemaps, charts, and the bubble\n"
+"          tree).]\n"
+"          [6:Full-text search for all entries.]\n"
+"          [7:Means to track provenance and provide access to the raw\n"
+"          data.]\n"
+"        ]\n"
+"        [8:\n"
+"          [9:Sign up to contribute]\n"
+"          [10:Learn more]\n"
+"        ]"
+msgstr "Terdapat banyak proyek yang dapat membantu untuk melacak informasi keuangan.\n        Semuanya membutuhkan layanan dasar ini, yang kami bantu untuk menyediakan:\n         [1:]  [2:]\n        [3:\n          [4:Pemuatan data dan fasilitas validasi.]\n          [5:Tipe visualisasi umum (treemaps, grafik, dan bubble\n          tree).]\n          [6:Pencarian teks-penuh untuk semua entitas.]\n          [7:Sarana untuk melacak sumber asalnya dan menyediakan akses\n          ke data mentah.]\n        ]\n        [8:\n          [9:Mendaftar untuk berkontribusi]\n          [10:Pelajari lanjut]\n        ]"
+
+#: openspending/ui/templates/dataset/view.html:40
+#: openspending/ui/templates/dimension/member.html:37
+#: openspending/ui/templates/dimension/view.html:41
+#: openspending/ui/templates/view/view.html:34
+msgid "Embed"
+msgstr "Tanam"
+
+#: openspending/ui/templates/dataset/view.html:41
+#: openspending/ui/templates/dimension/member.html:38
+#: openspending/ui/templates/dimension/view.html:42
+#: openspending/ui/templates/view/view.html:35
+msgid "Change"
+msgstr "Ganti"
+
+#: openspending/ui/templates/dataset/view.html:42
+#: openspending/ui/templates/dimension/member.html:39
+#: openspending/ui/templates/dimension/view.html:43
+#: openspending/ui/templates/view/view.html:36
+msgid "Data"
+msgstr "Data"
+
+#: openspending/ui/templates/dimension/_list.html:17
+msgid "Part of unique key"
+msgstr "Bagian dari kunci unik"
+
+#: openspending/ui/templates/dimension/_nav.html:55
+#: openspending/ui/templates/dimension/_nav.html:60
+msgid "OpenCorporates"
+msgstr "OpenCorporates"
+
+#: openspending/ui/templates/dimension/_nav.html:64
+msgid "PublicBodies.org"
+msgstr "PublicBodies.org"
+
+#: openspending/ui/templates/dimension/entries.html:6
+msgid "nav-dimension"
+msgstr "nav-dimensi"
+
+#: openspending/ui/templates/dimension/entries.html:8
+#, python-format
+msgid "%(entry_label)s - Entries"
+msgstr "%(entry_label)s - Entitas"
+
+#: openspending/ui/templates/dimension/entries.html:8
+msgid "- Entries"
+msgstr "- Entitas"
+
+#: openspending/ui/templates/dimension/index.html:8
+#, python-format
+msgid "Dimensions in %(dataset_label)s"
+msgstr "Dimensi pada %(dataset_label)s"
+
+#: openspending/ui/templates/dimension/index.html:8
+msgid "Dimensions in"
+msgstr "Dimensi dalam"
+
+#: openspending/ui/templates/dimension/index.html:11
+#, python-format
+msgid ""
+"%(dataset_label)s: Dimensions\n"
+"      [1:Facets of the dataset.]"
+msgstr "%(dataset_label)s: Dimensi\n      [1:Aspek dari kumpulan data.]"
+
+#: openspending/ui/templates/dimension/index.html:15
+#, python-format
+msgid "%(dataset)s has the following dimensions:"
+msgstr "%(dataset)s punya dimensi berikut:"
+
+#: openspending/ui/templates/dimension/member.html:7
+msgid "nav-member"
+msgstr "nav-anggota"
+
+#: openspending/ui/templates/editor/_nav.html:20
+msgid "Manage the dataset"
+msgstr "Kelola kumpulan data"
+
+#: openspending/ui/templates/editor/_nav.html:32
+msgid "Dimensions & Measures"
+msgstr "Dimensi & Ukuran"
+
+#: openspending/ui/templates/editor/_nav.html:35
+msgid "Views"
+msgstr "Tampilan"
+
+#: openspending/ui/templates/editor/_nav.html:41
+msgid "Meta"
+msgstr "Meta"
+
+#: openspending/ui/templates/editor/core.html:7
+#: openspending/ui/templates/editor/dimensions.html:7
+#: openspending/ui/templates/editor/dimensions_errors.html:7
+#: openspending/ui/templates/editor/index.html:9
+#: openspending/ui/templates/editor/team.html:7
+#: openspending/ui/templates/editor/views.html:7
+msgid "nav-editor"
+msgstr "nav-editor"
+
+#: openspending/ui/templates/editor/core.html:66
+msgid "Default year"
+msgstr "Tahun baku"
+
+#: openspending/ui/templates/editor/core.html:70
+msgid "(No data is loaded)"
+msgstr "(Tidak ada data dimuat)"
+
+#: openspending/ui/templates/editor/dimensions.html:71
+msgid "Add Dimension"
+msgstr "Tambah Dimensi"
+
+#: openspending/ui/templates/editor/dimensions.html:74
+msgid "Make sure your dimensions import all source data columns."
+msgstr "Pastikan dimensi anda mengimpor semua kolom data sumber."
+
+#: openspending/ui/templates/editor/dimensions.html:80
+msgid "Set Unique Dimensions"
+msgstr "Setel Dimensi Unik"
+
+#: openspending/ui/templates/editor/dimensions.html:82
+msgid "Identify the dimensions that help to identify each entry."
+msgstr "Identifikasi dimensi membantu mengidentifikasi setiap entitas."
+
+#: openspending/ui/templates/editor/dimensions.html:86
+msgid "Exisiting Dimensions"
+msgstr "Dimensi yang Ada"
+
+#: openspending/ui/templates/editor/dimensions.html:96
+msgid "Specify which dimensions identify an entry uniquely"
+msgstr "Spesifikasikan dimensi mana yang mengidentifikasi sebuah masukan secara unik"
+
+#: openspending/ui/templates/editor/dimensions.html:104
+msgid "Update"
+msgstr "Perbarui"
+
+#: openspending/ui/templates/editor/dimensions.html:112
+msgid "Add new dimension"
+msgstr "Tambah dimensi baru"
+
+#: openspending/ui/templates/editor/dimensions.html:119
+msgid "Name"
+msgstr "Nama"
+
+#: openspending/ui/templates/editor/dimensions.html:122
+msgid ""
+"The name you choose should only contain letters, numbers and dashes (i.e., "
+"no spaces)"
+msgstr "Nama yang anda pilih seharusnya hanya mengandung huruf, angka dan garis tengah (misalnya, tanpa spasi)"
+
+#: openspending/ui/templates/editor/dimensions.html:125
+msgid ""
+"Where the dimension represents the ultimate source or destination of the funds, \n"
+"                              call it [1:from] or [2:to]."
+msgstr "Di mana dimensi mewakili sumber atau tujuan yang luar biasa dari dana, \n                              panggil [1:dari] atau [2:ke]."
+
+#: openspending/ui/templates/editor/dimensions.html:132
+msgid "Type"
+msgstr "Tipe"
+
+#: openspending/ui/templates/editor/dimensions.html:135
+#: openspending/ui/templates/entry/view.html:101
+msgid "Dimension"
+msgstr "Dimensi"
+
+#: openspending/ui/templates/editor/dimensions.html:137
+msgid ""
+"A defined set, like suppliers or classifications, with \n"
+"                                multiple attributes (e.g. supplier name and VAT number)."
+msgstr "Sebuah kumpulan yang didefinisikan, seperti pemasok atau klasifikasi, \n                                dengan multi atribut (misalnya nama pemasok dan nomor VAT)."
+
+#: openspending/ui/templates/editor/dimensions.html:143
+#: openspending/ui/templates/run/view.html:49
+msgid "Attribute"
+msgstr "Atribut"
+
+#: openspending/ui/templates/editor/dimensions.html:145
+msgid "A simple value, e.g. descriptions or transaction IDs."
+msgstr "Sebuah nilai sederhana, misalnya deskripsi atau ID transaksi."
+
+#: openspending/ui/templates/editor/dimensions.html:150
+msgid "Date"
+msgstr "Tanggal"
+
+#: openspending/ui/templates/editor/dimensions.html:152
+msgid "Temporal value, e.g. start of project, date of disbursement."
+msgstr "Nilai sementara, misalnya kapan proyek dimulai, tanggal pengeluaran."
+
+#: openspending/ui/templates/editor/dimensions.html:157
+msgid "Measure"
+msgstr "Ukuran"
+
+#: openspending/ui/templates/editor/dimensions.html:159
+msgid "Monetary information, e.g. amount disbursed or allocated."
+msgstr "Informasi keuangan, misalnya jumlah yang dibelanjakan atau dialokasikan."
+
+#: openspending/ui/templates/editor/dimensions.html:167
+msgid "Unmapped source data columns"
+msgstr "Kolom data sumber tak terpetakan"
+
+#: openspending/ui/templates/editor/dimensions.html:175
+msgid "Cancel"
+msgstr "Batal"
+
+#: openspending/ui/templates/editor/dimensions.html:176
+msgid "Add"
+msgstr "Tambah"
+
+#: openspending/ui/templates/editor/dimensions.html:184
+msgid ""
+"[1:Your model was saved.] You can now try to load a \n"
+"          sample of the data by returning back to the dashboard.\n"
+"          [2:\n"
+"            [3:Visit dashboard]\n"
+"          ]"
+msgstr "[1:Data model anda telah disimpan.] Sekarang anda bisa mencoba \n          memuat sebuah contoh data dengan kembali ke dasbor.\n          [2:\n            [3:Kunjungi dasbor]\n          ]"
+
+#: openspending/ui/templates/editor/dimensions.html:195
+msgid ""
+"The dimensions mapping could not be saved as it \n"
+"                                          contains some errors:"
+msgstr "Pemetaan dimensi tidak dapat disimpan karena \n                                          ia mengandung beberapa masalah:"
+
+#: openspending/ui/templates/editor/dimensions.html:211
+msgid "Dimension mapping"
+msgstr "Pemetaan dimensi"
+
+#: openspending/ui/templates/editor/dimensions.html:212
+msgid ""
+"To create a model for your dataset,\n"
+"                                          you need to translate the columns in \n"
+"                                          the data file to \"dimensions\", the logical\n"
+"                                          divisions of the dataset. A dimension\n"
+"                                          can be any property of a line item or \n"
+"                                          transaction that should be presented\n"
+"                                          within OpenSpending."
+msgstr "Untuk membuat sebuah model kumpulan data anda,\n                                          anda harus mentranslasi kolom pada \n                                          file data ke \"dimensi\", bagian logika\n                                          dari kumpulan data. Sebuah dimensi\n                                          dapat berupa properti apapun dari item baris \n                                          atau transaksi yang harus ditampilkan\n                                          di dalam OpenSpending."
+
+#: openspending/ui/templates/editor/dimensions.html:221
+msgid "There are four core dimensions,"
+msgstr "Terdapat empat inti dimensi,"
+
+#: openspending/ui/templates/editor/dimensions.html:222
+#: openspending/ui/templates/editor/dimensions.html:246
+msgid "amount"
+msgstr "jumlah"
+
+#: openspending/ui/templates/editor/dimensions.html:223
+#: openspending/ui/templates/editor/dimensions.html:248
+msgid "time"
+msgstr "waktu"
+
+#: openspending/ui/templates/editor/dimensions.html:223
+msgid ""
+"— which are\n"
+"                                          mandatory — as well as"
+msgstr "— yang mana\n                                          wajib — sebagaimana pula"
+
+#: openspending/ui/templates/editor/dimensions.html:225
+#: openspending/ui/templates/editor/dimensions.html:254
+msgid "from"
+msgstr "dari"
+
+#: openspending/ui/templates/editor/dimensions.html:225
+msgid ""
+"for the spender,\n"
+"                                          and"
+msgstr "untuk pembelanja,\n                                          dan"
+
+#: openspending/ui/templates/editor/dimensions.html:226
+#: openspending/ui/templates/editor/dimensions.html:257
+msgid "to"
+msgstr "ke"
+
+#: openspending/ui/templates/editor/dimensions.html:226
+msgid ""
+"for the\n"
+"                                          recipient of a specific transaction\n"
+"                                          — both of those must be\n"
+"                                          dimensions if they exist."
+msgstr "untuk\n                                          penerima transaksi tertentu\n                                          — keduanya haruslah berupa\n                                          dimensi bila memang ada."
+
+#: openspending/ui/templates/editor/dimensions.html:231
+msgid ""
+"Beyond that, you can add your own\n"
+"                                          dimensions to describe aspects such\n"
+"                                          as classification schemes,\n"
+"                                          descriptions, transaction IDs and any\n"
+"                                          other details present in the source\n"
+"                                          data."
+msgstr "Di sampaing itu, anda dapat pula menambahkan\n                                          dimensi milik anda untuk menggambarkan aspek\n                                          seperti sebagai skema klasifikasi,\n                                          deskripsi, ID transaksi dan\n                                          rincian lainnya yang ada pada\n                                          data sumber."
+
+#: openspending/ui/templates/editor/dimensions.html:239
+msgid "What do I do here?"
+msgstr "Apa yang dapat saya kerjakan di sini?"
+
+#: openspending/ui/templates/editor/dimensions.html:240
+msgid ""
+"First off, make sure to set up the\n"
+"                                          model to conform to these basic\n"
+"                                          requirements:"
+msgstr "Pertama, pastikan untuk menyetel\n                                          model agar sesuai dengan\n                                          kebutuhan dasar ini:"
+
+#: openspending/ui/templates/editor/dimensions.html:246
+msgid "Create"
+msgstr "Buat"
+
+#: openspending/ui/templates/editor/dimensions.html:246
+msgid ""
+"with the core \n"
+"                                          financial measure of the dataset and"
+msgstr "dengan pengukuran \n                                          inti keuangan dari kumpulan data dan"
+
+#: openspending/ui/templates/editor/dimensions.html:248
+msgid ""
+"to represent the most \n"
+"                                          representative temporal\n"
+"                                          dimension."
+msgstr "untuk mewakili  \n                                          dimensi sementara\n                                          yang paling representatif."
+
+#: openspending/ui/templates/editor/dimensions.html:251
+msgid ""
+"If your data is transactional and \n"
+"                                          contains the name of a department or \n"
+"                                          body spending the funds, make sure to \n"
+"                                          include a"
+msgstr "Bila data anda transaksional dan \n                                          berisi nama departemen \n                                          atau badan yang membelanjakan dana, \n                                          pastikan untuk menyertakan sebuah"
+
+#: openspending/ui/templates/editor/dimensions.html:254
+msgid "dimension."
+msgstr "dimensi."
+
+#: openspending/ui/templates/editor/dimensions.html:255
+msgid ""
+"If the data mentions a recipient,\n"
+"                                          such as a supplier, set"
+msgstr "Bila data tersebut menyebut penerima,\n                                          seperti pemasok, kumpulan"
+
+#: openspending/ui/templates/editor/dimensions.html:257
+msgid "as another dimension."
+msgstr "sebagai dimensi lainnya."
+
+#: openspending/ui/templates/editor/dimensions.html:258
+msgid ""
+"Set a unique key combination so\n"
+"                                          that the values within that\n"
+"                                          combination are different between all \n"
+"                                          entries in the dataset. This can\n"
+"                                          later be used for updating the\n"
+"                                          dataset."
+msgstr "Setel sebuah kombinasi kunci unik sehingga\n                                          nilai yang ada di dalam\n                                          kombinasi tersebut berbeda antar \n                                          entitas dalam kumpulan data tersebut.\n                                          Ini dapat digunakan nanti untuk\n                                          memperbarui kumpulan datanya."
+
+#: openspending/ui/templates/editor/dimensions.html:265
+msgid ""
+"After you've done these basic things,\n"
+"                                          make sure to also create dimensions\n"
+"                                          to cover any other aspects present in \n"
+"                                          the source data. You can group\n"
+"                                          related columns into a single\n"
+"                                          dimension, for example if each row \n"
+"                                          mentions both a company's name and\n"
+"                                          its VAT number."
+msgstr "Setelah anda selesai dengan hal dasar ini,\n                                          pastikan juga untuk membuat dimensi\n                                          yang melingkupi semua aspek yang hadir \n                                          dalam sumber data. Anda dapat mengelompokkan\n                                          kolom terkait dengan sebuah dimensi\n                                          tunggal, sebagai contoh bila setiap baris \n                                          menyebut keduanya nama perusahaan dan\n                                          nomor VAT-nya."
+
+#: openspending/ui/templates/editor/dimensions.html:279
+msgid "Background: How does OpenSpending store data?"
+msgstr "Latar belakang: Bagaimana OpenSpending menyimpan data?"
+
+#: openspending/ui/templates/editor/dimensions_errors.html:18
+msgid "You cannot edit dimensions while data is loaded."
+msgstr "Anda tidak bisa mengedit dimensi ketika data sedang dimuat."
+
+#: openspending/ui/templates/editor/dimensions_errors.html:18
+msgid ""
+"In order to modify the dimensions model, you'll have to \n"
+"            delete all the data that is currently loaded from the database."
+msgstr "Untuk memodifikasi model dimensi, anda harus \n            menghapus semua data yang saat ini dimuat dari basisdata."
+
+#: openspending/ui/templates/editor/dimensions_errors.html:33
+msgid "You need to define at least one data source."
+msgstr "Anda harus mendefinisikan sedikitnya satu data sumber."
+
+#: openspending/ui/templates/editor/dimensions_errors.html:33
+msgid ""
+"In order to create a dimensions model, at least on data source\n"
+"            needs to be available."
+msgstr "Untuk membuat sebuah model dimensi, setidaknya data sumber\n           harus tersedia."
+
+#: openspending/ui/templates/editor/index.html:21
+msgid ""
+"[1:Congratulations, your dataset is now created.] Next, you'll need\n"
+"            to link to a source file that contains the data (or a sample for testing\n"
+"            if your dataset is very large!). The data must be in the CSV format."
+msgstr "[1:Congratulations, your dataset is now created.] Next, you'll need\n            untuk menautkan sebuah file sumber yang berisi data (atau sebuah contoh untuk tes\n            bila kumpulan data anda sangat besar!). Data harus dalam format CSV."
+
+#: openspending/ui/templates/editor/index.html:27
+msgid ""
+"Learn about [1:how to export CSV] from various common\n"
+"                applications."
+msgstr "Pelajari mengenai [1:bagaimana mengekspor CSV] dari beragam\n                aplikasi umum."
+
+#: openspending/ui/templates/editor/index.html:29
+msgid ""
+"Help on [1:common data wrangling tasks] needed to clean\n"
+"                source data."
+msgstr "Bantuan pada [1:tugas pengolahan data umum] diperlukan untuk\n                membersihkan data sumber."
+
+#: openspending/ui/templates/editor/index.html:36
+#: openspending/ui/templates/editor/index.html:63
+msgid "Add a source"
+msgstr "Tambah sumber"
+
+#: openspending/ui/templates/editor/index.html:40
+msgid ""
+"[1:Let me see...] The data is now being checked to\n"
+"            see if it can be imported. This should not take very long.\n"
+"            [2:\n"
+"              [3:Refresh]\n"
+"            ]"
+msgstr "[1:Coba saya lihat...] Data sekarang sedang diperiksa\n            untuk melihat apakah ia bisa diimpor. Ini seharusnya tidak membutuhkan waktu sangat lama.\n            [2:\n              [3:Segarkan]\n            ]"
+
+#: openspending/ui/templates/editor/index.html:49
+msgid ""
+"[1:Good stuff!] Your data is now ready. Next,\n"
+"            create a [2:data model] to structure the dataset.\n"
+"            [3:\n"
+"              [4:Create\n"
+"                a model]\n"
+"            ]"
+msgstr "[1:Hal yang bagus!] Data anda sekarang sudah siap. Selanjutnya,\n            buatlah sebuah [2:model data] untuk memberi struktur kumpulan data tersebut.\n            [3:\n              [4:Buatlah\n                sebuah model]\n            ]"
+
+#: openspending/ui/templates/editor/index.html:61
+msgid "Source files"
+msgstr "File sumber"
+
+#: openspending/ui/templates/editor/index.html:67
+msgid "Summary"
+msgstr "Ringkasan"
+
+#: openspending/ui/templates/editor/index.html:69
+msgid "Entries loaded:"
+msgstr "Entitas dimuat:"
+
+#: openspending/ui/templates/editor/index.html:70
+msgid "Searchable:"
+msgstr "Dapat dicari:"
+
+#: openspending/ui/templates/editor/index.html:72
+msgid "Dataset Actions"
+msgstr "Aksi Kumpulan data"
+
+#: openspending/ui/templates/editor/index.html:78
+msgid ""
+"Delete all loaded data to fix \n"
+"              errors and re-edit the data dimensions."
+msgstr "Hapus semua data yang dimuat untuk \n              memperbaiki masalah dan edit-ulang dimensi data."
+
+#: openspending/ui/templates/editor/index.html:83
+msgid "Delete loaded data"
+msgstr "Hapus data termuat"
+
+#: openspending/ui/templates/editor/index.html:84
+msgid ""
+"You can remove the loaded data\n"
+"            at any time and start over."
+msgstr "Anda dapat menghapus data termuat\n            kapanpun dan memulainya."
+
+#: openspending/ui/templates/editor/index.html:93
+#: openspending/ui/templates/editor/index.html:99
+msgid ""
+"After you've performed some QA,\n"
+"              let the world see this dataset."
+msgstr "Segera setelah anda menampilkan beberapa QA,\n              ajak dunia melihat kumpulan data ini."
+
+#: openspending/ui/templates/editor/index.html:98
+msgid "Make public"
+msgstr "Jadikan publik"
+
+#: openspending/ui/templates/editor/index.html:106
+msgid ""
+"If you have noted serious quality\n"
+"              issues or legal issues, you can un-publish this dataset."
+msgstr "Jika anda mencatat adanya masalah kualitas\n              atau hukum yang serius, anda dapat menarik kumpulan data ini dari publikasi."
+
+#. Warning message on deletion
+#: openspending/ui/templates/editor/index.html:114
+msgid ""
+"This\n"
+"          action cannot be undone."
+msgstr "Aksi\n          ini tidak bisa dibatalkan."
+
+#: openspending/ui/templates/editor/index.html:128
+msgid "Create a new data source"
+msgstr "Buat data sumber baru"
+
+#: openspending/ui/templates/editor/team.html:20
+msgid ""
+"Here, you can select the users who will be authorized to \n"
+"        manage this dataset."
+msgstr "Di sini, anda dapat memilih pengguna mana yang diizinkan \n        untuk mengelola kumpulan data ini."
+
+#: openspending/ui/templates/editor/team.html:32
+msgid "Current team"
+msgstr "Tim sekarang"
+
+#: openspending/ui/templates/editor/team.html:36
+msgid "Add someone"
+msgstr "Tambah seseorang"
+
+#: openspending/ui/templates/editor/views.html:25
+msgid ""
+"[1:Here be dragons.] The visualizations editor does \n"
+"          not have a graphical interface yet. If you still want to use it, \n"
+"          please check out the [2:documentation]\n"
+"          for the 'views' system."
+msgstr "[1:Di sinilah naganya.] Editor visualisasi belum punya \n          antarmuka grafisnya. Bila anda masih juga ingin menggunakannya, \n          silahkan periksa [2:dokumentasinya]\n          pada sistem 'tampilan'."
+
+#: openspending/ui/templates/editor/views.html:33
+msgid "Available Dimensions"
+msgstr "Dimensi yang Tersedia"
+
+#: openspending/ui/templates/editor/views.html:53
+msgid ""
+"The views could not be saved as they contain some \n"
+"                errors:"
+msgstr "Tampilan tidak dapat disimpan karena ia mengandung \n                beberapa masalah:"
+
+#: openspending/ui/templates/entry/search.html:7
+msgid "Entries Search"
+msgstr "Entitas Pencarian"
+
+#: openspending/ui/templates/entry/view.html:7
+msgid "nav-entry"
+msgstr "nav-entitas"
+
+#: openspending/ui/templates/entry/view.html:28
+msgid "Entries"
+msgstr "Entitas"
+
+#: openspending/ui/templates/entry/view.html:32
+#, python-format
+msgid "%(currency)s %(amount)s on %(time)s"
+msgstr "%(currency)s %(amount)s pada %(time)s"
+
+#: openspending/ui/templates/entry/view.html:41
+#, python-format
+msgid ""
+"Entry in %(dataset_label)s\n"
+"      [1:Detailed View of Transaction]"
+msgstr "Entitas pada %(dataset_label)s\n      [1:Tampilan rincian transaksi]"
+
+#: openspending/ui/templates/entry/view.html:58
+msgid "Recipient"
+msgstr "Penerima"
+
+#: openspending/ui/templates/entry/view.html:70
+msgid "Spender"
+msgstr "Pembelanja"
+
+#: openspending/ui/templates/entry/view.html:102
+#: openspending/ui/templates/run/view.html:50
+msgid "Value"
+msgstr "Nilai"
+
+#: openspending/ui/templates/entry/view.html:135
+msgid "Notes:"
+msgstr "Catatan:"
+
+#: openspending/ui/templates/home/index.html:16
+msgid "Welcome"
+msgstr "Selamat datang"
+
+#: openspending/ui/templates/home/index.html:25
+msgid "Mapping the money."
+msgstr "Memetakan keuangan."
+
+#: openspending/ui/templates/home/index.html:26
+msgid ""
+"Our aim is to track every government financial transaction \n"
+"        across the world and present it in useful and engaging forms for everyone\n"
+"        from a school-child to a data geek."
+msgstr "Tujuan kami adalah untuk melacak setiap transaksi keuangan pemerintah \n        di seluruh dunia dan menghadirkannya dalam bentuk yang berguna dan menarik bagi semua orang\n        mulai dari anak-sekolah hingga pecandu data."
+
+#: openspending/ui/templates/home/index.html:40
+msgid "Getting started"
+msgstr "Mari mulai"
+
+#: openspending/ui/templates/home/index.html:41
+msgid "What can I do here?"
+msgstr "Apa yang bisa saya lakukan di sini?"
+
+#: openspending/ui/templates/home/index.html:42
+msgid "FAQ"
+msgstr "FAQ"
+
+#: openspending/ui/templates/home/index.html:43
+msgid "Browse datasets"
+msgstr "Ramban kumpulan data"
+
+#: openspending/ui/templates/home/index.html:46
+msgid "The project"
+msgstr "Proyek"
+
+#: openspending/ui/templates/home/index.html:48
+msgid "Projects Portfolio"
+msgstr "Portfolio Proyek"
+
+#: openspending/ui/templates/home/index.html:50
+msgid "Contribute"
+msgstr "Kontribusi"
+
+#: openspending/ui/templates/home/rest.html:5
+msgid "nav-api"
+msgstr "nav-api"
+
+#: openspending/ui/templates/home/rest.html:7
+msgid "REST API"
+msgstr "REST API"
+
+#: openspending/ui/templates/home/rest.html:10
+msgid "The Store's REST API"
+msgstr "Penyimpanan REST API"
+
+#: openspending/ui/templates/home/rest.html:12
+msgid ""
+"This API returns JSON versions of the store's domain objects.\n"
+"    The URLs are generally the same as the URLs used by the web interface for\n"
+"    the same objects, but with \"/api/rest\" prepended."
+msgstr "API ini mengembalikan versi JSON dari objek penyimpanan domain.\n    URL pada umumnya sama dengan URL yang digunakanpada antarmuka web\n    untuk objek yang sama, tetapi dengan prepended \"/api/rest\"."
+
+#: openspending/ui/templates/home/rest.html:17
+msgid "Here are some examples:"
+msgstr "Berikut beberapa contoh:"
+
+#: openspending/ui/templates/home/rest.html:26
+msgid ""
+"The JSON response generally contains the same information as the\n"
+"    corresponding web page, but in more detail."
+msgstr "Respon JSON secara umum mengandung informasi yang dengan\n    laman web yang dimaksud, tetapi lebih rinci."
+
+#: openspending/ui/templates/home/rest.html:29
+msgid ""
+"A JSONP object is returned if a [1:callback] parameter is\n"
+"    supplied (usually by appending \"?callback=myfun\" or\n"
+"    similar)."
+msgstr "Objek JSONP akan dikembalikan jika parameter [1:callback]\n    disediakan (biasanya dengan menambahkan \"?callback=myfun\" atau\n    sejenisnya)."
+
+#: openspending/ui/templates/run/view.html:7
+#: openspending/ui/templates/source/new.html:8
+msgid "nav-source"
+msgstr "nav-sumber"
+
+#: openspending/ui/templates/run/view.html:9
+#: openspending/ui/templates/run/view.html:14
+msgid "Report:"
+msgstr "Laporan:"
+
+#: openspending/ui/templates/run/view.html:17
+msgid "Errors,"
+msgstr "Galat,"
+
+#: openspending/ui/templates/run/view.html:21
+msgid "Nothing to report!"
+msgstr "Tidak ada untuk dilaporkan!"
+
+#: openspending/ui/templates/run/view.html:21
+msgid ""
+"The source has been loaded\n"
+"      successfully. This does not mean the data is stored in a form \n"
+"      which is semantically useful, though, so don't forget to \n"
+"      sanity-check a few entries!"
+msgstr "Sumber telah berhasil dimuat\n      Ini bukan berarti data telah disimpan dalam sebuah bentuk \n      yang berguna secara semantik, jadi jangan lupa \n      untuk memeriksa kondisi beberapa entitasnya!"
+
+#: openspending/ui/templates/run/view.html:30
+msgid "Level"
+msgstr "Level"
+
+#: openspending/ui/templates/run/view.html:31
+msgid "Message"
+msgstr "Pesan"
+
+#: openspending/ui/templates/run/view.html:47
+msgid "Row"
+msgstr "Baris"
+
+#: openspending/ui/templates/run/view.html:48
+msgid "Column"
+msgstr "Kolom"
+
+#: openspending/ui/templates/source/_list.html:12
+msgid "Link"
+msgstr "Tautan"
+
+#: openspending/ui/templates/source/_list.html:13
+msgid "Operations"
+msgstr "Operasi"
+
+#: openspending/ui/templates/source/_list.html:22
+msgid "OK"
+msgstr "OK"
+
+#: openspending/ui/templates/source/_list.html:30
+msgid "columns"
+msgstr "kolom"
+
+#: openspending/ui/templates/source/_list.html:48
+msgid "Test a sample"
+msgstr "Uji sebuah contoh"
+
+#: openspending/ui/templates/source/_list.html:49
+msgid "Load"
+msgstr "Muat"
+
+#: openspending/ui/templates/source/_list.html:59
+msgid "Reports"
+msgstr "Laporan"
+
+#: openspending/ui/templates/source/_list.html:67
+msgid "Running"
+msgstr "Berjalan"
+
+#: openspending/ui/templates/source/_list.html:70
+msgid "Complete"
+msgstr "Selesai"
+
+#: openspending/ui/templates/source/_list.html:73
+msgid "Errors"
+msgstr "Masalah"
+
+#: openspending/ui/templates/source/_list.html:75
+#, python-format
+msgid "(%(count)s Errors)"
+msgstr "(%(count)s Galat)"
+
+#: openspending/ui/templates/source/_new_form.html:12
+msgid "URL"
+msgstr "URL"
+
+#: openspending/ui/templates/source/_new_form.html:15
+msgid ""
+"This must point directly at a\n"
+"            valid CSV file. HTML landing pages or other formats, such as\n"
+"            Excel, will not work."
+msgstr "Ini seharusnya mengarahkan langsung pada\n            sebuah file CSV yang benar. Laman pembuka HTML atau format lainnya,\n            seperti Excel, tidak akan bekerja."
+
+#: openspending/ui/templates/source/new.html:10
+#: openspending/ui/templates/source/new.html:17
+msgid "Create a data source"
+msgstr "Buat sebuah sumber data"
+
+#: openspending/ui/templates/view/_widgets.html:33
+msgid "window.wdg_"
+msgstr "window.wdg_"
+
+#: openspending/ui/templates/view/_widgets.html:34
+msgid ""
+".then(function(w) {\n"
+"      var embedder = new OpenSpending.Widgets.Embedder(w, context, '"
+msgstr ".then(function(w) {\n      var embedder = new OpenSpending.Widgets.Embedder(w, context, '"
+
+#: openspending/ui/templates/view/_widgets.html:35
+msgid ""
+"');  \n"
+"      $(\"#widget-embed-link\").click(function(e) {\n"
+"        embedder.render();\n"
+"        return false;\n"
+"      });\n"
+"      if (w.configure !== undefined) {\n"
+"        $(\"#widget-edit-link\").show();\n"
+"        $(\"#widget-edit-link\").click(function(e) {\n"
+"          w.configure(null);\n"
+"          return false;\n"
+"        });\n"
+"      }\n"
+"      if (w.getDownloadURL !== undefined) {\n"
+"        $(\"#widget-download-link\").show();\n"
+"        $(\"#widget-download-link\").click(function(e) {\n"
+"          document.location.replace(w.getDownloadURL());\n"
+"          return false;\n"
+"        });\n"
+"      }\n"
+"    });"
+msgstr "');  \n      $(\"#widget-embed-link\").click(function(e) {\n        embedder.render();\n        return false;\n      });\n      if (w.configure !== undefined) {\n        $(\"#widget-edit-link\").show();\n        $(\"#widget-edit-link\").click(function(e) {\n          w.configure(null);\n          return false;\n        });\n      }\n      if (w.getDownloadURL !== undefined) {\n        $(\"#widget-download-link\").show();\n        $(\"#widget-download-link\").click(function(e) {\n          document.location.replace(w.getDownloadURL());\n          return false;\n        });\n      }\n    });"
+
+#: openspending/ui/templates/view/embed.html:14
+msgid "Embedded Visualisation -"
+msgstr "Visualisasi Ditanamkan -"
+
+#: openspending/ui/templates/view/index.html:10
+msgid "Library of visualisations -"
+msgstr "Pustaka visualisasi -"
+
+#: openspending/ui/templates/view/index.html:31
+msgid "by"
+msgstr "oleh"
+
+#: openspending/ui/templates/view/new.html:10
+msgid "Create a visualisation"
+msgstr "Buat sebuah visualisasi"
+
+#: openspending/ui/templates/view/new.html:54
+msgid "Visualize"
+msgstr "Visualisasikan"
