@@ -11,7 +11,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <title>${page_title()} - ${g.site_title}</title>
+    <title>{{ page_title }} - ${g.site_title}</title>
     <meta name="description" py:if="defined('page_description')"
       content="${page_description()}" />
     <meta name="description" py:if="not defined('page_description')"
