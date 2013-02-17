@@ -1,4 +1,6 @@
 from pylons import tmpl_context as c
+from pylons import app_globals
+
 from openspending.ui.lib import helpers as h
 
 from jinja2 import Template, FileSystemLoader
@@ -19,6 +21,7 @@ def render(dirname, filename):
         "bootstrap_css": h.static('style/bootstrap.css'),
         "style_css": h.static('style/style.css'),
         "number_symbols_group": c.locale.number_symbols.get('group'),
-        "number_symbols_decimal": c.locale.number_symbols.get('decimal')
+        "number_symbols_decimal": c.locale.number_symbols.get('decimal'),
+        "site_title": app_globals.site_title
         }
     return template.render(params)
