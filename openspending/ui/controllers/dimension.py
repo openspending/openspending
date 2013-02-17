@@ -18,7 +18,7 @@ from openspending.ui.lib.hypermedia import dimension_apply_links, \
     member_apply_links, entry_apply_links
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import write_json, to_jsonp
-from openspending.ui.dynamic import templating
+from openspending.ui.alttemplates import templating
 log = logging.getLogger(__name__)
 
 PAGE_SIZE = 100
@@ -59,7 +59,7 @@ class DimensionController(BaseController):
                 for d in c.dataset.dimensions]
             return to_jsonp(dimensions)
         else:
-            return templating.render('openspending/ui/dynamic/dimension',
+            return templating.render('openspending/ui/alttemplates/dimension',
                                      'index.html')
             #return render('dimension/index.html')
 
