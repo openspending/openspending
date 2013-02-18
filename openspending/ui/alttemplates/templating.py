@@ -7,6 +7,19 @@ from openspending.ui.lib import helpers as h
 from jinja2 import Template, FileSystemLoader
 from jinja2.environment import Environment
 
+def languages(detected_languages, current_language):
+    def lang_triple(lang):
+        if current_language == lang[0]:
+            current_locale = "current_locale"
+        else:
+            current_locale = ""
+        return {
+            "lang_code": lang[0], 
+            "lang_name": lang[1], 
+            "current_locale" : current_locale
+            }
+    return [ lang_triple(l) for l in detected_languages ]
+
 def render(dirname, filename):
     env = Environment()
     env.loader = FileSystemLoader(dirname)
@@ -30,6 +43,7 @@ def render(dirname, filename):
         "site_title": app_globals.site_title,
         "static": config.get("openspending.static_path", "/static/"),
         "static_cache_version": static_cache_version,
-        "messages": list(h._flash.pop_messages())
+        "messages": list(h._flash.pop_messages()),
+        "languages": languages(c.detected_l10n_languages, c.language)
         }
     return template.render(params)
