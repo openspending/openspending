@@ -54,6 +54,7 @@ def render(dirname, filename):
         "static_cache_version": static_cache_version,
         "messages": list(h._flash.pop_messages()),
         "languages": languages(c.detected_l10n_languages, c.language),
-        "section_active": section_active(c.content_section)
+        "section_active": section_active(c.content_section),
+        "account": c.account is not None
         }
     return template.render(params)

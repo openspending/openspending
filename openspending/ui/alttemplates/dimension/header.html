@@ -65,14 +65,15 @@
             </ul>
           </div>
           <ul class="nav pull-right">
-            <li py:if="c.account is None">
-              <a href="/login">Login/Register</a>
-            </li>
-            <py:if test="c.account is not None">
+			{% if account %}
               <li><a href="/dashboard">Dashboard</a></li>
               <li><a href="/settings">Settings</a></li>
               <li><a href="/logout">Logout</a></li>
-            </py:if>
+			{% else %}
+              <li>
+                <a href="/login">Login/Register</a>
+              </li>
+			{% endif %}
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown">Language</a>
               <ul class="dropdown-menu locale-dropdown">
