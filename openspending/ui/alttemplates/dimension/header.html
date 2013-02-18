@@ -28,9 +28,8 @@
     <link href="{{ bootstrap_css }}" rel="stylesheet" />
     <link href="{{ style_css }}" rel="stylesheet" />
 
-    <py:if test="defined('optional_head')">
-      ${optional_head()}
-    </py:if>
+	<!-- TODO: remove the need for this -->
+    {{ optional_head }}
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
