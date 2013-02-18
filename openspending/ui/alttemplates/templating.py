@@ -1,5 +1,6 @@
 from pylons import tmpl_context as c
 from pylons import app_globals
+from pylons import config
 
 from openspending.ui.lib import helpers as h
 
@@ -10,6 +11,10 @@ def render(dirname, filename):
     env = Environment()
     env.loader = FileSystemLoader(dirname)
     template = env.get_template(filename)
+
+    static_cache_version = config.get("openspending.static_cache_version", "")
+    if static_cache_version != "":
+        static_cache_version = "?" + static_cache_version
 
     params = {
         "dataset_label": c.dataset.label,
@@ -22,6 +27,8 @@ def render(dirname, filename):
         "style_css": h.static('style/style.css'),
         "number_symbols_group": c.locale.number_symbols.get('group'),
         "number_symbols_decimal": c.locale.number_symbols.get('decimal'),
-        "site_title": app_globals.site_title
+        "site_title": app_globals.site_title,
+        "static": config.get("openspending.static_path", "/static/"),
+        "static_cache_version": static_cache_version
         }
     return template.render(params)
