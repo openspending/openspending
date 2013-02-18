@@ -19,9 +19,9 @@ def languages(detected_languages, current_language):
             }
     return [ lang_triple(l) for l in detected_languages ]
 
-def section_active():
+def section_active(section):
     sections = [ "blog", "dataset", "search", "resources", "help", "about" ]
-    tmp = dict([ (s, c.content_section == s)for s in sections ])
+    tmp = dict([ (s, section == s)for s in sections ])
     tmp["dataset"] = bool(c.dataset)
 
     return dict([ (k, {
@@ -54,6 +54,6 @@ def render(dirname, filename):
         "static_cache_version": static_cache_version,
         "messages": list(h._flash.pop_messages()),
         "languages": languages(c.detected_l10n_languages, c.language),
-        "section_active": section_active()
+        "section_active": section_active(c.content_section)
         }
     return template.render(params)
