@@ -77,8 +77,8 @@
               <a class="dropdown-toggle" data-toggle="dropdown">Language</a>
               <ul class="dropdown-menu locale-dropdown">
 				{% for l in languages %}
-				<li class="locale {{ current_locale }}">
-				  <a class="select-locale" data-locale="{{ lang_code }}">{{ lang_name }}</a>
+				<li class="locale {{ l.current_locale }}">
+				  <a class="select-locale" data-locale="{{ l.lang_code }}">{{ l.lang_name }}</a>
                 </li>
 				{% endfor %}
               </ul>
