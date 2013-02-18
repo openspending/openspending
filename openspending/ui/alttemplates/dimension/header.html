@@ -87,10 +87,13 @@
     </div>
 
     <div class="container">
-      <py:with vars="messages = list(h._flash.pop_messages())">
-        <div py:if="len(messages)">
-          <div class="alert alert-${m.category}" py:for="m in messages">
-            ${m.message}
+	  {% if messages %}
+        <div>
+		  {% for m in messages %}
+          <div class="alert alert-{{ m.category }}">
+            {{ m.message }}
           </div>
+		  {% endfor %}
         </div>
-      </py:with>
+	  {% endif %}
+	

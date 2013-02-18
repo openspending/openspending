@@ -29,6 +29,7 @@ def render(dirname, filename):
         "number_symbols_decimal": c.locale.number_symbols.get('decimal'),
         "site_title": app_globals.site_title,
         "static": config.get("openspending.static_path", "/static/"),
-        "static_cache_version": static_cache_version
+        "static_cache_version": static_cache_version,
+        "messages": list(h._flash.pop_messages())
         }
     return template.render(params)
