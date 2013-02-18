@@ -12,10 +12,11 @@
   <head>
     <meta charset="utf-8" />
     <title>{{ page_title }} - {{ site_title }}</title>
-    <meta name="description" py:if="defined('page_description')"
-      content="${page_description()}" />
-    <meta name="description" py:if="not defined('page_description')"
-      content="We're enabling anyone to explore, visualize and track government spending." />
+	{% if page_description %}
+    <meta name="description" content="{{ page_description }}" />
+	{% else %}
+    <meta name="description" content="We're enabling anyone to explore, visualize and track government spending." />
+	{% endif %}
     <meta name="author" content="Open Knowledge Foundation" />
     <link rel="shortcut icon" href="${h.static('img/favicon.ico')}" type="image/x-icon" />
     <link rel="alternate" type="application/rss+xml" title="Latest Datasets on OpenSpending"
