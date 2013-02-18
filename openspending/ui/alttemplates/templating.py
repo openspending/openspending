@@ -22,11 +22,7 @@ def languages(detected_languages, current_language):
 def section_active():
     sections = [ "blog", "dataset", "search", "resources", "help", "about" ]
     tmp = dict([ (s, c.content_section == s)for s in sections ])
-
-    if c.dataset:
-        tmp["dataset"] = True
-    else:
-        tmp["dataset"] = False
+    tmp["dataset"] = bool(c.dataset)
 
     return dict([ (k, {
                 True: "active",
