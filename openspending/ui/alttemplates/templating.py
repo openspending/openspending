@@ -9,14 +9,13 @@ from jinja2.environment import Environment
 
 def languages(detected_languages, current_language):
     def lang_triple(lang):
-        if current_language == lang[0]:
-            current_locale = "current_locale"
-        else:
-            current_locale = ""
         return {
             "lang_code": lang[0], 
             "lang_name": lang[1], 
-            "current_locale" : current_locale
+            "current_locale" : {
+                True: "current_locale",
+                False: ""
+                }[ current_language == lang[0] ]
             }
     return [ lang_triple(l) for l in detected_languages ]
 
