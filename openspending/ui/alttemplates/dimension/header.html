@@ -47,20 +47,20 @@
           <a class="brand" href="/" xml:lang="en"><span class="green">Open</span>Spending</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li><a class='${"active" if c.content_section=="blog" else ""}'
+              <li><a class="{{ section_active.blog }}"
                 href="${h.url(controller='content', action='view', section='blog', path='index.html')}">Spending Blog</a></li>
               <li class="dropdown">
-                <a class='list-datasets ${"active" if c.dataset else ""}' href="#datasets">Datasets</a>
+                <a class="list-datasets {{ section_active.dataset }}" href="#datasets">Datasets</a>
               </li>
-              <li><a class='${"active" if c.content_section=="search" else ""}'
+              <li><a class="{{ section_active.search }}"
                 href="${h.url(controller='entry', action='search')}">Search</a></li>
               <li class="dropdown">
-                <a class='${"active" if c.content_section=="resources" else ""} dropdown-toggle'
+                <a class="{{ section_active.resources}} dropdown-toggle"
                   href="/resources/index.html">Community</a>
               </li>
-              <li><a class='${"active" if c.content_section=="help" else ""}'
+              <li><a class="{{ section_active.help }}"
                href="${h.url(controller='content', action='view', section='help', path='index.html')}">Help</a></li>
-              <li><a class='${"active" if c.content_section=="about" else ""}'
+              <li><a class="{{ section_active.about }}"
                 href="${h.url(controller='content', action='view', section='about', path='contact.html')}">About</a></li>
             </ul>
           </div>

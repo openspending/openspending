@@ -19,6 +19,20 @@ def languages(detected_languages, current_language):
             }
     return [ lang_triple(l) for l in detected_languages ]
 
+def section_active():
+    sections = [ "blog", "dataset", "search", "resources", "help", "about" ]
+    tmp = dict([ (s, c.content_section == s)for s in sections ])
+
+    if c.dataset:
+        tmp["dataset"] = True
+    else:
+        tmp["dataset"] = False
+
+    return dict([ (k, {
+                True: "active",
+                False: ""
+                }[v]) for k,v in tmp.iteritems() ])
+
 def render(dirname, filename):
     env = Environment()
     env.loader = FileSystemLoader(dirname)
@@ -43,6 +57,7 @@ def render(dirname, filename):
         "static": config.get("openspending.static_path", "/static/"),
         "static_cache_version": static_cache_version,
         "messages": list(h._flash.pop_messages()),
-        "languages": languages(c.detected_l10n_languages, c.language)
+        "languages": languages(c.detected_l10n_languages, c.language),
+        "section_active": section_active()
         }
     return template.render(params)
