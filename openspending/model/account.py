@@ -30,6 +30,7 @@ class Account(db.Model):
     api_key = db.Column(db.Unicode(2000), default=make_uuid)
     admin = db.Column(db.Boolean, default=False)
     script_root = db.Column(db.Unicode(2000))
+    terms = db.Column(db.Boolean, default=False)
 
     datasets = db.relationship(Dataset,
             secondary=account_dataset_table,
