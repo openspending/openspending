@@ -82,6 +82,7 @@ class AccountRegister(colander.MappingSchema):
                                     validator=colander.Length(min=4))
     password2 = colander.SchemaNode(colander.String(),
                                     validator=colander.Length(min=4))
+    terms = colander.SchemaNode(colander.Bool())
 
 
 class AccountSettings(colander.MappingSchema):
