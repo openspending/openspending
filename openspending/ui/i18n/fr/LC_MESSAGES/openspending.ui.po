@@ -1,136 +1,135 @@
-# Translations template for openspending.
+# French translations for openspending.
 # Copyright (C) 2012 ORGANIZATION
-# This file is distributed under the same license as the openspending project.
-# 
-# Translators:
-#   <jbricetetka@gmail.com>, 2012.
+# This file is distributed under the same license as the openspending
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenSpending\n"
+"Project-Id-Version: openspending 0.11\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-03-08 10:54+0100\n"
-"PO-Revision-Date: 2012-03-15 14:58+0000\n"
-"Last-Translator: pudo <friedrich@pudo.org>\n"
-"Language-Team: French (http://www.transifex.net/projects/p/openspending/language/fr/)\n"
+"POT-Creation-Date: 2012-04-16 19:09+0200\n"
+"PO-Revision-Date: 2013-03-05 06:15+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: fr <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
-"Language: fr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: openspending/ui/controllers/account.py:38
+#: openspending/ui/controllers/account.py:39
 msgid "Login name already exists, please choose a different one"
-msgstr "Ce nom d'utilisateur existe déjà, s'il vous plait choisissez un autre"
+msgstr ""
 
-#: openspending/ui/controllers/account.py:42
-#: openspending/ui/controllers/account.py:72
+#: openspending/ui/controllers/account.py:43
+#: openspending/ui/controllers/account.py:73
 msgid "Passwords don't match!"
-msgstr "Le mot de passe ne correspond pas!"
+msgstr ""
 
-#: openspending/ui/controllers/account.py:80
+#: openspending/ui/controllers/account.py:81
 msgid "Your settings have been updated."
-msgstr "Vos paramètres ont été mis à jour."
+msgstr ""
 
-#: openspending/ui/controllers/account.py:91
+#: openspending/ui/controllers/account.py:92
 #, python-format
 msgid "Welcome back, %s!"
-msgstr "Bienvenue, %s!"
+msgstr ""
 
-#: openspending/ui/controllers/account.py:94
+#: openspending/ui/controllers/account.py:95
 msgid "Incorrect user name or password!"
-msgstr "Identifiant ou Mot de passe incorrect."
+msgstr ""
 
-#: openspending/ui/controllers/account.py:98
+#: openspending/ui/controllers/account.py:99
 msgid "You have been logged out."
-msgstr "Vous avez été déconnecté."
+msgstr ""
 
-#: openspending/ui/controllers/dataset.py:100
+#: openspending/ui/controllers/dataset.py:101
 msgid "A dataset with this identifer already exists!"
 msgstr ""
 
-#: openspending/ui/controllers/dimension.py:37
-#, python-format
-msgid "Sorry, there is no member named %r"
-msgstr "Désolé, il n'y a pas de membre qui porte se nom %r"
+#: openspending/ui/controllers/dimension.py:30
+#: openspending/ui/controllers/dimension.py:32
+msgid "This is not a dimension"
+msgstr ""
 
 #: openspending/ui/controllers/dimension.py:42
 #, python-format
-msgid "Sorry, there is no dimension named %r"
-msgstr "Désolé, il n'y a pas de dimension qui porte se nom %r"
-
-#: openspending/ui/controllers/dimension.py:58
-#: openspending/ui/controllers/dimension.py:60
-msgid "This is not a dimension"
-msgstr "Ce n'est pas une dimension"
-
-#: openspending/ui/controllers/editor.py:71
-msgid "The dataset has been updated."
-msgstr "L'ensemble des données a été mise à jour."
-
-#: openspending/ui/controllers/editor.py:100
-msgid ""
-"You cannot edit the dimensions model when data is loaded for the dataset."
+msgid "Sorry, there is no member named %r"
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:118
+#: openspending/ui/controllers/dimension.py:48
+#, python-format
+msgid "Sorry, there is no dimension named %r"
+msgstr ""
+
+#: openspending/ui/controllers/editor.py:79
+msgid "The dataset has been updated."
+msgstr ""
+
+#: openspending/ui/controllers/editor.py:108
+msgid "You cannot edit the dimensions model when data is loaded for the dataset."
+msgstr ""
+
+#: openspending/ui/controllers/editor.py:126
 msgid "The mapping data could not be decoded as JSON!"
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:142
+#: openspending/ui/controllers/editor.py:150
 msgid "The views have been updated."
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:144
+#: openspending/ui/controllers/editor.py:152
 msgid "The views could not be decoded as JSON!"
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:158
+#: openspending/ui/controllers/editor.py:166
 msgid "The dataset has been cleared."
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:166
+#: openspending/ui/controllers/editor.py:174
 msgid "This dataset is already public!"
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:171
+#: openspending/ui/controllers/editor.py:179
 #, python-format
 msgid ""
-"Congratulations, the dataset has been published. It is now available at: %s"
+"Congratulations, the dataset has been published. It is now available at: "
+"%s"
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:180
+#: openspending/ui/controllers/editor.py:188
 msgid "This dataset is already private!"
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:184
+#: openspending/ui/controllers/editor.py:192
 msgid "The dataset has been retracted. It is no longer visible to others."
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:196
+#: openspending/ui/controllers/editor.py:204
 msgid "The dataset has been deleted."
 msgstr ""
 
-#: openspending/ui/controllers/entry.py:42
+#: openspending/ui/controllers/entry.py:43
 #, python-format
 msgid "Sorry, there is no entry %r"
-msgstr "Désolé, il n'ya pas d'entrée %r"
+msgstr ""
 
-#: openspending/ui/controllers/help.py:32
+#: openspending/ui/controllers/help.py:29
 msgid "Sorry, the selected help file could not be found"
 msgstr ""
 
-#: openspending/ui/controllers/home.py:65
+#: openspending/ui/controllers/home.py:63
 msgid "Sent ping!"
 msgstr ""
 
-#: openspending/ui/controllers/run.py:23
+#: openspending/ui/controllers/run.py:32
 #: openspending/ui/controllers/source.py:56
 #, python-format
 msgid "There is no source '%s'"
 msgstr ""
 
-#: openspending/ui/controllers/run.py:26
+#: openspending/ui/controllers/run.py:35
 #, python-format
 msgid "There is no run '%s'"
 msgstr ""
@@ -143,15 +142,34 @@ msgstr ""
 msgid "Now loading..."
 msgstr ""
 
-#: openspending/ui/lib/base.py:139
+#: openspending/ui/controllers/view.py:36
+#, python-format
+msgid "Invalid widget type: %r"
+msgstr ""
+
+#: openspending/ui/controllers/view.py:66
+#, python-format
+msgid "Sorry, there is no view %r"
+msgstr ""
+
+#: openspending/ui/controllers/view.py:119
+msgid "No widget type has been specified."
+msgstr ""
+
+#: openspending/ui/lib/base.py:112
 #, python-format
 msgid "Sorry, there is no dataset named %r"
-msgstr "Désolé, il n'y a pas de données nommé %r"
+msgstr ""
+
+#: openspending/ui/lib/widgets.py:13
+#, python-format
+msgid "No widget named '%s' exists."
+msgstr ""
 
 #: openspending/ui/templates/400.html:5 openspending/ui/templates/403.html:5
 #: openspending/ui/templates/404.html:5 openspending/ui/templates/500.html:5
 msgid "nav-home"
-msgstr "nav-Accueil"
+msgstr ""
 
 #: openspending/ui/templates/400.html:9
 msgid "Invalid request."
@@ -163,23 +181,23 @@ msgstr ""
 #: openspending/ui/templates/run/view.html:51
 #: openspending/ui/templates/source/_list.html:19
 msgid "Error"
-msgstr "Erreur"
+msgstr ""
 
 #: openspending/ui/templates/403.html:9
 msgid "Access denied."
-msgstr "Accès refusé."
+msgstr ""
 
 #: openspending/ui/templates/403.html:13
 msgid "You may not have the relevant rights."
-msgstr "Vous ne disposez pas des droits suffisants."
+msgstr ""
 
 #: openspending/ui/templates/403.html:16
 msgid "You may need to login."
-msgstr "Vous devez vous connecter."
+msgstr ""
 
 #: openspending/ui/templates/404.html:9
 msgid "Resource not found"
-msgstr "Ressource introuvable"
+msgstr ""
 
 #. Advice regarding a 404 error
 #: openspending/ui/templates/404.html:11
@@ -191,114 +209,61 @@ msgstr ""
 
 #: openspending/ui/templates/500.html:9
 msgid "Something went wrong"
-msgstr "Quelque chose a mal tourné"
+msgstr ""
 
 #: openspending/ui/templates/500.html:10
 msgid "Internal Server Error"
-msgstr "Erreur Interne Serveur"
+msgstr ""
 
 #: openspending/ui/templates/500.html:13
 msgid ""
 ":\n"
 "      Sorry, there seems to be an internal problem in OpenSpending.\n"
 "      The problem has now been reported and we're on it."
-msgstr ":\nDésolé, il semble y avoir un problème interne à OpenSpending.\n       Le problème a maintenant été signalé et nous y sommes dessus."
+msgstr ""
 
-#: openspending/ui/templates/_browser.html:36
-#, python-format
-msgid "[1:%(entries)s entries] found."
-msgstr "[1:%(entries)s entrées] trouvées."
-
-#: openspending/ui/templates/_browser.html:52
-msgid "No entries with this property."
-msgstr "Pas d'entrées avec cette propriété."
-
-#. Label for active filters on the dataset 'Search' page
-#: openspending/ui/templates/_browser.html:87
-msgid "filter:"
-msgstr "filtre:"
-
-#: openspending/ui/templates/_util.html:25
-msgid "Time"
-msgstr "Temps"
-
-#: openspending/ui/templates/_util.html:26
-#: openspending/ui/templates/entry/view.html:47
-msgid "Spender"
-msgstr "Dépensier"
-
-#: openspending/ui/templates/_util.html:27
-#: openspending/ui/templates/entry/view.html:35
-msgid "Recipient"
-msgstr "Destinataire"
-
-#: openspending/ui/templates/_util.html:28
-msgid "Amount"
-msgstr "Montant"
-
-#. Link to entry details (please leave arrow intact)
-#: openspending/ui/templates/_util.html:53
-msgid "details»"
-msgstr "détails»"
-
-#: openspending/ui/templates/layout.html:71
+#: openspending/ui/templates/layout.html:73
 msgid "Home"
-msgstr "Accueil"
-
-#: openspending/ui/templates/layout.html:72
-msgid "Spending Blog"
-msgstr "Blog des dépenses"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:74
-msgid "Datasets"
-msgstr "Données"
+msgid "Spending Blog"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:76
-#: openspending/ui/templates/dataset/_nav.html:34
-msgid "About"
-msgstr "À propos"
+msgid "Datasets"
+msgstr ""
 
-#: openspending/ui/templates/layout.html:77
+#: openspending/ui/templates/layout.html:78
+#: openspending/ui/templates/dataset/_nav.html:33
+msgid "About"
+msgstr ""
+
+#: openspending/ui/templates/layout.html:79
 #: openspending/ui/templates/layout.html:143
 msgid "Contact"
-msgstr "Contact"
+msgstr ""
 
-#: openspending/ui/templates/layout.html:82
+#: openspending/ui/templates/layout.html:84
 msgid "Login/Register"
-msgstr "Se connecter/S'enregitrer"
+msgstr ""
 
-#: openspending/ui/templates/layout.html:85
+#: openspending/ui/templates/layout.html:87
 msgid "Settings"
-msgstr "Paramètres"
+msgstr ""
 
-#: openspending/ui/templates/layout.html:86
+#: openspending/ui/templates/layout.html:88
 msgid "Logout"
-msgstr "Se déconnecter"
+msgstr ""
 
-#: openspending/ui/templates/layout.html:89
+#: openspending/ui/templates/layout.html:91
 msgid "Language"
 msgstr ""
 
-#: openspending/ui/templates/layout.html:123
+#: openspending/ui/templates/layout.html:125
 msgid ""
 "This is an [1:Open Knowledge Foundation]\n"
 "            project."
-msgstr ""
-
-#: openspending/ui/templates/layout.html:129
-msgid "The easiest way to find and share data"
-msgstr ""
-
-#: openspending/ui/templates/layout.html:129
-msgid "The Data Hub"
-msgstr ""
-
-#: openspending/ui/templates/layout.html:130
-msgid "The Open Database Of The Corporate World"
-msgstr ""
-
-#: openspending/ui/templates/layout.html:130
-msgid "OpenCorporates.com"
 msgstr ""
 
 #: openspending/ui/templates/layout.html:131
@@ -312,32 +277,49 @@ msgid "OffenerHaushalt (DE)"
 msgstr ""
 
 #: openspending/ui/templates/layout.html:134
-msgid "OKFN Labs"
+msgid "The Open Database Of The Corporate World"
+msgstr ""
+
+#: openspending/ui/templates/layout.html:134
+msgid "OpenCorporates.com"
 msgstr ""
 
 #: openspending/ui/templates/layout.html:135
+msgid "OKFN Labs"
+msgstr ""
+
+#: openspending/ui/templates/layout.html:136
 msgid "YourTopia"
 msgstr ""
 
-#: openspending/ui/templates/layout.html:138
-msgid "Wiki"
-msgstr "Wiki"
-
 #: openspending/ui/templates/layout.html:139
-msgid "Mailing List"
-msgstr "Liste de diffusion"
+msgid "Twitter"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:140
-msgid "API"
-msgstr "API"
+msgid "Wiki"
+msgstr ""
+
+#: openspending/ui/templates/layout.html:140
+#: openspending/ui/templates/layout.html:143
+msgid "and"
+msgstr ""
+
+#: openspending/ui/templates/layout.html:140
+msgid "Help"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:141
-msgid "Help"
-msgstr "Aide"
+msgid "Mailing List"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:142
+msgid "API"
+msgstr ""
+
+#: openspending/ui/templates/layout.html:143
 msgid "Privacy"
-msgstr "confidentialité"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:152
 msgid "Open Content"
@@ -345,9 +327,9 @@ msgstr ""
 
 #: openspending/ui/templates/layout.html:146
 msgid ""
-"All [1:code] \n"
-"          and [2:data] is \n"
-"          openly licensed in accordance with the \n"
+"All [1:code]\n"
+"          and [2:data] is\n"
+"          openly licensed in accordance with the\n"
 "          [3:open definition].\n"
 "          [4:]\n"
 "          [5:[6:]]"
@@ -358,14 +340,14 @@ msgstr ""
 #: openspending/ui/templates/dataset/new.html:5
 #: openspending/ui/templates/dataset/new_cta.html:5
 msgid "nav-account"
-msgstr "nav-compte"
+msgstr ""
 
 #: openspending/ui/templates/account/login.html:7
 #: openspending/ui/templates/account/login.html:13
 #: openspending/ui/templates/account/login.html:17
 #: openspending/ui/templates/account/login.html:39
 msgid "Login"
-msgstr "Connexion"
+msgstr ""
 
 #: openspending/ui/templates/account/login.html:10
 msgid "Sign in to OpenSpending"
@@ -375,118 +357,117 @@ msgstr ""
 #: openspending/ui/templates/account/login.html:57
 #: openspending/ui/templates/account/settings.html:30
 msgid "Password"
-msgstr "Mot de passe"
+msgstr ""
 
 #: openspending/ui/templates/account/login.html:35
 msgid "Create an account"
-msgstr "Créez un compte"
+msgstr ""
 
 #: openspending/ui/templates/account/login.html:45
 #: openspending/ui/templates/account/settings.html:18
 msgid "Fullname"
-msgstr "Nom Complet"
+msgstr ""
 
 #: openspending/ui/templates/account/login.html:51
 #: openspending/ui/templates/account/settings.html:24
 msgid "E-Mail"
-msgstr "E-mail"
+msgstr ""
 
 #: openspending/ui/templates/account/login.html:63
 #: openspending/ui/templates/account/settings.html:36
 msgid "Password (repeat)"
-msgstr "Mot de passe (repetez)"
+msgstr ""
 
 #: openspending/ui/templates/account/settings.html:7
 msgid "Settings for:"
-msgstr "Paramètres pour:"
+msgstr ""
 
 #: openspending/ui/templates/account/settings.html:10
 msgid "Account Settings"
-msgstr "Paramètres du compte"
+msgstr ""
 
 #: openspending/ui/templates/account/settings.html:39
 msgid ""
 "Leave both fields blank to keep\n"
 "                your current password."
-msgstr "laissez les deux champs vides pour garder ⏎\n                 votre mot de passe actuel."
+msgstr ""
 
 #: openspending/ui/templates/account/settings.html:44
 msgid "API Key"
-msgstr "Clé API"
+msgstr ""
 
 #: openspending/ui/templates/account/settings.html:47
 msgid ""
 "Use this key to access the OpenSpending\n"
 "                API programmatically."
-msgstr "Utilisez cette clé pour accéder à  ⏎ OpenSpending\n                 API programmer."
+msgstr ""
 
-#: openspending/ui/templates/dataset/_nav.html:14
-msgid "Entries"
-msgstr "Entrées"
-
-#: openspending/ui/templates/dataset/_nav.html:31
-#: openspending/ui/templates/dimension/_nav.html:36
+#: openspending/ui/templates/dataset/_nav.html:30
+#: openspending/ui/templates/dimension/_nav.html:52
 msgid "Search"
-msgstr "Cherchez"
+msgstr ""
 
 #: openspending/ui/templates/dataset/_nav.html:37
-#: openspending/ui/templates/dataset/explorer.html:8
-#: openspending/ui/templates/home/index.html:44
-msgid "Explore"
-msgstr "Explorez"
+msgid "Visualisations"
+msgstr ""
 
-#: openspending/ui/templates/dataset/_nav.html:40
+#: openspending/ui/templates/dataset/_nav.html:48
+msgid "Create a visualisation..."
+msgstr ""
+
+#: openspending/ui/templates/dataset/_nav.html:53
 msgid "Manage"
 msgstr ""
 
-#: openspending/ui/templates/dataset/_select.html:68
+#: openspending/ui/templates/dataset/_select.html:67
 msgid "OpenSpending — mapping the money."
 msgstr ""
 
-#: openspending/ui/templates/dataset/_select.html:76
-#: openspending/ui/templates/dataset/_select.html:80
+#: openspending/ui/templates/dataset/_select.html:75
+#: openspending/ui/templates/dataset/_select.html:79
 #: openspending/ui/templates/dataset/new.html:7
-#: openspending/ui/templates/dataset/new.html:11
+#: openspending/ui/templates/dataset/new.html:24
 #: openspending/ui/templates/dataset/new_cta.html:7
 msgid "Import a dataset"
 msgstr ""
 
-#: openspending/ui/templates/dataset/_select.html:82
+#: openspending/ui/templates/dataset/_select.html:81
 msgid "Close"
 msgstr ""
 
 #: openspending/ui/templates/dataset/about.html:9
 #: openspending/ui/templates/dataset/dropdb.html:5
-#: openspending/ui/templates/dataset/explorer.html:6
 #: openspending/ui/templates/dataset/index.html:5
-#: openspending/ui/templates/dataset/view.html:8
+#: openspending/ui/templates/dataset/view.html:9
 #: openspending/ui/templates/dimension/index.html:6
-#: openspending/ui/templates/dimension/view.html:5
+#: openspending/ui/templates/dimension/view.html:6
 #: openspending/ui/templates/entry/index.html:6
 #: openspending/ui/templates/home/getinvolved.html:5
 #: openspending/ui/templates/home/index.html:5
 #: openspending/ui/templates/home/reporterror.html:5
+#: openspending/ui/templates/view/index.html:8
+#: openspending/ui/templates/view/new.html:8
+#: openspending/ui/templates/view/view.html:9
 msgid "nav-dataset"
-msgstr "nav-données"
+msgstr ""
 
-#: openspending/ui/templates/dataset/about.html:23
-#: openspending/ui/templates/dataset/new.html:92
-#: openspending/ui/templates/dimension/member.html:39
-#: openspending/ui/templates/editor/core.html:63
-#: openspending/ui/templates/entry/view.html:80
+#: openspending/ui/templates/dataset/about.html:30
+#: openspending/ui/templates/dataset/new.html:125
+#: openspending/ui/templates/editor/core.html:89
+#: openspending/ui/templates/entry/view.html:103
 msgid "Description"
-msgstr "Description"
+msgstr ""
 
-#: openspending/ui/templates/dataset/about.html:24
+#: openspending/ui/templates/dataset/about.html:31
 #, python-format
 msgid "No description is available for %(label)s"
 msgstr ""
 
-#: openspending/ui/templates/dataset/about.html:31
+#: openspending/ui/templates/dataset/about.html:38
 msgid "Sources"
 msgstr ""
 
-#: openspending/ui/templates/dataset/about.html:32
+#: openspending/ui/templates/dataset/about.html:39
 msgid ""
 "This is a listing of all source data that was registered\n"
 "              for this dataset. If you want to look at the exact data \n"
@@ -494,32 +475,32 @@ msgid ""
 "              [1:bulk export]."
 msgstr ""
 
-#: openspending/ui/templates/dataset/about.html:47
+#: openspending/ui/templates/dataset/about.html:54
 msgid "Team"
 msgstr ""
 
-#: openspending/ui/templates/dataset/about.html:48
+#: openspending/ui/templates/dataset/about.html:55
 msgid ""
 "These people are the managers of the dataset. They can\n"
 "              make modifications to its schema and are responsible\n"
 "              to make sure the data is accurate."
 msgstr ""
 
-#: openspending/ui/templates/dataset/about.html:61
+#: openspending/ui/templates/dataset/about.html:68
 msgid "Measures"
 msgstr ""
 
-#: openspending/ui/templates/dataset/about.html:62
+#: openspending/ui/templates/dataset/about.html:69
 msgid ""
 "Measures are the numeric properties of each entry in this \n"
 "          dataset."
 msgstr ""
 
-#: openspending/ui/templates/dataset/about.html:74
+#: openspending/ui/templates/dataset/about.html:81
 msgid "Dimensions"
-msgstr "Dimensions"
+msgstr ""
 
-#: openspending/ui/templates/dataset/about.html:75
+#: openspending/ui/templates/dataset/about.html:82
 msgid ""
 "Dimensions are different aspects of the dataset, such as the\n"
 "          spender, recipient or classifications that apply."
@@ -527,50 +508,44 @@ msgstr ""
 
 #: openspending/ui/templates/dataset/dropdb.html:7
 msgid "Database erased"
-msgstr "Données supprimées"
+msgstr ""
 
 #: openspending/ui/templates/dataset/dropdb.html:12
 msgid "OpenSpending: mapping the money"
-msgstr "OpenSpending: Cartographie l'argent"
+msgstr ""
 
 #: openspending/ui/templates/dataset/dropdb.html:13
 msgid ""
-"The database should now have been erased. You'll even have to create a new "
-"user to log in again."
-msgstr "La base de données devrait maintenant avoir été effacé. Vous devze créer un nouvel utilisateur pour vous connecter à nouveau."
-
-#: openspending/ui/templates/dataset/explorer.html:83
-msgid "Explorer"
-msgstr ""
-
-#: openspending/ui/templates/dataset/explorer.html:90
-msgid "back »"
+"The database should now have been erased. You'll even have to create a "
+"new user to log in again."
 msgstr ""
 
 #: openspending/ui/templates/dataset/index.html:7
 msgid "All datasets"
-msgstr "Toutes les données"
+msgstr ""
 
 #: openspending/ui/templates/dataset/index.html:12
 msgid "Available data sets"
-msgstr "Données disponibles"
+msgstr ""
 
 #: openspending/ui/templates/dataset/index.html:13
 msgid "The database contains the following datasets:"
-msgstr "La base de données contient les ensembles de données suivants:"
+msgstr ""
 
 #: openspending/ui/templates/dataset/index.html:30
-#: openspending/ui/templates/editor/core.html:43
+#: openspending/ui/templates/dataset/new.html:105
+#: openspending/ui/templates/editor/core.html:69
 msgid "Countries"
 msgstr ""
 
 #: openspending/ui/templates/dataset/index.html:40
-#: openspending/ui/templates/editor/core.html:53
+#: openspending/ui/templates/dataset/new.html:115
+#: openspending/ui/templates/editor/core.html:79
 msgid "Languages"
 msgstr ""
 
 #. List of steps to take
-#: openspending/ui/templates/dataset/new.html:14
+#: openspending/ui/templates/dataset/new.html:27
 msgid ""
 "If you have a spending or budget dataset that \n"
 "          you can contribute, please give some basic information \n"
@@ -585,63 +560,64 @@ msgid ""
 "          ]"
 msgstr ""
 
-#: openspending/ui/templates/dataset/new.html:33
+#: openspending/ui/templates/dataset/new.html:46
 msgid "Import from a DataHub Dataset"
 msgstr ""
 
-#: openspending/ui/templates/dataset/new.html:34
+#: openspending/ui/templates/dataset/new.html:47
 msgid ""
 "Paste the url of your [1:http://thedatahub.org/] dataset\n"
-"            and we will take care of pulling all the relevant information automatically\n"
+"            and we will take care of pulling all the relevant information"
+" automatically\n"
 "            (though you will get a chance to review and amend it)."
 msgstr ""
 
-#: openspending/ui/templates/dataset/new.html:45
+#: openspending/ui/templates/dataset/new.html:58
 msgid "OR"
 msgstr ""
 
-#: openspending/ui/templates/dataset/new.html:48
+#: openspending/ui/templates/dataset/new.html:61
 msgid "Dataset not yet on the DataHub?"
 msgstr ""
 
-#: openspending/ui/templates/dataset/new.html:49
+#: openspending/ui/templates/dataset/new.html:62
 msgid ""
 "No problem! You can still import your dataset as long as the\n"
 "            data file is online somewhere."
 msgstr ""
 
-#: openspending/ui/templates/dataset/new.html:51
+#: openspending/ui/templates/dataset/new.html:64
 msgid "Get Started »"
 msgstr ""
 
-#: openspending/ui/templates/dataset/new.html:60
-#: openspending/ui/templates/editor/core.html:20
+#: openspending/ui/templates/dataset/new.html:73
+#: openspending/ui/templates/editor/core.html:33
 msgid "Title"
 msgstr ""
 
-#: openspending/ui/templates/dataset/new.html:66
+#: openspending/ui/templates/dataset/new.html:79
 msgid "Identifier"
 msgstr ""
 
-#: openspending/ui/templates/dataset/new.html:69
+#: openspending/ui/templates/dataset/new.html:82
 msgid ""
 "The identifier will become part of the\n"
 "                  dataset URL and cannot be changed later. It may only \n"
 "                  contain alphanumeric characters, dashes and underscores."
 msgstr ""
 
-#: openspending/ui/templates/dataset/new.html:75
-#: openspending/ui/templates/editor/core.html:26
+#: openspending/ui/templates/dataset/new.html:88
+#: openspending/ui/templates/editor/core.html:39
 msgid "Currency"
 msgstr ""
 
-#: openspending/ui/templates/dataset/new.html:78
-#: openspending/ui/templates/editor/core.html:29
+#: openspending/ui/templates/dataset/new.html:91
+#: openspending/ui/templates/editor/core.html:42
 msgid "Commonly used currencies"
 msgstr ""
 
-#: openspending/ui/templates/dataset/new.html:83
-#: openspending/ui/templates/editor/core.html:34
+#: openspending/ui/templates/dataset/new.html:96
+#: openspending/ui/templates/editor/core.html:47
 msgid "All currencies"
 msgstr ""
 
@@ -655,9 +631,11 @@ msgid ""
 "          information]\n"
 "        in a common\n"
 "        database so that we can provide common tools for [2:analysis,\n"
-"          visualization and comparison]. OpenSpending is an open platform that\n"
+"          visualization and comparison]. OpenSpending is an open platform"
+" that\n"
 "        aims to facilitate the presentation of financial information so \n"
-"        anyone - whether data geek or concerned citizen - can contribute \n"
+"        anyone - whether data geek or concerned citizen - can contribute"
+" \n"
 "        their local city budget or spending reports."
 msgstr ""
 
@@ -672,7 +650,8 @@ msgid ""
 "         [1:]  [2:]\n"
 "        [3:\n"
 "          [4:Data loading and validation facilities.]\n"
-"          [5:Common visualization types (treemaps, charts, and the bubble\n"
+"          [5:Common visualization types (treemaps, charts, and the bubble"
+"\n"
 "          tree).]\n"
 "          [6:Full-text search for all entries.]\n"
 "          [7:Means to track provenance and provide access to the raw\n"
@@ -684,18 +663,36 @@ msgid ""
 "        ]"
 msgstr ""
 
-#: openspending/ui/templates/dimension/_nav.html:39
-#: openspending/ui/templates/dimension/_nav.html:44
+#: openspending/ui/templates/dataset/view.html:40
+#: openspending/ui/templates/dimension/member.html:37
+#: openspending/ui/templates/dimension/view.html:41
+#: openspending/ui/templates/view/view.html:34
+msgid "Embed"
+msgstr ""
+
+#: openspending/ui/templates/dataset/view.html:41
+#: openspending/ui/templates/dimension/member.html:38
+#: openspending/ui/templates/dimension/view.html:42
+#: openspending/ui/templates/view/view.html:35
+msgid "Change"
+msgstr ""
+
+#: openspending/ui/templates/dimension/_list.html:17
+msgid "Part of unique key"
+msgstr ""
+
+#: openspending/ui/templates/dimension/_nav.html:55
+#: openspending/ui/templates/dimension/_nav.html:60
 msgid "OpenCorporates"
 msgstr ""
 
-#: openspending/ui/templates/dimension/_nav.html:48
+#: openspending/ui/templates/dimension/_nav.html:64
 msgid "PublicBodies.org"
 msgstr ""
 
 #: openspending/ui/templates/dimension/entries.html:6
 msgid "nav-dimension"
-msgstr "nav-dimension"
+msgstr ""
 
 #: openspending/ui/templates/dimension/entries.html:8
 #, python-format
@@ -704,7 +701,7 @@ msgstr ""
 
 #: openspending/ui/templates/dimension/entries.html:8
 msgid "- Entries"
-msgstr "- Entrées"
+msgstr ""
 
 #: openspending/ui/templates/dimension/index.html:8
 #, python-format
@@ -713,7 +710,7 @@ msgstr ""
 
 #: openspending/ui/templates/dimension/index.html:8
 msgid "Dimensions in"
-msgstr "Dimensions in"
+msgstr ""
 
 #: openspending/ui/templates/dimension/index.html:11
 #, python-format
@@ -725,65 +722,30 @@ msgstr ""
 #: openspending/ui/templates/dimension/index.html:15
 #, python-format
 msgid "%(dataset)s has the following dimensions:"
-msgstr "%(dataset)s a les dimensions suivantes:"
-
-#: openspending/ui/templates/dimension/member.html:6
-msgid "nav-member"
-msgstr "nav-membre"
-
-#: openspending/ui/templates/dimension/member.html:40
-#, python-format
-msgid "No description is available for %(member_label)s"
 msgstr ""
 
-#: openspending/ui/templates/dimension/view.html:7
-msgid "Dimension:"
-msgstr "Dimension:"
+#: openspending/ui/templates/dimension/member.html:7
+msgid "nav-member"
+msgstr ""
 
-#: openspending/ui/templates/dimension/view.html:20
-msgid ""
-"All figures are total financial involvement, not just funds received or "
-"spent."
-msgstr "Tous les chiffres sont l'implication financière totale, pas seulement les fonds reçus ou dépensés."
-
-#: openspending/ui/templates/dimension/view.html:27
-#: openspending/ui/templates/entry/view.html:79
-#: openspending/ui/templates/run/view.html:50
-msgid "Value"
-msgstr "Valeur"
-
-#: openspending/ui/templates/dimension/view.html:28
-#, python-format
-msgid "Sum (%(currency)s)"
-msgstr "Somme (%(currency)s)"
-
-#: openspending/ui/templates/dimension/view.html:36
-#: openspending/ui/templates/dimension/view.html:40
-msgid "(Empty)"
-msgstr "(Empty)"
-
-#: openspending/ui/templates/editor/_nav.html:15
+#: openspending/ui/templates/editor/_nav.html:17
 msgid "Manage the dataset"
 msgstr ""
 
-#: openspending/ui/templates/editor/_nav.html:21
+#: openspending/ui/templates/editor/_nav.html:30
 msgid "Dashboard"
 msgstr ""
 
-#: openspending/ui/templates/editor/_nav.html:24
+#: openspending/ui/templates/editor/_nav.html:33
 msgid "Dimensions & Measures"
 msgstr ""
 
-#: openspending/ui/templates/editor/_nav.html:27
+#: openspending/ui/templates/editor/_nav.html:36
 msgid "Visualizations"
 msgstr ""
 
-#: openspending/ui/templates/editor/_nav.html:30
+#: openspending/ui/templates/editor/_nav.html:39
 msgid "Meta"
-msgstr ""
-
-#: openspending/ui/templates/editor/_nav.html:33
-msgid "Dataset view »"
 msgstr ""
 
 #: openspending/ui/templates/editor/core.html:7
@@ -794,103 +756,117 @@ msgstr ""
 msgid "nav-editor"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:60
-msgid "Add Dimension"
+#: openspending/ui/templates/editor/core.html:56
+msgid "Default year"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:63
-msgid "Make sure your dimensions import all source data columns."
-msgstr ""
-
-#: openspending/ui/templates/editor/dimensions.html:69
-msgid "Set Unique Dimensions"
+#: openspending/ui/templates/editor/core.html:60
+msgid "(No data is loaded)"
 msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:71
+msgid "Add Dimension"
+msgstr ""
+
+#: openspending/ui/templates/editor/dimensions.html:74
+msgid "Make sure your dimensions import all source data columns."
+msgstr ""
+
+#: openspending/ui/templates/editor/dimensions.html:80
+msgid "Set Unique Dimensions"
+msgstr ""
+
+#: openspending/ui/templates/editor/dimensions.html:82
 msgid "Identify the dimensions that help to identify each entry."
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:75
+#: openspending/ui/templates/editor/dimensions.html:86
 msgid "Exisiting Dimensions"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:85
+#: openspending/ui/templates/editor/dimensions.html:96
 msgid "Specify which dimensions identify an entry uniquely"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:93
+#: openspending/ui/templates/editor/dimensions.html:104
 msgid "Update"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:101
+#: openspending/ui/templates/editor/dimensions.html:112
 msgid "Add new dimension"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:106
-msgid ""
-"The name you choose should only contain letters, numbers and dashes (i.e., "
-"no spaces)"
-msgstr ""
-
-#: openspending/ui/templates/editor/dimensions.html:109
-msgid ""
-"Where the dimension represents the ultimate source or destination of the funds, \n"
-"                        call it [1:from] or [2:to]."
-msgstr ""
-
-#: openspending/ui/templates/editor/dimensions.html:115
+#: openspending/ui/templates/editor/dimensions.html:119
 msgid "Name"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:121
-msgid "Type"
+#: openspending/ui/templates/editor/dimensions.html:122
+msgid ""
+"The name you choose should only contain letters, numbers and dashes "
+"(i.e., no spaces)"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:124
-#: openspending/ui/templates/entry/view.html:78
-msgid "Dimension"
-msgstr "Dimension"
-
-#: openspending/ui/templates/editor/dimensions.html:126
+#: openspending/ui/templates/editor/dimensions.html:125
 msgid ""
-"A defined set, like suppliers or classifications, with \n"
-"                                multiple attributes (e.g. supplier name and VAT number)."
+"Where the dimension represents the ultimate source or destination of the "
+"funds, \n"
+"                              call it [1:from] or [2:to]."
 msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:132
+msgid "Type"
+msgstr ""
+
+#: openspending/ui/templates/editor/dimensions.html:135
+#: openspending/ui/templates/entry/view.html:101
+msgid "Dimension"
+msgstr ""
+
+#: openspending/ui/templates/editor/dimensions.html:137
+msgid ""
+"A defined set, like suppliers or classifications, with \n"
+"                                multiple attributes (e.g. supplier name "
+"and VAT number)."
+msgstr ""
+
+#: openspending/ui/templates/editor/dimensions.html:143
 #: openspending/ui/templates/run/view.html:49
 msgid "Attribute"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:134
+#: openspending/ui/templates/editor/dimensions.html:145
 msgid "A simple value, e.g. descriptions or transaction IDs."
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:139
+#: openspending/ui/templates/editor/dimensions.html:150
 msgid "Date"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:141
+#: openspending/ui/templates/editor/dimensions.html:152
 msgid "Temporal value, e.g. start of project, date of disbursement."
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:146
+#: openspending/ui/templates/editor/dimensions.html:157
 msgid "Measure"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:148
+#: openspending/ui/templates/editor/dimensions.html:159
 msgid "Monetary information, e.g. amount disbursed or allocated."
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:156
+#: openspending/ui/templates/editor/dimensions.html:167
+msgid "Unmapped source data columns"
+msgstr ""
+
+#: openspending/ui/templates/editor/dimensions.html:175
 msgid "Cancel"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:157
+#: openspending/ui/templates/editor/dimensions.html:176
 msgid "Add"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:165
+#: openspending/ui/templates/editor/dimensions.html:184
 msgid ""
 "[1:Your model was saved.] You can now try to load a \n"
 "          sample of the data by returning back to the dashboard.\n"
@@ -899,154 +875,173 @@ msgid ""
 "          ]"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:176
+#: openspending/ui/templates/editor/dimensions.html:195
 msgid ""
 "The dimensions mapping could not be saved as it \n"
 "                                          contains some errors:"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:192
+#: openspending/ui/templates/editor/dimensions.html:211
 msgid "Dimension mapping"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:193
+#: openspending/ui/templates/editor/dimensions.html:212
 msgid ""
 "To create a model for your dataset,\n"
-"                                          you need to translate the columns in \n"
-"                                          the data file to \"dimensions\", the logical\n"
-"                                          divisions of the dataset. A dimension\n"
-"                                          can be any property of a line item or \n"
-"                                          transaction that should be presented\n"
+"                                          you need to translate the "
+"columns in \n"
+"                                          the data file to "
+"\"dimensions\", the logical\n"
+"                                          divisions of the dataset. A "
+"dimension\n"
+"                                          can be any property of a line "
+"item or \n"
+"                                          transaction that should be "
+"presented\n"
 "                                          within OpenSpending."
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:202
+#: openspending/ui/templates/editor/dimensions.html:221
 msgid "There are four core dimensions,"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:203
-#: openspending/ui/templates/editor/dimensions.html:227
+#: openspending/ui/templates/editor/dimensions.html:222
+#: openspending/ui/templates/editor/dimensions.html:246
 msgid "amount"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:204
-#: openspending/ui/templates/editor/dimensions.html:229
+#: openspending/ui/templates/editor/dimensions.html:223
+#: openspending/ui/templates/editor/dimensions.html:248
 msgid "time"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:204
+#: openspending/ui/templates/editor/dimensions.html:223
 msgid ""
 "— which are\n"
 "                                          mandatory — as well as"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:206
-#: openspending/ui/templates/editor/dimensions.html:235
+#: openspending/ui/templates/editor/dimensions.html:225
+#: openspending/ui/templates/editor/dimensions.html:254
 msgid "from"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:206
+#: openspending/ui/templates/editor/dimensions.html:225
 msgid ""
 "for the spender,\n"
 "                                          and"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:207
-#: openspending/ui/templates/editor/dimensions.html:238
+#: openspending/ui/templates/editor/dimensions.html:226
+#: openspending/ui/templates/editor/dimensions.html:257
 msgid "to"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:207
+#: openspending/ui/templates/editor/dimensions.html:226
 msgid ""
 "for the\n"
-"                                          recipient of a specific transaction\n"
+"                                          recipient of a specific "
+"transaction\n"
 "                                          — both of those must be\n"
 "                                          dimensions if they exist."
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:212
+#: openspending/ui/templates/editor/dimensions.html:231
 msgid ""
 "Beyond that, you can add your own\n"
-"                                          dimensions to describe aspects such\n"
+"                                          dimensions to describe aspects "
+"such\n"
 "                                          as classification schemes,\n"
-"                                          descriptions, transaction IDs and any\n"
-"                                          other details present in the source\n"
+"                                          descriptions, transaction IDs "
+"and any\n"
+"                                          other details present in the "
+"source\n"
 "                                          data."
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:220
+#: openspending/ui/templates/editor/dimensions.html:239
 msgid "What do I do here?"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:221
+#: openspending/ui/templates/editor/dimensions.html:240
 msgid ""
 "First off, make sure to set up the\n"
-"                                          model to conform to these basic\n"
+"                                          model to conform to these basic"
+"\n"
 "                                          requirements:"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:227
+#: openspending/ui/templates/editor/dimensions.html:246
 msgid "Create"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:227
+#: openspending/ui/templates/editor/dimensions.html:246
 msgid ""
 "with the core \n"
-"                                          financial measure of the dataset and"
+"                                          financial measure of the "
+"dataset and"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:229
+#: openspending/ui/templates/editor/dimensions.html:248
 msgid ""
 "to represent the most \n"
 "                                          representative temporal\n"
 "                                          dimension."
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:232
+#: openspending/ui/templates/editor/dimensions.html:251
 msgid ""
 "If your data is transactional and \n"
-"                                          contains the name of a department or \n"
-"                                          body spending the funds, make sure to \n"
+"                                          contains the name of a "
+"department or \n"
+"                                          body spending the funds, make "
+"sure to \n"
 "                                          include a"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:235
+#: openspending/ui/templates/editor/dimensions.html:254
 msgid "dimension."
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:236
+#: openspending/ui/templates/editor/dimensions.html:255
 msgid ""
 "If the data mentions a recipient,\n"
 "                                          such as a supplier, set"
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:238
+#: openspending/ui/templates/editor/dimensions.html:257
 msgid "as another dimension."
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:239
+#: openspending/ui/templates/editor/dimensions.html:258
 msgid ""
 "Set a unique key combination so\n"
 "                                          that the values within that\n"
-"                                          combination are different between all \n"
-"                                          entries in the dataset. This can\n"
+"                                          combination are different "
+"between all \n"
+"                                          entries in the dataset. This "
+"can\n"
 "                                          later be used for updating the\n"
 "                                          dataset."
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:246
+#: openspending/ui/templates/editor/dimensions.html:265
 msgid ""
 "After you've done these basic things,\n"
-"                                          make sure to also create dimensions\n"
-"                                          to cover any other aspects present in \n"
+"                                          make sure to also create "
+"dimensions\n"
+"                                          to cover any other aspects "
+"present in \n"
 "                                          the source data. You can group\n"
 "                                          related columns into a single\n"
-"                                          dimension, for example if each row \n"
-"                                          mentions both a company's name and\n"
+"                                          dimension, for example if each "
+"row \n"
+"                                          mentions both a company's name "
+"and\n"
 "                                          its VAT number."
 msgstr ""
 
-#: openspending/ui/templates/editor/dimensions.html:259
+#: openspending/ui/templates/editor/dimensions.html:278
 msgid "Background: How does OpenSpending store data?"
 msgstr ""
 
@@ -1057,7 +1052,8 @@ msgstr ""
 #: openspending/ui/templates/editor/dimensions_errors.html:18
 msgid ""
 "In order to modify the dimensions model, you'll have to \n"
-"            delete all the data that is currently loaded from the database."
+"            delete all the data that is currently loaded from the "
+"database."
 msgstr ""
 
 #: openspending/ui/templates/editor/dimensions_errors.html:33
@@ -1073,8 +1069,10 @@ msgstr ""
 #: openspending/ui/templates/editor/index.html:21
 msgid ""
 "[1:Congratulations, your dataset is now created.] Next, you'll need\n"
-"            to link to a source file that contains the data (or a sample for testing\n"
-"            if your dataset is very large!). The data must be in the CSV format."
+"            to link to a source file that contains the data (or a sample "
+"for testing\n"
+"            if your dataset is very large!). The data must be in the CSV "
+"format."
 msgstr ""
 
 #: openspending/ui/templates/editor/index.html:27
@@ -1180,7 +1178,8 @@ msgstr ""
 #: openspending/ui/templates/editor/views.html:25
 msgid ""
 "[1:Here be dragons.] The visualizations editor does \n"
-"          not have a graphical interface yet. If you still want to use it, \n"
+"          not have a graphical interface yet. If you still want to use "
+"it, \n"
 "          please check out the [2:documentation]\n"
 "          for the 'views' system."
 msgstr ""
@@ -1197,67 +1196,79 @@ msgstr ""
 
 #: openspending/ui/templates/entry/view.html:7
 msgid "nav-entry"
-msgstr "nav-entrée"
+msgstr ""
 
 #: openspending/ui/templates/entry/view.html:9
 msgid "Entry Details"
-msgstr "Détails Entrée"
-
-#: openspending/ui/templates/entry/view.html:17
-msgid "JSON"
-msgstr "JSON"
-
-#: openspending/ui/templates/entry/view.html:14
-#, python-format
-msgid ""
-"[1:\n"
-"        [2:\n"
-"          [3:]\n"
-"        ]\n"
-"      ]\n"
-"      Entry in %(dataset_label)s\n"
-"      [4:Detailed View of Transaction]"
 msgstr ""
 
-#: openspending/ui/templates/entry/view.html:112
+#: openspending/ui/templates/entry/view.html:28
+msgid "Entries"
+msgstr ""
+
+#: openspending/ui/templates/entry/view.html:32
+#, python-format
+msgid "%(currency)s %(amount)s on %(time)s"
+msgstr ""
+
+#: openspending/ui/templates/entry/view.html:41
+#, python-format
+msgid ""
+"Entry in %(dataset_label)s\n"
+"      [1:Detailed View of Transaction]"
+msgstr ""
+
+#: openspending/ui/templates/entry/view.html:58
+msgid "Recipient"
+msgstr ""
+
+#: openspending/ui/templates/entry/view.html:70
+msgid "Spender"
+msgstr ""
+
+#: openspending/ui/templates/entry/view.html:102
+#: openspending/ui/templates/run/view.html:50
+msgid "Value"
+msgstr ""
+
+#: openspending/ui/templates/entry/view.html:135
 msgid "Notes:"
-msgstr "Notes:"
+msgstr ""
 
 #: openspending/ui/templates/home/getinvolved.html:7
 #: openspending/ui/templates/home/getinvolved.html:10
 msgid "Get Involved"
-msgstr "Participez"
+msgstr ""
 
 #: openspending/ui/templates/home/getinvolved.html:15
 #: openspending/ui/templates/home/reporterror.html:20
 msgid "Loading…"
-msgstr "Chargement..."
+msgstr ""
 
-#: openspending/ui/templates/home/index.html:17
+#: openspending/ui/templates/home/index.html:16
 msgid "Welcome"
-msgstr "Bienvenu"
+msgstr ""
 
-#: openspending/ui/templates/home/index.html:19
+#: openspending/ui/templates/home/index.html:18
 msgid ""
 "Do you want to help map government finance from all around the globe?\n"
 "      [1:Get involved] in Open Spending!"
 msgstr ""
 
-#: openspending/ui/templates/home/index.html:30
+#: openspending/ui/templates/home/index.html:29
 msgid ""
-"Our aim is to track every government and corporate financial transaction \n"
-"        across the world and present it in useful and engaging forms for everyone\n"
+"Our aim is to track every government and corporate financial transaction"
+" \n"
+"        across the world and present it in useful and engaging forms for "
+"everyone\n"
 "        from a school-child to a data geek."
 msgstr ""
 
-#: openspending/ui/templates/home/index.html:34
-msgid ""
-"We're an open community that anyone is invited to join! We're looking for\n"
-"        researchers, coders and citizen activists to join us and to help gather and\n"
-"        understand financial data."
+#: openspending/ui/templates/home/index.html:39
+msgid "Explore"
 msgstr ""
 
-#: openspending/ui/templates/home/index.html:45
+#: openspending/ui/templates/home/index.html:40
 msgid ""
 "OpenSpending presents financial information [1:from many\n"
 "        different countries] and sources.\n"
@@ -1265,13 +1276,13 @@ msgid ""
 "          dataset] to explore or visit our\n"
 "          [3:Spending Blog], where we highlight\n"
 "          spending stories and methods of analyzing the information."
-msgstr "OpenSpending présente des informations financières [1:from many\n        different countries] et des sources.\n        [2:Choose a\n          dataset] explorer ou visitez notre\n          [3:Spending Blog], où nous mettons en évidence\n           histoires des dépenses et des méthodes d'analyse de l'information."
+msgstr ""
 
-#: openspending/ui/templates/home/index.html:55
+#: openspending/ui/templates/home/index.html:50
 msgid "Investigate"
-msgstr "Enquêter"
+msgstr ""
 
-#: openspending/ui/templates/home/index.html:56
+#: openspending/ui/templates/home/index.html:51
 msgid ""
 "Do you have spending questions? Ask and help to answer them on\n"
 "      our [1:discussion \n"
@@ -1280,11 +1291,11 @@ msgid ""
 "      [2:Spending Blog] to share your findings."
 msgstr ""
 
-#: openspending/ui/templates/home/index.html:65
+#: openspending/ui/templates/home/index.html:60
 msgid "Contribute"
-msgstr "Contribuez"
+msgstr ""
 
-#: openspending/ui/templates/home/index.html:66
+#: openspending/ui/templates/home/index.html:61
 msgid ""
 "Is your country, state or city not on OpenSpending yet? We're\n"
 "        looking for spending data from all over the world. [1:Import a\n"
@@ -1294,55 +1305,58 @@ msgstr ""
 
 #: openspending/ui/templates/home/reporterror.html:7
 msgid "Report an issue"
-msgstr "Signaler un problème"
+msgstr ""
 
 #: openspending/ui/templates/home/reporterror.html:11
 msgid "Report a data issue"
-msgstr "Signaler un problème de donnée"
+msgstr ""
 
 #: openspending/ui/templates/home/reporterror.html:12
 msgid ""
 "If you notice any spending that either seems to be based on erroneous\n"
-"      or misrepresented data or that is implausible in terms of the amount\n"
-"      spent, the recipient or the spender, please help us flag these item by\n"
+"      or misrepresented data or that is implausible in terms of the "
+"amount\n"
+"      spent, the recipient or the spender, please help us flag these item"
+" by\n"
 "      filling out the form below."
-msgstr "Si vous remarquez des dépenses qui semble soit se baser sur des erreurs\n       ou déformé les données, ou qui est peu plausible en termes de quantité\n       passé, le destinataire ou le dépensier, s'il vous plaît signaler nous ces éléments en\n       remplissant le formulaire ci-dessous."
+msgstr ""
 
 #: openspending/ui/templates/home/rest.html:5
 msgid "nav-api"
-msgstr "nav-api"
+msgstr ""
 
 #: openspending/ui/templates/home/rest.html:7
 msgid "REST API"
-msgstr "REST API"
+msgstr ""
 
 #: openspending/ui/templates/home/rest.html:10
 msgid "The Store's REST API"
-msgstr "Le magasin REST API"
+msgstr ""
 
 #: openspending/ui/templates/home/rest.html:12
 msgid ""
 "This API returns JSON versions of the store's domain objects.\n"
-"    The URLs are generally the same as the URLs used by the web interface for\n"
+"    The URLs are generally the same as the URLs used by the web interface"
+" for\n"
 "    the same objects, but with \"/api/rest\" prepended."
-msgstr "Cette API renvoie des versions JSON des objets du domaine de la boutique.\n     Les URL sont généralement les mêmes que les URL utilisées par l'interface web pour\n     les mêmes objets, mais avec \"/ api / repos\" préfixé."
+msgstr ""
 
 #: openspending/ui/templates/home/rest.html:17
 msgid "Here are some examples:"
-msgstr "Quelques exemples"
+msgstr ""
 
 #: openspending/ui/templates/home/rest.html:26
 msgid ""
 "The JSON response generally contains the same information as the\n"
 "    corresponding web page, but in more detail."
-msgstr "La réponse JSON contient généralement les mêmes informations que le\n     page web correspondante, mais plus en détail."
+msgstr ""
 
 #: openspending/ui/templates/home/rest.html:29
 msgid ""
 "A JSONP object is returned if a [1:callback] parameter is\n"
 "    supplied (usually by appending \"?callback=myfun\" or\n"
 "    similar)."
-msgstr "Un objet JSONP est retournée si un [1:callback] paramètre est\n     fourni (généralement par l'ajout \"?callback=myfun\" ou\n     similaires)."
+msgstr ""
 
 #: openspending/ui/templates/run/view.html:7
 #: openspending/ui/templates/source/new.html:8
@@ -1446,3 +1460,48 @@ msgstr ""
 #: openspending/ui/templates/source/new.html:17
 msgid "Create a data source"
 msgstr ""
+
+#: openspending/ui/templates/view/_widgets.html:33
+msgid "window.wdg_"
+msgstr ""
+
+#: openspending/ui/templates/view/_widgets.html:34
+msgid ""
+".then(function(w) {\n"
+"      var embedder = new OpenSpending.Widgets.Embedder(w, context, '"
+msgstr ""
+
+#: openspending/ui/templates/view/_widgets.html:35
+msgid ""
+"');  \n"
+"      $(\"#widget-embed-link\").click(function(e) {\n"
+"        embedder.render();\n"
+"        return false;\n"
+"      });\n"
+"      $(\"#widget-edit-link\").click(function(e) {\n"
+"        w.configure(null);\n"
+"        return false;\n"
+"      });\n"
+"    });"
+msgstr ""
+
+#: openspending/ui/templates/view/embed.html:14
+msgid "Embedded Visualisation -"
+msgstr ""
+
+#: openspending/ui/templates/view/index.html:10
+msgid "Library of visualisations -"
+msgstr ""
+
+#: openspending/ui/templates/view/index.html:31
+msgid "by"
+msgstr ""
+
+#: openspending/ui/templates/view/new.html:10
+msgid "Create a visualisation"
+msgstr ""
+
+#: openspending/ui/templates/view/new.html:54
+msgid "Visualize"
+msgstr ""
+
