@@ -82,8 +82,10 @@ class AccountRegister(colander.MappingSchema):
                                     validator=colander.Length(min=4))
     password2 = colander.SchemaNode(colander.String(),
                                     validator=colander.Length(min=4))
-    mailinglist_community = colander.SchemaNode(colander.Boolean())
-    mailinglist_developer = colander.SchemaNode(colander.Boolean())
+    subscribe_community = colander.SchemaNode(colander.Boolean(),
+            missing=False)
+    subscribe_developer = colander.SchemaNode(colander.Boolean(),
+            missing=False)
 
 
 class AccountSettings(colander.MappingSchema):
