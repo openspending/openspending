@@ -17,7 +17,7 @@ from openspending.lib.paramparser import DistinctParamParser
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render, require
 from openspending.ui.lib.security import generate_password_hash
-from openspending.ui.lib.mailman import subscribe
+from openspending.ui.lib.mailman import subscribe_lists
 from openspending.lib.jsonexport import to_jsonp
 from openspending.lib.mailer import send_reset_link
 
@@ -59,13 +59,11 @@ class AccountController(BaseController):
                     "login": account.name,
                     "password": data['password1']
                 })
-                community = config.get('openspending.subscribe_community', False)
-                if community and data.get('mailinglist_community'):
-                    subscribe(community, data)
 
-                developer = config.get('openspending.subscribe_developer', False)
-                if developer and data.get('mailinglist_developer'):
-                    subscribe(developer, data)
+                errors = subscribe_lists(('community', 'developer'), data)
+                if errors:
+                    h.flash_notice(_("Subscription to the following mailing " +
+                            "lists probably failed: %s.") % ', '.join(errors))
 
                 response.headers.extend(headers)
                 return redirect("/")
