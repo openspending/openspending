@@ -7,5 +7,5 @@ services:
 before_install:
   - git clone git://github.com/openspending/openspending-installer.git
 install:
-  - openspending-installer/vagrant/install.sh
+  - sudo openspending-installer/vagrant/install.sh
 script: "nosetests"
