@@ -25,7 +25,7 @@
   </py:def>
 
   <div py:def="content">
-    ${member_nav(c.view.name if c.view else 'search')}
+    ${member_nav(c.view.name if c.view else 'search', 'member')}
 
     <div py:if="c.view" class="row">
       <div class="span12"><div id="vis_widget" style="width: auto; height: 400px"/></div>
