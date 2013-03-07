@@ -35,6 +35,18 @@
             width: 100%;
             height: 100%;
         }
+        #credit {
+          position: absolute;
+          bottom:0;
+          right:0;
+          color: #333;
+          background-color: #fff;
+          background-color: rgba(255, 255, 255, 0.8);
+          padding: 0 3px;
+          display: block;
+          font-size: 12px;
+          z-index: 9999;
+        }
     </style>
     
     <py:if test="defined('optional_head')">
@@ -49,6 +61,7 @@
 
     ${script_boot()}
     ${widget_js('widget', c.widget, c.state, handles=False, embed=True)}
+    <a id="credit" href="http://www.openspending.org/">Powered by OpenSpending</a>
     ${analytics()}
   </body>
 </html>
