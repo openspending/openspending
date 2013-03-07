@@ -48,10 +48,7 @@
       }
       if (w.getDownloadURL !== undefined) {
         $("#widget-download-link").show();
-        $("#widget-download-link").click(function(e) {
-          document.location.replace(w.getDownloadURL());
-          return false;
-        });
+        $("#widget-download-link").attr("href", w.getDownloadURL());
       }
     });
   </py:def>
