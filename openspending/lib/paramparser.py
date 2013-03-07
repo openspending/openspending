@@ -213,7 +213,7 @@ class SearchParamParser(ParamParser):
         return datasets
 
     def parse_pagesize(self, pagesize):
-        return min(100, self._to_int('pagesize', pagesize))
+        return min(10000, self._to_int('pagesize', pagesize))
 
     def parse_category(self, category):
         category = category.lower().strip() if category else None
@@ -234,7 +234,7 @@ class SearchParamParser(ParamParser):
         return self._to_bool(stats)
 
     def parse_facet_pagesize(self, pagesize):
-        return min(100, self._to_int('facet_pagesize', pagesize))
+        return min(10000, self._to_int('facet_pagesize', pagesize))
 
     def parse_expand_facet_dimensions(self, expand_facet_dimensions):
         return expand_facet_dimensions is not None
