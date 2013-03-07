@@ -7,9 +7,10 @@ from openspending import model
 from openspending import auth as can
 from openspending.lib import util
 from openspending.lib.browser import Browser
+from openspending.lib.streaming import JSONStreamingResponse, CSVStreamingResponse
 from openspending.lib.solr_util import SolrException
-from openspending.lib.jsonexport import jsonpify, to_jsonp
-from openspending.lib.csvexport import write_csv
+from openspending.lib.jsonexport import to_jsonp, json_headers
+from openspending.lib.csvexport import write_csv, csv_headers
 from openspending.lib.paramparser import AggregateParamParser, SearchParamParser
 from openspending.ui.lib.base import BaseController, require
 from openspending.ui.lib.base import etag_cache_keygen
@@ -79,15 +80,15 @@ class Api2Controller(BaseController):
             params['facet_field'] = None
 
         datasets = params.pop('dataset', None)
-        if datasets is None or not len(datasets):
+        if datasets is None or not datasets:
             q = model.Dataset.all_by_account(c.account)
             if params.get('category'):
                 q = q.filter_by(category=params.pop('category'))
             datasets = q.all()
             expand_facets = False
 
-        if not len(datasets):
-            return {'errors': [_("No dataset available.")]}
+        if not datasets:
+            return {'errors': ["No dataset available."]}
 
         params['filter']['dataset'] = []
         for dataset in datasets:
@@ -97,11 +98,34 @@ class Api2Controller(BaseController):
         response.last_modified = max([d.updated_at for d in datasets])
         etag_cache_keygen(parser.key(), response.last_modified)
 
+        self._response_params(params)
+
+        if params['pagesize'] > parser.defaults['pagesize']:
+            if format == 'csv':
+                csv_headers(response, 'entries.csv')
+                streamer = CSVStreamingResponse(datasets, params,
+                    pagesize=parser.defaults['pagesize'])
+                return streamer.response()
+            else:
+                json_headers(filename='entries.json')
+                if expand_facets:
+                    expand_facets = _expand_facets
+                streamer = JSONStreamingResponse(
+                    datasets,
+                    params,
+                    pagesize=parser.defaults['pagesize'],
+                    expand_facets=expand_facets,
+                    callback=request.params.get('callback')
+                )
+                return streamer.response()
+
         b = Browser(**params)
         try:
-            stats, facets, entries = b.execute()
+            b.execute()
         except SolrException, e:
             return {'errors': [unicode(e)]}
+
+        stats, facets, entries = b.get_stats(), b.get_facets(), b.get_entries()
 
         _entries = []
         for dataset, entry in entries:
@@ -109,7 +133,6 @@ class Api2Controller(BaseController):
             entry['dataset'] = dataset_apply_links(dataset.as_dict())
             _entries.append(entry)
 
-        self._response_params(params)
         if format == 'csv':
             return write_csv(_entries, response,
                 filename='entries.csv')
@@ -121,7 +144,7 @@ class Api2Controller(BaseController):
             'stats': stats,
             'facets': facets,
             'results': _entries
-            })
+        })
 
 
 def _expand_facets(facets, dataset):
