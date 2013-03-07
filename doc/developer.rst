@@ -1,13 +1,10 @@
 Developer Documentation
 =======================
 
-This section aims to provide developers to the OpenSpending platform with
-instuctions on how to do tasks that are commonly performed.
-
 Creating a DB Migration
 '''''''''''''''''''''''
 
-1. Make sure you're in the virtualenv for openspending and run ``migrate script
+1. Make sure you're in the virtualenv for OpenSpending and run ``migrate script
    "<description>" migration``. Replace ``<description>`` with a description
    for your change. For instance, "Add terms column".
 2. A new file will be created in ``migration/versions``. The output of
