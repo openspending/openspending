@@ -40,6 +40,16 @@
         );
 
         b.addFilter("${c.dimension.name}", "${c.member.name}");
+        $(document).bind('xhr', function(){
+          var params = b.table.lastParams;
+          $('.representations a').each(function(i, el){
+            el = $(el);
+            var href = el.attr('href').split('?');
+            href[1] = 'pagesize=10000' + String.fromCharCode(38) +
+                      'order=' + encodeURIComponent(params.order);
+            el.attr('href', href.join('?'));
+          });
+        });
         b.init();
 
       }());
