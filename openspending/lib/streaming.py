@@ -17,7 +17,8 @@ class StreamingResponse(object):
         current = dict(self.params)
         current['pagesize'] = self.pagesize
         current['page'] = page
-        return Browser(**current)
+        self.browser = Browser(**current)
+        return self.browser
 
     def make_entries(self, entries):
         for dataset, entry in entries:
@@ -59,17 +60,10 @@ class JSONStreamingResponse(StreamingResponse):
         self.callback = kwargs.pop('callback', None)
         super(JSONStreamingResponse, self).__init__(*args, **kwargs)
 
-    def response(self):
-        b = self.get_browser(1)
-        try:
-            b.execute()
-        except solr.SolrException, e:
-            yield json.dumps({'errors': [unicode(e)]})
-            raise StopIteration
-
-        facets = b.get_facets()
-        stats = b.get_stats()
-        stats['results_count'] = stats['results_count_query']
+    def generate_json_frame(self):
+        facets = self.browser.get_facets()
+        stats = self.browser.get_stats()
+        stats['results_count'] = self.params
 
         if self.expand_facets and len(self.datasets) == 1:
             self.expand_facets(facets, self.datasets[0])
@@ -79,27 +73,17 @@ class JSONStreamingResponse(StreamingResponse):
             'facets': facets,
             'results': [None]
         }, indent=0, callback=self.callback)
-        parts = template.split('null')
-        yield parts[0]
+        self.parts = template.split('null')
 
-        # yield first batch
+    def response(self):
         first = True
-        count = 0
-        for entry in self.make_entries(b.get_entries()):
-            count += 1
+        for entry in self.entries_iterator():
             if first:
+                self.generate_json_frame()
+                yield self.parts[0]
                 json_dict = to_json(entry)
             else:
                 json_dict = ',' + to_json(entry)
             yield json_dict
             first = False
-
-        if count < self.pagesize:
-            raise StopIteration
-
-        # yield rest
-        for entry in self.entries_iterator(initial_page=2):
-            json_dict = ',' + to_json(entry)
-            yield json_dict
-            first = False
-        yield parts[1]
+        yield self.parts[1]

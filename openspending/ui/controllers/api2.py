@@ -103,18 +103,19 @@ class Api2Controller(BaseController):
         if params['pagesize'] > parser.defaults['pagesize']:
             if format == 'csv':
                 csv_headers(response, 'entries.csv')
-                streamer = CSVStreamingResponse(datasets, params,
-                    pagesize=parser.defaults['pagesize'])
+                streamer = CSVStreamingResponse(
+                    datasets,
+                    params,
+                    pagesize=parser.defaults['pagesize']
+                )
                 return streamer.response()
             else:
                 json_headers(filename='entries.json')
-                if expand_facets:
-                    expand_facets = _expand_facets
                 streamer = JSONStreamingResponse(
                     datasets,
                     params,
                     pagesize=parser.defaults['pagesize'],
-                    expand_facets=expand_facets,
+                    expand_facets=_expand_facets if expand_facets else None,
                     callback=request.params.get('callback')
                 )
                 return streamer.response()
