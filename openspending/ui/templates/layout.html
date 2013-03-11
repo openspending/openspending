@@ -11,24 +11,11 @@
   <!-- templates/layout.html top -->
 
   <py:if test="len(_form_errors)">
-  <div py:match="input" py:strip="" py:with="error = _form_errors.get(str(select('@name')))">
-      <py:choose test="str(select('@type'))">
-        <py:when test="'checkbox'">
-          ${select('.')}
-        </py:when>
-        <py:otherwise>
-          <py:if test="error">
-            ${select('.')}
-            <p class="help-block error" py:content="error"></p>
-          </py:if>
-        </py:otherwise>
-      </py:choose>
-    </div>
-    <div py:match="label" py:strip="" py:with="error = _form_errors.get(str(select('@for')))">
-          ${select('.')}
-          <py:if test="error and str(select('@class')) == 'inputCheckbox'">
-          <p class="help-block error" py:content="error"></p>
-          </py:if>
+    <div py:match="input" py:strip="" py:with="error = _form_errors.get(str(select('@name')))">
+      ${select('.')}
+      <py:if test="error">
+        <p class="help-block error" py:content="error"></p>
+      </py:if>
     </div>
     <div py:match="select" py:strip="" py:with="error = _form_errors.get(str(select('@name')))">
       <select py:attrs="select('@*')"
