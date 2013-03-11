@@ -28,6 +28,7 @@ class AccountController(BaseController):
 
     def login(self):
         self._disable_cache()
+        c.config = config
         return render('account/login.html')
 
     def register(self):
