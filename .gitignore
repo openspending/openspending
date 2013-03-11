@@ -22,3 +22,4 @@ openspending/ui/public/static/openspendingjs
 openspendingjs
 solr
 *~
+.tx/config
