@@ -66,7 +66,7 @@ class Account(db.Model):
         return {
             'name': self.name,
             'fullname': self.fullname,
-            #'email': self.email,
+            'email': self.email,
             'admin': self.admin
             }
 

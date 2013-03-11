@@ -1,9 +1,12 @@
-import logging
-import json
-from urllib import urlencode
 from datetime import datetime
+import json
+import logging
+from StringIO import StringIO
+from urllib import urlencode
 
-from pylons import request, response, tmpl_context as c
+from webhelpers.feedgenerator import Rss201rev2Feed
+
+from pylons import request, response, tmpl_context as c, url
 from pylons.controllers.util import redirect
 from pylons.i18n import _
 from colander import SchemaNode, String, Invalid
@@ -98,6 +101,7 @@ class DatasetController(BaseController):
         elif format == 'csv':
             results = map(lambda d: d.as_dict(), c.results)
             return write_csv(results, response)
+        c.show_rss = True
         return render('dataset/index.html')
 
     def new(self, errors={}):
@@ -165,7 +169,7 @@ class DatasetController(BaseController):
         c.sources = list(c.dataset.sources)
         c.managers = list(c.dataset.managers)
         return render('dataset/about.html')
-    
+
     def sitemap(self, dataset):
         self._get_dataset(dataset)
         pages = []
@@ -178,7 +182,7 @@ class DatasetController(BaseController):
         for view in View.all_by_dataset(c.dataset):
             pages.append({
                 'loc': h.url_for(controller='view', action='view',
-                                 dataset=dataset, name=view.name, 
+                                 dataset=dataset, name=view.name,
                                  qualified=True),
                 'lastmod': view.updated_at
                 })
@@ -194,3 +198,31 @@ class DatasetController(BaseController):
         model = c.dataset.model
         model['dataset'] = dataset_apply_links(model['dataset'])
         return to_jsonp(model)
+
+    def feed_rss(self):
+        q = db.session.query(Dataset)
+        if not (c.account and c.account.admin):
+            q = q.filter_by(private = False)
+        feed_items = q.order_by(Dataset.created_at.desc()).limit(20)
+        items = []
+        for feed_item in feed_items:
+            items.append({
+                'title': feed_item.label,
+                'pubdate': feed_item.updated_at,
+                'link': url(controller='dataset', action='view',
+                    dataset=feed_item.name, qualified=True),
+                'description': feed_item.description,
+                'author_name': ', '.join([person.fullname for person in
+                                          feed_item.managers if
+                                          person.fullname]),
+                })
+        feed = Rss201rev2Feed(_('Recently Created Datasets'), url(
+            controller='home', action='index', qualified=True), _('Recently '
+            'created datasets in the OpenSpending Platform'),
+            author_name='Openspending')
+        for item in items:
+            feed.add_item(**item)
+        sio = StringIO()
+        feed.write(sio, 'utf-8')
+        response.content_type = 'application/xml'
+        return sio.getvalue()

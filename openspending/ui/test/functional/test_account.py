@@ -1,6 +1,7 @@
 from .. import ControllerTestCase, url, helpers as h
 from openspending.model import Account, meta as db
 from openspending.lib.mailer import MailerException
+from pylons import config
 import json
 
 
@@ -44,9 +45,14 @@ class TestAccountController(ControllerTestCase):
 
     @h.raises(MailerException)
     def test_trigger_reset_post_ok(self):
-        account = h.make_account()
-        response = self.app.post(url(controller='account', action='trigger_reset'),
-                params={'email': "test@example.com"})
+        try:
+            original_smtp_server = config.get('smtp_server')
+            config['smtp_server'] = 'non-existent-smtp-server'
+            account = h.make_account()
+            response = self.app.post(url(controller='account', action='trigger_reset'),
+                    params={'email': "test@example.com"})
+        finally:
+            config['smtp_server'] = original_smtp_server
 
     def test_reset_get(self):
         response = self.app.get(url(controller='account', action='do_reset',

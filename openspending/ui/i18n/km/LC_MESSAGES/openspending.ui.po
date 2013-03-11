@@ -3,48 +3,46 @@
 # This file is distributed under the same license as the openspending project.
 # 
 # Translators:
-# Agapi Angelou <ag.aln.angelou@gmail.com>, 2013.
-# thodoris  <>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenSpending\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2012-08-09 10:23+0200\n"
-"PO-Revision-Date: 2013-02-13 14:10+0000\n"
-"Last-Translator: agang <ag.aln.angelou@gmail.com>\n"
-"Language-Team: Greek (Greece) (http://www.transifex.com/projects/p/openspending/language/el_GR/)\n"
+"PO-Revision-Date: 2011-11-11 15:06+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Khmer (http://www.transifex.com/projects/p/openspending/language/km/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
-"Language: el_GR\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: km\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: openspending/ui/controllers/account.py:43
 msgid "Login name already exists, please choose a different one"
-msgstr "Το όνομα χρήστη δεν είναι διαθέσιμο , παρακαλώ επιλέξτε διαφορετικό όνομα χρήστη"
+msgstr ""
 
 #: openspending/ui/controllers/account.py:47
 #: openspending/ui/controllers/account.py:78
 msgid "Passwords don't match!"
-msgstr "Οι κωδικοί που δώθηκαν δεν ταιριάζουν!"
+msgstr ""
 
 #: openspending/ui/controllers/account.py:87
 msgid "Your settings have been updated."
-msgstr "Οι ρυθμίσεις σας ανανεώθηκαν."
+msgstr ""
 
 #: openspending/ui/controllers/account.py:126
 #, python-format
 msgid "Welcome back, %s!"
-msgstr "Καλωσόρισες , %s!"
+msgstr ""
 
 #: openspending/ui/controllers/account.py:129
 msgid "Incorrect user name or password!"
-msgstr "Λάθος όνομα χρήστη ή κωδικός!"
+msgstr ""
 
 #: openspending/ui/controllers/account.py:134
 msgid "You have been logged out."
-msgstr "Αποσυνδεθήκατε."
+msgstr ""
 
 #: openspending/ui/controllers/content.py:26
 msgid "Sorry, the selected resource could not be found"
@@ -52,43 +50,43 @@ msgstr ""
 
 #: openspending/ui/controllers/dataset.py:123
 msgid "A dataset with this identifer already exists!"
-msgstr "Υπάρχει ήδη σύνολο δεδομένων με αυτό το αναγνωριστικό!"
+msgstr ""
 
 #: openspending/ui/controllers/dimension.py:31
 #: openspending/ui/controllers/dimension.py:33
 msgid "This is not a dimension"
-msgstr "Δεν είναι διάσταση"
+msgstr ""
 
 #: openspending/ui/controllers/dimension.py:43
 #, python-format
 msgid "Sorry, there is no member named %r"
-msgstr "Συγνώμη, δεν βρέθηκε μέλος με όνομα χρήστη %r"
+msgstr ""
 
 #: openspending/ui/controllers/dimension.py:49
 #, python-format
 msgid "Sorry, there is no dimension named %r"
-msgstr "Συγνώμη, δεν βρέθηκε διάσταση με όνομα %r"
+msgstr ""
 
 #: openspending/ui/controllers/editor.py:85
 msgid "The dataset has been updated."
-msgstr "Το σύνολο δεδομένων ανανεώθηκε."
+msgstr ""
 
 #: openspending/ui/controllers/editor.py:115
 msgid ""
 "You cannot edit the dimensions model when data is loaded for the dataset."
-msgstr "Δεν μπορείτε να επεξεργαστείτε τις διαστάσεις του μοντέλου δεδομένων κατά την διάρκεια που τα δεδομένα φορτώνονται."
+msgstr ""
 
 #: openspending/ui/controllers/editor.py:133
 msgid "The mapping data could not be decoded as JSON!"
-msgstr "Τα δεδομένα αντιστοίχησης δεν μπορούν να αποκωδικοποιηθούν σε μορφή JSON!"
+msgstr ""
 
 #: openspending/ui/controllers/editor.py:158
 msgid "The views have been updated."
-msgstr "Οι όψεις ενημερώθηκαν επιτυχώς."
+msgstr ""
 
 #: openspending/ui/controllers/editor.py:160
 msgid "The views could not be decoded as JSON!"
-msgstr " Οι όψεις δεν μπορούν να αποκωδικοποιηθούν σε μορφή JSON!"
+msgstr ""
 
 #: openspending/ui/controllers/editor.py:182
 msgid "User account cannot be found."
@@ -100,57 +98,57 @@ msgstr ""
 
 #: openspending/ui/controllers/editor.py:204
 msgid "The dataset has been cleared."
-msgstr "Το σύνολο των δεδομένων έχει εκκαθαριστεί."
+msgstr ""
 
 #: openspending/ui/controllers/editor.py:212
 msgid "This dataset is already public!"
-msgstr "Το σύνολο των δεδομένων έχει ήδη ορισθεί ως δημόσιο!"
+msgstr ""
 
 #: openspending/ui/controllers/editor.py:218
 #, python-format
 msgid ""
 "Congratulations, the dataset has been published. It is now available at: %s"
-msgstr "Συγχαρητήρια, το σύνολο δεδομένων έχει δημοσιευθεί. Είναι πλέον διαθέσιμο στη διεύθυνση: %s"
+msgstr ""
 
 #: openspending/ui/controllers/editor.py:227
 msgid "This dataset is already private!"
-msgstr "Αυτό το σύνολο δεδομένων έχει ήδη ορισθεί ως ιδιωτικό!"
+msgstr ""
 
 #: openspending/ui/controllers/editor.py:232
 msgid "The dataset has been retracted. It is no longer visible to others."
-msgstr "Το σύνολο των δεδομένων έχει ανακληθεί. Δεν είναι πλέον ορατό σε τρίτους."
+msgstr ""
 
 #: openspending/ui/controllers/editor.py:244
 msgid "The dataset has been deleted."
-msgstr "Το σύνολο των δεδομένων έχει διαγραφεί."
+msgstr ""
 
 #: openspending/ui/controllers/entry.py:43
 #, python-format
 msgid "Sorry, there is no entry %r"
-msgstr "Συγνώμη, δεν βρέθηκε καταχώρηση %r"
+msgstr ""
 
 #: openspending/ui/controllers/home.py:50
 msgid "Sent ping!"
-msgstr "Στάλθηκε ping!"
+msgstr ""
 
 #: openspending/ui/controllers/run.py:32
 #: openspending/ui/controllers/source.py:56
 #, python-format
 msgid "There is no source '%s'"
-msgstr "Δεν βρέθηκε πηγή '%s'"
+msgstr ""
 
 #: openspending/ui/controllers/run.py:35
 #, python-format
 msgid "There is no run '%s'"
-msgstr "Δεν υπάρχει εκτέλεση '%s'"
+msgstr ""
 
 #: openspending/ui/controllers/source.py:39
 msgid "The source has been created."
-msgstr "Η πηγή δημιουργήθηκε."
+msgstr ""
 
 #: openspending/ui/controllers/source.py:71
 msgid "Now loading..."
-msgstr "Γίνεται φόρτωση..."
+msgstr ""
 
 #: openspending/ui/controllers/view.py:37
 #, python-format
@@ -173,7 +171,7 @@ msgstr ""
 #: openspending/ui/lib/base.py:131
 #, python-format
 msgid "Sorry, there is no dataset named %r"
-msgstr "Συγνώμη, δεν βρέθηκε σύνολο δεδομένων με όνομα %r"
+msgstr ""
 
 #: openspending/ui/lib/views.py:36
 msgid "Untitled"
@@ -187,11 +185,11 @@ msgstr ""
 #: openspending/ui/templates/400.html:5 openspending/ui/templates/403.html:5
 #: openspending/ui/templates/404.html:5 openspending/ui/templates/500.html:5
 msgid "nav-home"
-msgstr "nav-home"
+msgstr ""
 
 #: openspending/ui/templates/400.html:9
 msgid "Invalid request."
-msgstr "Μη έγκυρο αίτημα"
+msgstr ""
 
 #: openspending/ui/templates/400.html:10 openspending/ui/templates/403.html:10
 #: openspending/ui/templates/404.html:10
@@ -199,23 +197,23 @@ msgstr "Μη έγκυρο αίτημα"
 #: openspending/ui/templates/run/view.html:51
 #: openspending/ui/templates/source/_list.html:19
 msgid "Error"
-msgstr "Σφάλμα"
+msgstr ""
 
 #: openspending/ui/templates/403.html:9
 msgid "Access denied."
-msgstr "Μη επιτρεπτή πρόσβαση."
+msgstr ""
 
 #: openspending/ui/templates/403.html:13
 msgid "You may not have the relevant rights."
-msgstr "Μπορεί να μην έχετε τα σχετικά δικαιώματα."
+msgstr ""
 
 #: openspending/ui/templates/403.html:16
 msgid "You may need to login."
-msgstr "Μπορεί να χρειαστεί να κάνετε login."
+msgstr ""
 
 #: openspending/ui/templates/404.html:9
 msgid "Resource not found"
-msgstr "Ο πόρος δεν βρέθηκε"
+msgstr ""
 
 #. Advice regarding a 404 error
 #: openspending/ui/templates/404.html:11
@@ -223,35 +221,35 @@ msgstr "Ο πόρος δεν βρέθηκε"
 msgid ""
 "[1:%(message)s]: Maybe the URL is misspelled or the \n"
 "      data has been deleted."
-msgstr "[1:%(message)s]: Ίσως η διεύθυνση URL είναι λανθασμένη ή\nτα δεδομένα έχουν διαγραφεί."
+msgstr ""
 
 #: openspending/ui/templates/500.html:9
 msgid "Something went wrong"
-msgstr "Κάτι πήγε στραβά"
+msgstr ""
 
 #: openspending/ui/templates/500.html:10
 msgid "Internal Server Error"
-msgstr "Εσωτερικό σφάλμα διακομιστή"
+msgstr ""
 
 #: openspending/ui/templates/500.html:13
 msgid ""
 ":\n"
 "      Sorry, there seems to be an internal problem in OpenSpending.\n"
 "      The problem has now been reported and we're on it."
-msgstr "Δυστυχώς, φαίνεται να υπάρχει ένα εσωτερικό πρόβλημα στην πλατφόρμα OpenSpending.\nΤο πρόβλημα έχει καταγραφεί και θα το κοιτάξουμε σύντομα."
+msgstr ""
 
 #: openspending/ui/templates/layout.html:73
 msgid "Home"
-msgstr "Αρχική"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:75
 #: openspending/ui/templates/home/index.html:47
 msgid "Spending Blog"
-msgstr "Ιστολόγιο Δαπανών"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:77
 msgid "Datasets"
-msgstr "Σύνολα δεδομένων"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:81
 msgid "Community"
@@ -284,34 +282,34 @@ msgstr ""
 #: openspending/ui/templates/layout.html:94
 #: openspending/ui/templates/layout.html:158
 msgid "Help"
-msgstr "Βοήθεια"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:96
 #: openspending/ui/templates/dataset/_nav.html:33
 msgid "About"
-msgstr "Σχετικά"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:101
 msgid "Login/Register"
-msgstr "Είσοδος/Εγγραφή"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:104
 #: openspending/ui/templates/account/dashboard.html:7
 #: openspending/ui/templates/editor/_nav.html:29
 msgid "Dashboard"
-msgstr "Επισκόπηση"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:105
 msgid "Settings"
-msgstr "Ρυθμίσεις"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:106
 msgid "Logout"
-msgstr "Αποσύνδεση"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:109
 msgid "Language"
-msgstr "Γλώσσα"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:143
 msgid ""
@@ -352,15 +350,15 @@ msgstr ""
 #: openspending/ui/templates/layout.html:159
 #: openspending/ui/templates/home/index.html:49
 msgid "Mailing List"
-msgstr "Λίστα Ηλεκτρονικού Ταχυδρομείου"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:160
 msgid "API"
-msgstr "API"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:161
 msgid "Privacy"
-msgstr "Προστασία προσωπικών δεδομένων"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:161
 msgid "and"
@@ -368,11 +366,11 @@ msgstr ""
 
 #: openspending/ui/templates/layout.html:161
 msgid "Contact"
-msgstr "Επικοινωνία"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:171
 msgid "Open Content"
-msgstr "Ανοιχτό Περιεχόμενο"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:164
 msgid ""
@@ -391,7 +389,7 @@ msgstr ""
 #: openspending/ui/templates/dataset/new.html:5
 #: openspending/ui/templates/dataset/new_cta.html:5
 msgid "nav-account"
-msgstr "nav-account"
+msgstr ""
 
 #: openspending/ui/templates/account/dashboard.html:10
 msgid "Welcome back"
@@ -415,60 +413,60 @@ msgstr ""
 #: openspending/ui/templates/account/login.html:17
 #: openspending/ui/templates/account/login.html:39
 msgid "Login"
-msgstr "Είσοδος"
+msgstr ""
 
 #: openspending/ui/templates/account/login.html:10
 msgid "Sign in to OpenSpending"
-msgstr "Συνδεθείτε στο OpenSpending"
+msgstr ""
 
 #: openspending/ui/templates/account/login.html:23
 #: openspending/ui/templates/account/login.html:57
 #: openspending/ui/templates/account/settings.html:30
 msgid "Password"
-msgstr "Κωδικός"
+msgstr ""
 
 #: openspending/ui/templates/account/login.html:35
 msgid "Create an account"
-msgstr "Δημιουργία λογαριασμού"
+msgstr ""
 
 #: openspending/ui/templates/account/login.html:45
 #: openspending/ui/templates/account/settings.html:18
 msgid "Fullname"
-msgstr "Ονοματεπώνυμο"
+msgstr ""
 
 #: openspending/ui/templates/account/login.html:51
 #: openspending/ui/templates/account/settings.html:24
 msgid "E-Mail"
-msgstr "E-Mail"
+msgstr ""
 
 #: openspending/ui/templates/account/login.html:63
 #: openspending/ui/templates/account/settings.html:36
 msgid "Password (repeat)"
-msgstr "Κωδικός (επανάληψη)"
+msgstr ""
 
 #: openspending/ui/templates/account/settings.html:7
 msgid "Settings for:"
-msgstr "Ρυθμίσεις για:"
+msgstr ""
 
 #: openspending/ui/templates/account/settings.html:10
 msgid "Account Settings"
-msgstr "Ρυθμίσεις Λογαριασμού"
+msgstr ""
 
 #: openspending/ui/templates/account/settings.html:39
 msgid ""
 "Leave both fields blank to keep\n"
 "                your current password."
-msgstr "Αφήστε και τα δύο πεδία κενά για να διατηρήσετε\n               τον υπάρχων κωδικό."
+msgstr ""
 
 #: openspending/ui/templates/account/settings.html:44
 msgid "API Key"
-msgstr "Κλειδί API"
+msgstr ""
 
 #: openspending/ui/templates/account/settings.html:47
 msgid ""
 "Use this key to access the OpenSpending\n"
 "                API programmatically."
-msgstr "Χρησιμοποιήστε αυτό το κλειδί για να συνδεθείτε\n                με το API του OpenSpending."
+msgstr ""
 
 #: openspending/ui/templates/account/settings.html:52
 msgid "Script Location"
@@ -494,13 +492,13 @@ msgstr ""
 #: openspending/ui/templates/view/new.html:8
 #: openspending/ui/templates/view/view.html:9
 msgid "nav-dataset"
-msgstr "nav-dataset"
+msgstr ""
 
 #: openspending/ui/templates/dataset/_nav.html:30
 #: openspending/ui/templates/dimension/_nav.html:52
 #: openspending/ui/templates/entry/search.html:12
 msgid "Search"
-msgstr "Αναζήτηση"
+msgstr ""
 
 #: openspending/ui/templates/dataset/_nav.html:37
 msgid "Visualisations"
@@ -512,7 +510,7 @@ msgstr ""
 
 #: openspending/ui/templates/dataset/_nav.html:53
 msgid "Manage"
-msgstr "Διαχείριση"
+msgstr ""
 
 #: openspending/ui/templates/dataset/_select.html:96
 msgid "OpenSpending — mapping the money."
@@ -523,7 +521,7 @@ msgstr ""
 #: openspending/ui/templates/dataset/new.html:24
 #: openspending/ui/templates/dataset/new_cta.html:7
 msgid "Import a dataset"
-msgstr "Εισαγωγή ενός συνόλου δεδομένων"
+msgstr ""
 
 #: openspending/ui/templates/dataset/_select.html:104
 msgid "Close"
@@ -534,16 +532,16 @@ msgstr ""
 #: openspending/ui/templates/editor/core.html:99
 #: openspending/ui/templates/entry/view.html:103
 msgid "Description"
-msgstr "Περιγραφή"
+msgstr ""
 
 #: openspending/ui/templates/dataset/about.html:31
 #, python-format
 msgid "No description is available for %(label)s"
-msgstr "Δεν υπάρχει περιγραφή για  %(label)s"
+msgstr ""
 
 #: openspending/ui/templates/dataset/about.html:38
 msgid "Sources"
-msgstr "Πηγές"
+msgstr ""
 
 #: openspending/ui/templates/dataset/about.html:39
 msgid ""
@@ -551,77 +549,77 @@ msgid ""
 "              for this dataset. If you want to look at the exact data \n"
 "              that is used to generate aggregates, you can also use a \n"
 "              [1:bulk export]."
-msgstr "Αυτό είναι ένας κατάλογος όλων των δεδομένων προέλευσης που έχουν καταχωριθεί ⏎\n               για το τη συγκεκριμένο σύνολο δεδομένων. Αν θέλετε να δείτε τα ακριβή δεδομένα ⏎\n              που χρησιμοποιήθηκαν για την παραγωγή συνολικών αθροισμάτων , μπορείτε επίσης να πραγματοποιήσετε μία ⏎\n[1: μαζική εξαγωγή]."
+msgstr ""
 
 #: openspending/ui/templates/dataset/about.html:54
 #: openspending/ui/templates/editor/_nav.html:38
 msgid "Team"
-msgstr "Ομάδα"
+msgstr ""
 
 #: openspending/ui/templates/dataset/about.html:55
 msgid ""
 "These people are the managers of the dataset. They can\n"
 "              make modifications to its schema and are responsible\n"
 "              to make sure the data is accurate."
-msgstr "Αυτοί οι άνθρωποι είναι οι διαχειριστές του σύνολο δεδομένων. Μπορούν ⏎\n               να κάνουν τροποποιήσεις στο σχήμα του και είναι υπεύθυνοι ⏎\n               για να επιβεβαιώσουν ότι τα δεδομένα είναι ακριβή."
+msgstr ""
 
 #: openspending/ui/templates/dataset/about.html:68
 msgid "Measures"
-msgstr "Μονάδες μέτρησης"
+msgstr ""
 
 #: openspending/ui/templates/dataset/about.html:69
 msgid ""
 "Measures are the numeric properties of each entry in this \n"
 "          dataset."
-msgstr "Μονάδες μέτρησης είναι οι αριθμητικές ιδιότητες της κάθε καταχώρησης σε αυτό το ⏎\nσύνολο δεδομένων."
+msgstr ""
 
 #: openspending/ui/templates/dataset/about.html:81
 msgid "Dimensions"
-msgstr "Διαστάσεις"
+msgstr ""
 
 #: openspending/ui/templates/dataset/about.html:82
 msgid ""
 "Dimensions are different aspects of the dataset, such as the\n"
 "          spender, recipient or classifications that apply."
-msgstr "Οι διαστάσεις αποτελούν διαφορετικές πτυχές του συνόλου δεδομένων, όπως ο ⏎\n          Φορέας ανάληψης, ο δικαιούχος ή οι ταξινομήσεις που εφαρμόζονται."
+msgstr ""
 
 #: openspending/ui/templates/dataset/dropdb.html:7
 msgid "Database erased"
-msgstr "Η βάση δεδομένων διαγράφηκε"
+msgstr ""
 
 #: openspending/ui/templates/dataset/dropdb.html:12
 msgid "OpenSpending: mapping the money"
-msgstr "OpenSpending: mapping the money"
+msgstr ""
 
 #: openspending/ui/templates/dataset/dropdb.html:13
 msgid ""
 "The database should now have been erased. You'll even have to create a new "
 "user to log in again."
-msgstr "Η βάση δεδομένων θα πρέπει τώρα να έχει διαγραφεί. Θα πρέπει να δημιουργήσετε ένα νέο χρήστη για να συνδεθείτε πάλι"
+msgstr ""
 
 #: openspending/ui/templates/dataset/index.html:7
 msgid "All datasets"
-msgstr "Όλα τα σύνολα δεδομένων"
+msgstr ""
 
 #: openspending/ui/templates/dataset/index.html:19
 msgid "Available data sets"
-msgstr "Διαθέσιμα σύνολα δεδομένων"
+msgstr ""
 
 #: openspending/ui/templates/dataset/index.html:20
 msgid "The database contains the following datasets:"
-msgstr "Η βάση περιέχει τα ακόλουθα σύνολα δεδομένων:"
+msgstr ""
 
 #: openspending/ui/templates/dataset/index.html:37
 #: openspending/ui/templates/dataset/new.html:89
 #: openspending/ui/templates/editor/core.html:79
 msgid "Countries"
-msgstr "Χώρες"
+msgstr ""
 
 #: openspending/ui/templates/dataset/index.html:47
 #: openspending/ui/templates/dataset/new.html:99
 #: openspending/ui/templates/editor/core.html:89
 msgid "Languages"
-msgstr "Γλώσσες"
+msgstr ""
 
 #. List of steps to take
 #: openspending/ui/templates/dataset/new.html:27
@@ -637,23 +635,23 @@ msgid ""
 "            [10:[11:import] the data,]\n"
 "            [12:and generate [13:visualized views].]\n"
 "          ]"
-msgstr "Εάν έχετε ένα σύνολο δεδομένων που αφορά δαπάνες ή προϋπολογισμούς το οποίο ⏎\nμπορείτε να συνεισφέρετε, παρακαλώ δώστε κάποιες βασικές πληροφορίες ⏎\nεδώ. ⏎\n[1:] [2:] Στα επόμενα βήματα, θα ⏎\n[3: ⏎\n[4: προσθέσετε αναφορές στίς [5: πηγές δεδομένων],] ⏎\n[6: δημιουργήσετε ένα [7: μοντέλο δεδομένων] για να περιγράψει τη μορφή,] ⏎\n[8: [9: Δοκιμάσετε] την ορθότητα του μοντέλου σας,] ⏎\n[10: [11: Εισάγετε] τα δεδομένα,] ⏎\n[12: και θα δημιουργείσετε [13:. όψεις οπτικοποίησης].] ⏎\n]"
+msgstr ""
 
 #: openspending/ui/templates/dataset/new.html:47
 #: openspending/ui/templates/editor/core.html:33
 msgid "Title"
-msgstr "Τίτλος"
+msgstr ""
 
 #: openspending/ui/templates/dataset/new.html:53
 msgid "Identifier"
-msgstr "Αναγνωριστικό"
+msgstr ""
 
 #: openspending/ui/templates/dataset/new.html:56
 msgid ""
 "The identifier will become part of the\n"
 "                  dataset URL and cannot be changed later. It may only \n"
 "                  contain alphanumeric characters, dashes and underscores."
-msgstr "Το αναγνωριστικό θα γίνει μέρος της ⏎\n                  διεύθυνση URL του συνόλου δεδομένων και δεν γίνεται να τροποποιηθεί αργότερα. Μπορεί μόνο ⏎\n                   να περιέχει αλφαριθμητικούς χαρακτήρες, άνω και κάτω παύλες."
+msgstr ""
 
 #: openspending/ui/templates/dataset/new.html:62
 #: openspending/ui/templates/editor/core.html:39
@@ -663,7 +661,7 @@ msgstr ""
 #: openspending/ui/templates/dataset/new.html:72
 #: openspending/ui/templates/editor/core.html:49
 msgid "Currency"
-msgstr "Νόμισμα"
+msgstr ""
 
 #: openspending/ui/templates/dataset/new.html:75
 #: openspending/ui/templates/editor/core.html:52
@@ -677,7 +675,7 @@ msgstr ""
 
 #: openspending/ui/templates/dataset/new_cta.html:11
 msgid "Contribute your local data!"
-msgstr "Συνεισφέρετε με τα δεδομένα της περιοχής σας!"
+msgstr ""
 
 #: openspending/ui/templates/dataset/new_cta.html:13
 msgid ""
@@ -689,11 +687,11 @@ msgid ""
 "        aims to facilitate the presentation of financial information so \n"
 "        anyone - whether data geek or concerned citizen - can contribute \n"
 "        their local city budget or spending reports."
-msgstr "Προσπαθούμε να συλλέξουμε [1: Πληροφορίες δαπανών  ⏎\n          από όλο το κόσμο] ⏎\n        σε μια κοινή ⏎\n        βάση δεδομένων, ώστε να μπορούμε να παρέχουμε κοινά εργαλεία  [2: ανάλυσης, ⏎\n          οπτικοποίησης και συγκρίσεων]. Το OpenSpending είναι μια ανοιχτή πλατφόρμα που ⏎\n          έχει ως στόχο να διευκολύνει την παρουσίαση των οικονομικών στοιχείων, ώστε ⏎\n          ο καθένας - είτε ερευνητής με εμπειρία στα δεδομένα  είτε ενδιαφερόμενος πολίτης - να μπορεί να υποβάλλει ⏎\n          εκθέσεις δαπανών ή τον τοπικό προϋπολογισμό της πόλης του."
+msgstr ""
 
 #: openspending/ui/templates/dataset/new_cta.html:24
 msgid "Why should you contribute?"
-msgstr "Γιατί θα ήταν καλό να συνεισφέρετε ;"
+msgstr ""
 
 #: openspending/ui/templates/dataset/new_cta.html:26
 msgid ""
@@ -712,7 +710,7 @@ msgid ""
 "          [9:Sign up to contribute]\n"
 "          [10:Learn more]\n"
 "        ]"
-msgstr "Υπάρχουν πολλά προγράμματα που στοχεύουν στην παρακολούθηση των οικονομικών πληροφοριών. Όλα  απαιτούν αυτές τις βασικές υπηρεσίες, που παρέχουμε:\n        [1:]  [2:]\n        [3:\n          [4:Μηχανισμοί μεταφόρτωσης και επικύρωσης δεδομένων.]\n          [5:Κοινοί τύποι οπτικοποιήσης (treemaps, charts, and the bubble\n          tree).]\n          [6:Αναζήτηση πλήρους κειμένου για όλες τις καταχωρήσεις.]\n          [7:Μέσα παρακολούθησης αλλαγών και παροχής πρόσβασης στα πρωτογενή δεδομένα.]\n        ]\n        [8:\n\n\n        [9:Εγγραφείτε για να συμβάλλετε]\n        [10:Μάθετε περισσότερα]\n        ]"
+msgstr ""
 
 #: openspending/ui/templates/dataset/view.html:40
 #: openspending/ui/templates/dimension/member.html:37
@@ -742,57 +740,57 @@ msgstr ""
 #: openspending/ui/templates/dimension/_nav.html:55
 #: openspending/ui/templates/dimension/_nav.html:60
 msgid "OpenCorporates"
-msgstr "Ανοιχτές Επιχειρήσεις"
+msgstr ""
 
 #: openspending/ui/templates/dimension/_nav.html:64
 msgid "PublicBodies.org"
-msgstr "PublicBodies.org"
+msgstr ""
 
 #: openspending/ui/templates/dimension/entries.html:6
 msgid "nav-dimension"
-msgstr "nav-dimension"
+msgstr ""
 
 #: openspending/ui/templates/dimension/entries.html:8
 #, python-format
 msgid "%(entry_label)s - Entries"
-msgstr "%(entry_label)s - Καταχωρήσεις"
+msgstr ""
 
 #: openspending/ui/templates/dimension/entries.html:8
 msgid "- Entries"
-msgstr "- Καταχωρήσεις"
+msgstr ""
 
 #: openspending/ui/templates/dimension/index.html:8
 #, python-format
 msgid "Dimensions in %(dataset_label)s"
-msgstr "Διαστάσεις σε %(dataset_label)s"
+msgstr ""
 
 #: openspending/ui/templates/dimension/index.html:8
 msgid "Dimensions in"
-msgstr "Διαστάσεις σε"
+msgstr ""
 
 #: openspending/ui/templates/dimension/index.html:11
 #, python-format
 msgid ""
 "%(dataset_label)s: Dimensions\n"
 "      [1:Facets of the dataset.]"
-msgstr "%(dataset_label)s: Διαστάσεις\n      [1:Όψεις του συνόλου δεδομένων.]"
+msgstr ""
 
 #: openspending/ui/templates/dimension/index.html:15
 #, python-format
 msgid "%(dataset)s has the following dimensions:"
-msgstr "%(dataset)s έχουν τις ακόλουθες διαστάσεις:"
+msgstr ""
 
 #: openspending/ui/templates/dimension/member.html:7
 msgid "nav-member"
-msgstr "nav-member"
+msgstr ""
 
 #: openspending/ui/templates/editor/_nav.html:20
 msgid "Manage the dataset"
-msgstr "Διαχείριση αυτού του συνόλου δεδομένων"
+msgstr ""
 
 #: openspending/ui/templates/editor/_nav.html:32
 msgid "Dimensions & Measures"
-msgstr "Διαστάσεις και Μονάδες Μέτρησης"
+msgstr ""
 
 #: openspending/ui/templates/editor/_nav.html:35
 msgid "Views"
@@ -800,7 +798,7 @@ msgstr ""
 
 #: openspending/ui/templates/editor/_nav.html:41
 msgid "Meta"
-msgstr "Μεταδεδομένα"
+msgstr ""
 
 #: openspending/ui/templates/editor/core.html:7
 #: openspending/ui/templates/editor/dimensions.html:7
@@ -809,7 +807,7 @@ msgstr "Μεταδεδομένα"
 #: openspending/ui/templates/editor/team.html:7
 #: openspending/ui/templates/editor/views.html:7
 msgid "nav-editor"
-msgstr "nav-editor"
+msgstr ""
 
 #: openspending/ui/templates/editor/core.html:66
 msgid "Default year"
@@ -821,45 +819,45 @@ msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:71
 msgid "Add Dimension"
-msgstr "Προσθήκη Διάστασης"
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:74
 msgid "Make sure your dimensions import all source data columns."
-msgstr "Εξακριβώστε ότι οι διαστάσεις σας εισάγουν όλες τις στήλες δεδομένων του πόρου."
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:80
 msgid "Set Unique Dimensions"
-msgstr "Ορισμός μοναδικών Διαστάσεων"
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:82
 msgid "Identify the dimensions that help to identify each entry."
-msgstr "Προσδιορίστε τις διαστάσεις που βοηθούν στην αναγνώριση κάθε εισόδου."
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:86
 msgid "Exisiting Dimensions"
-msgstr "Υπάρχουσες Διαστάσεις"
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:96
 msgid "Specify which dimensions identify an entry uniquely"
-msgstr "Ορίστε ποιες διαστάσεις ταυτοποιούν μονοσήμαντα μια καταχώρηση"
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:104
 msgid "Update"
-msgstr "Ανανέωση"
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:112
 msgid "Add new dimension"
-msgstr "Προσθήκη νέας διάστασης"
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:119
 msgid "Name"
-msgstr "Όνομα"
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:122
 msgid ""
 "The name you choose should only contain letters, numbers and dashes (i.e., "
 "no spaces)"
-msgstr "Το όνομα που θα επιλέξετε θα πρέπει να περιέχει μόνο γράμματα, αριθμούς και παύλες (δηλαδή δεν θα πρέπει να περιέχει κενά)"
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:125
 msgid ""
@@ -869,43 +867,43 @@ msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:132
 msgid "Type"
-msgstr "Τύπος"
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:135
 #: openspending/ui/templates/entry/view.html:101
 msgid "Dimension"
-msgstr "Διάσταση"
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:137
 msgid ""
 "A defined set, like suppliers or classifications, with \n"
 "                                multiple attributes (e.g. supplier name and VAT number)."
-msgstr "Ένα καθορισμένο σύνολο, όπως προμηθευτές ή ταξινομήσεις, με ⏎ πολλαπλά χαρακτηριστικά (π.χ. το όνομα του προμηθευτή και το ποσοστό ΦΠΑ)."
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:143
 #: openspending/ui/templates/run/view.html:49
 msgid "Attribute"
-msgstr "Χαρακτηριστικό"
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:145
 msgid "A simple value, e.g. descriptions or transaction IDs."
-msgstr "Μια απλή τιμή, π.χ. περιγραφές ή ταυτότητες-IDs συναλλαγής."
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:150
 msgid "Date"
-msgstr "Ημερομηνία"
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:152
 msgid "Temporal value, e.g. start of project, date of disbursement."
-msgstr "Χρονική τιμή, π.χ. έναρξη του έργου, ημερομηνία της εκταμίευσης."
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:157
 msgid "Measure"
-msgstr "Μονάδα μέτρησης"
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:159
 msgid "Monetary information, e.g. amount disbursed or allocated."
-msgstr "Νομισματική πληροφορία, π.χ. καταβληθέν ή χορηγηθέν ποσό ."
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:167
 msgid "Unmapped source data columns"
@@ -913,11 +911,11 @@ msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:175
 msgid "Cancel"
-msgstr "Άκυρο"
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:176
 msgid "Add"
-msgstr "Προσθήκη"
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:184
 msgid ""
@@ -932,11 +930,11 @@ msgstr ""
 msgid ""
 "The dimensions mapping could not be saved as it \n"
 "                                          contains some errors:"
-msgstr "Η αντιστοιχία των διαστάσεων δεν μπορεί να αποθηκευτεί  επειδή \n                                          περιέχει ορισμένα σφάλματα:"
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:211
 msgid "Dimension mapping"
-msgstr "Αντιστοίχηση διαστάσεων"
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:212
 msgid ""
@@ -1005,7 +1003,7 @@ msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:239
 msgid "What do I do here?"
-msgstr "Γιατί βρίσκομαι εδώ ;"
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:240
 msgid ""
@@ -1077,7 +1075,7 @@ msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:279
 msgid "Background: How does OpenSpending store data?"
-msgstr "Υπόβαθρο: Πώς το OpenSpending αποθηκεύει δεδομένα;"
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions_errors.html:18
 msgid "You cannot edit dimensions while data is loaded."
@@ -1087,7 +1085,7 @@ msgstr ""
 msgid ""
 "In order to modify the dimensions model, you'll have to \n"
 "            delete all the data that is currently loaded from the database."
-msgstr "Προκειμένου να τροποποιήσετε το μοντέλο των διαστάσεων , θα πρέπει να \n            διαγράψετε από τη βάση όλα τα δεδομένα που έχουν ήδη φορτωθεί."
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions_errors.html:33
 msgid "You need to define at least one data source."
@@ -1104,24 +1102,24 @@ msgid ""
 "[1:Congratulations, your dataset is now created.] Next, you'll need\n"
 "            to link to a source file that contains the data (or a sample for testing\n"
 "            if your dataset is very large!). The data must be in the CSV format."
-msgstr "[1:. Συγχαρητήρια, το σύνολο δεδομένων σας, δημιουργήθηκε] Στη             συνέχεια, θα χρειαστεί            \nνα συνδεθεί με ένα αρχείο προέλευσης που περιέχει τα δεδομένα (ή ένα δείγμα για το δοκιμή τους            \nεάν το σύνολο δεδομένων σας είναι πολύ μεγάλο!). Τα δεδομένα πρέπει να είναι σε μορφή CSV."
+msgstr ""
 
 #: openspending/ui/templates/editor/index.html:27
 msgid ""
 "Learn about [1:how to export CSV] from various common\n"
 "                applications."
-msgstr "Μάθετε σχετικά με [1: τον τρόπο εξαγωγής σε CSV] από διάφορες δημοφιλείς ⏎\nεφαρμογές."
+msgstr ""
 
 #: openspending/ui/templates/editor/index.html:29
 msgid ""
 "Help on [1:common data wrangling tasks] needed to clean\n"
 "                source data."
-msgstr "Βοήθεια σχετικά με [1: συχνές εργασίες μετασχηματισμού και προετοιμασίας δεδομένων] που απαιτούνται για να καθαρίσετε ⏎\nπηγαία δεδομένα."
+msgstr ""
 
 #: openspending/ui/templates/editor/index.html:36
 #: openspending/ui/templates/editor/index.html:63
 msgid "Add a source"
-msgstr "Προσθήκη πηγής"
+msgstr ""
 
 #: openspending/ui/templates/editor/index.html:40
 msgid ""
@@ -1130,7 +1128,7 @@ msgid ""
 "            [2:\n"
 "              [3:Refresh]\n"
 "            ]"
-msgstr "1: [Για να δούμε...] Τα δεδομένα σας τώρα ελέγχονται\n             για να επιβεβαιωθεί το εάν μπορούν να εισαχθούν. Αυτό δεν  αναμένεται να διαρκέσει πολύ.\n            [2:\n            [3: Ανανέωση]\n            ]"
+msgstr ""
 
 #: openspending/ui/templates/editor/index.html:49
 msgid ""
@@ -1144,56 +1142,56 @@ msgstr ""
 
 #: openspending/ui/templates/editor/index.html:61
 msgid "Source files"
-msgstr "Πηγαία αρχεία"
+msgstr ""
 
 #: openspending/ui/templates/editor/index.html:67
 msgid "Summary"
-msgstr "Περίληψη"
+msgstr ""
 
 #: openspending/ui/templates/editor/index.html:69
 msgid "Entries loaded:"
-msgstr "Εγγραφές που φορτώθηκαν:"
+msgstr ""
 
 #: openspending/ui/templates/editor/index.html:70
 msgid "Searchable:"
-msgstr "Αναζητήσιμο:"
+msgstr ""
 
 #: openspending/ui/templates/editor/index.html:72
 msgid "Dataset Actions"
-msgstr "Ενέργειες συνόλου δεδομένων"
+msgstr ""
 
 #: openspending/ui/templates/editor/index.html:78
 msgid ""
 "Delete all loaded data to fix \n"
 "              errors and re-edit the data dimensions."
-msgstr "Διαγραφή όλων των δεδομένων που φορτώθηκαν προκειμένου να διορθωθούν \n              σφάλματα και να ανακαθοριστούν οι διαστάσεις του συνόλου δεδομένων."
+msgstr ""
 
 #: openspending/ui/templates/editor/index.html:83
 msgid "Delete loaded data"
-msgstr "Διαγραφή δεδομένων που μεταφορτώθηκαν"
+msgstr ""
 
 #: openspending/ui/templates/editor/index.html:84
 msgid ""
 "You can remove the loaded data\n"
 "            at any time and start over."
-msgstr "Μπορείτε να απορρίψετε όλα τα δεδομένα που φορτώθηκαν\n            οποιαδήποτε στιγμή και να ξεκινήσετε από την αρχή."
+msgstr ""
 
 #: openspending/ui/templates/editor/index.html:93
 #: openspending/ui/templates/editor/index.html:99
 msgid ""
 "After you've performed some QA,\n"
 "              let the world see this dataset."
-msgstr "Αφού πραγματοποιήσετε τον απαραίτητο έλεγχο διασφάλιση της ποιότητας, ⏎\nεπιτρέψτε στον κόσμο να δεί αυτό το σύνολο δεδομένων."
+msgstr ""
 
 #: openspending/ui/templates/editor/index.html:98
 msgid "Make public"
-msgstr "Δημοσίευση"
+msgstr ""
 
 #: openspending/ui/templates/editor/index.html:106
 msgid ""
 "If you have noted serious quality\n"
 "              issues or legal issues, you can un-publish this dataset."
-msgstr "Αν έχετε επισημάνει σοβαρά θέματα ποιότητας ⏎\nή νομικά θέματα που αφορούν το σύνολο δεδομένων , μπορείτε να καταργήσετε την δημοσίευση του."
+msgstr ""
 
 #. Warning message on deletion
 #: openspending/ui/templates/editor/index.html:114
@@ -1204,7 +1202,7 @@ msgstr ""
 
 #: openspending/ui/templates/editor/index.html:128
 msgid "Create a new data source"
-msgstr "Δημιουργία μιας νέας πηγής δεδομένων"
+msgstr ""
 
 #: openspending/ui/templates/editor/team.html:20
 msgid ""
@@ -1226,17 +1224,17 @@ msgid ""
 "          not have a graphical interface yet. If you still want to use it, \n"
 "          please check out the [2:documentation]\n"
 "          for the 'views' system."
-msgstr "[1:μπαίνεις σε «αχαρτογράφητα νερά» .] Ο επεξεργαστής οπτικοποιήσεων ⏎\n          δεν διαθέτει ακόμα γραφικό περιβάλλον. Εάν εξακολουθείτε να θέλετε να τον χρησιμοποιήσετε,⏎\n           ελέγξτε την [2: Τεκμηρίωση] ⏎\n           για το σύστημα των «όψεων»."
+msgstr ""
 
 #: openspending/ui/templates/editor/views.html:33
 msgid "Available Dimensions"
-msgstr "Διαθέσιμες Διαστάσεις"
+msgstr ""
 
 #: openspending/ui/templates/editor/views.html:53
 msgid ""
 "The views could not be saved as they contain some \n"
 "                errors:"
-msgstr "Οι όψεις δεν μπορούν να αποθηκευτούν γιατί περιέχουν κάποια ⏎\n                σφάλματα:"
+msgstr ""
 
 #: openspending/ui/templates/entry/search.html:7
 msgid "Entries Search"
@@ -1244,11 +1242,11 @@ msgstr ""
 
 #: openspending/ui/templates/entry/view.html:7
 msgid "nav-entry"
-msgstr "nav-entry"
+msgstr ""
 
 #: openspending/ui/templates/entry/view.html:28
 msgid "Entries"
-msgstr "Καταχωρήσεις"
+msgstr ""
 
 #: openspending/ui/templates/entry/view.html:32
 #, python-format
@@ -1264,24 +1262,24 @@ msgstr ""
 
 #: openspending/ui/templates/entry/view.html:58
 msgid "Recipient"
-msgstr "Δικαιούχος"
+msgstr ""
 
 #: openspending/ui/templates/entry/view.html:70
 msgid "Spender"
-msgstr "Δαπανών"
+msgstr ""
 
 #: openspending/ui/templates/entry/view.html:102
 #: openspending/ui/templates/run/view.html:50
 msgid "Value"
-msgstr "Αξία"
+msgstr ""
 
 #: openspending/ui/templates/entry/view.html:135
 msgid "Notes:"
-msgstr "Σημειώσεις:"
+msgstr ""
 
 #: openspending/ui/templates/home/index.html:16
 msgid "Welcome"
-msgstr "Καλώς ήρθατε"
+msgstr ""
 
 #: openspending/ui/templates/home/index.html:25
 msgid "Mapping the money."
@@ -1320,61 +1318,61 @@ msgstr ""
 
 #: openspending/ui/templates/home/index.html:50
 msgid "Contribute"
-msgstr "Συμβάλλετε"
+msgstr ""
 
 #: openspending/ui/templates/home/rest.html:5
 msgid "nav-api"
-msgstr "nav-api"
+msgstr ""
 
 #: openspending/ui/templates/home/rest.html:7
 msgid "REST API"
-msgstr "REST API"
+msgstr ""
 
 #: openspending/ui/templates/home/rest.html:10
 msgid "The Store's REST API"
-msgstr "The Store's REST API"
+msgstr ""
 
 #: openspending/ui/templates/home/rest.html:12
 msgid ""
 "This API returns JSON versions of the store's domain objects.\n"
 "    The URLs are generally the same as the URLs used by the web interface for\n"
 "    the same objects, but with \"/api/rest\" prepended."
-msgstr "To API επιστρέφει αναπαραστάσεις των αντικειμένων της βάσης κωδικοποιημένα σε JSON.\n    Ta URLs δομούνται κατά κανόνα βάσει της σύνταξης που ακολουθείται και στα URLs της διεπαφής της ιστοσελίδας για\n    τα ίδια αντικείμενα , αλλά με  προθήκη του προθέματος  \"/api/rest\"."
+msgstr ""
 
 #: openspending/ui/templates/home/rest.html:17
 msgid "Here are some examples:"
-msgstr "Παρατίθενται ορισμένα παραδείγματα:"
+msgstr ""
 
 #: openspending/ui/templates/home/rest.html:26
 msgid ""
 "The JSON response generally contains the same information as the\n"
 "    corresponding web page, but in more detail."
-msgstr "Η κωδικοποιημένη σε JSON απάντηση περιέχει κατά κανόνα την ίδια πληροφορία με την⏎\n    αντίστοιχή ιστοσελίδα , αλλά σε μεγαλύτερο επίπεδο λεπτομέρειας."
+msgstr ""
 
 #: openspending/ui/templates/home/rest.html:29
 msgid ""
 "A JSONP object is returned if a [1:callback] parameter is\n"
 "    supplied (usually by appending \"?callback=myfun\" or\n"
 "    similar)."
-msgstr "A JSONP object is returned if a [1:callback] parameter is\n    supplied (usually by appending \"?callback=myfun\" or\n    similar)."
+msgstr ""
 
 #: openspending/ui/templates/run/view.html:7
 #: openspending/ui/templates/source/new.html:8
 msgid "nav-source"
-msgstr "nav-source"
+msgstr ""
 
 #: openspending/ui/templates/run/view.html:9
 #: openspending/ui/templates/run/view.html:14
 msgid "Report:"
-msgstr "Αναφορά:"
+msgstr ""
 
 #: openspending/ui/templates/run/view.html:17
 msgid "Errors,"
-msgstr "Σφάλματα,"
+msgstr ""
 
 #: openspending/ui/templates/run/view.html:21
 msgid "Nothing to report!"
-msgstr "Τίποτα προς αναφορά!"
+msgstr ""
 
 #: openspending/ui/templates/run/view.html:21
 msgid ""
@@ -1382,84 +1380,84 @@ msgid ""
 "      successfully. This does not mean the data is stored in a form \n"
 "      which is semantically useful, though, so don't forget to \n"
 "      sanity-check a few entries!"
-msgstr "Η πηγή προέλευσης των δεδομένων έχει φορτωθεί ⏎\n        με επιτυχία. Αυτό δεν σημαίνει ωστόσο ότι τα δεδομένα αποθηκεύονται σε μορφή ⏎\n        που είναι σημασιολογικά χρήσιμη, , οπότε μην ξεχάσετε να ⏎\n        διεξάγετε έναν έλεγχο ορθότητας, ελέγχοντας μερικές καταχωρήσεις!"
+msgstr ""
 
 #: openspending/ui/templates/run/view.html:30
 msgid "Level"
-msgstr "Επίπεδο"
+msgstr ""
 
 #: openspending/ui/templates/run/view.html:31
 msgid "Message"
-msgstr "Μήνυμα"
+msgstr ""
 
 #: openspending/ui/templates/run/view.html:47
 msgid "Row"
-msgstr "Γραμμή"
+msgstr ""
 
 #: openspending/ui/templates/run/view.html:48
 msgid "Column"
-msgstr "Στήλη"
+msgstr ""
 
 #: openspending/ui/templates/source/_list.html:12
 msgid "Link"
-msgstr "Σύνδεσμος"
+msgstr ""
 
 #: openspending/ui/templates/source/_list.html:13
 msgid "Operations"
-msgstr "Λειτουργίες"
+msgstr ""
 
 #: openspending/ui/templates/source/_list.html:22
 msgid "OK"
-msgstr "Εντάξει"
+msgstr ""
 
 #: openspending/ui/templates/source/_list.html:30
 msgid "columns"
-msgstr "στήλες"
+msgstr ""
 
 #: openspending/ui/templates/source/_list.html:48
 msgid "Test a sample"
-msgstr "Δοκιμή ενός δείγματος"
+msgstr ""
 
 #: openspending/ui/templates/source/_list.html:49
 msgid "Load"
-msgstr "Φόρτωση"
+msgstr ""
 
 #: openspending/ui/templates/source/_list.html:59
 msgid "Reports"
-msgstr "Αναφορές"
+msgstr ""
 
 #: openspending/ui/templates/source/_list.html:67
 msgid "Running"
-msgstr "Εκτελείται"
+msgstr ""
 
 #: openspending/ui/templates/source/_list.html:70
 msgid "Complete"
-msgstr "Ολοκληρώθηκε"
+msgstr ""
 
 #: openspending/ui/templates/source/_list.html:73
 msgid "Errors"
-msgstr "Σφάλματα"
+msgstr ""
 
 #: openspending/ui/templates/source/_list.html:75
 #, python-format
 msgid "(%(count)s Errors)"
-msgstr "(%(count)s Σφάλματα)"
+msgstr ""
 
 #: openspending/ui/templates/source/_new_form.html:12
 msgid "URL"
-msgstr "URL"
+msgstr ""
 
 #: openspending/ui/templates/source/_new_form.html:15
 msgid ""
 "This must point directly at a\n"
 "            valid CSV file. HTML landing pages or other formats, such as\n"
 "            Excel, will not work."
-msgstr "Αυτό θα πρέπει να δείχνει απευθείας σε ένα ⏎\nέγκυρο αρχείο CSV. HTML σελίδες ή άλλες μορφές, όπως ⏎\nExcel, δεν θα λειτουργήσουν."
+msgstr ""
 
 #: openspending/ui/templates/source/new.html:10
 #: openspending/ui/templates/source/new.html:17
 msgid "Create a data source"
-msgstr "Δημιουργία μιας νέας πηγής δεδομένων"
+msgstr ""
 
 #: openspending/ui/templates/view/_widgets.html:33
 msgid "window.wdg_"

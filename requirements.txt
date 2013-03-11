@@ -27,7 +27,6 @@ certifi==0.0.8
 chardet==1.0.1
 colander==0.9.3
 decorator==3.3.3
-distribute==0.6.27
 docutils==0.9.1
 iso8601==0.1.4
 kombu==2.1.8
