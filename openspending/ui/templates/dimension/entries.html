@@ -14,13 +14,41 @@
     <div id="openspending_browser" class="row">
       <div class="span9 browser_datatable">
       </div>
-      <div class="span3 browser_faceter">
+      <div class="span3 ">
+        <div class="browser_faceter">
+        </div>
+        <div class="download-links">
+          <p>
+            <a class="input-large btn btn-small" href="${url(controller='dimension', action='entries', dataset=c.dataset.name, pagesize=100,
+          name=c.member['name'], dimension=c.dimension.name, format='json')}" data-pagesize="100">
+              <i class="icon-download"></i> Download first 100 entries as JSON
+            </a>
+          </p>
+          <p>
+            <a class="input-large btn btn-small" href="${url(controller='dimension', action='entries', dataset=c.dataset.name, pagesize=100,
+          name=c.member['name'], dimension=c.dimension.name, format='csv')}" data-pagesize="100">
+              <i class="icon-download"></i> Download first 100 entries as CSV
+            </a>
+          </p>
+          <p>
+            <a class="input-large btn btn-small" href="${url(controller='dimension', action='entries', dataset=c.dataset.name,
+          name=c.member['name'], dimension=c.dimension.name, format='json')}">
+              <i class="icon-download"></i> Download all entries as JSON
+            </a>
+          </p>
+          <p>
+            <a class="input-large btn btn-small" href="${url(controller='dimension', action='entries', dataset=c.dataset.name,
+          name=c.member['name'], dimension=c.dimension.name, format='csv')}">
+              <i class="icon-download"></i> Download all entries as CSV
+            </a>
+          </p>
+        </div>
       </div>
     </div>
     <hr/>
     <div class="row">
       <div class="span9">
-        <div class="well download-links">
+        <div class="well">
           <h3>Total of ${c.member['label']} by year</h3>
           <table class="table">
             <thead>
@@ -33,31 +61,6 @@
             <tbody id="dimension-aggregate">
             </tbody>
           </table>
-          <h3>Downloads</h3>
-          <p>
-            <a class="btn btn-small" href="${url(controller='dimension', action='entries', dataset=c.dataset.name, pagesize=100,
-          name=c.member['name'], dimension=c.dimension.name, format='json')}" data-pagesize="100">
-              <i class="icon-download"></i> Download first 100 entries as JSON
-            </a>
-          </p>
-          <p>
-            <a class="btn btn-small" href="${url(controller='dimension', action='entries', dataset=c.dataset.name, pagesize=100,
-          name=c.member['name'], dimension=c.dimension.name, format='csv')}" data-pagesize="100">
-              <i class="icon-download"></i> Download first 100 entries as CSV
-            </a>
-          </p>
-          <p>
-            <a class="btn btn-small" href="${url(controller='dimension', action='entries', dataset=c.dataset.name,
-          name=c.member['name'], dimension=c.dimension.name, format='json')}">
-              <i class="icon-download"></i> Download all entries as JSON
-            </a>
-          </p>
-          <p>
-            <a class="btn btn-small" href="${url(controller='dimension', action='entries', dataset=c.dataset.name,
-          name=c.member['name'], dimension=c.dimension.name, format='csv')}">
-              <i class="icon-download"></i> Download all entries as CSV
-            </a>
-          </p>
         </div>
       </div>
     </div>
@@ -125,7 +128,7 @@
               before = amount;
             });
             table.append(
-              $('<tr>').append($('<td>').text("Total"))
+              $('<tr>').append($('<td>').html("<strong>Total</strong>"))
                 .append($('<td>').text(
                   OpenSpending.Utils.formatAmountWithCommas(data.summary.amount, 2, data.summary.currency.amount)))
                 .append('<td></td>')
