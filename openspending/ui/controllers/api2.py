@@ -101,6 +101,10 @@ class Api2Controller(BaseController):
         self._response_params(params)
 
         if params['pagesize'] > parser.defaults['pagesize']:
+
+            # http://wiki.nginx.org/X-accel#X-Accel-Buffering
+            response.headers['X-Accel-Buffering'] = 'no'
+
             if format == 'csv':
                 csv_headers(response, 'entries.csv')
                 streamer = CSVStreamingResponse(
