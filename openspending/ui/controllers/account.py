@@ -17,6 +17,7 @@ from openspending.lib.paramparser import DistinctParamParser
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render, require
 from openspending.ui.lib.security import generate_password_hash
+from openspending.ui.lib.mailman import subscribe_lists
 from openspending.lib.jsonexport import to_jsonp
 from openspending.lib.mailer import send_reset_link
 
@@ -27,6 +28,7 @@ class AccountController(BaseController):
 
     def login(self):
         self._disable_cache()
+        c.config = config
         return render('account/login.html')
 
     def register(self):
@@ -58,6 +60,12 @@ class AccountController(BaseController):
                     "login": account.name,
                     "password": data['password1']
                 })
+
+                errors = subscribe_lists(('community', 'developer'), data)
+                if errors:
+                    h.flash_notice(_("Subscription to the following mailing " +
+                            "lists probably failed: %s.") % ', '.join(errors))
+
                 response.headers.extend(headers)
                 return redirect("/")
             except colander.Invalid, i:
