@@ -14,7 +14,54 @@
     <div id="openspending_browser" class="row">
       <div class="span9 browser_datatable">
       </div>
-      <div class="span3 browser_faceter">
+      <div class="span3 ">
+        <div class="browser_faceter">
+        </div>
+        <div class="download-links">
+          <p>
+            <a class="input-large btn btn-small" href="${url(controller='dimension', action='entries', dataset=c.dataset.name, pagesize=100,
+          name=c.member['name'], dimension=c.dimension.name, format='json')}" data-pagesize="100">
+              <i class="icon-download"></i> Download first 100 entries as JSON
+            </a>
+          </p>
+          <p>
+            <a class="input-large btn btn-small" href="${url(controller='dimension', action='entries', dataset=c.dataset.name, pagesize=100,
+          name=c.member['name'], dimension=c.dimension.name, format='csv')}" data-pagesize="100">
+              <i class="icon-download"></i> Download first 100 entries as CSV
+            </a>
+          </p>
+          <p>
+            <a class="input-large btn btn-small" href="${url(controller='dimension', action='entries', dataset=c.dataset.name,
+          name=c.member['name'], dimension=c.dimension.name, format='json')}">
+              <i class="icon-download"></i> Download all entries as JSON
+            </a>
+          </p>
+          <p>
+            <a class="input-large btn btn-small" href="${url(controller='dimension', action='entries', dataset=c.dataset.name,
+          name=c.member['name'], dimension=c.dimension.name, format='csv')}">
+              <i class="icon-download"></i> Download all entries as CSV
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <hr/>
+    <div class="row">
+      <div class="span9">
+        <div class="well">
+          <h3>Total of ${c.member['label']} by year</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>Amount</th>
+                <th>Change</th>
+              </tr>
+            </thead>
+            <tbody id="dimension-aggregate">
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -31,6 +78,7 @@
     ${script_tag('app/faceter/openspending.faceter')}
     ${script_tag('app/browser/openspending.browser')}
     <script>
+      //<![CDATA[
       (function () {
         "use strict";
 
@@ -40,9 +88,56 @@
         );
 
         b.addFilter("${c.dimension.name}", "${c.member.name}");
+        $(document).bind('xhr', function(e, conf){
+          var params = b.table.lastParams;
+          window.setTimeout(function(){
+            var total = conf.fnRecordsTotal();
+            $('.download-links a').each(function(i, el){
+              el = $(el);
+              var href = el.attr('href').split('?');
+              var pagesize = el.data('pagesize') || total;
+              href[1] = 'pagesize=' + pagesize +
+                        '&order=' + encodeURIComponent(params.order) +
+                        '&q=' + encodeURIComponent(params.q);
+              el.attr('href', href.join('?'));
+            });
+          }, 500);
+          var dimValue = params.filter.split(':')
+          var aggregateParams = $.param({
+            dataset: params.dataset,
+            drilldown: dimValue[0] + '|time.year',
+            cut: params.filter,
+            order: "time.year:asc"
+          });
+          var aggregateUrl = '/api/2/aggregate?' + aggregateParams;
+          $.getJSON(aggregateUrl, function(data){
+            var table = $('#dimension-aggregate');
+            var before;
+            $.each(data.drilldown, function(i){
+              var amount = data.drilldown[i].amount
+              var change = '';
+              if (before !== undefined) {
+                change = (Math.round(((amount - before) / before * 10000)) / 100) + ' %';
+              }
+              table.append(
+                $('<tr>').append($('<td>').text(data.drilldown[i].time.year))
+                  .append($('<td>').text(
+                    OpenSpending.Utils.formatAmountWithCommas(amount, 2, data.summary.currency.amount)))
+                  .append($('<td>').text(change))
+              );
+              before = amount;
+            });
+            table.append(
+              $('<tr>').append($('<td>').html("<strong>Total</strong>"))
+                .append($('<td>').text(
+                  OpenSpending.Utils.formatAmountWithCommas(data.summary.amount, 2, data.summary.currency.amount)))
+                .append('<td></td>')
+            );
+          });
+        });
         b.init();
-
       }());
+      //]]>
     </script>
   </py:def>
 
