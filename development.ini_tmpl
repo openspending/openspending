@@ -46,7 +46,7 @@ app_instance_uuid = ${app_instance_uuid}
 # openspending.subscribe_community = http://lists.okfn.org/mailman/subscribe/openspending
 # openspending.subscribe_developer = http://lists.okfn.org/mailman/subscribe/openspending-dev
 
-# Database
+# Database (n.b., split in some branches)
 openspending.db.url = sqlite:///%(here)s/db/development.sqlite3
 
 # Solr
