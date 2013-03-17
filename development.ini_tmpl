@@ -43,6 +43,8 @@ app_instance_uuid = ${app_instance_uuid}
 # openspending.api_link = http://wiki.openspending.org/API
 # openspending.lists_link = http://lists.okfn.org/mailman/listinfo/openspending-discuss
 # openspending.forum_link =
+# openspending.subscribe_community = http://lists.okfn.org/mailman/subscribe/openspending
+# openspending.subscribe_developer = http://lists.okfn.org/mailman/subscribe/openspending-dev
 
 # Database (n.b., split in some branches)
 openspending.db.url = sqlite:///%(here)s/db/development.sqlite3
