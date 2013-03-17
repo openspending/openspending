@@ -5,6 +5,7 @@ from openspending import model
 from openspending.lib import solr_util as solr
 from openspending.lib import util
 
+
 class Browser(object):
 
     def __init__(self,
@@ -38,21 +39,29 @@ class Browser(object):
         """
         q = self.query()
 
-        stats = {
+        self.stats = {
             'results_count_query': q['response']['numFound'],
             'results_count': len(q['response']['docs'])
         }
 
         if self.params['stats']:
-            stats.update(q.get('stats', {}).get('stats_fields', {}).\
+            self.stats.update(q.get('stats', {}).get('stats_fields', {}).
                     get('amount', {}))
 
-        facets = q.get('facet_counts', {}).get('facet_fields', {})
-        for k in facets.keys():
-            facets[k] = _parse_facets(facets[k])
+        self.facets = q.get('facet_counts', {}).get('facet_fields', {})
+        for k in self.facets.keys():
+            self.facets[k] = _parse_facets(self.facets[k])
 
-        entries = list(_get_entries(q['response']['docs']))
-        return stats, facets, entries
+        self.entries = _get_entries(q['response']['docs'])
+
+    def get_stats(self):
+        return self.stats
+
+    def get_facets(self):
+        return self.facets
+
+    def get_entries(self):
+        return self.entries
 
     def query(self):
         data = solr.get_connection().raw_query(**_build_query(self.params))
