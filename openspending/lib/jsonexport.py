@@ -65,22 +65,34 @@ def generate_browser_json(entries, stats, facets, callback):
 def to_json(data, indent=2):
     return json.dumps(data, default=default_json, indent=indent)
 
-def to_jsonp(data):
-    is_xhr = request.headers.get('x-requested-with', '').lower() == 'xmlhttprequest'
-    indent = None if is_xhr else 2
-    result = to_json(data, indent=indent)
 
+def json_headers(filename=None):
     if 'callback' in request.params:
         response.headers['Content-Type'] = 'text/javascript'
+    else:
+        response.headers['Content-Type'] = 'application/json'
+    if filename:
+        response.content_disposition = 'attachment; filename=%s' % filename
+
+
+def generate_jsonp(data, indent=2, callback=None):
+    result = to_json(data, indent=indent)
+    if callback:
         # The parameter is a unicode object, which we don't want (as it
         # causes Pylons to complain when we return a unicode object from
         # this function).  All reasonable values of this parameter will
         # "str" with no problem (ASCII clean).  So we do that then.
         cbname = str(request.params['callback'])
         result = '%s(%s);' % (cbname, result)
-    else:
-        response.headers['Content-Type'] = 'application/json'
     return result
+
+
+def to_jsonp(data):
+    is_xhr = request.headers.get('x-requested-with', '').lower() == 'xmlhttprequest'
+    indent = None if is_xhr else 2
+    json_headers()
+    return generate_jsonp(data, indent=indent, callback=request.params.get('callback'))
+
 
 @decorator
 def jsonpify(func, *args, **kwargs):

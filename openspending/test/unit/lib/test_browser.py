@@ -64,7 +64,8 @@ class TestBrowser(TestCase):
         self.dataset.entries.return_value = make_entries([3, 1, 2])
 
         b = Browser()
-        _, _, entries = b.execute()
+        b.execute()
+        entries = b.get_entries()
 
         h.assert_equal(map(lambda (a, b): b, entries), make_entries([1, 2, 3]))
 
@@ -73,7 +74,8 @@ class TestBrowser(TestCase):
         self.dataset.entries.return_value = make_entries([3, 1, 2])
 
         b = Browser()
-        stats, _, _ = b.execute()
+        b.execute()
+        stats = b.get_stats()
 
         h.assert_equal(stats['results_count'], 3)
         h.assert_equal(stats['results_count_query'], 1234)

@@ -30,20 +30,23 @@
 
     <!-- templates/view/view.html content -->
     <div class="row">
-      <div class="span12"><div id="widget" style="width: auto; height: 400px"/></div>
+      <div class="span12"><div id="widget"/></div>
     </div>
-
-    <div class="well widget-context">
-      <div class="pull-right">
-        <py:if test="can.view.delete(c.dataset, c.named_view)">
-          <a href="#" class="btn btn-mini btn-danger"
-            id="view-delete-link"><i class="icon-trash icon-white"></i> Delete</a>
-        </py:if>
-        <a href="#" class="btn btn-mini" id="widget-embed-link"><i class="icon-share"></i> Embed</a>
-        <a href="#" class="btn btn-mini hidden" id="widget-edit-link"><i class="icon-cog"></i> Change</a>
-        <a href="#" class="btn btn-mini hidden" id="widget-download-link"><i class="icon-download"></i> Data</a>
+    <div class="row">
+      <div class="span12">
+        <div class="well widget-context">
+          <div class="pull-right">
+            <py:if test="can.view.delete(c.dataset, c.named_view)">
+              <a href="#" class="btn btn-mini btn-danger"
+                id="view-delete-link"><i class="icon-trash icon-white"></i> Delete</a>
+            </py:if>
+            <a href="#" class="btn btn-mini" id="widget-embed-link"><i class="icon-share"></i> Embed</a>
+            <a href="#" class="btn btn-mini hidden" id="widget-edit-link"><i class="icon-cog"></i> Change</a>
+            <a href="#" class="btn btn-mini hidden" id="widget-download-link"><i class="icon-download"></i> Data</a>
+          </div>
+           <p>${c.named_view.description}</p>
+        </div>
       </div>
-       <p>${c.named_view.description}</p>
     </div>
 
     <form action="${h.url_for(controller='view', action='delete',

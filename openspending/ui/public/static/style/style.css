@@ -112,6 +112,7 @@ a:hover, a:active {
 
 .representations {
   float: right;
+  padding: 0 2px;
 }
 
 .nav select { 
