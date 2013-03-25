@@ -71,6 +71,7 @@ class Account(db.Model):
             'admin': self.admin
             }
 
+
 class AccountRegister(colander.MappingSchema):
     name = colander.SchemaNode(colander.String(),
                                validator=colander.Regex(REGISTER_NAME_RE))
@@ -83,6 +84,10 @@ class AccountRegister(colander.MappingSchema):
     password2 = colander.SchemaNode(colander.String(),
                                     validator=colander.Length(min=4))
     terms = colander.SchemaNode(colander.Bool())
+    subscribe_community = colander.SchemaNode(colander.Boolean(),
+            missing=False)
+    subscribe_developer = colander.SchemaNode(colander.Boolean(),
+            missing=False)
 
 
 class AccountSettings(colander.MappingSchema):
