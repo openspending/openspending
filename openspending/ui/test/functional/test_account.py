@@ -95,3 +95,10 @@ class TestAccountController(ControllerTestCase):
                                 extra_environ={'REMOTE_USER': str(test.name)})
         assert '200' in response.status, response.status
         assert cra.label in response, response
+
+    def test_terms_check(self):
+        response = self.app.get(url(controller='account', action='login'))
+        assert '200' in response.status
+        assert ('I agree to the <a href="okfn.org/terms-of-use/">Terms of '
+                'Use</a> and <a href="http://okfn.org/privacy-policy/">Privacy'
+                ' Policy</a>' in response)
