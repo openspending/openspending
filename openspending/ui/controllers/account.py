@@ -111,6 +111,9 @@ class AccountController(BaseController):
 
     def complete(self, format='json'):
         self._disable_cache()
+        if not (c.account and c.account.admin):
+            response.status = 403
+            return to_jsonp({'errors': _("You are not authorized to see that page")})
         parser = DistinctParamParser(request.params)
         params, errors = parser.parse()
         if errors:
