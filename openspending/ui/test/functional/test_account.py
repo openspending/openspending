@@ -70,6 +70,7 @@ class TestAccountController(ControllerTestCase):
         response = self.app.get(url(controller='account', action='complete'),
                                 params={})
         obj = json.loads(response.body)['results']
+        assert obj[0].keys() == [u'fullname', u'name']
         assert len(obj) == 1, obj
         assert obj[0]['name'] == 'test', obj[0]
 
