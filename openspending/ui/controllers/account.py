@@ -111,9 +111,6 @@ class AccountController(BaseController):
 
     def complete(self, format='json'):
         self._disable_cache()
-        if not (c.account and c.account.admin):
-            response.status = 403
-            return to_jsonp({'errors': _("You are not authorized to see that page")})
         parser = DistinctParamParser(request.params)
         params, errors = parser.parse()
         if errors:
@@ -126,9 +123,12 @@ class AccountController(BaseController):
                                     Account.fullname.ilike(filter_string)))
         count = query.count()
         query = query.limit(params.get('pagesize'))
-        query = query.offset(int((params.get('page') - 1) * params.get('pagesize')))
+        query = query.offset(int((params.get('page') - 1) *
+                             params.get('pagesize')))
+        results = [dict(fullname=x.fullname, name=x.name) for x in list(query)]
+
         return to_jsonp({
-            'results': list(query),
+            'results': results,
             'count': count
             })
 
