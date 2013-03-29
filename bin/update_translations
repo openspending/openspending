@@ -4,5 +4,5 @@ set -eu
 
 for lang in $(cat openspending/ui/i18n/supported_langs.txt)
 do
-	python setup.py init_catalog -l "$lang"
+	python setup.py compile_catalog -l "$lang"
 done
