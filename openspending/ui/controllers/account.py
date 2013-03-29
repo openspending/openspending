@@ -184,3 +184,12 @@ class AccountController(BaseController):
             + "your password!"))
         redirect(h.url_for(controller='account', action='settings'))
 
+    def profile(self, name=None):
+        c.config = config
+        account = Account.by_name(name)
+        if account is None:
+            response.status = 404
+            return None
+        c.profile = account
+        c.is_admin = True if (c.account and c.account.admin is True) else False
+        return render('account/profile.html')

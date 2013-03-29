@@ -95,3 +95,46 @@ class TestAccountController(ControllerTestCase):
                                 extra_environ={'REMOTE_USER': str(test.name)})
         assert '200' in response.status, response.status
         assert cra.label in response, response
+
+    def test_profile(self):
+        # Test the profile page
+        test = h.make_account('test')
+        response = self.app.get(url(controller='account', action='profile',
+                                name='test'))
+        assert '<dt>Name</dt>' in response.body
+        assert '<dd>Test User</dd>' in response.body
+        assert '<dt>Username</dt>' in response.body
+        assert '<dd>test</dd>' in response.body
+        assert '<dt>Email</dt>' not in response.body
+        assert '<dd>test@example.com</dd>' not in response.body
+        assert '200' in response.status
+
+        admin_user = h.make_account('admin', 'Admin', 'admin@os.com')
+        admin_user.admin = True
+        db.session.add(admin_user)
+        db.session.commit()
+
+        # Display email for admins
+        response = self.app.get(url(controller='account', action='profile',
+                                name='test'), extra_environ={'REMOTE_USER':
+                                                             'admin'})
+        assert '<dt>Name</dt>' in response.body
+        assert '<dd>Test User</dd>' in response.body
+        assert '<dt>Username</dt>' in response.body
+        assert '<dd>test</dd>' in response.body
+        assert '<dt>Email</dt>' in response.body
+        assert '<dd>test@example.com</dd>' in response.body
+        assert '200' in response.status
+
+        # Do not display fullname if it's empty
+        test.fullname = ''
+        db.session.add(test)
+        db.session.commit()
+        response = self.app.get(url(controller='account', action='profile',
+                                name='test'))
+        assert '<dt>Username</dt>' in response.body
+        assert '<dd>test</dd>' in response.body
+        assert '<dt>Email</dt>' not in response.body
+        assert '<dd>test@example.com</dd>' not in response.body
+        assert '200' in response.status
+
