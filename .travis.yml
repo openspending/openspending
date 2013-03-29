@@ -6,6 +6,8 @@ services:
   - postgresql
 before_install:
   - git clone git://github.com/openspending/openspending-installer.git
+before_script:
+  - true
 install:
   - sudo openspending-installer/vagrant/install.sh
 script: "nosetests"
