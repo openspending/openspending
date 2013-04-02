@@ -95,3 +95,16 @@ class TestAccountController(ControllerTestCase):
                                 extra_environ={'REMOTE_USER': str(test.name)})
         assert '200' in response.status, response.status
         assert cra.label in response, response
+
+    def test_terms_check(self):
+        # Check that the field is displayed
+        response = self.app.get(url(controller='account', action='login'))
+        assert '200' in response.status
+        assert ('I agree to the <a href="okfn.org/terms-of-use/">Terms of '
+                'Use</a> and <a href="http://okfn.org/privacy-policy/">Privacy'
+                ' Policy</a>' in response)
+
+        # Check that not filling up the field throws a response
+        response = self.app.post(url(controller='account', action='register'))
+        assert ('<input name="terms" type="checkbox" /> <p class="help-block '
+                'error">Required</p>' in response)
