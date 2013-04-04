@@ -124,12 +124,20 @@ class TestSearchParamParser(TestCase):
         out, err = SearchParamParser({'dataset': 'baz'}).parse()
         h.assert_true('no dataset with name "baz"' in err[0])
 
+    # cf test_facet_pagesize
     def test_pagesize(self):
         out, err = SearchParamParser({'pagesize': '73'}).parse()
         h.assert_equal(out['pagesize'], 73)
 
         out, err = SearchParamParser({'pagesize': '140'}).parse()
-        h.assert_equal(out['pagesize'], 100)
+        h.assert_equal(out['pagesize'], 140)
+
+    def test_facet_pagesize(self):
+        out, err = SearchParamParser({'facet_pagesize': '73'}).parse()
+        h.assert_equal(out['facet_pagesize'], 73)
+
+        out, err = SearchParamParser({'facet_pagesize': '140'}).parse()
+        h.assert_equal(out['facet_pagesize'], 100)
 
     def test_facet_field(self):
         out, err = SearchParamParser({'facet_field': 'foo|bar|baz'}).parse()
@@ -150,13 +158,6 @@ class TestSearchParamParser(TestCase):
         h.assert_equal(out['facet_page'], 1.7)
         out, err = SearchParamParser({'facet_page': '0.6'}).parse()
         h.assert_equal(out['facet_page'], 1)
-
-    def test_facet_pagesize(self):
-        out, err = SearchParamParser({'facet_pagesize': '73'}).parse()
-        h.assert_equal(out['facet_pagesize'], 73)
-
-        out, err = SearchParamParser({'facet_pagesize': '140'}).parse()
-        h.assert_equal(out['facet_pagesize'], 100)
 
     def test_expand_facet_dimensions(self):
         out, err = SearchParamParser({}).parse()

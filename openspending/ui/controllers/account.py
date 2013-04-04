@@ -33,6 +33,7 @@ class AccountController(BaseController):
 
     def register(self):
         require.account.create()
+        c.config = config
         self._disable_cache()
         errors, values = {}, None
         if request.method == 'POST':

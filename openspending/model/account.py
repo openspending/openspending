@@ -30,6 +30,7 @@ class Account(db.Model):
     api_key = db.Column(db.Unicode(2000), default=make_uuid)
     admin = db.Column(db.Boolean, default=False)
     script_root = db.Column(db.Unicode(2000))
+    terms = db.Column(db.Boolean, default=False)
 
     datasets = db.relationship(Dataset,
             secondary=account_dataset_table,
@@ -82,6 +83,7 @@ class AccountRegister(colander.MappingSchema):
                                     validator=colander.Length(min=4))
     password2 = colander.SchemaNode(colander.String(),
                                     validator=colander.Length(min=4))
+    terms = colander.SchemaNode(colander.Bool())
     subscribe_community = colander.SchemaNode(colander.Boolean(),
             missing=False)
     subscribe_developer = colander.SchemaNode(colander.Boolean(),
