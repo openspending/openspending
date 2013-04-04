@@ -65,24 +65,30 @@ class TestAccountController(ControllerTestCase):
                                     email=account.email))
         assert '/settings' in response.headers['location'], response.headers
 
-    def test_distinct_json(self):
-        from nose.plugins.skip import SkipTest
-        raise SkipTest
-        h.make_account()
+    def test_completion_access_check(self):
         response = self.app.get(url(controller='account', action='complete'),
-                                params={})
+                                expect_errors=True)
+        obj = json.loads(response.body)
+        assert u'You are not authorized to see that page' == obj['errors']
+
+    def test_distinct_json(self):
+        test = h.make_account()
+        response = self.app.get(url(controller='account', action='complete'),
+                                extra_environ={'REMOTE_USER': str(test.name)})
         obj = json.loads(response.body)['results']
         assert obj[0].keys() == [u'fullname', u'name']
         assert len(obj) == 1, obj
         assert obj[0]['name'] == 'test', obj[0]
 
         response = self.app.get(url(controller='account', action='complete'),
-                                params={'q': 'tes'})
+                                params={'q': 'tes'},
+                                extra_environ={'REMOTE_USER': str(test.name)})
         obj = json.loads(response.body)['results']
         assert len(obj) == 1, obj
 
         response = self.app.get(url(controller='account', action='complete'),
-                                params={'q': 'foo'})
+                                params={'q': 'foo'},
+                                extra_environ={'REMOTE_USER': str(test.name)})
         obj = json.loads(response.body)['results']
         assert len(obj) == 0, obj
 

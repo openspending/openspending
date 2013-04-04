@@ -117,6 +117,10 @@ class AccountController(BaseController):
         if errors:
             response.status = 400
             return {'errors': errors}
+        if not c.account:
+            response.status = 403
+            return to_jsonp({'errors': _("You are not authorized to see that "
+                            "page")})
 
         query = db.session.query(Account)
         filter_string = params.get('q') + '%'
