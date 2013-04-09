@@ -1,3 +1,4 @@
+import os
 from pylons import tmpl_context as c
 from pylons import app_globals
 from pylons import config
@@ -6,6 +7,8 @@ from openspending.ui.lib import helpers as h
 
 from jinja2 import Template, FileSystemLoader
 from jinja2.environment import Environment
+
+template_rootdir = "openspending/ui/alttemplates"
 
 def languages(detected_languages, current_language):
     def lang_triple(lang):
@@ -29,7 +32,8 @@ def section_active(section):
                 False: ""
                 }[v]) for k,v in tmp.iteritems() ])
 
-def render(dirname, filename):
+def render(bare_dirname, filename):
+    dirname = os.path.join(template_rootdir, bare_dirname)
     env = Environment()
     env.loader = FileSystemLoader(dirname)
     template = env.get_template(filename)

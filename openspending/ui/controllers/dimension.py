@@ -59,7 +59,7 @@ class DimensionController(BaseController):
                 for d in c.dataset.dimensions]
             return to_jsonp(dimensions)
         else:
-            return templating.render('openspending/ui/alttemplates/dimension',
+            return templating.render('dimension',
                                      'index.html')
             #return render('dimension/index.html')
 
