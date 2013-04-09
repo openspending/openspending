@@ -33,6 +33,13 @@ def section_active(section):
                 }[v]) for k,v in tmp.iteritems() ])
 
 def render(path):
+    """Render a template with jinja2
+
+    Args:
+      path (str): the path to the template; should be of the form
+      "dir/filename.html"
+
+    """
     bare_dirname, filename = os.path.split(path)
     dirname = os.path.join(template_rootdir, bare_dirname)
     env = Environment()
