@@ -20,7 +20,7 @@
     <meta name="author" content="Open Knowledge Foundation" />
     <link rel="shortcut icon" href="{{ static }}img/favicon.ico{{ static_cache_version }}" type="image/x-icon" />
     <link rel="alternate" type="application/rss+xml" title="Latest Datasets on OpenSpending"
-      href="${h.url(controller='dataset', action='feed_rss')}" />
+      href="{{ h.url(controller='dataset', action='feed_rss') }}" />
 
     <!-- Le styles -->
     <link rel="stylesheet"
@@ -48,20 +48,20 @@
           <div class="nav-collapse">
             <ul class="nav">
               <li><a class="{{ section_active.blog }}"
-                href="${h.url(controller='content', action='view', section='blog', path='index.html')}">Spending Blog</a></li>
+                href="{{ h.url(controller='content', action='view', section='blog', path='index.html') }}">Spending Blog</a></li>
               <li class="dropdown">
                 <a class="list-datasets {{ section_active.dataset }}" href="#datasets">Datasets</a>
               </li>
               <li><a class="{{ section_active.search }}"
-                href="${h.url(controller='entry', action='search')}">Search</a></li>
+                href="{{ h.url(controller='entry', action='search') }}">Search</a></li>
               <li class="dropdown">
                 <a class="{{ section_active.resources}} dropdown-toggle"
                   href="/resources/index.html">Community</a>
               </li>
               <li><a class="{{ section_active.help }}"
-               href="${h.url(controller='content', action='view', section='help', path='index.html')}">Help</a></li>
+               href="{{ h.url(controller='content', action='view', section='help', path='index.html') }}">Help</a></li>
               <li><a class="{{ section_active.about }}"
-                href="${h.url(controller='content', action='view', section='about', path='contact.html')}">About</a></li>
+                href="{{ h.url(controller='content', action='view', section='about', path='contact.html') }}">About</a></li>
             </ul>
           </div>
           <ul class="nav pull-right">

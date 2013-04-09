@@ -55,6 +55,7 @@ def render(dirname, filename):
         "messages": list(h._flash.pop_messages()),
         "languages": languages(c.detected_l10n_languages, c.language),
         "section_active": section_active(c.content_section),
-        "account": c.account is not None
+        "account": c.account is not None,
+        "h": h
         }
     return template.render(params)
