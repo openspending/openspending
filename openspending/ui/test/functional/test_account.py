@@ -65,21 +65,30 @@ class TestAccountController(ControllerTestCase):
                                     email=account.email))
         assert '/settings' in response.headers['location'], response.headers
 
-    def test_distinct_json(self):
-        h.make_account()
+    def test_completion_access_check(self):
         response = self.app.get(url(controller='account', action='complete'),
-                                params={})
+                                expect_errors=True)
+        obj = json.loads(response.body)
+        assert u'You are not authorized to see that page' == obj['errors']
+
+    def test_distinct_json(self):
+        test = h.make_account()
+        response = self.app.get(url(controller='account', action='complete'),
+                                extra_environ={'REMOTE_USER': str(test.name)})
         obj = json.loads(response.body)['results']
+        assert obj[0].keys() == [u'fullname', u'name']
         assert len(obj) == 1, obj
         assert obj[0]['name'] == 'test', obj[0]
 
         response = self.app.get(url(controller='account', action='complete'),
-                                params={'q': 'tes'})
+                                params={'q': 'tes'},
+                                extra_environ={'REMOTE_USER': str(test.name)})
         obj = json.loads(response.body)['results']
         assert len(obj) == 1, obj
 
         response = self.app.get(url(controller='account', action='complete'),
-                                params={'q': 'foo'})
+                                params={'q': 'foo'},
+                                extra_environ={'REMOTE_USER': str(test.name)})
         obj = json.loads(response.body)['results']
         assert len(obj) == 0, obj
 
@@ -138,3 +147,15 @@ class TestAccountController(ControllerTestCase):
         assert '<dd>test@example.com</dd>' not in response.body
         assert '200' in response.status
 
+    def test_terms_check(self):
+        # Check that the field is displayed
+        response = self.app.get(url(controller='account', action='login'))
+        assert '200' in response.status
+        assert ('I agree to the <a href="okfn.org/terms-of-use/">Terms of '
+                'Use</a> and <a href="http://okfn.org/privacy-policy/">Privacy'
+                ' Policy</a>' in response)
+
+        # Check that not filling up the field throws a response
+        response = self.app.post(url(controller='account', action='register'))
+        assert ('<input name="terms" type="checkbox" /> <p class="help-block '
+                'error">Required</p>' in response)
