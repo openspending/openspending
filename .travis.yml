@@ -6,6 +6,9 @@ services:
   - postgresql
 before_install:
   - git clone git://github.com/openspending/openspending-installer.git
+before_script:
+  - echo in before_script
+  - nosetests --version
 install:
-  - sudo openspending-installer/vagrant/install.sh
+  - sudo env PATH=$PATH openspending-installer/vagrant/install.sh
 script: "nosetests"

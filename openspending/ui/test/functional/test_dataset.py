@@ -11,8 +11,8 @@ class TestDatasetController(ControllerTestCase):
     def setup(self):
 
         super(TestDatasetController, self).setup()
-        h.load_fixture('cra')
-        h.make_account('test')
+        self.dataset = h.load_fixture('cra')
+        self.user = h.make_account('test')
         h.clean_and_reindex_solr()
 
     def test_index(self):
@@ -68,6 +68,15 @@ class TestDatasetController(ControllerTestCase):
 
         h.assert_true(url_ in response,
                       "Link to view page (JSON format) not in response!")
+
+    def test_about_has_profile_links(self):
+        self.dataset.managers.append(self.user)
+        db.session.add(self.dataset)
+        db.session.commit()
+        response = self.app.get(url(controller='dataset', action='about',
+                                dataset='cra'))
+        assert ('<li><a href="/account/profile/test">Test User</a></li>' in
+                response.body)
 
     def test_view_json(self):
         response = self.app.get(url(controller='dataset', action='view',
