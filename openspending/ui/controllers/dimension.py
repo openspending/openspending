@@ -59,8 +59,7 @@ class DimensionController(BaseController):
                 for d in c.dataset.dimensions]
             return to_jsonp(dimensions)
         else:
-            return templating.render('dimension',
-                                     'index.html')
+            return templating.render('dimension/index.html')
 
     def view(self, dataset, dimension, format='html'):
         self._get_dimension(dataset, dimension)

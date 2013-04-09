@@ -32,7 +32,8 @@ def section_active(section):
                 False: ""
                 }[v]) for k,v in tmp.iteritems() ])
 
-def render(bare_dirname, filename):
+def render(path):
+    bare_dirname, filename = os.path.split(path)
     dirname = os.path.join(template_rootdir, bare_dirname)
     env = Environment()
     env.loader = FileSystemLoader(dirname)
