@@ -61,7 +61,6 @@ class DimensionController(BaseController):
         else:
             return templating.render('dimension',
                                      'index.html')
-            #return render('dimension/index.html')
 
     def view(self, dataset, dimension, format='html'):
         self._get_dimension(dataset, dimension)
