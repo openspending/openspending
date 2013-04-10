@@ -52,7 +52,6 @@ def render(path):
 
     params = {
         "dimensions": c.dataset.dimensions,
-        "language": c.language,
         "script_root": h.script_root(),
         "script_boot": h.script_tag('prod/boot'),
         "bootstrap_css": h.static('style/bootstrap.css'),
