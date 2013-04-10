@@ -17,7 +17,7 @@
       <div class="span12">
         <p i18n:msg="dataset">{{ c.dataset.label }} has the following dimensions:</p>
 		<ul>
-		{% for dimension in dimensions %}	
+		{% for dimension in c.dataset.dimensions %}	
 		  <li>
 			<a class="dimension-name" href="/{{ c.dataset.name }}/{{ dimension.name }}">
 			  <strong>{{ dimension.label }}</strong> <!-- or dimension name -->

@@ -51,7 +51,6 @@ def render(path):
         static_cache_version = "?" + static_cache_version
 
     params = {
-        "dimensions": c.dataset.dimensions,
         "script_root": h.script_root(),
         "script_boot": h.script_tag('prod/boot'),
         "bootstrap_css": h.static('style/bootstrap.css'),
