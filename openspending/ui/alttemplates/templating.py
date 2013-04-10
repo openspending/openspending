@@ -68,6 +68,7 @@ def render(path):
         "languages": languages(c.detected_l10n_languages, c.language),
         "section_active": section_active(c.content_section),
         "account": c.account is not None,
-        "h": h
+        "h": h,
+        "c": c
         }
     return template.render(params)
