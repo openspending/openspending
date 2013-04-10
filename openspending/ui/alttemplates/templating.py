@@ -51,7 +51,6 @@ def render(path):
         static_cache_version = "?" + static_cache_version
 
     params = {
-        "dataset_label": c.dataset.label,
         "dimensions": c.dataset.dimensions,
         "dataset_name": c.dataset.name,
         "language": c.language,

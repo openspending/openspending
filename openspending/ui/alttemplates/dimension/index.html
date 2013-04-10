@@ -1,4 +1,4 @@
-{% set page_title = 'Dimensions in ' + dataset_label %}
+{% set page_title = 'Dimensions in ' + c.dataset.label %}
 {% set page_description = '' %}
 {% set optional_head = '' %}
 
@@ -7,15 +7,15 @@
 <!--
   <py:def function="nav_class">nav-dataset</py:def>
 
-  <py:def function="page_title"><span py:strip="" i18n:msg="dataset_label">Dimensions in {{ dataset_label }}</span></py:def>
+  <py:def function="page_title"><span py:strip="" i18n:msg="dataset_label">Dimensions in {{ c.dataset.label }}</span></py:def>
   -->
 
   <div py:def="content">
-    <h2 class="page-header" i18n:msg="dataset_label">{{ dataset_label }}: Dimensions
+    <h2 class="page-header" i18n:msg="dataset_label">{{ c.dataset.label }}: Dimensions
       <small>Facets of the dataset.</small></h2>
     <div class="row">
       <div class="span12">
-        <p i18n:msg="dataset">{{ dataset_label }} has the following dimensions:</p>
+        <p i18n:msg="dataset">{{ c.dataset.label }} has the following dimensions:</p>
 		<ul>
 		{% for dimension in dimensions %}	
 		  <li>
