@@ -19,7 +19,7 @@
 		<ul>
 		{% for dimension in dimensions %}	
 		  <li>
-			<a class="dimension-name" href="/{{ dataset_name }}/{{ dimension.name }}">
+			<a class="dimension-name" href="/{{ c.dataset.name }}/{{ dimension.name }}">
 			  <strong>{{ dimension.label }}</strong> <!-- or dimension name -->
 			  <!-- <py:if test="dimension.key">
 				<abbr title="Part of unique key"><i class='icon-star'></i></abbr>
