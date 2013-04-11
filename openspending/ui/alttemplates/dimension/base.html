@@ -11,7 +11,7 @@
 
   <head>
     <meta charset="utf-8" />
-    <title>{{ page_title }} - {{ site_title }}</title>
+    <title>{% block page_title %}{% endblock %} - {{ site_title }}</title>
 	{% if page_description %}
     <meta name="description" content="{{ page_description }}" />
 	{% else %}
