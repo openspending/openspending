@@ -1,8 +1,9 @@
+{% extends "base.html" %}
 {% set page_title = 'Dimensions in ' + c.dataset.label %}
 {% set page_description = '' %}
 {% set optional_head = '' %}
 
-{% include 'header.html' %}
+{% block content %}
 
 <!--
   <py:def function="nav_class">nav-dataset</py:def>
@@ -34,5 +35,5 @@
     </div>
   </div>
 
-{% include 'footer.html' %}
+{% endblock %}
 

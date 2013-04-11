@@ -100,3 +100,69 @@
         </div>
 	  {% endif %}
 	
+
+		{% block content %}{% endblock %}
+
+    <footer>
+      <div class="inner">
+        <div class="container">
+          <p i18n:msg="okfn">
+            This is an <a href="http://okfn.org">Open Knowledge Foundation</a>
+            project.
+          </p>
+
+          <ul class="footer-links span4 pull-left">
+            <li><a href="http://wheredoesmymoneygo.org">Where Does My Money Go
+              (UK)</a></li>
+            <li><a href="http://offenerhaushalt.de">OffenerHaushalt (DE)</a></li>
+            <li><a href="http://opencorporates.com" title="The Open Database Of The Corporate World">OpenCorporates.com</a></li>
+            <li><a href="http://okfnlabs.org">OKFN Labs</a></li>
+            <li><a href="http://italia.yourtopia.net">YourTopia</a></li>
+          </ul>
+          <ul class="footer-links span4 pull-left">
+            <li><a href="http://twitter.com/openspending">Twitter</a></li>
+            <li><a href="{{ h.url(controller='content', action='view', section='help', path='index.html') }}">Help</a></li>
+            <li><a href="http://lists.okfn.org/mailman/listinfo">Mailing List</a></li>
+            <li><a href="{{ h.url(controller='content', action='view', section='help', path='api.html') }}">API</a></li>
+            <li><a href="http://okfn.org/privacy-policy/">Privacy</a> and <a href="{{ h.url(controller='content', action='view', section='about', path='contact.html') }}">Contact</a></li>
+          </ul>
+
+          <p i18n:msg="code,data,opendef">
+          All <a href="http://www.gnu.org/licenses/agpl.html">code</a>,
+          <a href="http://creativecommons.org/licenses/by/3.0/">content</a>
+          and <a href="http://opendatacommons.org/licenses/odbl/">data</a> is
+          openly licensed in accordance with the
+          <a href="http://opendefinition.org/">open definition</a>.
+          <br/><br/>
+          <a href="http://opendefinition.org"><img src="http://assets.okfn.org/images/ok_buttons/od_80x15_blue.png" alt="Open Content" /></a>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+      <!-- script boot section -->
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+      {{ script_boot }}
+      <script defer="defer">
+		OpenSpending.scriptRoot = "{{ script_root }}";
+		OpenSpending.localeGroupSeparator = "{{ number_symbols_group }}";
+		OpenSpending.localeDecimalSeparator = "{{ number_symbols_decimal }}";
+      </script>
+      <!-- end script boot section -->
+
+    <!-- should run scripts() if defined?! -->
+
+	<!-- should be gated on g.debug, wherever that's defined?! -->
+    <script type="text/javascript" defer="defer">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-8271754-17']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+
+  </body>
+</html>
