@@ -32,7 +32,7 @@ def section_active(section):
                 False: ""
                 }[v]) for k,v in tmp.iteritems() ])
 
-def render(path):
+def render(path, **kwargs):
     """Render a template with jinja2
 
     Args:
@@ -67,4 +67,5 @@ def render(path):
         "h": h,
         "c": c
         }
+    params.update(kwargs)
     return template.render(params)
