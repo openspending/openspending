@@ -202,3 +202,14 @@ def format_number_with_commas(number):
         groups.append(s[-3:])
         s = s[:-3]
     return s + ','.join(reversed(groups))
+
+
+def script_tag(name):
+    return '''<script type="text/javascript" src="''' + \
+        '%s/%s.js' % (script_root(), name) + \
+        '''"></script>'''
+
+def style_tag(name):
+    return '''<link rel="stylesheet" href="''' + \
+        '%s/%s.css' % (script_root(), name) + \
+        '''" />'''
