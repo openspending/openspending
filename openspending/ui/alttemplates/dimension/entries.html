@@ -1,11 +1,5 @@
-{% set page_title = c.member['label'] + ' - Entries' %}
-{% set page_description = h.entry_description(c.member) %}
-{% set optional_head = '' %}
+{% extends "base.html" %}
 
-{% include 'header.html' %}
+{% block page_title %}{{ c.member['label'] }} - Entries{% endblock %}
 
-NO CONTENT YET
-
-
-{% include 'footer.html' %}
-
+{% block page_description %}{{ h.entry_description(c.member) }}{% endblock %}
