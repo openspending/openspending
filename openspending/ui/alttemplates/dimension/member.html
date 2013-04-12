@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% from "dimension/_widgets.html" import widget_js as widget_js %}
-{% from "dimension/_util.html" import share_scripts as share_scripts %}
+{% from "_util.html" import share_scripts as share_scripts %}
 
 {% block scripts %}
 	{% if c.view %}
@@ -27,7 +27,7 @@
 {% endblock %}
 
 {% from "dimension/_nav.html" import member_nav as member_nav %}
-{% from "dimension/_util.html" import share_body as share_body %}
+{% from "_util.html" import share_body as share_body %}
 
 {% block content %}
     {{member_nav(h, c, c.view.name if c.view else 'search')}}

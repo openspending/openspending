@@ -4,7 +4,7 @@
 {% block page_desc %}{{h.markdown_preview(c.dimension.description or c.dataset.description)}}{% endblock %}
 
 {% from "dimension/_widgets.html" import widget_js as widget_js %}
-{% from "dimension/_util.html" import share_scripts as share_scripts %}
+{% from "_util.html" import share_scripts as share_scripts %}
 
 {% block scripts %}
     {{widget_js(h, c, 'widget', c.widget, c.widget_state, handles=True)}}
@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% from "dimension/_nav.html" import member_nav as member_nav %}
-{% from "dimension/_util.html" import share_body as share_body %}
+{% from "_util.html" import share_body as share_body %}
 
 {% block content %}
   <div py:def="content">

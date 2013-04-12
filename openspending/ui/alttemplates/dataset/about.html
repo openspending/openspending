@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% from "_dimension_list.html" import dimensions_list as dimensions_list %}
-{% from "dimension/_util.html" import share_scripts as share_scripts %}
+{% from "_util.html" import share_scripts as share_scripts %}
 {% from "dataset/_nav.html" import dataset_nav as dataset_nav %}
-{% from "dimension/_util.html" import share_body as share_body %}
+{% from "_util.html" import share_body as share_body %}
 
 {% block page_title %}{{c.dataset.label or c.dataset.name}}{% endblock %}
 {% block page_desc %}
