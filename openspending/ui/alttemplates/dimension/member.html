@@ -32,9 +32,11 @@
 {% block content %}
     {{member_nav(h, c, c.view.name if c.view else 'search')}}
 
-    <div py:if="c.view" class="row">
+	{% if c.view %}
+    <div class="row">
       <div class="span12"><div id="vis_widget" style="width: auto; height: 400px"/></div>
     </div>
+    {% endif %}
 
     <div class="well widget-context">
       <div class="pull-right">
@@ -43,16 +45,18 @@
         <a href="#" class="btn btn-mini hidden" id="widget-download-link"><i class="icon-download"></i> Data</a>
       </div>
       <p>
-        <py:if test="c.member.get('description') and len(c.member.get('description'))">
+		{% if c.member.get('description') and len(c.member.get('description')) %}
           {{h.markdown(c.member.get('description'))}}
-        </py:if>
         &nbsp;
+		{% endif %}
       </p>
     </div>
 
-    <div py:if="c.view" class="row">
+	{% if c.view %}
+    <div class="row">
       <div class="span12"><div id="table_widget"/></div>
     </div>
+	{% endif %}
 
     {{share_body(g)}}
   </div>
