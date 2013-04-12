@@ -1,0 +1,34 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+
+  <py:def function="nav_class">nav-account</py:def>
+
+  <py:def function="page_title" i18n:msg="name">${c.profile['fullname']}</py:def>
+
+  <div py:def="content">
+    <h2 class="page-header">${c.profile.fullname}
+    </h2>
+
+    <div class="row">
+      <div class="offset2 span10">
+        <dl class="dl-horizontal">
+          <py:if test="c.profile.fullname">
+            <dt>Name</dt>
+            <dd>${c.profile.fullname}</dd>
+          </py:if>
+          <dt>Username</dt>
+          <dd>${c.profile.name}</dd>
+          <py:if test="hasattr(c, 'is_admin') and c.is_admin">
+            <dt>Email</dt>
+            <dd>${c.profile.email}</dd>
+          </py:if>
+        </dl>
+      </div>
+    </div>
+
+  </div>
+
+  <xi:include href="../layout.html" />
+</html>
+

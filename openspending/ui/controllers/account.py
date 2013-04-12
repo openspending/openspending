@@ -33,6 +33,7 @@ class AccountController(BaseController):
 
     def register(self):
         require.account.create()
+        c.config = config
         self._disable_cache()
         errors, values = {}, None
         if request.method == 'POST':
@@ -116,6 +117,10 @@ class AccountController(BaseController):
         if errors:
             response.status = 400
             return {'errors': errors}
+        if not c.account:
+            response.status = 403
+            return to_jsonp({'errors': _("You are not authorized to see that "
+                            "page")})
 
         query = db.session.query(Account)
         filter_string = params.get('q') + '%'
@@ -123,9 +128,12 @@ class AccountController(BaseController):
                                     Account.fullname.ilike(filter_string)))
         count = query.count()
         query = query.limit(params.get('pagesize'))
-        query = query.offset(int((params.get('page') - 1) * params.get('pagesize')))
+        query = query.offset(int((params.get('page') - 1) *
+                             params.get('pagesize')))
+        results = [dict(fullname=x.fullname, name=x.name) for x in list(query)]
+
         return to_jsonp({
-            'results': list(query),
+            'results': results,
             'count': count
             })
 
@@ -181,3 +189,12 @@ class AccountController(BaseController):
             + "your password!"))
         redirect(h.url_for(controller='account', action='settings'))
 
+    def profile(self, name=None):
+        c.config = config
+        account = Account.by_name(name)
+        if account is None:
+            response.status = 404
+            return None
+        c.profile = account
+        c.is_admin = True if (c.account and c.account.admin is True) else False
+        return render('account/profile.html')
