@@ -3,3 +3,90 @@
 {% block page_title %}{{ c.member['label'] }} - Entries{% endblock %}
 
 {% block page_description %}{{ h.entry_description(c.member) }}{% endblock %}
+
+{% block optional_head %}
+    {{h.style_tag('lib/vendor/datatables/css/jquery.dataTables')}}
+    {{h.style_tag('lib/vendor/datatables/dataTables.bootstrap')}}
+{% endblock %}
+
+{% block scripts %}
+    {{h.script_tag('lib/vendor/datatables/js/jquery.dataTables')}}
+    {{h.script_tag('lib/vendor/datatables/dataTables.bootstrap')}}
+    {{h.script_tag('app/data_table/openspending.data_table')}}
+    {{h.script_tag('app/faceter/openspending.faceter')}}
+    {{h.script_tag('app/browser/openspending.browser')}}
+	{{h.script_tag('lib/utils/entries')}}
+    <script>
+      //<![CDATA[
+      (function () {
+        "use strict";
+
+        OpenSpending.Utils.entries(
+          "{{c.dataset.name}}",
+          "{{c.dimension.name}}", 
+          "{{c.member.name}}"
+        );
+      }());
+      //]]>
+    </script>
+{% endblock %}
+
+{% block content %}
+  <div py:def="content">
+
+    ${member_nav('search')}
+    <div id="openspending_browser" class="row">
+      <div class="span9 browser_datatable">
+      </div>
+      <div class="span3 ">
+        <div class="browser_faceter">
+        </div>
+        <div class="download-links">
+          <p>
+            <a class="input-large btn btn-small" href="{{ h.url(controller='dimension', action='entries', dataset=c.dataset.name, pagesize=100,
+          name=c.member['name'], dimension=c.dimension.name, format='json')}}" data-pagesize="100">
+              <i class="icon-download"></i> Download first 100 entries as JSON
+            </a>
+          </p>
+          <p>
+            <a class="input-large btn btn-small" href="{{ h.url(controller='dimension', action='entries', dataset=c.dataset.name, pagesize=100,
+          name=c.member['name'], dimension=c.dimension.name, format='csv')}}" data-pagesize="100">
+              <i class="icon-download"></i> Download first 100 entries as CSV
+            </a>
+          </p>
+          <p>
+            <a class="input-large btn btn-small" href="{{ h.url(controller='dimension', action='entries', dataset=c.dataset.name,
+          name=c.member['name'], dimension=c.dimension.name, format='json')}}">
+              <i class="icon-download"></i> Download all entries as JSON
+            </a>
+          </p>
+          <p>
+            <a class="input-large btn btn-small" href="{{ h.url(controller='dimension', action='entries', dataset=c.dataset.name,
+          name=c.member['name'], dimension=c.dimension.name, format='csv')}}">
+              <i class="icon-download"></i> Download all entries as CSV
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <hr/>
+    <div class="row">
+      <div class="span9">
+        <div class="well">
+          <h3>Total of {{c.member['label']}} by year</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>Amount</th>
+                <th>Change</th>
+              </tr>
+            </thead>
+            <tbody id="dimension-aggregate">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

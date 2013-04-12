@@ -136,4 +136,4 @@ class DimensionController(BaseController):
         handle_request(request, c, c.member, c.dimension.name)
         entries = c.dataset.entries(c.dimension.alias.c.name == c.member['name'])
         entries = (entry_apply_links(dataset, e) for e in entries)
-        return render('dimension/entries.html')
+        return templating.render('dimension/entries.html')
