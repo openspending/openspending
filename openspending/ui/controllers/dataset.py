@@ -103,7 +103,7 @@ class DatasetController(BaseController):
             results = map(lambda d: d.as_dict(), c.results)
             return write_csv(results, response)
         c.show_rss = True
-        return render('dataset/index.html')
+        return templating.render('dataset/index.html')
 
     def new(self, errors={}):
         self._disable_cache()
