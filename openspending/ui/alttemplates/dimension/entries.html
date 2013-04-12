@@ -31,10 +31,12 @@
     </script>
 {% endblock %}
 
+{% from "_nav.html" import member_nav as member_nav %}
+
 {% block content %}
   <div py:def="content">
 
-    ${member_nav('search')}
+    {{ member_nav(h, c, 'search') }}
     <div id="openspending_browser" class="row">
       <div class="span9 browser_datatable">
       </div>
