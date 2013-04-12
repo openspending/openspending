@@ -2,6 +2,8 @@
 
 {% block page_title %}Dimensions in {{ c.dataset.label }}{% endblock %}
 
+{% from "_dimension_list.html" import dimension_detail as dimension_detail %}
+
 {% block content %}
 
 <!--
@@ -16,19 +18,7 @@
     <div class="row">
       <div class="span12">
         <p i18n:msg="dataset">{{ c.dataset.label }} has the following dimensions:</p>
-		<ul>
-		{% for dimension in c.dataset.dimensions %}	
-		  <li>
-			<a class="dimension-name" href="/{{ c.dataset.name }}/{{ dimension.name }}">
-			  <strong>{{ dimension.label }}</strong> <!-- or dimension name -->
-			  <!-- <py:if test="dimension.key">
-				<abbr title="Part of unique key"><i class='icon-star'></i></abbr>
-			  </py:if> -->
-			</a>
-		  </li>
-		
-		{% endfor %}
-		</ul>
+        {{ dimension_detail(c, c.dataset.dimensions) }}
 
       </div>
     </div>
