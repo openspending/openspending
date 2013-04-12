@@ -26,9 +26,11 @@
     <div class="row">
       <div class="span8">
         <h3>Description</h3>
-        <div class="help-block" py:if="not c.dataset.description" i18n:msg="label">
+		{% if not c.dataset.description %}
+        <div class="help-block" i18n:msg="label">
           No description is available for {{c.dataset.label}}
         </div>
+		{% endif %}
         {{h.markdown(c.dataset.description)}}
 
         <div class="row">
@@ -60,10 +62,14 @@
               to make sure the data is accurate.
             </span>
             <br/>
-            <ul py:if="len(c.managers)">
-              <li py:for="account in c.managers"><a
+			{% if c.managers %}
+            <ul>
+			  {% for account in c.managers %}
+              <li><a
                 href="{{h.url(controller='account', action='profile', name=account.name)}}">{{account.display_name}}</a></li>
+			  {% endfor %}
             </ul>
+			{% endif %}
           </div>
         </div>
       </div>
