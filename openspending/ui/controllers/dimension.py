@@ -123,7 +123,7 @@ class DimensionController(BaseController):
                     action='embed', dataset=c.dataset.name,
                     widget=c.view.vis_widget.get('name'),
                     state=json.dumps(c.view.vis_state)))
-            return render('dimension/member.html')
+            return templating.render('dimension/member.html')
 
     def entries(self, dataset, dimension, name, format='html'):
         self._get_member(dataset, dimension, name)

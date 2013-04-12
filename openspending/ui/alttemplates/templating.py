@@ -65,7 +65,8 @@ def render(path, **kwargs):
         "section_active": section_active(c.content_section),
         "account": c.account is not None,
         "h": h,
-        "c": c
+        "c": c,
+        "g": app_globals
         }
     params.update(kwargs)
     return template.render(params)
