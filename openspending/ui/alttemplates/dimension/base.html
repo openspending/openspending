@@ -12,11 +12,7 @@
   <head>
     <meta charset="utf-8" />
     <title>{% block page_title %}{% endblock %} - {{ site_title }}</title>
-	{% if page_description %}
-    <meta name="description" content="{{ page_description }}" />
-	{% else %}
-    <meta name="description" content="We're enabling anyone to explore, visualize and track government spending." />
-	{% endif %}
+    <meta name="description" content="{% block page_desc %}We're enabling anyone to explore, visualize and track government spending.{% endblock %}" />
     <meta name="author" content="Open Knowledge Foundation" />
     <link rel="shortcut icon" href="{{ static }}img/favicon.ico{{ static_cache_version }}" type="image/x-icon" />
     <link rel="alternate" type="application/rss+xml" title="Latest Datasets on OpenSpending"
