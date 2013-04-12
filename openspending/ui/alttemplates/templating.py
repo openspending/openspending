@@ -40,11 +40,16 @@ def render(path, **kwargs):
       "dir/filename.html"
 
     """
-    bare_dirname, filename = os.path.split(path)
-    dirname = os.path.join(template_rootdir, bare_dirname)
+    #bare_dirname, filename = os.path.split(path)
+    #dirname = os.path.join(template_rootdir, bare_dirname)
+    #env = Environment()
+    #env.loader = FileSystemLoader(dirname)
+    #template = env.get_template(filename)
+
     env = Environment()
-    env.loader = FileSystemLoader(dirname)
-    template = env.get_template(filename)
+    env.loader = FileSystemLoader(template_rootdir)
+    template = env.get_template(path)
+
 
     static_cache_version = config.get("openspending.static_cache_version", "")
     if static_cache_version != "":

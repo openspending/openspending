@@ -12,8 +12,8 @@
 	{% endif %}
 {% endblock %}
 
-{% from "_widgets.html" import widget_js as widget_js %}
-{% from "_util.html" import share_scripts as share_scripts %}
+{% from "dimension/_widgets.html" import widget_js as widget_js %}
+{% from "dimension/_util.html" import share_scripts as share_scripts %}
 
 {% block scripts %}
 	{% if c.view %}
@@ -26,8 +26,8 @@
     {{share_scripts(g)}}
 {% endblock %}
 
-{% from "_nav.html" import member_nav as member_nav %}
-{% from "_util.html" import share_body as share_body %}
+{% from "dimension/_nav.html" import member_nav as member_nav %}
+{% from "dimension/_util.html" import share_body as share_body %}
 
 {% block content %}
     {{member_nav(h, c, c.view.name if c.view else 'search')}}
