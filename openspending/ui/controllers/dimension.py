@@ -69,7 +69,7 @@ class DimensionController(BaseController):
             return to_jsonp(dimension)
         c.widget = get_widget('aggregate_table')
         c.widget_state = {'drilldowns': [c.dimension.name]}
-        return render('dimension/view.html')
+        return templating.render('dimension/view.html')
 
     def sitemap(self, dataset, dimension):
         self._get_dimension(dataset, dimension)
