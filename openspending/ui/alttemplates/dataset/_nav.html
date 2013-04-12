@@ -1,0 +1,58 @@
+{% macro dataset_nav(h, c, can, section) -%}
+
+    <!-- templates/dataset/_nav.html -->
+    <h2 class="page-header">
+      {{c.dataset.label}}
+    </h2>
+    
+    <div class="tabbable">
+      <ul class="nav nav-tabs">
+
+		{% for view in c.available_views %}
+		  {% if view.name == section %}
+            <li class="active"><a>{{view.label}}</a></li>
+		  {% else %}
+            <li><a href="{{h.url(controller='dataset', action='view',
+                dataset=c.dataset.name, _view=view.name)}}">
+              {{view.label}}</a></li>
+		  {% endif %}
+		{% endfor %}
+
+        <li class="{% if section == 'search' %}active{% endif %}">
+            <a href="{{h.url(controller='entry', action='index',
+              dataset=c.dataset.name)}}">Search</a></li>
+        <li class="{% if section == 'about' %}active{% endif %}">
+            <a href="{{h.url(controller='dataset', action='about',
+              dataset=c.dataset.name)}}">About</a></li>
+        <li class="dropdown {% if section == 'views' %}active{% endif %}">
+          <a class="dropdown-toggle"
+             data-toggle="dropdown"
+             href="#">
+             Visualisations
+             <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+			{% for view in c.dataset.views %}
+            <li>
+              <a href="{{h.url(controller='view', action='view',
+              dataset=c.dataset.name, name=view.name)}}">{{view.label}}</a>
+            </li>
+			{% endfor %}
+
+			{% if c.dataset.views.count() %}
+            <li class='divider'></li>
+			{% endif %}
+
+            <li><a href="{{h.url(controller='view', action='new',
+              dataset=c.dataset.name)}}">Create a visualisation...</a></li>
+          </ul>
+        </li>
+		{% if can.dataset.update(c.dataset) %}
+        <li class="admin">
+            <a href="{{h.url(controller='editor', action='index',
+              dataset=c.dataset.name)}}">Manage</a></li>
+		{% endif %}
+      </ul>
+    </div>
+
+{%- endmacro %}

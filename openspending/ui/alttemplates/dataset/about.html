@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% from "_dimension_list.html" import dimensions_list as dimensions_list %}
+{% from "dimension/_util.html" import share_scripts as share_scripts %}
+{% from "dataset/_nav.html" import dataset_nav as dataset_nav %}
+{% from "dimension/_util.html" import share_body as share_body %}
+
+{% block page_title %}{{c.dataset.label or c.dataset.name}}{% endblock %}
+{% block page_desc %}
+{{h.markdown_preview(c.dataset.description)}}
+{% endblock %}
+
+{% block scripts %}    
+    <!-- templates/dataset/about.html scripts -->
+    {{share_scripts(g)}}
+{% endblock %}
+
+{% block content %}
+  <div py:def="content">
+    <!-- templates/dataset/about.html -->
+
+    {{dataset_nav(h, c, can, 'about')}}
+    <div class="representations">
+      <a href="{{h.url(controller='dataset', action='model', dataset=c.dataset.name, format='json')}}"><img src="{{h.static('img/icons/json.png')}}" alt="JSON" xml:lang="en" /></a>
+    </div>
+
+    <div class="row">
+      <div class="span8">
+        <h3>Description</h3>
+        <div class="help-block" py:if="not c.dataset.description" i18n:msg="label">
+          No description is available for {{c.dataset.label}}
+        </div>
+        {{h.markdown(c.dataset.description)}}
+
+        <div class="row">
+          <div class="span4">
+            <h3>Sources</h3>
+            <span class="help-block" i18n:msg="">
+              This is a listing of all source data that was registered
+              for this dataset. If you want to look at the exact data
+              that is used to generate aggregates, you can also use a
+              <a href="{{h.url(controller='content', action='view',
+                section='help', path='api-search.html')}}">bulk export</a>.
+            </span>
+            <br/>
+			{% if c.sources %}
+            <ul>
+			  {% for source in c.sources %}
+              <li>
+                <a href="{{source.url}}">{{h.readable_url(source.url)}}</a>
+              </li>
+			  {% endfor %}
+            </ul>
+			{% endif %}
+          </div>
+          <div class="span4">
+            <h3>Team</h3>
+            <span class="help-block">
+              These people are the managers of the dataset. They can
+              make modifications to its schema and are responsible
+              to make sure the data is accurate.
+            </span>
+            <br/>
+            <ul py:if="len(c.managers)">
+              <li py:for="account in c.managers"><a
+                href="{{h.url(controller='account', action='profile', name=account.name)}}">{{account.display_name}}</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="span4">
+        <h3>Measures</h3>
+        <span class="help-block">
+          Measures are the numeric properties of each entry in this
+          dataset.
+        </span>
+        <ul>
+		  {% for measure in c.dataset.measures %}
+          <li>
+            <strong>{{measure.label or measure.name}}</strong>
+			{% if measure.description %}
+            <div>
+              {{h.markdown(measure.description)}}
+            </div>
+			{% endif %}
+          </li>
+		  {% endfor %}
+        </ul>
+        <h3>Dimensions</h3>
+        <span class="help-block">
+          Dimensions are different aspects of the dataset, such as the
+          spender, recipient or classifications that apply.
+        </span>
+        {{dimensions_list(c, c.dataset.dimensions)}}
+      </div>
+    </div>
+
+    {{share_body(g)}}
+  </div>
+{% endblock %}

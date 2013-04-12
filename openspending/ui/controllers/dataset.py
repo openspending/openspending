@@ -29,6 +29,7 @@ from openspending.reference.language import LANGUAGES
 from openspending.validation.model.dataset import dataset_schema
 from openspending.validation.model.common import ValidationState
 from openspending.ui.controllers.entry import EntryController
+from openspending.ui.alttemplates import templating
 
 log = logging.getLogger(__name__)
 
@@ -168,7 +169,7 @@ class DatasetController(BaseController):
         handle_request(request, c, c.dataset)
         c.sources = list(c.dataset.sources)
         c.managers = list(c.dataset.managers)
-        return render('dataset/about.html')
+        return templating.render('dataset/about.html')
 
     def sitemap(self, dataset):
         self._get_dataset(dataset)

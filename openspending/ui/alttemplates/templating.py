@@ -3,6 +3,7 @@ from pylons import tmpl_context as c
 from pylons import app_globals
 from pylons import config
 
+from openspending import auth as can
 from openspending.ui.lib import helpers as h
 
 from jinja2 import Template, FileSystemLoader
@@ -66,7 +67,8 @@ def render(path, **kwargs):
         "account": c.account is not None,
         "h": h,
         "c": c,
-        "g": app_globals
+        "g": app_globals,
+        "can": can
         }
     params.update(kwargs)
     return template.render(params)
