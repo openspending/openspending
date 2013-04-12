@@ -2,7 +2,7 @@
 
 {% block page_title %}Dimensions in {{ c.dataset.label }}{% endblock %}
 
-{% from "_dimension_list.html" import dimension_detail as dimension_detail %}
+{% from "_dimension_list.html" import dimensions_list as dimensions_list %}
 
 {% block content %}
 
@@ -18,7 +18,7 @@
     <div class="row">
       <div class="span12">
         <p i18n:msg="dataset">{{ c.dataset.label }} has the following dimensions:</p>
-        {{ dimension_detail(c, c.dataset.dimensions) }}
+        {{ dimensions_list(c, c.dataset.dimensions) }}
 
       </div>
     </div>
