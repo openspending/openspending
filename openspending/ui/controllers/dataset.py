@@ -108,7 +108,7 @@ class DatasetController(BaseController):
     def new(self, errors={}):
         self._disable_cache()
         if not has.dataset.create():
-            return render('dataset/new_cta.html')
+            return templating.render('dataset/new_cta.html')
         require.dataset.create()
         c.key_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if k],
                 key=lambda (k, v): v)

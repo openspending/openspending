@@ -1,12 +1,9 @@
-<html xmlns:py="http://genshi.edgewall.org/"
-  xmlns:i18n="http://genshi.edgewall.org/i18n"
-  xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+{% extends "base.html" %}
 
-  <py:def function="nav_class">nav-account</py:def>
+{% block page_title %}Import a dataset{% endblock %}
 
-  <py:def function="page_title">Import a dataset</py:def>
-  
-  <div py:def="content">
+{% block content %}
+  <div>
     <!-- templates/dataset/new_cta.html content -->
     <h2 class="page-header">Contribute your local data!</h2>
     <div class="row">
@@ -36,19 +33,13 @@
           data.</li>
         </ul>
         <div class="form-actions">
-          <a href="${h.url(controller='account', action='register')}"
+          <a href="{{h.url(controller='account', action='register')}}"
             class="btn btn-large btn-success">Sign up to contribute</a>
-          <a href="${h.url(controller='content', action='view', section='help', path='data-loading.html')}"
+          <a href="{{h.url(controller='content', action='view', section='help', path='data-loading.html')}}"
             class="btn btn-large">Learn more</a>
         </div>
       </div>
     </div>
   </div>
-
-  <xi:include href="../layout.html" />
-</html>
-
-
-
-
-
+  
+{% endblock %}
