@@ -65,8 +65,7 @@
 			{% if c.managers %}
             <ul>
 			  {% for account in c.managers %}
-              <li><a
-                href="{{h.url(controller='account', action='profile', name=account.name)}}">{{account.display_name}}</a></li>
+              <li><a href="{{h.url(controller='account', action='profile', name=account.name)}}">{{account.display_name}}</a></li>
 			  {% endfor %}
             </ul>
 			{% endif %}
