@@ -1,11 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ c.language }}" xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:py="http://genshi.edgewall.org/"
-  xmlns:i18n="http://genshi.edgewall.org/i18n"
-  xmlns:xi="http://www.w3.org/2001/XInclude"
-  >
-
-  <!-- templates/layout.html top -->
+<html lang="{{ c.language }}">
 
   <!-- todo: bring back errors section -->
 
@@ -85,7 +79,6 @@
         </div>
       </div>
     </div>
-
     <div class="container">
 	  {% if messages %}
         <div>
@@ -96,7 +89,8 @@
 		  {% endfor %}
         </div>
 	  {% endif %}
-	{% block content %}{% endblock %}
+    </div>
+    {% block content %}{% endblock %}
     <footer>
       <div class="inner">
         <div class="container">
