@@ -161,7 +161,10 @@ class DatasetController(BaseController):
                     action='embed', dataset=c.dataset.name,
                     widget=c.view.vis_widget.get('name'),
                     state=json.dumps(c.view.vis_state)))
-            return render('dataset/view.html')
+            print dir(c.view)
+            print c.view.vis_state
+            #return render('dataset/view.html')
+            return templating.render('dataset/view.html')
 
     def about(self, dataset, format='html'):
         self._get_dataset(dataset)

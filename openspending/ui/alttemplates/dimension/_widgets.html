@@ -30,7 +30,7 @@
             var context = {
               dataset: "{{c.dataset.name}}",
               siteUrl: "{{h.site_url()}}",
-              embed: {% if embed %}"true"{% else %}"false"{% endif %}
+              embed: {% if embed %}true{% else %}false{% endif %}
               };
             window.wdg_{{name}} = new {{widget.class_name}}($('#{{name}}'), context, state);
             {{handles_js(name, widget) if handles else ''}}
