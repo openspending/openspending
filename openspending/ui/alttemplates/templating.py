@@ -9,6 +9,9 @@ from openspending.ui.lib import helpers as h
 from jinja2 import Template, FileSystemLoader
 from jinja2.environment import Environment
 
+import lxml.html
+from lxml.html import builder as E
+
 template_rootdir = "openspending/ui/alttemplates"
 
 def languages(detected_languages, current_language):
@@ -32,6 +35,30 @@ def section_active(section):
                 True: "active",
                 False: ""
                 }[v]) for k,v in tmp.iteritems() ])
+
+def postprocess_forms(s, form_errors):
+    def tag_errors(tag, root):
+        for i in root.cssselect(tag):
+            name = i.attrib.get('name', None)
+            value = form_errors.get(name, None)
+            if value is not None:
+                p = E.P(value)
+                p.set('class', 'help-block error')
+                i.addnext(p)
+
+    def input_errors(root):
+        return tag_errors('input', root)
+
+    def select_errors(root):
+        return tag_errors('select', root)
+
+    def textarea_errors(root):
+        return tag_errors('textarea', root)
+
+    root = lxml.html.fromstring(s)
+    processors = [input_errors, select_errors, textarea_errors]
+    [ process(root) for process in processors ]
+    return lxml.html.tostring(root)
 
 def render(path, **kwargs):
     """Render a template with jinja2
@@ -71,4 +98,5 @@ def render(path, **kwargs):
         "can": can
         }
     params.update(kwargs)
-    return template.render(params)
+    form_errors = params.get('form_errors', {})
+    return postprocess_forms(template.render(params), form_errors)
