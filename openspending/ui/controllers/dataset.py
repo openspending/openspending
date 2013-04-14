@@ -118,7 +118,7 @@ class DatasetController(BaseController):
         c.territories = sorted(COUNTRIES.items(), key=lambda (k, v): v)
         c.categories = sorted(CATEGORIES.items(), key=lambda (k, v): v)
         errors = [(k[len('dataset.'):], v) for k, v in errors.items()]
-        return render('dataset/new.html', form_errors=dict(errors),
+        return templating.render('dataset/new.html', form_errors=dict(errors),
                 form_fill=request.params if errors else {'currency': 'USD'})
 
     def create(self):
