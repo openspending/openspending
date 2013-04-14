@@ -1,0 +1,20 @@
+{% macro share_scripts(g) -%}
+  {% if not g.debug %}
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript" defer="defer">stLight.options({publisher: "ur-74a5b4dd-616a-419a-ba12-b7e5e84e437"}); </script>
+  </py:def>
+  {% endif %}
+{%- endmacro %}
+
+{% macro share_body(g) -%}
+  {% if not g.debug %}
+    <div class="row">
+      <div class="span12">
+        <span class='st_twitter_hcount' displayText='Tweet'></span>
+        <span class='st_facebook_hcount' displayText='Facebook'></span>
+        <span class='st_plusone_hcount' displayText='Google +1'></span>
+      </div>
+    </div>
+  {% endif %}
+{%- endmacro %}

@@ -29,6 +29,7 @@ from openspending.reference.language import LANGUAGES
 from openspending.validation.model.dataset import dataset_schema
 from openspending.validation.model.common import ValidationState
 from openspending.ui.controllers.entry import EntryController
+from openspending.ui.alttemplates import templating
 
 log = logging.getLogger(__name__)
 
@@ -102,12 +103,12 @@ class DatasetController(BaseController):
             results = map(lambda d: d.as_dict(), c.results)
             return write_csv(results, response)
         c.show_rss = True
-        return render('dataset/index.html')
+        return templating.render('dataset/index.html')
 
     def new(self, errors={}):
         self._disable_cache()
         if not has.dataset.create():
-            return render('dataset/new_cta.html')
+            return templating.render('dataset/new_cta.html')
         require.dataset.create()
         c.key_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if k],
                 key=lambda (k, v): v)
@@ -117,7 +118,7 @@ class DatasetController(BaseController):
         c.territories = sorted(COUNTRIES.items(), key=lambda (k, v): v)
         c.categories = sorted(CATEGORIES.items(), key=lambda (k, v): v)
         errors = [(k[len('dataset.'):], v) for k, v in errors.items()]
-        return render('dataset/new.html', form_errors=dict(errors),
+        return templating.render('dataset/new.html', form_errors=dict(errors),
                 form_fill=request.params if errors else {'currency': 'USD'})
 
     def create(self):
@@ -160,7 +161,7 @@ class DatasetController(BaseController):
                     action='embed', dataset=c.dataset.name,
                     widget=c.view.vis_widget.get('name'),
                     state=json.dumps(c.view.vis_state)))
-            return render('dataset/view.html')
+            return templating.render('dataset/view.html')
 
     def about(self, dataset, format='html'):
         self._get_dataset(dataset)
@@ -168,7 +169,7 @@ class DatasetController(BaseController):
         handle_request(request, c, c.dataset)
         c.sources = list(c.dataset.sources)
         c.managers = list(c.dataset.managers)
-        return render('dataset/about.html')
+        return templating.render('dataset/about.html')
 
     def sitemap(self, dataset):
         self._get_dataset(dataset)

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block page_title %}{{c.resource.title}}{% endblock %}
+{% block content %}
+ <div py:def="content">
+    ${h.literal(c.resource.content)}
+  </div>
+{% endblock %}
+
+
