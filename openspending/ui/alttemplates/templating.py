@@ -95,7 +95,8 @@ def render(path, **kwargs):
         "h": h,
         "c": c,
         "g": app_globals,
-        "can": can
+        "can": can,
+        "show_rss": hasattr(c, 'show_rss') and c.show_rss or None
         }
     params.update(kwargs)
     form_errors = params.get('form_errors', {})

@@ -192,5 +192,5 @@ class TestDatasetController(ControllerTestCase):
 
         response = self.app.get(url(controller='dataset', action='index'))
         assert ('<link rel="alternate" type="application/rss+xml" title="'
-            'Latest Datasets on OpenSpending" href="/datasets.rss" />' in
+            'Latest Datasets on OpenSpending" href="/datasets.rss"' in
             response)
