@@ -14,6 +14,7 @@ from openspending.ui.lib import views
 from openspending.ui.lib.base import BaseController, render, require
 from openspending.ui.lib.helpers import flash_success, flash_error
 from openspending.ui.lib.content import ContentResource
+from openspending.ui.alttemplates import templating
 
 log = logging.getLogger(__name__)
 
@@ -26,4 +27,4 @@ class ContentController(BaseController):
             abort(404, _("Sorry, the selected resource could not be found"))
         if not c.resource.is_html():
             redirect(c.resource.url, code=301)
-        return render('content/view.html')
+        return templating.render('content/view.html')

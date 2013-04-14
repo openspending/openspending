@@ -1,0 +1,148 @@
+{% from "dataset/_select.html" import dataset_select as dataset_select %}
+
+<!DOCTYPE html>
+<html lang="{{ c.language }}">
+
+  
+
+  <!-- todo: bring back errors section -->
+
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block page_title %}{% endblock %} - {{ site_title }}</title>
+    <meta name="description" content="{% block page_desc %}We're enabling anyone to explore, visualize and track government spending.{% endblock %}" />
+    <meta name="author" content="Open Knowledge Foundation" />
+    <link rel="shortcut icon" href="{{ static }}img/favicon.ico{{ static_cache_version }}" type="image/x-icon" />
+	{% if show_rss %}
+    <link rel="alternate" type="application/rss+xml" title="Latest Datasets on OpenSpending" href="{{ h.url(controller='dataset', action='feed_rss') }}" />
+	{% endif %}
+
+    <!-- Le styles -->
+    <link rel="stylesheet" href="http://assets.openspending.org/branding/fonts/opensans/stylesheet.css" />
+    <link href="{{ bootstrap_css }}" rel="stylesheet" />
+    <link href="{{ style_css }}" rel="stylesheet" />
+
+	<!-- TODO: remove the need for this -->
+	{% block optional_head %}
+	{% endblock %}
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+
+  <!-- templates/layout.html body -->
+
+  <body>
+
+    <div class="navbar navbar-fixed-top" data-dropdown="dropdown">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="/" xml:lang="en"><span class="green">Open</span>Spending</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a class="{{ section_active.blog }}" href="{{ h.url(controller='content', action='view', section='blog', path='index.html') }}">Spending Blog</a></li>
+              <li class="dropdown">
+                <a class="list-datasets {{ section_active.dataset }}" href="#datasets">Datasets</a>
+              </li>
+              <li><a class="{{ section_active.search }}" href="{{ h.url(controller='entry', action='search') }}">Search</a></li>
+              <li class="dropdown">
+                <a class="{{ section_active.resources}} dropdown-toggle" href="/resources/index.html">Community</a>
+              </li>
+              <li><a class="{{ section_active.help }}" href="{{ h.url(controller='content', action='view', section='help', path='index.html') }}">Help</a></li>
+              <li><a class="{{ section_active.about }}" href="{{ h.url(controller='content', action='view', section='about', path='contact.html') }}">About</a></li>
+            </ul>
+          </div>
+          <ul class="nav pull-right">
+			{% if account %}
+              <li><a href="/dashboard">Dashboard</a></li>
+              <li><a href="/settings">Settings</a></li>
+              <li><a href="/logout">Logout</a></li>
+			{% else %}
+              <li>
+                <a href="/login">Login/Register</a>
+              </li>
+			{% endif %}
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown">Language</a>
+              <ul class="dropdown-menu locale-dropdown">
+				{% for l in languages %}<li class="locale {{ l.current_locale }}">
+				  <a class="select-locale" data-locale="{{ l.lang_code }}">{{ l.lang_name }}</a>
+                </li>{% endfor %}
+              </ul>
+             </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+	  {% if messages %}
+        <div>
+		  {% for m in messages %}
+          <div class="alert alert-{{ m.category }}">
+            {{ m.message }}
+          </div>
+		  {% endfor %}
+        </div>
+	  {% endif %}
+
+    {% block content %}{% endblock %}
+	{{ dataset_select(h) }}
+    <footer>
+      <div class="inner">
+        <div class="container">
+          <p>This is an <a href="http://okfn.org">Open Knowledge Foundation</a>
+            project.</p>
+
+          <ul class="footer-links span4 pull-left">
+            <li><a href="http://wheredoesmymoneygo.org">Where Does My Money Go
+              (UK)</a></li>
+            <li><a href="http://offenerhaushalt.de">OffenerHaushalt (DE)</a></li>
+            <li><a href="http://opencorporates.com" title="The Open Database Of The Corporate World">OpenCorporates.com</a></li>
+            <li><a href="http://okfnlabs.org">OKFN Labs</a></li>
+            <li><a href="http://italia.yourtopia.net">YourTopia</a></li>
+          </ul>
+          <ul class="footer-links span4 pull-left">
+            <li><a href="http://twitter.com/openspending">Twitter</a></li>
+            <li><a href="{{ h.url(controller='content', action='view', section='help', path='index.html') }}">Help</a></li>
+            <li><a href="http://lists.okfn.org/mailman/listinfo">Mailing List</a></li>
+            <li><a href="{{ h.url(controller='content', action='view', section='help', path='api.html') }}">API</a></li>
+            <li><a href="http://okfn.org/privacy-policy/">Privacy</a> and <a href="{{ h.url(controller='content', action='view', section='about', path='contact.html') }}">Contact</a></li>
+          </ul>
+          <p>All <a href="http://www.gnu.org/licenses/agpl.html">code</a>,
+          <a href="http://creativecommons.org/licenses/by/3.0/">content</a>
+          and <a href="http://opendatacommons.org/licenses/odbl/">data</a> is
+          openly licensed in accordance with the
+          <a href="http://opendefinition.org/">open definition</a>.
+          <br/><br/>
+          <a href="http://opendefinition.org"><img src="http://assets.okfn.org/images/ok_buttons/od_80x15_blue.png" alt="Open Content" /></a></p>
+        </div>
+      </div>
+    </footer>
+
+      <!-- script boot section -->
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+      {{ script_boot }}
+      <script defer="defer">
+		OpenSpending.scriptRoot = "{{ script_root }}";
+		OpenSpending.localeGroupSeparator = "{{ number_symbols_group }}";
+		OpenSpending.localeDecimalSeparator = "{{ number_symbols_decimal }}";
+      </script>
+      <!-- end script boot section -->
+
+	{% block scripts %}{% endblock %}
+	{% if not g.debug %}
+    <script type="text/javascript" defer="defer">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-8271754-17']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+	{% endif %}
+  </body>
+</html>

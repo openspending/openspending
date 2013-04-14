@@ -10,6 +10,7 @@ from openspending.ui.lib.base import BaseController, render, \
         sitemap, etag_cache_keygen
 from openspending.ui.lib.base import etag_cache_keygen
 from openspending.ui.lib.views import handle_request
+from openspending.ui.lib import helpers as h
 from openspending.ui.lib.helpers import url_for
 from openspending.ui.lib.widgets import get_widget
 from openspending.lib.paramparser import DistinctFieldParamParser
@@ -17,7 +18,7 @@ from openspending.ui.lib.hypermedia import dimension_apply_links, \
     member_apply_links, entry_apply_links
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import write_json, to_jsonp
-
+from openspending.ui.alttemplates import templating
 log = logging.getLogger(__name__)
 
 PAGE_SIZE = 100
@@ -58,7 +59,7 @@ class DimensionController(BaseController):
                 for d in c.dataset.dimensions]
             return to_jsonp(dimensions)
         else:
-            return render('dimension/index.html')
+            return templating.render('dimension/index.html')
 
     def view(self, dataset, dimension, format='html'):
         self._get_dimension(dataset, dimension)
@@ -68,7 +69,7 @@ class DimensionController(BaseController):
             return to_jsonp(dimension)
         c.widget = get_widget('aggregate_table')
         c.widget_state = {'drilldowns': [c.dimension.name]}
-        return render('dimension/view.html')
+        return templating.render('dimension/view.html')
 
     def sitemap(self, dataset, dimension):
         self._get_dimension(dataset, dimension)
@@ -122,7 +123,7 @@ class DimensionController(BaseController):
                     action='embed', dataset=c.dataset.name,
                     widget=c.view.vis_widget.get('name'),
                     state=json.dumps(c.view.vis_state)))
-            return render('dimension/member.html')
+            return templating.render('dimension/member.html')
 
     def entries(self, dataset, dimension, name, format='html'):
         self._get_member(dataset, dimension, name)
@@ -135,4 +136,4 @@ class DimensionController(BaseController):
         handle_request(request, c, c.member, c.dimension.name)
         entries = c.dataset.entries(c.dimension.alias.c.name == c.member['name'])
         entries = (entry_apply_links(dataset, e) for e in entries)
-        return render('dimension/entries.html')
+        return templating.render('dimension/entries.html')

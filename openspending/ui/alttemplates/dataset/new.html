@@ -1,25 +1,22 @@
-<html xmlns:py="http://genshi.edgewall.org/"
-  xmlns:i18n="http://genshi.edgewall.org/i18n"
-  xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+{% extends "base.html" %}
 
-  <py:def function="nav_class">nav-account</py:def>
+{% block page_title %}Import a dataset{% endblock %}
 
-  <py:def function="page_title">Import a dataset</py:def>
+{% block optional_head %}
+<link rel="stylesheet" href="{{g.script_root + '/lib/vendor/chosen/chosen.css'}}" type="text/css"/>
+{% endblock %}
 
-  <py:def function="optional_head">
-    <link rel="stylesheet" href="${g.script_root + '/lib/vendor/chosen/chosen.css'}" type="text/css"/>
-  </py:def>
-
-  <py:def function="scripts">
-    ${script_tag('lib/vendor/chosen/chosen.jquery.min')}
+{% block scripts %}
+    {{h.script_tag('lib/vendor/chosen/chosen.jquery.min')}}
     <script>
       jQuery(function($) {
         $(".chzn-select").chosen();
       });
     </script>
-  </py:def>  
-  
-  <div py:def="content" class="dataset new">
+{% endblock %}
+
+{% block content %}
+  <div class="dataset new">
     <!-- templates/dataset/new.html content -->
     <h2 class="page-header">Import a dataset</h2>
     <div class="row">
@@ -62,9 +59,9 @@
               <label class="control-label" for="territories">Category</label>
               <div class="controls">
                 <select name="category" class="chzn-select span4">
-                  <py:for each="code, name in c.categories">
-                    <option value="${code}">${name}</option>
-                  </py:for>
+				  {% for code, name in c.categories %}
+                    <option value="{{code}}">{{name}}</option>
+				  {% endfor %}
                 </select>
               </div>
             </div>
@@ -73,14 +70,14 @@
               <div class="controls">
                 <select name="currency" class="chzn-select span4">
                   <optgroup label="Commonly used currencies">
-                    <py:for each="code, name in c.key_currencies">
-                      <option value="${code}">${name} (${code})</option>
-                    </py:for>
+                    {% for code, name in c.key_currencies %}
+                      <option value="{{code}}">{{name}} ({{code}})</option>
+                    {% endfor %}
                   </optgroup>
                   <optgroup label="All currencies">
-                    <py:for each="code, name in c.all_currencies">
-                      <option value="${code}">${name} (${code})</option>
-                    </py:for>
+                    {% for code, name in c.all_currencies %}
+                      <option value="{{code}}">{{name}} ({{code}})</option>
+                    {% endfor %}
                   </optgroup>
                 </select>
               </div>
@@ -89,9 +86,9 @@
               <label class="control-label" for="territories">Countries</label>
               <div class="controls">
                 <select name="territories" multiple="multiple" class="chzn-select span4">
-                  <py:for each="code, name in c.territories">
-                    <option value="${code}">${name} (${code})</option>
-                  </py:for>
+                  {% for code, name in c.territories %}
+                    <option value="{{code}}">{{name}} ({{code}})</option>
+                  {% endfor %}
                 </select>
               </div>
             </div>
@@ -99,9 +96,9 @@
               <label class="control-label" for="languages">Languages</label>
               <div class="controls">
                 <select name="languages" multiple="multiple" class="chzn-select span4">
-                  <py:for each="code, name in c.languages">
-                    <option value="${code}">${name} (${code})</option>
-                  </py:for>
+                  {% for code, name in c.languages %}
+                    <option value="{{code}}">{{name}} ({{code}})</option>
+                  {% endfor %}
                 </select>
               </div>
             </div>
@@ -119,10 +116,4 @@
       </div>
     </div>
   </div>
-
-  <xi:include href="../layout.html" />
-</html>
-
-
-
-
+{% endblock %}

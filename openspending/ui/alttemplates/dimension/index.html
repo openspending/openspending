@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block page_title %}Dimensions in {{ c.dataset.label }}{% endblock %}
+
+{% from "_dimension_list.html" import dimensions_list as dimensions_list %}
+
+{% block content %}
+
+<!--
+  <py:def function="nav_class">nav-dataset</py:def>
+
+  <py:def function="page_title"><span py:strip="" i18n:msg="dataset_label">Dimensions in {{ c.dataset.label }}</span></py:def>
+  -->
+
+  <div py:def="content">
+    <h2 class="page-header" i18n:msg="dataset_label">{{ c.dataset.label }}: Dimensions
+      <small>Facets of the dataset.</small></h2>
+    <div class="row">
+      <div class="span12">
+        <p i18n:msg="dataset">{{ c.dataset.label }} has the following dimensions:</p>
+        {{ dimensions_list(c, c.dataset.dimensions) }}
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
