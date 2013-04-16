@@ -1,20 +1,19 @@
-<html xmlns:py="http://genshi.edgewall.org/"
-  xmlns:i18n="http://genshi.edgewall.org/i18n"
-  xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+{% extends "base.html" %}
 
-  <py:def function="nav_class">nav-dataset</py:def>
+{% block page_title %}Welcome{% endblock %}
 
+{% block scripts %}
+  <scripts>
+    {{h.script_tag('lib/vendor/raphael-min')}}
+    {{h.script_tag('lib/vendor/raphael-min')}}
+    {{h.script_tag('lib/vendor/kartograph/kartograph.min')}}
+    {{h.script_tag('lib/vendor/chroma.pack.min')}}
+    {{h.script_tag('app/spending-map/load')}}
+  </scripts>
+{% endblock %}
 
-  <py:def function="scripts">
-    ${script_tag('lib/vendor/raphael-min')}
-    ${script_tag('lib/vendor/raphael-min')}
-    ${script_tag('lib/vendor/kartograph/kartograph.min')}
-    ${script_tag('lib/vendor/chroma.pack.min')}
-    ${script_tag('app/spending-map/load')}
-  </py:def>
-
-  <py:def function="page_title">Welcome</py:def>
-  <div py:def="content">
+{% block content %}
+  <div>
     <div class="row">&nbsp;</div>
     <div class="row">
       <div id="fp-wrap" class="span12">
@@ -28,17 +27,17 @@
         from a school-child to a data geek.</p>
 		  </div>
 	  </div>
-  </div>
+	</div>
 
   <div class="row">&nbsp;</div>
   <div class="row">
     <div class="span8">
-      <form action="${url(controller='entry', action='search')}"
+      <form action="{{h.url(controller='entry', action='search')}}"
             method="GET" class="well" id="fp-search">
-        <input name="q" class="span7" placeholder="Search ${h.format_number_with_commas(c.num_entries)} government transactions in ${c.datasets.count()} datasets..." />
+        <input name="q" class="span7" placeholder="Search {{h.format_number_with_commas(c.num_entries)}} government transactions in {{c.datasets.count()}} datasets..." />
         <input type="submit" class="btn" value="Search" />
       </form>
-      ${h.literal(c.blog.html)}
+      {{h.literal(c.blog.html)}}
     </div>
     <div class="span4">
       <ul class="nav nav-list">
@@ -73,9 +72,6 @@
     </div>
   </div>
   <div class="row">&nbsp;</div>
-
 </div>
 
-  <xi:include href="../layout.html" />
-</html>
-
+{% endblock %}
