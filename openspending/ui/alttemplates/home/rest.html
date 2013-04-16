@@ -1,12 +1,9 @@
-<html xmlns:py="http://genshi.edgewall.org/"
-  xmlns:i18n="http://genshi.edgewall.org/i18n"
-  xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+{% extends "base.html" %}
 
-  <py:def function="nav_class">nav-api</py:def>
+{% block page_title %}REST API{% endblock %}
 
-  <py:def function="page_title">REST API</py:def>
-
-  <div py:def="content">
+{% block content %}
+  <div>
     <h2>The Store's REST API</h2>
     
     <p>This API returns JSON versions of the store's domain objects.
@@ -18,9 +15,11 @@
     Here are some examples:</p>
 
     <ul>
-      <li py:for="u in c.urls">
-        <a href="${u}">${u}</a>
+	  {% for u in c.urls %}
+      <li>
+        <a href="{{u}}">{{u}}</a>
       </li>
+	  {% endfor %}
     </ul>
     
     <p>The JSON response generally contains the same information as the
@@ -30,7 +29,4 @@
     supplied (usually by appending "?callback=myfun" or
     similar).</p>
   </div>
-
-  <xi:include href="../layout.html" />
-</html>
-
+{% endblock %}
