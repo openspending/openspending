@@ -55,30 +55,34 @@
     
     <div class="row">
       <div class="entities span4">
-        <py:if test="'from' in c.desc">
+        {% if test="'from' in c.desc" %}
           <span>
             {{c.desc.get('from', {}).label or _('Recipient')}}:
           </span>
           <div>
             <img src="{{h.static('img/icons/arrow_left_12x12.png')}}" />
-            <a py:if="c.from_"
-                  href="${h.url_for(controller='dimension', action='member',
+			{% if c.from_ %}
+            <a
+                  href="{{h.url_for(controller='dimension', action='member',
                   dataset=c.dataset.name, dimension='from',
-                  name=c.from_.get('name'))}">{{h.render_value(c.from_)}}</a>
+                  name=c.from_.get('name'))}}">{{h.render_value(c.from_)}}</a>
+			{% endif %}
           </div>
-        </py:if>
-        <py:if test="'to' in c.desc">
+        {% endif %}
+
+        {% if test="'to' in c.desc" %}
           <span>
             {{c.desc.get('to', {}).label or _('Spender')}}:
           </span>
           <div>
             <img src="{{h.static('img/icons/arrow_right_12x12.png')}}" />
-            <a py:if="c.to"
-                  href="${h.url_for(controller='dimension', action='member',
+			{% if c.to %}
+			<a href="[{h.url_for(controller='dimension', action='member',
                   dataset=c.dataset.name, dimension='to',
-                  name=c.to.get('name'))}">{{h.render_value(c.to)}}</a>
+                  name=c.to.get('name'))}}">{{h.render_value(c.to)}}</a>
+			{% endif %}
           </div>
-        </py:if>
+        {% endif %}
       </div><!-- /.entities -->
 
       <div class="amount span7">
@@ -108,8 +112,8 @@
             <tr py:for="key, value in sorted(c.extras.items())">
               <td py:choose="">
                 <py:when test="c.desc.get(key)">
-                  <a href="${h.url_for(controller='dimension', action='view',
-                    dataset=c.dataset.name, dimension=key)}">
+                  <a href="{{h.url_for(controller='dimension', action='view',
+                    dataset=c.dataset.name, dimension=key)}}">
                     {{c.desc.get(key).label or c.desc.get(key).name}}
                   </a>
                 </py:when>
