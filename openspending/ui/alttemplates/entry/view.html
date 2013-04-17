@@ -55,7 +55,7 @@
     
     <div class="row">
       <div class="entities span4">
-        {% if test="'from' in c.desc" %}
+        {% if 'from' in c.desc %}
           <span>
             {{c.desc.get('from', {}).label or _('Recipient')}}:
           </span>
@@ -70,7 +70,7 @@
           </div>
         {% endif %}
 
-        {% if test="'to' in c.desc" %}
+        {% if 'to' in c.desc %}
           <span>
             {{c.desc.get('to', {}).label or _('Spender')}}:
           </span>
@@ -130,7 +130,7 @@
 				{% endif %}
               </td>
             </tr>
-			{% endif %}
+			{% endfor %}
           </tbody>
         </table>
       </div>
