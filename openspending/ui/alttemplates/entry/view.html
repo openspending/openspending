@@ -123,7 +123,7 @@
 				{% endif %}
               </td>
               <td>
-				{% if c.desc.get(key) and hasattr(c.desc.get(key), 'datatype') and c.desc.get(key).datatype=='url' %}
+				{% if h.has_datatype_attr(c, key) %}
                   <a href="{{value}}">{{h.readable_url(value)}}</a>
                 {% else %}
                   {{h.dimension_link(c.dataset.name, key, value)}}
