@@ -11,6 +11,7 @@ from openspending.ui.lib.hypermedia import entry_apply_links
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import write_json, to_jsonp
 from openspending.ui.lib import helpers as h
+from openspending.ui.alttemplates import templating
 
 log = logging.getLogger(__name__)
 
@@ -26,7 +27,7 @@ class EntryController(BaseController):
                 **request.params))
 
         handle_request(request, c, c.dataset)
-        return render('entry/index.html')
+        return templating.render('entry/index.html')
 
     def view(self, dataset, id, format='html'):
         self._get_dataset(dataset)
@@ -61,11 +62,11 @@ class EntryController(BaseController):
         elif format == 'csv':
             return write_csv([c.entry], response)
         else:
-            return render('entry/view.html')
+            return templating.render('entry/view.html')
 
     def search(self):
         c.content_section = 'search'
-        return render('entry/search.html')
+        return templating.render('entry/search.html')
 
     def sitemap(self, dataset, page):
         self._get_dataset(dataset)
