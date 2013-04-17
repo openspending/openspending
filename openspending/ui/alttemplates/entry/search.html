@@ -49,6 +49,7 @@
 {% endblock %}
 
 {% block scripts %}
+  {% raw %}
   <script id="search-result-template" type="text/x-handlebars-template">
     <div id='r-{{id}}' class='result'>
       <div class='title'><a href="{{html_url}}">{{_title}}</a></div>
@@ -65,7 +66,8 @@
   <script id="search-result-title-template" type="text/x-handlebars-template">
     {{to.label}}
   </script>
-  ${script_tag('lib/vendor/jquery.highlight-3.min')}
-  ${script_tag('lib/entries-search')}
+  {% endraw %}
+  {{h.script_tag('lib/vendor/jquery.highlight-3.min')}}
+  {{h.script_tag('lib/entries-search')}}
 {% endblock %}
-</html>
+
