@@ -3,7 +3,7 @@
 {% from "_util.html" import share_body as share_body %}
 
 {% block page_title %}
-	{%:if 'to' in c.desc %}
+	{% if 'to' in c.desc %}
 	  {{c.to.get('label')}} - 
 	{% endif %}
 	{{c.dataset.currency}} {{h.format_number_with_commas(c.amount)}} - {{c.dataset.label}}
