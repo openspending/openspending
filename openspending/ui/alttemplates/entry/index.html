@@ -1,35 +1,32 @@
+{% from "dataset/_nav.html" import dataset_nav as dataset_nav %}
 
-  <xi:include href="../dataset/_nav.html" />
+{% block page_title %}[{c.dataset.label}}{% endblock %}
 
-  <py:def function="nav_class">nav-dataset</py:def>
-
-  <py:def function="page_title">${c.dataset.label}</py:def>
-
-  <py:def function="optional_head">
+{% block optional_head %}
     ${style_tag('lib/vendor/datatables/css/jquery.dataTables')}
     ${style_tag('lib/vendor/datatables/dataTables.bootstrap')}
-  </py:def>
+{% endblock %}
 
-  <py:def function="scripts">
-    ${script_tag('lib/vendor/datatables/js/jquery.dataTables')}
-    ${script_tag('lib/vendor/datatables/dataTables.bootstrap')}
-    ${script_tag('app/data_table/openspending.data_table')}
-    ${script_tag('app/faceter/openspending.faceter')}
-    ${script_tag('app/browser/openspending.browser')}
+{% block scripts %}
+    ${h.script_tag('lib/vendor/datatables/js/jquery.dataTables')}
+    ${h.script_tag('lib/vendor/datatables/dataTables.bootstrap')}
+    ${h.script_tag('app/data_table/openspending.data_table')}
+    ${h.script_tag('app/faceter/openspending.faceter')}
+    ${h.script_tag('app/browser/openspending.browser')}
     <script>
       (function () {
         "use strict";
 
         var b = new OpenSpending.Browser(
           document.getElementById('openspending_browser'),
-          "${c.dataset.name}"
+          "{{c.dataset.name}}"
         );
         b.init();
       }());
     </script>
-  </py:def>
+{% endblock %}
 
-  <div py:def="content">
+{% block content %}
     <!-- templates/entry/index.html -->
     ${dataset_nav('search')}
 
@@ -39,4 +36,4 @@
       <div class="span3 browser_faceter">
       </div>
     </div>
-  </div>
+{% endblock %}
