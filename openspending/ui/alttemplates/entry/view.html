@@ -47,8 +47,9 @@
     </h2>
 
     <div class="row">
+	  <!-- custom_html? -->
       {% if c.custom_html %}
-        {{ c.custom_html | e }}
+        {{ c.custom_html | safe }}
       {% endif %}
     </div>
     <br/>
