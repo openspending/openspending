@@ -5,18 +5,6 @@
 
   <py:def function="page_title">${c.dataset.label}</py:def>
 
-  <div py:def="content">
-    <!-- templates/entry/index.html -->
-    ${dataset_nav('search')}
-
-    <div id="openspending_browser" class="row">
-      <div class="span9 browser_datatable">
-      </div>
-      <div class="span3 browser_faceter">
-      </div>
-    </div>
-  </div>
-
   <py:def function="optional_head">
     ${style_tag('lib/vendor/datatables/css/jquery.dataTables')}
     ${style_tag('lib/vendor/datatables/dataTables.bootstrap')}
@@ -40,3 +28,15 @@
       }());
     </script>
   </py:def>
+
+  <div py:def="content">
+    <!-- templates/entry/index.html -->
+    ${dataset_nav('search')}
+
+    <div id="openspending_browser" class="row">
+      <div class="span9 browser_datatable">
+      </div>
+      <div class="span3 browser_faceter">
+      </div>
+    </div>
+  </div>
