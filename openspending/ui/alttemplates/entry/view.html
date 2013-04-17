@@ -110,7 +110,7 @@
             </tr>
           </thead>
           <tbody>
-			{% for key, value in sorted(c.extras.items()) %}
+			{% for key, value in c.extras.items() | sort %}
             <tr>
               <td>
 				{% if c.desc.get(key) %}
