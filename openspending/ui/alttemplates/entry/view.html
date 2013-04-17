@@ -1,44 +1,55 @@
+{% extends "base.html" %}
+{% from "_util.html" import share_scripts as share_scripts %}
+{% from "_util.html" import share_body as share_body %}
 
-  <py:def function="page_title"><py:if test="'to' in c.desc">${c.to.get('label')} - </py:if>${c.dataset.currency} ${h.format_number_with_commas(c.amount)} - ${c.dataset.label}</py:def>
-  <py:def function="page_description()">${h.entry_description(c.entry)}</py:def>
-  
-  <py:def function="scripts">
+{% block page_title %}
+	{%:if 'to' in c.desc %}
+	  {{c.to.get('label')}} - 
+	{% endif %}
+	{{c.dataset.currency}} {{h.format_number_with_commas(c.amount)}} - {{c.dataset.label}}
+{% endblock %}
+
+{% block page_desc %}{{h.entry_description(c.entry)}}{% endblock %}
+
+{% block scripts %}
     <!-- templates/dimension/view.html scripts -->
-    ${share_scripts()}
-  </py:def>
+    {{share_scripts(g)}}
+{% endblock %}
 
-  <div py:def="content" class="entry-page">
+{% block content %}
+  <div class="entry-page">
     <!-- templates/entry/view.html -->
     <ul class="breadcrumb">
       <li>
         <i class="icon-home"></i>
-        <a href="${h.url_for(controller='dataset', action='view', dataset=c.dataset.name)}">
-          ${c.dataset.label}</a>
+        <a href="{{h.url_for(controller='dataset', action='view', dataset=c.dataset.name)}}">
+          {{c.dataset.label}}</a>
         <span class="divider">/</span>
       </li>
       <li>
-        <a href="${h.url_for(controller='entry', action='index', dataset=c.dataset.name)}">
+        <a href="{{h.url_for(controller='entry', action='index', dataset=c.dataset.name)}}">
           Entries</a>
         <span class="divider">/</span>
       </li>
       <li class="active" i18n:msg="currency,amount,time">
-        ${c.dataset.currency} ${h.format_number_with_commas(c.amount)} on ${c.time.get('label')}
+        {{c.dataset.currency}} {{h.format_number_with_commas(c.amount)}} on {{c.time.get('label')}}
       </li>
       <div class="representations">
-        <a href="${url(controller='entry', action='view', dataset=c.dataset.name, id=c.id, format='json')}">
-          <img src="${h.static('img/icons/json.png')}" alt="JSON" xml:lang="en" />
+        <a href="{{url(controller='entry', action='view', dataset=c.dataset.name, id=c.id, format='json')}}">
+          <img src="{{h.static('img/icons/json.png')}}" alt="JSON" xml:lang="en" />
         </a>
       </div>
     </ul>
     <h2 class="page-header" i18n:msg="dataset_label">
       
-      Entry in ${c.dataset.label}
+      Entry in {{c.dataset.label}}
       <small>Detailed View of Transaction</small>
     </h2>
 
     <div class="row">
       <py:if test="c.custom_html">
-        ${Markup(c.custom_html)}
+		<!-- FIXME: don't escape this -->
+        {{Markup(c.custom_html)}}
       </py:if>
     </div>
     <br/>
@@ -47,38 +58,38 @@
       <div class="entities span4">
         <py:if test="'from' in c.desc">
           <span>
-            ${c.desc.get('from', {}).label or _('Recipient')}:
+            {{c.desc.get('from', {}).label or _('Recipient')}}:
           </span>
           <div>
-            <img src="${h.static('img/icons/arrow_left_12x12.png')}" />
+            <img src="{{h.static('img/icons/arrow_left_12x12.png')}}" />
             <a py:if="c.from_"
                   href="${h.url_for(controller='dimension', action='member',
                   dataset=c.dataset.name, dimension='from',
-                  name=c.from_.get('name'))}">${h.render_value(c.from_)}</a>
+                  name=c.from_.get('name'))}">{{h.render_value(c.from_)}}</a>
           </div>
         </py:if>
         <py:if test="'to' in c.desc">
           <span>
-            ${c.desc.get('to', {}).label or _('Spender')}:
+            {{c.desc.get('to', {}).label or _('Spender')}}:
           </span>
           <div>
-            <img src="${h.static('img/icons/arrow_right_12x12.png')}" />
+            <img src="{{h.static('img/icons/arrow_right_12x12.png')}}" />
             <a py:if="c.to"
                   href="${h.url_for(controller='dimension', action='member',
                   dataset=c.dataset.name, dimension='to',
-                  name=c.to.get('name'))}">${h.render_value(c.to)}</a>
+                  name=c.to.get('name'))}">{{h.render_value(c.to)}}</a>
           </div>
         </py:if>
       </div><!-- /.entities -->
 
       <div class="amount span7">
         <div class="number">
-          <img src="${h.static('img/icons/cd_16x16.png')}" />
-          ${h.format_number_with_commas(c.amount)}
-          <div class="currency">${c.currency}</div>
+          <img src="{{h.static('img/icons/cd_16x16.png')}}" />
+          {{h.format_number_with_commas(c.amount)}}
+          <div class="currency">{{c.currency}}</div>
           <div class="date">
-            <img src="${h.static('img/icons/calendar_alt_stroke_16x16.png')}" />
-            ${c.time.get('label')}
+            <img src="{{h.static('img/icons/calendar_alt_stroke_16x16.png')}}" />
+            {{c.time.get('label')}}
           </div>
         </div><!-- /.number -->
       </div><!-- /.amount -->
@@ -100,17 +111,17 @@
                 <py:when test="c.desc.get(key)">
                   <a href="${h.url_for(controller='dimension', action='view',
                     dataset=c.dataset.name, dimension=key)}">
-                    ${c.desc.get(key).label or c.desc.get(key).name}
+                    {{c.desc.get(key).label or c.desc.get(key).name}}
                   </a>
                 </py:when>
-                <py:otherwise>${key}</py:otherwise>
+                <py:otherwise>{{key}}</py:otherwise>
               </td>
               <td py:choose="">
                 <py:when test="c.desc.get(key) and hasattr(c.desc.get(key), 'datatype') and c.desc.get(key).datatype=='url'">
-                  <a href="${value}">${h.readable_url(value)}</a>
+                  <a href="{{value}}">{{h.readable_url(value)}}</a>
                 </py:when>
                 <py:otherwise>
-                  ${h.dimension_link(c.dataset.name, key, value)}
+                  {{h.dimension_link(c.dataset.name, key, value)}}
                 </py:otherwise>
               </td>
             </tr>
@@ -121,8 +132,8 @@
 
     <py:if test="c.entry.get('description')">
       <h3>Notes:</h3>
-      <dd>${h.markdown(c.entry.get('description'))}</dd>
+      <dd>{{h.markdown(c.entry.get('description'))}}</dd>
     </py:if>
 
-    ${share_body()}
-  </div><!-- /.content -->
+    {{share_body(g)}}
+  {% endblock %}
