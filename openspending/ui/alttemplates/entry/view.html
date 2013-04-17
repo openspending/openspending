@@ -99,7 +99,8 @@
     </div>
 
     <br/>
-    <div class="row" py:if="len(c.extras)">
+	{% if c.extras %}
+    <div class="row">
       <div class="span12">
         <table class="table table-striped table-condensed" width="100%">
           <thead>
@@ -109,34 +110,37 @@
             </tr>
           </thead>
           <tbody>
-            <tr py:for="key, value in sorted(c.extras.items())">
-              <td py:choose="">
-                <py:when test="c.desc.get(key)">
+			{% for key, value in sorted(c.extras.items()) %}
+            <tr>
+              <td>
+				{% if c.desc.get(key) %}
                   <a href="{{h.url_for(controller='dimension', action='view',
                     dataset=c.dataset.name, dimension=key)}}">
                     {{c.desc.get(key).label or c.desc.get(key).name}}
                   </a>
-                </py:when>
-                <py:otherwise>{{key}}</py:otherwise>
+				{% else %}
+                {{key}}
+				{% endif %}
               </td>
-              <td py:choose="">
-                <py:when test="c.desc.get(key) and hasattr(c.desc.get(key), 'datatype') and c.desc.get(key).datatype=='url'">
+              <td>
+				{% if c.desc.get(key) and hasattr(c.desc.get(key), 'datatype') and c.desc.get(key).datatype=='url' %}
                   <a href="{{value}}">{{h.readable_url(value)}}</a>
-                </py:when>
-                <py:otherwise>
+                {% else %}
                   {{h.dimension_link(c.dataset.name, key, value)}}
-                </py:otherwise>
+				{% endif %}
               </td>
             </tr>
+			{% endif %}
           </tbody>
         </table>
       </div>
     </div>
+	{% endif %}
 
-    <py:if test="c.entry.get('description')">
+	{% if c.entry.get('description') %}
       <h3>Notes:</h3>
       <dd>{{h.markdown(c.entry.get('description'))}}</dd>
-    </py:if>
+	{% endif %}
 
     {{share_body(g)}}
   {% endblock %}
