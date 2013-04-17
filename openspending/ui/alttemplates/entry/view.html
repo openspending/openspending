@@ -47,10 +47,9 @@
     </h2>
 
     <div class="row">
-      <py:if test="c.custom_html">
-		<!-- FIXME: don't escape this -->
-        {{Markup(c.custom_html)}}
-      </py:if>
+      {% if c.custom_html %}
+        {{ c.custom_html | e }}
+      {% endif %}
     </div>
     <br/>
     
