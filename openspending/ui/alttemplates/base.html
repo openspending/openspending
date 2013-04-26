@@ -1,9 +1,9 @@
-{% from "dataset/_select.html" import dataset_select as dataset_select %}
+{% from "dataset/_select.html" import dataset_select %}
 
 <!DOCTYPE html>
 <html lang="{{ c.language }}">
 
-  
+
 
   <!-- todo: bring back errors section -->
 
@@ -88,7 +88,8 @@
 	  {% endif %}
 
     {% block content %}{% endblock %}
-	{{ dataset_select(h) }}
+    {{ dataset_select(h) }}
+  </div>
     <footer>
       <div class="inner">
         <div class="container">
