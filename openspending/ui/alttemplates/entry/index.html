@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% from "dataset/_nav.html" import dataset_nav as dataset_nav %}
+
+{% block page_title %}[{c.dataset.label}}{% endblock %}
+
+{% block optional_head %}
+    {{h.style_tag('lib/vendor/datatables/css/jquery.dataTables')}}
+    {{h.style_tag('lib/vendor/datatables/dataTables.bootstrap')}}
+{% endblock %}
+
+{% block scripts %}
+    {{h.script_tag('lib/vendor/datatables/js/jquery.dataTables')}}
+    {{h.script_tag('lib/vendor/datatables/dataTables.bootstrap')}}
+    {{h.script_tag('app/data_table/openspending.data_table')}}
+    {{h.script_tag('app/faceter/openspending.faceter')}}
+    {{h.script_tag('app/browser/openspending.browser')}}
+    <script>
+      (function () {
+        "use strict";
+
+        var b = new OpenSpending.Browser(
+          document.getElementById('openspending_browser'),
+          "{{c.dataset.name}}"
+        );
+        b.init();
+      }());
+    </script>
+{% endblock %}
+
+{% block content %}
+    <!-- templates/entry/index.html -->
+    {{dataset_nav(h, c, can, 'search')}}
+
+    <div id="openspending_browser" class="row">
+      <div class="span9 browser_datatable">
+      </div>
+      <div class="span3 browser_faceter">
+      </div>
+    </div>
+{% endblock %}

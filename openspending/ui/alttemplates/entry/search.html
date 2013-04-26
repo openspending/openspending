@@ -1,12 +1,8 @@
-<html xmlns:py="http://genshi.edgewall.org/"
-  xmlns:i18n="http://genshi.edgewall.org/i18n"
-  xmlns:xi="http://www.w3.org/2001/XInclude" py:strip="">
+{% extends "base.html" %}
+{% block page_title %}Search{% endblock %}
 
-  <py:def function="nav_class">nav-dataset</py:def>
-
-  <py:def function="page_title">Search</py:def>
-
-  <div py:def="content">
+{% block content %}
+  <div>
     <!-- templates/entry/search.html -->
     <ul class='breadcrumb'>
       <li>
@@ -50,8 +46,10 @@
       </div>
     </div>
   </div>
+{% endblock %}
 
-  <xi:include href="../layout.html" />
+{% block scripts %}
+  {% raw %}
   <script id="search-result-template" type="text/x-handlebars-template">
     <div id='r-{{id}}' class='result'>
       <div class='title'><a href="{{html_url}}">{{_title}}</a></div>
@@ -68,6 +66,8 @@
   <script id="search-result-title-template" type="text/x-handlebars-template">
     {{to.label}}
   </script>
-  ${script_tag('lib/vendor/jquery.highlight-3.min')}
-  ${script_tag('lib/entries-search')}
-</html>
+  {% endraw %}
+  {{h.script_tag('lib/vendor/jquery.highlight-3.min')}}
+  {{h.script_tag('lib/entries-search')}}
+{% endblock %}
+

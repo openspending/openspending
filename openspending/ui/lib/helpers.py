@@ -213,3 +213,8 @@ def style_tag(name):
     return '''<link rel="stylesheet" href="''' + \
         '%s/%s.css' % (script_root(), name) + \
         '''" />'''
+
+def has_datatype_attr(c, key):
+    return c.desc.get(key) and \
+        hasattr(c.desc.get(key), 'datatype') and \
+        c.desc.get(key).datatype=='url'
