@@ -1,9 +1,9 @@
-{% from "dataset/_select.html" import dataset_select as dataset_select %}
+{% from "dataset/_select.html" import dataset_select %}
 
 <!DOCTYPE html>
 <html lang="{{ c.language }}">
 
-  
+
 
   <!-- todo: bring back errors section -->
 
@@ -88,7 +88,9 @@
 	  {% endif %}
 
     {% block content %}{% endblock %}
-	{{ dataset_select(h) }}
+    {{ dataset_select(h) }}
+  </div>
+    <div id="catapult-cookie-bar">This site uses cookies<button id="catapultCookie" tabindex="1" onclick="catapultAcceptCookies();">Okay, thanks</button><a tabindex="1" href="http://okfn.org/cookie-policy">Find out more</a></div>
     <footer>
       <div class="inner">
         <div class="container">
@@ -144,5 +146,13 @@
       })();
     </script>
 	{% endif %}
+  <script type="text/javascript">
+    jQuery(document).ready(function(){
+      if(catapultReadCookie("catAccCookies")){//If the cookie has been set
+        jQuery("#catapult-cookie-bar").hide();
+        jQuery("html").css("margin-top","0");
+      }
+    });
+    </script>
   </body>
 </html>

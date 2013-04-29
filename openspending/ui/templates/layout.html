@@ -132,6 +132,8 @@
 
     </div> <!-- /container -->
 
+    <div id="catapult-cookie-bar">This site uses cookies<button id="catapultCookie" tabindex="1" onclick="catapultAcceptCookies();">Okay, thanks</button><a tabindex="1" href="http://okfn.org/cookie-policy">Find out more</a></div>
+
     <footer>
       <div class="inner">
         <div class="container">
@@ -176,6 +178,15 @@
     </py:if>
 
     ${analytics()}
+
+  <script type="text/javascript">
+    jQuery(document).ready(function(){
+      if(catapultReadCookie("catAccCookies")){//If the cookie has been set
+        jQuery("#catapult-cookie-bar").hide();
+        jQuery("html").css("margin-top","0");
+      }
+    });
+    </script>
   </body>
 </html>
 
