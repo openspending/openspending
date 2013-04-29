@@ -33,7 +33,7 @@ a:hover, a:active {
   color: #6A8A45;
 }
 
-.nav-pills .active > a, 
+.nav-pills .active > a,
 .nav-pills .active > a:hover {
   background-color: #99c862;
 }
@@ -56,14 +56,14 @@ a:hover, a:active {
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
   */
   filter: none;
-  background: url(../img/noise.png), -webkit-linear-gradient(top, #fff, #eee); 
-  background-image: url(../img/noise.png), -moz-linear-gradient(top, #fff, #eee); 
-  background-image: url(../img/noise.png), -ms-linear-gradient(top, #fff, #eee); 
-  background-image: url(../img/noise.png), -o-linear-gradient(top, #fff, #eee); 
+  background: url(../img/noise.png), -webkit-linear-gradient(top, #fff, #eee);
+  background-image: url(../img/noise.png), -moz-linear-gradient(top, #fff, #eee);
+  background-image: url(../img/noise.png), -ms-linear-gradient(top, #fff, #eee);
+  background-image: url(../img/noise.png), -o-linear-gradient(top, #fff, #eee);
   background-image:  url(../img/noise.png), linear-gradient(to bottom, #fff, #eee);*/
 }
 
-.navbar-inner .brand, 
+.navbar-inner .brand,
 .navbar-inner .nav li a {
   color: #000;
   text-shadow: none;
@@ -79,7 +79,7 @@ a:hover, a:active {
   color: #99C862;
 }
 
-.navbar-inner .nav li ul li a:hover, 
+.navbar-inner .nav li ul li a:hover,
 .navbar-inner .nav li ul li a.active {
   color: #fff;
 }
@@ -115,7 +115,7 @@ a:hover, a:active {
   padding: 0 2px;
 }
 
-.nav select { 
+.nav select {
   display: block;
   float: none;
   margin: 10px 10px 11px;
@@ -168,8 +168,8 @@ form .error {
   display: none;
 }
 
-/* 
- * Footer styles based on OKFN brand design. 
+/*
+ * Footer styles based on OKFN brand design.
  */
 
 footer,
@@ -246,7 +246,7 @@ footer a.twitter {
 	background: -o-linear-gradient(top,  #D9EDF7 0%,#C3DCE8 100%); /* Opera 11.10+ */
 	background: -ms-linear-gradient(top,  #D9EDF7 0%,#C3DCE8 100%); /* IE10+ */
 	background: linear-gradient(top,  #D9EDF7 0%,#C3DCE8 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#D9EDF7', endColorstr='#C3DCE8',GradientType=0 ); /* IE6-9 */	
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#D9EDF7', endColorstr='#C3DCE8',GradientType=0 ); /* IE6-9 */
 }
 
 #fp-map svg path.regions {
@@ -265,7 +265,7 @@ footer a.twitter {
 	fill: #d3d0d0;
   */
   stroke: #fff;
-  fill: #fff; 
+  fill: #fff;
 	opacity: 1;
 }
 
@@ -301,7 +301,7 @@ table th.sorting_desc {
 }
 */
 
-table th, table td { 
+table th, table td {
   padding: 5px;
 }
 
@@ -471,7 +471,7 @@ table th.num {
   border: 0px;
 }
 
-.help-page .highlighttable table th + th, 
+.help-page .highlighttable table th + th,
 .help-page .highlighttable table td + td {
   border-left: 0px;
   padding: 0px;
@@ -483,7 +483,7 @@ table.sources td {
 }
 
 table.sources td form {
-  display: inline; 
+  display: inline;
   margin-bottom: 0px;
 }
 
@@ -505,8 +505,8 @@ table.sources ul.runs {
 }
 
 /* Query builder CSS */
-.query-builder select, 
-.query-builder input, 
+.query-builder select,
+.query-builder input,
 .query-builder .help-block {
   margin-bottom: 0.4em;
 }
@@ -702,7 +702,7 @@ ul.ui-autocomplete li a.ui-state-active {
 
 #content-section img.screenshot,
 #content-section img.shadow {
-  
+
   -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.35), inset 0 -1px 0 rgba(0, 0, 0, 0.8);
   -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.35), inset 0 -1px 0 rgba(0, 0, 0, 0.8);
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.35), inset 0 -1px 0 rgba(0, 0, 0, 0.8);
@@ -727,7 +727,7 @@ ul.ui-autocomplete li a.ui-state-active {
 
 #content-section .iconmatrix tr th,
 #content-section .iconmatrix tr td {
-  vertical-align: top; 
+  vertical-align: top;
 }
 
 #content-section .iconmatrix tr.icons th {
@@ -736,12 +736,12 @@ ul.ui-autocomplete li a.ui-state-active {
 }
 
 #content-section .iconmatrix tr.iconbar {
-  border-bottom: 1px solid #aaa; 
+  border-bottom: 1px solid #aaa;
 }
 
 #content-section .iconmatrix td.inner,
 #content-section .iconmatrix th.inner {
- border-right: 1px solid #aaa; 
+ border-right: 1px solid #aaa;
 }
 
 #content-section .iconmatrix img {
@@ -828,3 +828,33 @@ ul.ui-autocomplete li a.ui-state-active {
   color: #99C862;
 }
 
+#catapult-cookie-bar {
+    direction: ltr;
+    color: #ddd;
+    min-height: 30px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 99999;
+    padding:6px 20px 4px;
+    background-color: #464646;
+    text-align:left;
+}
+
+#catapult-cookie-bar a {
+    color: #fff;;
+}
+
+button#catapultCookie {
+    margin:0 20px;
+    line-height:20px;
+    background:#45AE52;
+    border:none;
+    color: #fff;;
+    padding:4px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+}
