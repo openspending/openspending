@@ -41,11 +41,11 @@
         {{#categories}}
           <label class="radio">
             {{#selected}}
-            <input type="radio" value="{{category}}" name="category" 
+            <input type="radio" value="{{category}}" name="category"
               class="filter-datasets" checked="checked" />
             {{/selected}}
             {{^selected}}
-            <input type="radio" value="{{category}}" name="category" 
+            <input type="radio" value="{{category}}" name="category"
               class="filter-datasets" />
             {{/selected}}
             {{label}} ({{count}})
@@ -53,11 +53,11 @@
         {{/categories}}
         <label class="radio">
           {{^hasSelectedCategory}}
-          <input type="radio" value="" name="category" checked="checked" 
+          <input type="radio" value="" name="category" checked="checked"
             class="filter-datasets" />
           {{/hasSelectedCategory}}
           {{#hasSelectedCategory}}
-          <input type="radio" value="" name="category" 
+          <input type="radio" value="" name="category"
             class="filter-datasets" />
           {{/hasSelectedCategory}}
           Any type
@@ -80,7 +80,7 @@
       <span class="label label-info">{{currency}}</span>
       {{tagline}}
     </li>
-  </script>  
+  </script>
   {% endraw %}
 
   <div class="modal big-modal hide fade" id="datasets">
@@ -97,12 +97,4 @@
       <a data-dismiss="modal" class="btn">Close</a>
     </div>
   </div>
-
-
-
-</html>
-
-
-
-
 {%- endmacro %}
