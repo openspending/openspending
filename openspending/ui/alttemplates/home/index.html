@@ -10,6 +10,14 @@
     {{h.script_tag('lib/vendor/chroma.pack.min')}}
     {{h.script_tag('app/spending-map/load')}}
   </scripts>
+
+  <script type="text/javascript">
+    $('#fp-blurb .btn-group .btn').click(function() {
+        $($(this).attr('data-target'))
+            .removeClass('hide')
+            .siblings().addClass('hide');
+    });
+  </script>
 {% endblock %}
 
 {% block content %}
@@ -17,24 +25,32 @@
     <div class="row">&nbsp;</div>
     <div class="row">
       <div id="fp-wrap" class="span12">
-		  <div id="fp-map" class="spending-map" data-url="/datasets.json" data-svg-map="/static/openspendingjs/app/spending-map/world.svg" data-svg-id="regions" data-svg-key="iso2">
-
-		  </div>
-		  <div id="fp-blurb">
-        <span id="fp-claim">Mapping the money.</span>
-        <p>Our aim is to track every government financial transaction
-        across the world and present it in useful and engaging forms for everyone
-        from a school-child to a data geek.</p>
-		  </div>
+	<div id="fp-maps">
+	  <div id="fp-map-all" class="spending-map" data-url="http://openspending.org/datasets.json" data-svg-map="/static/openspendingjs/app/spending-map/world.svg" data-svg-id="regions" data-svg-key="iso2"></div>
+	  <div id="fp-map-spending" class="spending-map hide" data-url="http://openspending.org/datasets.json?category=spending" data-svg-map="/static/openspendingjs/app/spending-map/world.svg" data-svg-id="regions" data-svg-key="iso2"></div>
+	  <div id="fp-map-budget" class="spending-map hide" data-url="http://openspending.org/datasets.json?category=budget" data-svg-map="/static/openspendingjs/app/spending-map/world.svg" data-svg-id="regions" data-svg-key="iso2"></div>
+	</div>
+	<div id="fp-blurb">
+          <span id="fp-claim">Mapping the money.</span>
+          <p>Our aim is to track every government financial transaction
+            across the world and present it in useful and engaging forms for everyone from a school-child to a data geek.</p>
+	  <hr>
+	  <div id="fp-map-toggler">Show map of: </div>
+	  <div class="btn-group" data-toggle="buttons-radio">
+	    <button type="button" class="btn btn-small" data-target="#fp-map-spending">Transactions</button>
+	    <button type="button" class="btn btn-small" data-target="#fp-map-budget">Budgets</button>
+	    <button type="button" class="btn btn-small active" data-target="#fp-map-all">All</button>
 	  </div>
 	</div>
+      </div>
+    </div>
 
   <div class="row">&nbsp;</div>
   <div class="row">
     <div class="span8">
       <form action="{{h.url(controller='entry', action='search')}}"
             method="GET" class="well" id="fp-search">
-        <input name="q" class="span7" placeholder="Search {{h.format_number_with_commas(c.num_entries)}} government transactions in {{c.datasets.count()}} datasets..." />
+        <input name="q" class="span7" placeholder="Search 1000000 government transactions in {{c.datasets.count()}} datasets..." />
         <input type="submit" class="btn" value="Search" />
       </form>
       {{h.literal(c.blog.html)}}
