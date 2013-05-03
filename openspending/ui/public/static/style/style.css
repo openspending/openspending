@@ -218,9 +218,9 @@ footer a.twitter {
 	padding: 10px;
 	border-bottom-right-radius: 10px;
 	border-top-right-radius: 10px;
-  margin: 10px 10px 10px;
+	margin: 60px 10px 10px;
 	min-height: 200px;
-  color: #333;
+	color: #333;
 }
 
 #fp-blurb #fp-claim {
@@ -240,21 +240,23 @@ footer a.twitter {
   margin-bottom: 4px;
 }
 
-#fp-blurb #fp-map-toggler {
-  display:inline-block;
-  width: 80px;
-  padding: 5px 0px;
-  vertical-align: top;
+#fp-maps #fp-map-toggler {
+  position: absolute;
+  bottom: 10px;
+  left: 250px;
 }
 
-#fp-blurb .btn-group {
-  float: right;
+#fp-maps #fp-map-toggler a {
+  vertical-align: top;
+  font-size: 80%;
+}
+
+#fp-maps #fp-map-toggler .btn-group {
   display: inline-block;
-  margin-bottom: 10px;
 }
 
 .spending-map {
-	width: 100%; height: 320px;
+	width: 100%; height: 350px;
 	border-radius: 10px;
 	background: #D9EDF7; /* Old browsers */
 	background: -moz-linear-gradient(top,  #D9EDF7 0%, #C3DCE8 100%); /* FF3.6+ */

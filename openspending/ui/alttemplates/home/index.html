@@ -12,10 +12,10 @@
   </scripts>
 
   <script type="text/javascript">
-    $('#fp-blurb .btn-group .btn').click(function() {
+    $('#fp-maps #fp-map-toggler .btn-group .btn').click(function() {
         $($(this).attr('data-target'))
             .removeClass('hide')
-            .siblings().addClass('hide');
+            .siblings('.spending-map').addClass('hide');
     });
   </script>
 {% endblock %}
@@ -29,18 +29,20 @@
 	  <div id="fp-map-all" class="spending-map" data-url="http://openspending.org/datasets.json" data-svg-map="/static/openspendingjs/app/spending-map/world.svg" data-svg-id="regions" data-svg-key="iso2"></div>
 	  <div id="fp-map-spending" class="spending-map hide" data-url="http://openspending.org/datasets.json?category=spending" data-svg-map="/static/openspendingjs/app/spending-map/world.svg" data-svg-id="regions" data-svg-key="iso2"></div>
 	  <div id="fp-map-budget" class="spending-map hide" data-url="http://openspending.org/datasets.json?category=budget" data-svg-map="/static/openspendingjs/app/spending-map/world.svg" data-svg-id="regions" data-svg-key="iso2"></div>
+
+	  <div id="fp-map-toggler">
+	    <div class="btn-group" data-toggle="buttons-radio">
+	      <button type="button" class="btn btn-small active" data-target="#fp-map-all">All</button>
+	      <button type="button" class="btn btn-small" data-target="#fp-map-spending">Transactions</button>
+	      <button type="button" class="btn btn-small" data-target="#fp-map-budget">Budgets</button>
+	    </div>
+	    <a href="http://openspending.org/resources/handbook/ch006_types-of-data.html">What's the difference?</a>
+	  </div>
 	</div>
 	<div id="fp-blurb">
           <span id="fp-claim">Mapping the money.</span>
           <p>Our aim is to track every government financial transaction
             across the world and present it in useful and engaging forms for everyone from a school-child to a data geek.</p>
-	  <hr>
-	  <div id="fp-map-toggler">Show map of: </div>
-	  <div class="btn-group" data-toggle="buttons-radio">
-	    <button type="button" class="btn btn-small" data-target="#fp-map-spending">Transactions</button>
-	    <button type="button" class="btn btn-small" data-target="#fp-map-budget">Budgets</button>
-	    <button type="button" class="btn btn-small active" data-target="#fp-map-all">All</button>
-	  </div>
 	</div>
       </div>
     </div>
