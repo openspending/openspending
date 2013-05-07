@@ -72,6 +72,12 @@ class SourceController(BaseController):
         redirect(h.url_for(controller='editor', action='index', 
                            dataset=c.dataset.name))
 
+    def delete(self, dataset, id):
+        # Do nothing for now. Just redirect.
+        self._get_source(dataset, id)
+        redirect(h.url_for(controller='editor', action='index', 
+                           dataset=c.dataset.name))
+
     def analysis(self, dataset, source, format='json'):
         self._get_source(dataset, source)
         return to_jsonp(c.source.analysis)

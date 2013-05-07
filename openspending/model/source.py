@@ -31,10 +31,21 @@ class Source(db.Model):
 
     @property
     def loadable(self):
+        """
+        Returns True if the source is ready to be imported into the
+        database. Does not not require a sample run although it
+        probably should.
+        """
+        # It shouldn't be loaded again into the database
+        if self.successfully_loaded:
+            return False
+        # It needs mapping to be loadable
         if not len(self.dataset.mapping):
             return False
+        # There can be no errors in the analysis of the source
         if 'error' in self.analysis:
             return False
+        # All is good... proceed
         return True
 
     @property

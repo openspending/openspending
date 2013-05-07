@@ -33,22 +33,28 @@
           </td>
           <py:if test="source == dataset.sources[0]">
             <td class="ops">
-              <py:if test="source.loadable">
-                <form method="POST" action="${h.url(controller='source',
-                  action='load', dataset=c.dataset.name, id=source.id)}">
-                  <input type="hidden" name="sample" value="true" />
-                  <input type="submit" class="btn btn-small" value="Test a sample" />
-                </form>
-                <form method="POST" action="${h.url(controller='source',
-                  action='load', dataset=c.dataset.name, id=source.id)}">
-                  <input type="submit" class="btn btn-success btn-small" value="Load" />
-                </form>
-              </py:if>
-              <py:if test="not source.loadable">
-                <a href="#" type="submit" class="btn btn-small disabled">Test a sample</a>
-                <a href="#" type="submit" class="btn btn-success btn-small disabled">
-                  Load</a>
-              </py:if>
+	      <py:choose>
+		<py:when test="source.successfully_loaded">
+		  <a href="#" class="btn btn-success btn-small disabled">Successfully loaded</a>
+		</py:when>
+		<py:when test="source.loadable">
+                  <form method="POST" action="${h.url(controller='source',
+		    action='load', dataset=c.dataset.name, id=source.id)}">
+                    <input type="hidden" name="sample" value="true" />
+                    <input type="submit" class="btn btn-small" value="Test a sample" />
+                  </form>
+                  <form method="POST" action="${h.url(controller='source',
+		    action='load', dataset=c.dataset.name, id=source.id)}">
+                    <input type="submit" class="btn btn-success btn-small" value="Load" />
+                  </form>
+		</py:when>
+		<py:otherwise>
+		  <form method="POST" action="${h.url(controller='source',
+		    action='delete', dataset=c.dataset.name, id=source.id)}">
+                    <button class="btn btn-danger btn-small"><i class="icon-remove icon-white"></i> Delete source</button>
+                  </form>
+		</py:otherwise>
+	      </py:choose>
             </td>
           </py:if>
           <py:if test="source != dataset.sources[0]">
