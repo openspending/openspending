@@ -37,6 +37,15 @@ class Source(db.Model):
             return False
         return True
 
+    @property
+    def successfully_loaded(self):
+        """
+        Returns True if any of this source's runs have been
+        successfully loaded (not a sample and no errors). This
+        shows whether the source has been loaded into the database
+        """
+        return True in [r.successful_load for r in self.runs]
+
     def __repr__(self):
         return "<Source(%s,%s)>" % (self.dataset.name, self.url)
 

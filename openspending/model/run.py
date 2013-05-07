@@ -15,6 +15,10 @@ class Run(db.Model):
     STATUS_COMPLETE = 'complete'
     STATUS_FAILED = 'failed'
 
+    # Operation values for database, two operations possible
+    OPERATION_SAMPLE = 'sample'
+    OPERATION_IMPORT = 'import'
+
     id = db.Column(db.Integer, primary_key=True)
     operation = db.Column(db.Unicode(2000))
     status = db.Column(db.Unicode(2000))
@@ -39,6 +43,15 @@ class Run(db.Model):
         self.status = status
         self.dataset = dataset
         self.source = source
+
+    @property
+    def successful_load(self):
+        """
+        Returns True if the run was an import operation (not a sample)
+        and ran without failures.
+        """
+        return self.operation == self.OPERATION_IMPORT and \
+            self.status == self.STATUS_COMPLETE
 
     @classmethod
     def by_id(cls, id):

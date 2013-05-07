@@ -34,8 +34,10 @@ class BaseImporter(object):
         before_count = len(self.dataset)
 
         self.row_number = 0
-
-        self._run = Run('import', Run.STATUS_RUNNING,
+        
+        # If max_lines is set we're doing a sample, not an import
+        operation = Run.OPERATION_SAMPLE if max_lines else Run.OPERATION_IMPORT
+        self._run = Run(operation, Run.STATUS_RUNNING,
                         self.dataset, self.source)
         db.session.add(self._run)
         db.session.commit()
