@@ -1,13 +1,15 @@
 def grant_admin(username):
-    from openspending.model import account
+    from openspending.model import account, meta as db
 
-    a = account.find_one_by('name', username)
+    a = account.Account.by_name(username)
 
     if a is None:
-        print "Account `%s' not found." % username
+        print "Account `%s` not found." % username
         return 1
 
-    account.add_role(a, 'admin')
+    a.admin = True
+    db.session.add(a)
+    db.session.commit()
 
     return 0
 
