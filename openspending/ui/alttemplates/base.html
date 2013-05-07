@@ -90,7 +90,7 @@
     {% block content %}{% endblock %}
     {{ dataset_select(h) }}
   </div>
-    <div id="catapult-cookie-bar">This site uses cookies<button id="catapultCookie" tabindex="1" onclick="catapultAcceptCookies();">Okay, thanks</button><a tabindex="1" href="http://okfn.org/cookie-policy">Find out more</a></div>
+    <div id="catapult-cookie-bar">This site uses cookies<button id="catapultCookie" tabindex="1">Okay, thanks</button><a tabindex="1" href="http://okfn.org/cookie-policy">Find out more</a></div>
     <footer>
       <div class="inner">
         <div class="container">
@@ -125,6 +125,7 @@
 
       <!-- script boot section -->
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+      <script src="{{ h.static('js/jquery.cookie.js') }}"></script>
       {{ script_boot }}
       <script defer="defer">
 		OpenSpending.scriptRoot = "{{ script_root }}";
@@ -147,12 +148,18 @@
     </script>
 	{% endif %}
   <script type="text/javascript">
-    jQuery(document).ready(function(){
-      if(catapultReadCookie("catAccCookies")){//If the cookie has been set
+    jQuery(document).ready(function() {
+      if($.cookie("cookiecheck")) {
+        //If the cookie has been set
         jQuery("#catapult-cookie-bar").hide();
         jQuery("html").css("margin-top","0");
       }
-    });
+      $('#catapultCookie').click(function() {
+        $.cookie('cookiecheck', 'True', { path: '/' });
+        jQuery("#catapult-cookie-bar").hide();
+        jQuery("html").css("margin-top","0");
+      });
+     });
     </script>
   </body>
 </html>

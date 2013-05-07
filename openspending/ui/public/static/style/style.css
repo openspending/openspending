@@ -828,13 +828,14 @@ ul.ui-autocomplete li a.ui-state-active {
   color: #99C862;
 }
 
+
 #catapult-cookie-bar {
     direction: ltr;
-    color: #ddd;
+    color: #dddddd;
     min-height: 30px;
     position: fixed;
     left: 0;
-    top: 0;
+    bottom: 0;
     width: 100%;
     z-index: 99999;
     padding:6px 20px 4px;
