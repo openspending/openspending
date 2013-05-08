@@ -45,14 +45,14 @@
 
 			<form method="POST" action="${h.url(controller='source',
 			  action='load', dataset=c.dataset.name, id=source.id)}">
-			  <input type="submit" class="btn btn-success btn-small" value="Load" />
+			  <button class="btn btn-success btn-small" title="Load source into OpenSpending"><i class="icon-upload icon-white"></i> Load</button>
 			</form>
                       </py:when>
                       <py:otherwise>
 			<form method="POST" action="${h.url(controller='source',
 	 	          action='load', dataset=c.dataset.name, id=source.id)}">
 		          <input type="hidden" name="sample" value="true" />
-			  <input type="submit" class="btn btn-small" value="Test a sample" />
+			  <button class="btn btn-small" value="Test a sample"><i class="icon-eye-open"></i> Sample</button>
                         </form>
 		      </py:otherwise>
                     </py:choose>
@@ -60,7 +60,7 @@
 
 		  <form method="POST" action="${h.url(controller='source',
 		    action='delete', dataset=c.dataset.name, id=source.id)}">
-                    <button class="btn btn-danger btn-small"><i class="icon-remove icon-white"></i> Delete source</button>
+                    <button class="btn btn-danger btn-small" title="Delete source"><i class="icon-remove icon-white"></i></button>
                   </form>
 		</py:otherwise>
 	      </py:choose>
