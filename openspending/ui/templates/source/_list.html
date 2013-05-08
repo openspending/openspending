@@ -31,44 +31,36 @@
               </span>
             </py:if>
           </td>
-          <py:if test="source == dataset.sources[0]">
-            <td class="ops">
-	      <py:choose>
-		<py:when test="source.successfully_loaded">
-		  <a href="#" class="btn btn-success btn-small disabled">Successfully loaded</a>
-		</py:when>
-		<py:otherwise>
-
-		  <py:if test="source.loadable">
-		    <py:choose>
-		      <py:when test="source.successfully_sampled">
-
-			<form method="POST" action="${h.url(controller='source',
-			  action='load', dataset=c.dataset.name, id=source.id)}">
-			  <button class="btn btn-success btn-small" title="Load source into OpenSpending"><i class="icon-upload icon-white"></i> Load</button>
-			</form>
-                      </py:when>
-                      <py:otherwise>
-			<form method="POST" action="${h.url(controller='source',
-	 	          action='load', dataset=c.dataset.name, id=source.id)}">
-		          <input type="hidden" name="sample" value="true" />
-			  <button class="btn btn-small" value="Test a sample"><i class="icon-eye-open"></i> Test</button>
-                        </form>
-		      </py:otherwise>
-                    </py:choose>
-                  </py:if>
-
-		  <form method="POST" action="${h.url(controller='source',
-		    action='delete', dataset=c.dataset.name, id=source.id)}">
-                    <button class="btn btn-danger btn-small" title="Delete source"><i class="icon-remove icon-white"></i> Delete</button>
-                  </form>
-		</py:otherwise>
-	      </py:choose>
-            </td>
-          </py:if>
-          <py:if test="source != dataset.sources[0]">
-            <td></td>
-          </py:if>
+          <td class="ops">
+	    <py:choose>
+	      <py:when test="source.successfully_loaded">
+		<a href="#" class="btn btn-success btn-small disabled">Successfully loaded</a>
+	      </py:when>
+	      <py:otherwise>
+		<py:if test="source.loadable">
+		  <py:choose>
+		    <py:when test="source.successfully_sampled">
+		      <form method="POST" action="${h.url(controller='source',
+			action='load', dataset=c.dataset.name, id=source.id)}">
+			<button class="btn btn-success btn-small" title="Load source into OpenSpending"><i class="icon-upload icon-white"></i> Load</button>
+		      </form>
+                    </py:when>
+                    <py:otherwise>
+		      <form method="POST" action="${h.url(controller='source',
+	 		action='load', dataset=c.dataset.name, id=source.id)}">
+		        <input type="hidden" name="sample" value="true" />
+			<button class="btn btn-small" value="Test a sample"><i class="icon-eye-open"></i> Test</button>
+                      </form>
+		    </py:otherwise>
+                  </py:choose>
+                </py:if>
+		<form method="POST" action="${h.url(controller='source',
+		  action='delete', dataset=c.dataset.name, id=source.id)}">
+                  <button class="btn btn-danger btn-small" title="Delete source"><i class="icon-remove icon-white"></i> Delete</button>
+                </form>
+	      </py:otherwise>
+	    </py:choose>
+          </td>
         </tr>
         <tr py:if="source.runs.count()">
           <td class="top" width="5%"><strong>Reports</strong>:</td>
