@@ -70,15 +70,23 @@
                 <a href="${h.url(controller='run', action='view',
                   dataset=c.dataset.name, source=source.id, id=run.id)}">
                   ${run.time_start.strftime("%d.%m.%Y, %H:%M")}</a>
-                <py:if test="run.status == 'running'">
-                  <span class="label label-info">Running</span>
-                </py:if>
-                <py:if test="run.status == 'complete'">
-                  <span class="label label-success">Complete</span>
-                </py:if>
-                <py:if test="run.status == 'failed'">
-                  <span class="label label-important">Errors</span>
-                </py:if>
+		<py:choose>
+                  <py:when test="run.status == 'running'">
+                    <span class="label label-info">Running</span>
+		  </py:when>
+                  <py:when test="run.status == 'complete'">
+                    <span class="label label-success">Complete</span>
+                  </py:when>
+                  <py:when test="run.status == 'failed'">
+                    <span class="label label-important">Errors</span>
+                  </py:when>
+		  <py:when test="run.status == 'removed'">
+		    <span class="label">Removed</span>
+		  </py:when>
+		  <py:otherwise>
+		    <span class="label">${run.status}</span>
+		  </py:otherwise>
+		</py:choose>
                 <span py:strip="" i18n:msg="count">(${run.records.count()} Errors)</span>
               </li>
             </ul>

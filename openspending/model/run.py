@@ -11,9 +11,11 @@ class Run(db.Model):
 
     __tablename__ = 'run'
 
+    # Status values
     STATUS_RUNNING = 'running'
     STATUS_COMPLETE = 'complete'
     STATUS_FAILED = 'failed'
+    STATUS_REMOVED = 'removed'
 
     # Operation values for database, two operations possible
     OPERATION_SAMPLE = 'sample'
