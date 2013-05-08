@@ -31,6 +31,13 @@ class BaseImporter(object):
         self.dry_run = dry_run
         self.raise_errors = raise_errors
 
+        # Get unique key for this dataset
+        self.key = self._get_unique_key()
+        # If this is a dry run we need to check uniqueness
+        # Initialize unique check dictionary
+        if dry_run:
+            self.unique_check = {}
+
         before_count = len(self.dataset)
 
         self.row_number = 0
@@ -84,6 +91,13 @@ class BaseImporter(object):
     def lines(self):
         raise NotImplementedError("lines not implemented in BaseImporter")
 
+    def _get_unique_key(self):
+        """
+        Return a list of unique keys for the dataset
+        """
+        return [k for k,v in self.dataset.mapping.iteritems()
+                if v.get('key', False)]
+
     def process_line(self, line):
         if self.row_number % 1000 == 0:
             log.info('Imported %s lines' % self.row_number)
@@ -92,6 +106,16 @@ class BaseImporter(object):
             data = convert_types(self.dataset.mapping, line)
             if not self.dry_run:
                 self.dataset.load(data)
+            else:
+                # Check uniqueness
+                unique_value = ', '.join([unicode(data[k]) for k in self.key])
+                if self.unique_check.has_key(unique_value):
+                    # Log the error (with the unique key represented as
+                    # a dictionary)
+                    self.log_exception(
+                        ValueError("Unique key constraint not met"),
+                        error="%s is not a unique key" % unique_value)
+                self.unique_check[unique_value] = True
         except Invalid as invalid:
             for child in invalid.children:
                 self.log_invalid_data(child)
