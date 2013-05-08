@@ -49,6 +49,15 @@ class Source(db.Model):
         return True
 
     @property
+    def successfully_sampled(self):
+        """
+        Returns True if any of this source's runs have been
+        successfully sampled (a complete sample run). This shows
+        whether the source is ready to be imported into the database
+        """
+        return True in [r.successful_sample for r in self.runs]
+
+    @property
     def successfully_loaded(self):
         """
         Returns True if any of this source's runs have been

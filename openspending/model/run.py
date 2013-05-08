@@ -45,6 +45,15 @@ class Run(db.Model):
         self.source = source
 
     @property
+    def successful_sample(self):
+        """
+        Returns True if the run was a sample operation (not full import)
+        and ran without failures.
+        """
+        return self.operation == self.OPERATION_SAMPLE and \
+            self.status == self.STATUS_COMPLETE
+
+    @property
     def successful_load(self):
         """
         Returns True if the run was an import operation (not a sample)
