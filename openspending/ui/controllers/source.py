@@ -73,8 +73,16 @@ class SourceController(BaseController):
                            dataset=c.dataset.name))
 
     def delete(self, dataset, id):
-        # Do nothing for now. Just redirect.
+        # Get our source (and dataset)
         self._get_source(dataset, id)
+
+        # We require that the user can update the dataset
+        require.dataset.update(c.dataset)
+
+        # Here's the biggie: Delete the source
+        db.session.delete(c.source)
+        db.session.commit()
+
         redirect(h.url_for(controller='editor', action='index', 
                            dataset=c.dataset.name))
 
