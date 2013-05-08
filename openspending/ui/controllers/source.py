@@ -79,9 +79,10 @@ class SourceController(BaseController):
         # We require that the user can update the dataset
         require.dataset.update(c.dataset)
 
-        # Here's the biggie: Delete the source
-        db.session.delete(c.source)
-        db.session.commit()
+        # Delete the source if hasn't been sucessfully loaded
+        if not c.source.successfully_loaded:
+            db.session.delete(c.source)
+            db.session.commit()
 
         redirect(h.url_for(controller='editor', action='index', 
                            dataset=c.dataset.name))
