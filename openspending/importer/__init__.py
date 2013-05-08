@@ -36,7 +36,7 @@ class BaseImporter(object):
         self.row_number = 0
         
         # If max_lines is set we're doing a sample, not an import
-        operation = Run.OPERATION_SAMPLE if max_lines else Run.OPERATION_IMPORT
+        operation = Run.OPERATION_SAMPLE if dry_run else Run.OPERATION_IMPORT
         self._run = Run(operation, Run.STATUS_RUNNING,
                         self.dataset, self.source)
         db.session.add(self._run)
@@ -63,7 +63,8 @@ class BaseImporter(object):
                     error='')
 
         num_loaded = len(self.dataset) - before_count
-        if not self.errors and num_loaded < (self.row_number - 1):
+        if not dry_run and not self.errors and \
+                num_loaded < (self.row_number - 1):
             self.log_exception(ValueError("The number of entries loaded is "
                 "smaller than the number of source rows read."),
                 error="%s rows were read, but only %s entries created. "
