@@ -80,6 +80,9 @@ class SourceController(BaseController):
         require.dataset.update(c.dataset)
 
         # Delete the source if hasn't been sucessfully loaded
+        # If it is successfully loaded we don't return an error
+        # message because the user is then going around the normal
+        # user interface
         if not c.source.successfully_loaded:
             db.session.delete(c.source)
             db.session.commit()
