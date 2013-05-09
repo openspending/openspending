@@ -85,6 +85,5 @@ class Badge(db.Model):
             "description": self.description,
             "image": self.image,
             "datasets": [ds.name for ds in self.datasets],
-            "creator": self.creator.name
             "created_at": self.created_at
             }
