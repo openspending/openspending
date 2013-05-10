@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block page_title %}Badges in OpenSpending{% endblock %}
+
+{% block content %}
+    <!-- templates/badge/index.html -->
+
+    <table class="table">
+      <tr>
+	<th>Badge</th><th>Name</th><th>Description</th>
+      </tr>
+    {% for badge in c.badges %}
+      <tr>
+	<td><img src="{{ badge.image }}" alt="{{ badge.name }}"></td>
+	<td>{{ badge.name }}</td>
+	<td>{{ badge.description }}</td>
+      </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
