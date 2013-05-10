@@ -40,6 +40,8 @@ def make_map():
     map.connect('/account/reset', controller='account', action='do_reset')
     map.connect('/account/profile/{name}', controller='account', action='profile')
 
+    map.connect('/badge', controller='badge', action='index')
+
     map.connect('/blog/*path', controller='content', action='view', section='blog')
     map.connect('/blog', controller='content', action='view', section='blog',
         path='index.html')
