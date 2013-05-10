@@ -41,6 +41,9 @@ def make_map():
     map.connect('/account/profile/{name}', controller='account', action='profile')
 
     map.connect('/badge', controller='badge', action='index')
+    map.connect('/badge/create', controller='badge', action='create',
+                conditions=dict(method=['POST']))
+    map.connect('/badge/{id}', controller='badge', action='information')
 
     map.connect('/blog/*path', controller='content', action='view', section='blog')
     map.connect('/blog', controller='content', action='view', section='blog',

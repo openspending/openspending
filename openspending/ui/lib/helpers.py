@@ -21,7 +21,8 @@ from openspending.lib import json
 from openspending.lib.util import slugify
 from openspending.lib.jsonexport import to_jsonp, to_json
 import math
-
+import os
+import uuid
 
 def markdown(*args, **kwargs):
     return literal(_markdown(*args, **kwargs))
@@ -78,14 +79,88 @@ def script_root():
     return app_globals.script_root
 
 
-def static(url):
+def static(url, obj=None):
+    """
+    Get the static url based on the static_path configuration.
+    If object is provided, the static path is appended with a directory
+    based on the object
+    """
+
     static_path = config.get("openspending.static_path", "/static/")
+
+    if obj:
+        # We append the lowercase object name and a forward slash
+        static_path = '%s%s/' % (static_path, obj.__name__.lower())
+
     url_ = "%s%s" % (static_path, url)
     version = config.get("openspending.static_cache_version", "")
     if version:
         url_ = "%s?%s" % (url_, version)
     return url_
 
+def get_object_upload_dir(obj):
+    """
+    Generate filesystem path of a dynamic upload directory based on object
+    name. The dynamic directory is created in the static file folder and is
+    assigned the lowercased name of the object.
+
+    If for some reason it is not possible to get or create the directory,
+    the method raises OSError.
+
+    Use this method sparingly since it creates directories in the filesystem.
+    """
+
+    # We wrap important configuration value fetching in try. If any of them
+    # fail we raise OSError to indicate we don't support upload directories
+    # The only one likely to fail is the first one (getting pylons.paths)
+    # since the static directory has a default value and the other value is
+    # just a lowercased object name
+    try:
+        # Get public directory on filesystem
+        public_files = config['pylons.paths']['static_files']
+        # Get static as defined in config file (lstrip to avoid overwriting
+        # of public_files on path join (we default to static)
+        static_path = config.get('openspending.static_path',
+                                 'static').lstrip(os.sep)
+        # Create the object's static dir from static path and object name
+        static_dir = os.path.join(public_files, static_path,
+                                  obj.__name__.lower())
+    except:
+        raise OSError("Upload not supported")
+
+    # Check if the directory exists, if so return the path
+    if os.path.isdir(static_dir):
+        return static_dir
+
+    # Since the directory didn't exist we try to create it
+    # We don't have to create any parent directories since we're either
+    # creating this in the static folder or raising OSError (therefore we
+    # use os.mkdir, not os.makedirs
+    try:
+        os.mkdir(static_dir, 0744)
+    except OSError as exception:
+        # Highly unlikely we end up here, but we will if there's a race
+        # condition. We might also end up here if there's a regular file
+        # in the static directory with the same name as the intended
+        # object directory (errno.EEXIST will let us know).
+        import errno
+        if exception.errno != errno.EEXIST:
+            raise
+
+    # Successfully created, return it
+    return static_dir
+
+def get_uuid_filename(filename):
+    """
+    Return a random uuid based path for a specific object.
+    The method generates a filename (but keeps the same file extension)
+    This reduces the likelyhood that a preexisting file might get overwritten.
+    """
+
+    # Get the hex value of a uuid4 generated value as new filename
+    uuid_name = uuid.uuid4().get_hex()
+    # Split out the extension and append it to the uuid name
+    return ''.join([uuid_name, os.path.splitext(filename)[1]])
 
 # TODO: moved here during openspending.model evacuation.
 def render_entry_custom_html(dataset, entry):
