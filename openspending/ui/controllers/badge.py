@@ -5,6 +5,7 @@ from pylons.controllers.util import redirect
 from pylons.i18n import _
 
 from openspending.model import Badge, meta as db
+from openspending.ui.lib.base import require
 from openspending.lib.jsonexport import to_jsonp
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController
@@ -50,6 +51,9 @@ class BadgeController(BaseController):
         """
         Create a new badge in the system
         """
+        # Check if user is allowed to create a badge
+        require.badge.create()
+
         import shutil
 
         name = request.params['badge-name']
