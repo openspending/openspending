@@ -24,8 +24,7 @@
   </div>
 
   <div class="span4">
-    <h3></h3>
-    <p>These badges can be awarded to specific datasets by administrators of OpenSpending. Thed badges indicate that an official, either from <a href="http://okfn.org" title="Open Knowledge Foundation">The Open Knowledge Foundation</a> (OKF) or from another entity approved by the OKF.</p>
+    <p>These badges can be awarded to specific datasets by administrators of OpenSpending. The badges indicate that an official, either from <a href="http://okfn.org" title="Open Knowledge Foundation">The Open Knowledge Foundation</a> (OKF) or from another entity approved by the OKF, has carefully examined the dataset and decided to award it that particular badge.</p>
 
     {% if c.account.admin %}
     <form action="{{h.url(controller='badge', action='create')}}" method="post" enctype="multipart/form-data">
