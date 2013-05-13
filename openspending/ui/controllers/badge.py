@@ -25,7 +25,7 @@ class BadgeController(BaseController):
 
         # If the requested format is json return a list of badges
         if format == 'json':
-            return to_jsonp([b.as_dict() for b in c.badges])
+            return to_jsonp({"badges":[b.as_dict() for b in c.badges]})
 
         # Return html representation
         return templating.render('badge/index.html')
@@ -42,7 +42,7 @@ class BadgeController(BaseController):
 
         # Return a json representation if the format requested is 'json'
         if format == 'json':
-            return to_jsonp(c.badge.as_dict())
+            return to_jsonp({"badge":c.badge.as_dict()})
         
         # Return html representation
         return templating.render('badge/information.html')
