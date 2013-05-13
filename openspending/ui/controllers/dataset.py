@@ -172,7 +172,7 @@ class DatasetController(BaseController):
 
         # Get all badges if user is admin because they can then
         # give badges to the dataset on its about page.
-        if c.account.admin:
+        if c.account and c.account.admin:
             c.badges = list(Badge.all())
 
         return templating.render('dataset/about.html')
