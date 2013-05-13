@@ -84,3 +84,29 @@ class BadgeController(BaseController):
 
         redirect(h.url_for(controller='badge', action='information', 
                            id=badge.id))
+
+    def give(self, dataset):
+        """
+        Award a given badge to a given dataset.
+        """
+        # Get the dataset
+        self._get_dataset(dataset)
+
+        # Get the badge
+        badge_id = request.params.get('badge', None)
+        c.badge = Badge.by_id(id=badge_id)
+
+        if c.badge:
+            # See if user can award this badge to a this dataset
+            require.badge.give(c.badge, c.dataset)
+
+            # Add the dataset to the badge datasets and commit to database
+            c.badge.datasets.append(c.dataset)
+            db.session.commit()
+        else:
+            # If we don't find the badge id we flash an error message
+            h.flash_error(_('Badge not found.'))
+
+        # Go to the dataset's main page
+        redirect(h.url_for(controller='dataset', action='view',
+                           dataset=c.dataset.name))

@@ -156,6 +156,9 @@ def make_map():
     map.connect('/{dataset}/entries/{id}', controller='entry', action='view')
     map.connect('/{dataset}/entries/{id}/{action}', controller='entry')
 
+    map.connect('/{dataset}/give', controller='badge', action='give',
+                conditions=dict(method=['POST']))
+
     map.connect('/{dataset}/dimensions.{format}',
                 controller='dimension', action='index')
     map.connect('/{dataset}/dimensions',

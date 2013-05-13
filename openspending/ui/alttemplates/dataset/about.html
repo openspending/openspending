@@ -71,6 +71,35 @@
 			{% endif %}
           </div>
         </div>
+	{% if c.dataset.has_badges or c.account.admin %}
+	<div class="row">
+	  <div class="span4">
+	    <h3>Badges</h3>
+	    <span class="help-block">
+              <p>This dataset has been awarded
+	      <a href="{{ h.url(controller='badge', action='index') }}" title="List of badges">badges</a>.
+	      Badges can be given by OpenSpending administrators on behalf of
+	      entities approved by <a href="http://okfn.org/" title="OKF">the Open Knowledge Foundation</a>.</p>
+            </span>
+	    {% for badge in c.dataset.badges %}
+	    <h4> <img src="{{ badge.image }}" title="{{ badge.name }}"> {{ badge.name }}</h4>
+	    {{ h.markdown(badge.description) }}
+	    {% endfor %}
+	    {% if c.account.admin %}
+	    <hr>
+	    <h4>Give badge</h4>
+	    <form class="form-horizontal" action="{{ h.url(controller='badge', action='give', dataset=c.dataset.name) }}" method="post">
+	      <select name="badge">
+		{% for badge in c.badges %}
+		<option value="{{ badge.id }}">{{ badge.name }}</option>
+		{% endfor %}
+	      </select>
+	      <button class="btn btn-success">Give</button>
+	    </form>
+	    {% endif %}
+	  </div>
+	</div>
+	{% endif %}
       </div>
       <div class="span4">
         <h3>Measures</h3>

@@ -12,7 +12,7 @@ from pylons.i18n import _
 from colander import SchemaNode, String, Invalid
 
 from openspending.model import Dataset, DatasetTerritory, \
-        DatasetLanguage, View, meta as db
+        DatasetLanguage, View, Badge, meta as db
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import to_jsonp
 from openspending import auth as has
@@ -169,6 +169,12 @@ class DatasetController(BaseController):
         handle_request(request, c, c.dataset)
         c.sources = list(c.dataset.sources)
         c.managers = list(c.dataset.managers)
+
+        # Get all badges if user is admin because they can then
+        # give badges to the dataset on its about page.
+        if c.account.admin:
+            c.badges = list(Badge.all())
+
         return templating.render('dataset/about.html')
 
     def sitemap(self, dataset):

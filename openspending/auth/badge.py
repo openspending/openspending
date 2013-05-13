@@ -12,4 +12,4 @@ def give(badge, dataset):
     Permission to give a badge to a dataset. Currently only administrators
     can reward datasets with badges.
     """
-    return logged_in() and tmp_context.account.admin
+    return logged_in() and tmpl_context.account.admin

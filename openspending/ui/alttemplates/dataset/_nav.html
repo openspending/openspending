@@ -1,10 +1,26 @@
 {% macro dataset_nav(h, c, can, section) -%}
 
     <!-- templates/dataset/_nav.html -->
+    {% if c.dataset.has_badges %}
+    <div class="row-fluid">
+      <div class="span8">
+	<h2 class="page-header">
+	  {{c.dataset.label}}
+	</h2>
+      </div>
+      <div class="span4">
+	<div class="well">
+	  <h3>Badges</h3>
+	  {% for badge in c.dataset.badges %}<a href="{{ h.url(controller='badge', action='information', id=badge.id) }}" title="{{ badge.name }}"><img src="{{ badge.image }}" alt="{{ badge.name }}"></a> {% endfor %}
+	  <p><small><a href="{{ h.url(controller='badge', action='index') }}">What are badges?</a></small></p>
+	</div>
+      </div>
+    </div>
+    {% else %}
     <h2 class="page-header">
       {{c.dataset.label}}
     </h2>
-    
+    {% endif %}
     <div class="tabbable">
       <ul class="nav nav-tabs">
 
