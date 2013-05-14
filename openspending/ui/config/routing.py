@@ -40,9 +40,9 @@ def make_map():
     map.connect('/account/reset', controller='account', action='do_reset')
     map.connect('/account/profile/{name}', controller='account', action='profile')
 
-    map.connect('/badge', controller='badge', action='index')
-    map.connect('/badge.{format}', controller='badge', action='index')
-    map.connect('/badge/create', controller='badge', action='create',
+    map.connect('/badges', controller='badge', action='index')
+    map.connect('/badges.{format}', controller='badge', action='index')
+    map.connect('/badges/create', controller='badge', action='create',
                 conditions=dict(method=['POST']))
     map.connect('/badge/{id}.{format}', controller='badge', action='information')
     map.connect('/badge/{id}', controller='badge', action='information')
