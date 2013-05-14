@@ -94,14 +94,13 @@ class BadgeController(BaseController):
 
         # Get the badge
         badge_id = request.params.get('badge', None)
-        c.badge = Badge.by_id(id=badge_id)
+        badge = Badge.by_id(id=badge_id)
 
-        if c.badge:
+        if badge:
             # See if user can award this badge to a this dataset
-            require.badge.give(c.badge, c.dataset)
-
+            require.badge.give(badge, c.dataset)
             # Add the dataset to the badge datasets and commit to database
-            c.badge.datasets.append(c.dataset)
+            badge.datasets.append(c.dataset)
             db.session.commit()
         else:
             # If we don't find the badge id we flash an error message
