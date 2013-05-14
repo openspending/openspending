@@ -75,15 +75,22 @@ class Badge(db.Model):
         """
         return db.session.query(cls)
 
-    def as_dict(self):
+    def as_dict(self, short=False):
         """
-        A dictionary representation of the badge.
+        A dictionary representation of the badge. This can return a long
+        version containing all interesting fields or a short version containing
+        only id, name and image.
         """
-        return {
+        badge = {
             "id": self.id,
             "name": self.name,
-            "description": self.description,
             "image": self.image,
-            "datasets": [ds.name for ds in self.datasets],
-            "created_at": self.created_at
             }
+        if not short:
+            badge.update({
+                    "description": self.description,
+                    "datasets": [ds.name for ds in self.datasets],
+                    "created_at": self.created_at
+                    })
+
+        return badge

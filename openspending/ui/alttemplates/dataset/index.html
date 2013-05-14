@@ -25,6 +25,13 @@
               {{dataset.label}}
             </a>
           </h3>
+	  {% if dataset.has_badges %}
+	  <p>
+	    {% for badge in dataset.badges %}
+	    <a href="{{ h.url(controller='badge', action='information', id=badge.id)}}" title="{{badge.name}}"><img src="{{badge.image}}" alt="{{badge.name}}"></a> 
+	    {% endfor %}
+	  </p>
+	  {% endif %}
 		  {% if dataset.description %}
           <div>
               {{h.markdown_preview(dataset.description)}}

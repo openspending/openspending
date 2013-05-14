@@ -5,6 +5,7 @@ def dataset_apply_links(dataset):
     dataset['html_url'] = url_for(controller='dataset',
             action='view', dataset=dataset['name'],
             qualified=True)
+    dataset['badges'] = badges_apply_links(dataset['badges'])
     return dataset
 
 
@@ -43,3 +44,26 @@ def drilldowns_apply_links(dataset_name, drilldowns):
         linked_data.append(drilldown)
     return linked_data
 
+def badges_apply_links(badges):
+    """
+    From a list of badges, generate a linked representation of each badge
+    in the list.
+    """
+    linked_badges = []
+    # Generate links for each badge and append to linked_badges and return it
+    for badge in badges:
+        linked_badges.append(badge_apply_links(badge))
+    return linked_badges
+
+def badge_apply_links(badge):
+    """
+    Add links or to badge dictionary representation or modify a dictionary
+    representation to include a fully qualified domain
+    """
+    # Add an html_url to represent the html representation of the badge
+    badge['html_url'] = url_for(controller='badge', action='information',
+                                id=badge['id'], qualified=True)
+    # Change the image url to be a fully qualified url
+    badge['image'] = url_for(str(badge['image']), qualified=True)
+
+    return badge

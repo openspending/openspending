@@ -8,6 +8,7 @@ from openspending.model import Badge, meta as db
 from openspending.ui.lib.base import require
 from openspending.lib.jsonexport import to_jsonp
 from openspending.ui.lib import helpers as h
+from openspending.ui.lib.hypermedia import badges_apply_links, badge_apply_links
 from openspending.ui.lib.base import BaseController
 from openspending.ui.alttemplates import templating
 
@@ -25,7 +26,8 @@ class BadgeController(BaseController):
 
         # If the requested format is json return a list of badges
         if format == 'json':
-            return to_jsonp({"badges":[b.as_dict() for b in c.badges]})
+            return to_jsonp({"badges":badges_apply_links([b.as_dict() 
+                                                          for b in c.badges])})
 
         # Return html representation
         return templating.render('badge/index.html')
@@ -42,7 +44,7 @@ class BadgeController(BaseController):
 
         # Return a json representation if the format requested is 'json'
         if format == 'json':
-            return to_jsonp({"badge":c.badge.as_dict()})
+            return to_jsonp({"badge":badge_apply_links(c.badge.as_dict())})
         
         # Return html representation
         return templating.render('badge/information.html')

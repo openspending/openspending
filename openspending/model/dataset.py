@@ -471,7 +471,8 @@ class Dataset(TableHandler, db.Model):
             'serp_title': self.serp_title,
             'serp_teaser': self.serp_teaser,
             'languages': list(self.languages),
-            'territories': list(self.territories)
+            'territories': list(self.territories),
+            'badges': [b.as_dict(short=True) for b in self.badges]
             }
 
     @classmethod
