@@ -12,7 +12,8 @@ from jinja2.environment import Environment
 import lxml.html
 from lxml.html import builder as E
 
-template_rootdir = "openspending/ui/alttemplates"
+# Set the directory where this file is as the template root directory
+template_rootdir = os.path.dirname(__file__)
 
 def languages(detected_languages, current_language):
     def lang_triple(lang):
