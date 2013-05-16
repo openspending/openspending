@@ -31,12 +31,11 @@
     <!-- templates/view/view.html content -->
     <div class="row">
       <py:if test="can.view.update(c.dataset, c.named_view)">
-      <form id="widget-save-form" action="${h.url(controller='view', action='update', dataset=c.dataset.name, name=c.named_view.name)}" style="display:none;" method="update">
+      <form id="widget-save-form" action="${h.url(controller='view', action='update', dataset=c.dataset.name, name=c.named_view.name)}" style="display:none;" method="put">
 	<div class="span7">
-	  <input type="hidden" name="id" value="${c.named_view.id}"/>
-	  <input type="hidden" id="widget-save-state" name="state" value="${str(c.named_view.state)}"/>
-	  <input type="text" class="span6" name="name" value="${c.named_view.label}"/>
+	  <input type="text" class="span6" name="label" value="${c.named_view.label}"/>
 	  <textarea class="span6" rows="6" name="description">${c.named_view.description}</textarea>
+	  <input type="hidden" id="widget-save-state" name="state" value="${str(c.named_view.state)}"/>
 	</div>
 	<div class="span5">
 	  <p>
