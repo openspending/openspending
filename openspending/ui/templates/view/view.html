@@ -30,7 +30,34 @@
 
     <!-- templates/view/view.html content -->
     <div class="row">
-      <div class="span12"><div id="widget" style="width: auto; min-height: 400px"/></div>
+      <py:if test="can.view.update(c.dataset, c.named_view)">
+      <form id="widget-save-form" action="${h.url(controller='view', action='update', dataset=c.dataset.name, name=c.named_view.name)}" style="display:none;" method="update">
+	<div class="span7">
+	  <input type="hidden" name="id" value="${c.named_view.id}"/>
+	  <input type="hidden" id="widget-save-state" name="state" value="${str(c.named_view.state)}"/>
+	  <input type="text" class="span6" name="name" value="${c.named_view.label}"/>
+	  <textarea class="span6" rows="6" name="description">${c.named_view.description}</textarea>
+	</div>
+	<div class="span5">
+	  <p>
+	    <div class="help-block">
+	      Here you can rename your widget and/or update the description.
+	      You can also change and modify the the widget itself but keep in
+	      mind that others might be using and embedding the widget as it is
+	      now on their sites. <strong>Changing the widget here will change
+	      it everywhere.</strong> This might then create a discrepancy
+	      between the widget and the context of a page it's embedded in.
+	    </div>
+	  </p>
+	  <button class="btn btn-large btn-success">Update widget</button>
+	</div>
+      </form>
+      </py:if>
+    </div>
+    <div class="row">
+      <div class="span12">
+	<div id="widget" style="width: auto; min-height: 400px"/>
+      </div>
     </div>
     <div class="row">
       <div class="span12">

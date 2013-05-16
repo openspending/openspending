@@ -95,6 +95,8 @@ def make_map():
     map.connect('/{dataset}/views.{format}', controller='view', action='index')
     map.connect('/{dataset}/views', controller='view', action='index')
     map.connect('/{dataset}/views/{name}.{format}', controller='view', action='view')
+    map.connect('/{dataset}/views/{name}', controller='view', action='update',
+        conditions=dict(method=['UPDATE']))
     map.connect('/{dataset}/views/{name}', controller='view', action='delete',
         conditions=dict(method=['DELETE']))
     map.connect('/{dataset}/views/{name}', controller='view', action='view')

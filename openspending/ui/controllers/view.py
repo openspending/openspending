@@ -122,6 +122,12 @@ class ViewController(BaseController):
         except colander.Invalid as inv:
             return self.new(dataset, errors=inv.asdict())
 
+    def update(self, dataset, name):
+        """
+        Update dataset. Does nothing at the moment.
+        """
+        pass
+
     def view(self, dataset, name, format='html'):
         self._get_named_view(dataset, name)
         handle_request(request, c, c.dataset)
