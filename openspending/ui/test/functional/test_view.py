@@ -87,6 +87,82 @@ class TestViewController(ControllerTestCase):
                                     dataset='cra', name='i-am-a-banana'))
         assert 'title>I am a banana!' in response.body, response
 
+    def test_update(self):
+        """
+        Test the update function of a view.
+        """
+        # Create the view (we do it via a controller but it would be
+        # better to create it manually (or via a fixture)
+        self.app.post(url(controller='view', action='create',
+                                    dataset='cra'),
+                        params={'widget': 'treemap',
+                                'label': 'I am a banana!',
+                                'state': '{"foo":"banana"}'},
+                        extra_environ={'REMOTE_USER': 'test'})
+
+        # Check whether a non-user can update the view
+        response = self.app.post(url(controller='view', action='update',
+                                     dataset='cra', name='i-am-a-banana'),
+                                 params={'label':'I am an apple',
+                                         'state':'{"foo":"apple"}',
+                                         'description':'An apple!'},
+                                 expect_errors=True)
+        # The user should receive a 403 Forbidden (actually should get 401)
+        assert '403' in response.status, \
+            "A non-user was able to update a view"
+
+        dataset = Dataset.by_name('cra')
+        view = View.by_name(dataset, 'i-am-a-banana')
+        assert view.label == 'I am a banana!', \
+            "View's label was changed by a non-user"
+        assert view.state['foo'] == 'banana', \
+            "View's state was changed by a non-user"
+        assert view.description == None, \
+            "View's description was changed by a non-user"
+
+        # Check whether an unauthorized user can update the view
+        response = self.app.post(url(controller='view', action='update',
+                                    dataset='cra', name='i-am-a-banana'),
+                                 params={'label':'I am an apple',
+                                         'state':'{"foo":"apple"}',
+                                         'description':'An apple!'},
+                                 expect_errors=True,
+                                 extra_environ={'REMOTE_USER':'anotheruser'})
+        # The user should receive a 403 (Forbidden)
+        assert '403' in response.status, \
+            "Unauthorized user was able to update a view"
+
+        dataset = Dataset.by_name('cra')
+        view = View.by_name(dataset, 'i-am-a-banana')
+        assert view.label == 'I am a banana!', \
+            "View's label was changed by an unauthorized user"
+        assert view.state['foo'] == 'banana', \
+            "View's state was changed by an unauthorized user"
+        assert view.description == None, \
+            "View's description was changed by an unauthorized user"
+
+        # Check whether a managing user can update the view
+        response = self.app.post(url(controller='view', action='update',
+                                     dataset='cra', name='i-am-a-banana'),
+                                 params={'label':'I am an apple',
+                                         'name':'can-i-be-an-apple',
+                                         'state':'{"foo":"apple"}',
+                                         'description':'An apple!'},
+                                 extra_environ={'REMOTE_USER':'test'})
+        
+        dataset = Dataset.by_name('cra')
+        view = View.by_name(dataset, 'i-am-a-banana')
+        # Name cannot have been changed because the view might have been
+        # embedded elsewhere (cannot be changed by params nor be re-slugified)
+        assert view is not None, \
+            "View's name was changed by update"
+        assert view.label == 'I am an apple', \
+            "View's label wasn't changed by the managing user"
+        assert view.state['foo'] == 'apple', \
+            "View's state wasn't changed by the managing user"
+        assert view.description == 'An apple!', \
+            "View's description wasn't changed by the managing user"
+
     def test_embed(self):
         response = self.app.get(url(controller='view', action='embed',
                                     dataset='cra'),
