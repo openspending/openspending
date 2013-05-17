@@ -149,7 +149,7 @@ class ViewController(BaseController):
 
         # Redirect to the view page for this view
         redirect(h.url_for(controller='view', action='view',
-                           dataset=c.dataset.name, view=view.name))
+                           dataset=c.dataset.name, name=view.name))
 
     def view(self, dataset, name, format='html'):
         self._get_named_view(dataset, name)
