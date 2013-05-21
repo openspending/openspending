@@ -79,7 +79,7 @@
 		</ul>
               </td>
 	  </py:when>
-	  <py:otherwise>
+	  <py:when test="'error' not in source.analysis">
 	    <td class="top" width="5%"><strong>Analysis</strong>:</td>
 	    <td colspan="2">
 	      <py:choose>
@@ -99,6 +99,8 @@
 		</py:otherwise>
 	      </py:choose>
 	    </td>
+	  </py:when>
+	  <py:otherwise>
 	  </py:otherwise>
 	</py:choose>
         </tr>
