@@ -31,11 +31,20 @@ class BaseImporter(object):
         self.dry_run = dry_run
         self.raise_errors = raise_errors
 
+        # Get unique key for this dataset
+        self.key = self._get_unique_key()
+        # If this is a dry run we need to check uniqueness
+        # Initialize unique check dictionary
+        if dry_run:
+            self.unique_check = {}
+
         before_count = len(self.dataset)
 
         self.row_number = 0
-
-        self._run = Run('import', Run.STATUS_RUNNING,
+        
+        # If max_lines is set we're doing a sample, not an import
+        operation = Run.OPERATION_SAMPLE if dry_run else Run.OPERATION_IMPORT
+        self._run = Run(operation, Run.STATUS_RUNNING,
                         self.dataset, self.source)
         db.session.add(self._run)
         db.session.commit()
@@ -61,7 +70,8 @@ class BaseImporter(object):
                     error='')
 
         num_loaded = len(self.dataset) - before_count
-        if not self.errors and num_loaded < (self.row_number - 1):
+        if not dry_run and not self.errors and \
+                num_loaded < (self.row_number - 1):
             self.log_exception(ValueError("The number of entries loaded is "
                 "smaller than the number of source rows read."),
                 error="%s rows were read, but only %s entries created. "
@@ -81,6 +91,13 @@ class BaseImporter(object):
     def lines(self):
         raise NotImplementedError("lines not implemented in BaseImporter")
 
+    def _get_unique_key(self):
+        """
+        Return a list of unique keys for the dataset
+        """
+        return [k for k,v in self.dataset.mapping.iteritems()
+                if v.get('key', False)]
+
     def process_line(self, line):
         if self.row_number % 1000 == 0:
             log.info('Imported %s lines' % self.row_number)
@@ -89,6 +106,16 @@ class BaseImporter(object):
             data = convert_types(self.dataset.mapping, line)
             if not self.dry_run:
                 self.dataset.load(data)
+            else:
+                # Check uniqueness
+                unique_value = ', '.join([unicode(data[k]) for k in self.key])
+                if self.unique_check.has_key(unique_value):
+                    # Log the error (with the unique key represented as
+                    # a dictionary)
+                    self.log_exception(
+                        ValueError("Unique key constraint not met"),
+                        error="%s is not a unique key" % unique_value)
+                self.unique_check[unique_value] = True
         except Invalid as invalid:
             for child in invalid.children:
                 self.log_invalid_data(child)

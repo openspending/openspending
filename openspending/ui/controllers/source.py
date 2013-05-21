@@ -72,6 +72,24 @@ class SourceController(BaseController):
         redirect(h.url_for(controller='editor', action='index', 
                            dataset=c.dataset.name))
 
+    def delete(self, dataset, id):
+        # Get our source (and dataset)
+        self._get_source(dataset, id)
+
+        # We require that the user can update the dataset
+        require.dataset.update(c.dataset)
+
+        # Delete the source if hasn't been sucessfully loaded
+        # If it is successfully loaded we don't return an error
+        # message because the user is then going around the normal
+        # user interface
+        if not c.source.successfully_loaded:
+            db.session.delete(c.source)
+            db.session.commit()
+
+        redirect(h.url_for(controller='editor', action='index', 
+                           dataset=c.dataset.name))
+
     def analysis(self, dataset, source, format='json'):
         self._get_source(dataset, source)
         return to_jsonp(c.source.analysis)

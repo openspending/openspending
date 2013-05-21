@@ -31,11 +31,40 @@ class Source(db.Model):
 
     @property
     def loadable(self):
+        """
+        Returns True if the source is ready to be imported into the
+        database. Does not not require a sample run although it
+        probably should.
+        """
+        # It shouldn't be loaded again into the database
+        if self.successfully_loaded:
+            return False
+        # It needs mapping to be loadable
         if not len(self.dataset.mapping):
             return False
+        # There can be no errors in the analysis of the source
         if 'error' in self.analysis:
             return False
+        # All is good... proceed
         return True
+
+    @property
+    def successfully_sampled(self):
+        """
+        Returns True if any of this source's runs have been
+        successfully sampled (a complete sample run). This shows
+        whether the source is ready to be imported into the database
+        """
+        return True in [r.successful_sample for r in self.runs]
+
+    @property
+    def successfully_loaded(self):
+        """
+        Returns True if any of this source's runs have been
+        successfully loaded (not a sample and no errors). This
+        shows whether the source has been loaded into the database
+        """
+        return True in [r.successful_load for r in self.runs]
 
     def __repr__(self):
         return "<Source(%s,%s)>" % (self.dataset.name, self.url)

@@ -3,8 +3,9 @@ import json
 from StringIO import StringIO
 
 from .. import ControllerTestCase, url, helpers as h
-from openspending.model import Dataset, Source, meta as db
-
+from openspending.model import Dataset, Source, Account, meta as db
+from openspending.test.unit.importer.test_csv import csvimport_fixture
+from openspending.importer import CSVImporter
 
 class TestSourceController(ControllerTestCase):
 
@@ -63,3 +64,58 @@ class TestSourceController(ControllerTestCase):
             action='index', dataset='cra'),
             extra_environ={'REMOTE_USER': 'test'})
         assert url_ not in response.body, response.body
+
+    def test_delete_source(self):
+        """
+        Test source removal with a source that includes errors
+        """
+
+        # Add and import source with errors (we want to remove it)
+        # The source is added to a dataset called 'test-csv' (but
+        # we'll just use source.dataset.name in case it changes)
+        source = csvimport_fixture('import_errors')
+        source.dataset.managers.append(Account.by_name('test'))
+        importer = CSVImporter(source)
+        importer.run()
+
+        # Make sure the source is imported
+        assert db.session.query(Source).filter_by(id=source.id).count() == 1, \
+            "Import of csv failed. Source not found"
+
+        # Delete the source
+        response = self.app.post(url(controller='source',
+            action='delete', dataset=source.dataset.name, id=source.id),
+            extra_environ={'REMOTE_USER': 'test'})
+
+        # Check if source has been deleted
+        assert db.session.query(Source).filter_by(id=source.id).count() == 0, \
+            "Deleting source unsuccessful. Source still exists."
+
+
+    def test_delete_successfully_loaded_source(self):
+        """
+        Test source removal with a source that has been successfully loaded.
+        Removing a source that has been successfully loaded should not be
+        possible.
+        """
+
+        # Add and import source without errors.
+        # The source is added to a dataset called 'test-csv' (but
+        # we'll just use source.dataset.name in case it changes)
+        source = csvimport_fixture('successful_import')
+        source.dataset.managers.append(Account.by_name('test'))
+        importer = CSVImporter(source)
+        importer.run()
+
+        # Make sure the source is imported
+        assert db.session.query(Source).filter_by(id=source.id).count() == 1, \
+            "Import of csv failed. Source not found"
+
+        # Delete the source
+        response = self.app.post(url(controller='source',
+            action='delete', dataset=source.dataset.name, id=source.id),
+            extra_environ={'REMOTE_USER': 'test'})
+
+        # Check if source has been deleted
+        assert db.session.query(Source).filter_by(id=source.id).count() == 1, \
+            "Deleting source succeeded. The source is gone."
