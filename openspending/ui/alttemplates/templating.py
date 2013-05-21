@@ -13,7 +13,7 @@ import lxml.html
 from lxml.html import builder as E
 
 # Set the directory where this file is as the template root directory
-template_rootdir = os.path.dirname(__file__)
+template_rootdir = os.path.abspath(os.path.dirname(__file__))
 
 def languages(detected_languages, current_language):
     def lang_triple(lang):
