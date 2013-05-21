@@ -20,6 +20,7 @@
   <py:def function="script_boot()">
     <!-- script boot section -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="${h.static('js/json2.js')}"></script>
     ${script_tag('prod/boot')}
     <script defer="defer">
       OpenSpending.scriptRoot = "${h.script_root()}";
