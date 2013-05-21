@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% from "dataset/_nav.html" import dataset_nav as dataset_nav %}
 
-{% block page_title %}[{c.dataset.label}}{% endblock %}
+{% block page_title %}{{c.dataset.label}}{% endblock %}
 
 {% block optional_head %}
     {{h.style_tag('lib/vendor/datatables/css/jquery.dataTables')}}
