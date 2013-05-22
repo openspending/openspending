@@ -63,8 +63,8 @@ def badge_apply_links(badge):
     # Add an html_url to represent the html representation of the badge
     badge['html_url'] = url_for(controller='badge', action='information',
                                 id=badge['id'], qualified=True)
-    # Change the image url to be a fully qualified url
-    # This assumes it is not served from a separate url
-    badge['image'] = url_for(str(badge['image']), qualified=True)
+    # Change the image url to be a fully qualified url if it isn't already
+    needs_qualified = not str(badge['image']).startswith('http://')
+    badge['image'] = url_for(str(badge['image']), qualified=needs_qualified)
 
     return badge
