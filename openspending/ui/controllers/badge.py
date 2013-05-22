@@ -72,15 +72,15 @@ class BadgeController(BaseController):
             permanent_image = open(permanent_filename, 'w')
             shutil.copyfileobj(image.file, permanent_image)
 
-            static_image_path = h.static(random_filename, Badge)
+            upload_image_path = h.upload(random_filename, Badge)
             # Close image files
             image.file.close()
             permanent_image.close()
         except OSError:
-            static_image_path = ''
+            upload_image_path = ''
             h.flash_error(_('Uploading files not supported at the moment.'))
 
-        badge = Badge(name, static_image_path, description, c.account)
+        badge = Badge(name, upload_image_path, description, c.account)
         db.session.add(badge)
         db.session.commit()
 

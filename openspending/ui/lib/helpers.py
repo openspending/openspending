@@ -81,9 +81,7 @@ def script_root():
 
 def static(url, obj=None):
     """
-    Get the static url based on the static_path configuration.
-    If object is provided, the static path is appended with a directory
-    based on the object
+    Get the static uri based on the static_path configuration.
     """
 
     static_path = config.get("openspending.static_path", "/static/")
@@ -97,6 +95,27 @@ def static(url, obj=None):
     if version:
         url_ = "%s?%s" % (url_, version)
     return url_
+
+def upload(url, obj):
+    """
+    Get upload uri based on either the upload_uri configurations (set when
+    an external web server serves the files).
+    The upload uri is appended with a directory based on the provided object
+    """
+
+    # Create the uri from the upload_uri configuration (we need to remove the
+    # rightmost '/' if it's there so we can avoid importing urljoin for such
+    # as simple task), the lowercased object name and the provided url
+    uri_ = '%s/%s/%s' % (config.get("openspending.upload_uri",
+                                    "/files").rstrip('/'),
+                         obj.__name__.lower(), url)
+
+    # We use versioning so that the cache won't serve removed images
+    version = config.get("openspending.static_cache_version", "")
+    if version:
+        uri_ = "%s?%s" % (url_, version)
+
+    return uri_
 
 def get_object_upload_dir(obj):
     """
@@ -117,27 +136,31 @@ def get_object_upload_dir(obj):
     # just a lowercased object name
     try:
         # Get public directory on filesystem
-        public_files = config['pylons.paths']['static_files']
-        # Get static as defined in config file (lstrip to avoid overwriting
-        # of public_files on path join (we default to static)
-        static_path = config.get('openspending.static_path',
-                                 'static').lstrip(os.sep)
-        # Create the object's static dir from static path and object name
-        static_dir = os.path.join(public_files, static_path,
-                                  obj.__name__.lower())
+        pylons_upload = config['pylons.paths']['static_files']
+        # Get upload directory as defined in config file (we default to a
+        # folder called files (also default for 
+        upload_path = config.get('openspending.upload_directory', 'files')
+        # Check to see the upload dir exists. If not we raise OSError
+        upload_dir = os.path.join(pylons_upload, upload_path)
+        if not os.path.isdir(upload_dir):
+            raise OSError
     except:
-        raise OSError("Upload not supported")
+        # Upload isn't supported if something happens when retrieving directory
+        raise OSError("Upload not supported.")
+
+    # Create the object's upload dir from upload dir and object name
+    object_upload_dir = os.path.join(upload_dir, obj.__name__.lower())
 
     # Check if the directory exists, if so return the path
-    if os.path.isdir(static_dir):
-        return static_dir
+    if os.path.isdir(object_upload_dir):
+        return object_upload_dir
 
     # Since the directory didn't exist we try to create it
     # We don't have to create any parent directories since we're either
     # creating this in the static folder or raising OSError (therefore we
     # use os.mkdir, not os.makedirs
     try:
-        os.mkdir(static_dir, 0744)
+        os.mkdir(object_upload_dir, 0744)
     except OSError as exception:
         # Highly unlikely we end up here, but we will if there's a race
         # condition. We might also end up here if there's a regular file
@@ -148,7 +171,7 @@ def get_object_upload_dir(obj):
             raise
 
     # Successfully created, return it
-    return static_dir
+    return object_upload_dir
 
 def get_uuid_filename(filename):
     """
