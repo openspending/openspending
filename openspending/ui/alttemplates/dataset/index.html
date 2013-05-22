@@ -28,7 +28,7 @@
 	  {% if dataset.has_badges %}
 	  <p>
 	    {% for badge in dataset.badges %}
-	    <a href="{{ h.url(controller='badge', action='information', id=badge.id)}}" title="{{badge.name}}"><img src="{{badge.image}}" alt="{{badge.name}}"></a> 
+	    <a href="{{ h.url(controller='badge', action='information', id=badge.id)}}" title="{{badge.label}}"><img src="{{badge.image}}" alt="{{badge.label}}"></a> 
 	    {% endfor %}
 	  </p>
 	  {% endif %}

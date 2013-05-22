@@ -11,7 +11,7 @@
       <div class="span4">
 	<div class="well">
 	  <h3>Badges</h3>
-	  {% for badge in c.dataset.badges %}<a href="{{ h.url(controller='badge', action='information', id=badge.id) }}" title="{{ badge.name }}"><img src="{{ badge.image }}" alt="{{ badge.name }}"></a> {% endfor %}
+	  {% for badge in c.dataset.badges %}<a href="{{ h.url(controller='badge', action='information', id=badge.id) }}" title="{{ badge.label }}"><img src="{{ badge.image }}" alt="{{ badge.label }}"></a> {% endfor %}
 	  <p><small><a href="{{ h.url(controller='badge', action='index') }}">What are badges?</a></small></p>
 	</div>
       </div>

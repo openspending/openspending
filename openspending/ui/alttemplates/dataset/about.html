@@ -82,7 +82,7 @@
 	      entities approved by <a href="http://okfn.org/" title="OKF">the Open Knowledge Foundation</a>.</p>
             </span>
 	    {% for badge in c.dataset.badges %}
-	    <h4> <img src="{{ badge.image }}" title="{{ badge.name }}"> {{ badge.name }}</h4>
+	    <h4> <img src="{{ badge.image }}" title="{{ badge.label }}"> {{ badge.label }}</h4>
 	    {{ h.markdown(badge.description) }}
 	    {% endfor %}
 	    {% if c.account.admin %}
@@ -91,7 +91,7 @@
 	    <form class="form-horizontal" action="{{ h.url(controller='badge', action='give', dataset=c.dataset.name) }}" method="post">
 	      <select name="badge">
 		{% for badge in c.badges %}
-		<option value="{{ badge.id }}">{{ badge.name }}</option>
+		<option value="{{ badge.id }}">{{ badge.label }}</option>
 		{% endfor %}
 	      </select>
 	      <button class="btn btn-success">Give</button>
