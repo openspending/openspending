@@ -66,6 +66,20 @@ class TestBadgeController(ControllerTestCase):
         # The dummy files we'll upload
         files = [("badge-image", "badge.png", "Test badge file")]
 
+
+        # Create upload directory if it doesn't exist
+        object_upload_dir = os.path.join(
+            config['pylons.paths']['static_files'],
+            config.get('openspending.upload_directory', 'test_uploads'))
+        
+        if os.path.isdir(object_upload_dir):
+            # Upload dir exists (so we won't change a thing)
+            upload_dir_created = False
+        else:
+            # Doesn't exist (so we'll remove it afterwards
+            os.mkdir(object_upload_dir, 0744)
+            upload_dir_created = True
+
         # Create a new badge (should return unauthorized)
         response = self.app.post(url(controller='badge', action='create'),
                                  params={'badge-label':'testbadge',
@@ -125,6 +139,11 @@ class TestBadgeController(ControllerTestCase):
             "Uploaded badge image isn't present on the file system"
         # Remove the file or we'll have a lot of random files after test runs
         os.remove(uploaded_file)
+
+        # If we have created the upload directory we should remove upload_dir
+        if upload_dir_created:
+            os.rmdir(upload_dir)
+            os.rmdir(object_upload_dir)
 
         # Check to be certain both label and description are present
         assert badge_index['badges'][0]['label'] == 'testbadge', \
