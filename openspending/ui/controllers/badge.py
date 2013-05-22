@@ -58,7 +58,7 @@ class BadgeController(BaseController):
 
         import shutil
 
-        name = request.params['badge-name']
+        label = request.params['badge-label']
         description = request.params['badge-description']
         image = request.POST['badge-image']
 
@@ -80,7 +80,7 @@ class BadgeController(BaseController):
             upload_image_path = ''
             h.flash_error(_('Uploading files not supported at the moment.'))
 
-        badge = Badge(name, upload_image_path, description, c.account)
+        badge = Badge(label, upload_image_path, description, c.account)
         db.session.add(badge)
         db.session.commit()
 

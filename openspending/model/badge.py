@@ -23,7 +23,7 @@ class Badge(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     # Primary information for this badge
-    name = db.Column(db.Unicode)
+    label = db.Column(db.Unicode)
     image = db.Column(db.Unicode)
     description = db.Column(db.Unicode)
  
@@ -44,22 +44,22 @@ class Badge(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow,
                            onupdate=datetime.utcnow)
 
-    def __init__(self, name, image, description, creator):
+    def __init__(self, label, image, description, creator):
         """
         Initialize a badge object.
-        Badge name should be a representative title for the badge
+        Badge label should be a representative title for the badge
         Image should be a small, representative image for the badge
         Description describes the purpose of the badge in more detail
         Creator is the user who created the badge.
         """
 
-        self.name = name
+        self.label = label
         self.image = image
         self.description = description
         self.creator = creator
 
     def __repr__(self):
-        return "<Badge(%s)>" % self.name
+        return "<Badge(%s)>" % self.label
 
     @classmethod
     def by_id(cls, id):
@@ -79,11 +79,11 @@ class Badge(db.Model):
         """
         A dictionary representation of the badge. This can return a long
         version containing all interesting fields or a short version containing
-        only id, name and image.
+        only id, label and image.
         """
         badge = {
             "id": self.id,
-            "name": self.name,
+            "label": self.label,
             "image": self.image,
             }
         if not short:

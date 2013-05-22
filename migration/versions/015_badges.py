@@ -12,7 +12,7 @@ def upgrade(migrate_engine):
 
     badge = Table('badge', meta,
         Column('id', Integer, primary_key=True),
-        Column('name', Unicode),
+        Column('label', Unicode),
         Column('image', Unicode),
         Column('description', Unicode),
         Column('creator_id', Integer, ForeignKey('account.id')),

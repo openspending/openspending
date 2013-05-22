@@ -54,7 +54,7 @@ class TestBadgeController(ControllerTestCase):
     def test_create_badge(self):
         """
         Test badge creation. Only administrators can create badges.
-        To create a badge user must provide name, description and image
+        To create a badge user must provide label, description and image
         """
         
         # Get all existing badges (should be zero but we never know)
@@ -68,7 +68,7 @@ class TestBadgeController(ControllerTestCase):
 
         # Create a new badge (should return unauthorized)
         response = self.app.post(url(controller='badge', action='create'),
-                                 params={'badge-name':'testbadge',
+                                 params={'badge-label':'testbadge',
                                          'badge-description':'testdescription'},
                                  upload_files=files,
                                  expect_errors=True)
@@ -86,7 +86,7 @@ class TestBadgeController(ControllerTestCase):
 
         # Create a new badge (should return forbidden)
         response = self.app.post(url(controller='badge', action='create'),
-                                 params={'badge-name':'testbadge',
+                                 params={'badge-label':'testbadge',
                                          'badge-description':'testdescription'},
                                  upload_files=files,
                                  extra_environ={'REMOTE_USER': 'test'},
@@ -102,7 +102,7 @@ class TestBadgeController(ControllerTestCase):
             "A non-admin user was able to change the existing badges"
 
         response = self.app.post(url(controller='badge', action='create'),
-                                 params={'badge-name':'testbadge',
+                                 params={'badge-label':'testbadge',
                                          'badge-description':'testdescription'},
                                  upload_files=files,
                                 extra_environ={'REMOTE_USER': 'admin'})
@@ -126,9 +126,9 @@ class TestBadgeController(ControllerTestCase):
         # Remove the file or we'll have a lot of random files after test runs
         os.remove(uploaded_file)
 
-        # Check to be certain both name and description are present
-        assert badge_index['badges'][0]['name'] == 'testbadge', \
-            "Uploaded badge name isn't correct"
+        # Check to be certain both label and description are present
+        assert badge_index['badges'][0]['label'] == 'testbadge', \
+            "Uploaded badge label isn't correct"
         assert badge_index['badges'][0]['description'] == 'testdescription', \
             "Uploaded badge description isn't correct"
 
