@@ -4,12 +4,14 @@ import argparse
 import logging
 import sys
 import urllib2
+import urlparse
 
 from openspending.lib import json
 
 from openspending.model import Source, Dataset, Account
 from openspending.model import meta as db
 from openspending.importer import CSVImporter
+from openspending.importer.analysis import analyze_csv
 from openspending.validation.model import validate_model
 from openspending.validation.model import Invalid
 
@@ -46,12 +48,19 @@ def shell_account():
 def csvimport(csv_data_url, args):
 
     def json_of_url(url):
-        return json.load(urllib2.urlopen(url))
-
+        # Check if it's an internet url (by checking scheme)
+        parsed_result = urlparse.urlparse(url)
+        if parsed_result.scheme:
+            return json.load(urllib2.urlopen(url))
+        # If it doesn't have any scheme it's probably a file
+        # if not we'll just forward the raised error
+        else:
+            return json.load(open(url, 'r'))
+        
     if not args.model:
         print("You must provide --model!",
               file=sys.stderr)
-        return 1
+        sys.exit(1)
 
     model = json_of_url(args.model)
     try:
@@ -61,7 +70,7 @@ def csvimport(csv_data_url, args):
         log.error("Errors occured during model validation:")
         for field, error in i.asdict().items():
             log.error("%s: %s", field, error)
-        return 1
+        sys.exit(1)
 
     dataset = Dataset.by_name(model['dataset']['name'])
     if dataset is None:
@@ -71,6 +80,9 @@ def csvimport(csv_data_url, args):
 
     source = Source(dataset, shell_account(), 
                     csv_data_url)
+    # Analyse the csv data and add it to the source
+    # If we don't analyse it we'll be left with a weird message
+    source.analysis = analyze_csv(csv_data_url)
     for source_ in dataset.sources:
         if source_.url == csv_data_url:
             source = source_
@@ -81,10 +93,11 @@ def csvimport(csv_data_url, args):
     dataset.generate()
     importer = CSVImporter(source)
     importer.run(**vars(args))
-    return 0
 
 def _csvimport(args):
-    return csvimport(args.dataset_url, args)
+    # For every url in dataset_urls (arguments) we import it
+    for url in args.dataset_urls:
+        csvimport(url, args)
 
 def configure_parser(subparser):
     p = subparser.add_parser('csvimport',
@@ -94,6 +107,8 @@ def configure_parser(subparser):
     p.add_argument('--model', action="store", dest='model',
                    default=None, metavar='url',
                    help="URL of JSON format model (metadata and mapping).")
-    p.add_argument('dataset_url', help="Dataset file URL")
+    # Load multiple sources via the dataset_urls (all remaining arguments)
+    p.add_argument('dataset_urls', nargs=argparse.REMAINDER, 
+                   help="Dataset file URL")
     p.set_defaults(func=_csvimport)
 
