@@ -109,6 +109,20 @@ def archive_model(dataset, archive_dir):
     with open(os.path.join(archive_dir, 'model.json'), 'w') as f:
         print(json.dumps(model, indent=2), file=f)
 
+def archive_visualisations(dataset, archive_dir):
+    """
+    Archive the visualisations for a dataset and put it into a special
+    visualisations.json file in the archive directory
+    """
+
+    visualisations = {'visualisations':[v.as_dict() for v in dataset.views]}
+    log.info('Creating %s/visualisations.json for %s',
+             archive_dir, dataset.name)
+
+    # Write the result to a file
+    with open(os.path.join(archive_dir, 'visualisations.json'), 'w') as f:
+        print(json.dumps(visualisations, indent=2), file=f)
+
 def archive_one(dataset_name, archive_dir):
     """
     Find the dataset, create the archive directory and start archiving
@@ -139,6 +153,8 @@ def archive_one(dataset_name, archive_dir):
 
     # Archive the model (dataset metadata)
     archive_model(dataset, archive_dir)
+    # Archive the visualisations
+    archive_visualisations(dataset, archive_dir)
     # Download all sources
     update(os.path.join(archive_dir, 'sources'), dataset)
 
