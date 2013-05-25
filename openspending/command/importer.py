@@ -8,7 +8,7 @@ import urlparse
 
 from openspending.lib import json
 
-from openspending.model import Source, Dataset, Account
+from openspending.model import Source, Dataset, Account, View
 from openspending.model import meta as db
 from openspending.importer import CSVImporter
 from openspending.importer.analysis import analyze_csv
@@ -44,6 +44,38 @@ def shell_account():
     account.name = SHELL_USER
     db.session.add(account)
     return account
+
+def create_view(dataset, view):
+    """
+    Create view for a provided dataset from a view provided as dict
+    """
+
+    # Check if it exists (if not we create it)
+    existing = View.by_name(dataset, view['name'])
+    if existing is None:
+        # Create the view
+        view = View()
+
+        # Set saved configurations
+        view.widget = view['widget']
+        view.state = view['state']
+        view.name = view['name']
+        view.label = view['label']
+        view.description = view['description']
+        view.public = view['public']
+        
+        # Set the dataset as the current dataset
+        view.dataset = dataset
+
+        # Try and set the account provided but if it doesn't exist
+        # revert to shell account
+        view.account = Account.by_name(view['account'])
+        if view.account is None:
+            view.account = shell_account()
+
+        # Commit view to database
+        db.session.add(view)
+        db.session.commit()
 
 def csvimport(csv_data_url, args):
 
@@ -94,6 +126,11 @@ def csvimport(csv_data_url, args):
     importer = CSVImporter(source)
     importer.run(**vars(args))
 
+    # Import the views the the user has provided a visualisation file/url
+    if args.views:
+        for view in json_of_url(args.views)['visualisations']:
+            create_view(dataset, view)
+
 def _csvimport(args):
     # For every url in dataset_urls (arguments) we import it
     for url in args.dataset_urls:
@@ -107,6 +144,10 @@ def configure_parser(subparser):
     p.add_argument('--model', action="store", dest='model',
                    default=None, metavar='url',
                    help="URL of JSON format model (metadata and mapping).")
+    # Allow user to define url or file with visualisations
+    p.add_argument('--visualisations', action="store", dest="views",
+                   default=None, metavar='url/file',
+                   help="URL/file of JSON format visualisations.")
     # Load multiple sources via the dataset_urls (all remaining arguments)
     p.add_argument('dataset_urls', nargs=argparse.REMAINDER, 
                    help="Dataset file URL")
