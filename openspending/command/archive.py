@@ -1,7 +1,7 @@
 from __future__ import print_function
 
 import logging
-import os
+import os, posixpath
 import sys
 import json
 import hashlib
@@ -41,9 +41,25 @@ def get_confirmation(message):
     # User answered something else so we ask again
     return get_confirmation(message)
 
+def get_url_filename(url):
+    """
+    Get a base filename for a url. Returns short hashed url appended by the
+    urn filename (basefile)
+    """
+
+    # Return the first 10 hexdigest chars of sha1 appended by the basename
+    # we use posixpath so that getting the basename of the url will work on
+    # non-unix (posix-compliant) systems as well
+    return '-'.join([hashlib.sha1(url).hexdigest()[:10],
+                     posixpath.basename(url)])
+
 def file_name(path, source):
-    file_name = hashlib.sha1(source.url).hexdigest()[:10]
-    file_name += '-' + os.path.basename(source.url)
+    """
+    Return a filename based on the source url located at the relative or 
+    absolute path provided
+    """
+
+    file_name = get_url_filename(source.url)
     return os.path.join(path, file_name)
 
 
