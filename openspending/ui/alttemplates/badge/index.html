@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block page_title %}Badges in OpenSpending{% endblock %}
+
+{% block content %}
+
+<h2 class="page-header">Badges in OpenSpending</h2>
+
+<div class="row">
+
+  <div class="span8">
+    <table class="table table-striped">
+      <tr>
+	<th>Badge</th><th>Label</th><th>Description</th>
+      </tr>
+      {% for badge in c.badges %}
+      <tr>
+	<td><a href="{{ h.url(controller='badge', action='information', id=badge.id) }}"><img src="{{ badge.image }}" alt="{{ badge.label }}" title="{{ badge.label }}"></a></td>
+	<td><a href="{{ h.url(controller='badge', action='information', id=badge.id) }}"><em>{{ badge.label }}</em></a></td>
+	<td>{{ h.markdown(badge.description) }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  <div class="span4">
+    <p>These badges can be awarded to specific datasets by administrators of OpenSpending. The badges indicate that an official, either from <a href="http://okfn.org" title="Open Knowledge Foundation">The Open Knowledge Foundation</a> (OKF) or from another entity approved by the OKF, has carefully examined the dataset and decided to award it that particular badge.</p>
+
+    {% if c.account.admin %}
+    <form action="{{h.url(controller='badge', action='create')}}" method="post" enctype="multipart/form-data">
+      <fieldset>
+	<legend>Create a new badge</legend>
+
+	<div class="alert alert-warning">
+	  Keep in mind that badges <strong>lose their value</strong> if there
+	  are <strong>too many</strong> of them.
+    </div>
+
+	<label for="badge-label">Label</label>
+	<input type="text" class="span4" name="badge-label" placeholder="e.g. 'Cleaned by Shakespeare's typewriter crew'">
+
+	<label for="badge-description">Description</label>
+	<textarea class="span4" name="badge-description" placeholder="e.g. 'Awarded to datasets cleaned by a team of highly skilled monkeys.'"></textarea>
+
+	<label for="badge-image">Representative image</label>
+	<input type="file" name="badge-image">
+	
+	<div>
+	  <button class="btn btn-success">Create badge</button>
+	</div>
+        </fieldset>
+    </form>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

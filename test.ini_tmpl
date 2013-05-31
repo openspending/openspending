@@ -26,6 +26,7 @@ openspending.solr.url = http://localhost:18983/solr
 
 openspending.widgets_base = http://localhost/openspendingjs/widgets/
 openspending.widgets = treemap bubbletree aggregate_table
+openspending.upload_directory = test_uploads
 
 openspending.content_root = http://content.openspending.org
 

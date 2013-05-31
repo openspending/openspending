@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block page_title %}Badge: {{ c.badge.label }}{% endblock %}
+
+{% block content %}
+<h2 class="page-header">Badge: <em>{{ c.badge.label }}</em></h2>
+
+<div class="row">
+  <div class="span8">
+    <h3>Representative image</h3>
+    
+    <img src="{{ c.badge.image }}" alt="{{ c.badge.label }}">
+
+    <h3>Description</h3>
+    
+    {{ h.markdown(c.badge.description) }}
+
+    <hr>
+
+    <p><small><a href="{{ h.url(controller='badge', action='index') }}">&laquo; Look at more OpenSpending badges</a></small></p>
+  </div>
+  <div class="span4">
+    <h3>Datasets</h3>
+    {% if c.badge.datasets %}
+    <p>The following datasets have been awarded this badge</p>
+    <ul>{% for dataset in c.badge.datasets %}
+      <li><a href="{{ h.url(controller='dataset', action='view', dataset=dataset.name)}} }}">{{dataset.label}}</a></li>
+    {% endfor %}</ul>
+    {% else %}
+    <div class="alert alert-warning">
+      <p><strong>No</strong> datasets have been awarded this badge</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
