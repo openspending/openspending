@@ -40,6 +40,13 @@ def make_map():
     map.connect('/account/reset', controller='account', action='do_reset')
     map.connect('/account/profile/{name}', controller='account', action='profile')
 
+    map.connect('/badges', controller='badge', action='index')
+    map.connect('/badges.{format}', controller='badge', action='index')
+    map.connect('/badges/create', controller='badge', action='create',
+                conditions=dict(method=['POST']))
+    map.connect('/badge/{id}.{format}', controller='badge', action='information')
+    map.connect('/badge/{id}', controller='badge', action='information')
+
     map.connect('/blog/*path', controller='content', action='view', section='blog')
     map.connect('/blog', controller='content', action='view', section='blog',
         path='index.html')
@@ -150,6 +157,9 @@ def make_map():
     map.connect('/{dataset}/entries/{id}.{format}', controller='entry', action='view')
     map.connect('/{dataset}/entries/{id}', controller='entry', action='view')
     map.connect('/{dataset}/entries/{id}/{action}', controller='entry')
+
+    map.connect('/{dataset}/give', controller='badge', action='give',
+                conditions=dict(method=['POST']))
 
     map.connect('/{dataset}/dimensions.{format}',
                 controller='dimension', action='index')

@@ -177,6 +177,14 @@ class Dataset(TableHandler, db.Model):
             self._is_generated = self.table.exists()
         return self._is_generated
 
+    @property
+    def has_badges(self):
+        """
+        Property that returns True if the dataset has been given any badges
+        """
+        # Cast the badge count as a boolean and return it
+        return bool(self.badges.count())
+
     def commit(self):
         pass
         #self.tx.commit()
@@ -463,7 +471,8 @@ class Dataset(TableHandler, db.Model):
             'serp_title': self.serp_title,
             'serp_teaser': self.serp_teaser,
             'languages': list(self.languages),
-            'territories': list(self.territories)
+            'territories': list(self.territories),
+            'badges': [b.as_dict(short=True) for b in self.badges]
             }
 
     @classmethod

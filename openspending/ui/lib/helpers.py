@@ -21,7 +21,8 @@ from openspending.lib import json
 from openspending.lib.util import slugify
 from openspending.lib.jsonexport import to_jsonp, to_json
 import math
-
+import os
+import uuid
 
 def markdown(*args, **kwargs):
     return literal(_markdown(*args, **kwargs))
@@ -78,14 +79,111 @@ def script_root():
     return app_globals.script_root
 
 
-def static(url):
+def static(url, obj=None):
+    """
+    Get the static uri based on the static_path configuration.
+    """
+
     static_path = config.get("openspending.static_path", "/static/")
+
+    if obj:
+        # We append the lowercase object name and a forward slash
+        static_path = '%s%s/' % (static_path, obj.__name__.lower())
+
     url_ = "%s%s" % (static_path, url)
     version = config.get("openspending.static_cache_version", "")
     if version:
         url_ = "%s?%s" % (url_, version)
     return url_
 
+def upload(url, obj):
+    """
+    Get upload uri based on either the upload_uri configurations (set when
+    an external web server serves the files).
+    The upload uri is appended with a directory based on the provided object
+    """
+
+    # Create the uri from the upload_uri configuration (we need to remove the
+    # rightmost '/' if it's there so we can avoid importing urljoin for such
+    # as simple task), the lowercased object name and the provided url
+    uri_ = '%s/%s/%s' % (config.get("openspending.upload_uri",
+                                    "/files").rstrip('/'),
+                         obj.__name__.lower(), url)
+
+    # We use versioning so that the cache won't serve removed images
+    version = config.get("openspending.static_cache_version", "")
+    if version:
+        uri_ = "%s?%s" % (url_, version)
+
+    return uri_
+
+def get_object_upload_dir(obj):
+    """
+    Generate filesystem path of a dynamic upload directory based on object
+    name. The dynamic directory is created in the static file folder and is
+    assigned the lowercased name of the object.
+
+    If for some reason it is not possible to get or create the directory,
+    the method raises OSError.
+
+    Use this method sparingly since it creates directories in the filesystem.
+    """
+
+    # We wrap important configuration value fetching in try. If any of them
+    # fail we raise OSError to indicate we don't support upload directories
+    # The only one likely to fail is the first one (getting pylons.paths)
+    # since the static directory has a default value and the other value is
+    # just a lowercased object name
+    try:
+        # Get public directory on filesystem
+        pylons_upload = config['pylons.paths']['static_files']
+        # Get upload directory as defined in config file (we default to a
+        # folder called files (also default for 
+        upload_path = config.get('openspending.upload_directory', 'files')
+        # Check to see the upload dir exists. If not we raise OSError
+        upload_dir = os.path.join(pylons_upload, upload_path)
+        if not os.path.isdir(upload_dir):
+            raise OSError
+    except:
+        # Upload isn't supported if something happens when retrieving directory
+        raise OSError("Upload not supported.")
+
+    # Create the object's upload dir from upload dir and object name
+    object_upload_dir = os.path.join(upload_dir, obj.__name__.lower())
+
+    # Check if the directory exists, if so return the path
+    if os.path.isdir(object_upload_dir):
+        return object_upload_dir
+
+    # Since the directory didn't exist we try to create it
+    # We don't have to create any parent directories since we're either
+    # creating this in the static folder or raising OSError (therefore we
+    # use os.mkdir, not os.makedirs
+    try:
+        os.mkdir(object_upload_dir, 0744)
+    except OSError as exception:
+        # Highly unlikely we end up here, but we will if there's a race
+        # condition. We might also end up here if there's a regular file
+        # in the static directory with the same name as the intended
+        # object directory (errno.EEXIST will let us know).
+        import errno
+        if exception.errno != errno.EEXIST:
+            raise
+
+    # Successfully created, return it
+    return object_upload_dir
+
+def get_uuid_filename(filename):
+    """
+    Return a random uuid based path for a specific object.
+    The method generates a filename (but keeps the same file extension)
+    This reduces the likelyhood that a preexisting file might get overwritten.
+    """
+
+    # Get the hex value of a uuid4 generated value as new filename
+    uuid_name = uuid.uuid4().get_hex()
+    # Split out the extension and append it to the uuid name
+    return ''.join([uuid_name, os.path.splitext(filename)[1]])
 
 # TODO: moved here during openspending.model evacuation.
 def render_entry_custom_html(dataset, entry):
