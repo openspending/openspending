@@ -12,7 +12,8 @@ from jinja2.environment import Environment
 import lxml.html
 from lxml.html import builder as E
 
-template_rootdir = "openspending/ui/alttemplates"
+# Set the directory where this file is as the template root directory
+template_rootdir = os.path.abspath(os.path.dirname(__file__))
 
 def languages(detected_languages, current_language):
     def lang_triple(lang):
@@ -58,7 +59,7 @@ def postprocess_forms(s, form_errors):
     root = lxml.html.fromstring(s)
     processors = [input_errors, select_errors, textarea_errors]
     [ process(root) for process in processors ]
-    return lxml.html.tostring(root)
+    return lxml.html.tostring(root, doctype=root.getroottree().docinfo.doctype)
 
 def render(path, **kwargs):
     """Render a template with jinja2
