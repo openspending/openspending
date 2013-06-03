@@ -39,6 +39,9 @@
 	      <py:otherwise>
 		<py:if test="source.loadable">
 		  <py:choose>
+		    <py:when test="source.is_running">
+		      <a href="#" class="btn btn-info btn-small disabled">Running...</a>
+		    </py:when>
 		    <py:when test="source.successfully_sampled">
 		      <form method="POST" action="${h.url(controller='source',
 			action='load', dataset=c.dataset.name, id=source.id)}">

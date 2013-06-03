@@ -60,15 +60,33 @@ class SourceController(BaseController):
         redirect(c.source.url)
 
     def load(self, dataset, id):
-        self._get_source(dataset, id)
-        require.dataset.update(c.dataset)
-        try:
-            sample = asbool(request.params.get('sample', 'false'))
-            load_source.delay(c.source.id, sample)
-        except Exception, e:
-            abort(400, e)
+        """
+        Load the dataset into the database. If a url parameter 'sample' 
+        is provided then its value is converted into a boolean. If the value
+        equals true we only perform a sample run, else we do a full load.
+        """
 
-        h.flash_success(_("Now loading..."))
+        # Get our source (and dataset)
+        self._get_source(dataset, id)
+
+        # We require that the user can update the dataset
+        require.dataset.update(c.dataset)
+
+        # If the source is already running we flash an error declaring that
+        # we're already running this source
+        if c.source.is_running:
+            h.flash_error(_("Already running!"))
+        # If the source isn't already running we try to load it (or sample it)
+        else:
+            try:
+                sample = asbool(request.params.get('sample', 'false'))
+                load_source.delay(c.source.id, sample)
+                # Let the user know we're loading the source
+                h.flash_success(_("Now loading..."))
+            except Exception, e:
+                abort(400, e)
+
+        # Send the user to the editor index page for this dataset
         redirect(h.url_for(controller='editor', action='index', 
                            dataset=c.dataset.name))
 

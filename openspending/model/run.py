@@ -64,6 +64,13 @@ class Run(db.Model):
         return self.operation == self.OPERATION_IMPORT and \
             self.status == self.STATUS_COMPLETE
 
+    @property
+    def is_running(self):
+        """
+        Returns True if the run is currently running
+        """
+        return self.status == self.STATUS_RUNNING
+
     @classmethod
     def by_id(cls, id):
         return db.session.query(cls).filter_by(id=id).first()

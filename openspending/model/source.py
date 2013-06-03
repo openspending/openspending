@@ -58,6 +58,15 @@ class Source(db.Model):
         return True in [r.successful_sample for r in self.runs]
 
     @property
+    def is_running(self):
+        """
+        Returns True if any of this source's runs have the status
+        'running'. This shows whether the loading has been started or not
+        to help avoid multiple loads of the same resource.
+        """
+        return True in [r.is_running for r in self.runs]
+
+    @property
     def successfully_loaded(self):
         """
         Returns True if any of this source's runs have been
