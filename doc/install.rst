@@ -49,7 +49,7 @@ JavaScript components and the help system content for the site. The following
 instructions will download and link in the JS files::
 
     $ git clone http://github.com/openspending/openspendingjs.git
-    $ ln -s openspendingjs openspending/ui/public/static/openspendingjs
+    $ ln -s <full path to openspending>/openspendingjs openspending/ui/public/static/openspendingjs
 
 The content parts of OpenSpending are built as a separate Jekyll project. For 
 instructions on how make changes to the content, please refer to 
@@ -111,7 +111,7 @@ frontend components using the ping action::
 
     $ curl -q http://localhost:5000/__ping__ >/dev/null
 
-This should result in "Pong!" being printed to the background daemon's console.
+This should result in "Pong." being printed to the background daemon's console.
 
 Setup Solr
 ''''''''''
@@ -120,8 +120,8 @@ Create a configuration home directory to use with Solr. This is most easily
 done by copying the Solr example configuration from the `Solr tarball`_, and 
 replacing the default schema with one from OpenSpending.::
 
-    $ cp -R apache-solr-4.1.0/* ./solr/
-    $ ln -sfT <full path to openspending>/solr/openspending_schema.xml ./solr/example/solr/conf/schema.xml
+    $ cp -R apache-solr-<version>/* ./solr/
+    $ ln -sf <full path to openspending>/solr/openspending_schema.xml ./solr/example/solr/collection1/conf/schema.xml
 
 .. _Solr tarball: http://www.apache.org/dyn/closer.cgi/lucene/solr/
 
