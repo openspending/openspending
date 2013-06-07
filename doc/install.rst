@@ -49,7 +49,7 @@ JavaScript components and the help system content for the site. The following
 instructions will download and link in the JS files::
 
     $ git clone http://github.com/openspending/openspendingjs.git
-    $ ln -s <full path to openspending>/openspendingjs openspending/ui/public/static/openspendingjs
+    $ ln -s <full path to openspendingjs> openspending/ui/public/static/openspendingjs
 
 The content parts of OpenSpending are built as a separate Jekyll project. For 
 instructions on how make changes to the content, please refer to 
