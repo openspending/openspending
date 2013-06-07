@@ -21,10 +21,10 @@
 
 		  </div>
 		  <div id="fp-blurb">
-        <span id="fp-claim">Mapping the money.</span>
-        <p>Our aim is to track every government financial transaction
+        <span id="fp-claim">{% trans %}Mapping the money.{% endtrans %}</span>
+        <p>{% trans %}Our aim is to track every government financial transaction
         across the world and present it in useful and engaging forms for everyone
-        from a school-child to a data geek.</p>
+        from a school-child to a data geek.{% endtrans %}</p>
 		  </div>
 	  </div>
 	</div>
@@ -34,24 +34,24 @@
     <div class="span8">
       <form action="{{h.url(controller='entry', action='search')}}"
             method="GET" class="well" id="fp-search">
-        <input name="q" class="span7" placeholder="Search {{h.format_number_with_commas(c.num_entries)}} government transactions in {{c.datasets.count()}} datasets..." />
+        <input name="q" class="span7" placeholder="{% trans entry_count=h.format_number_with_commas(c.num_entries), dataset_count=c.datasets.count() %} Search {{ entry_count }} government transactions in {{ dataset_count }} datasets...{% endtrans %}" />
         <input type="submit" class="btn" value="Search" />
       </form>
       {{h.literal(c.blog.html)}}
     </div>
     <div class="span4">
       <ul class="nav nav-list">
-        <li class="nav-header">Getting started</li>
-        <li><a href="/help/index.html">What can I do here?</a></li>
-        <li><a href="/about/faq.html">FAQ</a></li>
-        <li><a href="/datasets">Browse datasets</a></li>
+        <li class="nav-header">{% trans %}Getting started{% endtrans %}</li>
+        <li><a href="/help/index.html">{% trans %}What can I do here?{% endtrans %}</a></li>
+        <li><a href="/about/faq.html">{% trans %}FAQ{% endtrans %}</a></li>
+        <li><a href="/datasets">{% trans %}Browse datasets{% endtrans %}</a></li>
 
 
-        <li class="nav-header">The project</li>
-        <li><a href="/blog/index.html">Spending Blog</a></li>
-        <li><a href="/about/portfolio.html">Projects Portfolio</a></li>
-        <li><a href="http://lists.okfn.org/mailman/listinfo/openspending">Mailing List</a></li>
-        <li><a href="/about/contribute.html">Contribute</a></li>
+        <li class="nav-header">{% trans %}The project{% endtrans %}</li>
+        <li><a href="/blog/index.html">{% trans %}Spending Blog{% endtrans %}</a></li>
+        <li><a href="/about/portfolio.html">{% trans %}Projects Portfolio{% endtrans %}</a></li>
+        <li><a href="http://lists.okfn.org/mailman/listinfo/openspending">{% trans %}Mailing List{% endtrans %}</a></li>
+        <li><a href="/about/contribute.html">{% trans %}Contribute{% endtrans %}</a></li>
 
       </ul>
 
@@ -61,11 +61,11 @@
       </div>
 
       <div class="caption">
-        <h3>Join our discussion list!</h3>
+        <h3>{% trans %}Join our discussion list!{% endtrans %}</h3>
         <form action="http://lists.okfn.org/mailman/subscribe/openspending"
           method="POST" class="form-inline">
           <input type="text" class="input-medium" name="email" placeholder="Email" />
-          <button type="submit" class="btn">Sign up</button>
+          <button type="submit" class="btn">{% trans %}Sign up{% endtrans %}</button>
         </form>
       </div>
 

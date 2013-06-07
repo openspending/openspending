@@ -3,11 +3,11 @@
   {% raw %}
   <script id="listing-template" type="text/x-handlebars-template">
     <div class="span3 dataset-listing-facets">
-      <input id='datasets-filter-query' placeholder='Filter..' />
+      <input id='datasets-filter-query' placeholder='{% endraw %}{% trans %}Filter...{% endtrans %}{% raw %}' />
       {{#hasTerritories}}
-        <h4>Countries</h4>
+        <h4>{% endraw %}{% trans %}Countries{% endtrans %}{% raw %}</h4>
         <select class="filter-datasets" name="territories">
-          <option value="">Filter by country</option>
+          <option value="">{% endraw %}{% trans %}Filter by country{% endtrans %}{% raw %}</option>
           {{#territories}}
             {{#selected}}
             <option value="{{code}}" selected="selected">
@@ -21,9 +21,9 @@
       {{/hasTerritories}}
 
       {{#hasLanguages}}
-        <h4>Languages</h4>
+        <h4>{% endraw %}{% trans %}Languages{% endtrans %}{% raw %}</h4>
         <select class="filter-datasets" name="languages">
-          <option value="">Filter by language</option>
+          <option value="">{% endraw %}{% trans %}Filter by language{% endtrans %}{% raw %}</option>
           {{#languages}}
             {{#selected}}
             <option value="{{code}}" selected="selected">
@@ -37,7 +37,7 @@
       {{/hasLanguages}}
 
       {{#hasCategories}}
-        <h4>Types of data</h4>
+        <h4>{% endraw %}{% trans %}Types of data{% endtrans %}{% raw %}</h4>
         {{#categories}}
           <label class="radio">
             {{#selected}}
@@ -86,15 +86,15 @@
   <div class="modal big-modal hide fade" id="datasets">
     <div class="modal-header">
       <a class="close" data-dismiss="modal">×</a>
-      <h3>OpenSpending &mdash; mapping the money.</h3>
+      <h3>OpenSpending &mdash; {% trans %}mapping the money{% endtrans %}.</h3>
     </div>
     <div class="modal-body">
       <div class="row listing"></div>
     </div>
     <div class="modal-footer">
       <a class="btn btn-success" href="{{h.url_for(controller='dataset',
-        action='new')}}">Import a dataset</a>
-      <a data-dismiss="modal" class="btn">Close</a>
+        action='new')}}">{% trans %}Import a dataset{% endtrans %}</a>
+      <a data-dismiss="modal" class="btn">{% trans %}Close{% endtrans %}</a>
     </div>
   </div>
 {%- endmacro %}

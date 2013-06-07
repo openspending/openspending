@@ -1,20 +1,20 @@
 {% extends "base.html" %}
 
-{% block page_title %}All datasets{% endblock %}
+{% block page_title %}{% trans %}All datasets{% endtrans %}{% endblock %}
 
 {% block content %}
-  <div py:def="content">
+  <div>
     <!-- templates/dataset/index.html -->
 
     <div>
         <form class="basic form-horizontal" id="search"
                 action="/datasets/search" method="GET">
-            <input name="q" placeholder="search..." />
+            <input name="q" placeholder="{% trans %}search...{% endtrans %}" />
             <input value="Search" class="btn btn-success" type="submit" />
         </form>
     </div>
-    <h2 class="page-header">Available data sets</h2>
-    <p>The database contains the following datasets:</p>
+    <h2 class="page-header">{% trans %}Available data sets{% endtrans %}</h2>
+    <p>{% trans %}The database contains the following datasets{% endtrans %}:</p>
 
     <div class="row">
       <div class="span8"> 
@@ -42,7 +42,7 @@
 		{% endfor %}
       </div>
       <div class="span4">
-        <h3>Countries</h3>
+        <h3>{% trans %}Countries{% endtrans %}</h3>
         <ul>
 		  {% for territory in c.territory_options %}
           <li>
@@ -56,7 +56,7 @@
           </li>
 		  {% endfor %}
         </ul>
-        <h3>Languages</h3>
+        <h3>{% trans %}Languages{% endtrans %}</h3>
         <ul>
 		  {% for language in c.language_options %}
           <li>

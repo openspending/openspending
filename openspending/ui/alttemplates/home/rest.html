@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 
-{% block page_title %}REST API{% endblock %}
+{% block page_title %}{% trans %}REST API{% endtrans %}{% endblock %}
 
 {% block content %}
   <div>
-    <h2>The Store's REST API</h2>
+    <h2>{% trans %}The Store's REST API{% endtrans %}</h2>
     
-    <p>This API returns JSON versions of the store's domain objects.
+    <p>{% trans %}This API returns JSON versions of the store's domain objects.
     The URLs are generally the same as the URLs used by the web interface for
-    the same objects, but with "/api/rest" prepended.
+    the same objects, but with "/api/rest" prepended.{% endtrans %}
     </p>
 
     <p>
-    Here are some examples:</p>
+    {% trans %}Here are some examples{% endtrans %}:</p>
 
     <ul>
 	  {% for u in c.urls %}
@@ -22,11 +22,11 @@
 	  {% endfor %}
     </ul>
     
-    <p>The JSON response generally contains the same information as the
-    corresponding web page, but in more detail.</p>
+    <p>{% trans %}The JSON response generally contains the same information as the
+    corresponding web page, but in more detail.{% endtrans %}</p>
 
-    <p i18n:msg="jsonpcb">A JSONP object is returned if a <var>callback</var> parameter is
+    <p>{% trans %}A JSONP object is returned if a <var>callback</var> parameter is
     supplied (usually by appending "?callback=myfun" or
-    similar).</p>
+    similar).{% endtrans %}</p>
   </div>
 {% endblock %}

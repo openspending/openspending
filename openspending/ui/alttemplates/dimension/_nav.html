@@ -39,22 +39,22 @@
 		{% endfor %}
         <li class="{% if section == 'search' %}active{% endif %}">
             <a href="{{h.url(controller='dimension', action='entries',
-              dataset=c.dataset.name, dimension=c.dimension.name, name=c.member.name)}}">Search</a></li>
+              dataset=c.dataset.name, dimension=c.dimension.name, name=c.member.name)}}">{% trans %}Search{% endtrans %}</a></li>
         {% if 'opencorporates_uri' in c.member and c.member.opencorporates_uri %}
           <li class="">
-          <a href="{{ c.member.opencorporates_uri }}" title="{{c.member.label }} on OpenCorporates"><img src="/static/img/icons/external_link.gif" /> OpenCorporates</a></li>
+          <a href="{{ c.member.opencorporates_uri }}" title="{% trans member=c.member.label %}{{member}} on OpenCorporates{% endtrans %}"><img src="/static/img/icons/external_link.gif" /> OpenCorporates</a></li>
         {% endif %}
 
         {% if 'uri' in c.member and c.member.uri %}
           {% if 'opencorporates.com' in c.member.uri %}
           <li class="">
-            <a href="{{ c.member.uri}}" title="{{c.member.label.strip() }} on OpenCorporates">
+            <a href="{{ c.member.uri}}" title="{% trans member=c.member.label.strip() %}{{member}} on OpenCorporates{% endtrans %}">
               <img src="/static/img/icons/external_link.gif" /> OpenCorporates</a>
           </li>
 		  {% endif %}
 		  {% if 'publicbodies.org' in c.member.uri %}
           <li class="">
-            <a href="{{ c.member.uri}}" title="{{c.member.label.strip() }} on PublicBodies.org">
+            <a href="{{ c.member.uri}}" title="{% trans member=c.member.label.strip() %}{{member}} on PublicBodies.org{% endtrans %}">
               <img src="/static/img/icons/external_link.gif" /> PublicBodies.org</a>
           </li>
           {% endif %}

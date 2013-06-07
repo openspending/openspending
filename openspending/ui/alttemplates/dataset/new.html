@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block page_title %}Import a dataset{% endblock %}
+{% block page_title %}{% trans %}Import a dataset{% endtrans %}{% endblock %}
 
 {% block optional_head %}
 <link rel="stylesheet" href="{{g.script_root + '/lib/vendor/chosen/chosen.css'}}" type="text/css"/>
@@ -18,22 +18,21 @@
 {% block content %}
   <div class="dataset new">
     <!-- templates/dataset/new.html content -->
-    <h2 class="page-header">Import a dataset</h2>
+    <h2 class="page-header">{% trans %}Import a dataset{% endtrans %}</h2>
     <div class="row">
       <div class="span4">
-        <div class="alert block-message alert-info" i18n:msg=""
-              i18n:comment="List of steps to take">
-          If you have a spending or budget dataset that 
+        <div class="alert block-message alert-info">
+          {% trans %}If you have a spending or budget dataset that 
           you can contribute, please give some basic information 
-          here.
-          <br/><br/>In the next steps, you'll
+          here.{% endtrans %}
+          <br/><br/>{% trans %}In the next steps, you'll
           <ul>
             <li>add references to <strong>data sources</strong>,</li>
             <li>create a <strong>data model</strong> to describe the format,</li>
             <li><strong>test</strong> the correctness of your model,</li>
             <li><strong>import</strong> the data,</li>
             <li>and generate <strong>visualized views</strong>.</li>
-          </ul>
+          </ul>{% endtrans %}
         </div>
       </div>
       <div class="span8 dataset-info">
@@ -41,22 +40,22 @@
           <input name="ckan_uri" type="hidden" />
           <fieldset>
             <div class="control-group">
-              <label class="control-label" for="label">Title</label>
+              <label class="control-label" for="label">{% trans %}Title{% endtrans %}</label>
               <div class="controls">
-                <input name="label" class="span4" placeholder="My Dataset" />
+                <input name="label" class="span4" placeholder="{% trans %}My Dataset{% endtrans %}" />
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="name">Identifier</label>
+              <label class="control-label" for="name">{% trans %}Identifier{% endtrans %}</label>
               <div class="controls">
-                <input name="name" class="span4" placeholder="my_dataset" />
-                <p class="help-block">The identifier will become part of the
+                <input name="name" class="span4" placeholder="{% trans %}my_dataset{% endtrans %}" />
+                <p class="help-block">{% trans %}The identifier will become part of the
                   dataset URL and cannot be changed later. It may only 
-                  contain alphanumeric characters, dashes and underscores.</p>
+                  contain alphanumeric characters, dashes and underscores.{% endtrans %}</p>
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="territories">Category</label>
+              <label class="control-label" for="territories">{% trans %}Category{% endtrans %}</label>
               <div class="controls">
                 <select name="category" class="chzn-select span4">
 				  {% for code, name in c.categories %}
@@ -66,15 +65,15 @@
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="currency">Currency</label>
+              <label class="control-label" for="currency">{% trans %}Currency{% endtrans %}</label>
               <div class="controls">
                 <select name="currency" class="chzn-select span4">
-                  <optgroup label="Commonly used currencies">
+                  <optgroup label="{% trans %}Commonly used currencies{% endtrans %}">
                     {% for code, name in c.key_currencies %}
                       <option value="{{code}}">{{name}} ({{code}})</option>
                     {% endfor %}
                   </optgroup>
-                  <optgroup label="All currencies">
+                  <optgroup label="{% trans %}All currencies{% endtrans %}">
                     {% for code, name in c.all_currencies %}
                       <option value="{{code}}">{{name}} ({{code}})</option>
                     {% endfor %}
@@ -83,7 +82,7 @@
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="territories">Countries</label>
+              <label class="control-label" for="territories">{% trans %}Countries{% endtrans %}</label>
               <div class="controls">
                 <select name="territories" multiple="multiple" class="chzn-select span4">
                   {% for code, name in c.territories %}
@@ -93,7 +92,7 @@
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="languages">Languages</label>
+              <label class="control-label" for="languages">{% trans %}Languages{% endtrans %}</label>
               <div class="controls">
                 <select name="languages" multiple="multiple" class="chzn-select span4">
                   {% for code, name in c.languages %}
@@ -103,14 +102,14 @@
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="description">Description</label>
+              <label class="control-label" for="description">{% trans %}Description{% endtrans %}</label>
               <div class="controls">
                 <textarea class="xxlarge span4" rows="4" name="description"></textarea>
               </div>
             </div>
           </fieldset>
           <div class="form-actions">
-            <input value="Next Step" class="btn btn-success" type="submit" />
+            <input value="{% trans %}Next Step{% endtrans %}" class="btn btn-success" type="submit" />
           </div>
         </form>
       </div>
