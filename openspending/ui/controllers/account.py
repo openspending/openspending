@@ -20,6 +20,7 @@ from openspending.ui.lib.security import generate_password_hash
 from openspending.ui.lib.mailman import subscribe_lists
 from openspending.lib.jsonexport import to_jsonp
 from openspending.lib.mailer import send_reset_link
+from openspending.ui.alttemplates import templating
 
 log = logging.getLogger(__name__)
 
@@ -104,11 +105,18 @@ class AccountController(BaseController):
                       form_errors=errors)
 
     def dashboard(self, format='html'):
+        """
+        Show the user profile for the logged in user
+        """
+
+        # To be able to show it, the user must be logged in
         require.account.logged_in()
+
+        # Disable caching
         self._disable_cache()
-        c.account_datasets = sorted(c.account.datasets, key=lambda d: d.label)
-        c.account_views = sorted(c.account.views, key=lambda d: d.label)
-        return render('account/dashboard.html')
+
+        # Return the profile page for the user
+        return self.profile(c.account.name)
 
     def complete(self, format='json'):
         self._disable_cache()
@@ -190,11 +198,31 @@ class AccountController(BaseController):
         redirect(h.url_for(controller='account', action='settings'))
 
     def profile(self, name=None):
+        """
+        Generate a profile page for a user (from the provided name)
+        """
+
+        # Set the pylons config as a context variable
         c.config = config
+
+        # Get the account, if it's none we return a 404
         account = Account.by_name(name)
         if account is None:
             response.status = 404
             return None
+
+        # Set the account we got as the context variable 'profile'
+        # Note this is not the same as the context variable 'account'
+        # which is the account for a logged in user
         c.profile = account
-        c.is_admin = True if (c.account and c.account.admin is True) else False
-        return render('account/profile.html')
+
+        # Set a context boolean if email should be shown, it can only be shown
+        # to administrators and to users (account is same as context account)
+        c.show_email = (c.account and c.account.admin) or c.account == account
+
+        # Collect and sort the account's datasets and views
+        c.account_datasets = sorted(c.account.datasets, key=lambda d: d.label)
+        c.account_views = sorted(c.account.views, key=lambda d: d.label)
+
+        # Render the profile
+        return templating.render('account/profile.html')

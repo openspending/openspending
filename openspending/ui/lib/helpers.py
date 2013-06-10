@@ -23,6 +23,7 @@ from openspending.lib.jsonexport import to_jsonp, to_json
 import math
 import os
 import uuid
+import md5
 
 def markdown(*args, **kwargs):
     return literal(_markdown(*args, **kwargs))
@@ -71,6 +72,29 @@ def readable_url(url):
 def site_url():
     return url_for(controller='home', action='index', qualified=True).rstrip('/')
 
+def gravatar(email, size=None, default='mm'):
+    """
+    Generate a gravatar url based on a provided email. If email is none we
+    spit out a default gravatar. The default gravatar is the mystery man (mm).
+    """
+
+    # Gravatar url structure
+    gravatar_url = 'http://www.gravatar.com/avatar/{digest}?d={default}{query}'
+
+    # If email is None we spit out a dummy digest
+    if email is None:
+        digest = '00000000000000000000000000000000'
+    # else we spit out and md5 digest as required by Gravatar
+    else:
+        digest = md5.md5(email.strip().lower()).hexdigest()
+
+    # Generate the Gravatar url
+    url = gravatar_url.format(digest=digest,
+                              default=default,
+                              query='&s='+str(size) if size else '')
+
+    # Return it
+    return url
 
 def script_root():
     c = tmpl_context
