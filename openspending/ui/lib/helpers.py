@@ -23,7 +23,7 @@ from openspending.lib.jsonexport import to_jsonp, to_json
 import math
 import os
 import uuid
-import md5
+import hashlib
 
 def markdown(*args, **kwargs):
     return literal(_markdown(*args, **kwargs))
@@ -86,7 +86,7 @@ def gravatar(email, size=None, default='mm'):
         digest = '00000000000000000000000000000000'
     # else we spit out and md5 digest as required by Gravatar
     else:
-        digest = md5.md5(email.strip().lower()).hexdigest()
+        digest = hashlib.md5(email.strip().lower()).hexdigest()
 
     # Generate the Gravatar url
     url = gravatar_url.format(digest=digest,
