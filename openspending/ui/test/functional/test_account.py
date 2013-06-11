@@ -157,5 +157,5 @@ class TestAccountController(ControllerTestCase):
 
         # Check that not filling up the field throws a response
         response = self.app.post(url(controller='account', action='register'))
-        assert ('<input name="terms" type="checkbox" /> <p class="help-block '
+        assert ('<input name="terms" type="checkbox"><p class="help-block '
                 'error">Required</p>' in response)
