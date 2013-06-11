@@ -36,21 +36,21 @@
         <div class="control-group">
           <label for="name">Login</label>
           <div class="controls">
-            <input name="name"{% if 'name' in form_fill %} value="{{form_fill.name}}"{% endif %}>
+            <input name="name"{% if form_fill and 'name' in form_fill %} value="{{form_fill.name}}"{% endif %}>
           </div>
         </div>
         <div class="control-group">
           <label for="fullname">Fullname</label>
           <div class="controls">
-            <input name="fullname"{% if 'fullname' in form_fill %} value="{{form_fill.fullname}}"{% endif %}>
+            <input name="fullname"{% if form_fill and 'fullname' in form_fill %} value="{{form_fill.fullname}}"{% endif %}>
           </div>
         </div>
         <div class="control-group form-inline">
           <label for="email">E-Mail</label>
           <div class="controls">
-            <input name="email"{% if 'email' in form_fill %} value="{{form_fill.email}}"{% endif %}>	  
+            <input name="email"{% if form_fill and 'email' in form_fill %} value="{{form_fill.email}}"{% endif %}>	  
 	    <label class="checkbox">
-	      <input name="public_email" type="checkbox"{% if 'public_email' in form_fill %} checked="checked"{% endif %}> Visible to other users
+	      <input name="public_email" type="checkbox"{% if form_fill and 'public_email' in form_fill %} checked="checked"{% endif %}> Visible to other users
 	    </label>
           </div>
         </div>
@@ -81,7 +81,7 @@
             {% endif %}
             {% if c.config.get('openspending.subscribe_developer') %}
             <label class="checkbox">
-              <input type="checkbox" name="subscribe_developer"{% if 'subscribe_developer' in form_fill %} checked="checked"{% endif %}>
+              <input type="checkbox" name="subscribe_developer"{% if form_fill and 'subscribe_developer' in form_fill %} checked="checked"{% endif %}>
               Sign me up for the OpenSpending developer mailing list
             </label>
 	    {% endif %}
