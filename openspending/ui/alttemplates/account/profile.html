@@ -22,7 +22,7 @@
       <dt>Email</dt>
       <dd>{{c.profile.email}}</dd>
       {% endif %}
-      {% if c.show_twitter %}
+      {% if c.profile.twitter_handle and c.show_twitter %}
       <dt>Twitter</dt>
       <dd><a href="{{ h.twitter_uri(c.profile.twitter_handle) }}">@{{ c.profile.twitter_handle }}</a></dd>
       {% endif %}
