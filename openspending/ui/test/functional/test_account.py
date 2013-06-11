@@ -106,18 +106,83 @@ class TestAccountController(ControllerTestCase):
         assert cra.label in response, response
 
     def test_profile(self):
-        # Test the profile page
+        """
+        Profile page test
+        """
+
+        # Create the test user account using default
+        # username is test, fullname is 'Test User',
+        # email is test@example.com and twitter handle is testuser
         test = h.make_account('test')
+
+        # Get the user profile for an anonymous user
         response = self.app.get(url(controller='account', action='profile',
                                 name='test'))
-        assert '<dt>Name</dt>' in response.body
-        assert '<dd>Test User</dd>' in response.body
-        assert '<dt>Username</dt>' in response.body
-        assert '<dd>test</dd>' in response.body
-        assert '<dt>Email</dt>' not in response.body
-        assert '<dd>test@example.com</dd>' not in response.body
-        assert '200' in response.status
 
+        assert '200' in response.status, \
+            'Profile not successfully returned for anonymous user'
+        assert '<dt>Name</dt>' in response.body, \
+            'Name heading is not in profile for anonymous user'
+        assert '<dd>Test User</dd>' in response.body, \
+            'User fullname is not in profile for anonymous user'
+        assert '<dt>Username</dt>' in response.body, \
+            'Username heading is not in profile for anonymous user'
+        assert '<dd>test</dd>' in response.body, \
+            'Username is not in profile for anonymous user'
+        assert '<dt>Email</dt>' not in response.body, \
+            'Email heading is in profile for anonymous user'
+        assert '<dd>test@example.com</dd>' not in response.body, \
+            'Email of user is in profile for anonymous user'
+        assert '<dt>Twitter</dt>' not in response.body, \
+            'Twitter heading is in profile for anonymous user'
+        assert '<dd>@testuser</dd>' not in response.body, \
+            'Twitter handle is in profile for anonymous user'
+
+        # Display email and twitter handle for the user
+        response = self.app.get(url(controller='account', action='profile',
+                                name='test'), extra_environ={'REMOTE_USER':
+                                                             'test'})
+
+        assert '200' in response.status, \
+            'Profile not successfully returned for user'
+        assert '<dt>Email</dt>' in response.body, \
+            'Email heading is not in profile for the user'
+        assert '<dd>test@example.com</dd>' in response.body, \
+            'Email of user is not in profile for the user'
+        assert '<dt>Twitter</dt>' in response.body, \
+            'Twitter heading is not in profile for the user'
+        assert '@testuser' in response.body, \
+            'Twitter handle of user is not in profile for the user'
+
+        # Immitate that the user now makes email address and twitter handle
+        # public to all
+        test.public_email = True
+        test.public_twitter = True
+        db.session.add(test)
+        db.session.commit()
+
+        # Get the site as an anonymous user
+        response = self.app.get(url(controller='account', action='profile',
+                                name='test'))
+
+        assert '200' in response.status, \
+            'Profile with public contact info not returned to anonymous user'
+        assert '<dt>Email</dt>' in response.body, \
+            'Public email heading not in profile for anonymous user'
+        assert '<dd>test@example.com</dd>' in response.body, \
+            'Public email not in profile for anonymous user'
+        assert '<dt>Twitter</dt>' in response.body, \
+            'Public Twitter heading not in profile for anonymous user'
+        assert '@testuser' in response.body, \
+            'Public Twitter handle not in profile for anonymous user'
+
+        # We take it back and hide the email and the twitter handle
+        test.public_email = False
+        test.public_twitter = False
+        db.session.add(test)
+        db.session.commit()
+
+        # Create admin user
         admin_user = h.make_account('admin', 'Admin', 'admin@os.com')
         admin_user.admin = True
         db.session.add(admin_user)
@@ -127,25 +192,60 @@ class TestAccountController(ControllerTestCase):
         response = self.app.get(url(controller='account', action='profile',
                                 name='test'), extra_environ={'REMOTE_USER':
                                                              'admin'})
-        assert '<dt>Name</dt>' in response.body
-        assert '<dd>Test User</dd>' in response.body
-        assert '<dt>Username</dt>' in response.body
-        assert '<dd>test</dd>' in response.body
-        assert '<dt>Email</dt>' in response.body
-        assert '<dd>test@example.com</dd>' in response.body
-        assert '200' in response.status
+
+        assert '200' in response.status, \
+            'Profile not successfully returned for admins'
+        assert '<dt>Name</dt>' in response.body, \
+            'Full name heading not in profile for admins'
+        assert '<dd>Test User</dd>' in response.body, \
+            'Full name of user not in profile for admins'
+        assert '<dt>Username</dt>' in response.body, \
+            'Username heading not in profile for admins'
+        assert '<dd>test</dd>' in response.body, \
+            'Username of user not in profile for admins'
+        assert '<dt>Email</dt>' in response.body, \
+            'Email heading not in profile for admins'
+        assert '<dd>test@example.com</dd>' in response.body, \
+            'Email of user not in profile for admins'
+        assert '<dt>Twitter</dt>' in response.body, \
+            'Twitter heading not in profile for admins'
+        assert '@testuser' in response.body, \
+            'Twitter handle of user not in profile for admins'
 
         # Do not display fullname if it's empty
         test.fullname = ''
         db.session.add(test)
         db.session.commit()
+
         response = self.app.get(url(controller='account', action='profile',
                                 name='test'))
-        assert '<dt>Username</dt>' in response.body
-        assert '<dd>test</dd>' in response.body
-        assert '<dt>Email</dt>' not in response.body
-        assert '<dd>test@example.com</dd>' not in response.body
-        assert '200' in response.status
+
+        assert '200' in response.status, \
+            'Profile page not successfully returned without full name'
+        assert '<dt>Name</dt>' not in response.body, \
+            'Name heading is in profile even though full name is empty'
+        # Test if the information is missing or just the full name
+        assert '<dt>Username</dt>' in response.body, \
+            'Username heading is not in profile when full name is empty'
+        assert '<dd>test</dd>' in response.body, \
+            'Username for user is not in profile when full name is empty'
+
+        # Do not display twitter handle if it's empty
+        test.twitter_handle = None
+        db.session.add(test)
+        db.session.commit()
+
+        response = self.app.get(url(controller='account', action='profile',
+                                name='test'), extra_environ={'REMOTE_USER':
+                                                             'test'})
+        # Check if the Twitter heading is there
+        assert '<dt>Twitter</dt>' not in response.body, \
+            'Twitter heading is in profile even though twitter handle is empty'
+        # Test if the other information is missing
+        assert '<dt>Username</dt>' in response.body, \
+            'Username heading is not in profile when Twitter handle is empty'
+        assert '<dd>test</dd>' in response.body, \
+            'Username for user is not in profile when Twitter handle is empty'
 
     def test_terms_check(self):
         # Check that the field is displayed

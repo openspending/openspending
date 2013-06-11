@@ -195,8 +195,10 @@ class AccountController(BaseController):
 
             # We need to put public checks separately because they're not 
             # a part of the dictionary representation of the account
-            values['public_email'] = c.account.public_email
-            values['public_twitter'] = c.account.public_twitter
+            if c.account.public_email:
+                values['public_email'] = c.account.public_email
+            if c.account.public_twitter:
+                values['public_twitter'] = c.account.public_twitter
 
         # Return the rendered template
         return templating.render('account/settings.html',
