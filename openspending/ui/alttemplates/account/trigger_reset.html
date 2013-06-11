@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block page_title %}Password reset{% endblock %}
+
+{% block content %}
+<h2 class="page-header">Reset your password</h2>
+
+<div class="row">
+  <div class="span4">
+    <p>If you have forgotten the password for your account, you can
+      request an email with a link that will allow you to reset your
+      account password.</p>
+  </div>
+  <div class="span8">
+    <p>
+      Please enter the email address you used to register your account:
+    </p>
+    <form action="{{ h.url(controller='account', action='trigger_reset') }}" method="POST" class="form-inline">
+      <input type="text" class="input-large span5" name="email" placeholder="Email" />
+      <button type="submit" class="btn">Request a reset</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

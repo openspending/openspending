@@ -96,6 +96,9 @@ def gravatar(email, size=None, default='mm'):
     # Return it
     return url
 
+def twitter_uri(handle):
+    return 'https://twitter.com/{handle}'.format(handle=handle.lstrip('@'))
+
 def script_root():
     c = tmpl_context
     if c.account and c.account.script_root and len(c.account.script_root.strip()):

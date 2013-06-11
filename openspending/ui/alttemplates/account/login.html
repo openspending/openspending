@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block page_title %}Login{% endblock %}
+
+{% block content %}
+<h2 class="page-header">Sign in to OpenSpending</h2>
+
+<div class="row">
+  <div class="span6">
+    <h3>Login</h3>
+    <form class="basic login form-horizontal" id="login" action="/perform_login" method="POST">
+      <fieldset>
+        <div class="control-group">
+          <label for="login">Login</label>
+          <div class="controls">
+            <input name="login" />
+          </div>
+        </div>
+        <div class="control-group">
+          <label for="password">Password</label>
+          <div class="controls">
+            <input name="password" type="password" />
+          </div>
+        </div>
+      </fieldset>
+      <div class="form-actions">
+        <input value="Login" class="btn btn-primary" type="submit" />
+      </div>
+    </form>
+    <p class="help-block">Forgot your password? <a href="{{ h.url(controller='account', action='trigger_reset') }}">Request a password reset.</a></p>
+  </div>
+  <div class="span6">
+    <h3>Create an account</h3>
+    <form class="basic register form-horizontal" id="register" action="{{ h.url(controller='account', action='register') }}" method="POST">
+      <fieldset>
+        <div class="control-group">
+          <label for="name">Login</label>
+          <div class="controls">
+            <input name="name"{% if 'name' in form_fill %} value="{{form_fill.name}}"{% endif %}>
+          </div>
+        </div>
+        <div class="control-group">
+          <label for="fullname">Fullname</label>
+          <div class="controls">
+            <input name="fullname"{% if 'fullname' in form_fill %} value="{{form_fill.fullname}}"{% endif %}>
+          </div>
+        </div>
+        <div class="control-group form-inline">
+          <label for="email">E-Mail</label>
+          <div class="controls">
+            <input name="email"{% if 'email' in form_fill %} value="{{form_fill.email}}"{% endif %}>	  
+	    <label class="checkbox">
+	      <input name="public_email" type="checkbox"{% if 'public_email' in form_fill %} checked="checked"{% endif %}> Visible to other users
+	    </label>
+          </div>
+        </div>
+        <div class="control-group">
+          <label for="password1">Password</label>
+          <div class="controls">
+            <input name="password1" type="password" autocomplete="off" />
+          </div>
+        </div>
+        <div class="control-group">
+          <label for="password2">Password (repeat)</label>
+          <div class="controls">
+            <input name="password2" type="password" autocomplete="off" />
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="controls">
+            <label for="terms" class="checkbox">
+              <input name="terms" type="checkbox" />
+              I agree to the <a href="okfn.org/terms-of-use/">Terms of Use</a>
+              and <a href="http://okfn.org/privacy-policy/">Privacy Policy</a>.
+            </label>
+	    {% if c.config.get('openspending.subscribe_community') %}
+            <label class="checkbox">
+              <input type="checkbox" name="subscribe_community" checked="checked"/>
+              Add me to the OpenSpending community mailing list
+            </label>
+            {% endif %}
+            {% if c.config.get('openspending.subscribe_developer') %}
+            <label class="checkbox">
+              <input type="checkbox" name="subscribe_developer"{% if 'subscribe_developer' in form_fill %} checked="checked"{% endif %}>
+              Sign me up for the OpenSpending developer mailing list
+            </label>
+	    {% endif %}
+          </div>
+        </div>
+      </fieldset>
+      
+      <div class="form-actions">
+        <input value="Create new account" class="btn btn-primary" type="submit" />
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
+
+
+
+
