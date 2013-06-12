@@ -145,22 +145,55 @@ class DatasetController(BaseController):
             return self.new(errors)
 
     def view(self, dataset, format='html'):
+        """
+        Dataset viewer. Default format is html. This will return either
+        an entry index if there is no default view or the defaul view.
+        If a request parameter embed is given the default view is 
+        returned as an embeddable page.
+
+        If json is provided as a format the json representation of the
+        dataset is returned.
+        """
+
+        # Get the dataset (will be placed in c.dataset)
         self._get_dataset(dataset)
+
+        # Generate the etag for the cache based on updated_at value
         etag_cache_keygen(c.dataset.updated_at)
+
+        # Compute the number of entries in the dataset
         c.num_entries = len(c.dataset)
+        
+        # Handle the request for the dataset, this will return
+        # a default view in c.view if there is any
         handle_request(request, c, c.dataset)
 
+        # Get the sorted time range for the dataset entries
+        # The time range is a dictionary and we sort by name ('2013-06-12')
+        timerange = sorted(c.dataset['time'].members(),
+                           key=lambda x: x.get('name', ''))
+        if len(timerange):
+            # If there is a time range we add the first and last timestamps
+            # to a timerange context variable
+            c.timerange = {'from':timerange[0],
+                           'to':timerange[-1]}
 
         if format == 'json':
+            # If requested format is json we return the json representation
             return to_jsonp(dataset_apply_links(c.dataset.as_dict()))
         else:
             if c.view is None:
+                # If handle request didn't return a view we return the
+                # entry index
                 return EntryController().index(dataset, format)
             if 'embed' in request.params:
+                # If embed is requested using the url parameters we return
+                # a redirect to an embed page for the default view
                 return redirect(h.url_for(controller='view',
                     action='embed', dataset=c.dataset.name,
                     widget=c.view.vis_widget.get('name'),
                     state=json.dumps(c.view.vis_state)))
+            # Return the dataset view (for the default view)
             return templating.render('dataset/view.html')
 
     def about(self, dataset, format='html'):

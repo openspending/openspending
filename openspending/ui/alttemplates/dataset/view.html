@@ -48,6 +48,14 @@
     </div>
 	{% endif %}
 
+    {% if c.timerange %}
+    <div class="row">
+      <div class="span4">
+	<p><small>Time range for dataset: {{c.timerange.from.label}} - {{c.timerange.to.label}}</small></p>
+      </div>
+    </div>
+    {% endif %}
+
     {{share_body(g)}}
   </div>
   
