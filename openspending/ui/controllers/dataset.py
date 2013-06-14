@@ -146,7 +146,14 @@ class DatasetController(BaseController):
 
     def view(self, dataset, format='html'):
         self._get_dataset(dataset)
-        etag_cache_keygen(c.dataset.updated_at)
+
+        # Enforce revalidation by browsers
+        self._must_revalidate_cache()
+        # ETag key is based on when dataset was updated and logged in user
+        # (empty string if user isn't logged in)
+        etag_cache_keygen(c.dataset.updated_at,
+                          '' if c.account is None else c.account.name)
+
         c.num_entries = len(c.dataset)
         handle_request(request, c, c.dataset)
 

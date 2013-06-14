@@ -49,6 +49,19 @@ class TestDatasetController(ControllerTestCase):
                       "'Country Regional Analysis v2009' not in response!")
         #h.assert_true('openspending_browser' in response, "'openspending_browser' not in response!")
 
+        # Get the cache settings from the app globals
+        cache_settings = response.app_globals.cache_enabled
+        # Enable cache
+        response.app_globals.cache_enabled = True
+
+        # Get the view page again (now with cache enabled)
+        response = self.app.get(url(controller='dataset', action='view', dataset='cra'))
+        # must-revalidate must be in cache controls
+        assert 'must-revalidate' in response.headers.get('Cache-Control'), \
+            'Cache controls do not force browser to revalidate in dataset view'
+        # Reset cache setting
+        response.app_globals.cache_enabled = cache_settings
+
     def test_view_private(self):
         cra = Dataset.by_name('cra')
         cra.private = True
