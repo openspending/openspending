@@ -140,6 +140,9 @@ class BaseController(WSGIController):
     def _disable_cache(self):
         c._cache_disabled = True
 
+    def _must_revalidate_cache(self):
+        c._must_revalidate = True
+
     def _get_dataset(self, dataset):
         c.dataset = model.Dataset.by_name(dataset)
         if c.dataset is None:

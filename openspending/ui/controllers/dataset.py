@@ -146,7 +146,11 @@ class DatasetController(BaseController):
 
     def view(self, dataset, format='html'):
         self._get_dataset(dataset)
-        etag_cache_keygen(c.dataset.updated_at)
+
+        self._must_revalidate_cache()
+        etag_cache_keygen(c.dataset.updated_at,
+                          '' if c.account is None else c.account.name)
+
         c.num_entries = len(c.dataset)
         handle_request(request, c, c.dataset)
 
