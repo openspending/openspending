@@ -141,6 +141,11 @@ class BaseController(WSGIController):
         c._cache_disabled = True
 
     def _must_revalidate_cache(self):
+        """
+        Set cache control header in response to must_revalidate to enforce
+        browsers to check if page has been modified
+        """
+        # Context variable _must_revalidate triggers the desired effect
         c._must_revalidate = True
 
     def _get_dataset(self, dataset):
