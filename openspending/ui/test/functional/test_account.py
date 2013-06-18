@@ -159,3 +159,51 @@ class TestAccountController(ControllerTestCase):
         response = self.app.post(url(controller='account', action='register'))
         assert ('<input name="terms" type="checkbox" /> <p class="help-block '
                 'error">Required</p>' in response)
+
+    def test_vary_header(self):
+        """
+        Test whether the Vary header is set to change on Cookies and whether
+        the ETag gets a different value based on the cookies. This allows
+        intermediate caches to serve different content based on whether the
+        user is logged in or not
+        """
+
+        # We need to perform a get to get the cache settings from app globals
+        response = self.app.get(url(controller='home', action='index'))
+
+        # Get the cache settings from the app globals
+        cache_settings = response.app_globals.cache_enabled
+        # Enable cache
+        response.app_globals.cache_enabled = True
+
+        # Get the view page again (now with cache enabled)
+        response = self.app.get(url(controller='home', action='index'))
+
+        # Enforce check based on cookies
+        assert 'Vary' in response.headers, \
+            'Vary header is not present in response'
+        assert 'Cookie' in response.headers.get('Vary'), \
+            'Cookie is not in the vary header'
+        
+        # Save the ETag for an assertion
+        etag_for_no_cookie = response.headers.get('etag')
+
+        # Set a dummy login cookie
+        self.app.cookies['openspending.login'] = 'testcookie'
+        # Do a get (we don't need the remote user but let's try to immitate
+        # a GET as closely as possible)
+        response = self.app.get(url(controller='home', action='index'),
+                                extra_environ={'REMOTE_USER': 'test'})
+        
+        # Get the ETag for the login cookie based GET
+        etag_for_cookie = response.headers.get('etag')
+        # Check if ETag is different in a login cookie based GET
+        assert etag_for_cookie != etag_for_no_cookie, \
+            'ETags for login cookie and no login cookie are the same'
+        
+        # Remove the login cookie from the cookiejar
+        del self.app.cookies['openspending.login']
+
+        # Reset cache setting
+        response.app_globals.cache_enabled = cache_settings
+ 
