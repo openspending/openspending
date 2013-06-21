@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block page_title %}{{ c.member['label'] }} - Entries{% endblock %}
+{% block page_title %}{{ c.member['label'] }} - {% trans %}Entries{% endtrans %}{% endblock %}
 
 {% block page_description %}{{ h.entry_description(c.member) }}{% endblock %}
 
@@ -34,7 +34,7 @@
 {% from "dimension/_nav.html" import member_nav as member_nav %}
 
 {% block content %}
-  <div py:def="content">
+  <div>
 
     {{ member_nav(h, c, 'search') }}
     <div id="openspending_browser" class="row">
@@ -47,25 +47,25 @@
           <p>
             <a class="input-large btn btn-small" href="{{ h.url(controller='dimension', action='entries', dataset=c.dataset.name, pagesize=100,
           name=c.member['name'], dimension=c.dimension.name, format='json')}}" data-pagesize="100">
-              <i class="icon-download"></i> Download first 100 entries as JSON
+              <i class="icon-download"></i> {% trans %}Download first 100 entries as JSON{% endtrans %}
             </a>
           </p>
           <p>
             <a class="input-large btn btn-small" href="{{ h.url(controller='dimension', action='entries', dataset=c.dataset.name, pagesize=100,
           name=c.member['name'], dimension=c.dimension.name, format='csv')}}" data-pagesize="100">
-              <i class="icon-download"></i> Download first 100 entries as CSV
+              <i class="icon-download"></i> {% trans %}Download first 100 entries as CSV{% endtrans %}
             </a>
           </p>
           <p>
             <a class="input-large btn btn-small" href="{{ h.url(controller='dimension', action='entries', dataset=c.dataset.name,
           name=c.member['name'], dimension=c.dimension.name, format='json')}}">
-              <i class="icon-download"></i> Download all entries as JSON
+              <i class="icon-download"></i> {% trans %}Download all entries as JSON{% endtrans %}
             </a>
           </p>
           <p>
             <a class="input-large btn btn-small" href="{{ h.url(controller='dimension', action='entries', dataset=c.dataset.name,
           name=c.member['name'], dimension=c.dimension.name, format='csv')}}">
-              <i class="icon-download"></i> Download all entries as CSV
+              <i class="icon-download"></i> {% trans %}Download all entries as CSV{% endtrans %}
             </a>
           </p>
         </div>
@@ -75,13 +75,13 @@
     <div class="row">
       <div class="span9">
         <div class="well">
-          <h3>Total of {{c.member['label']}} by year</h3>
+          <h3>{% trans member=c.member['label'] %}Total of {{member}} by year{% endtrans %}</h3>
           <table class="table">
             <thead>
               <tr>
-                <th>Year</th>
-                <th>Amount</th>
-                <th>Change</th>
+                <th>{% trans %}Year{% endtrans %}</th>
+                <th>{% trans %}Amount{% endtrans %}</th>
+                <th>{% trans %}Change{% endtrans %}</th>
               </tr>
             </thead>
             <tbody id="dimension-aggregate">

@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
-{% block page_title %}Database erased{% endblock %}
+{% block page_title %}{% trans %}Database erased{% endtrans %}{% endblock %}
 
 {% block content %}
   
   <div>
     <!-- templates/dataset/dropdb.html -->
 
-    <h2 class="page-header">OpenSpending: mapping the money</h2>
-    <p>The database should now have been erased. You'll even have to create a new user to log in again.</p>
+    <h2 class="page-header">OpenSpending: {% trans %}mapping the money{% endtrans %}</h2>
+    <p>{% trans %}The database should now have been erased. You'll even have to create a new user to log in again.{% endtrans %}</p>
   </div>
 
 {% endblock %}

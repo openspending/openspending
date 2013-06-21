@@ -5,7 +5,7 @@
 			<a class="dimension-name" href="/{{ c.dataset.name }}/{{ dimension.name }}">
 			  <strong>{{ dimension.label or dimension.name }}</strong>
 			  {% if dimension.key %}
-				<abbr title="Part of unique key"><i class='icon-star'></i></abbr>
+				<abbr title="{% trans %}Part of unique key{% endtrans %}"><i class='icon-star'></i></abbr>
 			  {% endif %}
 			</a>
 		  </li>

@@ -3,21 +3,20 @@
 # This file is distributed under the same license as the openspending project.
 # 
 # Translators:
-# Vantharith Oum <vantharith.oum@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenSpending\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2012-08-09 10:23+0200\n"
-"PO-Revision-Date: 2013-05-27 08:10+0000\n"
-"Last-Translator: Vantharith Oum <vantharith.oum@gmail.com>\n"
-"Language-Team: Khmer (http://www.transifex.com/projects/p/openspending/language/km/)\n"
+"PO-Revision-Date: 2013-06-06 09:47+0000\n"
+"Last-Translator: tryggvib <tryggvib@fsfi.is>\n"
+"Language-Team: Ukrainian (Ukraine) (http://www.transifex.com/projects/p/openspending/language/uk_UA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
-"Language: km\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: uk_UA\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: openspending/ui/controllers/account.py:43
 msgid "Login name already exists, please choose a different one"
@@ -35,7 +34,7 @@ msgstr ""
 #: openspending/ui/controllers/account.py:126
 #, python-format
 msgid "Welcome back, %s!"
-msgstr "សូមស្វាគមន័ជាថ្មីម្ដងទៀត %s!"
+msgstr ""
 
 #: openspending/ui/controllers/account.py:129
 msgid "Incorrect user name or password!"
@@ -198,7 +197,7 @@ msgstr ""
 #: openspending/ui/templates/run/view.html:51
 #: openspending/ui/templates/source/_list.html:19
 msgid "Error"
-msgstr "កំហុស"
+msgstr ""
 
 #: openspending/ui/templates/403.html:9
 msgid "Access denied."
@@ -241,7 +240,7 @@ msgstr ""
 
 #: openspending/ui/templates/layout.html:73
 msgid "Home"
-msgstr "ទំព័រដើម"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:75
 #: openspending/ui/templates/home/index.html:47
@@ -250,7 +249,7 @@ msgstr ""
 
 #: openspending/ui/templates/layout.html:77
 msgid "Datasets"
-msgstr "សំនំុទិន្នន័យ"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:81
 msgid "Community"
@@ -283,12 +282,12 @@ msgstr ""
 #: openspending/ui/templates/layout.html:94
 #: openspending/ui/templates/layout.html:158
 msgid "Help"
-msgstr "ជំនួយ"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:96
 #: openspending/ui/templates/dataset/_nav.html:33
 msgid "About"
-msgstr "អំពី"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:101
 msgid "Login/Register"
@@ -302,7 +301,7 @@ msgstr ""
 
 #: openspending/ui/templates/layout.html:105
 msgid "Settings"
-msgstr "ការកំណត់នានា"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:106
 msgid "Logout"
@@ -355,11 +354,11 @@ msgstr ""
 
 #: openspending/ui/templates/layout.html:160
 msgid "API"
-msgstr "API"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:161
 msgid "Privacy"
-msgstr "ភាពជាឯកជន"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:161
 msgid "and"
@@ -367,7 +366,7 @@ msgstr ""
 
 #: openspending/ui/templates/layout.html:161
 msgid "Contact"
-msgstr "ទំនាក់ទំនង"
+msgstr ""
 
 #: openspending/ui/templates/layout.html:171
 msgid "Open Content"
@@ -424,16 +423,16 @@ msgstr ""
 #: openspending/ui/templates/account/login.html:57
 #: openspending/ui/templates/account/settings.html:30
 msgid "Password"
-msgstr "ពាក្យសម្ងាត់"
+msgstr ""
 
 #: openspending/ui/templates/account/login.html:35
 msgid "Create an account"
-msgstr "បង្កើតគណនី"
+msgstr ""
 
 #: openspending/ui/templates/account/login.html:45
 #: openspending/ui/templates/account/settings.html:18
 msgid "Fullname"
-msgstr "ឈ្មោះពេញ"
+msgstr ""
 
 #: openspending/ui/templates/account/login.html:51
 #: openspending/ui/templates/account/settings.html:24
@@ -443,7 +442,7 @@ msgstr ""
 #: openspending/ui/templates/account/login.html:63
 #: openspending/ui/templates/account/settings.html:36
 msgid "Password (repeat)"
-msgstr "ពាក្យសម្ងាត់ (ម្តងទៀត)"
+msgstr ""
 
 #: openspending/ui/templates/account/settings.html:7
 msgid "Settings for:"
@@ -451,7 +450,7 @@ msgstr ""
 
 #: openspending/ui/templates/account/settings.html:10
 msgid "Account Settings"
-msgstr "ការកំណត់គណនី"
+msgstr ""
 
 #: openspending/ui/templates/account/settings.html:39
 msgid ""
@@ -461,7 +460,7 @@ msgstr ""
 
 #: openspending/ui/templates/account/settings.html:44
 msgid "API Key"
-msgstr "API Key"
+msgstr ""
 
 #: openspending/ui/templates/account/settings.html:47
 msgid ""
@@ -499,7 +498,7 @@ msgstr ""
 #: openspending/ui/templates/dimension/_nav.html:52
 #: openspending/ui/templates/entry/search.html:12
 msgid "Search"
-msgstr "ស្វែងរក"
+msgstr ""
 
 #: openspending/ui/templates/dataset/_nav.html:37
 msgid "Visualisations"
@@ -522,7 +521,7 @@ msgstr ""
 #: openspending/ui/templates/dataset/new.html:24
 #: openspending/ui/templates/dataset/new_cta.html:7
 msgid "Import a dataset"
-msgstr "នាំចូលសំនំុទិន្នន័យ"
+msgstr ""
 
 #: openspending/ui/templates/dataset/_select.html:104
 msgid "Close"
@@ -533,7 +532,7 @@ msgstr ""
 #: openspending/ui/templates/editor/core.html:99
 #: openspending/ui/templates/entry/view.html:103
 msgid "Description"
-msgstr "ការបរិយាយ"
+msgstr ""
 
 #: openspending/ui/templates/dataset/about.html:31
 #, python-format
@@ -542,7 +541,7 @@ msgstr ""
 
 #: openspending/ui/templates/dataset/about.html:38
 msgid "Sources"
-msgstr "ប្រភព"
+msgstr ""
 
 #: openspending/ui/templates/dataset/about.html:39
 msgid ""
@@ -555,7 +554,7 @@ msgstr ""
 #: openspending/ui/templates/dataset/about.html:54
 #: openspending/ui/templates/editor/_nav.html:38
 msgid "Team"
-msgstr "ក្រុមការងារ"
+msgstr ""
 
 #: openspending/ui/templates/dataset/about.html:55
 msgid ""
@@ -600,7 +599,7 @@ msgstr ""
 
 #: openspending/ui/templates/dataset/index.html:7
 msgid "All datasets"
-msgstr "សំនំុទិន្នន័យទាំងអស់"
+msgstr ""
 
 #: openspending/ui/templates/dataset/index.html:19
 msgid "Available data sets"
@@ -614,13 +613,13 @@ msgstr ""
 #: openspending/ui/templates/dataset/new.html:89
 #: openspending/ui/templates/editor/core.html:79
 msgid "Countries"
-msgstr "ប្រទេស"
+msgstr ""
 
 #: openspending/ui/templates/dataset/index.html:47
 #: openspending/ui/templates/dataset/new.html:99
 #: openspending/ui/templates/editor/core.html:89
 msgid "Languages"
-msgstr "ភាសា"
+msgstr ""
 
 #. List of steps to take
 #: openspending/ui/templates/dataset/new.html:27
@@ -641,7 +640,7 @@ msgstr ""
 #: openspending/ui/templates/dataset/new.html:47
 #: openspending/ui/templates/editor/core.html:33
 msgid "Title"
-msgstr "ចំណងជើង"
+msgstr ""
 
 #: openspending/ui/templates/dataset/new.html:53
 msgid "Identifier"
@@ -892,7 +891,7 @@ msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:150
 msgid "Date"
-msgstr "កាលបរិច្ឆេទ"
+msgstr ""
 
 #: openspending/ui/templates/editor/dimensions.html:152
 msgid "Temporal value, e.g. start of project, date of disbursement."
@@ -1280,7 +1279,7 @@ msgstr ""
 
 #: openspending/ui/templates/home/index.html:16
 msgid "Welcome"
-msgstr "ស្វាគមន៍"
+msgstr ""
 
 #: openspending/ui/templates/home/index.html:25
 msgid "Mapping the money."

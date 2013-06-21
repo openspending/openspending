@@ -10,11 +10,11 @@
   <head>
     <meta charset="utf-8" />
     <title>{% block page_title %}{% endblock %} - {{ site_title }}</title>
-    <meta name="description" content="{% block page_desc %}We're enabling anyone to explore, visualize and track government spending.{% endblock %}" />
+    <meta name="description" content="{% block page_desc %}{% trans %}We're enabling anyone to explore, visualize and track government spending.{% endtrans %}{% endblock %}" />
     <meta name="author" content="Open Knowledge Foundation" />
     <link rel="shortcut icon" href="{{ static }}img/favicon.ico{{ static_cache_version }}" type="image/x-icon" />
 	{% if show_rss %}
-    <link rel="alternate" type="application/rss+xml" title="Latest Datasets on OpenSpending" href="{{ h.url(controller='dataset', action='feed_rss') }}" />
+    <link rel="alternate" type="application/rss+xml" title="{% trans %}Latest Datasets on OpenSpending{% endtrans %}" href="{{ h.url(controller='dataset', action='feed_rss') }}" />
 	{% endif %}
 
     <!-- Le styles -->
@@ -42,30 +42,30 @@
           <a class="brand" href="/" xml:lang="en"><span class="green">Open</span>Spending</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li><a class="{{ section_active.blog }}" href="{{ h.url(controller='content', action='view', section='blog', path='index.html') }}">Spending Blog</a></li>
+              <li><a class="{{ section_active.blog }}" href="{{ h.url(controller='content', action='view', section='blog', path='index.html') }}">{% trans %}Spending Blog{% endtrans %}</a></li>
               <li class="dropdown">
-                <a class="list-datasets {{ section_active.dataset }}" href="#datasets">Datasets</a>
+                <a class="list-datasets {{ section_active.dataset }}" href="#datasets">{% trans %}Datasets{% endtrans %}</a>
               </li>
-              <li><a class="{{ section_active.search }}" href="{{ h.url(controller='entry', action='search') }}">Search</a></li>
+              <li><a class="{{ section_active.search }}" href="{{ h.url(controller='entry', action='search') }}">{% trans %}Search{% endtrans %}</a></li>
               <li class="dropdown">
-                <a class="{{ section_active.resources}} dropdown-toggle" href="/resources/index.html">Community</a>
+                <a class="{{ section_active.resources}} dropdown-toggle" href="/resources/index.html">{% trans %}Community{% endtrans %}</a>
               </li>
-              <li><a class="{{ section_active.help }}" href="{{ h.url(controller='content', action='view', section='help', path='index.html') }}">Help</a></li>
-              <li><a class="{{ section_active.about }}" href="{{ h.url(controller='content', action='view', section='about', path='contact.html') }}">About</a></li>
+              <li><a class="{{ section_active.help }}" href="{{ h.url(controller='content', action='view', section='help', path='index.html') }}">{% trans %}Help{% endtrans %}</a></li>
+              <li><a class="{{ section_active.about }}" href="{{ h.url(controller='content', action='view', section='about', path='contact.html') }}">{% trans %}About{% endtrans %}</a></li>
             </ul>
           </div>
           <ul class="nav pull-right">
 			{% if account %}
-              <li><a href="/dashboard">Dashboard</a></li>
-              <li><a href="/settings">Settings</a></li>
-              <li><a href="/logout">Logout</a></li>
+              <li><a href="/dashboard">{% trans %}Dashboard{% endtrans %}</a></li>
+              <li><a href="/settings">{% trans %}Settings{% endtrans %}</a></li>
+              <li><a href="/logout">{% trans %}Logout{% endtrans %}</a></li>
 			{% else %}
               <li>
-                <a href="/login">Login/Register</a>
+                <a href="/login">{% trans %}Login/Register{% endtrans %}</a>
               </li>
 			{% endif %}
             <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown">Language</a>
+              <a class="dropdown-toggle" data-toggle="dropdown">{% trans %}Language{% endtrans %}</a>
               <ul class="dropdown-menu locale-dropdown">
 				{% for l in languages %}<li class="locale {{ l.current_locale }}">
 				  <a class="select-locale" data-locale="{{ l.lang_code }}">{{ l.lang_name }}</a>
@@ -90,12 +90,12 @@
     {% block content %}{% endblock %}
     {{ dataset_select(h) }}
   </div>
-    <div id="catapult-cookie-bar">This site uses cookies<button id="catapultCookie" tabindex="1">Okay, thanks</button><a tabindex="1" href="http://okfn.org/cookie-policy">Find out more</a></div>
+    <div id="catapult-cookie-bar">{% trans %}This site uses cookies{% endtrans %}<button id="catapultCookie" tabindex="1">{% trans %}Okay, thanks{% endtrans %}</button><a tabindex="1" href="http://okfn.org/cookie-policy">{% trans %}Find out more{% endtrans %}</a></div>
     <footer>
       <div class="inner">
         <div class="container">
-          <p>This is an <a href="http://okfn.org">Open Knowledge Foundation</a>
-            project.</p>
+          <p>{% trans %}This is an <a href="http://okfn.org">Open Knowledge Foundation</a>
+            project{% endtrans %}.</p>
 
           <ul class="footer-links span4 pull-left">
             <li><a href="http://wheredoesmymoneygo.org">Where Does My Money Go
@@ -107,16 +107,16 @@
           </ul>
           <ul class="footer-links span4 pull-left">
             <li><a href="http://twitter.com/openspending">Twitter</a></li>
-            <li><a href="{{ h.url(controller='content', action='view', section='help', path='index.html') }}">Help</a></li>
-            <li><a href="http://lists.okfn.org/mailman/listinfo">Mailing List</a></li>
-            <li><a href="{{ h.url(controller='content', action='view', section='help', path='api.html') }}">API</a></li>
-            <li><a href="http://okfn.org/privacy-policy/">Privacy</a> and <a href="{{ h.url(controller='content', action='view', section='about', path='contact.html') }}">Contact</a></li>
+            <li><a href="{{ h.url(controller='content', action='view', section='help', path='index.html') }}">{% trans %}Help{% endtrans %}</a></li>
+            <li><a href="http://lists.okfn.org/mailman/listinfo">{% trans %}Mailing List{% endtrans %}</a></li>
+            <li><a href="{{ h.url(controller='content', action='view', section='help', path='api.html') }}">{% trans %}API{% endtrans %}</a></li>
+            <li>{% trans %}<a href="http://okfn.org/privacy-policy/">Privacy</a>{% endtrans %} {% trans %}and{% endtrans %} <a href="{{ h.url(controller='content', action='view', section='about', path='contact.html') }}">{% trans %}Contact{% endtrans %}</a></li>
           </ul>
-          <p>All <a href="http://www.gnu.org/licenses/agpl.html">code</a>,
+          <p>{% trans %}All <a href="http://www.gnu.org/licenses/agpl.html">code</a>,
           <a href="http://creativecommons.org/licenses/by/3.0/">content</a>
           and <a href="http://opendatacommons.org/licenses/odbl/">data</a> is
           openly licensed in accordance with the
-          <a href="http://opendefinition.org/">open definition</a>.
+          <a href="http://opendefinition.org/">open definition</a>{% endtrans %}.
           <br/><br/>
           <a href="http://opendefinition.org"><img src="http://assets.okfn.org/images/ok_buttons/od_80x15_blue.png" alt="Open Content" /></a></p>
         </div>
