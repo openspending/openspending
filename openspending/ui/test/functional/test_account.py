@@ -3,7 +3,7 @@ from openspending.model import Account, meta as db
 from openspending.lib.mailer import MailerException
 from pylons import config
 import json
-
+import urllib2
 
 class TestAccountController(ControllerTestCase):
 
@@ -148,17 +148,67 @@ class TestAccountController(ControllerTestCase):
         assert '200' in response.status
 
     def test_terms_check(self):
-        # Check that the field is displayed
-        response = self.app.get(url(controller='account', action='login'))
-        assert '200' in response.status
-        assert ('I agree to the <a href="okfn.org/terms-of-use/">Terms of '
-                'Use</a> and <a href="http://okfn.org/privacy-policy/">Privacy'
-                ' Policy</a>' in response)
+        """
+        Test whether terms of use are present on the signup page (login) page
+        and whether they are a required field.
+        """
 
-        # Check that not filling up the field throws a response
-        response = self.app.post(url(controller='account', action='register'))
-        assert ('<input name="terms" type="checkbox" /> <p class="help-block '
-                'error">Required</p>' in response)
+        # Get the login page
+        response = self.app.get(url(controller='account', action='login'))
+        assert '200' in response.status, \
+            'Error (status is not 200) while retrieving the login/signup page'
+
+        # Check if user can send an input field for terms of use/privacy
+        assert 'name="terms"' in response.body, \
+            'Terms of use input field not present'
+
+        # Check whether the terms of use url is in the response
+        # For now we rely on an external terms of use page and we therefore
+        # check whether that page also exists.
+        assert 'http://okfn.org/terms-of-use' in response.body, \
+            'Terms of use url not in response'
+
+        # We use urllib2 instead of webtest's get because of redirects
+        external_response = urllib2.urlopen('http://okfn.org/terms-of-use')
+        assert 200 == external_response.getcode(), \
+            'External terms of use page not found'
+
+        # Check whether the privay policy url is in the response
+        # For now we rely on an external privacy policy and we therefore
+        # check whether that page also exists.
+        assert 'http://okfn.org/privacy-policy' in response.body, \
+            'Privacy policy url not in response'
+        external_response = urllib2.urlopen('http://okfn.org/privacy-policy')
+        assert 200 == external_response.getcode(), \
+            'External privacy policy page not found'
+
+        # Check that not filling up the field throws a 'required' response
+        # if the terms box is not in the post request (not checked)
+        response = self.app.post(url(controller='account', action='register'),
+                                 params={'name':'termschecker',
+                                         'fullname':'Term Checker',
+                                         'email': 'termchecker@test.com',
+                                         'password1':'secret',
+                                         'password2':'secret'})
+        assert 'name="terms"' in response.body, \
+            'Terms of use checkbox not present after registering without tick'
+        # Check if user is told it is required (this can be anywhere on the
+        # page, and might not even be tied to terms of use checkbox but it
+        # should be present nonetheless)
+        assert 'Required' in response.body, \
+            'User is not told that a field is "Required"'
+
+        # Check that terms input field is not present after a successful
+        # register
+        response = self.app.post(url(controller='account', action='register'),
+                                 params={'name':'termschecker',
+                                         'fullname':'Term Checker',
+                                         'email': 'termchecker@test.com',
+                                         'password1':'secret',
+                                         'password2':'secret',
+                                         'terms':True})
+        assert 'name="terms"' not in response.body, \
+            'Terms of use checkbox is present even after a successful register'
 
     def test_vary_header(self):
         """
