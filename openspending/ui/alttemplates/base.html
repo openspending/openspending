@@ -44,7 +44,7 @@
             <ul class="nav">
               <li><a class="{{ section_active.blog }}" href="{{ h.url(controller='content', action='view', section='blog', path='index.html') }}">Spending Blog</a></li>
               <li class="dropdown">
-                <a class="list-datasets {{ section_active.dataset }}" href="/datasets">Datasets</a>
+                <a class="{{ section_active.dataset }}" href="/datasets">Datasets</a>
               </li>
               <li><a class="{{ section_active.search }}" href="{{ h.url(controller='entry', action='search') }}">Search</a></li>
               <li class="dropdown">
