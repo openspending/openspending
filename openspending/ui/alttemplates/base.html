@@ -1,5 +1,3 @@
-{% from "dataset/_select.html" import dataset_select %}
-
 <!DOCTYPE html>
 <html lang="{{ c.language }}">
 
@@ -88,7 +86,6 @@
 	  {% endif %}
 
     {% block content %}{% endblock %}
-    {{ dataset_select(h) }}
   </div>
     <div id="catapult-cookie-bar">This site uses cookies<button id="catapultCookie" tabindex="1">Okay, thanks</button><a tabindex="1" href="http://okfn.org/cookie-policy">Find out more</a></div>
     <footer>
