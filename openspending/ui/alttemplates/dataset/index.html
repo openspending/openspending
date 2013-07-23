@@ -3,74 +3,67 @@
 {% block page_title %}All datasets{% endblock %}
 
 {% block content %}
-  <div py:def="content">
-    <!-- templates/dataset/index.html -->
+<h2 class="page-header">Available data sets</h2>
 
+<div class="row">
+  <div class="span8">
+    {% for dataset in c.results %}
     <div>
-        <form class="basic form-horizontal" id="search"
-                action="/datasets/search" method="GET">
-            <input name="q" placeholder="search..." />
-            <input value="Search" class="btn btn-success" type="submit" />
-        </form>
-    </div>
-    <h2 class="page-header">Available data sets</h2>
-    <p>The database contains the following datasets:</p>
-
-    <div class="row">
-      <div class="span8"> 
-		{% for dataset in c.results %}
-        <div>
-          <h3><a class="dataset-name" href="{{h.url(controller='dataset',
-            action='view', dataset=dataset.name)}}">
-              {{dataset.label}}
-            </a>
-          </h3>
-	  {% if dataset.has_badges %}
-	  <p>
-	    {% for badge in dataset.badges %}
-	    <a href="{{ h.url(controller='badge', action='information', id=badge.id)}}" title="{{badge.label}}"><img src="{{badge.image}}" alt="{{badge.label}}"></a> 
-	    {% endfor %}
-	  </p>
-	  {% endif %}
-		  {% if dataset.description %}
-          <div>
-              {{h.markdown_preview(dataset.description)}}
-          </div>
-		  {% endif %}
-          <br/>
-        </div>
-		{% endfor %}
+      <h3><a class="dataset-name" href="{{h.url(controller='dataset',
+					action='view', dataset=dataset.name)}}">
+          {{dataset.label}}
+        </a>
+      </h3>
+      {% if dataset.has_badges %}
+      <p>
+	{% for badge in dataset.badges %}
+	<a href="{{ h.url(controller='badge', action='information', id=badge.id)}}" title="{{badge.label}}"><img src="{{badge.image}}" alt="{{badge.label}}"></a> 
+	{% endfor %}
+      </p>
+      {% endif %}
+      {% if dataset.description %}
+      <div>
+        {{h.markdown_preview(dataset.description)}}
       </div>
-      <div class="span4">
-        <h3>Countries</h3>
-        <ul>
-		  {% for territory in c.territory_options %}
-          <li>
-			{% if not ('territories', territory.get('code')) in c.query %}
-			<a href="{{c.add_filter('territories', territory.get('code'))}}">{{territory.get('label')}}</a>
-			{% else %}
-			<a class="unfilter" 
-              href="{{c.del_filter('territories', territory.get('code'))}}">{{territory.get('label')}}</a>
-			{% endif %}
-            ({{territory.get('count')}})
-          </li>
-		  {% endfor %}
-        </ul>
-        <h3>Languages</h3>
-        <ul>
-		  {% for language in c.language_options %}
-          <li>
-			{% if not ('languages', language.get('code')) in c.query %}
-              <a href="{{c.add_filter('languages', language.get('code'))}}">{{language.get('label')}}</a>
-            {% else %}
-              <a class="unfilter"
-              href="{{c.del_filter('languages', language.get('code'))}}">{{language.get('label')}}</a>
-			{% endif %}
-            ({{language.get('count')}})
-          </li>
-		  {% endfor %}
-        </ul>
-      </div>
+      {% endif %}
+      <br/>
     </div>
+    {% endfor %}
   </div>
+  <div class="span4">
+
+    <h3>Import a new dataset</h3>
+    <a class="btn btn-success" href="{{h.url_for(controller='dataset', action='new')}}">Import &raquo;</a>
+    <hr/>
+
+    <h3>Countries</h3>
+    <ul>
+      {% for territory in c.territory_options %}
+      <li>
+	{% if not ('territories', territory.get('code')) in c.query %}
+	<a href="{{c.add_filter('territories', territory.get('code'))}}">{{territory.get('label')}}</a>
+	{% else %}
+	<a class="unfilter" 
+           href="{{c.del_filter('territories', territory.get('code'))}}">{{territory.get('label')}}</a>
+	{% endif %}
+        ({{territory.get('count')}})
+      </li>
+      {% endfor %}
+    </ul>
+    <h3>Languages</h3>
+    <ul>
+      {% for language in c.language_options %}
+      <li>
+	{% if not ('languages', language.get('code')) in c.query %}
+        <a href="{{c.add_filter('languages', language.get('code'))}}">{{language.get('label')}}</a>
+        {% else %}
+        <a class="unfilter"
+           href="{{c.del_filter('languages', language.get('code'))}}">{{language.get('label')}}</a>
+	{% endif %}
+        ({{language.get('count')}})
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
 {% endblock %}
