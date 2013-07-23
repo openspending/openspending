@@ -10,7 +10,7 @@
     <h2 class="page-header">Welcome back
       <small>${c.account.fullname}</small>
     </h2>
-
+    
     <div class="row">
       <div class="span6">
         <py:if test="len(c.account_datasets)">
@@ -38,6 +38,8 @@
       </div>
     </div>
 
+  <a href="/datasets/new" class="btn btn-large btn-primary">Import a
+  Dataset</a>
   </div>
 
   <xi:include href="../layout.html" />
