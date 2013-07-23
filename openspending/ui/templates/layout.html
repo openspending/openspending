@@ -77,7 +77,7 @@
               <li><a class='${"active" if c.content_section=="blog" else ""}'
                 href="${h.url(controller='content', action='view', section='blog', path='index.html')}">Spending Blog</a></li>
               <li class="dropdown">
-                <a class='list-datasets ${"active" if c.dataset else ""}' href="/datasets">Datasets</a>
+                <a class='${"active" if c.dataset else ""}' href="/datasets">Datasets</a>
               </li>
               <li><a class='${"active" if c.content_section=="search" else ""}'
                 href="${h.url(controller='entry', action='search')}">Search</a></li>
