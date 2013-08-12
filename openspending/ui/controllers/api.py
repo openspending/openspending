@@ -1,15 +1,22 @@
 import logging
+import urllib2
+import json
 from collections import defaultdict
 
 from pylons import request, response, app_globals, tmpl_context as c
 from pylons.controllers.util import abort
 
 from openspending import model
+from openspending.model import Source, Dataset, Account
+from openspending.model import meta as db
+from openspending.importer import CSVImporter
 from openspending.lib import calculator
 from openspending.lib import solr_util as solr
 from openspending.ui.lib.base import BaseController, require
 from openspending.ui.lib.cache import AggregationCache
 from openspending.lib.jsonexport import jsonpify
+from openspending.validation.model import validate_model
+
 
 log = logging.getLogger(__name__)
 
@@ -120,6 +127,47 @@ class ApiController(BaseController):
                     'per_time': []
                     }
                 }
+
+    @jsonpify
+    def new(self):
+        metadata = request.params['metadata'] if 'metadata' in request.params else abort(status_code=400,
+                          detail='metadata is missing')
+        csv_file = request.params['csv_file'] if 'csv_file' in request.params else abort(status_code=400,
+                          detail='csv_file is missing')
+        key = request.params['apikey'] if 'apikey' in request.params else abort(status_code=400,
+                          detail='apikey is missing')
+        model = json.load(urllib2.urlopen(metadata))
+        try:
+            log.info("Validating model")
+            model = validate_model(model)
+        except Invalid, i:
+            log.error("Errors occured during model validation:")
+            for field, error in i.asdict().items():
+                log.error("%s: %s", field, error)
+            return 1
+        
+        dataset = Dataset.by_name(model['dataset']['name'])
+        if dataset is None:
+            print 'Dataset is None'
+            dataset = Dataset(model)
+            db.session.add(dataset)
+        log.info("Dataset: %s", dataset.name)
+
+        # FIX ME! The APIkey cannot be passed like this! hashed signature, maybe?
+        source = Source(dataset=dataset, creator=Account.by_api_key(key), url=csv_file)
+        for source_ in dataset.sources:
+            if source_.url == csv_file:
+                source = source_
+                break
+        db.session.add(source)
+        db.session.commit()
+    
+        dataset.generate()
+        importer = CSVImporter(source)
+        importer.run()
+        solr.build_index(dataset.name)
+        return 0
+        
 
     @jsonpify
     def mytax(self):
