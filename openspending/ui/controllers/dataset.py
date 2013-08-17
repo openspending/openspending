@@ -168,15 +168,20 @@ class DatasetController(BaseController):
         # a default view in c.view if there is any
         handle_request(request, c, c.dataset)
 
-        # Get the sorted time range for the dataset entries
-        # The time range is a dictionary and we sort by name ('2013-06-12')
-        timerange = sorted(c.dataset['time'].members(),
-                           key=lambda x: x.get('name', ''))
-        if len(timerange):
-            # If there is a time range we add the first and last timestamps
-            # to a timerange context variable
-            c.timerange = {'from':timerange[0],
-                           'to':timerange[-1]}
+        # Try to get the minimum and maximum values of the name field
+        # in the time table (name field has the form yyyy-mm-dd)
+        try:
+            (min_time, max_time) = db.session.query(
+                db.func.min(c.dataset['time'].table.c['name']), 
+                db.func.max(c.dataset['time'].table.c['name'])).one()
+
+            # Transform the time values to a datetime object to allow
+            # templates to format the time
+            c.timerange = {'from': datetime.strptime(min_time, '%Y-%m-%d'),
+                           'to': datetime.strptime(max_time, '%Y-%m-%d')}
+        except:
+            # If there's an exception, we don't return the time range
+            pass
 
         if format == 'json':
             # If requested format is json we return the json representation
