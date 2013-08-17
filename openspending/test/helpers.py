@@ -63,12 +63,13 @@ def clean_all():
     clean_solr()
 
 def make_account(name='test', fullname='Test User',
-                 email='test@example.com'):
+                 email='test@example.com', twitter='testuser'):
     from openspending.model import Account
     account = Account()
     account.name = name
     account.fullname = fullname
     account.email = email
+    account.twitter_handle = twitter
     db.session.add(account)
     db.session.commit()
     return account
