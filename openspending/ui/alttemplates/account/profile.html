@@ -29,14 +29,25 @@
     </dl>
   </div>
   <div class="span6">
-    {% if c.account_datasets|length %}
     <h3>Datasets</h3>
-    <ul>{% for dataset in c.account_datasets %}
-      <li>
-        <a href="{{ h.url(controller='dataset', action='view', dataset=dataset.name) }}">{{ dataset.label }}</a>
-      </li>
-      {% endfor %}</ul>
-    {% endif %}
+    <div class="row">
+      <div class="span3">
+	{% if c.account_datasets|length %}
+	<ul>{% for dataset in c.account_datasets %}
+	  <li>
+            <a href="{{ h.url(controller='dataset', action='view', dataset=dataset.name) }}">{{ dataset.label }}</a>
+	  </li>
+	  {% endfor %}</ul>
+	{% else %}
+	<p>It looks like you haven't uploaded any datasets.</p>
+	{% endif %}
+      </div>
+      
+      {% if c.account == c.profile %}<div class="span3">
+	<a href="{{h.url(controller='dataset', action='new') }}" class="btn btn-primary">Import a dataset</a>
+      </div>{% endif %}
+    </div>
+
     {% if c.account_views|length %}
     <h3>Views</h3>
     <ul>{% for view in c.account_views %}
