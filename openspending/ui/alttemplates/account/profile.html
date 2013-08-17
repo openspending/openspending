@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block page_title %}{{ c.profile.fullname }}{% endblock %}
+
+{% block content %}
+<h2 class="page-header">{{ c.profile.fullname }}</h2>
+
+<div class="row">
+  <div class="span2">
+  <img src="{{ h.gravatar(c.profile.email, 200) }}" alt="Gravatar for {{c.profile.name}}">
+  </div>
+  <div class="span4">
+    <h3>Information{% if c.account == c.profile %} <small><a href="{{ h.url(controller='account', action='settings') }}">(change)</a></small>{% endif %}</h3>
+    <dl class="dl-horizontal">
+      {% if c.profile.fullname %}
+      <dt>Name</dt>
+      <dd>{{c.profile.fullname}}</dd>
+      {% endif %}
+      <dt>Username</dt>
+      <dd>{{c.profile.name}}</dd>
+      {% if c.show_email %}
+      <dt>Email</dt>
+      <dd>{{c.profile.email}}</dd>
+      {% endif %}
+      {% if c.profile.twitter_handle and c.show_twitter %}
+      <dt>Twitter</dt>
+      <dd><a href="{{ h.twitter_uri(c.profile.twitter_handle) }}">@{{ c.profile.twitter_handle }}</a></dd>
+      {% endif %}
+    </dl>
+  </div>
+  <div class="span6">
+    <h3>Datasets</h3>
+    <div class="row">
+      <div class="span3">
+	{% if c.account_datasets|length %}
+	<ul>{% for dataset in c.account_datasets %}
+	  <li>
+            <a href="{{ h.url(controller='dataset', action='view', dataset=dataset.name) }}">{{ dataset.label }}</a>
+	  </li>
+	  {% endfor %}</ul>
+	{% else %}
+	<p>It looks like you haven't uploaded any datasets.</p>
+	{% endif %}
+      </div>
+      
+      {% if c.account == c.profile %}<div class="span3">
+	<a href="{{h.url(controller='dataset', action='new') }}" class="btn btn-primary">Import a dataset</a>
+      </div>{% endif %}
+    </div>
+
+    {% if c.account_views|length %}
+    <h3>Views</h3>
+    <ul>{% for view in c.account_views %}
+      <li>
+        <a href="{{ h.url(controller='view', action='view', dataset=view.dataset.name, name=view.name) }}">{{view.label}}</a> 
+        on
+	<a href="{{ h.url(controller='dataset', action='view', dataset=view.dataset.name) }}">{{ view.dataset.label }}</a>
+      </li>
+      {% endfor %}</ul>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+

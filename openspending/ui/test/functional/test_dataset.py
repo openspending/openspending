@@ -75,8 +75,11 @@ class TestDatasetController(ControllerTestCase):
         db.session.commit()
         response = self.app.get(url(controller='dataset', action='about',
                                 dataset='cra'))
-        assert ('<li><a href="/account/profile/test">Test User</a></li>' in
-                response.body)
+        profile_url = url(controller='account', action='profile',
+                          name=self.user.name)
+        assert('<li><a href="{url}">{fullname}</a></li>'.format(
+                url=profile_url, fullname=self.user.fullname) \
+                   in response.body)
 
     def test_view_json(self):
         response = self.app.get(url(controller='dataset', action='view',

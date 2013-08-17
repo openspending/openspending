@@ -38,7 +38,7 @@ def make_map():
     map.connect('/after_logout', controller='account', action='after_logout')
     map.connect('/account/forgotten', controller='account', action='trigger_reset')
     map.connect('/account/reset', controller='account', action='do_reset')
-    map.connect('/account/profile/{name}', controller='account', action='profile')
+    map.connect('/account/{name}', controller='account', action='profile')
 
     map.connect('/badges', controller='badge', action='index')
     map.connect('/badges.{format}', controller='badge', action='index')
