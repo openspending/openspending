@@ -60,10 +60,10 @@ class TestDatasetController(ControllerTestCase):
         assert 'Time range' in response.body, \
             'Time range is not present on view page for dataset'
         # Start date comes from looking at the test fixture for cra
-        assert '01. January 2003' in response.body, \
+        assert '2003-01-01' in response.body, \
             'Starting date of time range not on view page for dataset'
         # End date comes from looking at the test fixture for cra
-        assert '01. January 2010' in response.body, \
+        assert '2010-01-01' in response.body, \
             'End date of time range not on view page for dataset'
 
 
