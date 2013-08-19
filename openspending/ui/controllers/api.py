@@ -128,14 +128,56 @@ class ApiController(BaseController):
                     }
                 }
 
+    
     @jsonpify
     def new(self):
+        def validate_request(user, params):
+            """ 
+            Generates a signature for a request and compares it against 
+            the signature provided as a GET parameter.
+            The hashing of the signatures is done using MD5.
+            The way to generate a signature is concatenating in a string
+            the private_api_key for the user with the sorted keys of the request
+            and their values. For example (no valid values):
+
+            'c9502d56-446e-49de-9ccc-f9daaeb2f114apikey032020d2-ab08-4d53-b6c3- \
+            c890510d92fbcsv_filehttp://mk.ucant.org/info/data/sample-openspendi \
+            ng-dataset.csvmetadatahttps://dl.dropbox.com/u/3250791/sample-opens \
+            pending-model.json'
+
+            """
+            request_signature = request.params['signature'] if 'signature' in params else abort(status_code=400,
+                          detail='signature is missing')
+            import hashlib
+            m = hashlib.md5()
+            query = [user.private_api_key]
+            for key in sorted(params.keys()):
+                if key != 'signature':
+                    query.append(key)
+                    query.append(params[key])
+
+            m.update(''.join(query))
+            computed_signature = m.hexdigest()
+        
+            if computed_signature != request_signature:
+                raise Exception('signatures dont match!')
+
+        if len(request.params) != 4:
+            abort(status_code=400, detail='incorrect number of params')
         metadata = request.params['metadata'] if 'metadata' in request.params else abort(status_code=400,
                           detail='metadata is missing')
         csv_file = request.params['csv_file'] if 'csv_file' in request.params else abort(status_code=400,
                           detail='csv_file is missing')
         key = request.params['apikey'] if 'apikey' in request.params else abort(status_code=400,
                           detail='apikey is missing')
+        
+        user = Account.by_api_key(key)
+        try:
+            validate_request(user, request.params)
+        except Exception, e:
+            abort(status_code=400,
+                          detail=e.message)
+
         model = json.load(urllib2.urlopen(metadata))
         try:
             log.info("Validating model")
@@ -144,17 +186,15 @@ class ApiController(BaseController):
             log.error("Errors occured during model validation:")
             for field, error in i.asdict().items():
                 log.error("%s: %s", field, error)
-            return 1
-        
+            abort(status_code=400, detail='Model is not valid')
         dataset = Dataset.by_name(model['dataset']['name'])
-        if dataset is None:
+        if not dataset:
             print 'Dataset is None'
             dataset = Dataset(model)
             db.session.add(dataset)
         log.info("Dataset: %s", dataset.name)
-
-        # FIX ME! The APIkey cannot be passed like this! hashed signature, maybe?
-        source = Source(dataset=dataset, creator=Account.by_api_key(key), url=csv_file)
+        source = Source(dataset=dataset, creator=user, url=csv_file)
+        log.info(source)
         for source_ in dataset.sources:
             if source_.url == csv_file:
                 source = source_
@@ -167,7 +207,6 @@ class ApiController(BaseController):
         importer.run()
         solr.build_index(dataset.name)
         return 0
-        
 
     @jsonpify
     def mytax(self):

@@ -31,6 +31,7 @@ class Account(db.Model):
     public_twitter = db.Column(db.Boolean, default=False)
     password = db.Column(db.Unicode(2000))
     api_key = db.Column(db.Unicode(2000), default=make_uuid)
+    private_api_key = db.Column(db.Unicode(2000), default=make_uuid)
     admin = db.Column(db.Boolean, default=False)
     script_root = db.Column(db.Unicode(2000))
     terms = db.Column(db.Boolean, default=False)
