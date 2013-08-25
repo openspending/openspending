@@ -24,7 +24,11 @@ log = logging.getLogger(__name__)
 class HomeController(BaseController):
 
     def index(self):
-        c.blog = ContentResource('blog', 'home.html')
+        # Create a blog content resource based on the configurations for
+        # frontpage section/path
+        c.blog = ContentResource(
+            config.get('openspending.frontpage.section', ''),
+            config.get('openspending.frontpage.path', ''))
         c.num_entries = dataset_entries(None)
         return templating.render('home/index.html')
 
