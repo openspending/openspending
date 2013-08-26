@@ -71,8 +71,8 @@
 			{% endif %}
           </div>
         </div>
-	{% if c.dataset.has_badges or c.account.admin %}
 	<div class="row">
+	{% if c.dataset.has_badges or c.account.admin %}
 	  <div class="span4">
 	    <h3>Badges</h3>
 	    <span class="help-block">
@@ -98,8 +98,13 @@
 	    </form>
 	    {% endif %}
 	  </div>
-	</div>
 	{% endif %}
+	  <div class="span4">
+	    <h3>Timestamps</h3>
+            <p class="help-block">This dataset was created on <strong>{{c.dataset.created_at.strftime('%Y-%m-%d')}}</strong>.</p>
+            <p class="help-block">This dataset was last modified on <strong>{{c.dataset.updated_at.strftime('%Y-%m-%d')}}</strong>.</p>
+          </div>
+	</div>
       </div>
       <div class="span4">
         <h3>Measures</h3>
