@@ -7,7 +7,16 @@ class TestApiController(ControllerTestCase):
     def setup(self):
         super(TestApiController, self).setup()
         h.load_fixture('cra')
-
+    
+    def test_new_no_signature(self):
+        u = url(controller='api', action='new', **{
+            'metadata':'https//:dl.dropbox.com/u/3250791/sample-openspending-model.json',
+            'csv_file':'http://Fmk.ucant.org/info/data/sample-openspending-dataset.csv',
+            'apikey':'037020d2-ab08-4d53-b6c3-c890510d92fb'
+        })
+        response = self.app.get(u)
+        assert "400" in response.status
+    
     def test_aggregate(self):
         response = self.app.get(url(controller='api',
                                     action='aggregate',
