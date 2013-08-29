@@ -25,7 +25,6 @@ def upgrade(migrate_engine):
                     Column('email', Unicode(2000)),
                     Column('password', Unicode(2000)),
                     Column('api_key', Unicode(2000)),
-                    Column('private_api_key', Unicode(2000)),
                     Column('admin', Boolean, default=False),
                     )
 
