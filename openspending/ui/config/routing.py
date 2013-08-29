@@ -77,6 +77,7 @@ def make_map():
     map.connect('/api/search', controller='api', action='search')
     map.connect('/api/aggregate', controller='api', action='aggregate')
     map.connect('/api/mytax', controller='api', action='mytax')
+
     map.connect('/api/new', controller='api', action='new', conditions=dict(method=['POST']))
 
     map.connect('/api/rest/', controller='rest', action='index')
