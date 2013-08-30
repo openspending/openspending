@@ -16,6 +16,7 @@ from openspending.ui.lib.base import BaseController, require
 from openspending.ui.lib.cache import AggregationCache
 from openspending.lib.jsonexport import jsonpify
 from openspending.validation.model import validate_model
+from openspending.ui.lib.authenticator import ApiKeyAuthenticator
 
 
 log = logging.getLogger(__name__)
@@ -45,38 +46,6 @@ def cellget(cell, key):
     if isinstance(val, dict):
         return val.get('name', val.get('id'))
     return val
-
-def validate_request(user, params):
-    """ 
-    Generates a signature for a request and compares it against 
-    the signature provided as a GET parameter.
-    The hashing of the signatures is done using MD5.
-    The way to generate a signature is concatenating in a string
-    the private_api_key for the user with the sorted keys of the request
-    and their values. For example (no valid values):
-
-    'c9502d56-446e-49de-9ccc-f9daaeb2f114apikey032020d2-ab08-4d53-b6c3- \
-    c890510d92fbcsv_filehttp://mk.ucant.org/info/data/sample-openspendi \
-    ng-dataset.csvmetadatahttps://dl.dropbox.com/u/3250791/sample-opens \
-    pending-model.json'
-
-    """
-    request_signature = request.params['signature'] if 'signature' in params else abort(status_code=400,
-                          detail='signature is missing')
-    import hashlib
-    m = hashlib.md5()
-    query = [user.private_api_key]
-    for key in sorted(params.keys()):
-        if key != 'signature':
-            query.append(key)
-            query.append(params[key])
-
-    m.update(''.join(query))
-    computed_signature = m.hexdigest()
-        
-    if computed_signature != request_signature:
-        raise Exception('signatures dont match!')
-
 
 class ApiController(BaseController):
     @jsonpify
@@ -174,12 +143,10 @@ class ApiController(BaseController):
         key = request.params['apikey'] if 'apikey' in request.params else abort(status_code=400,
                                                                     detail='apikey is missing')
         
-        user = Account.by_api_key(key)
-        try:
-            validate_request(user, request.params) if user else abort(status_code=400,
-                                                                        detail='wrong apikey')
-        except Exception, e:
-            abort(status_code=400,detail=e.message)
+        user_name = ApiKeyAuthenticator().authenticate(environ=None, identity=request.params)
+        user = Account.by_name(user_name)
+        if not user:
+            abort(status_code=400, detail='wrong apikey')
 
         # The signature is right, we proceed with the dataset
         model = json.load(urllib2.urlopen(metadata))

@@ -1,5 +1,6 @@
 from openspending.lib import json
 from openspending.lib import solr_util as solr
+from openspending.model import Dataset, Account
 
 from .. import ControllerTestCase, url, helpers as h
 
@@ -7,15 +8,6 @@ class TestApiController(ControllerTestCase):
     def setup(self):
         super(TestApiController, self).setup()
         h.load_fixture('cra')
-    
-    def test_new_no_signature(self):
-        u = url(controller='api', action='new', **{
-            'metadata':'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
-            'csv_file':'http://mk.ucant.org/info/data/sample-openspending-dataset.csv',
-            'apikey':'037020d2-ab08-4d53-b6c3-c890510d92fb'
-        })
-        response = self.app.get(u)
-        assert "400" in response.status
     
     def test_aggregate(self):
         response = self.app.get(url(controller='api',
@@ -109,6 +101,49 @@ def valid_jsonp(response, callback):
         ((callback + '(') in response, response) and
         (str(response)[-2:] == ');' or str(response)[-1] == ')')
     )
+
+class TestApiNewDataset(ControllerTestCase):
+    def setup(self):
+        super(TestApiNewDataset, self).setup()
+        self.user = h.make_account('test_new')
+        self.user.api_key = 'd0610659-627b-4403-8b7f-6e2820ebc95d'
+        self.user.private_api_key = 'be33f8a7-c0f0-46f1-8d8d-e0e094866099'
+
+    def test_01_correct_operation(self):
+        user = Account.by_name('test_new')
+        assert user.api_key == 'd0610659-627b-4403-8b7f-6e2820ebc95d'
+        assert user.private_api_key == 'be33f8a7-c0f0-46f1-8d8d-e0e094866099'
+
+        u = url(controller='api', action='new', **{
+            'metadata':'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
+            'csv_file':'http://mk.ucant.org/info/data/sample-openspending-dataset.csv',
+            'apikey':'d0610659-627b-4403-8b7f-6e2820ebc95d',
+            'signature':'566f9ca6df2a5e004d1ad80a2e83a982'
+        })
+        response = self.app.post(u)
+        assert "200" in response.status, response.status
+        assert Dataset.by_name('openspending-example')
+
+    def test_new_02_no_signature(self):
+        u = url(controller='api', action='new', **{
+            'metadata':'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
+            'csv_file':'http://mk.ucant.org/info/data/sample-openspending-dataset.csv',
+            'apikey':'037020d2-ab08-4d53-b6c3-c890510d92fb'
+        })
+        response = self.app.post(u, expect_errors=True)
+        assert "400" in response.status, response.status
+        assert not Dataset.by_name('openspending-example')
+
+    def test_new_03_wrong_signature(self):
+        u = url(controller='api', action='new', **{
+            'metadata':'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
+            'csv_file':'http://mk.ucant.org/info/data/sample-openspending-dataset.csv',
+            'apikey':'037020d2-ab08-4d53-b6c3-c890510d92fb',
+            'signature':'566f9ca6df2a5e004d1ad80a2e83a981'
+        })
+        response = self.app.post(u, expect_errors=True)
+        assert "400" in response.status, response.status
+        assert not Dataset.by_name('openspending-example')
 
 
 class TestApiSearch(ControllerTestCase):
