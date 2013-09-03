@@ -147,17 +147,36 @@ class AggregateParamParser(ParamParser):
                 result.append((dimension, value))
         return result
 
-    def parse_measure(self, measure):
+    def parse_measure(self, measures):
+        """
+        Parse the measure parameter which can be either a single measure or
+        multiple measures separated by a pipe ('|'). The parser also checks
+        to see if the measure is in fact a measure in the dataset model.
+
+        Returns a list of measures even if it is only a single measure.
+        Returns None if noe dataset or measure is not in the dataset's model
+        (along with an error).
+        """
+
+        # Get the dataset which should already have been parsed
         if self._output.get('dataset') is None:
             return
 
-        measure_names = (m.name for m in self._output['dataset'].measures)
-        if measure not in measure_names:
+        # Get a list of all measurement names for the given dataset
+        measure_names = [m.name for m in self._output['dataset'].measures]
 
-            self._error('no measure with name "%s"' % measure)
-            return
+        result = []
 
-        return measure
+        # Split the measures on | and check if it is in dataset if so append
+        # it to our results, if not raise and error and return None
+        for measure in measures.split('|'):
+            if measure not in measure_names:
+                self._error('no measure with name "%s"' % measure)
+                return
+
+            result.append(measure)
+
+        return result
 
 class SearchParamParser(ParamParser):
     defaults = ParamParser.defaults.copy()
