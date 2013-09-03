@@ -295,14 +295,15 @@ class Dataset(TableHandler, db.Model):
                 first_row = False
                 yield decode_row(row, self)
 
-    def aggregate(self, measure='amount', drilldowns=None, cuts=None,
-            page=1, pagesize=10000, order=None):
+    def aggregate(self, measures=['amount'], drilldowns=[], cuts=[],
+            page=1, pagesize=10000, order=[]):
         """ Query the dataset for a subset of cells based on cuts and
         drilldowns. It returns a structure with a list of drilldown items
         and a summary about the slice cutted by the query.
 
-        ``measure``
-            The numeric unit to be aggregated over, defaults to ``amount``.
+        ``measures``
+            The numeric units to be aggregated over, defaults to 
+            [``amount``]. (type: `list`)
         ``drilldowns``
             Dimensions to drill down to. (type: `list`)
         ``cuts``
@@ -336,7 +337,7 @@ class Dataset(TableHandler, db.Model):
             cube or the order dimensions are not a subset of the drilldown
             dimensions.
 
-        Returns: A `dict` containing the drilldown and the summary::
+        Returns: A `dict` containing the drilldown and the summary:
 
           {"drilldown": [
               {"num_entries": 5545,
@@ -348,80 +349,133 @@ class Dataset(TableHandler, db.Model):
                        "num_entries": 133612}}
 
         """
-        cuts = cuts or []
-        drilldowns = drilldowns or []
-        order = order or []
+
+        # Get the joins (aka alias) and the dataset
         joins = alias = self.alias
         dataset = self
-        fields = [db.func.sum(alias.c[measure]).label(measure),
-                  db.func.count(alias.c.id).label("entries")]
+
+        # Aggregation fields are all of the measures, so we create individual
+        # summary fields with the sum function of SQLAlchemy
+        fields = [db.func.sum(alias.c[m]).label(m) for m in measures]
+        # We append an aggregation field that counts the number of entries
+        fields.append(db.func.count(alias.c.id).label("entries"))
+        # Create a copy of the statistics fields (for later)
         stats_fields = list(fields)
+
+        # Create label map for time columns (year and month) for lookup
+        # since they are found under the time attribute
         labels = {
             'year': dataset['time']['year'].column_alias.label('year'),
             'month': dataset['time']['yearmonth'].column_alias.label('month'),
             }
+
+        # Get the dimensions we're interested in. These would be the drilldowns
+        # and the cuts. For compound dimensions we are only interested in the
+        # most significant one (e.g. for from.name we're interested in from)
         dimensions = drilldowns + [k for k, v in cuts]
         dimensions = [d.split('.')[0] for d in dimensions]
+
+        # Loop over the dimensions as a set (to avoid multiple occurances)
         for dimension in set(dimensions):
+            # If the dimension is year or month we're interested in 'time'
             if dimension in labels:
                 dimension = 'time'
+            # If the dimension table isn't in the automatic joins we add it
             if dimension not in [c.table.name for c in joins.columns]:
                 joins = dataset[dimension].join(joins)
 
+        # Drilldowns are performed using group_by SQL functions
         group_by = []
         for key in drilldowns:
+            # If drilldown is in labels we append its mapped column to fields
             if key in labels:
                 column = labels[key]
                 group_by.append(column)
                 fields.append(column)
             else:
+                # Get the column from the dataset
                 column = dataset.key(key)
+                # If the drilldown is a compound dimension or the columns table
+                # is in the joins we're already fetching the column so we just
+                # append it to fields and the group_by
                 if '.' in key or column.table == alias:
                     fields.append(column)
                     group_by.append(column)
                 else:
+                    # If not we add the column table to the fields and add all
+                    # of that tables columns to the group_by
                     fields.append(column.table)
                     for col in column.table.columns:
                         group_by.append(col)
 
+        # Cuts are managed using AND statements and we use a dict with set as
+        # the default value to create the filters (cut on various values)
         conditions = db.and_()
         filters = defaultdict(set)
+
         for key, value in cuts:
+            # If the key is in labels (year or month) we get the mapped column
+            # else we get the column from the dataset
             if key in labels:
                 column = labels[key]
             else:
                 column = dataset.key(key)
+            # We add the value to the set for that particular column
             filters[column].add(value)
+
+        # Loop over the columns in the filter and add that to the conditions
+        # For every value in the set we create and OR statement so we get e.g.
+        # year=2007 AND (from.who == 'me' OR from.who == 'you')
         for attr, values in filters.items():
             conditions.append(db.or_(*[attr == v for v in values]))
 
+        # Ordering can be set by a parameter or ordered by measures by default
         order_by = []
+        # If no order is defined we default to order of the measures in the
+        # order they occur (furthest to the left is most significant)
         if order is None or not len(order):
-            order = [(measure, True)]
+            order = [(m, True) for m in measures]
+
+        # We loop through the order list to add the columns themselves
         for key, direction in order:
-            if key == measure:
-                column = db.func.sum(alias.c[measure]).label(measure)
+            # If it's a part of the measures we have to order by the
+            # aggregated values (the sum of the measure)
+            if key in measures:
+                column = db.func.sum(alias.c[key]).label(key)
+            # If it's in the labels we have to get the mapped column
             elif key in labels:
                 column = labels[key]
+            # ...if not we just get the column from the dataset
             else:
                 column = dataset.key(key)
+            # We append the column and set the direction (True == descending)
             order_by.append(column.desc() if direction else column.asc())
 
         # query 1: get overall sums.
+        # Here we use the stats_field we saved earlier
         query = db.select(stats_fields, conditions, joins)
         rp = dataset.bind.execute(query)
-        total, num_entries = rp.fetchone()
+        # Execute the query and turn them to a list so we can pop the
+        # entry count and then zip the measurements and the totals together
+        stats = list(rp.fetchone())
+        num_entries = stats.pop()
+        total = zip(measures, stats)
 
         # query 2: get total count of drilldowns
         if len(group_by):
+            # Select 1 for each group in the group_by and count them
             query = db.select(['1'], conditions, joins, group_by=group_by)
             query = db.select([db.func.count('1')], '1=1', query.alias('q'))
             rp = dataset.bind.execute(query)
             num_drilldowns, = rp.fetchone()
         else:
+            # If there are no drilldowns we still have to do one
             num_drilldowns = 1
 
+        # The drilldown result list
         drilldown = []
+        # The offset in the db, based on the page and pagesize (we have to
+        # modify it since page counts starts from 1 but we count from 0
         offset = int((page - 1) * pagesize)
 
         # query 3: get the actual data
@@ -429,25 +483,33 @@ class Dataset(TableHandler, db.Model):
                           group_by=group_by, use_labels=True,
                           limit=pagesize, offset=offset)
         rp = dataset.bind.execute(query)
+
         while True:
+            # Get each row in the db result and append it, decoded, to the
+            # drilldown result. The decoded version is a json represenation
             row = rp.fetchone()
             if row is None:
                 break
             result = decode_row(row, dataset)
             drilldown.append(result)
 
-        return {
-                'drilldown': drilldown,
-                'summary': {
-                    measure: total,
-                    'num_entries': num_entries,
-                    'currency': {measure: dataset.currency},
-                    'num_drilldowns': num_drilldowns,
-                    'page': page,
-                    'pages': int(math.ceil(num_drilldowns / float(pagesize))),
-                    'pagesize': pagesize
-                    }
-                }
+        # Create the summary based on the stats_fields and other things
+        # First we add a the total for each measurement in the root of the
+        # summary (watch out!) and then we add various other, self-explanatory
+        # statistics such as page, number of entries. The currency value is
+        # strange since it's redundant for multiple measures but is left as is
+        # for backwards compatibility
+        summary = {key: value for (key,value) in total}
+        summary.update({
+                'num_entries': num_entries,
+                'currency': {m: dataset.currency for m in measures},
+                'num_drilldowns': num_drilldowns,
+                'page': page,
+                'pages': int(math.ceil(num_drilldowns / float(pagesize))),
+                'pagesize': pagesize
+                })
+
+        return { 'drilldown': drilldown, 'summary': summary }
 
     def __repr__(self):
         return "<Dataset(%s:%s:%s)>" % (self.name, self.dimensions,
