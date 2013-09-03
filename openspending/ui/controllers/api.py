@@ -148,6 +148,8 @@ class ApiController(BaseController):
         if not user:
             abort(status_code=400, detail='wrong apikey')
 
+        c.account = user
+        
         # The signature is right, we proceed with the dataset
         model = json.load(urllib2.urlopen(metadata))
         try:
@@ -161,9 +163,14 @@ class ApiController(BaseController):
         dataset = Dataset.by_name(model['dataset']['name'])
         if not dataset:
             dataset = Dataset(model)
+            require.dataset.create()
             db.session.add(dataset)
+            
+        require.dataset.update(dataset)
         log.info("Dataset: %s", dataset.name)
         source = Source(dataset=dataset, creator=user, url=csv_file)
+        dataset.managers.append(user)
+        dataset.private = True #Default value
         log.info(source)
         for source_ in dataset.sources:
             if source_.url == csv_file:

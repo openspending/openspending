@@ -109,6 +109,10 @@ class TestApiNewDataset(ControllerTestCase):
         self.user.api_key = 'd0610659-627b-4403-8b7f-6e2820ebc95d'
         self.user.private_api_key = 'be33f8a7-c0f0-46f1-8d8d-e0e094866099'
 
+        self.user2 = h.make_account('test_new2')
+        self.user2.api_key = 'c011c340-8dad-419c-8138-1c6ded86ead5'
+        self.user2.private_api_key = '488c1775-7426-4f02-8a47-e287b0d62aec'
+
     def test_01_correct_operation(self):
         user = Account.by_name('test_new')
         assert user.api_key == 'd0610659-627b-4403-8b7f-6e2820ebc95d'
@@ -144,6 +148,16 @@ class TestApiNewDataset(ControllerTestCase):
         response = self.app.post(u, expect_errors=True)
         assert "400" in response.status, response.status
         assert not Dataset.by_name('openspending-example')
+
+    def test_new_04_no_right_user(self):
+        u = url(controller='api', action='new', **{
+            'metadata':'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
+            'csv_file':'http://mk.ucant.org/info/data/sample-openspending-dataset.csv',
+            'apikey':'c011c340-8dad-419c-8138-1c6ded86ead5',
+            'signature':'1ba8b0483eaae060750dc6729b249e65'
+        })
+        response = self.app.post(u, expect_errors=True)
+        assert "403" in response.status, response.status
 
 
 class TestApiSearch(ControllerTestCase):
