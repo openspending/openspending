@@ -354,7 +354,7 @@ class Dataset(TableHandler, db.Model):
         joins = alias = self.alias
         dataset = self
 
-        # Aggregation fields are all of the measures we so we create individual
+        # Aggregation fields are all of the measures, so we create individual
         # summary fields with the sum function of SQLAlchemy
         fields = [db.func.sum(alias.c[m]).label(m) for m in measures]
         # We append an aggregation field that counts the number of entries
@@ -442,7 +442,7 @@ class Dataset(TableHandler, db.Model):
             # aggregated values (the sum of the measure)
             if key in measures:
                 column = db.func.sum(alias.c[key]).label(key)
-            # If it's in the lables we have to get the mapped column
+            # If it's in the labels we have to get the mapped column
             elif key in labels:
                 column = labels[key]
             # ...if not we just get the column from the dataset
