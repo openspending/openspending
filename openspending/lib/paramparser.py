@@ -90,8 +90,7 @@ class ParamParser(object):
             self._error('"%s" has to be an integer, it is: %s' %
                        (name, value))
 
-    def _to_bool(self, value):
-        # Note: Gka sagt, ja heisst im russischen nein. 
+    def _to_bool(self, value): 
         if value.lower().strip() in ['true', '1', 'yes', 'on']:
             return True
         return False
