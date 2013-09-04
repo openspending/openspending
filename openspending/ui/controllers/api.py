@@ -164,13 +164,14 @@ class ApiController(BaseController):
         if not dataset:
             dataset = Dataset(model)
             require.dataset.create()
+            dataset.managers.append(user)
+            dataset.private = True #Default value
             db.session.add(dataset)
             
         require.dataset.update(dataset)
         log.info("Dataset: %s", dataset.name)
         source = Source(dataset=dataset, creator=user, url=csv_file)
-        dataset.managers.append(user)
-        dataset.private = True #Default value
+
         log.info(source)
         for source_ in dataset.sources:
             if source_.url == csv_file:

@@ -124,6 +124,7 @@ class TestApiNewDataset(ControllerTestCase):
             'apikey':'d0610659-627b-4403-8b7f-6e2820ebc95d',
             'signature':'566f9ca6df2a5e004d1ad80a2e83a982'
         })
+        Dataset.by_name('openspending-example').private = False
         response = self.app.post(u)
         assert "200" in response.status, response.status
         assert Dataset.by_name('openspending-example')
