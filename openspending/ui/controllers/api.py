@@ -17,6 +17,9 @@ from openspending.ui.lib.cache import AggregationCache
 from openspending.lib.jsonexport import jsonpify
 from openspending.validation.model import validate_model
 from openspending.ui.lib.authenticator import ApiKeyAuthenticator
+from openspending.ui.lib.hypermedia import dataset_apply_links
+from openspending.lib.jsonexport import to_jsonp
+
 
 
 log = logging.getLogger(__name__)
@@ -144,10 +147,9 @@ class ApiController(BaseController):
                                                                     detail='apikey is missing')
         
         user_name = ApiKeyAuthenticator().authenticate(environ=None, identity=request.params)
+        if not user_name:
+            abort(status_code=400, detail='wrong signature')
         user = Account.by_name(user_name)
-        if not user:
-            abort(status_code=400, detail='wrong apikey')
-
         c.account = user
         
         # The signature is right, we proceed with the dataset
@@ -159,7 +161,7 @@ class ApiController(BaseController):
             log.error("Errors occured during model validation:")
             for field, error in i.asdict().items():
                 log.error("%s: %s", field, error)
-            abort(status_code=400, detail='Model is not valid')
+            abort(status_code=400, detail='Model is not well formed')
         dataset = Dataset.by_name(model['dataset']['name'])
         if not dataset:
             dataset = Dataset(model)
@@ -183,7 +185,8 @@ class ApiController(BaseController):
         importer = CSVImporter(source)
         importer.run()
         solr.build_index(dataset.name)
-        return 0
+        return dataset_apply_links(dataset.as_dict())
+
 
     @jsonpify
     def mytax(self):
