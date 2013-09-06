@@ -30,7 +30,7 @@ class ApiKeyAuthenticator(object):
         the signature provided as a GET parameter.
         The hashing of the signatures is done using MD5.
         The way to generate a signature is concatenating in a string
-        the private_api_key for the user with the sorted keys of the request
+        the secret_api_key for the user with the sorted keys of the request
         and their values. For example (no valid values):
 
         'c9502d56-446e-49de-9ccc-f9daaeb2f114apikey032020d2-ab08-4d53-b6c3- \
@@ -45,7 +45,7 @@ class ApiKeyAuthenticator(object):
 
         user = Account.by_api_key(identity['apikey'])
         m = hashlib.md5()
-        query = [user.private_api_key]
+        query = [user.secret_api_key]
         for key in sorted(identity.keys()):
             if key != 'signature':
                 query.append(key)

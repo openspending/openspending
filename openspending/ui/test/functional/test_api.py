@@ -107,16 +107,16 @@ class TestApiNewDataset(ControllerTestCase):
         super(TestApiNewDataset, self).setup()
         self.user = h.make_account('test_new')
         self.user.api_key = 'd0610659-627b-4403-8b7f-6e2820ebc95d'
-        self.user.private_api_key = 'be33f8a7-c0f0-46f1-8d8d-e0e094866099'
+        self.user.secret_api_key = 'be33f8a7-c0f0-46f1-8d8d-e0e094866099'
 
         self.user2 = h.make_account('test_new2')
         self.user2.api_key = 'c011c340-8dad-419c-8138-1c6ded86ead5'
-        self.user2.private_api_key = '488c1775-7426-4f02-8a47-e287b0d62aec'
+        self.user2.secret_api_key = '488c1775-7426-4f02-8a47-e287b0d62aec'
 
     def test_01_correct_operation(self):
         user = Account.by_name('test_new')
         assert user.api_key == 'd0610659-627b-4403-8b7f-6e2820ebc95d'
-        assert user.private_api_key == 'be33f8a7-c0f0-46f1-8d8d-e0e094866099'
+        assert user.secret_api_key == 'be33f8a7-c0f0-46f1-8d8d-e0e094866099'
 
         u = url(controller='api', action='new', **{
             'metadata':'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
@@ -124,8 +124,8 @@ class TestApiNewDataset(ControllerTestCase):
             'apikey':'d0610659-627b-4403-8b7f-6e2820ebc95d',
             'signature':'566f9ca6df2a5e004d1ad80a2e83a982'
         })
-        Dataset.by_name('openspending-example').private = False
         response = self.app.post(u)
+        Dataset.by_name('openspending-example').private = False
         assert "200" in response.status, response.status
         assert Dataset.by_name('openspending-example')
 

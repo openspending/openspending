@@ -11,9 +11,9 @@ def upgrade(migrate_engine):
 
     account = Table('account', meta, autoload=True)
 
-    # Column that stores the user's private api key
-    private_api_key = Column('private_api_key', Unicode, default=unicode(uuid.uuid4()))
-    private_api_key.create(account)
+    # Column that stores the user's secret api key
+    secret_api_key = Column('secret_api_key', Unicode, default=unicode(uuid.uuid4()))
+    secret_api_key.create(account)
 
 
 def downgrade(migrate_engine):
