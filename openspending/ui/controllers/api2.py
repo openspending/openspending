@@ -23,42 +23,85 @@ log = logging.getLogger(__name__)
 class Api2Controller(BaseController):
 
     def _response_params(self, params):
+        """
+        Create response headers based on parameters. Headers will be something
+        like "X-Drilldowns: [u'from']"
+        """
+
+        # Loop over the parameters and and add each to the response headers
         for k, v in params.items():
+            # Replace both _ and - with space and then split the string on
+            # whitespace, then join it together, capitalizing each part and
+            # append and X. So a parameter called "this-is a_header" will
+            # become X-This-Is-A-Header"
             k = k.replace('_', ' ').replace('-', ' ').split()
             k = '-'.join(['X'] + [l.capitalize() for l in k])
+
+            # Add the header along with it's value encoded as ascii but 
+            # ignore all errors in encoding
             response.headers[k] = unicode(v).encode('ascii', 'ignore')
 
     def aggregate(self):
+        """
+        Aggregation of a dataset based on URL parameters. It serves the 
+        aggregation from a cache if possible, and if not it computes it (it's
+        performed in the aggregation cache for some reason).
+        """
+
+        # Parse the aggregation parameters to get them into the right format
         parser = AggregateParamParser(request.params)
         params, errors = parser.parse()
 
+        # If there were parsing errors we return them with status code 400
+        # as jsonp, irrespective of what format was asked for.
         if errors:
             response.status = 400
             return to_jsonp({'errors': errors})
 
+        # URL parameters are always singular nouns but we work with some
+        # as plural nouns so we pop them into the plural version
         params['cuts'] = params.pop('cut')
         params['drilldowns'] = params.pop('drilldown')
+        params['measures'] = params.pop('measure')
+
+        # Get the dataset and the format and remove from the parameters
         dataset = params.pop('dataset')
         format = params.pop('format')
+
+        # User must have the right to read the dataset to perform aggregation
         require.dataset.read(dataset)
+
+        # Create response headers from the parameters
         self._response_params(params)
 
         try:
+            # Create an aggregation cache for the dataset and aggregate its
+            # results. The cache will perform the aggreagation if it doesn't
+            # have a cached result
             cache = AggregationCache(dataset)
             result = cache.aggregate(**params)
+
+            # If the result has drilldown we create html_url values for its
+            # dimensions (linked data).
             if 'drilldown' in result:
                 result['drilldown'] = drilldowns_apply_links(dataset.name,
                     result['drilldown'])
 
+            # Do the ETag caching based on the cache_key in the summary
+            # this is a weird place to do it since the heavy lifting has
+            # already been performed above. TODO: Needs rethinking.
             response.last_modified = dataset.updated_at
             if cache.cache_enabled and 'cache_key' in result['summary']:
                 etag_cache(result['summary']['cache_key'])
 
         except (KeyError, ValueError) as ve:
+            # We log possible errors and return them with status code 400
             log.exception(ve)
             response.status = 400
             return to_jsonp({'errors': [unicode(ve)]})
 
+        # If the requested format is csv we write the drilldown results into
+        # a csv file and return it, if not we return a jsonp result (default)
         if format == 'csv':
             return write_csv(result['drilldown'], response,
                 filename=dataset.name + '.csv')
