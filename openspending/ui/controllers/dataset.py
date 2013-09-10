@@ -172,14 +172,10 @@ class DatasetController(BaseController):
             # If requested format is json we return the json representation
             return to_jsonp(dataset_apply_links(c.dataset.as_dict()))
         else:
-            # Get all of the dates for the dataset (ordered)
-            # We do this here both because it's context specific but also
-            # because c.dataset.as_dict() called to create the json format
-            # calls it as well (to create timestamps)
-            times = c.dataset.all_dates(ordered=True)
-            # Add them to the timerange context variable
-            if len(times):
-                c.timerange = {'from': times[0], 'to': times[-1]}
+            (earliest_timestamp, latest_timestamp) = c.dataset.timerange()
+            if earliest_timestamp is not None:
+                c.timerange = {'from': earliest_timestamp,
+                               'to': latest_timestamp}
 
             if c.view is None:
                 # If handle request didn't return a view we return the
@@ -208,6 +204,21 @@ class DatasetController(BaseController):
             c.badges = list(Badge.all())
 
         return templating.render('dataset/about.html')
+
+    def timestamps(self, dataset):
+        """
+        Get timestamps of a given datasets. The timestamps are all the
+        distinct values of the time attribute (the date attribute).
+        """
+
+        # Get the dataset and check ETag value based on when it was
+        # last updated
+        self._get_dataset(dataset)
+        etag_cache_keygen(c.dataset.updated_at)
+
+        # Return the timestamps along with the datasets name
+        return to_jsonp({'name':c.dataset.name,
+                         'timestamps': c.dataset.all_dates(ordered=True)})
 
     def sitemap(self, dataset):
         self._get_dataset(dataset)

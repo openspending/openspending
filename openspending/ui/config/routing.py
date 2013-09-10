@@ -163,6 +163,10 @@ def make_map():
     map.connect('/{dataset}/give', controller='badge', action='give',
                 conditions=dict(method=['POST']))
 
+    # Only support json format (lack of use case for html format)
+    map.connect('/{dataset}/timestamps.json',
+                controller='dataset', action='timestamps')
+
     map.connect('/{dataset}/dimensions.{format}',
                 controller='dimension', action='index')
     map.connect('/{dataset}/dimensions',

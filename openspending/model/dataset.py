@@ -511,6 +511,21 @@ class Dataset(TableHandler, db.Model):
 
         return { 'drilldown': drilldown, 'summary': summary }
 
+    def timerange(self):
+        """
+        Get the timerange of the dataset (based on the time attribute).
+        Returns a tuple of (first timestamp, last timestamp) where timestamp
+        is a datetime object
+        """
+
+        # Get the time column
+        time = self.key('time')
+        # We use SQL's min and max functions to get the timestamps
+        query = db.session.query(db.func.min(time), db.func.max(time))
+        # We just need one result to get min and max time
+        return [datetime.strptime(date, '%Y-%m-%d') if date else None
+                for date in query.one()]
+
     def all_dates(self, ordered=False):
         """
         Return a sorted list of all times for this dataset
@@ -549,7 +564,6 @@ class Dataset(TableHandler, db.Model):
             'serp_teaser': self.serp_teaser,
             'languages': list(self.languages),
             'territories': list(self.territories),
-            'timestamps': self.all_dates(),
             'badges': [b.as_dict(short=True) for b in self.badges]
             }
 
