@@ -11,7 +11,7 @@ import logging
 from collections import defaultdict
 from datetime import datetime
 from itertools import count
-from sqlalchemy import ForeignKeyConstraint
+from sqlalchemy import ForeignKeyConstraint, distinct
 
 from openspending.model import meta as db
 from openspending.lib.util import hash_values
@@ -511,6 +511,21 @@ class Dataset(TableHandler, db.Model):
 
         return { 'drilldown': drilldown, 'summary': summary }
 
+    def all_dates(self, ordered=False):
+        """
+        Return a sorted list of all times for this dataset
+        """
+        # Get the time field
+        time = self.key('time')
+        # Get only distinct times and order by time
+        query = db.session.query(distinct(time))
+        # Add order_by if the results should be ordered
+        if ordered:
+            query = query.order_by(time)
+        results = query.all()
+        # We return this as a list of datetimes
+        return [datetime.strptime(date[0], '%Y-%m-%d') for date in results]
+
     def __repr__(self):
         return "<Dataset(%s:%s:%s)>" % (self.name, self.dimensions,
                 self.measures)
@@ -534,6 +549,7 @@ class Dataset(TableHandler, db.Model):
             'serp_teaser': self.serp_teaser,
             'languages': list(self.languages),
             'territories': list(self.territories),
+            'timestamps': self.all_dates(),
             'badges': [b.as_dict(short=True) for b in self.badges]
             }
 
