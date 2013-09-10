@@ -562,6 +562,10 @@ class Dataset(TableHandler, db.Model):
             'category': self.category,
             'serp_title': self.serp_title,
             'serp_teaser': self.serp_teaser,
+            'timestamps': {
+                'created': self.created_at,
+                'last_modified': self.updated_at
+                },
             'languages': list(self.languages),
             'territories': list(self.territories),
             'badges': [b.as_dict(short=True) for b in self.badges]
