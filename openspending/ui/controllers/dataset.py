@@ -205,21 +205,6 @@ class DatasetController(BaseController):
 
         return templating.render('dataset/about.html')
 
-    def timestamps(self, dataset):
-        """
-        Get timestamps of a given datasets. The timestamps are all the
-        distinct values of the time attribute (the date attribute).
-        """
-
-        # Get the dataset and check ETag value based on when it was
-        # last updated
-        self._get_dataset(dataset)
-        etag_cache_keygen(c.dataset.updated_at)
-
-        # Return the timestamps along with the datasets name
-        return to_jsonp({'name':c.dataset.name,
-                         'timestamps': c.dataset.all_dates(ordered=True)})
-
     def sitemap(self, dataset):
         self._get_dataset(dataset)
         pages = []

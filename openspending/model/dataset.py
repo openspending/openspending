@@ -526,21 +526,6 @@ class Dataset(TableHandler, db.Model):
         return [datetime.strptime(date, '%Y-%m-%d') if date else None
                 for date in query.one()]
 
-    def all_dates(self, ordered=False):
-        """
-        Return a sorted list of all times for this dataset
-        """
-        # Get the time field
-        time = self.key('time')
-        # Get only distinct times and order by time
-        query = db.session.query(distinct(time))
-        # Add order_by if the results should be ordered
-        if ordered:
-            query = query.order_by(time)
-        results = query.all()
-        # We return this as a list of datetimes
-        return [datetime.strptime(date[0], '%Y-%m-%d') for date in results]
-
     def __repr__(self):
         return "<Dataset(%s:%s:%s)>" % (self.name, self.dimensions,
                 self.measures)
