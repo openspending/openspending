@@ -168,25 +168,15 @@ class DatasetController(BaseController):
         # a default view in c.view if there is any
         handle_request(request, c, c.dataset)
 
-        # Try to get the minimum and maximum values of the name field
-        # in the time table (name field has the form yyyy-mm-dd)
-        try:
-            (min_time, max_time) = db.session.query(
-                db.func.min(c.dataset['time'].table.c['name']), 
-                db.func.max(c.dataset['time'].table.c['name'])).one()
-
-            # Transform the time values to a datetime object to allow
-            # templates to format the time
-            c.timerange = {'from': datetime.strptime(min_time, '%Y-%m-%d'),
-                           'to': datetime.strptime(max_time, '%Y-%m-%d')}
-        except:
-            # If there's an exception, we don't return the time range
-            pass
-
         if format == 'json':
             # If requested format is json we return the json representation
             return to_jsonp(dataset_apply_links(c.dataset.as_dict()))
         else:
+            (earliest_timestamp, latest_timestamp) = c.dataset.timerange()
+            if earliest_timestamp is not None:
+                c.timerange = {'from': earliest_timestamp,
+                               'to': latest_timestamp}
+
             if c.view is None:
                 # If handle request didn't return a view we return the
                 # entry index
