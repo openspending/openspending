@@ -517,14 +517,16 @@ class Dataset(TableHandler, db.Model):
         Returns a tuple of (first timestamp, last timestamp) where timestamp
         is a datetime object
         """
-
-        # Get the time column
-        time = self.key('time')
-        # We use SQL's min and max functions to get the timestamps
-        query = db.session.query(db.func.min(time), db.func.max(time))
-        # We just need one result to get min and max time
-        return [datetime.strptime(date, '%Y-%m-%d') if date else None
-                for date in query.one()]
+        try:
+            # Get the time column
+            time = self.key('time')
+            # We use SQL's min and max functions to get the timestamps
+            query = db.session.query(db.func.min(time), db.func.max(time))
+            # We just need one result to get min and max time
+            return [datetime.strptime(date, '%Y-%m-%d') if date else None
+                    for date in query.one()]
+        except:
+            return (None, None)
 
     def __repr__(self):
         return "<Dataset(%s:%s:%s)>" % (self.name, self.dimensions,
