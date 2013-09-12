@@ -11,7 +11,7 @@ import logging
 from collections import defaultdict
 from datetime import datetime
 from itertools import count
-from sqlalchemy import ForeignKeyConstraint
+from sqlalchemy import ForeignKeyConstraint, distinct
 
 from openspending.model import meta as db
 from openspending.lib.util import hash_values
@@ -511,6 +511,23 @@ class Dataset(TableHandler, db.Model):
 
         return { 'drilldown': drilldown, 'summary': summary }
 
+    def timerange(self):
+        """
+        Get the timerange of the dataset (based on the time attribute).
+        Returns a tuple of (first timestamp, last timestamp) where timestamp
+        is a datetime object
+        """
+        try:
+            # Get the time column
+            time = self.key('time')
+            # We use SQL's min and max functions to get the timestamps
+            query = db.session.query(db.func.min(time), db.func.max(time))
+            # We just need one result to get min and max time
+            return [datetime.strptime(date, '%Y-%m-%d') if date else None
+                    for date in query.one()]
+        except:
+            return (None, None)
+
     def __repr__(self):
         return "<Dataset(%s:%s:%s)>" % (self.name, self.dimensions,
                 self.measures)
@@ -532,6 +549,10 @@ class Dataset(TableHandler, db.Model):
             'category': self.category,
             'serp_title': self.serp_title,
             'serp_teaser': self.serp_teaser,
+            'timestamps': {
+                'created': self.created_at,
+                'last_modified': self.updated_at
+                },
             'languages': list(self.languages),
             'territories': list(self.territories),
             'badges': [b.as_dict(short=True) for b in self.badges]
