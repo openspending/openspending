@@ -1,5 +1,6 @@
 import csv
 import json
+import datetime
 from StringIO import StringIO
 
 from .. import ControllerTestCase, url, helpers as h
@@ -44,10 +45,27 @@ class TestDatasetController(ControllerTestCase):
         h.assert_equal(obj[0]['label'], 'Country Regional Analysis v2009')
 
     def test_view(self):
+        """
+        Test view page for a dataset
+        """
+
+        # Get the view page for the dataset
         response = self.app.get(url(controller='dataset', action='view', dataset='cra'))
+        # The dataset label should be present in the response
         h.assert_true('Country Regional Analysis v2009' in response,
                       "'Country Regional Analysis v2009' not in response!")
         #h.assert_true('openspending_browser' in response, "'openspending_browser' not in response!")
+
+        # Assertions about time range
+        assert 'Time range' in response.body, \
+            'Time range is not present on view page for dataset'
+        # Start date comes from looking at the test fixture for cra
+        assert '2003-01-01' in response.body, \
+            'Starting date of time range not on view page for dataset'
+        # End date comes from looking at the test fixture for cra
+        assert '2010-01-01' in response.body, \
+            'End date of time range not on view page for dataset'
+
 
     def test_view_private(self):
         cra = Dataset.by_name('cra')
@@ -75,8 +93,31 @@ class TestDatasetController(ControllerTestCase):
         db.session.commit()
         response = self.app.get(url(controller='dataset', action='about',
                                 dataset='cra'))
-        assert ('<li><a href="/account/profile/test">Test User</a></li>' in
-                response.body)
+        profile_url = url(controller='account', action='profile',
+                          name=self.user.name)
+        assert('<li><a href="{url}">{fullname}</a></li>'.format(
+                url=profile_url, fullname=self.user.fullname) \
+                   in response.body)
+
+    def test_about_has_timestamps(self):
+        """
+        Test whether about page includes timestamps when dataset was created
+        and when it was last updated
+        """
+
+        # Get the about page
+        response = self.app.get(url(controller='dataset', action='about',
+                                    dataset='cra'))
+
+        # Check assertions for timestamps
+        assert 'Timestamps' in response.body, \
+            'Timestamp header is not on about page'
+        assert 'created on' in response.body, \
+            'No line for "created on" on about page'
+        assert 'last modified on' in response.body, \
+            'No line for "last modified on" on about page'
+        assert datetime.datetime.now().strftime('%Y-%m-%d') in response.body, \
+            'Created (and update) timestamp is not on about page'
 
     def test_view_json(self):
         response = self.app.get(url(controller='dataset', action='view',

@@ -65,35 +65,62 @@
 	    </py:choose>
           </td>
         </tr>
-        <tr py:if="source.runs.count()">
-          <td class="top" width="5%"><strong>Reports</strong>:</td>
-          <td colspan="2">
-            <ul class="runs">
-              <li py:for="run in source.runs[:5]">
-                <a href="${h.url(controller='run', action='view',
-                  dataset=c.dataset.name, source=source.id, id=run.id)}">
-                  ${run.time_start.strftime("%d.%m.%Y, %H:%M")}</a>
-		<py:choose>
-                  <py:when test="run.status == 'running'">
-                    <span class="label label-info">Running</span>
-		  </py:when>
-                  <py:when test="run.status == 'complete'">
-                    <span class="label label-success">Complete</span>
-                  </py:when>
-                  <py:when test="run.status == 'failed'">
-                    <span class="label label-important">Errors</span>
-                  </py:when>
-		  <py:when test="run.status == 'removed'">
-		    <span class="label">Removed</span>
-		  </py:when>
-		  <py:otherwise>
-		    <span class="label">${run.status}</span>
-		  </py:otherwise>
-		</py:choose>
-                <span py:strip="" i18n:msg="count">(${run.records.count()} Errors)</span>
-              </li>
-            </ul>
-          </td>
+	<tr>
+	  <py:choose>
+            <py:when test="source.runs.count()">
+              <td class="top" width="5%"><strong>Reports</strong>:</td>
+              <td colspan="2">
+		<ul class="runs">
+                  <li py:for="run in source.runs[:5]">
+                    <a href="${h.url(controller='run', action='view',
+                      dataset=c.dataset.name, source=source.id, id=run.id)}">
+                      ${run.time_start.strftime("%d.%m.%Y, %H:%M")}</a>
+		    <py:choose>
+                      <py:when test="run.status == 'running'">
+                        <span class="label label-info">Running</span>
+		      </py:when>
+                      <py:when test="run.status == 'complete'">
+                        <span class="label label-success">Complete</span>
+                      </py:when>
+                      <py:when test="run.status == 'failed'">
+                        <span class="label label-important">Errors</span>
+                      </py:when>
+		      <py:when test="run.status == 'removed'">
+		        <span class="label">Removed</span>
+		      </py:when>
+		      <py:otherwise>
+		        <span class="label">${run.status}</span>
+		      </py:otherwise>
+		    </py:choose>
+                    <span py:strip="" i18n:msg="count">(${run.records.count()} Errors)</span>
+                  </li>
+		</ul>
+              </td>
+	  </py:when>
+	  <py:when test="'error' not in source.analysis">
+	    <td class="top" width="5%"><strong>Analysis</strong>:</td>
+	    <td colspan="2">
+	      <py:choose>
+		<py:when test="'columns' in source.analysis and len(source.analysis['columns'])">
+		  We found these columns in the CSV file:
+		  <ul>
+		    <py:for each="column in source.analysis['columns']">
+		      <li>${column}</li>
+		    </py:for>
+		  </ul>
+		</py:when>
+		<py:when test="'columns' in source.analysis">
+		  <span class="label label-warning">Warning</span> No columns found.
+		</py:when>
+		<py:otherwise>
+		  <span class="label label-info">Still analysing</span> Try refreshing in a moment.
+		</py:otherwise>
+	      </py:choose>
+	    </td>
+	  </py:when>
+	  <py:otherwise>
+	  </py:otherwise>
+	</py:choose>
         </tr>
       </py:for>
     </table>

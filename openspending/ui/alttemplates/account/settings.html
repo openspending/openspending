@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block page_title %}Settings for: {{ c.account.name }}{% endblock %}
+
+{% block content %}
+<h2 class="page-header">Account Settings <small>{{ c.account.fullname }}</small></h2>
+
+<div class="row">
+  <div class="offset2 span10">
+    <form class="basic settings form-horizontal" id="settings" action="/settings" method="POST">
+      <div class="control-group">
+        <label for="fullname">Fullname</label>
+        <div class="controls">
+          <input name="fullname"{% if 'fullname' in form_fill %} value="{{form_fill.fullname}}"{% endif %}>
+        </div>
+      </div>
+      <div class="control-group form-inline">
+        <label for="email">E-Mail</label>
+        <div class="controls">
+          <input name="email"{% if 'email' in form_fill %} value="{{form_fill.email}}"{% endif %}>
+	  <label class="checkbox">
+	    <input name="public_email" type="checkbox"{% if 'public_email' in form_fill %} checked="checked"{% endif %}> Visible to users
+	  </label>
+        </div>
+      </div>
+      <div class="control-group form-inline">
+        <label for="email">Twitter</label>
+        <div class="controls">
+          <input name="twitter"{% if 'twitter' in form_fill %} value="{{form_fill.twitter}}"{% endif %}>
+	  <label class="checkbox">
+	    <input name="public_twitter" type="checkbox"{% if 'public_twitter' in form_fill %} checked="checked"{% endif %}> Visible to users
+	  </label>
+        </div>
+      </div>
+      <div class="control-group">
+        <label for="password1">Password</label>
+        <div class="controls">
+          <input name="password1" type="password" autocomplete="off" />
+        </div>
+      </div>
+      <div class="control-group">
+        <label for="password2">Password (repeat)</label>
+        <div class="controls">
+          <input name="password2" type="password" autocomplete="off" />
+          <p class="help-block">Leave both fields blank to keep
+            your current password.</p>
+        </div>
+      </div>
+      <div class="control-group">
+        <label for="api_key">API Key</label>
+        <div class="controls">
+          <span class="uneditable-input" style="width: 25em;">{{ c.account.api_key }}</span>
+          <p class="help-block">Use this key to access the OpenSpending
+            API programmatically.</p>
+        </div>
+      </div>
+      <div class="control-group">
+        <label for="secret_api_key">Secret API Key</label>
+        <div class="controls">
+          <span class="uneditable-input" style="width: 25em;">{{ c.account.secret_api_key }}</span>
+          <p class="help-block">Use this key to sign your requests.</p>
+        </div>
+      </div>
+      <div class="control-group">
+        <label for="script_root">Script Location</label>
+        <div class="controls">
+          <input name="script_root" />
+          <p class="help-block">Set a different location for JavaScript imports to develop
+            new widgets.</p>
+        </div>
+      </div>
+      
+      <div class="form-actions">
+        <input value="Save" type="submit" class="btn btn-primary" />
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

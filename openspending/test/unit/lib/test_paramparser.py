@@ -89,10 +89,16 @@ class TestAggregateParamParser(TestCase):
         model_mock.by_name.return_value = ds
 
         out, err = AggregateParamParser({'dataset': 'foo'}).parse()
-        h.assert_equal(out['measure'], 'amount')
+        h.assert_equal(out['measure'], ['amount'])
 
         out, err = AggregateParamParser({'dataset': 'foo', 'measure': 'bar'}).parse()
-        h.assert_equal(out['measure'], 'bar')
+        h.assert_equal(out['measure'], ['bar'])
+
+        out, err = AggregateParamParser({'dataset': 'foo', 'measure': 'amount|bar'}).parse()
+        assert 'amount' in out['measure'], \
+            "AggregateParamParser doesn't return amount measure"
+        assert 'bar' in out['measure'], \
+            "AggregateParamParser doesn't return bar measure"
 
         out, err = AggregateParamParser({'dataset': 'foo', 'measure': 'baz'}).parse()
         h.assert_true('no measure with name "baz"' in err[0])

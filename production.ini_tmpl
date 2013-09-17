@@ -67,6 +67,13 @@ openspending.solr.url = http://localhost:8983/solr
 # Relative path to static files
 # openspending.static_path = /static
 
+# Upload directory
+# If the directory starts with '/' it is assumed to be an absolute path
+# if not it is assumed to be relative to pylon's static_file directory
+openspending.upload_directory = files
+
+# Where are uploads served from by web server
+# openspending.upload_uri = /files
 
 openspending.content_root = http://content.openspending.org
 

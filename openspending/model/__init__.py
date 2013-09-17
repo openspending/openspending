@@ -9,6 +9,7 @@ from openspending.model.dataset import Dataset
 from openspending.model.dataset_language import DatasetLanguage
 from openspending.model.dataset_territory import DatasetTerritory
 from openspending.model.account import Account
+from openspending.model.badge import Badge
 from openspending.model.source import Source
 from openspending.model.run import Run
 from openspending.model.log_record import LogRecord

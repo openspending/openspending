@@ -63,7 +63,7 @@ def clean_all():
     clean_solr()
 
 def make_account(name='test', fullname='Test User',
-                 email='test@example.com'):
+                 email='test@example.com', twitter='testuser'):
     from openspending.model import Account
 
     # First see if the account already exists and if so, return it
@@ -76,7 +76,7 @@ def make_account(name='test', fullname='Test User',
     account.name = name
     account.fullname = fullname
     account.email = email
-
+    account.twitter_handle = twitter
     db.session.add(account)
     db.session.commit()
 
