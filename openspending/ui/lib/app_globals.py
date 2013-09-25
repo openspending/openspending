@@ -1,5 +1,6 @@
 from pylons import config
 from paste.deploy.converters import asbool
+from economics import Inflation
 
 class Globals(object):
     """\
@@ -25,3 +26,5 @@ class Globals(object):
 
         self.script_root = config.get('openspending.script_root', '/static/js')
         self.content_root = config['openspending.content_root']
+
+        self.inflation = Inflation()

@@ -328,6 +328,15 @@ def format_number_with_commas(number):
         s = s[:-3]
     return s + ','.join(reversed(groups))
 
+def inflate(amount, target, reference, country):
+    """
+    Inflate an amount from a reference year to a target year for a given
+    country. Access a global inflation object which is created at startup
+    """
+    # Access the inflate method. We need uppercase country (economics should
+    # take care of this but doesn't at the moment)
+    return app_globals.inflation.inflate(amount, target, reference, 
+                                         country.upper())
 
 def script_tag(name):
     return '''<script type="text/javascript" src="''' + \

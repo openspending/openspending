@@ -101,6 +101,7 @@ class AggregateParamParser(ParamParser):
     defaults['drilldown'] = None
     defaults['cut'] = None
     defaults['order'] = None
+    defaults['inflate'] = None
     defaults['format'] = 'json'
     defaults['measure'] = 'amount'
 
