@@ -115,7 +115,7 @@ def aggregate(dataset, measures=['amount'], drilldowns=None, cuts=None,
                 summary_total += inflated_amount
             
             result['drilldown'] = adjusted_drilldowns.values()
-            result['summary']['origin'] = result['summary']['amount']
+            result['summary']['original'] = result['summary']['amount']
             result['summary']['amount'] = summary_total
         except KeyError, error:
             # If inflation fails because a date wasn't found in the inflation
@@ -126,7 +126,7 @@ def aggregate(dataset, measures=['amount'], drilldowns=None, cuts=None,
             # it can help resolve the warning (and it's bothersome)
             result['warning'] = {'inflation':
                                      'Unable to do inflation adjustment',
-                                 'error': error.message}
+                                 'error': 'Inflation error: %s' % error}
 
     return result
 

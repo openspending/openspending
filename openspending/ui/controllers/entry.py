@@ -1,4 +1,5 @@
 import logging
+import datetime
 
 from pylons import app_globals, request, response, tmpl_context as c
 from pylons.controllers.util import abort, redirect
@@ -13,6 +14,7 @@ from openspending.lib.jsonexport import write_json, to_jsonp
 from openspending.ui.lib import helpers as h
 from openspending.reference import country
 from openspending.ui.alttemplates import templating
+from openspending.reference import country
 
 log = logging.getLogger(__name__)
 
@@ -76,16 +78,18 @@ class EntryController(BaseController):
                 # there might be more than one countries tied to a dataset, for
                 # now we just get the first one. We uppercase it as well to
                 # help the inflation method
-                country = country.COUNTRIES.get(c.dataset.territories[0])
+                dataset_country = country.COUNTRIES.get(
+                    c.dataset.territories[0])
 
                 # Do the inflation via a helper function and set the context
                 # amount as the inflated amount
-                c.amount = h.inflate(amount, target, reference, country)
+                c.amount = h.inflate(amount, target, reference, dataset_country)
                 
                 # Set a context variable to make the inflation parameters
                 # available to the templates
                 c.inflation = {'reference': reference, 'target': target,
-                               'original': amount}
+                               'original': amount,
+                               'label':'Inflation adjustment'}
 
                 # Need to overwrite amount and set inflation parameters
                 # in c.entry for json and csv responses
