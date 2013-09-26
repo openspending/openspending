@@ -54,7 +54,7 @@ def aggregate(dataset, measures=['amount'], drilldowns=None, cuts=None,
     method of the dataset but in case inflation is asked for, this method takes
     care of those computations
     """
-    import time
+
     # If we have to inflate we need to add a year to the drilldowns 
     # (since inflation only supports years at the moment).
     if inflate:
@@ -113,7 +113,7 @@ def aggregate(dataset, measures=['amount'], drilldowns=None, cuts=None,
                     adjust_drilldowns[item_key]['amount'] += inflated_amount
 
                 summary_total += inflated_amount
-
+            
             result['drilldown'] = adjusted_drilldowns.values()
             result['summary']['origin'] = result['summary']['amount']
             result['summary']['amount'] = summary_total
