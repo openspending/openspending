@@ -1,9 +1,5 @@
-import datetime
 from pylons import app_globals
 from openspending.ui.lib import helpers
-from openspending.reference import country
-import logging
-log = logging.getLogger(__name__)
 
 def get_value(key, item):
     """

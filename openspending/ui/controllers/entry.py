@@ -1,5 +1,4 @@
 import logging
-import datetime
 
 from pylons import app_globals, request, response, tmpl_context as c
 from pylons.controllers.util import abort, redirect
@@ -12,7 +11,6 @@ from openspending.ui.lib.hypermedia import entry_apply_links
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import write_json, to_jsonp
 from openspending.ui.lib import helpers as h
-from openspending.reference import country
 from openspending.ui.alttemplates import templating
 
 log = logging.getLogger(__name__)
