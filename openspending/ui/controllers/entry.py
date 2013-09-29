@@ -14,7 +14,6 @@ from openspending.lib.jsonexport import write_json, to_jsonp
 from openspending.ui.lib import helpers as h
 from openspending.reference import country
 from openspending.ui.alttemplates import templating
-from openspending.reference import country
 
 log = logging.getLogger(__name__)
 
@@ -64,36 +63,24 @@ class EntryController(BaseController):
         amount = c.entry.get('amount')
         # We adjust for inflation if the user as asked for this to be inflated
         if request.params.has_key('inflate'):
-            # Get the year for this time entry which will serve as
-            # reference year. We use years since that's what the inflation
-            # data offers
-            reference = datetime.date(int(c.time['year']),1,1)
             try:
-                # Get the target year from the inflate request parameter. Again
-                # we use years but users should still be able to put in dates
-                # so that we might later support months or dates.
-                target = datetime.date(int(request.params['inflate'][:4]),1,1)
+                # Inflate the amount. Target date is provided in request.params
+                # as value for inflate and reference date is the date of the
+                # entry. We also provide a list of the territories to extract
+                # a single country for which to do the inflation
+                c.inflation = h.inflate(amount, request.params['inflate'],
+                                        c.time, c.dataset.territories)
 
-                # Get the country we inflate for. This again is imprecise since
-                # there might be more than one countries tied to a dataset, for
-                # now we just get the first one. We uppercase it as well to
-                # help the inflation method
-                dataset_country = country.COUNTRIES.get(
-                    c.dataset.territories[0])
+                # The amount to show should be the inflated amount
+                # and overwrite the entry's amount as well
+                c.amount = c.inflation['inflated']
+                c.entry['amount'] = c.inflation['inflated']
 
-                # Do the inflation via a helper function and set the context
-                # amount as the inflated amount
-                c.amount = h.inflate(amount, target, reference, dataset_country)
-                
-                # Set a context variable to make the inflation parameters
-                # available to the templates
-                c.inflation = {'reference': reference, 'target': target,
-                               'original': amount,
-                               'label':'Inflation adjustment'}
-
-                # Need to overwrite amount and set inflation parameters
-                # in c.entry for json and csv responses
-                c.entry['amount'] = c.amount
+                # We include the inflation response in the entry's dict
+                # HTML description assumes every dict value for the entry
+                # includes a label so we include a default "Inflation
+                # adjustment" for it to work.
+                c.inflation['label'] = 'Inflation adjustment'
                 c.entry['inflation_adjustment'] = c.inflation
             except:
                 # If anything goes wrong in the try clause (and there's a lot

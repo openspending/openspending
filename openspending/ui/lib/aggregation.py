@@ -1,5 +1,6 @@
 import datetime
 from pylons import app_globals
+from openspending.ui.lib import helpers
 from openspending.reference import country
 import logging
 log = logging.getLogger(__name__)
@@ -68,8 +69,6 @@ def aggregate(dataset, measures=['amount'], drilldowns=None, cuts=None,
     # If we have to inflate we do some inflation calculations
     if inflate:
         try:
-            # Get a datetime object for the year
-            target_year = datetime.date(int(inflate[:4]), 1, 1)
             # Since different parts of the drilldowns are going to change
             # (differently) we need to recompute the sumamry total
             summary_total = 0
@@ -81,21 +80,21 @@ def aggregate(dataset, measures=['amount'], drilldowns=None, cuts=None,
             hash_key = drilldowns[:]
             hash_key.remove('time.year')
 
-            # Lookup the country we're going to inflate for
-            # This only checks for the first country in the dataset's
-            # territories (which might cause errors)
-            dataset_country = country.COUNTRIES.get(dataset.territories[0])
             for item in result['drilldown']:
-                # Get the inflated amount for this year
-                inflated_amount = app_globals.inflation.inflate(
-                    item['amount'], target_year,
-                    datetime.date(int(item['time']['year']),1,1),
-                    country=dataset_country)
-                # Get the inflation adjustment
-                adjustment = {'original': item['amount'],
-                              'inflated': inflated_amount,
-                              'target': target_year.year,
-                              'reference': int(item['time']['year'])}
+                # Get the inflated amount for this year (returns an inflation
+                # dictionary with values for reference and target dates along
+                # with original and inflated amounts)
+                adjustment = helpers.inflate(item['amount'],
+                                             inflate, item['time'],
+                                             dataset.territories)
+
+                # We make the reference and target datestrings with ISO format
+                # (ISO format is yyyy-mm-dd).
+                adjustment['reference'] = adjustment['reference'].isoformat()
+                adjustment['target'] = adjustment['target'].isoformat()
+
+                # Get the inflated amount into its own variable
+                inflated_amount = adjustment['inflated']
 
                 # Get the item key
                 item_key = tuple([get_value(k, item) for k in hash_key])
