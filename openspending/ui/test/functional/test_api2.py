@@ -200,3 +200,53 @@ class TestApi2Controller(ControllerTestCase):
         amounts = [r['amount'] for r in result['results']]
 
         h.assert_equal(amounts, sorted(amounts)[::-1])
+
+    def test_inflation(self):
+        """
+        Test for inflation support in the aggregation api. Inflation works
+        by adding a url parameter containing the target year of inflation.
+
+        This test has hard coded values based on existing inflation data used
+        by an external module. This may therefore need updating should the
+        inflation data become more accurate with better data.
+        """
+
+        response = self.app.get(url(controller='api2', action='aggregate',
+                                    dataset='cra', cut='year:2009',
+                                    inflate='2011'))
+        assert '200' in response.status, \
+            "Inflation request didn't return successfully (status isn't 200)"
+
+        result = json.loads(response.body)
+
+        # Check for inflated amount
+        assert 'amount' in result['summary'], \
+            "Amount is absent for the result summary"
+        assert int(result['summary']['amount']) == 61836609, \
+            "Inflation amount is incorrect"
+
+        # Check for original amount
+        assert 'original' in result['summary'], \
+            "Original amount not in inflation request"
+        assert result['summary']['original'] == 57300000.0, \
+            "Original amount (for inflation) is incorrect"
+
+        # Check for inflation adjustment object in drilldown results
+        assert len(result['drilldown']) == 1, \
+            "Drilldown results were not of length 1"
+        assert 'inflation_adjustment' in result['drilldown'][0], \
+            "Inflation adjustment is not present in drilldown results"
+
+        # Check for what happens when inflation is not possible
+        response = self.app.get(url(controller='api2', action='aggregate',
+                                    dataset='cra', cut='year:2009',
+                                    inflate='1000'))
+        assert '200' in response.status, \
+            "Incorrect inflation did not return sucessfully (status isn't 200)"
+        
+        result = json.loads(response.body)
+
+        assert 'warning' in result, \
+            "No warning given when inflation not possible"
+        assert result['summary']['amount'] == 57300000.0, \
+            "Amount does not fall back to the original amount"

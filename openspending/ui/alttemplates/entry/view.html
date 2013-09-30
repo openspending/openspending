@@ -95,6 +95,16 @@
             <img src="{{h.static('img/icons/calendar_alt_stroke_16x16.png')}}" />
             {{c.time.get('label')}}
           </div>
+         {% if c.inflation -%}
+         <div>
+           <p class="help-block">
+             Adjusted for inflation
+             (from <span title="{{c.inflation.reference}}">{{c.inflation.reference.year}}</span> 
+             to <span title="{{c.inflation.target}}">{{c.inflation.target.year}}</span>)
+             - Original amount: {{h.format_number_with_commas(c.inflation.original)}}
+           </p>
+         </div>
+         {%- endif %}
         </div><!-- /.number -->
       </div><!-- /.amount -->
     </div>
