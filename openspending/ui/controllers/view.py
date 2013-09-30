@@ -122,6 +122,35 @@ class ViewController(BaseController):
         except colander.Invalid as inv:
             return self.new(dataset, errors=inv.asdict())
 
+    def update(self, dataset, name):
+        """
+        Update dataset. Does nothing at the moment.
+        """
+        # Get the dataset for the view
+        self._get_dataset(dataset)
+
+        # Get the named view
+        view = View.by_name(c.dataset, name)
+        # User must be allowed to update the named view
+        require.view.update(c.dataset, view)
+
+        # Possible update values
+        # We don't update the view's name because it might have been embedded
+        view.label = request.params.get('label', view.label)
+        try:
+            # Try to load the state
+            view.state = json.loads(request.params['state'])
+        except:
+            pass
+        view.description = request.params.get('description', view.description)
+
+        # Commit the changes
+        db.session.commit()
+
+        # Redirect to the view page for this view
+        redirect(h.url_for(controller='view', action='view',
+                           dataset=c.dataset.name, name=view.name))
+
     def view(self, dataset, name, format='html'):
         self._get_named_view(dataset, name)
         handle_request(request, c, c.dataset)
