@@ -123,11 +123,15 @@ a:hover, a:active {
   height: 19px;
 }
 
-.topbar div > ul .dropdown-menu li.current-locale a {
-  color: #ccc;
+.navbar .dropdown .dropdown-toggle {
+  cursor: pointer;
 }
 
-.dropdown-menu.locale-dropdown {
+.navbar .dropdown .dropdown-toggle img {
+  vertical-align: middle;
+}
+
+.dropdown-menu.locale-dropdown, .dropdown-menu.account-dropdown {
   min-width: 150px;
 }
 

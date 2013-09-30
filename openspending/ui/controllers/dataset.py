@@ -12,7 +12,7 @@ from pylons.i18n import _
 from colander import SchemaNode, String, Invalid
 
 from openspending.model import Dataset, DatasetTerritory, \
-        DatasetLanguage, View, meta as db
+        DatasetLanguage, View, Badge, meta as db
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import to_jsonp
 from openspending import auth as has
@@ -145,22 +145,50 @@ class DatasetController(BaseController):
             return self.new(errors)
 
     def view(self, dataset, format='html'):
+        """
+        Dataset viewer. Default format is html. This will return either
+        an entry index if there is no default view or the defaul view.
+        If a request parameter embed is given the default view is 
+        returned as an embeddable page.
+
+        If json is provided as a format the json representation of the
+        dataset is returned.
+        """
+
+        # Get the dataset (will be placed in c.dataset)
         self._get_dataset(dataset)
+
+        # Generate the etag for the cache based on updated_at value
         etag_cache_keygen(c.dataset.updated_at)
+
+        # Compute the number of entries in the dataset
         c.num_entries = len(c.dataset)
+        
+        # Handle the request for the dataset, this will return
+        # a default view in c.view if there is any
         handle_request(request, c, c.dataset)
 
-
         if format == 'json':
+            # If requested format is json we return the json representation
             return to_jsonp(dataset_apply_links(c.dataset.as_dict()))
         else:
+            (earliest_timestamp, latest_timestamp) = c.dataset.timerange()
+            if earliest_timestamp is not None:
+                c.timerange = {'from': earliest_timestamp,
+                               'to': latest_timestamp}
+
             if c.view is None:
+                # If handle request didn't return a view we return the
+                # entry index
                 return EntryController().index(dataset, format)
             if 'embed' in request.params:
+                # If embed is requested using the url parameters we return
+                # a redirect to an embed page for the default view
                 return redirect(h.url_for(controller='view',
                     action='embed', dataset=c.dataset.name,
                     widget=c.view.vis_widget.get('name'),
                     state=json.dumps(c.view.vis_state)))
+            # Return the dataset view (for the default view)
             return templating.render('dataset/view.html')
 
     def about(self, dataset, format='html'):
@@ -169,6 +197,12 @@ class DatasetController(BaseController):
         handle_request(request, c, c.dataset)
         c.sources = list(c.dataset.sources)
         c.managers = list(c.dataset.managers)
+
+        # Get all badges if user is admin because they can then
+        # give badges to the dataset on its about page.
+        if c.account and c.account.admin:
+            c.badges = list(Badge.all())
+
         return templating.render('dataset/about.html')
 
     def sitemap(self, dataset):

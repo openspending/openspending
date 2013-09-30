@@ -7,7 +7,7 @@ from pylons import request, tmpl_context as c
 from pylons.i18n import _
 from colander import Invalid
 
-from openspending.model import Account, meta as db
+from openspending.model import Account, Run, meta as db
 from openspending.lib import solr_util as solr
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render
@@ -224,6 +224,12 @@ class EditorController(BaseController):
         c.dataset.init()
         c.dataset.generate()
         AggregationCache(c.dataset).invalidate()
+
+        # For every source in the dataset we set the status to removed
+        for source in c.dataset.sources:            
+            for run in source.runs:
+                run.status = Run.STATUS_REMOVED
+
         db.session.commit()
         h.flash_success(_("The dataset has been cleared."))
         redirect(h.url_for(controller='editor', action='index',

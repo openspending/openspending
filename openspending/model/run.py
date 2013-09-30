@@ -11,9 +11,15 @@ class Run(db.Model):
 
     __tablename__ = 'run'
 
+    # Status values
     STATUS_RUNNING = 'running'
     STATUS_COMPLETE = 'complete'
     STATUS_FAILED = 'failed'
+    STATUS_REMOVED = 'removed'
+
+    # Operation values for database, two operations possible
+    OPERATION_SAMPLE = 'sample'
+    OPERATION_IMPORT = 'import'
 
     id = db.Column(db.Integer, primary_key=True)
     operation = db.Column(db.Unicode(2000))
@@ -39,6 +45,31 @@ class Run(db.Model):
         self.status = status
         self.dataset = dataset
         self.source = source
+
+    @property
+    def successful_sample(self):
+        """
+        Returns True if the run was a sample operation (not full import)
+        and ran without failures.
+        """
+        return self.operation == self.OPERATION_SAMPLE and \
+            self.status == self.STATUS_COMPLETE
+
+    @property
+    def successful_load(self):
+        """
+        Returns True if the run was an import operation (not a sample)
+        and ran without failures.
+        """
+        return self.operation == self.OPERATION_IMPORT and \
+            self.status == self.STATUS_COMPLETE
+
+    @property
+    def is_running(self):
+        """
+        Returns True if the run is currently running
+        """
+        return self.status == self.STATUS_RUNNING
 
     @classmethod
     def by_id(cls, id):

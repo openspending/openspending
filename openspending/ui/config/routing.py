@@ -38,7 +38,14 @@ def make_map():
     map.connect('/after_logout', controller='account', action='after_logout')
     map.connect('/account/forgotten', controller='account', action='trigger_reset')
     map.connect('/account/reset', controller='account', action='do_reset')
-    map.connect('/account/profile/{name}', controller='account', action='profile')
+    map.connect('/account/{name}', controller='account', action='profile')
+
+    map.connect('/badges', controller='badge', action='index')
+    map.connect('/badges.{format}', controller='badge', action='index')
+    map.connect('/badges/create', controller='badge', action='create',
+                conditions=dict(method=['POST']))
+    map.connect('/badge/{id}.{format}', controller='badge', action='information')
+    map.connect('/badge/{id}', controller='badge', action='information')
 
     map.connect('/blog/*path', controller='content', action='view', section='blog')
     map.connect('/blog', controller='content', action='view', section='blog',
@@ -70,6 +77,8 @@ def make_map():
     map.connect('/api/search', controller='api', action='search')
     map.connect('/api/aggregate', controller='api', action='aggregate')
     map.connect('/api/mytax', controller='api', action='mytax')
+
+    map.connect('/api/new', controller='api', action='new', conditions=dict(method=['POST']))
 
     map.connect('/api/rest/', controller='rest', action='index')
     map.connect('/api/2/aggregate', controller='api2', action='aggregate')
@@ -141,6 +150,8 @@ def make_map():
     map.connect('/{dataset}/sources/{id}', controller='source', action='view')
     map.connect('/{dataset}/sources/{id}/load', controller='source',
             action='load', conditions=dict(method=['POST']))
+    map.connect('/{dataset}/sources/{id}/delete', controller='source',
+            action='delete', conditions=dict(method=['POST']))
     map.connect('/{dataset}/sources/{source}/runs/{id}',
             controller='run', action='view')
     map.connect('/{dataset}/sources/{source}/analysis.{format}',
@@ -152,6 +163,9 @@ def make_map():
     map.connect('/{dataset}/entries/{id}.{format}', controller='entry', action='view')
     map.connect('/{dataset}/entries/{id}', controller='entry', action='view')
     map.connect('/{dataset}/entries/{id}/{action}', controller='entry')
+
+    map.connect('/{dataset}/give', controller='badge', action='give',
+                conditions=dict(method=['POST']))
 
     map.connect('/{dataset}/dimensions.{format}',
                 controller='dimension', action='index')

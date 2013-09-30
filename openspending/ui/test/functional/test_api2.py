@@ -50,6 +50,36 @@ class TestApi2Controller(ControllerTestCase):
         h.assert_equal(result['summary']['num_drilldowns'], 1)
         h.assert_equal(result['summary']['total'], 57300000.0)
 
+    def test_aggregate_multiple_measures(self):
+        """
+        Test whether multiple measures work. Multiple measures are
+        separated with | in the measure url parameter.
+        """
+
+        # Get the aggregated amount and total values for year 2009
+        response = self.app.get(url(controller='api2', action='aggregate',
+                                    dataset='cra', cut='year:2009',
+                                    measure='amount|total'))
+
+        # This should return a status code 200. 
+        assert '200' in response.status, \
+            'Aggregation for multiple measures did not return successfully'
+
+        # Load the json body into a dict
+        result = json.loads(response.body)
+
+        # Only one drilldown should be made even if there are two measures
+        assert result['summary']['num_drilldowns'] == 1, \
+            "Aggregation of multiple measures wasn't done with one drilldown"
+
+        # Since amount measure and total measure are two different measures
+        # for the same field in the csv file they should contain the same
+        # amount but still be distinct.
+        assert result['summary']['total'] == 57300000.0, \
+            'Multiple measure aggregation of total measure is not correct'
+        assert result['summary']['amount'] == 57300000.0, \
+            'Multiple measure aggregation of amount measure is not correct'
+
     def test_aggregate_cut(self):
         response = self.app.get(url(controller='api2', action='aggregate',
                                     dataset='cra', cut='year:2009'))
