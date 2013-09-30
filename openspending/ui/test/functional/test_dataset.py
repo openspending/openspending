@@ -28,6 +28,46 @@ class TestDatasetController(ControllerTestCase):
         h.assert_equal(obj['datasets'][0]['name'], 'cra')
         h.assert_equal(obj['datasets'][0]['label'], 'Country Regional Analysis v2009')
 
+    def test_index_category(self):
+        """
+        Test filtering of datasets by providing a category url parameter.
+
+        This does four different tests. We try to get all of the
+        different categories OpenSpending provides and then try to fetch
+        with a non-existent category name.
+
+        This test case uses json by default since it's more likely to be
+        useful there instead of on the html presentation of the site which
+        isn't linked anywhere
+        """
+
+        # Set the category of cra to 'spending'
+        cra = Dataset.by_name('cra')
+        cra.category = 'spending'
+        db.session.commit()
+
+        # Test if budget category returns anything (shouldn't return one)
+        response = self.app.get(url(controller='dataset', action='index', format='json'), params={'category':'budget'})
+        obj = json.loads(response.body)
+        h.assert_equal(len(obj['datasets']), 0)
+        
+        # Test if spending category returns anything (it should return cra)
+        response = self.app.get(url(controller='dataset', action='index', format='json'), params={'category':'spending'})
+        obj = json.loads(response.body)
+        h.assert_equal(len(obj['datasets']), 1)
+        h.assert_equal(obj['datasets'][0]['name'], 'cra')
+        h.assert_equal(obj['datasets'][0]['label'], 'Country Regional Analysis v2009')
+
+        # Test if other category returns anything (shouldn't return one)
+        response = self.app.get(url(controller='dataset', action='index', format='json'), params={'category':'other'})
+        obj = json.loads(response.body)
+        h.assert_equal(len(obj['datasets']), 0)
+
+        # Test if random category name returns anything (shouldn't return one)
+        response = self.app.get(url(controller='dataset', action='index', format='json'), params={'category':'random-non-existent-category'})
+        obj = json.loads(response.body)
+        h.assert_equal(len(obj['datasets']), 0)
+
     def test_index_hide_private(self):
         cra = Dataset.by_name('cra')
         cra.private = True

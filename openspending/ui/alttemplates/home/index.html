@@ -8,8 +8,23 @@
     {{h.script_tag('lib/vendor/raphael-min')}}
     {{h.script_tag('lib/vendor/kartograph/kartograph.min')}}
     {{h.script_tag('lib/vendor/chroma.pack.min')}}
-    {{h.script_tag('app/spending-map/load')}}
+    {{h.script_tag('app/spending-map/choropleth')}}
   </scripts>
+
+  <script type="text/javascript">
+    $('.spending-map').choropleth({
+        click: function(e) {
+            OpenSpending
+                .getGlobal()
+                .updateDatasetListing({territories: e.iso2});
+        }});
+
+    $('#fp-maps #fp-map-toggler .btn-group .btn').click(function() {
+        $($(this).attr('data-target'))
+            .removeClass('hide')
+            .siblings('.spending-map').addClass('hide');
+    });
+  </script>
 {% endblock %}
 
 {% block content %}
@@ -17,24 +32,34 @@
     <div class="row">&nbsp;</div>
     <div class="row">
       <div id="fp-wrap" class="span12">
-		  <div id="fp-map">
+	<div id="fp-maps">
+	  <div id="fp-map-all" class="spending-map"></div>
+	  <div id="fp-map-spending" class="spending-map hide" data-url="http://openspending.org/datasets.json?category=spending"></div>
+	  <div id="fp-map-budget" class="spending-map hide" data-url="http://openspending.org/datasets.json?category=budget"></div>
 
-		  </div>
-		  <div id="fp-blurb">
-        <span id="fp-claim">Mapping the money.</span>
-        <p>Our aim is to track every government financial transaction
-        across the world and present it in useful and engaging forms for everyone
-        from a school-child to a data geek.</p>
-		  </div>
+	  <div id="fp-map-toggler">
+	    <div class="btn-group" data-toggle="buttons-radio">
+	      <button type="button" class="btn btn-small active" data-target="#fp-map-all">All</button>
+	      <button type="button" class="btn btn-small" data-target="#fp-map-spending">Transactions</button>
+	      <button type="button" class="btn btn-small" data-target="#fp-map-budget">Budgets</button>
+	    </div>
+	    <a href="http://openspending.org/resources/handbook/ch006_types-of-data.html">What's the difference?</a>
 	  </div>
 	</div>
+	<div id="fp-blurb">
+          <span id="fp-claim">Mapping the money.</span>
+          <p>Our aim is to track every government financial transaction
+            across the world and present it in useful and engaging forms for everyone from a school-child to a data geek.</p>
+	</div>
+      </div>
+    </div>
 
   <div class="row">&nbsp;</div>
   <div class="row">
     <div class="span8">
       <form action="{{h.url(controller='entry', action='search')}}"
             method="GET" class="well" id="fp-search">
-        <input name="q" class="span7" placeholder="Search {{h.format_number_with_commas(c.num_entries)}} government transactions in {{c.datasets.count()}} datasets..." />
+        <input name="q" class="span7" placeholder="Search 1000000 government transactions in {{c.datasets.count()}} datasets..." />
         <input type="submit" class="btn" value="Search" />
       </form>
       {{h.literal(c.blog.content)}}
