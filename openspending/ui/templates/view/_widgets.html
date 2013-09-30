@@ -43,7 +43,12 @@
         $("#widget-edit-link").show();
         $("#widget-edit-link").click(function(e) {
           w.configure(null);
+          $('#widget-save-form').show();
           return false;
+        });
+        $('#widget-save-form').submit(function(e) {
+          // Save the current state
+          $('#widget-save-state').val(JSON.stringify(w.serialize()));
         });
       }
       if (w.getDownloadURL !== undefined) {

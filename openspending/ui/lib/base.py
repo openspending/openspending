@@ -56,11 +56,28 @@ def render(template_name,
 
     return literal(stream.render(method=method, encoding=None))
 
-
 def etag_cache_keygen(*a):
-    etag = hashlib.sha1(repr(a)).hexdigest()
+    """
+    Generate ETag key for the cache.
+    This automatically includes the request cookie
+    """
+    etag = hashlib.sha1(repr(a)+repr(request.cookies)).hexdigest()
     etag_cache(etag)
 
+def set_vary_header():
+    """
+    Set the vary header to force intermediate caching to be controlled by
+    different request headers. This only sets Cookie as the value of the Vary
+    header (because of user credentials in top navigation bar) but it could 
+    also include other request headers like Accept-Language if the site should 
+    serve different locales based on request headers.
+    """
+    # Set the vary header as Cookie
+    response.vary = ['Cookie']
+
+    # If ETag hasn't been generated we generate it
+    if not response.etag:
+        etag_cache_keygen()
 
 def sitemap(pages=[]):
     response.headers['Content-Type'] = 'text/xml; charset=utf-8'
@@ -123,6 +140,10 @@ class BaseController(WSGIController):
             response.cache_control.public = True
         else:
             response.cache_control.private = True
+
+        # Set vary header (this will set Cookie as a value for the vary header
+        # so different content can be served to logged in users
+        set_vary_header()
 
         response.cache_control.must_revalidate = c._must_revalidate
         if not c._must_revalidate:

@@ -78,7 +78,7 @@
           <div>
             <img src="{{h.static('img/icons/arrow_right_12x12.png')}}" />
 			{% if c.to %}
-			<a href="[{h.url_for(controller='dimension', action='member',
+			<a href="{{h.url_for(controller='dimension', action='member',
                   dataset=c.dataset.name, dimension='to',
                   name=c.to.get('name'))}}">{{h.render_value(c.to)}}</a>
 			{% endif %}

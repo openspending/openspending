@@ -117,11 +117,18 @@ class TestCSVImporter(DatabaseTestCase):
         source = csvimport_fixture('erroneous_values')
         importer = CSVImporter(source)
         importer.run(dry_run=True)
-        h.assert_equal(importer.errors, 2)
+
+        # Expected failures:
+        # * unique key constraint not met (2x)
+        # * amount cannot be parsed
+        # * time cannot be parse
+        h.assert_equal(importer.errors, 4)
         records = list(importer._run.records)
-        h.assert_true("time" in records[1].attribute,
+        # The fourth record should be about badly formed date
+        h.assert_true("time" in records[3].attribute,
                       "Should find badly formatted date")
-        h.assert_equal(records[1].row, 5)
+        # The row number of the badly formed date should be 5
+        h.assert_equal(records[3].row, 5)
 
     def test_error_with_empty_additional_date(self):
         source = csvimport_fixture('empty_additional_date')
