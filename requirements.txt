@@ -26,8 +26,10 @@ celery==2.4.7
 certifi==0.0.8
 chardet==1.0.1
 colander==0.9.3
+datapackage==0.1.2
 decorator==3.3.3
 docutils==0.9.1
+economics==0.1.1
 iso8601==0.1.4
 kombu==2.1.8
 lxml==2.3.4
