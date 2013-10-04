@@ -22,6 +22,8 @@ from openspending.validation.model.mapping import mapping_schema
 from openspending.validation.model.views import views_schema
 from openspending.validation.model.common import ValidationState
 
+from openspending.ui.alttemplates import templating
+
 log = logging.getLogger(__name__)
 
 
@@ -61,7 +63,7 @@ class EditorController(BaseController):
         fill = c.dataset.as_dict()
         if errors:
             fill.update(request.params)
-        return render('editor/core.html', form_errors=dict(errors),
+        return templating.render('editor/core.html', form_errors=dict(errors),
                 form_fill=fill)
 
     def core_update(self, dataset, format='html'):

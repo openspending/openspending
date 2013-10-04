@@ -1,33 +1,31 @@
-<html xmlns:py="http://genshi.edgewall.org/"
-  xmlns:i18n="http://genshi.edgewall.org/i18n"
-  xmlns:xi="http://www.w3.org/2001/XInclude"
-  py:strip="">
-  <xi:include href="_nav.html" />
+{% extends "base.html" %}
+{% from "editor/_nav.html" import editor_nav as editor_nav %}
 
-  <py:def function="nav_class">nav-editor</py:def>
+{% block page_title %}{{c.dataset.label or c.dataset.name}}{% endblock %}
 
-  <py:def function="page_title">${c.dataset.label or c.dataset.name}</py:def>
+{% block optional_head %}
+    {{h.style_tag('lib/vendor/chosen/chosen')}}
+{% endblock %}
 
-  <py:def function="optional_head">
-    <link rel="stylesheet" href="${g.script_root + '/lib/vendor/chosen/chosen.css'}" type="text/css"/>
-  </py:def>
-
-  <py:def function="scripts">
-    ${script_tag('lib/vendor/chosen/chosen.jquery.min')}
+{% block scripts %}
+    {{h.script_tag('lib/vendor/chosen/chosen.jquery.min')}}
     <script>
       jQuery(function($) {
         $(".chzn-select").chosen();
       });
     </script>
-  </py:def>  
+{% endblock %}
 
-  <div py:def="content">
-    ${editor_nav('core')}
+
+{% block content %}
+    <!-- templates/editor/core.html -->
+    {{editor_nav(h, c, 'core')}}
+    
     <div class="row">
       <div class="offset2 span10">
-        <form class="basic form-horizontal" action="${url(controller='editor',
-          action='core_update', dataset=c.dataset.name)}" method="POST">
-          <input name="name" value="${c.dataset.name}" type="hidden" />
+        {% formfill form_fill with form_errors -%}
+        <form class="basic form-horizontal" action="{{ h.url_for(controller='editor', action='core_update', dataset=c.dataset.name) }}" method="POST">
+          <input name="name" value="{{ c.dataset.name }}" type="hidden" />
           <fieldset>
             <div class="control-group">
               <label class="control-label" for="label">Title</label>
@@ -39,9 +37,9 @@
               <label class="control-label" for="territories">Category</label>
               <div class="controls">
                 <select name="category" class="chzn-select span4">
-                  <py:for each="code, name in c.categories">
-                    <option value="${code}">${name}</option>
-                  </py:for>
+                  {% for code,name in c.categories %}
+                  <option value="{{ code }}">{{ name }}</option>
+                  {% endfor %}
                 </select>
               </div>
             </div>
@@ -50,14 +48,14 @@
               <div class="controls">
                 <select name="currency" class="chzn-select span4">
                   <optgroup label="Commonly used currencies">
-                    <py:for each="code, name in c.key_currencies">
-                      <option value="${code}">${name} (${code})</option>
-                    </py:for>
+                    {% for code,name in c.key_currencies %}
+                    <option value="{{ code }}">{{ name }} ({{ code }})</option>
+                    {% endfor %}
                   </optgroup>
                   <optgroup label="All currencies">
-                    <py:for each="code, name in c.all_currencies">
-                      <option value="${code}">${name} (${code})</option>
-                    </py:for>
+                    {% for code,name in c.all_currencies -%}
+                    <option value="{{ code }}">{{ name }} ({{ code }})</option>
+                    {% endfor %}
                   </optgroup>
                 </select>
               </div>
@@ -66,12 +64,11 @@
               <label class="control-label" for="default_time">Default year</label>
               <div class="controls">
                 <select name="default_time" class="chzn-select span4">
-                  <py:if test="not len(c.available_times)">
-                    <option value="">(No data is loaded)</option>
-                  </py:if>
-                  <py:for each="time in c.available_times">
-                    <option value="${time}">${time}</option>
-                  </py:for>
+                  {% for time in c.available_times %}
+                  <option value="{{ time }}">{{ time }}</option>
+                  {% else %}
+                  <option value="">(No data is loaded)</option>
+                  {% endfor %}
                 </select>
               </div>
             </div>
@@ -79,9 +76,9 @@
               <label class="control-label" for="territories">Countries</label>
               <div class="controls">
                 <select name="territories" multiple="multiple" class="chzn-select span4">
-                  <py:for each="code, name in c.territories">
-                    <option value="${code}">${name} (${code})</option>
-                  </py:for>
+                  {% for code,name in c.territories -%}
+                  <option value="{{ code }}">{{ name }} ({{ code }})</option>
+                  {% endfor %}
                 </select>
               </div>
             </div>
@@ -89,9 +86,9 @@
               <label class="control-label" for="languages">Languages</label>
               <div class="controls">
                 <select name="languages" multiple="multiple" class="chzn-select span4">
-                  <py:for each="code, name in c.languages">
-                    <option value="${code}">${name} (${code})</option>
-                  </py:for>
+                  {% for code,name in c.languages -%}
+                  <option value="{{ code }}">{{ name }} ({{ code }})</option>
+                  {% endfor %}
                 </select>
               </div>
             </div>
@@ -106,10 +103,8 @@
             <input value="Update" class="btn btn-success" type="submit" />
           </div>
         </form>
+        {%- endformfill %}
       </div>
     </div>
-  </div>
 
-  <xi:include href="../layout.html" />
-</html>
-
+{% endblock %}
