@@ -82,7 +82,7 @@ def gravatar(email, size=None, default='mm'):
     """
 
     # Gravatar url structure
-    gravatar_url = 'http://www.gravatar.com/avatar/{digest}?d={default}{query}'
+    gravatar_url = '//www.gravatar.com/avatar/{digest}?d={default}{query}'
 
     # If email is None we spit out a dummy digest
     if email is None:
@@ -100,7 +100,7 @@ def gravatar(email, size=None, default='mm'):
     return url
 
 def twitter_uri(handle):
-    return 'https://twitter.com/{handle}'.format(handle=handle.lstrip('@'))
+    return '//twitter.com/{handle}'.format(handle=handle.lstrip('@'))
 
 def script_root():
     c = tmpl_context
