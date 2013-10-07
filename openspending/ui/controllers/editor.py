@@ -39,7 +39,7 @@ class EditorController(BaseController):
         c.index_count = solr.dataset_entries(c.dataset.name)
         c.index_percentage = 0 if not c.entries_count else \
             int((float(c.index_count) / float(c.entries_count)) * 1000)
-        return render('editor/index.html')
+        return templating.render('editor/index.html')
 
     def core_edit(self, dataset, errors={}, format='html'):
         self._get_dataset(dataset)
