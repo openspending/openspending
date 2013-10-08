@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block page_title %}{{ c.code }}{% endblock %}
+
+{% block content %}
+<h2 class="page-header">
+  Something went wrong. <small>Internal Server Error</small>
+</h2>
+
+<div class="alert-message block-message error">
+  <p>
+    <strong>{{ c.message }}</strong>
+  </p>
+  <center><iframe width="560" height="315" src="http://www.youtube.com/embed/K-JuE9esfUc" frameborder="0"></iframe></center>
+</div>
+{% endblock %}

@@ -7,7 +7,7 @@ from pylons.middleware import error_document_template
 from webhelpers.html.builder import literal
 
 from openspending.ui.lib.base import BaseController, render
-
+from openspending.ui.alttemplates import templating
 
 class ErrorController(BaseController):
 
@@ -43,7 +43,7 @@ class ErrorController(BaseController):
             message = message.split('</h1>', 1)[-1]
             message = message.split('</body>', 1)[0]
             c.message = message.split('\n', 2)[-1]
-            return render('../templates/%s.html' % code)
+            return templating.render('errors/%s.html' % code)
         else:
             page = error_document_template % \
                 dict(prefix=request.environ.get('SCRIPT_NAME', ''),
@@ -55,7 +55,7 @@ class ErrorController(BaseController):
         if code in self.rendered_error_codes:
             c.code = code
             c.message = code
-            return render('../templates/%s.html' % code)
+            return templating.render('errors/%s.html' % code)
         abort(404)
 
     def img(self, id):

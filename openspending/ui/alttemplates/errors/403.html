@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block page_title %}{{ c.code }}{% endblock %}
+
+{% block content %}
+<h2 class="page-header">
+  Access denied. <small>Error {{ c.code }}</small>
+</h2>
+
+<div class="alert-message block-message error">
+  <strong>{{ c.message }}</strong>:
+  {% if c.account %}
+  <p>
+    You may not have the relevant rights.
+  </p>
+  {% else %}
+  <p>
+    You may need to login.
+  </p>
+  {% endif %}
+</div>
+{% endblock %}
