@@ -146,7 +146,7 @@ class EditorController(BaseController):
         c.fill = values or {'serp_title': c.dataset.serp_title,
                             'serp_teaser': c.dataset.serp_teaser}
         c.errors = errors
-        return render('editor/templates.html', form_fill=c.fill)
+        return templating.render('editor/templates.html', form_fill=c.fill)
 
     def templates_update(self, dataset, format='html'):
         self._get_dataset(dataset)
