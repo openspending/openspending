@@ -196,7 +196,7 @@ class EditorController(BaseController):
         accounts = accounts or c.dataset.managers
         c.accounts = json.dumps([a.as_dict() for a in accounts], indent=2)
         c.errors = errors
-        return render('editor/team.html')
+        return templating.render('editor/team.html')
 
     def team_update(self, dataset, format='html'):
         self._get_dataset(dataset)
