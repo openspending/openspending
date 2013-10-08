@@ -24,8 +24,9 @@ class SourceController(BaseController):
     def new(self, dataset, errors={}):
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
+        params_dict = dict(request.params) if errors else {}
         return templating.render('source/new.html', form_errors=errors,
-                                 form_fill=request.params if errors else {})
+                                 form_fill=params_dict)
 
     def create(self, dataset):
         self._get_dataset(dataset)
@@ -42,8 +43,7 @@ class SourceController(BaseController):
                                dataset=c.dataset.name))
         except Invalid, i:
             errors = i.asdict()
-            errors = [(k[len('source.'):], v) for k, v \
-                    in errors.items()]
+            errors = [(k[len('source.'):], v) for k, v in errors.items()]
             return self.new(dataset, dict(errors))
 
     def index(self, dataset, format='json'):

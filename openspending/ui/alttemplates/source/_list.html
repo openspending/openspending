@@ -1,0 +1,106 @@
+{% macro sources_list(dataset, h) -%}
+
+<!-- templates/source/_list.html -->
+<table class="sources table table-striped table-condensed">
+  <tr>
+    <th colspan="2">Link</th>
+    <th>Operations</th>
+  </tr>
+  {% for source in dataset.sources %}
+  <tr>
+    <td colspan="2">
+      {% if 'error' in source.analysis %}
+      <span class="label label-important">Error</span>
+      {% elif 'columns' in source.analysis %}
+      <span class="label label-info">OK</span>
+      {% endif %}
+
+      <a href="{{ source.url }}">{{ h.readable_url(source.url) }}</a>
+
+      {% if 'error' in source.analysis %}
+      &mdash; <strong>{{ source.analysis.error }}</strong>
+      {% elif 'columns' in source.analysis %}
+      <span class="help-inline">
+        {{ source.analysis.columns|length }} columns
+      </span>
+      {% endif %}
+    </td>
+    <td class="ops">
+      {% if source.successfully_loaded %}
+      <a href="#" class="btn btn-success btn-small disabled">Successfully loaded</a>
+      {% else %}
+      {% if source.loadable %}
+      {% if source.is_running %}
+      <a href="#" class="btn btn-info btn-small disabled">Running...</a>
+      {% elif source.successfully_sampled %}
+      <form method="POST" action="{{h.url(controller='source',
+			          action='load', dataset=dataset.name, 
+                                  id=source.id) }}">
+	<button class="btn btn-success btn-small" title="Load source into OpenSpending"><i class="icon-upload icon-white"></i> Load</button>
+      </form>
+      {% else %}
+      <form method="POST" action="{{ h.url(controller='source',
+	 		          action='load', dataset=dataset.name,
+                                  id=source.id) }}">
+	<input type="hidden" name="sample" value="true" />
+	<button class="btn btn-small" value="Test a sample"><i class="icon-eye-open"></i> Test</button>
+      </form>
+      {%- endif %}
+      {%- endif %}
+      <form method="POST" action="{{ h.url(controller='source',
+		                  action='delete', dataset=dataset.name,
+                                  id=source.id) }}">
+        <button class="btn btn-danger btn-small" title="Delete source"><i class="icon-remove icon-white"></i> Delete</button>
+      </form>
+      {%- endif %}
+    </td>
+  </tr>
+  <tr>
+    {% if source.runs.count() %}
+    <td class="top" width="5%"><strong>Reports</strong>:</td>
+    <td colspan="2">
+      <ul class="runs">
+        {% for run in source.runs[:5] %}
+        <li>
+          <a href="{{ h.url(controller='run', action='view',
+                   dataset=dataset.name, source=source.id, id=run.id) }}">
+            {{ run.time_start.strftime("%d.%m.%Y, %H:%M") }}</a>
+
+          {% if run.status == 'running'%}
+          <span class="label label-info">Running</span>
+          {% elif run.status == 'complete' %}
+          <span class="label label-success">Complete</span>
+          {% elif run.status == 'failed' %}
+          <span class="label label-important">Errors</span>
+          {% elif run.status == 'removed' %}
+	  <span class="label">Removed</span>
+	  {% else %}
+	  <span class="label">{{ run.status }}</span>
+          {% endif %}
+
+          <span>({{ run.records.count() }} Errors)</span>
+        </li>
+        {% endfor %}
+      </ul>
+    </td>
+    {% elif 'error' not in source.analysis %}
+    <td class="top" width="5%"><strong>Analysis</strong>:</td>
+    <td colspan="2">
+      {% if 'columns' in source.analysis and source.analysis.columns|length%}
+      We found these columns in the CSV file:
+      <ul>
+        {% for column in source.analysis.columns %}
+	<li>{{ column }}</li>
+        {% endfor %}
+      </ul>
+      {% elif 'columns' in source.analysis %}
+      <span class="label label-warning">Warning</span> No columns found.
+      {% else %}
+      <span class="label label-info">Still analysing</span> Try refreshing in a moment.
+      {% endif %}
+    </td>
+    {% endif %}
+  </tr>
+  {% endfor %}
+</table>
+{%- endmacro%}

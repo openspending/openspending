@@ -98,7 +98,7 @@ class EditorController(BaseController):
         # TODO: really split up dimensions and mapping editor.
         c.source = c.dataset.sources.first()
         if c.source is None:
-            return render('editor/dimensions_errors.html')
+            return templating.render('editor/dimensions_errors.html')
         mapping = mapping or c.dataset.data.get('mapping', {})
         if not len(mapping) and c.source and 'mapping' in c.source.analysis:
             mapping = c.source.analysis['mapping']
@@ -106,8 +106,8 @@ class EditorController(BaseController):
         c.errors = errors
         c.saved = saved
         if len(c.dataset):
-            return render('editor/dimensions_errors.html')
-        return render('editor/dimensions.html', form_fill=c.fill)
+            return templating.render('editor/dimensions_errors.html')
+        return templating.render('editor/dimensions.html', form_fill=c.fill)
 
     def dimensions_update(self, dataset, format='html'):
         self._get_dataset(dataset)
