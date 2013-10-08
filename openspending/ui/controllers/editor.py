@@ -170,7 +170,7 @@ class EditorController(BaseController):
         views = views or c.dataset.data.get('views', [])
         c.fill = {'views': json.dumps(views, indent=2)}
         c.errors = errors
-        return render('editor/views.html', form_fill=c.fill)
+        return templating.render('editor/views.html', form_fill=c.fill)
 
     def views_update(self, dataset, format='html'):
         self._get_dataset(dataset)
