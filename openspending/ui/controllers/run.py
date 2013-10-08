@@ -7,6 +7,7 @@ from openspending.model import Source, Run, LogRecord
 from webhelpers import paginate
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.base import abort, require
+from openspending.ui.alttemplates import templating
 
 log = logging.getLogger(__name__)
 
@@ -46,4 +47,4 @@ class RunController(BaseController):
         c.data_page = Page(data.order_by(LogRecord.timestamp.asc()),
                 page=self._get_page('data_page'),
                 items_per_page=20)
-        return render('run/view.html')
+        return templating.render('run/view.html')
