@@ -7,7 +7,7 @@ from urllib import urlencode
 from webhelpers.feedgenerator import Rss201rev2Feed
 
 from pylons import request, response, tmpl_context as c, url
-from pylons.controllers.util import redirect
+from pylons.controllers.util import abort, redirect
 from pylons.i18n import _
 from colander import SchemaNode, String, Invalid
 
@@ -15,10 +15,12 @@ from openspending.model import Dataset, DatasetTerritory, \
         DatasetLanguage, View, Badge, meta as db
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import to_jsonp
+from openspending.lib.paramparser import DatasetIndexParamParser
 from openspending import auth as has
 
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render, sitemap
+from openspending.ui.lib.cache import DatasetIndexCache
 from openspending.ui.lib.base import require, etag_cache_keygen
 from openspending.ui.lib.views import handle_request
 from openspending.ui.lib.hypermedia import dataset_apply_links
@@ -33,76 +35,82 @@ from openspending.ui.alttemplates import templating
 
 log = logging.getLogger(__name__)
 
-
 class DatasetController(BaseController):
 
     def index(self, format='html'):
+        """
+        Get a list of all datasets along with territory, language, and
+        category counts (amount of datasets for each).
+        """
+
+        # Create facet filters (so we can look at a single country,
+        # language etc.)
         c.query = request.params.items()
         c.add_filter = lambda f, v: '?' + urlencode(c.query +
                 [(f, v)] if (f, v) not in c.query else c.query)
         c.del_filter = lambda f, v: '?' + urlencode([(k, x) for k, x in
             c.query if (k, x) != (f, v)])
-        c.results = c.datasets
-        for language in request.params.getall('languages'):
-            l = db.aliased(DatasetLanguage)
-            c.results = c.results.join(l, Dataset._languages)
-            c.results = c.results.filter(l.code == language)
-        for territory in request.params.getall('territories'):
-            t = db.aliased(DatasetTerritory)
-            c.results = c.results.join(t, Dataset._territories)
-            c.results = c.results.filter(t.code == territory)
-        category = request.params.get('category')
-        if category:
-            c.results = c.results.filter(Dataset.category == category)
 
-        c.results = list(c.results)
-        c.territory_options = [{'code': code,
-                                'count': count,
-                                'url': h.url_for(controller='dataset',
-                                    action='index', territories=code),
-                                'label': COUNTRIES.get(code, code)} \
-            for (code, count) in DatasetTerritory.dataset_counts(c.results)]
-        c.language_options = [{'code': code,
-                               'count': count,
-                               'url': h.url_for(controller='dataset',
-                                    action='index', languages=code),
-                               'label': LANGUAGES.get(code, code)} \
-            for (code, count) in DatasetLanguage.dataset_counts(c.results)]
+        # Parse the request parameters to get them into the right format
+        parser = DatasetIndexParamParser(request.params)
+        params, errors = parser.parse()
+        if errors:
+            concatenated_errors = ', '.join(errors)
+            abort(400, 
+                  _('Parameter values not supported: %s') % concatenated_errors)
 
-        # TODO: figure out where to put this:
-        ds_ids = [d.id for d in c.results]
-        if len(ds_ids):
-            q = db.select([Dataset.category, db.func.count(Dataset.id)],
-                Dataset.id.in_(ds_ids), group_by=Dataset.category,
-                order_by=db.func.count(Dataset.id).desc())
-            c.category_options = [{'category': category,
-                                   'count': count,
-                                   'url': h.url_for(controller='dataset',
-                                        action='index', category=category),
-                                   'label': CATEGORIES.get(category, category)} \
-                for (category, count) in db.session.bind.execute(q).fetchall() \
-                if category is not None]
-        else:
-            c.category_options = []
+        # We need to pop the page and pagesize paramters since they're not
+        # used for the cache (we have to get all of the datasets to do the
+        # language, territory, and category counts (these are then only used
+        # for the html response)
+        page = params.pop('page')
+        pagesize = params.pop('pagesize')
 
-        c._must_revalidate = True
-        if len(c.results):
-            dt = max([r.updated_at for r in c.results])
-            etag_cache_keygen(dt)
+        # Get cached indices (this will also generate them if there are no
+        # cached results (the cache is invalidated when a dataset is published
+        # or retracted
+        cache = DatasetIndexCache()
+        cache.invalidate()
+        results = cache.index(**params)
+
+        # Generate the ETag from the last modified timestamp of the first
+        # dataset (since they are ordered in descending order by last
+        # modified). It doesn't matter that this happens if it has (possibly)
+        # generated the index (if not cached) since if it isn't cached then
+        # the ETag is definitely modified. We wrap it in a try clause since
+        # if there are no public datasets we'll get an index error.
+        # We also don't set c._must_revalidate to True since we don't care
+        # if the index needs a hard refresh
+        try:
+            etag_cache_keygen(results['datasets'][0]\
+                                  ['timestamps']['last_modified'])
+        except IndexError:
+            etag_cache_keygen(None)
+
+        # Assign the results to template context variables
+        c.language_options = results['languages']
+        c.territory_options = results['territories']
+        c.category_options = results['categories']
 
         if format == 'json':
-            results = map(lambda d: d.as_dict(), c.results)
-            results = [dataset_apply_links(r) for r in results]
-            return to_jsonp({
-                'datasets': results,
-                'categories': c.category_options,
-                'territories': c.territory_options,
-                'languages': c.language_options
-                })
+            # Apply links to the dataset lists before returning the json
+            results['datasets'] = [dataset_apply_links(r) \
+                                       for r in results['datasets']]
+            return to_jsonp(results)
         elif format == 'csv':
-            results = map(lambda d: d.as_dict(), c.results)
-            return write_csv(results, response)
+            # The CSV response only shows datasets, not languages,
+            # territories, etc.
+            return write_csv(results['datasets'], response)
+
+        # If we're here then it's an html format so we show rss, do the
+        # pagination and render the template
         c.show_rss = True
+        # The page parameter we popped earlier is part of request.params but
+        # we now know it was parsed. We have to send in request.params to
+        # retain any parameters already supplied (filters)
+        c.page = templating.Page(results['datasets'], items_per_page=pagesize,
+                                 item_count=len(results['datasets']),
+                                 **request.params)
         return templating.render('dataset/index.html')
 
     def new(self, errors={}):
