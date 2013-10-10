@@ -35,6 +35,7 @@ from openspending.ui.alttemplates import templating
 
 log = logging.getLogger(__name__)
 
+
 class DatasetController(BaseController):
 
     def index(self, format='html'):
@@ -70,7 +71,6 @@ class DatasetController(BaseController):
         # cached results (the cache is invalidated when a dataset is published
         # or retracted
         cache = DatasetIndexCache()
-        cache.invalidate()
         results = cache.index(**params)
 
         # Generate the ETag from the last modified timestamp of the first
