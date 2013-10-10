@@ -4,23 +4,11 @@ from pylons import tmpl_context as c
 from pylons.i18n import _
 
 from openspending.model import Source, Run, LogRecord
-from webhelpers import paginate
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.base import abort, require
+from openspending.ui.alttemplates.templating import Page
 
 log = logging.getLogger(__name__)
-
-
-class Page(paginate.Page):
-    # Curry the pager method of the webhelpers.paginate.Page class, so we have
-    # our custom layout set as default.
-    def pager(self, *args, **kwargs):
-        kwargs.update(
-            format="<div class='pager'>$link_previous ~2~ $link_next</div>",
-            symbol_previous=u'\xab Prev', symbol_next=u'Next \xbb'
-        )
-        return super(Page, self).pager(*args, **kwargs)
-
 
 class RunController(BaseController):
 

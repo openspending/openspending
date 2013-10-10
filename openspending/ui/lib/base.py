@@ -59,9 +59,13 @@ def render(template_name,
 def etag_cache_keygen(*a):
     """
     Generate ETag key for the cache.
-    This automatically includes the request cookie
+    This automatically includes the username taken from the session cookie
+    with the help of pylons
     """
-    etag = hashlib.sha1(repr(a)+repr(request.cookies)).hexdigest()
+    # Get the account name (authentication in pylons sets it to the 
+    # environment variable REMOTE_USER)
+    account_name = request.environ.get('REMOTE_USER', None)
+    etag = hashlib.sha1(repr(a)+repr(account_name)).hexdigest()
     etag_cache(etag)
 
 def set_vary_header():
@@ -118,7 +122,6 @@ class BaseController(WSGIController):
 
         c._cache_disabled = False
         c._must_revalidate = False
-        c.datasets = model.Dataset.all_by_account(c.account)
         c.content_section = c.dataset = None
 
 
@@ -148,8 +151,6 @@ class BaseController(WSGIController):
         response.cache_control.must_revalidate = c._must_revalidate
         if not c._must_revalidate:
             response.cache_control.max_age = 3600 * 6
-            response.expires = datetime.utcnow() + \
-                timedelta(seconds=response.cache_control.max_age)
 
     def _detect_format(self, format):
         for mimetype, mimeformat in self.accept_mimetypes.items():

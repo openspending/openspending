@@ -9,14 +9,14 @@
   <div class="span8">
     <p>The database contains the following datasets:</p>
 
-    {% for dataset in c.results %}
+    {% for dataset in c.page %}
     <div>
       <h3><a class="dataset-name" href="{{h.url(controller='dataset',
 					action='view', dataset=dataset.name)}}">
           {{dataset.label}}
         </a>
       </h3>
-      {% if dataset.has_badges %}
+      {% if dataset.badges %}
       <p>
 	{% for badge in dataset.badges %}
 	<a href="{{ h.url(controller='badge', action='information', id=badge.id)}}" title="{{badge.label}}"><img src="{{badge.image}}" alt="{{badge.label}}"></a> 
@@ -31,6 +31,7 @@
       <br/>
     </div>
     {% endfor %}
+    {{ c.page.pager() }}
   </div>
   <div class="span4">
 
