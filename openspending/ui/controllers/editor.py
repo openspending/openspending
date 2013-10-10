@@ -12,7 +12,7 @@ from openspending.lib import solr_util as solr
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.base import require, abort
-from openspending.ui.lib.cache import AggregationCache
+from openspending.ui.lib.cache import AggregationCache, DatasetIndexCache
 from openspending.reference.currency import CURRENCIES
 from openspending.reference.country import COUNTRIES
 from openspending.reference.category import CATEGORIES
@@ -243,6 +243,11 @@ class EditorController(BaseController):
         c.dataset.private = False
         c.dataset.updated_at = datetime.utcnow()
         db.session.commit()
+
+        # Need to invalidate the cache of the dataset index
+        cache = DatasetIndexCache()
+        cache.invalidate()
+
         public_url = h.url_for(controller='dataset', action='view',
                            dataset=c.dataset.name, qualified=True)
         h.flash_success(_("Congratulations, the dataset has been " \
@@ -259,6 +264,11 @@ class EditorController(BaseController):
         c.dataset.updated_at = datetime.utcnow()
         AggregationCache(c.dataset).invalidate()
         db.session.commit()
+
+        # Need to invalidate the cache of the dataset index
+        cache = DatasetIndexCache()
+        cache.invalidate()
+        
         h.flash_success(_("The dataset has been retracted. " \
                 "It is no longer visible to others."))
         redirect(h.url_for(controller='editor', action='index',
