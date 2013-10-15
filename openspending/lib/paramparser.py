@@ -3,6 +3,8 @@ import hashlib
 
 from openspending import model
 from openspending.reference.category import CATEGORIES
+from openspending.reference.country import COUNTRIES
+from openspending.reference.language import LANGUAGES
 
 
 class ParamParser(object):
@@ -94,6 +96,84 @@ class ParamParser(object):
         if value.lower().strip() in ['true', '1', 'yes', 'on']:
             return True
         return False
+
+class DatasetIndexParamParser(ParamParser):
+    """
+    Parameter parser for the dataset index page (which is served
+    differently based on languages, territories and category chosen.
+    """
+
+    # We cannot use the defaults from ParamParser since that includes
+    # order.
+    defaults = OrderedDict()
+    defaults['languages'] = []
+    defaults['territories'] = []
+    defaults['category'] = None
+    # Used for pagination in html pages only
+    defaults['page'] = 1
+    defaults['pagesize'] = 25
+
+    def __init__(self, params):
+        """
+        Initialize dataset index parameter parser, and make
+        the initial params available as part of the instance
+        """
+        self.request_params = params
+        super(DatasetIndexParamParser, self).__init__(params)
+
+    def parse_languages(self, language):
+        """
+        Get the languages. This ignores the language supplied since multiple
+        languages can be provided with multiple parameters and ParamParser
+        does not support that.
+        """
+        # We force the language codes to lowercase and strip whitespace
+        languages = [l.lower().strip() \
+                         for l in self.request_params.getall('languages')]
+        # Check if this language is supported by OpenSpending
+        # If not we add an error
+        for lang in languages:
+            if lang.lower().strip() not in LANGUAGES:
+                self._error('Language %s not found' % lang)
+
+        return languages
+
+    def parse_territories(self, territory):
+        """
+        Get the territories. This ignores the territory supplied since multiple
+        territories can be provided with multiple parameters and ParamParser
+        does not support that.
+        """
+        # We force the territory codes to uppercase and strip whitespace
+        # Isn't it great that we're so consistent with uppercase and lowercase
+        # (uppercase here, lowercase in languages and categories)
+        territories = [t.upper().strip() \
+                           for t in self.request_params.getall('territories')]
+
+        # Check if this territory is supported by OpenSpending
+        # If not we add an error
+        for country in territories:
+            if country not in COUNTRIES:
+                self._error('Territory %s not found' % country)
+
+        return territories
+
+    def parse_category(self, category):
+        """
+        Get the category and check if it exists in
+        supported categories. If so we return it.
+        """
+        if category:
+            # We want the category to be lowercase and stripped of whitespace
+            category = category.lower().strip()
+            # Check if category is supported, if not add an error
+            if category in CATEGORIES:
+                return category
+            else:
+                self._error('Category %s not found' % category)
+
+        # We return None if there's an error of no category
+        return None
 
 class AggregateParamParser(ParamParser):
     defaults = ParamParser.defaults.copy()
