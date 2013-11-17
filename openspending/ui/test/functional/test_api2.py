@@ -1,4 +1,5 @@
 from openspending.lib import json
+from openspending.model import Dataset, Account
 from csv import DictReader
 from .. import ControllerTestCase, url, helpers as h
 
@@ -250,3 +251,81 @@ class TestApi2Controller(ControllerTestCase):
             "No warning given when inflation not possible"
         assert result['summary']['amount'] == 57300000.0, \
             "Amount does not fall back to the original amount"
+
+class TestApiNewDataset(ControllerTestCase):
+    """
+    This checks for authentication with a header api key while also
+    testing for loading of data via the api
+    """
+
+    def setup(self):
+        super(TestApiNewDataset, self).setup()
+        self.user = h.make_account('test_new')
+        self.user.api_key = 'd0610659-627b-4403-8b7f-6e2820ebc95d'
+
+        self.user2 = h.make_account('test_new2')
+        self.user2.api_key = 'c011c340-8dad-419c-8138-1c6ded86ead5'
+
+    def test_new_dataset(self):
+        user = Account.by_name('test_new')
+        assert user.api_key == 'd0610659-627b-4403-8b7f-6e2820ebc95d'
+
+        u = url(controller='api2', action='create')
+        params= {
+            'metadata':
+                'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
+            'csv_file':
+                'http://mk.ucant.org/info/data/sample-openspending-dataset.csv'
+            }
+        apikey_header = 'apikey {0}'.format(user.api_key)
+        response = self.app.post(u, params, {'Authorization':apikey_header})
+        #Dataset.by_name('openspending-example').private = False
+        assert "200" in response.status
+        assert Dataset.by_name('openspending-example')
+
+    def test_new_no_apikey(self):
+        u = url(controller='api2', action='create')
+        params = {
+            'metadata':
+                'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
+            'csv_file':
+                'http://mk.ucant.org/info/data/sample-openspending-dataset.csv'
+            }
+        response = self.app.post(u, params, expect_errors=True)
+        assert "400" in response.status
+        assert not Dataset.by_name('openspending-example')
+        
+    def test_new_wrong_user(self):
+        # First we add a Dataset with user 'test_new'
+        user = Account.by_name('test_new')
+        assert user.api_key == 'd0610659-627b-4403-8b7f-6e2820ebc95d'
+
+        u = url(controller='api2', action='create')
+        params = {
+            'metadata':
+                'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
+            'csv_file':
+                'http://mk.ucant.org/info/data/sample-openspending-dataset.csv'
+            }
+        apikey_header = 'apikey {0}'.format(user.api_key)
+        response = self.app.post(u, params, {'Authorization':apikey_header})
+        #Dataset.by_name('openspending-example').private = False
+        assert "200" in response.status
+        assert Dataset.by_name('openspending-example')
+
+        # After that we try to update the Dataset with user 'test_new2'
+        user = Account.by_name('test_new2')
+        assert user.api_key == 'c011c340-8dad-419c-8138-1c6ded86ead5'
+        
+        u = url(controller='api2', action='create')
+        params = {
+            'metadata':
+                'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
+            'csv_file':
+                'http://mk.ucant.org/info/data/sample-openspending-dataset.csv'
+            }
+        apikey_header = 'apikey {0}'.format(user.api_key)
+        response = self.app.post(u, params, {'Authorization':apikey_header},
+                                 expect_errors=True)
+        assert '403' in response.status    
+        

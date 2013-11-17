@@ -24,6 +24,7 @@ from repoze.who.plugins.friendlyform import FriendlyFormPlugin
 
 from openspending.ui.config.environment import load_environment
 from openspending.ui.lib.authenticator import (UsernamePasswordAuthenticator,
+                                               ApiKeyIdentifier,
                                                ApiKeyAuthenticator)
 
 def make_app(global_conf, full_stack=True, static_files=True, **app_conf):
@@ -74,7 +75,8 @@ def make_app(global_conf, full_stack=True, static_files=True, **app_conf):
             rememberer_name='auth_tkt')
     identifiers = [('auth_tkt', auth_tkt),
                    ('basicauth', basicauth),
-                   ('form', form)]
+                   ('form', form),
+                   ('apikey', ApiKeyIdentifier())]
     authenticators = [('auth_tkt', auth_tkt),
                       ('username', UsernamePasswordAuthenticator()),
                       ('apikey', ApiKeyAuthenticator())]
@@ -86,7 +88,7 @@ def make_app(global_conf, full_stack=True, static_files=True, **app_conf):
         default_request_classifier,
         default_challenge_decider,
         log_stream = log_stream,
-        log_level = logging.WARN
+        log_level = logging.DEBUG
         )
 
     if asbool(full_stack):

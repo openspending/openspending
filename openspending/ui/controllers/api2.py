@@ -1,10 +1,14 @@
 import logging
+import urllib2
+import json
 
 from pylons import request, response, tmpl_context as c
-from pylons.controllers.util import etag_cache
+from pylons.controllers.util import abort, etag_cache
 
 from openspending import model
 from openspending import auth as can
+from openspending.model import meta as db
+from openspending.model import Source, Dataset
 from openspending.lib import util
 from openspending.lib.browser import Browser
 from openspending.lib.streaming import JSONStreamingResponse, CSVStreamingResponse
@@ -17,6 +21,9 @@ from openspending.ui.lib.base import etag_cache_keygen
 from openspending.ui.lib.cache import AggregationCache
 from openspending.ui.lib.hypermedia import entry_apply_links, \
         drilldowns_apply_links, dataset_apply_links
+from openspending.tasks import load_source
+from openspending.validation.model import validate_model
+from colander import Invalid
 
 log = logging.getLogger(__name__)
 
@@ -194,6 +201,61 @@ class Api2Controller(BaseController):
             'results': _entries
         })
 
+    def create(self):
+        """
+        Adds a new dataset dynamically through a POST request
+        """
+
+        # User must be authenticated so we should have a user object in
+        # c.account, if not abort with error message
+        if not c.account:
+            abort(status_code=400, detail='user not authenticated')
+
+        # Check if the params are there ('metadata', 'csv_file')
+        if len(request.params) != 2:
+            abort(status_code=400, detail='incorrect number of params')
+
+        metadata = request.params['metadata'] \
+            if 'metadata' in request.params \
+            else abort(status_code=400, detail='metadata is missing')
+
+        csv_file = request.params['csv_file'] \
+            if 'csv_file' in request.params \
+            else abort(status_code=400, detail='csv_file is missing')
+
+        # We proceed with the dataset
+        model = json.load(urllib2.urlopen(metadata))
+        try:
+            log.info("Validating model")
+            model = validate_model(model)
+        except Invalid, i:
+            log.error("Errors occured during model validation:")
+            for field, error in i.asdict().items():
+                log.error("%s: %s", field, error)
+            abort(status_code=400, detail='Model is not well formed')
+        dataset = Dataset.by_name(model['dataset']['name'])
+        if not dataset:
+            dataset = Dataset(model)
+            require.dataset.create()
+            dataset.managers.append(c.account)
+            dataset.private = True #Default value
+            db.session.add(dataset)
+            
+        require.dataset.update(dataset)
+        log.info("Dataset: %s", dataset.name)
+        source = Source(dataset=dataset, creator=c.account, url=csv_file)
+
+        log.info(source)
+        for source_ in dataset.sources:
+            if source_.url == csv_file:
+                source = source_
+                break
+        db.session.add(source)
+        db.session.commit()
+
+        # Send loading of source into celery queue
+        load_source.delay(source.id)
+        return to_jsonp(dataset_apply_links(dataset.as_dict()))
 
 def _expand_facets(facets, dataset):
     dim_names = [d.name for d in dataset.dimensions]
