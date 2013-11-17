@@ -79,18 +79,6 @@ def set_vary_header():
     if not response.etag:
         etag_cache_keygen()
 
-def sitemap(pages=[]):
-    response.headers['Content-Type'] = 'text/xml; charset=utf-8'
-    return render('sitemap.xml', extra_vars={
-        'pages': pages
-        })
-
-def sitemapindex(sitemaps=[]):
-    response.headers['Content-Type'] = 'text/xml; charset=utf-8'
-    return render('sitemapindex.xml', extra_vars={
-        'sitemaps': sitemaps
-        })
-
 class BaseController(WSGIController):
 
     def __call__(self, environ, start_response):

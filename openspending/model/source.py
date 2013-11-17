@@ -76,7 +76,10 @@ class Source(db.Model):
         return True in [r.successful_load for r in self.runs]
 
     def __repr__(self):
-        return "<Source(%s,%s)>" % (self.dataset.name, self.url)
+        try:
+            return "<Source(%s,%s)>" % (self.dataset.name, self.url)
+        except:
+            return ''
 
     @classmethod
     def by_id(cls, id):

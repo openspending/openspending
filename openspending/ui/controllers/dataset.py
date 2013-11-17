@@ -18,7 +18,7 @@ from openspending.lib.jsonexport import to_jsonp
 from openspending import auth as has
 
 from openspending.ui.lib import helpers as h
-from openspending.ui.lib.base import BaseController, render, sitemap
+from openspending.ui.lib.base import BaseController, render
 from openspending.ui.lib.base import require, etag_cache_keygen
 from openspending.ui.lib.views import handle_request
 from openspending.ui.lib.hypermedia import dataset_apply_links
@@ -204,24 +204,6 @@ class DatasetController(BaseController):
             c.badges = list(Badge.all())
 
         return templating.render('dataset/about.html')
-
-    def sitemap(self, dataset):
-        self._get_dataset(dataset)
-        pages = []
-        for action in ['view', 'about']:
-            pages.append({
-                'loc': h.url_for(controller='dataset', action=action,
-                                 dataset=c.dataset.name, qualified=True),
-                'lastmod': c.dataset.updated_at,
-                'priority': 0.8})
-        for view in View.all_by_dataset(c.dataset):
-            pages.append({
-                'loc': h.url_for(controller='view', action='view',
-                                 dataset=dataset, name=view.name,
-                                 qualified=True),
-                'lastmod': view.updated_at
-                })
-        return sitemap(pages)
 
     def explorer(self, dataset):
         redirect(h.url_for(controller='view', action='new',
