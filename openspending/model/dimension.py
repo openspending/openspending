@@ -45,6 +45,14 @@ class Dimension(object):
         d['name'] = self.name
         return d
 
+    def has_attribute(self, attribute):
+        """
+        Check whether an instance has a given attribute.
+        This methods exposes the hasattr for parts of OpenSpending
+        where hasattr isn't accessible (e.g. in templates)
+        """
+        return hasattr(self, attribute)
+
 
 class AttributeDimension(Dimension, Attribute):
     """ A simple dimension that does not create its own values table

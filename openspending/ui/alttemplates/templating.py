@@ -9,6 +9,7 @@ from openspending.ui.lib import helpers as h
 
 from jinja2 import Template, FileSystemLoader
 from jinja2.environment import Environment
+import formencode_jinja2
 
 import lxml.html
 from lxml.html import builder as E
@@ -81,7 +82,7 @@ def render(path, **kwargs):
 
     """
 
-    env = Environment()
+    env = Environment(extensions=[formencode_jinja2.formfill])
     env.loader = FileSystemLoader(template_rootdir)
     template = env.get_template(path)
 

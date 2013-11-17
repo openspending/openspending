@@ -8,7 +8,6 @@ available to Controllers. This module is available to templates as 'h'.
 from pylons import config, url, tmpl_context, app_globals
 from routes import url_for
 from lxml import html
-from genshi.template import TextTemplate
 from webhelpers.html import escape, HTML, literal, url_escape
 from webhelpers.html.tags import *
 from webhelpers.markdown import markdown as _markdown
@@ -215,15 +214,6 @@ def get_uuid_filename(filename):
     # Split out the extension and append it to the uuid name
     return ''.join([uuid_name, os.path.splitext(filename)[1]])
 
-# TODO: moved here during openspending.model evacuation.
-def render_entry_custom_html(dataset, entry):
-    """Render dataset ``datasets``'s custom html for entry ``entry``"""
-    if dataset.entry_custom_html:
-        return _render_custom_html(dataset.entry_custom_html,
-                'entry', entry)
-    else:
-        return None
-
 def entry_description(entry):
     fragments = []
     if 'from' in entry and 'to' in entry:
@@ -243,18 +233,6 @@ def entry_description(entry):
                 fragments.append(v)
     description = " - ".join(fragments)
     return markdown_preview(description)
-
-
-def _render_custom_html(tpl, name, obj):
-    if tpl:
-        tpl = TextTemplate(tpl)
-
-        ctx = {name: obj}
-        stream = tpl.generate(**ctx)
-        return stream.render()
-    else:
-        return None
-
 
 def member_url(dataset, dimension, member, **kwargs):
     return url_for(controller='dimension',
