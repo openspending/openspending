@@ -13,7 +13,7 @@ from openspending.model import Dataset
 from openspending.lib.solr_util import dataset_entries
 from openspending.ui.i18n import set_session_locale
 from openspending.ui.lib import views
-from openspending.ui.lib.base import BaseController, render, require
+from openspending.ui.lib.base import BaseController, require
 from openspending.ui.lib.helpers import flash_success, flash_error
 from openspending.ui.lib.content import ContentResource
 from openspending.ui.lib import helpers as h

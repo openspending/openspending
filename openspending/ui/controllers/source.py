@@ -10,7 +10,7 @@ from openspending import model
 from openspending.model import Source, meta as db
 from openspending.lib.jsonexport import to_jsonp
 from openspending.ui.lib import helpers as h
-from openspending.ui.lib.base import BaseController, render
+from openspending.ui.lib.base import BaseController
 from openspending.ui.lib.base import abort, require
 from openspending.tasks import analyze_source, load_source
 from openspending.ui.alttemplates import templating

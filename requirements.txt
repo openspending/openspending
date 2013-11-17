@@ -2,7 +2,6 @@ Babel==0.9.6
 Beaker==1.6.3
 FormEncode==1.2.4
 FormEncode-Jinja2==0.1.2
-Genshi==0.6
 Jinja2==2.6
 Mako==0.7.1
 MarkupSafe==0.15

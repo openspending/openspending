@@ -10,7 +10,7 @@ from colander import Invalid
 from openspending.model import Account, Run, meta as db
 from openspending.lib import solr_util as solr
 from openspending.ui.lib import helpers as h
-from openspending.ui.lib.base import BaseController, render
+from openspending.ui.lib.base import BaseController
 from openspending.ui.lib.base import require, abort
 from openspending.ui.lib.cache import AggregationCache, DatasetIndexCache
 from openspending.reference.currency import CURRENCIES

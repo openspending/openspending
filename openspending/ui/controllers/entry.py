@@ -4,7 +4,7 @@ from pylons import app_globals, request, response, tmpl_context as c
 from pylons.controllers.util import abort, redirect
 from pylons.i18n import _
 
-from openspending.ui.lib.base import BaseController, render, \
+from openspending.ui.lib.base import BaseController, \
         etag_cache_keygen
 from openspending.ui.lib.views import handle_request
 from openspending.ui.lib.hypermedia import entry_apply_links
@@ -93,8 +93,10 @@ class EntryController(BaseController):
 
         # Add custom html for the dataset entry if the dataset has some
         # custom html
-        c.custom_html = h.render_entry_custom_html(c.dataset,
-                                                   c.entry)
+        # 2013-11-17 disabled this as part of removal of genshi as depended on
+        # a genshi specific helper.
+        # TODO: reinstate if important
+        # c.custom_html = h.render_entry_custom_html(c.dataset, c.entry)
 
         # Add the rest of the dimensions relating to this entry into a
         # extras dictionary. We first need to exclude all dimensions that

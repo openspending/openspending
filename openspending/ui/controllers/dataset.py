@@ -19,7 +19,7 @@ from openspending.lib.paramparser import DatasetIndexParamParser
 from openspending import auth as has
 
 from openspending.ui.lib import helpers as h
-from openspending.ui.lib.base import BaseController, render
+from openspending.ui.lib.base import BaseController
 from openspending.ui.lib.cache import DatasetIndexCache
 from openspending.ui.lib.base import require, etag_cache_keygen
 from openspending.ui.lib.views import handle_request

@@ -4,7 +4,7 @@ from pylons import tmpl_context as c
 from pylons.i18n import _
 
 from openspending.model import Source, Run, LogRecord
-from openspending.ui.lib.base import BaseController, render
+from openspending.ui.lib.base import BaseController
 from openspending.ui.lib.base import abort, require
 from openspending.ui.alttemplates.templating import Page
 

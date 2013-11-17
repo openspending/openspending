@@ -6,7 +6,7 @@ from pylons.controllers.util import abort, redirect
 from pylons.i18n import _
 
 from openspending import model
-from openspending.ui.lib.base import BaseController, render, \
+from openspending.ui.lib.base import BaseController, \
         etag_cache_keygen
 from openspending.ui.lib.base import etag_cache_keygen
 from openspending.ui.lib.views import handle_request

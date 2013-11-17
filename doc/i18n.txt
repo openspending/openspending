@@ -4,11 +4,8 @@ Update .pot file from source:
 
 $ python setup.py extract_messages
 
-Examine the .pot (or at least its diff) for bogus messages, and fix up
-any errors in the source. Pay particular attention to genshi
-templates. Documentation for the uninitiated:
-
-http://genshi.edgewall.org/wiki/Documentation/i18n.html
+Examine the .pot (or at least its diff) for bogus messages, and fix up any
+errors in the source. Pay particular attention to templates.
 
 Commit the updated .pot
 
@@ -18,8 +15,6 @@ $ python setup.py update_catalog
 
 Ship .po files off for translation
 
-
-To update the translations used in the website, or add new languages,
 edit openspending/ui/i18n/supported_langs.txt ; there is a template
 for this file in openspending/ui/i18n/supported_langs.txt_tmpl ; you must
 list each language code on a separate line.

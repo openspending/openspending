@@ -6,7 +6,7 @@ from pylons.controllers.util import forward, abort
 from pylons.middleware import error_document_template
 from webhelpers.html.builder import literal
 
-from openspending.ui.lib.base import BaseController, render
+from openspending.ui.lib.base import BaseController
 from openspending.ui.alttemplates import templating
 
 class ErrorController(BaseController):

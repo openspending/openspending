@@ -57,7 +57,9 @@ class TestEntryController(ControllerTestCase):
         assert 'Unable to adjust for inflation' in response.body, \
             "Inflation warning not present in inflated entry response (bad)"
 
-    def test_entry_custom_html(self):
+    # TODO: 2013-11-17 reinstate
+    # disabled as we disabled custom html stuff as part of genshi removal
+    def _test_entry_custom_html(self):
         tpl = '<a href="/custom/path/%s">%s</a>'
         tpl_c = tpl % ('${entry["id"]}', '${entry["name"]}')
         self.cra.entry_custom_html = tpl_c
