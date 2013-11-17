@@ -9,6 +9,7 @@ from pylons.controllers.util import redirect
 from pylons.decorators.cache import beaker_cache
 from pylons.i18n import _
 
+from openspending.model import Dataset
 from openspending.lib.solr_util import dataset_entries
 from openspending.ui.i18n import set_session_locale
 from openspending.ui.lib import views
@@ -23,6 +24,10 @@ log = logging.getLogger(__name__)
 class HomeController(BaseController):
 
     def index(self):
+        # Get all of the datasets available to the account of the logged in
+        # or an anonymous user (if c.account is None)
+        c.datasets = Dataset.all_by_account(c.account)
+
         # Create a blog content resource based on the configurations for
         # frontpage section/path
         c.blog = ContentResource(

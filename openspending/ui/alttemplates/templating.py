@@ -2,6 +2,7 @@ import os
 from pylons import tmpl_context as c
 from pylons import app_globals
 from pylons import config
+from webhelpers import paginate
 
 from openspending import auth as can
 from openspending.ui.lib import helpers as h
@@ -15,6 +16,16 @@ from lxml.html import builder as E
 
 # Set the directory where this file is as the template root directory
 template_rootdir = os.path.abspath(os.path.dirname(__file__))
+
+class Page(paginate.Page):
+    # Overwrite the pager method of the webhelpers.paginate.Page class, 
+    # so we have our custom layout set as default.
+    def pager(self, *args, **kwargs):
+        kwargs.update(
+            format="<div class='pager'>$link_previous ~2~ $link_next</div>",
+            symbol_previous=u'\xab Prev', symbol_next=u'Next \xbb'
+        )
+        return super(Page, self).pager(*args, **kwargs)
 
 def languages(detected_languages, current_language):
     def lang_triple(lang):
