@@ -25,8 +25,6 @@ def make_map():
     map.connect('/', controller='home', action='index')
 
     map.connect('/set-locale', controller='home', action='set_locale', conditions=dict(method=['POST']))
-    map.connect('/sitemap-index.xml', controller='home', action='sitemap_index')
-    map.connect('/sitemap.xml', controller='home', action='sitemap')
     map.connect('/favicon.ico', controller='home', action='favicon')
 
     map.connect('/login', controller='account', action='login')
@@ -91,7 +89,6 @@ def make_map():
     map.connect('/{dataset}.{format}', controller='dataset', action='view')
     map.connect('/{dataset}', controller='dataset', action='view')
     map.connect('/{dataset}/explorer', controller='dataset', action='explorer')
-    map.connect('/{dataset}/sitemap.xml', controller='dataset', action='sitemap')
     map.connect('/{dataset}/model.{format}', controller='dataset', action='model')
     map.connect('/{dataset}/model', controller='dataset', action='model')
     map.connect('/{dataset}/meta', controller='dataset', action='about')
@@ -156,7 +153,6 @@ def make_map():
     map.connect('/{dataset}/sources/{source}/analysis.{format}',
                 controller='source', action='analysis')
 
-    map.connect('/{dataset}/entries.sitemap.{page}.xml', controller='entry', action='sitemap')
     map.connect('/{dataset}/entries.{format}', controller='entry', action='index')
     map.connect('/{dataset}/entries', controller='entry', action='index')
     map.connect('/{dataset}/entries/{id}.{format}', controller='entry', action='view')
@@ -175,9 +171,6 @@ def make_map():
                 controller='dimension', action='distinct', format='json')
     map.connect('/{dataset}/{dimension}.distinct',
                 controller='dimension', action='distinct')
-
-    map.connect('/{dataset}/{dimension}.sitemap.xml',
-                controller='dimension', action='sitemap')
 
     map.connect('/{dataset}/{dimension}.json',
                 controller='dimension', action='view', format='json')

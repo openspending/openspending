@@ -12,10 +12,11 @@ from openspending.model import meta as db, View
 from openspending.ui.lib import helpers as h, widgets
 from openspending.lib import json
 from openspending.ui.lib.views import handle_request
-from openspending.ui.lib.base import BaseController, render, require
+from openspending.ui.lib.base import BaseController, require
 from openspending.ui.lib.base import etag_cache_keygen
 from openspending import auth as can
 from openspending.lib.jsonexport import to_jsonp
+from openspending.ui.alttemplates import templating
 
 log = logging.getLogger(__name__)
 
@@ -74,7 +75,7 @@ class ViewController(BaseController):
         if format == 'json':
             return to_jsonp([v.as_dict() for v in c.views])
         else:
-            return render('view/index.html')
+            return templating.render('view/index.html')
 
     def new(self, dataset, errors={}):
         self._get_dataset(dataset)
@@ -88,7 +89,7 @@ class ViewController(BaseController):
             c.widgets[n] = widgets.get_widget(n, force=True)
         c.errors = errors
         c.can_save = can.view.create(c.dataset)
-        return render('view/new.html')
+        return templating.render('view/new.html')
 
     def delete(self, dataset, name):
         self._get_named_view(dataset, name)
@@ -158,7 +159,7 @@ class ViewController(BaseController):
         if format == 'json':
             return to_jsonp(c.named_view.as_dict())
         else:
-            return render('view/view.html')
+            return templating.render('view/view.html')
 
     def embed(self, dataset):
         self._get_dataset(dataset)
@@ -170,4 +171,4 @@ class ViewController(BaseController):
             c.state = json.loads(request.params.get('state', '{}'))
         except ValueError as ve:
             abort(400, unicode(ve))
-        return render('view/embed.html')
+        return templating.render('view/embed.html')

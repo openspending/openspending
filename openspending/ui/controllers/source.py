@@ -10,9 +10,10 @@ from openspending import model
 from openspending.model import Source, meta as db
 from openspending.lib.jsonexport import to_jsonp
 from openspending.ui.lib import helpers as h
-from openspending.ui.lib.base import BaseController, render
+from openspending.ui.lib.base import BaseController
 from openspending.ui.lib.base import abort, require
 from openspending.tasks import analyze_source, load_source
+from openspending.ui.alttemplates import templating
 
 from openspending.ui.validation.source import source_schema
 
@@ -23,8 +24,9 @@ class SourceController(BaseController):
     def new(self, dataset, errors={}):
         self._get_dataset(dataset)
         require.dataset.update(c.dataset)
-        return render('source/new.html', form_errors=errors,
-                form_fill=request.params if errors else None)
+        params_dict = dict(request.params) if errors else {}
+        return templating.render('source/new.html', form_errors=errors,
+                                 form_fill=params_dict)
 
     def create(self, dataset):
         self._get_dataset(dataset)
@@ -41,8 +43,7 @@ class SourceController(BaseController):
                                dataset=c.dataset.name))
         except Invalid, i:
             errors = i.asdict()
-            errors = [(k[len('source.'):], v) for k, v \
-                    in errors.items()]
+            errors = [(k[len('source.'):], v) for k, v in errors.items()]
             return self.new(dataset, dict(errors))
 
     def index(self, dataset, format='json'):

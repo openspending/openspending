@@ -12,7 +12,6 @@ from pylons.controllers.util import etag_cache
 from pylons import tmpl_context as c, request, response, config
 from pylons import app_globals, session
 from pylons.controllers.util import abort
-from genshi.filters import HTMLFormFiller
 from pylons.i18n import _
 
 from openspending.model import meta as db
@@ -30,31 +29,6 @@ ACCEPT_MIMETYPES = {
     "application/javascript": "json",
     "text/csv": "csv"
 }
-
-def render(template_name,
-           extra_vars=None,
-           form_fill=None, form_errors={},
-           method='xhtml'):
-
-    # Pull in extra vars if needed
-    globs = extra_vars or {}
-
-    # Second, get the globals
-    globs.update(pylons_globals())
-    globs['g'] = app_globals
-    globs['can'] = can
-    globs['_form_errors'] = form_errors
-
-    # Grab a template reference
-    template = globs['app_globals'].genshi_loader.load(template_name)
-
-    stream = template.generate(**globs)
-
-    if form_fill is not None:
-        filler = HTMLFormFiller(data=form_fill)
-        stream = stream | filler
-
-    return literal(stream.render(method=method, encoding=None))
 
 def etag_cache_keygen(*a):
     """
@@ -82,18 +56,6 @@ def set_vary_header():
     # If ETag hasn't been generated we generate it
     if not response.etag:
         etag_cache_keygen()
-
-def sitemap(pages=[]):
-    response.headers['Content-Type'] = 'text/xml; charset=utf-8'
-    return render('sitemap.xml', extra_vars={
-        'pages': pages
-        })
-
-def sitemapindex(sitemaps=[]):
-    response.headers['Content-Type'] = 'text/xml; charset=utf-8'
-    return render('sitemapindex.xml', extra_vars={
-        'sitemaps': sitemaps
-        })
 
 class BaseController(WSGIController):
 

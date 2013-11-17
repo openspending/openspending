@@ -10,7 +10,7 @@ from colander import Invalid
 from openspending.model import Account, Run, meta as db
 from openspending.lib import solr_util as solr
 from openspending.ui.lib import helpers as h
-from openspending.ui.lib.base import BaseController, render
+from openspending.ui.lib.base import BaseController
 from openspending.ui.lib.base import require, abort
 from openspending.ui.lib.cache import AggregationCache, DatasetIndexCache
 from openspending.reference.currency import CURRENCIES
@@ -21,6 +21,8 @@ from openspending.validation.model.dataset import dataset_schema
 from openspending.validation.model.mapping import mapping_schema
 from openspending.validation.model.views import views_schema
 from openspending.validation.model.common import ValidationState
+
+from openspending.ui.alttemplates import templating
 
 log = logging.getLogger(__name__)
 
@@ -37,7 +39,7 @@ class EditorController(BaseController):
         c.index_count = solr.dataset_entries(c.dataset.name)
         c.index_percentage = 0 if not c.entries_count else \
             int((float(c.index_count) / float(c.entries_count)) * 1000)
-        return render('editor/index.html')
+        return templating.render('editor/index.html')
 
     def core_edit(self, dataset, errors={}, format='html'):
         self._get_dataset(dataset)
@@ -61,7 +63,7 @@ class EditorController(BaseController):
         fill = c.dataset.as_dict()
         if errors:
             fill.update(request.params)
-        return render('editor/core.html', form_errors=dict(errors),
+        return templating.render('editor/core.html', form_errors=dict(errors),
                 form_fill=fill)
 
     def core_update(self, dataset, format='html'):
@@ -96,7 +98,7 @@ class EditorController(BaseController):
         # TODO: really split up dimensions and mapping editor.
         c.source = c.dataset.sources.first()
         if c.source is None:
-            return render('editor/dimensions_errors.html')
+            return templating.render('editor/dimensions_errors.html')
         mapping = mapping or c.dataset.data.get('mapping', {})
         if not len(mapping) and c.source and 'mapping' in c.source.analysis:
             mapping = c.source.analysis['mapping']
@@ -104,8 +106,8 @@ class EditorController(BaseController):
         c.errors = errors
         c.saved = saved
         if len(c.dataset):
-            return render('editor/dimensions_errors.html')
-        return render('editor/dimensions.html', form_fill=c.fill)
+            return templating.render('editor/dimensions_errors.html')
+        return templating.render('editor/dimensions.html', form_fill=c.fill)
 
     def dimensions_update(self, dataset, format='html'):
         self._get_dataset(dataset)
@@ -144,7 +146,7 @@ class EditorController(BaseController):
         c.fill = values or {'serp_title': c.dataset.serp_title,
                             'serp_teaser': c.dataset.serp_teaser}
         c.errors = errors
-        return render('editor/templates.html', form_fill=c.fill)
+        return templating.render('editor/templates.html', form_fill=c.fill)
 
     def templates_update(self, dataset, format='html'):
         self._get_dataset(dataset)
@@ -168,7 +170,7 @@ class EditorController(BaseController):
         views = views or c.dataset.data.get('views', [])
         c.fill = {'views': json.dumps(views, indent=2)}
         c.errors = errors
-        return render('editor/views.html', form_fill=c.fill)
+        return templating.render('editor/views.html', form_fill=c.fill)
 
     def views_update(self, dataset, format='html'):
         self._get_dataset(dataset)
@@ -194,7 +196,7 @@ class EditorController(BaseController):
         accounts = accounts or c.dataset.managers
         c.accounts = json.dumps([a.as_dict() for a in accounts], indent=2)
         c.errors = errors
-        return render('editor/team.html')
+        return templating.render('editor/team.html')
 
     def team_update(self, dataset, format='html'):
         self._get_dataset(dataset)

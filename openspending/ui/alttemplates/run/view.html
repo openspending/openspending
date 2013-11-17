@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% from "editor/_nav.html" import editor_nav as editor_nav %}
+
+{% block page_title %}Report: {{ h.readable_url(c.source.url) }}{% endblock %}
+
+{% block content %}
+<!-- templates/run/view.html -->
+{{editor_nav(h, c, 'index')}}
+<h3>
+  Report:
+  {{ h.readable_url(c.source.url) }}
+  ({{ c.run.records.count() }} Errors, {{ c.run.status }})
+</h3>
+{% if not (c.num_data or c.num_system) %}
+<div class="alert block-message alert-success">
+  <strong>Nothing to report!</strong> The source has been loaded
+  successfully. This does not mean the data is stored in a form 
+  which is semantically useful, though, so don't forget to 
+  sanity-check a few entries!
+</div>
+{% endif %}
+
+{% if c.num_system %}
+<div class="row">
+  <div class="span12">
+    <table class="table table-condensed table-striped">
+      <tr>
+        <th>Level</th>
+        <th>Message</th>
+        <th>Error</th>
+      </tr>
+      {% for record in c.system_page %}
+      <tr>
+        <td>{{ record.level }}</td>
+        <td>{{ record.message }}</td>
+        <td><pre>{{ record.error }}</pre></td>
+      </tr>
+      {% endfor %}
+    </table>
+    {{ c.system_page.pager(page_param='system_page') }}
+  </div>
+</div>
+{% endif %}
+
+{% if c.num_data %}
+<div class="row">
+  <div class="span12">
+    <table class="table table-condensed table-striped">
+      <tr>
+        <th>Row</th>
+        <th>Column</th>
+        <th>Attribute</th>
+        <th>Value</th>
+        <th>Error</th>
+      </tr>
+      {% for record in c.data_page %}
+      <tr>
+        <td>{{ record.row }}</td>
+        <td><code>{{ record.column }}</code></td>
+        <td><code>{{ record.attribute }}</code></td>
+        <td>{{ record.value }}</td>
+        <td>{{ record.message }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    {{ c.data_page.pager(page_param='data_page') }}
+  </div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% from "editor/_nav.html" import editor_nav as editor_nav %}
+
+{% block page_title %}{{c.dataset.label or c.dataset.name}}{% endblock %}
+
+{% block scripts %}
+    {{ h.script_tag('lib/vendor/jquery-ui/jquery-ui.min') }}
+    <script>
+      jQuery(document).ready(function($) {
+        var accounts = {{ c.accounts }};
+        var editingAccount = "{{ c.account.name }}";
+        item_template = Handlebars.compile($('#account-item').html());
+        var makeItem = function(account) {
+          account.fullname = account.fullname || account.name;
+          account.canRemove = account.name != editingAccount;
+          $('#accounts').append(item_template(account));
+        };
+
+        _.map(accounts, makeItem);
+        $('#accounts').on('click', '.remove', function(e) {
+          $(e.target).parents('li').remove();
+        });
+
+        $('#select-account').autocomplete({
+          source: function(request, response) {
+            $.get('/accounts/_complete', {'q': request.term}, function(data) {
+              response(_.map(data.results, function(a) {
+                accounts.push(a);
+                fullname = a.fullname ? a.fullname + ' (' + a.name + ')' : a.name;
+                return {
+                  label: fullname,
+                  value: a.name
+                  };
+              }));
+            });
+          }
+        });
+
+        $('#add-account').submit(function(e) {
+          var name = $('#select-account').val();
+          _.each(accounts, function(a) {
+            var names = _.map($('#accounts li'), function(e) {
+              return $(e).data('name');
+            });
+            if (a.name == name) { if (names.indexOf(name) == -1) {
+              makeItem(a);
+            }}
+          });
+          $('#select-account').val('');
+          return false;
+        });
+
+        $('#save').submit(function(e) {
+          var v = $('#values');
+          v.empty();
+          $('#accounts li').each(function(i, e) {
+            v.append('<option value="' + $(e).data('name') + '" selected="selected"></option>');
+          });
+        });
+      });
+    </script>
+{% endblock %}
+
+{% block content %}
+<!-- templates/editor/team.html -->
+{{editor_nav(h, c, 'team')}}
+
+<div class="row">
+  <div class="span4">
+    Here, you can select the users who will be authorized to 
+    manage this dataset.
+  </div>
+  <div class="span8">
+    {% if c.errors %}
+    <div class="alert block-message alert-error">
+      <ul>{% for field, error in c.errors.items() %}
+        <li><strong>{{ field }}:</strong> {{ error }}</li>
+      {% endfor %}</ul>
+    </div>
+    {% endif %}
+
+    <div class='row'>
+      <div class="span4">
+        <h3>Current team</h3>
+        <ul id='accounts'></ul>
+      </div>
+      <div class="span4">
+        <h3>Add someone</h3>
+        <form id='add-account'>
+          <input id='select-account' />
+          <input class='btn btn-success' type='submit' value='Add' />
+        </form>
+      </div>
+    </div>
+    <form id='save' method="POST">
+      <div class="form-actions">
+        <select multiple='true' style='display: none' name='accounts' id='values' />
+        <input value="Save" class="btn btn-success" type="submit" />
+      </div>
+    </form>
+  </div>
+</div>
+
+{% raw %}
+<script id='account-item' type='text/handlebars'>
+  <li data-name='{{name}}'>
+    <strong>{{fullname}}</strong>
+    {{#canRemove}}
+    <a class='remove' href='#'><i class='icon-remove'></i></a>
+    {{/canRemove}}
+  </li>
+</script>
+{% endraw %}
+{% endblock %}

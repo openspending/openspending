@@ -11,7 +11,7 @@ from pylons.i18n import _
 
 from openspending.ui.i18n import set_session_locale
 from openspending.ui.lib import views
-from openspending.ui.lib.base import BaseController, render, require
+from openspending.ui.lib.base import BaseController, require
 from openspending.ui.lib.helpers import flash_success, flash_error
 from openspending.ui.lib.content import ContentResource
 from openspending.ui.alttemplates import templating

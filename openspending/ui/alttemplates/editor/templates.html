@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% from "editor/_nav.html" import editor_nav as editor_nav %}
+
+{% block page_title %}{{c.dataset.label or c.dataset.name}}{% endblock %}
+
+{% block content %}
+<!-- templates/editor/templates.html -->
+{{editor_nav(h, c, 'templates')}}
+
+<div class="row">
+  <div class="span4">
+    <div class="alert alert-block">
+      <p>
+        In this section, you can configure how transactions from this dataset
+        are represented in global search results. This is an advanced option 
+        that you can skip.
+      </p>
+      <p>
+        Templates are composed using the
+        <a href="http://mustache.github.com/mustache.5.html">Mustache</a>
+        syntax and they can make use of the dimensions and attributes defined
+        for this dataset.
+      </p>
+    </div>
+  </div>
+  <div class="span8">
+    {% formfill form_fill %}
+    <form class="basic form-horizontal"
+          action="{{ h.url_for(controller='editor',
+                  action='templates_update', dataset=c.dataset.name) }}"
+          method="POST">
+      <fieldset>
+        <div class="control-group">
+          <label class="control-label" for="serp_title">Title Template</label>
+          <div class="controls">
+            <input class="input-xlarge span5" name="serp_title"
+                   placeholder="{% raw %}{{to.label}} - {{amount}}{% endraw %}" />
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="serp_teaser">Teaser
+            Template</label>
+          <div class="controls">
+            <textarea class="input-xlarge span5" rows="2"
+                      name="serp_teaser"></textarea>
+          </div>
+        </div>
+      </fieldset>
+      <div class="form-actions">
+        <input value="Update" class="btn btn-success" type="submit" />
+      </div>
+    </form>
+    {% endformfill %}
+  </div>
+</div>
+{% endblock %}

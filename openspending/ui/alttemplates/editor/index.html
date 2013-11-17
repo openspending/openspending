@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% from "editor/_nav.html" import editor_nav %}
+{% from "source/_new_form.html" import new_form %}
+{% from "source/_list.html" import sources_list %}
+
+{% block page_title %}{{c.dataset.label or c.dataset.name}}{% endblock %}
+
+{% block content %}
+<!-- templates/editor/index.html -->
+{{editor_nav(h, c, 'index')}}
+<div class="row">
+  <div class="span8">
+    {% if not c.has_sources %}
+    <div class="alert block-message alert-info">
+      <p>
+        <strong>Congratulations, your dataset is now created.</strong>
+        Next, you'll need to link to a source file that contains the data
+        (or a sample for testing if your dataset is very large!). The data
+        must be in the CSV format.
+      </p>
+      <ul>
+        <li>Learn about <a href="#">how to export CSV</a>
+          from various common applications.</li>
+        <li>Help on <a href="#">common data wrangling tasks</a> needed to clean
+          source data.</li>
+      </ul>
+
+      <div class="alert-actions">
+        <a class="btn small" data-toggle="modal"  href="#new-source">
+          Add a source
+        </a>
+      </div>
+    </div>
+    {% endif %}
+    
+    {% if c.source and not c.source.analysis %}
+    <div class="alert block-message alert-info">
+      <strong>Let me see...</strong> The data is now being checked to
+      see if it can be imported. This should not take very long.
+      <div class="alert-actions">
+        <a class="btn small" href="?">Refresh</a>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if c.source and 'columns' in c.source.analysis and not c.dataset.mapping %}
+    <div class="alert block-message alert-success">
+      <strong>Good stuff!</strong> Your data is now ready. Next,
+      create a <strong>data model</strong> to structure the dataset.
+      <div class="alert-actions">
+        <a class="btn btn-small" 
+           href="{{ h.url(controller='editor',
+                    action='dimensions_edit', dataset=c.dataset.name) }}">
+          Create a model
+        </a>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if c.has_sources %}
+    <div>
+      <h3>Source files</h3>
+      {{ sources_list(c.dataset, h) }}
+      <a class="btn btn-success small" data-toggle="modal" href="#new-source">Add a source</a>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="span4">
+    <h3>Summary</h3>
+    <ul>
+      <li>Entries loaded: {{ c.entries_count }}</li>
+      <li>Searchable: {{ c.index_count }} ({{ c.index_percentage/10 }}%)</li>
+    </ul>
+
+    <h3>Dataset Actions</h3>
+    {% if c.entries_count %}
+    <form method="POST" action="{{ h.url(controller='editor',
+            action='drop', dataset=c.dataset.name) }}">
+      <input type="submit" class="btn btn-danger" 
+             value="Delete loaded data" />
+      <p class="help-block">Delete all loaded data to fix 
+        errors and re-edit the data dimensions.</p>
+    </form>
+    {% else %}
+    <a href="#" class="btn btn-danger disabled">Delete loaded data</a>
+    <p class="help-block">You can remove the loaded data
+      at any time and start over.</p>
+    <br/>
+    {% endif %}
+
+    {% if c.dataset.private %}
+    {% if c.entries_count %}
+    <form method="POST" action="{{ h.url(controller='editor',
+                                action='publish', dataset=c.dataset.name) }}">
+      <input type="submit" class="btn btn-success" value="Make public" />
+      <p class="help-block">After you've performed some QA,
+        let the world see this dataset.</p>
+    </form>
+    {% else %}
+    <a class="btn btn-success disabled">Make public</a>
+    <p class="help-block">After you've performed some QA,
+      let the world see this dataset.</p>
+    {% endif %}
+    {% else %}
+    <form method="POST" action="{{ h.url(controller='editor',
+                                action='retract', dataset=c.dataset.name) }}">
+      <input type="submit" class="btn btn-danger" value="Retract" />
+      <p class="help-block">If you have noted serious quality
+        issues or legal issues, you can un-publish this dataset.</p>
+    </form>
+    {% endif %}
+
+    <form method="POST" action="{{ h.url(controller='editor',
+                                action='delete', dataset=c.dataset.name) }}">
+      <input type="submit" class="btn btn-danger" value="Delete entire dataset" />
+      <p class="help-block" i18n:comment="Warning message on deletion">This
+        action cannot be undone.</p>
+    </form>
+
+    <br/>
+  </div>
+
+
+  <!-- Create source modal -->
+  <div id="new-source" class="modal hide fade"
+       ckan-uri="{{ c.dataset.ckan_uri }}">
+    <form class="basic" action="{{ h.url(controller='source', action='create',
+                                dataset=c.dataset.name) }}" method="POST">
+      <div class="modal-header">
+        <h3>Create a new data source</h3>
+      </div>
+      <div class="modal-body">
+            {{ new_form() }}
+      </div>
+      <div class="modal-footer">
+        <input value="Create" class="btn btn-success" type="submit" />
+      </div>
+    </form>
+  </div>
+</div>    
+{% endblock %}
