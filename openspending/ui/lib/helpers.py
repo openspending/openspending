@@ -6,7 +6,7 @@ available to Controllers. This module is available to templates as 'h'.
 """
 
 from pylons import config, url, tmpl_context, app_globals
-from routes import url_for
+from routes import url_for as routes_url_for
 from lxml import html
 from webhelpers.html import escape, HTML, literal, url_escape
 from webhelpers.html.tags import *
@@ -70,6 +70,18 @@ def readable_url(url):
         return url[:15] + " .. " + url[len(url) - 25:]
     return url
 
+def url_for(*args, **kwargs):
+    """
+    Overwrite routes url_for so that we can set the protocol based on
+    the config (in case Varnish or other software messes with the headers
+    """
+
+    # Since Varnish or other software can mess with the headers and
+    # cause us to lose the protocol of the request we need to fetch it
+    # from a config and set it
+    protocol = config.get('openspending.enforced_protocol', 'http')
+    kwargs.update({'protocol':protocol})
+    return routes_url_for(*args, **kwargs)
 
 def site_url():
     return url_for(controller='home', action='index', qualified=True).rstrip('/')
