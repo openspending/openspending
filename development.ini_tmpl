@@ -46,6 +46,10 @@ app_instance_uuid = ${app_instance_uuid}
 # openspending.subscribe_community = http://lists.okfn.org/mailman/subscribe/openspending
 # openspending.subscribe_developer = http://lists.okfn.org/mailman/subscribe/openspending-dev
 
+# In case Varnish or something similar messes with the HTTP headers we have
+# to provide a way to enforce the protocol somehow
+# openspending.enforced_protocol = 'https'
+
 # Database (n.b., split in some branches)
 openspending.db.url = sqlite:///%(here)s/db/development.sqlite3
 
