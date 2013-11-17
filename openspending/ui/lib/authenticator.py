@@ -1,10 +1,12 @@
 from zope.interface import implements
-from repoze.who.interfaces import IAuthenticator
+from repoze.who.interfaces import IAuthenticator, IIdentifier
 from paste.httpheaders import AUTHORIZATION
 
 from openspending.model import Account
 from openspending.ui.lib.security import check_password_hash
 
+import logging
+log = logging.getLogger(__name__)
 
 class UsernamePasswordAuthenticator(object):
     implements(IAuthenticator)
@@ -21,38 +23,66 @@ class UsernamePasswordAuthenticator(object):
             return account.name
         return None
 
+
+class ApiKeyIdentifier(object):
+    implements(IIdentifier)
+
+    def identify(self, environ):
+        """
+        Try to identify user based on api key authorization in header
+        """
+
+        # Get the authorization header as passed through paster
+        authorization = AUTHORIZATION(environ)
+        log.debug(authorization)
+        # Split the authorization header value by whitespace
+        try:
+            method, auth = authorization.split(' ', 1)
+        except ValueError:
+            # not enough values to unpack
+            return None
+
+        # If authentication method is apikey we return the identity
+        if method.lower() == 'apikey':
+            return {'apikey': auth.strip()}
+
+        # Return None if we get here (identity not found)
+        return None
+
+    def remember(self, environ, identity):
+        """
+        API key authentication headers user can use to make the system
+        remember the user
+        """
+
+        # User cannot ask to be remembered since API key is the authentication
+        # mechanism and must be used on every request (thus, no headers)
+        return None
+
+    def forget(self, environ, identity):
+        """
+        API key authentication headers user can use to make the system
+        forget the user
+        """
+
+        # User cannot be remembered so there is no need to forget the user
+        # either (and thus no header mechanism)
+        return None
+
 class ApiKeyAuthenticator(object):
     implements(IAuthenticator)
 
     def authenticate(self, environ, identity):
-        """ 
-        Generates a signature for a request and compares it against 
-        the signature provided as a GET parameter.
-        The hashing of the signatures is done using MD5.
-        The way to generate a signature is concatenating in a string
-        the secret_api_key for the user with the sorted keys of the request
-        and their values. For example (no valid values):
-
-        'c9502d56-446e-49de-9ccc-f9daaeb2f114apikey032020d2-ab08-4d53-b6c3- \
-        c890510d92fbcsv_filehttp://mk.ucant.org/info/data/sample-openspendi \
-        ng-dataset.csvmetadatahttps://dl.dropbox.com/u/3250791/sample-opens \
-        pending-model.json'
         """
-        import hashlib
+        Try to authenticate user based on api key identity
+        """
 
-        if not 'apikey' in identity or not 'signature' in identity or not Account.by_api_key(identity['apikey']):
-            return None
+        # If identity has apikey we get the account by the api key
+        # and return none if no account or apikey is found is found
+        if 'apikey' in identity:
+            acc = Account.by_api_key(identity.get('apikey'))
+            if acc is not None:
+                return acc.name
 
-        user = Account.by_api_key(identity['apikey'])
-        m = hashlib.md5()
-        query = [user.secret_api_key]
-        for key in sorted(identity.keys()):
-            if key != 'signature':
-                query.append(key)
-                query.append(identity[key])
-
-        m.update(''.join(query))
-        computed_signature = m.hexdigest()
-        if computed_signature == identity['signature']:
-            return user.name
         return None
+

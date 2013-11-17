@@ -132,63 +132,6 @@ class ApiController(BaseController):
                 }
 
     @jsonpify
-    def new(self):
-        """
-        Adds a new dataset dynamically through a GET request
-        """
-        # Check if the params are there ('metadata', 'csv_file', 'apikey' and 'signature')
-        if len(request.params) != 4:
-            abort(status_code=400, detail='incorrect number of params')
-        metadata = request.params['metadata'] if 'metadata' in request.params else abort(status_code=400,
-                                                                    detail='metadata is missing')
-        csv_file = request.params['csv_file'] if 'csv_file' in request.params else abort(status_code=400,
-                                                                    detail='csv_file is missing')
-        key = request.params['apikey'] if 'apikey' in request.params else abort(status_code=400,
-                                                                    detail='apikey is missing')
-        
-        user_name = ApiKeyAuthenticator().authenticate(environ=None, identity=request.params)
-        if not user_name:
-            abort(status_code=400, detail='wrong signature')
-        user = Account.by_name(user_name)
-        c.account = user
-        
-        # The signature is right, we proceed with the dataset
-        model = json.load(urllib2.urlopen(metadata))
-        try:
-            log.info("Validating model")
-            model = validate_model(model)
-        except Invalid, i:
-            log.error("Errors occured during model validation:")
-            for field, error in i.asdict().items():
-                log.error("%s: %s", field, error)
-            abort(status_code=400, detail='Model is not well formed')
-        dataset = Dataset.by_name(model['dataset']['name'])
-        if not dataset:
-            dataset = Dataset(model)
-            require.dataset.create()
-            dataset.managers.append(user)
-            dataset.private = True #Default value
-            db.session.add(dataset)
-            
-        require.dataset.update(dataset)
-        log.info("Dataset: %s", dataset.name)
-        source = Source(dataset=dataset, creator=user, url=csv_file)
-
-        log.info(source)
-        for source_ in dataset.sources:
-            if source_.url == csv_file:
-                source = source_
-                break
-        db.session.add(source)
-        db.session.commit()
-        dataset.generate()
-        importer = CSVImporter(source)
-        importer.run()
-        solr.build_index(dataset.name)
-        return dataset_apply_links(dataset.as_dict())
-
-
-    @jsonpify
     def mytax(self):
 
         def float_param(name, required=False):
