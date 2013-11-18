@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openspending 0.11\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-11-18 11:14+0000\n"
+"POT-Creation-Date: 2013-11-18 15:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,6 +42,7 @@ msgid ""
 msgstr ""
 
 #: openspending/lib/mailer.py:75
+#: openspending/ui/alttemplates/account/trigger_reset.html:6
 msgid "Reset your password"
 msgstr ""
 
@@ -63,6 +64,7 @@ msgid "Spending Blog"
 msgstr ""
 
 #: openspending/ui/alttemplates/base.html:45
+#: openspending/ui/alttemplates/account/profile.html:32
 #: openspending/ui/alttemplates/badge/information.html:23
 msgid "Datasets"
 msgstr ""
@@ -90,6 +92,7 @@ msgid "About"
 msgstr ""
 
 #: openspending/ui/alttemplates/base.html:62
+#: openspending/ui/alttemplates/editor/_nav.html:23
 msgid "Dashboard"
 msgstr ""
 
@@ -159,6 +162,171 @@ msgid ""
 "          <a href=\"http://opendefinition.org/\">open definition</a>"
 msgstr ""
 
+#: openspending/ui/alttemplates/account/login.html:6
+msgid "Sign in to OpenSpending"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/login.html:10
+#: openspending/ui/alttemplates/account/login.html:14
+#: openspending/ui/alttemplates/account/login.html:27
+#: openspending/ui/alttemplates/account/login.html:37
+msgid "Login"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/login.html:20
+#: openspending/ui/alttemplates/account/login.html:58
+#: openspending/ui/alttemplates/account/settings.html:36
+msgid "Password"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/login.html:30
+msgid "Forgot your password?"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/login.html:30
+msgid "Request a password reset."
+msgstr ""
+
+#: openspending/ui/alttemplates/account/login.html:33
+msgid "Create an account"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/login.html:43
+#: openspending/ui/alttemplates/account/settings.html:12
+msgid "Fullname"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/login.html:49
+#: openspending/ui/alttemplates/account/settings.html:18
+#: openspending/ui/alttemplates/account/trigger_reset.html:19
+msgid "E-Mail"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/login.html:53
+msgid "Visible to other users"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/login.html:64
+#: openspending/ui/alttemplates/account/settings.html:42
+msgid "Password (repeat)"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/login.html:73
+msgid ""
+"I agree to the <a href=\"http://okfn.org/terms-of-use/\">Terms of Use</a>\n"
+"              and <a href=\"http://okfn.org/privacy-policy/\">Privacy "
+"Policy</a>."
+msgstr ""
+
+#: openspending/ui/alttemplates/account/login.html:79
+msgid "Add me to the OpenSpending community mailing list"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/login.html:85
+msgid "Sign me up for the OpenSpending developer mailing list"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/login.html:93
+msgid "Create new account"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/profile.html:13
+msgid "Information"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/profile.html:13
+msgid "(change)"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/profile.html:16
+#: openspending/ui/alttemplates/editor/dimensions.html:135
+msgid "Name"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/profile.html:19
+msgid "Username"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/profile.html:22
+#: openspending/ui/alttemplates/home/index.html:67
+msgid "Email"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/profile.html:42
+msgid "It looks like you haven't uploaded any datasets."
+msgstr ""
+
+#: openspending/ui/alttemplates/account/profile.html:47
+#: openspending/ui/alttemplates/dataset/_select.html:96
+#: openspending/ui/alttemplates/dataset/new.html:3
+#: openspending/ui/alttemplates/dataset/new.html:21
+#: openspending/ui/alttemplates/dataset/new_cta.html:3
+msgid "Import a dataset"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/profile.html:52
+#: openspending/ui/alttemplates/editor/_nav.html:29
+msgid "Views"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/settings.html:3
+msgid "Settings for:"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/settings.html:6
+msgid "Account Settings"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/settings.html:22
+#: openspending/ui/alttemplates/account/settings.html:31
+msgid "Visible to users"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/settings.html:45
+msgid "Leave both fields blank to keep your current password."
+msgstr ""
+
+#: openspending/ui/alttemplates/account/settings.html:49
+msgid "API Key"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/settings.html:52
+msgid "Use this key to access the OpenSpending API programmatically."
+msgstr ""
+
+#: openspending/ui/alttemplates/account/settings.html:56
+msgid "Script Location"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/settings.html:59
+msgid "Set a different location for JavaScript imports to develop new widgets."
+msgstr ""
+
+#: openspending/ui/alttemplates/account/settings.html:64
+#: openspending/ui/alttemplates/editor/team.html:98
+#: openspending/ui/alttemplates/view/new.html:75
+msgid "Save"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/trigger_reset.html:3
+msgid "Password reset"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/trigger_reset.html:10
+msgid ""
+"If you have forgotten the password for your account, you can\n"
+"      request an email with a link that will allow you to reset your\n"
+"      account password."
+msgstr ""
+
+#: openspending/ui/alttemplates/account/trigger_reset.html:16
+msgid "Please enter the email address you used to register your account"
+msgstr ""
+
+#: openspending/ui/alttemplates/account/trigger_reset.html:20
+msgid "Request a reset"
+msgstr ""
+
 #: openspending/ui/alttemplates/badge/index.html:3
 #: openspending/ui/alttemplates/badge/index.html:7
 msgid "Badges in OpenSpending"
@@ -180,6 +348,7 @@ msgstr ""
 #: openspending/ui/alttemplates/badge/information.html:14
 #: openspending/ui/alttemplates/dataset/about.html:28
 #: openspending/ui/alttemplates/dataset/new.html:105
+#: openspending/ui/alttemplates/view/new.html:71
 msgid "Description"
 msgstr ""
 
@@ -286,13 +455,6 @@ msgstr ""
 msgid "mapping the money"
 msgstr ""
 
-#: openspending/ui/alttemplates/dataset/_select.html:96
-#: openspending/ui/alttemplates/dataset/new.html:3
-#: openspending/ui/alttemplates/dataset/new.html:21
-#: openspending/ui/alttemplates/dataset/new_cta.html:3
-msgid "Import a dataset"
-msgstr ""
-
 #: openspending/ui/alttemplates/dataset/_select.html:97
 msgid "Close"
 msgstr ""
@@ -316,6 +478,7 @@ msgid ""
 msgstr ""
 
 #: openspending/ui/alttemplates/dataset/about.html:57
+#: openspending/ui/alttemplates/editor/_nav.html:32
 msgid "Team"
 msgstr ""
 
@@ -425,6 +588,7 @@ msgid ""
 msgstr ""
 
 #: openspending/ui/alttemplates/dataset/new.html:43
+#: openspending/ui/alttemplates/view/new.html:67
 msgid "Title"
 msgstr ""
 
@@ -523,6 +687,7 @@ msgstr ""
 #: openspending/ui/alttemplates/dataset/view.html:37
 #: openspending/ui/alttemplates/dimension/member.html:43
 #: openspending/ui/alttemplates/dimension/view.html:43
+#: openspending/ui/alttemplates/view/view.html:63
 msgid "Embed"
 msgstr ""
 
@@ -530,12 +695,14 @@ msgstr ""
 #: openspending/ui/alttemplates/dimension/entries.html:84
 #: openspending/ui/alttemplates/dimension/member.html:44
 #: openspending/ui/alttemplates/dimension/view.html:44
+#: openspending/ui/alttemplates/view/view.html:64
 msgid "Change"
 msgstr ""
 
 #: openspending/ui/alttemplates/dataset/view.html:39
 #: openspending/ui/alttemplates/dimension/member.html:45
 #: openspending/ui/alttemplates/dimension/view.html:45
+#: openspending/ui/alttemplates/view/view.html:65
 msgid "Data"
 msgstr ""
 
@@ -598,6 +765,427 @@ msgstr ""
 msgid "%(dataset)s has the following dimensions"
 msgstr ""
 
+#: openspending/ui/alttemplates/editor/_nav.html:14
+msgid "Manage the dataset"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/_nav.html:26
+msgid "Dimensions &amp; Measures"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/_nav.html:35
+msgid "Meta"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/_nav.html:38
+msgid "Templates"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:89
+msgid "Add Dimension"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:92
+msgid "Make sure your dimensions import all source data columns."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:97
+msgid "Set Unique Dimensions"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:100
+msgid "Identify the dimensions that help to identify each entry."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:103
+msgid "Exisiting Dimensions"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:112
+msgid "Specify which dimensions identify an entry uniquely"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:120
+msgid "Update"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:128
+msgid "Add new dimension"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:139
+msgid ""
+"The name you choose should only contain letters, numbers and dashes (i.e., no"
+" spaces)"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:142
+msgid ""
+"Where the dimension represents the ultimate source or destination of the "
+"funds, call it <code>from</code> or <code>to</code>"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:147
+msgid "Type"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:151
+#: openspending/ui/alttemplates/entry/view.html:119
+msgid "Dimension"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:153
+msgid ""
+"A defined set, like suppliers or classifications, with multiple attributes "
+"(e.g. supplier name and VAT number)."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:158
+#: openspending/ui/alttemplates/run/view.html:52
+msgid "Attribute"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:160
+msgid "A simple value, e.g. descriptions or transaction IDs."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:165
+msgid "Date"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:167
+msgid "Temporal value, e.g. start of project, date of disbursement."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:172
+msgid "Measure"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:174
+msgid "Monetary information, e.g. amount disbursed or allocated."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:181
+msgid "Unmapped source data columns"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:189
+msgid "Cancel"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:190
+#: openspending/ui/alttemplates/editor/team.html:91
+msgid "Add"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:200
+msgid "Your model was saved."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:200
+msgid ""
+"You can now try to load a sample of the data by returning back to the "
+"dashboard."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:205
+msgid "Visit dashboard"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:213
+msgid ""
+"The dimensions mapping could not be saved as it \n"
+"            contains some errors"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:230
+msgid "Dimension mapping"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:232
+msgid ""
+"To create a model for your dataset,\n"
+"                    you need to translate the columns in \n"
+"                    the data file to \"dimensions\", the logical\n"
+"                    divisions of the dataset. A dimension\n"
+"                    can be any property of a line item or \n"
+"                    transaction that should be presented\n"
+"                    within OpenSpending."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:241
+msgid ""
+"There are four core dimensions, <code>amount</code>,\n"
+"                    <code>time</code> &mdash; which are\n"
+"                    mandatory &mdash; as well as\n"
+"                    <code>from</code> for the spender,\n"
+"                    and <code>to</code> for the\n"
+"                    recipient of a specific transaction\n"
+"                    &mdash; both of those must be\n"
+"                    dimensions if they exist."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:251
+msgid ""
+"Beyond that, you can add your own\n"
+"                    dimensions to describe aspects such\n"
+"                    as classification schemes,\n"
+"                    descriptions, transaction IDs and any\n"
+"                    other details present in the source\n"
+"                    data."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:258
+msgid "What do I do here?"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:260
+msgid ""
+"First off, make sure to set up the\n"
+"                    model to conform to these basic\n"
+"                    requirements:"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:265
+msgid ""
+"Create <code>amount</code> with the core \n"
+"                      financial measure of the dataset and \n"
+"                      <code>time</code> to represent the most \n"
+"                      representative temporal\n"
+"                      dimension."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:270
+msgid ""
+"If your data is transactional and \n"
+"                      contains the name of a department or \n"
+"                      body spending the funds, make sure to \n"
+"                      include a <code>from</code> dimension."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:274
+msgid ""
+"If the data mentions a recipient,\n"
+"                      such as a supplier, set\n"
+"                      <code>to</code> as another dimension."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:277
+msgid ""
+"Set a unique key combination so\n"
+"                      that the values within that\n"
+"                      combination are different between all \n"
+"                      entries in the dataset. This can\n"
+"                      later be used for updating the\n"
+"                      dataset."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:285
+msgid ""
+"After you've done these basic things,\n"
+"                    make sure to also create dimensions\n"
+"                    to cover any other aspects present in \n"
+"                    the source data. You can group\n"
+"                    related columns into a single\n"
+"                    dimension, for example if each row \n"
+"                    mentions both a company's name and\n"
+"                    its VAT number."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:298
+msgid "Background: How does OpenSpending store data?"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:449
+msgid "Save Dimensions"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions.html:450
+msgid "Delete All Dimensions"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions_errors.html:15
+msgid "You cannot edit dimensions while data is loaded."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions_errors.html:16
+msgid ""
+"In order to modify the dimensions model, you'll have to \n"
+"        delete all the data that is currently loaded from the database."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions_errors.html:20
+msgid "Go to dashboard"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions_errors.html:22
+msgid "See dimensions"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions_errors.html:29
+msgid "You need to define at least one data source."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/dimensions_errors.html:30
+msgid ""
+"In order to create a dimensions model, at least on data source\n"
+"        needs to be available."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:16
+msgid "Congratulations, your dataset is now created."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:17
+msgid ""
+"Next, you'll need to link to a source file that contains the data\n"
+"        (or a sample for testing if your dataset is very large!). The data\n"
+"        must be in the CSV format."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:22
+msgid ""
+"Learn about <a href=\"#\">how to export CSV</a>\n"
+"          from various common applications."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:24
+msgid ""
+"Help on <a href=\"#\">common data wrangling tasks</a> needed to clean\n"
+"          source data."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:30
+#: openspending/ui/alttemplates/editor/index.html:64
+msgid "Add a source"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:38
+msgid "Let me see..."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:38
+msgid ""
+"The data is now being checked to\n"
+"      see if it can be imported. This should not take very long."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:41
+msgid "Refresh"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:48
+msgid "Good stuff!"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:48
+msgid ""
+"Your data is now ready. Next,\n"
+"      create a <strong>data model</strong> to structure the dataset."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:54
+msgid "Create a model"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:62
+msgid "Source files"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:70
+msgid "Summary"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:72
+msgid "Entries loaded:"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:73
+msgid "Searchable:"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:76
+msgid "Dataset Actions"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:81
+#: openspending/ui/alttemplates/editor/index.html:86
+msgid "Delete loaded data"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:82
+msgid ""
+"Delete all loaded data to fix \n"
+"        errors and re-edit the data dimensions."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:87
+msgid ""
+"You can remove the loaded data\n"
+"      at any time and start over."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:96
+#: openspending/ui/alttemplates/editor/index.html:101
+msgid "Make public"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:97
+msgid ""
+"After you've performed some QA,\n"
+"        let the world see this dataset."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:102
+msgid ""
+"After you've performed some QA,\n"
+"      let the world see this dataset."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:108
+msgid "Retract"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:109
+msgid ""
+"If you have noted serious quality\n"
+"        issues or legal issues, you can un-publish this dataset."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:116
+msgid "Delete entire dataset"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:117
+msgid "This action cannot be undone."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:130
+msgid "Create a new data source"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/index.html:136
+msgid "Create"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/team.html:70
+msgid ""
+"Here, you can select the users who will be authorized to \n"
+"    manage this dataset."
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/team.html:84
+msgid "Current team"
+msgstr ""
+
+#: openspending/ui/alttemplates/editor/team.html:88
+msgid "Add someone"
+msgstr ""
+
+#: openspending/ui/alttemplates/entry/index.html:44
+msgid "Time range for dataset:"
+msgstr ""
+
 #: openspending/ui/alttemplates/entry/search.html:10
 msgid "Search OpenSpending"
 msgstr ""
@@ -640,24 +1228,70 @@ msgstr ""
 msgid "Detailed View of Transaction"
 msgstr ""
 
-#: openspending/ui/alttemplates/entry/view.html:61
-msgid "Recipient"
+#: openspending/ui/alttemplates/entry/view.html:101
+msgid "Adjusted for inflation"
 msgstr ""
 
-#: openspending/ui/alttemplates/entry/view.html:76
-msgid "Spender"
+#: openspending/ui/alttemplates/entry/view.html:102
+#, python-format
+msgid ""
+"(from <span title=\"%(reference)s\">%(reference_year)s</span> \n"
+"             to <span title=\"%(target)s\">%(target_year)s</span>)"
 msgstr ""
 
-#: openspending/ui/alttemplates/entry/view.html:119
-msgid "Dimension"
+#: openspending/ui/alttemplates/entry/view.html:104
+#, python-format
+msgid "Original amount: %(original)s"
 msgstr ""
 
 #: openspending/ui/alttemplates/entry/view.html:120
+#: openspending/ui/alttemplates/run/view.html:53
 msgid "Value"
 msgstr ""
 
 #: openspending/ui/alttemplates/entry/view.html:152
 msgid "Notes"
+msgstr ""
+
+#: openspending/ui/alttemplates/errors/400.html:7
+msgid "Invalid request."
+msgstr ""
+
+#: openspending/ui/alttemplates/errors/400.html:7
+#: openspending/ui/alttemplates/errors/403.html:7
+#: openspending/ui/alttemplates/errors/404.html:7
+#: openspending/ui/alttemplates/run/view.html:30
+#: openspending/ui/alttemplates/run/view.html:54
+#: openspending/ui/alttemplates/source/_list.html:13
+msgid "Error"
+msgstr ""
+
+#: openspending/ui/alttemplates/errors/403.html:7
+msgid "Access denied."
+msgstr ""
+
+#: openspending/ui/alttemplates/errors/403.html:14
+msgid "You may not have the relevant rights."
+msgstr ""
+
+#: openspending/ui/alttemplates/errors/403.html:18
+msgid "You may need to login."
+msgstr ""
+
+#: openspending/ui/alttemplates/errors/404.html:7
+msgid "Resource not found"
+msgstr ""
+
+#: openspending/ui/alttemplates/errors/404.html:10
+msgid "Maybe the URL is misspelled or the data has been deleted."
+msgstr ""
+
+#: openspending/ui/alttemplates/errors/500.html:7
+msgid "Something went wrong."
+msgstr ""
+
+#: openspending/ui/alttemplates/errors/500.html:7
+msgid "Internal Server Error"
 msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:24
@@ -746,6 +1380,224 @@ msgid ""
 "A JSONP object is returned if a <var>callback</var> parameter is\n"
 "    supplied (usually by appending \"?callback=myfun\" or\n"
 "    similar)."
+msgstr ""
+
+#: openspending/ui/alttemplates/run/view.html:4
+#: openspending/ui/alttemplates/run/view.html:10
+msgid "Report"
+msgstr ""
+
+#: openspending/ui/alttemplates/run/view.html:12
+#: openspending/ui/alttemplates/source/_list.html:81
+msgid "errors"
+msgstr ""
+
+#: openspending/ui/alttemplates/run/view.html:16
+msgid "Nothing to report!"
+msgstr ""
+
+#: openspending/ui/alttemplates/run/view.html:16
+msgid ""
+"The source has been loaded\n"
+"  successfully. This does not mean the data is stored in a form \n"
+"  which is semantically useful, though, so don't forget to \n"
+"  sanity-check a few entries!"
+msgstr ""
+
+#: openspending/ui/alttemplates/run/view.html:28
+msgid "Level"
+msgstr ""
+
+#: openspending/ui/alttemplates/run/view.html:29
+msgid "Message"
+msgstr ""
+
+#: openspending/ui/alttemplates/run/view.html:50
+msgid "Row"
+msgstr ""
+
+#: openspending/ui/alttemplates/run/view.html:51
+msgid "Column"
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_list.html:6
+msgid "Link"
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_list.html:7
+msgid "Operations"
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_list.html:15
+msgid "OK"
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_list.html:24
+msgid "columns"
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_list.html:30
+msgid "Successfully loaded"
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_list.html:34
+msgid "Running..."
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_list.html:39
+msgid "Load source into OpenSpending"
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_list.html:39
+msgid "Load"
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_list.html:46
+msgid "Test a sample"
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_list.html:46
+msgid "Test"
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_list.html:53
+msgid "Delete source"
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_list.html:53
+#: openspending/ui/alttemplates/view/view.html:61
+msgid "Delete"
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_list.html:60
+msgid "Reports"
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_list.html:70
+msgid "Running"
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_list.html:72
+msgid "Complete"
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_list.html:74
+msgid "Errors"
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_list.html:76
+msgid "Removed"
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_list.html:87
+msgid "Analysis"
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_list.html:90
+msgid "We found these columns in the CSV file:"
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_list.html:97
+msgid "Warning"
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_list.html:97
+msgid "No columns found."
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_list.html:99
+msgid "Still analysing"
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_list.html:99
+msgid "Try refreshing in a moment."
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_new_form.html:4
+msgid "URL"
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_new_form.html:7
+msgid ""
+"This must point directly at a\n"
+"        valid CSV file. HTML landing pages or other formats, such as\n"
+"        Excel, will not work."
+msgstr ""
+
+#: openspending/ui/alttemplates/source/_new_form.html:10
+msgid ""
+"We recommend using <strong>,</strong> as delimiter and wrapping values in "
+"double quotes (especially amounts). The first line will always be regarded as"
+" a header row. <a href=\"http://community.openspending.org/help/guide/en"
+"/formatting-data/\">Want to know more?</a>"
+msgstr ""
+
+#: openspending/ui/alttemplates/view/embed.html:6
+msgid "Embedded Visualisation"
+msgstr ""
+
+#: openspending/ui/alttemplates/view/embed.html:65
+msgid "Visualised with OpenSpending"
+msgstr ""
+
+#: openspending/ui/alttemplates/view/index.html:5
+msgid "Library of visualisations"
+msgstr ""
+
+#: openspending/ui/alttemplates/view/index.html:23
+#, python-format
+msgid "by %(user)s"
+msgstr ""
+
+#: openspending/ui/alttemplates/view/new.html:5
+msgid "Create a visualisation"
+msgstr ""
+
+#: openspending/ui/alttemplates/view/new.html:61
+msgid "Name your visualisation"
+msgstr ""
+
+#: openspending/ui/alttemplates/view/new.html:63
+msgid ""
+"You can store your visualisation with a name so that you can come back to it "
+"later and it will become visible to others."
+msgstr ""
+
+#: openspending/ui/alttemplates/view/new.html:82
+msgid "You need to be signed in to save a view."
+msgstr ""
+
+#: openspending/ui/alttemplates/view/new.html:90
+msgid "Embed in another website"
+msgstr ""
+
+#: openspending/ui/alttemplates/view/new.html:92
+msgid ""
+"If you don't save this visualisation, you can still copy and paste the embed "
+"code below, to embed the widget in another website, such as a blog or "
+"article."
+msgstr ""
+
+#: openspending/ui/alttemplates/view/new.html:96
+msgid "Width"
+msgstr ""
+
+#: openspending/ui/alttemplates/view/new.html:100
+msgid "Height"
+msgstr ""
+
+#: openspending/ui/alttemplates/view/view.html:37
+msgid ""
+"Here you can rename your widget and/or update the description.\n"
+"    You can also change and modify the the widget itself but keep in\n"
+"    mind that others might be using and embedding the widget as it is\n"
+"    now on their sites. <strong>Changing the widget here will change\n"
+"    it everywhere.</strong> This might then create a discrepancy\n"
+"    between the widget and the context of a page it's embedded in."
+msgstr ""
+
+#: openspending/ui/alttemplates/view/view.html:45
+msgid "Update widget"
 msgstr ""
 
 #: openspending/ui/controllers/account.py:79

@@ -1,5 +1,5 @@
 [main]
-host = https://www.transifex.net
+host = https://www.transifex.com
 
 [openspending.openspendinguipot]
 file_filter = openspending/ui/i18n/<lang>/LC_MESSAGES/openspending.ui.po
