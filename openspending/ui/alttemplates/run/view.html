@@ -1,22 +1,22 @@
 {% extends "base.html" %}
 {% from "editor/_nav.html" import editor_nav as editor_nav %}
 
-{% block page_title %}Report: {{ h.readable_url(c.source.url) }}{% endblock %}
+{% block page_title %}{% trans %}Report{% endtrans %}: {{ h.readable_url(c.source.url) }}{% endblock %}
 
 {% block content %}
 <!-- templates/run/view.html -->
 {{editor_nav(h, c, 'index')}}
 <h3>
-  Report:
+  {% trans %}Report{% endtrans %}:
   {{ h.readable_url(c.source.url) }}
-  ({{ c.run.records.count() }} Errors, {{ c.run.status }})
+  ({{ c.run.records.count() }} {% trans %}errors{% endtrans %}, {{ c.run.status }})
 </h3>
 {% if not (c.num_data or c.num_system) %}
 <div class="alert block-message alert-success">
-  <strong>Nothing to report!</strong> The source has been loaded
+  <strong>{% trans %}Nothing to report!{% endtrans %}</strong> {% trans %}The source has been loaded
   successfully. This does not mean the data is stored in a form 
   which is semantically useful, though, so don't forget to 
-  sanity-check a few entries!
+  sanity-check a few entries!{% endtrans %}
 </div>
 {% endif %}
 
@@ -25,9 +25,9 @@
   <div class="span12">
     <table class="table table-condensed table-striped">
       <tr>
-        <th>Level</th>
-        <th>Message</th>
-        <th>Error</th>
+        <th>{% trans %}Level{% endtrans %}</th>
+        <th>{% trans %}Message{% endtrans %}</th>
+        <th>{% trans %}Error{% endtrans %}</th>
       </tr>
       {% for record in c.system_page %}
       <tr>
@@ -47,11 +47,11 @@
   <div class="span12">
     <table class="table table-condensed table-striped">
       <tr>
-        <th>Row</th>
-        <th>Column</th>
-        <th>Attribute</th>
-        <th>Value</th>
-        <th>Error</th>
+        <th>{% trans %}Row{% endtrans %}</th>
+        <th>{% trans %}Column{% endtrans %}</th>
+        <th>{% trans %}Attribute{% endtrans %}</th>
+        <th>{% trans %}Value{% endtrans %}</th>
+        <th>{% trans %}Error{% endtrans %}</th>
       </tr>
       {% for record in c.data_page %}
       <tr>

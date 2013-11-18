@@ -11,7 +11,7 @@
       {{ c.dataset.label }}</a>
     <span class="divider">/</span>
   </li>
-  <li class="active">Manage the dataset</li>
+  <li class="active">{% trans %}Manage the dataset{% endtrans %}</li>
 </ul>
 <h2 class="page-header">
   {{ c.dataset.label }} 
@@ -20,22 +20,22 @@
 <div class="tabbable">
   <ul class="nav nav-tabs">
     <li class="{{ 'active' if section == 'index' else '' }}">
-      <a href="{{ h.url_for(controller='editor', action='index', dataset=c.dataset.name) }}">Dashboard</a></li>
+      <a href="{{ h.url_for(controller='editor', action='index', dataset=c.dataset.name) }}">{% trans %}Dashboard{% endtrans %}</a></li>
     <li class="{{ 'active' if section == 'dimensions' else '' }}">
       <a href="{{ h.url_for(controller='editor', action='dimensions_edit',
-               dataset=c.dataset.name) }}">Dimensions &amp; Measures</a></li>
+               dataset=c.dataset.name) }}">{% trans %}Dimensions &amp; Measures{% endtrans %}</a></li>
     <li class="{{ 'active' if section == 'views' else '' }}">
       <a href="{{ h.url_for(controller='editor', action='views_edit',
-               dataset=c.dataset.name) }}">Views</a></li>
+               dataset=c.dataset.name) }}">{% trans %}Views{% endtrans %}</a></li>
     <li class="{{ 'active' if section == 'team' else '' }}">
       <a href="{{ h.url_for(controller='editor', action='team_edit',
-               dataset=c.dataset.name) }}">Team</a></li>
+               dataset=c.dataset.name) }}">{% trans %}Team{% endtrans %}</a></li>
     <li class="{{ 'active' if section == 'core' else '' }}">
       <a href="{{ h.url_for(controller='editor', action='core_edit',
-               dataset=c.dataset.name) }}">Meta</a></li>
+               dataset=c.dataset.name) }}">{% trans %}Meta{% endtrans %}</a></li>
     <li class="{{ 'active' if section == 'templates' else '' }}">
       <a href="{{ h.url_for(controller='editor', action='templates_edit',
-               dataset=c.dataset.name) }}">Templates</a></li>
+               dataset=c.dataset.name) }}">{% trans %}Templates{% endtrans %}</a></li>
   </ul>
 </div>
 

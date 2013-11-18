@@ -2,20 +2,20 @@
 {% from "editor/_nav.html" import editor_nav %}
 {% from "source/_new_form.html" import new_form %}
 
-{% block page_title %}Create a data source{% endblock %}
+{% block page_title %}{% trans %}Create a data source{% endtrans %}{% endblock %}
 
 {% block content %}  
 {{ editor_nav(h, c, 'index') }}
 <div class="row">
   <div class="span4">&nbsp;</div>
   <div class="span12">
-    <h3>Create a data source</h3>
+    <h3>{% trans %}Create a data source{% endtrans %}</h3>
     {% formfill form_fill with form_errors -%}
     <form class="basic" action="{{ h.url(controller='source', action='create',
                                 dataset=c.dataset.name) }}" method="POST">
       {{ new_form() }}
       <div class="actions">
-        <input value="Create" class="btn success" type="submit" />
+        <input value="{% trans %}Create{% endtrans %}" class="btn success" type="submit" />
       </div>
     </form>
     {%- endformfill %}

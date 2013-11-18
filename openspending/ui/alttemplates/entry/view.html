@@ -40,7 +40,7 @@
         </a>
       </div>
     </ul>
-    <h2 class="page-header" i18n:msg="dataset_label">
+    <h2 class="page-header">
       
       {% trans dataset=c.dataset.label %}Entry in {{dataset}}{% endtrans %}
       <small>{% trans %}Detailed View of Transaction{% endtrans %}</small>
@@ -57,31 +57,31 @@
     <div class="row">
       <div class="entities span4">
         {% if 'from' in c.desc %}
-          <span>
-            {{c.desc.get('from', {}).label or _('Recipient')}}:
-          </span>
-          <div>
-            <img src="{{h.static('img/icons/arrow_left_12x12.png')}}" />
-			{% if c.from_ %}
-            <a
-                  href="{{h.url_for(controller='dimension', action='member',
-                  dataset=c.dataset.name, dimension='from',
-                  name=c.from_.get('name'))}}">{{h.render_value(c.from_)}}</a>
-			{% endif %}
-          </div>
+        <span>
+          {{c.desc.get('from', {}).label or '{% trans %}Recipient{% endtrans %}'}}:
+        </span>
+        <div>
+          <img src="{{h.static('img/icons/arrow_left_12x12.png')}}" />
+	  {% if c.from_ %}
+          <a
+             href="{{h.url_for(controller='dimension', action='member',
+                   dataset=c.dataset.name, dimension='from',
+                   name=c.from_.get('name'))}}">{{h.render_value(c.from_)}}</a>
+	  {% endif %}
+        </div>
         {% endif %}
-
+        
         {% if 'to' in c.desc %}
-          <span>
-            {{c.desc.get('to', {}).label or _('Spender')}}:
-          </span>
-          <div>
-            <img src="{{h.static('img/icons/arrow_right_12x12.png')}}" />
-			{% if c.to %}
-			<a href="{{h.url_for(controller='dimension', action='member',
-                  dataset=c.dataset.name, dimension='to',
-                  name=c.to.get('name'))}}">{{h.render_value(c.to)}}</a>
-			{% endif %}
+        <span>
+          {{c.desc.get('to', {}).label or '{% trans %}Spender{% endtrans %}'}}:
+        </span>
+        <div>
+          <img src="{{h.static('img/icons/arrow_right_12x12.png')}}" />
+	  {% if c.to %}
+	  <a href="{{h.url_for(controller='dimension', action='member',
+                   dataset=c.dataset.name, dimension='to',
+                   name=c.to.get('name'))}}">{{h.render_value(c.to)}}</a>
+	  {% endif %}
           </div>
         {% endif %}
       </div><!-- /.entities -->
@@ -98,10 +98,10 @@
          {% if c.inflation -%}
          <div>
            <p class="help-block">
-             Adjusted for inflation
-             (from <span title="{{c.inflation.reference}}">{{c.inflation.reference.year}}</span> 
-             to <span title="{{c.inflation.target}}">{{c.inflation.target.year}}</span>)
-             - Original amount: {{h.format_number_with_commas(c.inflation.original)}}
+             {% trans %}Adjusted for inflation{% endtrans %}
+             {% trans reference=c.inflation.reference, reference_year=c.inflation.reference.year, target=c.inflation.target, target_year=c.inflation.target.year %}(from <span title="{{reference}}">{{reference_year}}</span> 
+             to <span title="{{target}}">{{target_year}}</span>){% endtrans %}
+             - {% trans original=h.format_number_with_commas(c.inflation.original) %}Original amount: {{original}}{% endtrans %}
            </p>
          </div>
          {%- endif %}

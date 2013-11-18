@@ -41,7 +41,7 @@
     {% if c.timerange %}
     <div class="row">
       <div class="span4">
-	<p><small>Time range for dataset: {{ c.timerange.from.strftime('%Y-%m-%d') }} - {{ c.timerange.to.strftime('%Y-%m-%d') }}</small></p>
+	<p><small>{% trans %}Time range for dataset:{% endtrans %} {{ c.timerange.from.strftime('%Y-%m-%d') }} - {{ c.timerange.to.strftime('%Y-%m-%d') }}</small></p>
       </div>
     </div>
     {% endif %}

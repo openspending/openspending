@@ -1,25 +1,25 @@
 {% extends "base.html" %}
 
-{% block page_title %}Settings for: {{ c.account.name }}{% endblock %}
+{% block page_title %}{% trans %}Settings for:{% endtrans %} {{ c.account.name }}{% endblock %}
 
 {% block content %}
-<h2 class="page-header">Account Settings <small>{{ c.account.fullname }}</small></h2>
+<h2 class="page-header">{% trans %}Account Settings{% endtrans %} <small>{{ c.account.fullname }}</small></h2>
 
 <div class="row">
   <div class="offset2 span10">
     <form class="basic settings form-horizontal" id="settings" action="/settings" method="POST">
       <div class="control-group">
-        <label for="fullname">Fullname</label>
+        <label for="fullname">{% trans %}Fullname{% endtrans %}</label>
         <div class="controls">
           <input name="fullname"{% if 'fullname' in form_fill %} value="{{form_fill.fullname}}"{% endif %}>
         </div>
       </div>
       <div class="control-group form-inline">
-        <label for="email">E-Mail</label>
+        <label for="email">{% trans %}E-Mail{% endtrans %}</label>
         <div class="controls">
           <input name="email"{% if 'email' in form_fill %} value="{{form_fill.email}}"{% endif %}>
 	  <label class="checkbox">
-	    <input name="public_email" type="checkbox"{% if 'public_email' in form_fill %} checked="checked"{% endif %}> Visible to users
+	    <input name="public_email" type="checkbox"{% if 'public_email' in form_fill %} checked="checked"{% endif %}> {% trans %}Visible to users{% endtrans %}
 	  </label>
         </div>
       </div>
@@ -28,43 +28,40 @@
         <div class="controls">
           <input name="twitter"{% if 'twitter' in form_fill %} value="{{form_fill.twitter}}"{% endif %}>
 	  <label class="checkbox">
-	    <input name="public_twitter" type="checkbox"{% if 'public_twitter' in form_fill %} checked="checked"{% endif %}> Visible to users
+	    <input name="public_twitter" type="checkbox"{% if 'public_twitter' in form_fill %} checked="checked"{% endif %}> {% trans %}Visible to users{% endtrans %}
 	  </label>
         </div>
       </div>
       <div class="control-group">
-        <label for="password1">Password</label>
+        <label for="password1">{% trans %}Password{% endtrans %}</label>
         <div class="controls">
           <input name="password1" type="password" autocomplete="off" />
         </div>
       </div>
       <div class="control-group">
-        <label for="password2">Password (repeat)</label>
+        <label for="password2">{% trans %}Password (repeat){% endtrans %}</label>
         <div class="controls">
           <input name="password2" type="password" autocomplete="off" />
-          <p class="help-block">Leave both fields blank to keep
-            your current password.</p>
+          <p class="help-block">{% trans %}Leave both fields blank to keep your current password.{% endtrans %}</p>
         </div>
       </div>
       <div class="control-group">
-        <label for="api_key">API Key</label>
+        <label for="api_key">{% trans %}API Key{% endtrans %}</label>
         <div class="controls">
           <span class="uneditable-input" style="width: 25em;">{{ c.account.api_key }}</span>
-          <p class="help-block">Use this key to access the OpenSpending
-            API programmatically.</p>
+          <p class="help-block">{% trans %}Use this key to access the OpenSpending API programmatically.{% endtrans %}</p>
         </div>
       </div>
       <div class="control-group">
-        <label for="script_root">Script Location</label>
+        <label for="script_root">{% trans %}Script Location{% endtrans %}</label>
         <div class="controls">
           <input name="script_root" />
-          <p class="help-block">Set a different location for JavaScript imports to develop
-            new widgets.</p>
+          <p class="help-block">{% trans %}Set a different location for JavaScript imports to develop new widgets.{% endtrans %}</p>
         </div>
       </div>
       
       <div class="form-actions">
-        <input value="Save" type="submit" class="btn btn-primary" />
+        <input value="{% trans %}Save{% endtrans %}" type="submit" class="btn btn-primary" />
       </div>
     </form>
   </div>

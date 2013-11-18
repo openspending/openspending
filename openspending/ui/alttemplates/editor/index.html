@@ -13,21 +13,21 @@
     {% if not c.has_sources %}
     <div class="alert block-message alert-info">
       <p>
-        <strong>Congratulations, your dataset is now created.</strong>
-        Next, you'll need to link to a source file that contains the data
+        <strong>{% trans %}Congratulations, your dataset is now created.{% endtrans %}</strong>
+        {% trans %}Next, you'll need to link to a source file that contains the data
         (or a sample for testing if your dataset is very large!). The data
-        must be in the CSV format.
+        must be in the CSV format.{% endtrans %}
       </p>
       <ul>
-        <li>Learn about <a href="#">how to export CSV</a>
-          from various common applications.</li>
-        <li>Help on <a href="#">common data wrangling tasks</a> needed to clean
-          source data.</li>
+        <li>{% trans %}Learn about <a href="#">how to export CSV</a>
+          from various common applications.{% endtrans %}</li>
+        <li>{% trans %}Help on <a href="#">common data wrangling tasks</a> needed to clean
+          source data.{% endtrans %}</li>
       </ul>
 
       <div class="alert-actions">
         <a class="btn small" data-toggle="modal"  href="#new-source">
-          Add a source
+          {% trans %}Add a source{% endtrans %}
         </a>
       </div>
     </div>
@@ -35,23 +35,23 @@
     
     {% if c.source and not c.source.analysis %}
     <div class="alert block-message alert-info">
-      <strong>Let me see...</strong> The data is now being checked to
-      see if it can be imported. This should not take very long.
+      <strong>{% trans %}Let me see...{% endtrans %}</strong> {% trans %}The data is now being checked to
+      see if it can be imported. This should not take very long.{% endtrans %}
       <div class="alert-actions">
-        <a class="btn small" href="?">Refresh</a>
+        <a class="btn small" href="?">{% trans %}Refresh{% endtrans %}</a>
       </div>
     </div>
     {% endif %}
 
     {% if c.source and 'columns' in c.source.analysis and not c.dataset.mapping %}
     <div class="alert block-message alert-success">
-      <strong>Good stuff!</strong> Your data is now ready. Next,
-      create a <strong>data model</strong> to structure the dataset.
+      <strong>{% trans %}Good stuff!{% endtrans %}</strong> {% trans %}Your data is now ready. Next,
+      create a <strong>data model</strong> to structure the dataset.{% endtrans %}
       <div class="alert-actions">
         <a class="btn btn-small" 
            href="{{ h.url(controller='editor',
                     action='dimensions_edit', dataset=c.dataset.name) }}">
-          Create a model
+          {% trans %}Create a model{% endtrans %}
         </a>
       </div>
     </div>
@@ -59,33 +59,33 @@
 
     {% if c.has_sources %}
     <div>
-      <h3>Source files</h3>
+      <h3>{% trans %}Source files{% endtrans %}</h3>
       {{ sources_list(c.dataset, h) }}
-      <a class="btn btn-success small" data-toggle="modal" href="#new-source">Add a source</a>
+      <a class="btn btn-success small" data-toggle="modal" href="#new-source">{% trans %}Add a source{% endtrans %}</a>
     </div>
     {% endif %}
   </div>
 
   <div class="span4">
-    <h3>Summary</h3>
+    <h3>{% trans %}Summary{% endtrans %}</h3>
     <ul>
-      <li>Entries loaded: {{ c.entries_count }}</li>
-      <li>Searchable: {{ c.index_count }} ({{ c.index_percentage/10 }}%)</li>
+      <li>{% trans %}Entries loaded:{% endtrans %} {{ c.entries_count }}</li>
+      <li>{% trans %}Searchable:{% endtrans %} {{ c.index_count }} ({{ c.index_percentage/10 }}%)</li>
     </ul>
 
-    <h3>Dataset Actions</h3>
+    <h3>{% trans %}Dataset Actions{% endtrans %}</h3>
     {% if c.entries_count %}
     <form method="POST" action="{{ h.url(controller='editor',
             action='drop', dataset=c.dataset.name) }}">
       <input type="submit" class="btn btn-danger" 
-             value="Delete loaded data" />
-      <p class="help-block">Delete all loaded data to fix 
-        errors and re-edit the data dimensions.</p>
+             value="{% trans %}Delete loaded data{% endtrans %}" />
+      <p class="help-block">{% trans %}Delete all loaded data to fix 
+        errors and re-edit the data dimensions.{% endtrans %}</p>
     </form>
     {% else %}
-    <a href="#" class="btn btn-danger disabled">Delete loaded data</a>
-    <p class="help-block">You can remove the loaded data
-      at any time and start over.</p>
+    <a href="#" class="btn btn-danger disabled">{% trans %}Delete loaded data{% endtrans %}</a>
+    <p class="help-block">{% trans %}You can remove the loaded data
+      at any time and start over.{% endtrans %}</p>
     <br/>
     {% endif %}
 
@@ -93,29 +93,28 @@
     {% if c.entries_count %}
     <form method="POST" action="{{ h.url(controller='editor',
                                 action='publish', dataset=c.dataset.name) }}">
-      <input type="submit" class="btn btn-success" value="Make public" />
-      <p class="help-block">After you've performed some QA,
-        let the world see this dataset.</p>
+      <input type="submit" class="btn btn-success" value="{% trans %}Make public{% endtrans %}" />
+      <p class="help-block">{% trans %}After you've performed some QA,
+        let the world see this dataset.{% endtrans %}</p>
     </form>
     {% else %}
-    <a class="btn btn-success disabled">Make public</a>
-    <p class="help-block">After you've performed some QA,
-      let the world see this dataset.</p>
+    <a class="btn btn-success disabled">{% trans %}Make public{% endtrans %}</a>
+    <p class="help-block">{% trans %}After you've performed some QA,
+      let the world see this dataset.{% endtrans %}</p>
     {% endif %}
     {% else %}
     <form method="POST" action="{{ h.url(controller='editor',
                                 action='retract', dataset=c.dataset.name) }}">
-      <input type="submit" class="btn btn-danger" value="Retract" />
-      <p class="help-block">If you have noted serious quality
-        issues or legal issues, you can un-publish this dataset.</p>
+      <input type="submit" class="btn btn-danger" value="{% trans %}Retract{% endtrans %}" />
+      <p class="help-block">{% trans %}If you have noted serious quality
+        issues or legal issues, you can un-publish this dataset.{% endtrans %}</p>
     </form>
     {% endif %}
 
     <form method="POST" action="{{ h.url(controller='editor',
                                 action='delete', dataset=c.dataset.name) }}">
-      <input type="submit" class="btn btn-danger" value="Delete entire dataset" />
-      <p class="help-block" i18n:comment="Warning message on deletion">This
-        action cannot be undone.</p>
+      <input type="submit" class="btn btn-danger" value="{% trans %}Delete entire dataset{% endtrans %}" />
+      <p class="help-block">{% trans %}This action cannot be undone.{% endtrans %}</p>
     </form>
 
     <br/>
@@ -128,13 +127,13 @@
     <form class="basic" action="{{ h.url(controller='source', action='create',
                                 dataset=c.dataset.name) }}" method="POST">
       <div class="modal-header">
-        <h3>Create a new data source</h3>
+        <h3>{% trans %}Create a new data source{% endtrans %}</h3>
       </div>
       <div class="modal-body">
             {{ new_form() }}
       </div>
       <div class="modal-footer">
-        <input value="Create" class="btn btn-success" type="submit" />
+        <input value="{% trans %}Create{% endtrans %}" class="btn btn-success" type="submit" />
       </div>
     </form>
   </div>
