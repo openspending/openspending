@@ -4,18 +4,18 @@
 
 {% block content %}
 <h2 class="page-header">
-  Access denied. <small>Error {{ c.code }}</small>
+  {% trans %}Access denied.{% endtrans %} <small>{% trans %}Error{% endtrans %} {{ c.code }}</small>
 </h2>
 
 <div class="alert-message block-message error">
   <strong>{{ c.message }}</strong>:
   {% if c.account %}
   <p>
-    You may not have the relevant rights.
+    {% trans %}You may not have the relevant rights.{% endtrans %}
   </p>
   {% else %}
   <p>
-    You may need to login.
+    {% trans %}You may need to login.{% endtrans %}
   </p>
   {% endif %}
 </div>

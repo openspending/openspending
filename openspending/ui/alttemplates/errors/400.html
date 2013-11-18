@@ -4,7 +4,7 @@
 
 {% block content %}
 <h2 class="page-header">
-  Invalid request. <small>Error {{ c.code }}</small>
+  {% trans %}Invalid request.{% endtrans %} <small>{% trans %}Error{% endtrans %} {{ c.code }}</small>
 </h2>
 
 <div class="alert-message block-message error">
