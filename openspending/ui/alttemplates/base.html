@@ -40,16 +40,27 @@
           <a class="brand" href="/" xml:lang="en"><span class="green">Open</span>Spending</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li><a class="{{ section_active.blog }}" href="{{ h.url(controller='content', action='view', section='blog', path='index.html') }}">{% trans %}Spending Blog{% endtrans %}</a></li>
-              <li class="dropdown">
+              <li>
                 <a class="{{ section_active.dataset }}" href="/datasets">{% trans %}Datasets{% endtrans %}</a>
               </li>
-              <li><a class="{{ section_active.search }}" href="{{ h.url(controller='entry', action='search') }}">{% trans %}Search{% endtrans %}</a></li>
-              <li class="dropdown">
-                <a class="{{ section_active.resources}} dropdown-toggle" href="/resources/index.html">{% trans %}Community{% endtrans %}</a>
+              <li>
+                <a class="{{ section_active.search }}" href="{{ h.url(controller='entry', action='search') }}">{% trans %}Search{% endtrans %}</a>
               </li>
-              <li><a class="{{ section_active.help }}" href="{{ h.url(controller='content', action='view', section='help', path='index.html') }}">{% trans %}Help{% endtrans %}</a></li>
-              <li><a class="{{ section_active.about }}" href="{{ h.url(controller='content', action='view', section='about', path='contact.html') }}">{% trans %}About{% endtrans %}</a></li>
+              <li>
+                <a href="http://community.openspending.org/">{% trans %}Community{% endtrans %}</a>
+              </li>
+              <li>
+                <a href="http://community.openspending.org/help/">{% trans %}Help{% endtrans %}</a>
+              </li>
+              <li>
+                <a href="http://community.openspending.org/about/">{% trans %}About{% endtrans %}</a>
+              </li>
+              <li>
+                <a href="http://community.openspending.org/contact/">{% trans %}Contact{% endtrans %}</a>
+              </li>
+              <li>
+                <a class="{{ section_active.blog }}" href="http://community.openspending.org/blog/">{% trans %}Blog{% endtrans %}</a>
+              </li>
             </ul>
           </div>
           <ul class="nav pull-right">
@@ -112,10 +123,10 @@
           </ul>
           <ul class="footer-links span4 pull-left">
             <li><a href="http://twitter.com/openspending">Twitter</a></li>
-            <li><a href="{{ h.url(controller='content', action='view', section='help', path='index.html') }}">{% trans %}Help{% endtrans %}</a></li>
-            <li><a href="http://lists.okfn.org/mailman/listinfo">{% trans %}Mailing List{% endtrans %}</a></li>
-            <li><a href="{{ h.url(controller='content', action='view', section='help', path='api.html') }}">{% trans %}API{% endtrans %}</a></li>
-            <li>{% trans %}<a href="http://okfn.org/privacy-policy/">Privacy</a>{% endtrans %} {% trans %}and{% endtrans %} <a href="{{ h.url(controller='content', action='view', section='about', path='contact.html') }}">{% trans %}Contact{% endtrans %}</a></li>
+            <li><a href="http://community.openspending.org/help/">{% trans %}Help{% endtrans %}</a></li>
+            <li><a href="http://community.openspending.org/contact/">{% trans %}Contact{% endtrans %}</a></li>
+            <li><a href="http://community.openspending.org/help/api/">{% trans %}API{% endtrans %}</a></li>
+            <li><a href="http://okfn.org/privacy-policy/">{% trans %}Privacy{% endtrans %}</a></li>
           </ul>
           <p>{% trans %}All <a href="http://www.gnu.org/licenses/agpl.html">code</a>,
           <a href="http://creativecommons.org/licenses/by/3.0/">content</a>
