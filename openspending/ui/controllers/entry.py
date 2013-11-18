@@ -22,7 +22,7 @@ class EntryController(BaseController):
         self._get_dataset(dataset)
 
         if format in ['json', 'csv']:
-            return redirect(h.url_for(controller='api2', action='search',
+            return redirect(h.url_for(controller='api/version2', action='search',
                 format=format, dataset=dataset,
                 **request.params))
 

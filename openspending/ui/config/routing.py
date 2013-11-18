@@ -71,15 +71,15 @@ def make_map():
 
     map.connect('/search', controller='entry', action='search')
 
-    map.connect('/api', controller='api', action='index')
-    map.connect('/api/search', controller='api', action='search')
-    map.connect('/api/aggregate', controller='api', action='aggregate')
-    map.connect('/api/mytax', controller='api', action='mytax')
+    map.connect('/api', controller='api/version1', action='index')
+    map.connect('/api/search', controller='api/version1', action='search')
+    map.connect('/api/aggregate', controller='api/version1', action='aggregate')
+    map.connect('/api/mytax', controller='api/version1', action='mytax')
 
     map.connect('/api/rest/', controller='rest', action='index')
-    map.connect('/api/2/aggregate', controller='api2', action='aggregate')
-    map.connect('/api/2/search', controller='api2', action='search')
-    map.connect('/api/2/new', controller='api2', action='create', conditions=dict(method=['POST']))
+    map.connect('/api/2/aggregate', controller='api/version2', action='aggregate')
+    map.connect('/api/2/search', controller='api/version2', action='search')
+    map.connect('/api/2/new', controller='api/version2', action='create', conditions=dict(method=['POST']))
 
     map.connect('/500', controller='error', action='render', code="500")
 

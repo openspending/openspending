@@ -27,7 +27,9 @@ from colander import Invalid
 
 log = logging.getLogger(__name__)
 
-class Api2Controller(BaseController):
+__controller__ = 'APIv2Controller'
+
+class APIv2Controller(BaseController):
 
     def _response_params(self, params):
         """

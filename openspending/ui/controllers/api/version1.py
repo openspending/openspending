@@ -20,10 +20,9 @@ from openspending.ui.lib.authenticator import ApiKeyAuthenticator
 from openspending.ui.lib.hypermedia import dataset_apply_links
 from openspending.lib.jsonexport import to_jsonp
 
-
-
 log = logging.getLogger(__name__)
 
+__controller__ = 'APIv1Controller'
 
 def statistic_normalize(dataset, result, per, statistic):
     drilldowns = []
@@ -50,7 +49,7 @@ def cellget(cell, key):
         return val.get('name', val.get('id'))
     return val
 
-class ApiController(BaseController):
+class APIv1Controller(BaseController):
     @jsonpify
     def index(self):
         out = {
