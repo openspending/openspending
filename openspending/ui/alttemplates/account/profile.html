@@ -10,16 +10,16 @@
   <img src="{{ h.gravatar(c.profile.email, 200) }}" alt="Gravatar for {{c.profile.name}}">
   </div>
   <div class="span4">
-    <h3>Information{% if c.account == c.profile %} <small><a href="{{ h.url(controller='account', action='settings') }}">(change)</a></small>{% endif %}</h3>
+    <h3>{% trans %}Information{% endtrans %}{% if c.account == c.profile %} <small><a href="{{ h.url(controller='account', action='settings') }}">{% trans %}(change){% endtrans %}</a></small>{% endif %}</h3>
     <dl class="dl-horizontal">
       {% if c.profile.fullname %}
-      <dt>Name</dt>
+      <dt>{% trans %}Name{% endtrans %}</dt>
       <dd>{{c.profile.fullname}}</dd>
       {% endif %}
-      <dt>Username</dt>
+      <dt>{% trans %}Username{% endtrans %}</dt>
       <dd>{{c.profile.name}}</dd>
       {% if c.show_email %}
-      <dt>Email</dt>
+      <dt>{% trans %}Email{% endtrans %}</dt>
       <dd>{{c.profile.email}}</dd>
       {% endif %}
       {% if c.profile.twitter_handle and c.show_twitter %}
@@ -29,7 +29,7 @@
     </dl>
   </div>
   <div class="span6">
-    <h3>Datasets</h3>
+    <h3>{% trans %}Datasets{% endtrans %}</h3>
     <div class="row">
       <div class="span3">
 	{% if c.account_datasets|length %}
@@ -39,17 +39,17 @@
 	  </li>
 	  {% endfor %}</ul>
 	{% else %}
-	<p>It looks like you haven't uploaded any datasets.</p>
+	<p>{% trans %}It looks like you haven't uploaded any datasets.{% endtrans %}</p>
 	{% endif %}
       </div>
       
       {% if c.account == c.profile %}<div class="span3">
-	<a href="{{h.url(controller='dataset', action='new') }}" class="btn btn-primary">Import a dataset</a>
+	<a href="{{h.url(controller='dataset', action='new') }}" class="btn btn-primary">{% trans %}Import a dataset{% endtrans %}</a>
       </div>{% endif %}
     </div>
 
     {% if c.account_views|length %}
-    <h3>Views</h3>
+    <h3>{% trans %}Views{% endtrans %}</h3>
     <ul>{% for view in c.account_views %}
       <li>
         <a href="{{ h.url(controller='view', action='view', dataset=view.dataset.name, name=view.name) }}">{{view.label}}</a> 
