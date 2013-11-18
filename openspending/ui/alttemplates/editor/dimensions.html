@@ -86,21 +86,21 @@
              data-toggle="modal"
              data-keyboard="true" href='#add-dimension'>
             <i class="icon-plus icon-white"></i>
-            Add Dimension</a>
+            {% trans %}Add Dimension{% endtrans %}</a>
         </p>
         <p class="help-block">
-          Make sure your dimensions import all source data columns.<br/><br/>
+          {% trans %}Make sure your dimensions import all source data columns.{% endtrans %}<br/><br/>
         </p>
         
         <p>
           <a class='btn btn-primary' data-backdrop="true"
-             data-toggle="modal" href='#check-uniques'>Set Unique Dimensions</a>
+             data-toggle="modal" href='#check-uniques'>{% trans %}Set Unique Dimensions{% endtrans %}</a>
         </p>
         <p class="help-block">
-          Identify the dimensions that help to identify each entry.<br/><br/>
+          {% trans %}Identify the dimensions that help to identify each entry.{% endtrans %}<br/><br/>
         </p>
         
-        <h3>Exisiting Dimensions</h3>
+        <h3>{% trans %}Exisiting Dimensions{% endtrans %}</h3>
         <div class="well">
           <ul id="names-hook" class="dimension-names nav nav-list">
           </ul>
@@ -109,7 +109,7 @@
         <!-- Unique dimensions selector window. --> 
         <div id="check-uniques" class="modal hide fade">
           <div class="modal-header">
-            <h3>Specify which dimensions identify an entry uniquely</h3>
+            <h3>{% trans %}Specify which dimensions identify an entry uniquely{% endtrans %}</h3>
           </div>
           <form action='#'>
             <div class="modal-body">
@@ -117,7 +117,7 @@
               </ul>
             </div>
             <div class="modal-footer">
-              <a class='btn set_uniques btn-success'>Update</a>
+              <a class='btn set_uniques btn-success'>{% trans %}Update{% endtrans %}</a>
             </div>
           </form>
         </div>
@@ -125,60 +125,60 @@
         <!-- Add dimension window. -->
         <div id="add-dimension" class="modal big-modal hide fade">
           <div class="modal-header">
-            <h3>Add new dimension</h3>
+            <h3>{% trans %}Add new dimension{% endtrans %}</h3>
           </div>
           <form action='#' class="form-horizontal">
             <div class="modal-body">
               <div class="row">
                 <div class="span6">
                   <div class="control-group">
-                    <label for="new-dimension-name">Name</label>
+                    <label for="new-dimension-name">{% trans %}Name{% endtrans %}</label>
                     <div class="controls">
                       <input type='text' name='new-dimension-name' value='' />
                       <p class="help-block">
-                        The name you choose should only contain letters, numbers and dashes (i.e., no spaces)
+                        {% trans %}The name you choose should only contain letters, numbers and dashes (i.e., no spaces){% endtrans %}
                       </p>
                       <p class="help-block">
-                        Where the dimension represents the ultimate source or destination of the funds, call it <code>from</code> or <code>to</code>.
+                        {% trans %}Where the dimension represents the ultimate source or destination of the funds, call it <code>from</code> or <code>to</code>{% endtrans %}.
                       </p>
                     </div>
                   </div>
                   <div class="control-group">
-                    <label for="new-dimension-type">Type</label>
+                    <label for="new-dimension-type">{% trans %}Type{% endtrans %}</label>
                     <div class="controls">
                       <label class="checkbox">
                         <input id='dimension_type' type="radio" name="new-dimension-type" value="compound" />
-                        Dimension
+                        {% trans %}Dimension{% endtrans %}
                         <p class="help-block">
-                          A defined set, like suppliers or classifications, with multiple attributes (e.g. supplier name and VAT number).
+                          {% trans %}A defined set, like suppliers or classifications, with multiple attributes (e.g. supplier name and VAT number).{% endtrans %}
                         </p>
                       </label>
                       <label class="checkbox">
                         <input id='dimension_type' type="radio" name="new-dimension-type" value="attribute" />
-                        Attribute
+                        {% trans %}Attribute{% endtrans %}
                         <p class="help-block">
-                          A simple value, e.g. descriptions or transaction IDs.
+                          {% trans %}A simple value, e.g. descriptions or transaction IDs.{% endtrans %}
                         </p>
                       </label>
                       <label class="checkbox">
                         <input id='dimension_type' type="radio" name="new-dimension-type" value="date" />
-                        Date
+                        {% trans %}Date{% endtrans %}
                         <p class="help-block">
-                          Temporal value, e.g. start of project, date of disbursement.
+                          {% trans %}Temporal value, e.g. start of project, date of disbursement.{% endtrans %}
                         </p>
                       </label>
                       <label class="checkbox">
                         <input id='dimension_type' type="radio" name="new-dimension-type" value="measure" />
-                        Measure
+                        {% trans %}Measure{% endtrans %}
                         <p class="help-block">
-                          Monetary information, e.g. amount disbursed or allocated.
+                          {% trans %}Monetary information, e.g. amount disbursed or allocated.{% endtrans %}
                         </p>
                       </label>
                     </div>
                   </div>
                 </div>
                 <div class="span3">
-                  <h3>Unmapped source data columns</h3>
+                  <h3>{% trans %}Unmapped source data columns{% endtrans %}</h3>
                   <div class="well">
                     <ul id="new-dimension-columns"></ul>
                   </div>
@@ -186,8 +186,8 @@
               </div>
             </div>
             <div class="modal-footer">
-              <a class='btn cancel_add_dimension btn-danger'>Cancel</a>
-              <a class='btn add_dimension btn-success'>Add</a>
+              <a class='btn cancel_add_dimension btn-danger'>{% trans %}Cancel{% endtrans %}</a>
+              <a class='btn add_dimension btn-success'>{% trans %}Add{% endtrans %}</a>
             </div>
           </form>
         </div>
@@ -197,13 +197,12 @@
       <div class="span9">
         {% if c.saved %}
         <div class="alert block-message alert-success">
-          <strong>Your model was saved.</strong> You can now try to load a 
-          sample of the data by returning back to the dashboard.
+          <strong>{% trans %}Your model was saved.{% endtrans %}</strong> {% trans %}You can now try to load a sample of the data by returning back to the dashboard.{% endtrans %}
           <div class="alert-actions">
             <a class="btn btn-small" href="{{ h.url(controller='editor',
                                            action='index',
                                            dataset=c.dataset.name) }}">
-              Visit dashboard</a>
+              {% trans %}Visit dashboard{% endtrans %}</a>
           </div>
         </div>
         {% endif %}
@@ -211,8 +210,8 @@
         {% if c.errors|length %}
         <div class="alert block-message alert-error">
           <p>
-            The dimensions mapping could not be saved as it 
-            contains some errors:
+            {% trans %}The dimensions mapping could not be saved as it 
+            contains some errors{% endtrans %}:
           </p>
           <ul>
             {% for field, error in c.errors.items() -%}
@@ -228,75 +227,75 @@
               <div class='tab-pane active' id='help'>
                 <div>
                   <!-- Dimension mapping -->
-                  <h2>Dimension mapping</h2>
-                  <p i18n:msg="">
-                    To create a model for your dataset,
+                  <h2>{% trans %}Dimension mapping{% endtrans %}</h2>
+                  <p>
+                    {% trans %}To create a model for your dataset,
                     you need to translate the columns in 
                     the data file to "dimensions", the logical
                     divisions of the dataset. A dimension
                     can be any property of a line item or 
                     transaction that should be presented
-                    within OpenSpending.
+                    within OpenSpending.{% endtrans %}
                   </p>
                   <p>
-                    There are four core dimensions, <code>amount</code>,
+                    {% trans %}There are four core dimensions, <code>amount</code>,
                     <code>time</code> &mdash; which are
                     mandatory &mdash; as well as
                     <code>from</code> for the spender,
                     and <code>to</code> for the
                     recipient of a specific transaction
                     &mdash; both of those must be
-                    dimensions if they exist.
+                    dimensions if they exist.{% endtrans %}
                   </p>
                   <p>
-                    Beyond that, you can add your own
+                    {% trans %}Beyond that, you can add your own
                     dimensions to describe aspects such
                     as classification schemes,
                     descriptions, transaction IDs and any
                     other details present in the source
-                    data.
+                    data.{% endtrans %}
                   </p>
-                  <h3>What do I do here?</h3>
+                  <h3>{% trans %}What do I do here?{% endtrans %}</h3>
                   <p>
-                    First off, make sure to set up the
+                    {% trans %}First off, make sure to set up the
                     model to conform to these basic
-                    requirements:
+                    requirements:{% endtrans %}
                   </p>
                   <ul>
-                    <li>Create <code>amount</code> with the core 
+                    <li>{% trans %}Create <code>amount</code> with the core 
                       financial measure of the dataset and 
                       <code>time</code> to represent the most 
                       representative temporal
-                      dimension.</li>
-                    <li>If your data is transactional and 
+                      dimension.{% endtrans %}</li>
+                    <li>{% trans %}If your data is transactional and 
                       contains the name of a department or 
                       body spending the funds, make sure to 
-                      include a <code>from</code> dimension.</li>
-                    <li>If the data mentions a recipient,
+                      include a <code>from</code> dimension.{% endtrans %}</li>
+                    <li>{% trans %}If the data mentions a recipient,
                       such as a supplier, set
-                      <code>to</code> as another dimension.</li>
-                    <li>Set a unique key combination so
+                      <code>to</code> as another dimension.{% endtrans %}</li>
+                    <li>{% trans %}Set a unique key combination so
                       that the values within that
                       combination are different between all 
                       entries in the dataset. This can
                       later be used for updating the
-                      dataset.</li>
+                      dataset.{% endtrans %}</li>
                   </ul>
                   <p>
-                    After you've done these basic things,
+                    {% trans %}After you've done these basic things,
                     make sure to also create dimensions
                     to cover any other aspects present in 
                     the source data. You can group
                     related columns into a single
                     dimension, for example if each row 
                     mentions both a company's name and
-                    its VAT number.
+                    its VAT number.{% endtrans %}
                   </p>
                   <ul>
                     <li><a href="{{ h.url(controller='content',   
                                  action='view', section='help',
                                  path='api-olap.html') }}">
-                        Background: How does OpenSpending store data?</a></li>
+                        {% trans %}Background: How does OpenSpending store data?{% endtrans %}</a></li>
                   </ul>
                 </div> <!-- /.forms -->
                 
@@ -308,15 +307,15 @@
                     <td><select class="column" name="${prefix(fieldName)}[column]"></select></td>
                     <td>
                       <select name="${prefix(fieldName)}[datatype]">
-                        <option value="string">string</option>
-                        <option value="float">float</option>
-                        <option value="id">id</option>
-                        <option value="date">date</option>
-                        <option value="url">url</option>
+                        <option value="string">{% trans %}string{% endtrans %}</option>
+                        <option value="float">{% trans %}float{% endtrans %}</option>
+                        <option value="id">{% trans %}id{% endtrans %}</option>
+                        <option value="date">{% trans %}date{% endtrans %}</option>
+                        <option value="url">{% trans %}url{% endtrans %}</option>
                       </select>
                     </td>
                     <td>
-                      <input type="short" class="span3" name="${prefix(fieldName)}[default_value]" placeholder="Default Value" />
+                      <input type="short" class="span3" name="${prefix(fieldName)}[default_value]" placeholder="{% trans %}Default Value{% endtrans %}" />
                     </td>
                     <td>
                       {{if required(fieldName) != true}}
@@ -337,12 +336,12 @@
                     {{if meta.helpText}}<p>${meta.helpText}</p>{{/if}}
                     
                     <div class="control-group">
-                      <label class="control-label">Label:</label>
+                      <label class="control-label">{% trans %}Label{% endtrans %}:</label>
                       <div class="controls">
                         <input type="text" name="${name}[label]" value="${data.label}" />
                         <p class="help-block">
-                          A human-readable title for this
-                          dimension.
+                          {% trans %}A human-readable title for this
+                          dimension.{% endtrans %}
                         </p>
                       </div>
                     </div>
@@ -350,54 +349,54 @@
                       <div class="controls">
                         <label class="checkbox">
                           <input type="checkbox" name="${name}[key]" value="true" />
-                          Include in unique key
+                          {% trans %}Include in unique key{% endtrans %}
                         </label>
                         <p class="help-block">
-                          Make this dimension part of the set of
+                          {% trans %}Make this dimension part of the set of
                           uniquely identifying values for each
-                          column.
+                          column.{% endtrans %}
                         </p>
                       </div>
                     </div>
                     
                     {{if validDimensionType(data.type)}}
                     <div class="control-group">
-                      <label class="control-label">Column:</label>
+                      <label class="control-label">{% trans %}Column{% endtrans %}:</label>
                       <div class="controls">
                         <select class="column" name="${name}[column]"></select>
                         <p class="help-block">
-                          Source column in the source CSV file.
+                          {% trans %}Source column in the source CSV file.{% endtrans %}
                         </p>
                       </div>
                     </div>
                     <hr/>
                     <div class="control-group">
-                      <label class="control-label">Default value:</label>
+                      <label class="control-label">{% trans %}Default value{% endtrans %}:</label>
                       <div class="controls">
                         <input class="short" name="${name}[default_value]" />
                         <p class="help-block">
-                          Empty cells will be padded with this
-                          value.
+                          {% trans %}Empty cells will be padded with this
+                          value.{% endtrans %}
                         </p>
                       </div>
                     </div>
                     {{if !meta.fixedDataType}}
                     <div class="control-group">
-                      <label class="control-label">Data type:</label>
+                      <label class="control-label">{% trans %}Data type{% endtrans %}:</label>
                       <div class="controls">
                         <select name="${name}[datatype]">
-                          <option value="string">string</option>
-                          <option value="float">float</option>
-                          <option value="id">id</option>
-                          <option value="date">date</option>
-                          <option value="url">url</option>
+                          <option value="string">{% trans %}string{% endtrans %}</option>
+                          <option value="float">{% trans %}float{% endtrans %}</option>
+                          <option value="id">{% trans %}id{% endtrans %}</option>
+                          <option value="date">{% trans %}date{% endtrans %}</option>
+                          <option value="url">{% trans %}url{% endtrans %}</option>
                         </select>
                       </div>
                     </div>
                     {{/if}}
                     {{/if}}
                     <div class="control-group">
-                      <label class="control-label">Description:</label>
+                      <label class="control-label">{% trans %}Description{% endtrans %}:</label>
                       <div class="controls">
                         <textarea class="short" name="${name}[description]">${data.description}</textarea>
                       </div>
@@ -406,11 +405,11 @@
                       <div class="controls">
                         <label class="checkbox">
                           <input type="checkbox" name="${name}[facet]" value="true" />
-                          Use as facet in entries browser
+                          {% trans %}Use as facet in entries browser{% endtrans %}
                         </label>
                         <p class="help-block">
-                          Select a few dimensions which are useful
-                          to slice the dataset by.
+                          {% trans %}Select a few dimensions which are useful
+                          to slice the dataset by.{% endtrans %}
                         </p>
                       </div>
                     </div>
@@ -419,10 +418,10 @@
                   <div><table class="table table-condensed table-striped fields">
                       <thead>
                         <tr>
-                          <th>Field</th>
-                          <th>Column</th>
-                          <th>Type</th>
-                          <th>Default</th>
+                          <th>{% trans %}Field{% endtrans %}</th>
+                          <th>{% trans %}Column{% endtrans %}</th>
+                          <th>{% trans %}Type{% endtrans %}</th>
+                          <th>{% trans %}Default{% endtrans %}</th>
                           <th>&nbsp;</th>
                         </tr>
                       </thead>
@@ -432,7 +431,7 @@
                         {{/each}}
                       </tbody>
                   </table></div>
-                  <a class="btn add_field" href="#">Add a field</a>
+                  <a class="btn add_field" href="#">{% trans %}Add a field{% endtrans %}</a>
                   {{/if}}
                 </script>
               </div> <!-- /.modeleditor -->
@@ -447,8 +446,8 @@
            action="{{ h.url_for(controller='editor', action='dimensions_update', dataset=c.dataset.name) }}">
       <textarea id="mapping" name="mapping" style="display: none">{{c.fill.mapping }}</textarea>
       <div class="form-actions">
-        <input id="save" value="Save Dimensions" class="btn btn-success" type="submit" />
-        <input type="button" class='btn btn-danger rm_all_dimensions' value="Delete All Dimensions" />
+        <input id="save" value="{% trans %}Save Dimensions{% endtrans %}" class="btn btn-success" type="submit" />
+        <input type="button" class='btn btn-danger rm_all_dimensions' value="{% trans %}Delete All Dimensions{% endtrans %}" />
       </div>
     </form>
   </div>

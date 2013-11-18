@@ -67,8 +67,8 @@
 
 <div class="row">
   <div class="span4">
-    Here, you can select the users who will be authorized to 
-    manage this dataset.
+    {% trans %}Here, you can select the users who will be authorized to 
+    manage this dataset.{% endtrans %}
   </div>
   <div class="span8">
     {% if c.errors %}
@@ -81,21 +81,21 @@
 
     <div class='row'>
       <div class="span4">
-        <h3>Current team</h3>
+        <h3>{% trans %}Current team{% endtrans %}</h3>
         <ul id='accounts'></ul>
       </div>
       <div class="span4">
-        <h3>Add someone</h3>
+        <h3>{% trans %}Add someone{% endtrans %}</h3>
         <form id='add-account'>
           <input id='select-account' />
-          <input class='btn btn-success' type='submit' value='Add' />
+          <input class='btn btn-success' type='submit' value='{% trans %}Add{% endtrans %}' />
         </form>
       </div>
     </div>
     <form id='save' method="POST">
       <div class="form-actions">
         <select multiple='true' style='display: none' name='accounts' id='values' />
-        <input value="Save" class="btn btn-success" type="submit" />
+        <input value="{% trans %}Save{% endtrans %}" class="btn btn-success" type="submit" />
       </div>
     </form>
   </div>

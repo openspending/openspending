@@ -28,13 +28,13 @@
           <input name="name" value="{{ c.dataset.name }}" type="hidden" />
           <fieldset>
             <div class="control-group">
-              <label class="control-label" for="label">Title</label>
+              <label class="control-label" for="label">{% trans %}Title{% endtrans %}</label>
               <div class="controls">
-                <input class="input-xlarge span4" name="label" placeholder="My Dataset" />
+                <input class="input-xlarge span4" name="label" placeholder="{% trans %}My Dataset{% endtrans %}" />
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="territories">Category</label>
+              <label class="control-label" for="territories">{% trans %}Category{% endtrans %}</label>
               <div class="controls">
                 <select name="category" class="chzn-select span4">
                   {% for code,name in c.categories %}
@@ -44,15 +44,15 @@
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="currency">Currency</label>
+              <label class="control-label" for="currency">{% trans %}Currency{% endtrans %}</label>
               <div class="controls">
                 <select name="currency" class="chzn-select span4">
-                  <optgroup label="Commonly used currencies">
+                  <optgroup label="{% trans %}Commonly used currencies{% endtrans %}">
                     {% for code,name in c.key_currencies %}
                     <option value="{{ code }}">{{ name }} ({{ code }})</option>
                     {% endfor %}
                   </optgroup>
-                  <optgroup label="All currencies">
+                  <optgroup label="{% trans %}All currencies{% endtrans %}">
                     {% for code,name in c.all_currencies -%}
                     <option value="{{ code }}">{{ name }} ({{ code }})</option>
                     {% endfor %}
@@ -61,19 +61,19 @@
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="default_time">Default year</label>
+              <label class="control-label" for="default_time">{% trans %}Default year{% endtrans %}</label>
               <div class="controls">
                 <select name="default_time" class="chzn-select span4">
                   {% for time in c.available_times %}
                   <option value="{{ time }}">{{ time }}</option>
                   {% else %}
-                  <option value="">(No data is loaded)</option>
+                  <option value="">{% trans %}(No data is loaded){% endtrans %}</option>
                   {% endfor %}
                 </select>
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="territories">Countries</label>
+              <label class="control-label" for="territories">{% trans %}Countries{% endtrans %}</label>
               <div class="controls">
                 <select name="territories" multiple="multiple" class="chzn-select span4">
                   {% for code,name in c.territories -%}
@@ -83,7 +83,7 @@
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="languages">Languages</label>
+              <label class="control-label" for="languages">{% trans %}Languages{% endtrans %}</label>
               <div class="controls">
                 <select name="languages" multiple="multiple" class="chzn-select span4">
                   {% for code,name in c.languages -%}
@@ -93,14 +93,14 @@
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="description">Description</label>
+              <label class="control-label" for="description">{% trans %}Description{% endtrans %}</label>
               <div class="controls">
                 <textarea class="input-xxlarge" rows="7" name="description"></textarea>
               </div>
             </div>
           </fieldset>
           <div class="form-actions">
-            <input value="Update" class="btn btn-success" type="submit" />
+            <input value="{% trans %}Update{% endtrans %}" class="btn btn-success" type="submit" />
           </div>
         </form>
         {%- endformfill %}

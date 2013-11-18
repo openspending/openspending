@@ -12,23 +12,23 @@
     {% if c.dataset|length %}
     <div class="alert block-message alert-warning">
       <p>
-        <strong>You cannot edit dimensions while data is loaded.</strong>
-        In order to modify the dimensions model, you'll have to 
-        delete all the data that is currently loaded from the database.
+        <strong>{% trans %}You cannot edit dimensions while data is loaded.{% endtrans %}</strong>
+        {% trans %}In order to modify the dimensions model, you'll have to 
+        delete all the data that is currently loaded from the database.{% endtrans %}
       </p>
       <a href="{{ h.url(controller='editor', action='index',
-               dataset=c.dataset.name) }}" class="btn">Go to dashboard</a>
+               dataset=c.dataset.name) }}" class="btn">{% trans %}Go to dashboard{% endtrans %}</a>
       <a href="{{ h.url(controller='dimension', action='index',
-              dataset=c.dataset.name) }}" class="btn">See dimensions</a>
+              dataset=c.dataset.name) }}" class="btn">{% trans %}See dimensions{% endtrans %}</a>
     </div>
     {% endif %}
         
     {% if not c.source %}
     <div class="alert block-message alert-warning">
       <p>
-        <strong>You need to define at least one data source.</strong>
-        In order to create a dimensions model, at least on data source
-        needs to be available.
+        <strong>{% trans %}You need to define at least one data source.{% endtrans %}</strong>
+        {% trans %}In order to create a dimensions model, at least on data source
+        needs to be available.{% endtrans %}
       </p>
     </div>
     {% endif %}

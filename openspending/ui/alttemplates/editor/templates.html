@@ -11,15 +11,15 @@
   <div class="span4">
     <div class="alert alert-block">
       <p>
-        In this section, you can configure how transactions from this dataset
+        {% trans %}In this section, you can configure how transactions from this dataset
         are represented in global search results. This is an advanced option 
-        that you can skip.
+        that you can skip.{% endtrans %}
       </p>
       <p>
-        Templates are composed using the
+        {% trans %}Templates are composed using the
         <a href="http://mustache.github.com/mustache.5.html">Mustache</a>
         syntax and they can make use of the dimensions and attributes defined
-        for this dataset.
+        for this dataset.{% endtrans %}
       </p>
     </div>
   </div>
@@ -31,15 +31,15 @@
           method="POST">
       <fieldset>
         <div class="control-group">
-          <label class="control-label" for="serp_title">Title Template</label>
+          <label class="control-label" for="serp_title">{% trans %}Title Template{% endtrans %}</label>
           <div class="controls">
             <input class="input-xlarge span5" name="serp_title"
                    placeholder="{% raw %}{{to.label}} - {{amount}}{% endraw %}" />
           </div>
         </div>
         <div class="control-group">
-          <label class="control-label" for="serp_teaser">Teaser
-            Template</label>
+          <label class="control-label" for="serp_teaser">{% trans %}Teaser
+            Template{% endtrans %}</label>
           <div class="controls">
             <textarea class="input-xlarge span5" rows="2"
                       name="serp_teaser"></textarea>
@@ -47,7 +47,7 @@
         </div>
       </fieldset>
       <div class="form-actions">
-        <input value="Update" class="btn btn-success" type="submit" />
+        <input value="{% trans %}Update{% endtrans %}" class="btn btn-success" type="submit" />
       </div>
     </form>
     {% endformfill %}
