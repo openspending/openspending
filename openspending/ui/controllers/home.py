@@ -15,7 +15,6 @@ from openspending.ui.i18n import set_session_locale
 from openspending.ui.lib import views
 from openspending.ui.lib.base import BaseController, require
 from openspending.ui.lib.helpers import flash_success, flash_error
-from openspending.ui.lib.content import ContentResource
 from openspending.ui.lib import helpers as h
 from openspending.ui.alttemplates import templating
 
@@ -28,11 +27,6 @@ class HomeController(BaseController):
         # or an anonymous user (if c.account is None)
         c.datasets = Dataset.all_by_account(c.account)
 
-        # Create a blog content resource based on the configurations for
-        # frontpage section/path
-        c.blog = ContentResource(
-            config.get('openspending.frontpage.section', ''),
-            config.get('openspending.frontpage.path', ''))
         c.num_entries = dataset_entries(None)
         return templating.render('home/index.html')
 
