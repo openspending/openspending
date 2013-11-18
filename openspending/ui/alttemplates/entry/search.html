@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block page_title %}Search{% endblock %}
+{% block page_title %}{% trans %}Search{% endtrans %}{% endblock %}
 
 {% block content %}
   <div>
@@ -7,7 +7,7 @@
     <ul class='breadcrumb'>
       <li>
         <i class="icon-search"></i>
-        <a href="?">Search OpenSpending</a>
+        <a href="?">{% trans %}Search OpenSpending{% endtrans %}</a>
       </li>
     </ul>
 
@@ -15,23 +15,23 @@
     <div class="row">
       <div class="span4 search-sidebar">
         <form class="basic well" id="search" method="GET">
-          <input name="q" placeholder="e.g. 'g4s', 'health'" class="search" />
+          <input name="q" placeholder="{% trans %}e.g.{% endtrans %} 'g4s', 'health'" class="search" />
           <p class="help-text">
-            Transactional data is often more detailed than
-            information from budgets.
+            {% trans %}Transactional data is often more detailed than
+            information from budgets.{% endtrans %}
           </p>
           <label class="radio">
             <input type="radio" class="select-category" value="spending"
               name='norbert' checked="selected" /> 
-              Transactions
+              {% trans %}Transactions{% endtrans %}
           </label>
           <label class="radio">
             <input type="radio" class="select-category" value="any"
               name='norbert' />
-              All data
+              {% trans %}All data{% endtrans %}
             </label>
             <br/>
-          <input type="submit" class="btn" value="Search" />
+          <input type="submit" class="btn" value="{% trans %}Search{% endtrans %}" />
           
           <div id="pagination-info"></div>
         </form>
@@ -39,8 +39,8 @@
       <div class="span8">
         <div id="search-results">
           <div class="alert alert-block alert-info">
-            Type a search term to find government expenditure transactions
-            from across the globe.
+            {% trans %}Type a search term to find government expenditure transactions
+            from across the globe.{% endtrans %}
           </div>
         </div>
       </div>

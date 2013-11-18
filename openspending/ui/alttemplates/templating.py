@@ -2,6 +2,7 @@ import os
 from pylons import tmpl_context as c
 from pylons import app_globals
 from pylons import config
+from pylons import i18n
 from webhelpers import paginate
 
 from openspending import auth as can
@@ -82,8 +83,9 @@ def render(path, **kwargs):
 
     """
 
-    env = Environment(extensions=[formencode_jinja2.formfill])
-    env.loader = FileSystemLoader(template_rootdir)
+    env = Environment(loader=FileSystemLoader(template_rootdir), extensions=[formencode_jinja2.formfill, 'jinja2.ext.i18n'])
+    env.install_gettext_translations(i18n)
+
     template = env.get_template(path)
 
 

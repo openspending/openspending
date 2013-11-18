@@ -28,11 +28,11 @@
       </li>
       <li>
         <a href="{{h.url_for(controller='entry', action='index', dataset=c.dataset.name)}}">
-          Entries</a>
+          {% trans %}Entries{% endtrans %}</a>
         <span class="divider">/</span>
       </li>
-      <li class="active" i18n:msg="currency,amount,time">
-        {{c.dataset.currency}} {{h.format_number_with_commas(c.amount)}} on {{c.time.get('label')}}
+      <li class="active">
+        {% trans currency=c.dataset.currency, amount=h.format_number_with_commas(c.amount), time=c.time.get('label') %}{{currency}} {{amount}} on {{time}}{% endtrans %}
       </li>
       <div class="representations">
         <a href="{{h.url(controller='entry', action='view', dataset=c.dataset.name, id=c.id, format='json')}}">
@@ -42,8 +42,8 @@
     </ul>
     <h2 class="page-header" i18n:msg="dataset_label">
       
-      Entry in {{c.dataset.label}}
-      <small>Detailed View of Transaction</small>
+      {% trans dataset=c.dataset.label %}Entry in {{dataset}}{% endtrans %}
+      <small>{% trans %}Detailed View of Transaction{% endtrans %}</small>
     </h2>
 
     <div class="row">
@@ -116,8 +116,8 @@
         <table class="table table-striped table-condensed" width="100%">
           <thead>
             <tr>
-              <th>Dimension</th>
-              <th>Value</th>
+              <th>{% trans %}Dimension{% endtrans %}</th>
+              <th>{% trans %}Value{% endtrans %}</th>
             </tr>
           </thead>
           <tbody>
@@ -149,7 +149,7 @@
 	{% endif %}
 
 	{% if c.entry.get('description') %}
-      <h3>Notes:</h3>
+      <h3>{% trans %}Notes{% endtrans %}:</h3>
       <dd>{{h.markdown(c.entry.get('description'))}}</dd>
 	{% endif %}
 

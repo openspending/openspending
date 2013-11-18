@@ -1,0 +1,100 @@
+{% macro dataset_select(h) -%}
+  <!-- templates/dataset/_select.html -->
+  {% raw %}
+  <script id="listing-template" type="text/x-handlebars-template">
+    <div class="span3 dataset-listing-facets">
+      <input id='datasets-filter-query' placeholder='{% endraw %}{% trans %}Filter...{% endtrans %}{% raw %}' />
+      {{#hasTerritories}}
+        <h4>{% endraw %}{% trans %}Countries{% endtrans %}{% raw %}</h4>
+        <select class="filter-datasets" name="territories">
+          <option value="">{% endraw %}{% trans %}Filter by country{% endtrans %}{% raw %}</option>
+          {{#territories}}
+            {{#selected}}
+            <option value="{{code}}" selected="selected">
+              {{label}} ({{count}})</option>
+            {{/selected}}
+            {{^selected}}
+            <option value="{{code}}">{{label}} ({{count}})</option>
+            {{/selected}}
+          {{/territories}}
+        </select>
+      {{/hasTerritories}}
+
+      {{#hasLanguages}}
+        <h4>{% endraw %}{% trans %}Languages{% endtrans %}{% raw %}</h4>
+        <select class="filter-datasets" name="languages">
+          <option value="">{% endraw %}{% trans %}Filter by language{% endtrans %}{% raw %}</option>
+          {{#languages}}
+            {{#selected}}
+            <option value="{{code}}" selected="selected">
+              {{label}} ({{count}})</option>
+            {{/selected}}
+            {{^selected}}
+            <option value="{{code}}">{{label}} ({{count}})</option>
+            {{/selected}}
+          {{/languages}}
+        </select>
+      {{/hasLanguages}}
+
+      {{#hasCategories}}
+        <h4>{% endraw %}{% trans %}Types of data{% endtrans %}{% raw %}</h4>
+        {{#categories}}
+          <label class="radio">
+            {{#selected}}
+            <input type="radio" value="{{category}}" name="category"
+              class="filter-datasets" checked="checked" />
+            {{/selected}}
+            {{^selected}}
+            <input type="radio" value="{{category}}" name="category"
+              class="filter-datasets" />
+            {{/selected}}
+            {{label}} ({{count}})
+          </label>
+        {{/categories}}
+        <label class="radio">
+          {{^hasSelectedCategory}}
+          <input type="radio" value="" name="category" checked="checked"
+            class="filter-datasets" />
+          {{/hasSelectedCategory}}
+          {{#hasSelectedCategory}}
+          <input type="radio" value="" name="category"
+            class="filter-datasets" />
+          {{/hasSelectedCategory}}
+          Any type
+        </label>
+      {{/hasCategories}}
+
+      &nbsp;
+    </div>
+    <div class="span6">
+      <div class="box well">
+      <ul id='datasets-list' class="unstyled">
+      </ul>
+      </div>
+    </div>
+  </script>
+
+  <script id="listing-item-template" type="text/x-handlebars-template">
+    <li>
+      <h4><a href="/{{name}}">{{label}}</a></h4>
+      <span class="label label-info">{{currency}}</span>
+      {{tagline}}
+    </li>
+  </script>
+  {% endraw %}
+
+  <div class="modal big-modal hide fade" id="datasets">
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal">×</a>
+      <h3>OpenSpending &mdash; {% trans %}mapping the money{% endtrans %}.</h3>
+    </div>
+    <div class="modal-body">
+      <div class="row listing"></div>
+    </div>
+    <div class="modal-footer">
+      <a class="btn btn-success" href="{{h.url_for(controller='dataset',
+        action='new')}}">{% trans %}Import a dataset{% endtrans %}</a>
+      <a data-dismiss="modal" class="btn">{% trans %}Close{% endtrans %}</a>
+    </div>
+  </div>
+{%- endmacro %}

@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
-{% block page_title %}All datasets{% endblock %}
+{% block page_title %}{% trans %}All datasets{% endtrans %}{% endblock %}
 
 {% block content %}
-<h2 class="page-header">Available data sets</h2>
+<h2 class="page-header">{% trans %}Available data sets{% endtrans %}</h2>
 
 <div class="row">
   <div class="span8">
-    <p>The database contains the following datasets:</p>
-
+    <p>{% trans %}The database contains the following datasets{% endtrans %}:</p>
+    
     {% for dataset in c.page %}
     <div>
       <h3><a class="dataset-name" href="{{h.url(controller='dataset',
@@ -34,12 +34,12 @@
     {{ c.page.pager() }}
   </div>
   <div class="span4">
-
-    <h3>Import a new dataset</h3>
-    <a class="btn btn-success" href="{{h.url_for(controller='dataset', action='new')}}">Import &raquo;</a>
+    
+    <h3>{% trans %}Import a new dataset{% endtrans %}</h3>
+    <a class="btn btn-success" href="{{h.url_for(controller='dataset', action='new')}}">{% trans %}Import{% endtrans %} &raquo;</a>
     <hr/>
-
-    <h3>Countries</h3>
+    
+    <h3>{% trans %}Countries{% endtrans %}</h3>
     <ul>
       {% for territory in c.territory_options %}
       <li>
@@ -53,7 +53,7 @@
       </li>
       {% endfor %}
     </ul>
-    <h3>Languages</h3>
+    <h3>{% trans %}Languages{% endtrans %}</h3>
     <ul>
       {% for language in c.language_options %}
       <li>
