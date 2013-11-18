@@ -79,8 +79,9 @@ def url_for(*args, **kwargs):
     # Since Varnish or other software can mess with the headers and
     # cause us to lose the protocol of the request we need to fetch it
     # from a config and set it
-    protocol = config.get('openspending.enforced_protocol', 'http')
-    kwargs.update({'protocol':protocol})
+    protocol = config.get('openspending.enforced_protocol', None)
+    if protocol:
+        kwargs.update({'protocol':protocol})
     return routes_url_for(*args, **kwargs)
 
 def site_url():

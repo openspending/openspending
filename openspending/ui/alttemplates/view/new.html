@@ -2,7 +2,7 @@
 {% from "dataset/_nav.html" import dataset_nav as dataset_nav %}
 
 {% block page_title %}
-Create a visualisation
+{% trans %}Create a visualisation{% endtrans %}
 {% endblock %}
 
 {% block optional_head %}
@@ -58,29 +58,28 @@ Create a visualisation
     <div class='span6'>
       <form class='form-horizontal' method='POST' id='save-view'
         action="{{h.url_for(controller='view', action='create', dataset=c.dataset.name)}}">
-        <h3>Name your visualisation</h3>
+        <h3>{% trans %}Name your visualisation{% endtrans %}</h3>
         <p>
-            You can store your visualisation with a name so that you can come back to it 
-            later and it will become visible to others. 
+          {% trans %}You can store your visualisation with a name so that you can come back to it later and it will become visible to others.{% endtrans %}
         </p>
         {% if c.can_save %}
           <div class='control-group'>
-            <label class='control-label' for='label'>Title:</label>
+            <label class='control-label' for='label'>{% trans %}Title{% endtrans %}:</label>
             <div class='controls'><input id='field-label' name='label' class='span3' /></div>
           </div>
           <div class='control-group'>
-            <label class='control-label' for='description'>Description:</label>
+            <label class='control-label' for='description'>{% trans %}Description{% endtrans %}:</label>
             <div class='controls'><textarea name='description' class='span3'></textarea></div>
           </div>
           <div class="form-actions">
-            <input value="Save" class="btn btn-success" id="form-save" type="submit" />
+            <input value="{% trans %}Save{% endtrans %}" class="btn btn-success" id="form-save" type="submit" />
           </div>
           <input type='hidden' id='field-widget' name='widget' />
           <input type='hidden' id='field-state' name='state' />
         {% endif %}
         {% if not c.can_save %}
           <div class="alert alert-info span4">
-            You need to be signed in to save a view. 
+            {% trans %}You need to be signed in to save a view.{% endtrans %}
           </div>
         {% endif %}
       </form>
@@ -88,19 +87,17 @@ Create a visualisation
     <div class='span6' id='embedder'>
       <form class='form-horizontal'>
         <div class='row'>
-          <h3>Embed in another website</h3>
+          <h3>{% trans %}Embed in another website{% endtrans %}</h3>
           <p>
-            If you don't save this visualisation, you can still copy and paste the 
-            embed code below, to embed the widget in another website, such as a blog or 
-            article.
+            {% trans %}If you don't save this visualisation, you can still copy and paste the embed code below, to embed the widget in another website, such as a blog or article.{% endtrans %}
           </p>
           <div class='span3'>
               <div class='control-group'>
-                <label class='control-label' for='width'>Width:</label>
+                <label class='control-label' for='width'>{% trans %}Width{% endtrans %}:</label>
                 <div class='controls'><input id='width' class='span1' value='700' /></div>
               </div>
               <div class='control-group'>
-                <label class='control-label' for='height'>Height:</label>
+                <label class='control-label' for='height'>{% trans %}Height{% endtrans %}:</label>
                 <div class='controls'><input id='height' class='span1' value='400' /></div>
               </div>
           </div>

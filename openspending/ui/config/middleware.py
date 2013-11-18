@@ -88,7 +88,7 @@ def make_app(global_conf, full_stack=True, static_files=True, **app_conf):
         default_request_classifier,
         default_challenge_decider,
         log_stream = log_stream,
-        log_level = logging.DEBUG
+        log_level = logging.WARNING
         )
 
     if asbool(full_stack):
