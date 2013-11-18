@@ -53,7 +53,14 @@
     <div id="widget"></div>
     {% endif %}
 
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+      <script src="{{ h.static('js/json2.js') }}"></script>
     {{script_boot}}
+          <script defer="defer">
+		OpenSpending.scriptRoot = "{{ script_root }}";
+		OpenSpending.localeGroupSeparator = "{{ number_symbols_group }}";
+		OpenSpending.localeDecimalSeparator = "{{ number_symbols_decimal }}";
+      </script>
     {{widget_js(h, c, 'widget', c.widget, c.state, handles=False, embed=True)}}
     <a id="credit" target="_blank" href="http://www.openspending.org/">Visualised with OpenSpending</a>
 
