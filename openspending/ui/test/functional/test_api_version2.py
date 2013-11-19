@@ -10,7 +10,8 @@ class TestApi2Controller(ControllerTestCase):
         h.clean_and_reindex_solr()
 
     def test_aggregate(self):
-        response = self.app.get(url(controller='api2', action='aggregate',
+        response = self.app.get(url(controller='api/version2', 
+                                    action='aggregate',
                                     dataset='cra'))
         h.assert_equal(response.status, '200 OK')
         h.assert_equal(response.content_type, 'application/json')
@@ -26,7 +27,8 @@ class TestApi2Controller(ControllerTestCase):
                           (u'pagesize', 10000)])
 
     def test_aggregate_drilldown(self):
-        response = self.app.get(url(controller='api2', action='aggregate',
+        response = self.app.get(url(controller='api/version2', 
+                                    action='aggregate',
                                     dataset='cra', drilldown='cofog1|cofog2'))
         h.assert_equal(response.status, '200 OK')
         result = json.loads(response.body)
@@ -34,7 +36,8 @@ class TestApi2Controller(ControllerTestCase):
         h.assert_equal(result['summary']['amount'], -371500000.0)
 
     def test_aggregate_drilldown_format_csv(self):
-        response = self.app.get(url(controller='api2', action='aggregate',
+        response = self.app.get(url(controller='api/version2',
+                                    action='aggregate',
                                     dataset='cra', drilldown='cofog1|cofog2',
                                     format='csv'))
         h.assert_equal(response.status, '200 OK')
@@ -43,7 +46,8 @@ class TestApi2Controller(ControllerTestCase):
         h.assert_equal(result[0]['cofog2.name'], '10.1')
 
     def test_aggregate_measures(self):
-        response = self.app.get(url(controller='api2', action='aggregate',
+        response = self.app.get(url(controller='api/version2',
+                                    action='aggregate',
                                     dataset='cra', cut='year:2009',
                                     measure='total'))
         h.assert_equal(response.status, '200 OK')
@@ -58,7 +62,8 @@ class TestApi2Controller(ControllerTestCase):
         """
 
         # Get the aggregated amount and total values for year 2009
-        response = self.app.get(url(controller='api2', action='aggregate',
+        response = self.app.get(url(controller='api/version2',
+                                    action='aggregate',
                                     dataset='cra', cut='year:2009',
                                     measure='amount|total'))
 
@@ -82,7 +87,8 @@ class TestApi2Controller(ControllerTestCase):
             'Multiple measure aggregation of amount measure is not correct'
 
     def test_aggregate_cut(self):
-        response = self.app.get(url(controller='api2', action='aggregate',
+        response = self.app.get(url(controller='api/version2',
+                                    action='aggregate',
                                     dataset='cra', cut='year:2009'))
         h.assert_equal(response.status, '200 OK')
         result = json.loads(response.body)
@@ -96,7 +102,8 @@ class TestApi2Controller(ControllerTestCase):
                 if item not in result:
                     result.append(item)
             return result
-        response = self.app.get(url(controller='api2', action='aggregate',
+        response = self.app.get(url(controller='api/version2',
+                                    action='aggregate',
                                     dataset='cra', order='year:asc',
                                     drilldown='year'))
         h.assert_equal(response.status, '200 OK')
@@ -106,7 +113,8 @@ class TestApi2Controller(ControllerTestCase):
                          map(unicode, [2003, 2004, 2005, 2006, 2007, 2008, 2009,
                              2010]))
 
-        response = self.app.get(url(controller='api2', action='aggregate',
+        response = self.app.get(url(controller='api/version2',
+                                    action='aggregate',
                                     dataset='cra', order='year:desc',
                                     drilldown='year'))
         h.assert_equal(response.status, '200 OK')
@@ -117,7 +125,7 @@ class TestApi2Controller(ControllerTestCase):
                              2003]))
 
     def test_search(self):
-        response = self.app.get(url(controller='api2', action='search'))
+        response = self.app.get(url(controller='api/version2', action='search'))
         result = json.loads(response.body)
 
         h.assert_equal(result['stats']['results_count'], 36)
@@ -126,21 +134,23 @@ class TestApi2Controller(ControllerTestCase):
         h.assert_equal(len(result['results']), 36)
 
     def test_search_results_dataset(self):
-        response = self.app.get(url(controller='api2', action='search'))
+        response = self.app.get(url(controller='api/version2', action='search'))
         result = json.loads(response.body)
 
         h.assert_equal(result['results'][0]['dataset']['name'], 'cra')
         h.assert_equal(result['results'][0]['dataset']['label'],'Country Regional Analysis v2009')
 
     def test_search_page_pagesize(self):
-        response = self.app.get(url(controller='api2', action='search', page=2, pagesize=10))
+        response = self.app.get(url(controller='api/version2', action='search',
+                                    page=2, pagesize=10))
         result = json.loads(response.body)
 
         h.assert_equal(result['stats']['results_count'], 10)
         h.assert_equal(result['stats']['results_count_query'], 36)
 
     def test_search_q(self):
-        response = self.app.get(url(controller='api2', action='search', q="Ministry of Justice"))
+        response = self.app.get(url(controller='api/version2', action='search',
+                                    q="Ministry of Justice"))
         result = json.loads(response.body)
 
         h.assert_equal(result['stats']['results_count'], 5)
@@ -148,7 +158,8 @@ class TestApi2Controller(ControllerTestCase):
         h.assert_equal(result['results'][0]['id'], "06dafa7250420ab1dc616d2bbbe310c9ad6e485e")
 
     def test_search_filter(self):
-        response = self.app.get(url(controller='api2', action='search', filter="pog:P13 S091105"))
+        response = self.app.get(url(controller='api/version2', action='search',
+                                    filter="pog:P13 S091105"))
         result = json.loads(response.body)
 
         h.assert_equal(result['stats']['results_count'], 5)
@@ -156,14 +167,15 @@ class TestApi2Controller(ControllerTestCase):
         h.assert_equal(result['results'][0]['id'], "06dafa7250420ab1dc616d2bbbe310c9ad6e485e")
 
     def test_search_facet(self):
-        response = self.app.get(url(controller='api2', action='search', pagesize=0, facet_field="dataset"))
+        response = self.app.get(url(controller='api/version2', action='search',
+                                    pagesize=0, facet_field="dataset"))
         result = json.loads(response.body)
 
         h.assert_equal(len(result['facets']['dataset']), 1)
         h.assert_equal(result['facets']['dataset'][0], ['cra', 36])
 
     def test_search_expand_facet_dimensions(self):
-        response = self.app.get(url(controller='api2',
+        response = self.app.get(url(controller='api/version2',
                                     action='search',
                                     dataset='cra',
                                     pagesize=0,
@@ -177,7 +189,7 @@ class TestApi2Controller(ControllerTestCase):
         h.assert_equal(result['facets']['to.name'][0][0], 'society')
 
     def test_search_expand_facet_dimensions_no_dataset(self):
-        response = self.app.get(url(controller='api2',
+        response = self.app.get(url(controller='api/version2',
                                     action='search',
                                     pagesize=0,
                                     facet_field="from",
@@ -188,14 +200,16 @@ class TestApi2Controller(ControllerTestCase):
         h.assert_equal(result['facets']['from'][0][0], '999')
 
     def test_search_order(self):
-        response = self.app.get(url(controller='api2', action='search', order="amount:asc"))
+        response = self.app.get(url(controller='api/version2', action='search',
+                                    order="amount:asc"))
         result = json.loads(response.body)
 
         amounts = [r['amount'] for r in result['results']]
 
         h.assert_equal(amounts, sorted(amounts))
 
-        response = self.app.get(url(controller='api2', action='search', order="amount:desc"))
+        response = self.app.get(url(controller='api/version2', action='search',
+                                    order="amount:desc"))
         result = json.loads(response.body)
 
         amounts = [r['amount'] for r in result['results']]
@@ -212,7 +226,8 @@ class TestApi2Controller(ControllerTestCase):
         inflation data become more accurate with better data.
         """
 
-        response = self.app.get(url(controller='api2', action='aggregate',
+        response = self.app.get(url(controller='api/version2',
+                                    action='aggregate',
                                     dataset='cra', cut='year:2009',
                                     inflate='2011'))
         assert '200' in response.status, \
@@ -239,7 +254,8 @@ class TestApi2Controller(ControllerTestCase):
             "Inflation adjustment is not present in drilldown results"
 
         # Check for what happens when inflation is not possible
-        response = self.app.get(url(controller='api2', action='aggregate',
+        response = self.app.get(url(controller='api/version2',
+                                    action='aggregate',
                                     dataset='cra', cut='year:2009',
                                     inflate='1000'))
         assert '200' in response.status, \
@@ -270,7 +286,7 @@ class TestApiNewDataset(ControllerTestCase):
         user = Account.by_name('test_new')
         assert user.api_key == 'd0610659-627b-4403-8b7f-6e2820ebc95d'
 
-        u = url(controller='api2', action='create')
+        u = url(controller='api/version2', action='create')
         params= {
             'metadata':
                 'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
@@ -284,7 +300,7 @@ class TestApiNewDataset(ControllerTestCase):
         assert Dataset.by_name('openspending-example')
 
     def test_new_no_apikey(self):
-        u = url(controller='api2', action='create')
+        u = url(controller='api/version2', action='create')
         params = {
             'metadata':
                 'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
@@ -300,7 +316,7 @@ class TestApiNewDataset(ControllerTestCase):
         user = Account.by_name('test_new')
         assert user.api_key == 'd0610659-627b-4403-8b7f-6e2820ebc95d'
 
-        u = url(controller='api2', action='create')
+        u = url(controller='api/version2', action='create')
         params = {
             'metadata':
                 'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
@@ -317,7 +333,7 @@ class TestApiNewDataset(ControllerTestCase):
         user = Account.by_name('test_new2')
         assert user.api_key == 'c011c340-8dad-419c-8138-1c6ded86ead5'
         
-        u = url(controller='api2', action='create')
+        u = url(controller='api/version2', action='create')
         params = {
             'metadata':
                 'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',

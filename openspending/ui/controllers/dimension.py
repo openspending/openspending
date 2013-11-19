@@ -113,10 +113,10 @@ class DimensionController(BaseController):
     def entries(self, dataset, dimension, name, format='html'):
         self._get_member(dataset, dimension, name)
         if format in ['json', 'csv']:
-            return redirect(url_for(controller='api2', action='search',
-                format=format, dataset=dataset,
-                filter='%s.name:%s' % (dimension, name),
-                **request.params))
+            return redirect(url_for(controller='api/version2', action='search',
+                                    format=format, dataset=dataset,
+                                    filter='%s.name:%s' % (dimension, name),
+                                    **request.params))
 
         handle_request(request, c, c.member, c.dimension.name)
         entries = c.dataset.entries(c.dimension.alias.c.name == c.member['name'])

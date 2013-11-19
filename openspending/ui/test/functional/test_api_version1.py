@@ -10,7 +10,7 @@ class TestApiController(ControllerTestCase):
         h.load_fixture('cra')
     
     def test_aggregate(self):
-        response = self.app.get(url(controller='api',
+        response = self.app.get(url(controller='api/version1',
                                     action='aggregate',
                                     dataset='cra'))
         assert '"metadata": {' in response, response
@@ -21,7 +21,7 @@ class TestApiController(ControllerTestCase):
         assert '"results": [' in response
 
     def test_aggregate_with_breakdown(self):
-        u = url(controller='api', action='aggregate', **{
+        u = url(controller='api/version1', action='aggregate', **{
             'dataset': 'cra',
             'breakdown-region': 'yes',
         })
@@ -32,7 +32,7 @@ class TestApiController(ControllerTestCase):
     def test_jsonp_aggregate(self):
         # Copied from test_aggregate_with_breakdown.
         callback = randomjsonpcallback()
-        u = url(controller='api',
+        u = url(controller='api/version1',
             callback=callback, action='aggregate', **{
             'dataset': 'cra',
             'breakdown-region': 'yes',
@@ -43,7 +43,7 @@ class TestApiController(ControllerTestCase):
         assert valid_jsonp(response, callback)
 
     def test_aggregate_with_per_region(self):
-        u = url(controller='api', action='aggregate', **{
+        u = url(controller='api/version1', action='aggregate', **{
             'dataset': 'cra',
             'breakdown-region': 'yes',
             'per-population2006': 'region'
@@ -53,19 +53,8 @@ class TestApiController(ControllerTestCase):
         assert '"ENGLAND_London"' in response, response
         assert '0.1' in response, response
 
-    ## Dropped support for this.
-    #def test_aggregate_with_per_time(self):
-    #    u = url(controller='api', action='aggregate', **{
-    #        'dataset': 'cra',
-    #        'per-gdp_deflator2006': ''
-    #    })
-    #    response = self.app.get(u)
-    #    assert '"axes": []' in response, response
-    #    assert '"2006"' in response, response
-    #    assert '18445770.0' in response, response
-
     def test_mytax(self):
-        u = url(controller='api', action='mytax', income=20000)
+        u = url(controller='api/version1', action='mytax', income=20000)
         response = self.app.get(u)
         assert '"tax": ' in response, response
         assert '"explanation": ' in response, response
@@ -74,7 +63,7 @@ class TestApiController(ControllerTestCase):
     def test_jsonp_mytax(self):
         # Copied from test_mytax.
         callback = randomjsonpcallback()
-        u = url(controller='api', action='mytax', income=20000,
+        u = url(controller='api/version1', action='mytax', income=20000,
           callback=callback)
         response = self.app.get(u)
         assert '"tax": ' in response, response
@@ -111,13 +100,13 @@ class TestApiSearch(ControllerTestCase):
         h.clean_and_reindex_solr()
 
     def test_search_01_no_query(self):
-        response = self.app.get(url(controller='api', action='search'))
+        response = self.app.get(url(controller='api/version1', action='search'))
         out = json.loads(str(response.body))['response']
         assert out['numFound'] == 36, out['numFound']
         assert out['docs'][0]['dataset'] == 'cra', out
 
     def test_search_02_query(self):
-        response = self.app.get(url(controller='api', action='search',
+        response = self.app.get(url(controller='api/version1', action='search',
                                     q='Children'))
         out = json.loads(str(response.body))['response']
         assert out['numFound'] == 7, out['numFound']
@@ -127,13 +116,13 @@ class TestApiSearch(ControllerTestCase):
 
     def test_search_03_jsonpify(self):
         callback = 'mycallback'
-        response = self.app.get(url(controller='api', action='search',
+        response = self.app.get(url(controller='api/version1', action='search',
                                     q='children', callback=callback))
         assert response.body.startswith('%s({"responseHeader"'
                                         % callback), response.body
 
     def test_search_04_invalid_query(self):
-        response = self.app.get(url(controller='api', action='search',
+        response = self.app.get(url(controller='api/version1', action='search',
                                     q='time:'), expect_errors=True)
         assert "400" in response.status, response.status
 
