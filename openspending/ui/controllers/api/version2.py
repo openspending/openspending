@@ -142,11 +142,6 @@ class APIv2Controller(BaseController):
         if not datasets:
             return {'errors': ["No dataset available."]}
 
-        params['filter']['dataset'] = []
-        for dataset in datasets:
-            require.dataset.read(dataset)
-            params['filter']['dataset'].append(dataset.name)
-
         response.last_modified = max([d.updated_at for d in datasets])
         etag_cache_keygen(parser.key(), response.last_modified)
 
