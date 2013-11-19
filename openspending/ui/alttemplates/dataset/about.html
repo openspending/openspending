@@ -37,10 +37,8 @@
           <div class="span4">
             <h3>{% trans %}Sources{% endtrans %}</h3>
             <span class="help-block">
-              {% trans searchhelp=h.url(controller='content', action='view', section='help', path='api-search.html')%}This is a listing of all source data that was registered
-              for this dataset. If you want to look at the exact data
-              that is used to generate aggregates, you can also use a
-              <a href="{{searchhelp}}">bulk export</a>{% endtrans %}.
+              {% trans %}This is a listing of all source data that was registered
+              for this dataset.{% endtrans %}
             </span>
             <br/>
 			{% if c.sources %}

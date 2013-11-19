@@ -51,11 +51,6 @@ instructions will download and link in the JS files::
     $ git clone http://github.com/openspending/openspendingjs.git
     $ ln -s <full path to openspendingjs> openspending/ui/public/static/openspendingjs
 
-The content parts of OpenSpending are built as a separate Jekyll project. For 
-instructions on how make changes to the content, please refer to 
-https://github.com/openspending/dotorg. If you want to develop the core application, 
-you can use the live content from content.openspending.org instead.
-
 You will also need to install python bindings for your database. For example,
 for Postgresql you will want to install the psycopg2 library::
 
