@@ -306,16 +306,16 @@
                     <td>${fieldName}</td>
                     <td><select class="column" name="${prefix(fieldName)}[column]"></select></td>
                     <td>
-                      <select name="${prefix(fieldName)}[datatype]">
+                      <select name="${prefix(fieldName)}[datatype]">{% endraw %}
                         <option value="string">{% trans %}string{% endtrans %}</option>
                         <option value="float">{% trans %}float{% endtrans %}</option>
                         <option value="id">{% trans %}id{% endtrans %}</option>
                         <option value="date">{% trans %}date{% endtrans %}</option>
                         <option value="url">{% trans %}url{% endtrans %}</option>
-                      </select>
+                      {% raw %}</select>
                     </td>
                     <td>
-                      <input type="short" class="span3" name="${prefix(fieldName)}[default_value]" placeholder="{% trans %}Default Value{% endtrans %}" />
+                      <input type="short" class="span3" name="${prefix(fieldName)}[default_value]" placeholder="{% endraw %}{% trans %}Default Value{% endtrans %}{% raw %}" />
                     </td>
                     <td>
                       {{if required(fieldName) != true}}
@@ -336,12 +336,12 @@
                     {{if meta.helpText}}<p>${meta.helpText}</p>{{/if}}
                     
                     <div class="control-group">
-                      <label class="control-label">{% trans %}Label{% endtrans %}:</label>
+                      <label class="control-label">{% endraw %}{% trans %}Label{% endtrans %}{% raw %}:</label>
                       <div class="controls">
                         <input type="text" name="${name}[label]" value="${data.label}" />
                         <p class="help-block">
-                          {% trans %}A human-readable title for this
-                          dimension.{% endtrans %}
+                          {% endraw %}{% trans %}A human-readable title for this
+                          dimension.{% endtrans %}{% raw %}
                         </p>
                       </div>
                     </div>
@@ -349,54 +349,54 @@
                       <div class="controls">
                         <label class="checkbox">
                           <input type="checkbox" name="${name}[key]" value="true" />
-                          {% trans %}Include in unique key{% endtrans %}
+                          {% endraw %}{% trans %}Include in unique key{% endtrans %}{% raw %}
                         </label>
                         <p class="help-block">
-                          {% trans %}Make this dimension part of the set of
+                          {% endraw %}{% trans %}Make this dimension part of the set of
                           uniquely identifying values for each
-                          column.{% endtrans %}
+                          column.{% endtrans %}{% raw %}
                         </p>
                       </div>
                     </div>
                     
                     {{if validDimensionType(data.type)}}
                     <div class="control-group">
-                      <label class="control-label">{% trans %}Column{% endtrans %}:</label>
+                      <label class="control-label">{% endraw %}{% trans %}Column{% endtrans %}{% raw %}:</label>
                       <div class="controls">
                         <select class="column" name="${name}[column]"></select>
                         <p class="help-block">
-                          {% trans %}Source column in the source CSV file.{% endtrans %}
+                          {% endraw %}{% trans %}Source column in the source CSV file.{% endtrans %}{% raw %}
                         </p>
                       </div>
                     </div>
                     <hr/>
                     <div class="control-group">
-                      <label class="control-label">{% trans %}Default value{% endtrans %}:</label>
+                      <label class="control-label">{% endraw %}{% trans %}Default value{% endtrans %}{% raw %}:</label>
                       <div class="controls">
                         <input class="short" name="${name}[default_value]" />
                         <p class="help-block">
-                          {% trans %}Empty cells will be padded with this
-                          value.{% endtrans %}
+                          {% endraw %}{% trans %}Empty cells will be padded with this
+                          value.{% endtrans %}{% raw %}
                         </p>
                       </div>
                     </div>
                     {{if !meta.fixedDataType}}
                     <div class="control-group">
-                      <label class="control-label">{% trans %}Data type{% endtrans %}:</label>
+                      <label class="control-label">{% endraw %}{% trans %}Data type{% endtrans %}{% raw %}:</label>
                       <div class="controls">
-                        <select name="${name}[datatype]">
+                        <select name="${name}[datatype]">{% endraw %}
                           <option value="string">{% trans %}string{% endtrans %}</option>
                           <option value="float">{% trans %}float{% endtrans %}</option>
                           <option value="id">{% trans %}id{% endtrans %}</option>
                           <option value="date">{% trans %}date{% endtrans %}</option>
                           <option value="url">{% trans %}url{% endtrans %}</option>
-                        </select>
+                        {% raw %}</select>
                       </div>
                     </div>
                     {{/if}}
                     {{/if}}
                     <div class="control-group">
-                      <label class="control-label">{% trans %}Description{% endtrans %}:</label>
+                      <label class="control-label">{% endraw %}{% trans %}Description{% endtrans %}{% raw %}:</label>
                       <div class="controls">
                         <textarea class="short" name="${name}[description]">${data.description}</textarea>
                       </div>
@@ -405,11 +405,11 @@
                       <div class="controls">
                         <label class="checkbox">
                           <input type="checkbox" name="${name}[facet]" value="true" />
-                          {% trans %}Use as facet in entries browser{% endtrans %}
+                          {% endraw %}{% trans %}Use as facet in entries browser{% endtrans %}{% raw %}
                         </label>
                         <p class="help-block">
-                          {% trans %}Select a few dimensions which are useful
-                          to slice the dataset by.{% endtrans %}
+                          {% endraw %}{% trans %}Select a few dimensions which are useful
+                          to slice the dataset by.{% endtrans %}{% raw %}
                         </p>
                       </div>
                     </div>
@@ -417,13 +417,13 @@
                   {{if !(validDimensionType(data.type))}}
                   <div><table class="table table-condensed table-striped fields">
                       <thead>
-                        <tr>
+                        <tr>{% endraw %}
                           <th>{% trans %}Field{% endtrans %}</th>
                           <th>{% trans %}Column{% endtrans %}</th>
                           <th>{% trans %}Type{% endtrans %}</th>
                           <th>{% trans %}Default{% endtrans %}</th>
                           <th>&nbsp;</th>
-                        </tr>
+                        {% raw %}</tr>
                       </thead>
                       <tbody>
                         {{each(n, f) data.attributes}}
@@ -431,7 +431,7 @@
                         {{/each}}
                       </tbody>
                   </table></div>
-                  <a class="btn add_field" href="#">{% trans %}Add a field{% endtrans %}</a>
+                  <a class="btn add_field" href="#">{% endraw %}{% trans %}Add a field{% endtrans %}{% raw %}</a>
                   {{/if}}
                 </script>
               </div> <!-- /.modeleditor -->
