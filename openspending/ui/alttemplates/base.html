@@ -47,19 +47,19 @@
                 <a class="{{ section_active.search }}" href="{{ h.url(controller='entry', action='search') }}">{% trans %}Search{% endtrans %}</a>
               </li>
               <li>
-                <a href="http://community.openspending.org/">{% trans %}Community{% endtrans %}</a>
+                <a href="http://community.openspending.org/" onClick="_gaq.push(['_trackEvent', 'Community', 'Main', 'Navigational bar']);">{% trans %}Community{% endtrans %}</a>
               </li>
               <li>
-                <a href="http://community.openspending.org/help/">{% trans %}Help{% endtrans %}</a>
+                <a href="http://community.openspending.org/help/" onClick="_gaq.push(['_trackEvent', 'Community', 'Help', 'Navigational bar']);">{% trans %}Help{% endtrans %}</a>
               </li>
               <li>
-                <a href="http://community.openspending.org/about/">{% trans %}About{% endtrans %}</a>
+                <a href="http://community.openspending.org/about/" onClick="_gaq.push(['_trackEvent', 'Community', 'About', 'Navigational bar']);">{% trans %}About{% endtrans %}</a>
               </li>
               <li>
-                <a href="http://community.openspending.org/contact/">{% trans %}Contact{% endtrans %}</a>
+                <a href="http://community.openspending.org/contact/" onClick="_gaq.push(['_trackEvent', 'Community', 'Contact', 'Navigational bar']);">{% trans %}Contact{% endtrans %}</a>
               </li>
               <li>
-                <a class="{{ section_active.blog }}" href="http://community.openspending.org/blog/">{% trans %}Blog{% endtrans %}</a>
+                <a class="{{ section_active.blog }}" href="http://community.openspending.org/blog/" onClick="_gaq.push(['_trackEvent', 'Community', 'Blog', 'Navigational bar']);">{% trans %}Blog{% endtrans %}</a>
               </li>
             </ul>
           </div>
@@ -122,10 +122,10 @@
             <li><a href="http://italia.yourtopia.net">YourTopia</a></li>
           </ul>
           <ul class="footer-links span4 pull-left">
-            <li><a href="http://twitter.com/openspending">Twitter</a></li>
-            <li><a href="http://community.openspending.org/help/">{% trans %}Help{% endtrans %}</a></li>
-            <li><a href="http://community.openspending.org/contact/">{% trans %}Contact{% endtrans %}</a></li>
-            <li><a href="http://community.openspending.org/help/api/">{% trans %}API{% endtrans %}</a></li>
+            <li><a href="http://twitter.com/openspending" onClick="_gaq.push(['_trackEvent', 'Social media', 'Follow', 'Twitter']);">Twitter</a></li>
+            <li><a href="http://community.openspending.org/help/" onClick="_gaq.push(['_trackEvent', 'Community', 'Help', 'Footer']);">{% trans %}Help{% endtrans %}</a></li>
+            <li><a href="http://community.openspending.org/contact/" onClick="_gaq.push(['_trackEvent', 'Community', 'Contact', 'Footer']);">{% trans %}Contact{% endtrans %}</a></li>
+            <li><a href="http://community.openspending.org/help/api/" onClick="_gaq.push(['_trackEvent', 'Community', 'API', 'Footer']);">{% trans %}API{% endtrans %}</a></li>
             <li><a href="http://okfn.org/privacy-policy/">{% trans %}Privacy{% endtrans %}</a></li>
           </ul>
           <p>{% trans %}All <a href="http://www.gnu.org/licenses/agpl.html">code</a>,

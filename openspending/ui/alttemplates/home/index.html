@@ -102,13 +102,13 @@
           <li class="nav-header">{% trans %}The project{% endtrans %}</li>
           <li><a href="http://community.openspending.org/blog/">{% trans %}Spending Blog{% endtrans %}</a></li>
           <li><a href="http://community.openspending.org/about/exemplars/">{% trans %}Projects Portfolio{% endtrans %}</a></li>
-          <li><a href="http://lists.okfn.org/mailman/listinfo/openspending">{% trans %}Mailing List{% endtrans %}</a></li>
+          <li><a href="http://lists.okfn.org/mailman/listinfo/openspending" onClick="_gaq.push(['_trackEvent', 'Mailing lists', 'Register', 'Discussion link']);">{% trans %}Mailing List{% endtrans %}</a></li>
           <li><a href="http://community.openspending.org/contribute/">{% trans %}Contribute{% endtrans %}</a></li>
         </ul>
 
         <div class="social-links" style="padding-left: 1em;">
-          <a href="http://twitter.com/openspending"><img src="//d8r2br52tx8wq.cloudfront.net/branding/images/grey_twitter_icon.png" /></a>
-          <a href="http://feeds.feedburner.com/openspending"><img src="//d8r2br52tx8wq.cloudfront.net/branding/images/grey_feed_icon.png" /></a>
+          <a href="http://twitter.com/openspending" onClick="_gaq.push(['_trackEvent', 'Social media', 'Follow', 'Twitter']);"><img src="//d8r2br52tx8wq.cloudfront.net/branding/images/grey_twitter_icon.png" /></a>
+          <a href="http://feeds.feedburner.com/openspending" onClick="_gaq.push(['_trackEvent', 'Social media', 'Follow', 'Feed']);"><img src="//d8r2br52tx8wq.cloudfront.net/branding/images/grey_feed_icon.png" /></a>
         </div>
 
         <div class="caption">
@@ -116,7 +116,7 @@
           
           <form action="http://lists.okfn.org/mailman/subscribe/openspending" method="POST" class="form-inline">
             <input type="text" class="input-medium" name="email" placeholder="{% trans %}Email{% endtrans %}" />
-            <button type="submit" class="btn">{% trans %}Sign up{% endtrans %}</button>
+            <button type="submit" class="btn" onClick="_gaq.push(['_trackEvent', 'Mailing lists', 'Register', 'Discussion direct']);">{% trans %}Sign up{% endtrans %}</button>
           </form>
         </div>
         <div class="caption">
@@ -124,7 +124,7 @@
           
           <form action="http://lists.okfn.org/mailman/subscribe/openspending-dev" method="POST" class="form-inline">
             <input type="text" class="input-medium" name="email" placeholder="{% trans %}Email{% endtrans %}" />
-            <button type="submit" class="btn">{% trans %}Sign up{% endtrans %}</button>
+            <button type="submit" class="btn" onClick="_gaq.push(['_trackEvent', 'Mailing lists', 'Register', 'Developer direct']);">{% trans %}Sign up{% endtrans %}</button>
           </form>
         </div>
       </div>

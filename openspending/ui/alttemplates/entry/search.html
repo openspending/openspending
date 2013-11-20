@@ -31,7 +31,7 @@
               {% trans %}All data{% endtrans %}
             </label>
             <br/>
-          <input type="submit" class="btn" value="{% trans %}Search{% endtrans %}" />
+          <input type="submit" class="btn" value="{% trans %}Search{% endtrans %}"  onClick="_gaq.push(['_trackEvent', 'Search', 'Request', 'Search page']);"/>
           
           <div id="pagination-info"></div>
         </form>
