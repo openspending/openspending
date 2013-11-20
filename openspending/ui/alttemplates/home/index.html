@@ -35,12 +35,12 @@
               <a title="00-visualize by okfn, on Flickr" href="http://openspending.org/datasets/new"><img src="//farm4.staticflickr.com/3669/9575045401_5a752545b0_n.jpg" class="img-rounded" alt="00-visualize"></a>
             </div>
             <div class="span8">
-              <h2>Upload and visualize data</h2>
-              <p>Upload any kind of financial data to OpenSpending and explore it with our built-in interactive visualizations. Users publish <a href="http://openspending.org/budgetmarocain">budgets</a>, <a href="http://openspending.org/marches-publics-senegal/views/liste-des-attributaires">procurements</a>, <a href="http://openspending.org/ukgov-25k-spending">spending data</a> and even <a href="http://openspending.org/senadofederal/entries">public employee salaries</a>.</p>
+              <h2>{% trans %}Upload and visualize data{% endtrans %}</h2>
+              <p>{% trans %}Upload any kind of financial data to OpenSpending and explore it with our built-in interactive visualizations.{% endtrans %} {% trans %}Users publish <a href="https://openspending.org/budgetmarocain">budgets</a>, <a href="https://openspending.org/marches-publics-senegal/views/liste-des-attributaires">procurements</a>, <a href="https://openspending.org/ukgov-25k-spending">spending data</a> and even <a href="https://openspending.org/senadofederal/entries">public employee salaries</a>.{% endtrans %}</p>
 
-              <p>Use our <a href="http://www.pbs.org/idealab/2013/03/how-to-embed-open-spending-visualizations-in-your-own-website078">widgets</a> to embed your visualization on your own website.</p>
+              <p>{% trans %}Use our <a href="http://www.pbs.org/idealab/2013/03/how-to-embed-open-spending-visualizations-in-your-own-website078">widgets</a> to embed your visualization on your own website.{% endtrans %}</p>
 
-              <p><a href="http://openspending.org/datasets/new" class="btn btn-success btn-large" title="Create a dataset">Upload a dataset</a></p>
+              <p><a href="{{ h.url(controller='dataset', action='new') }}" class="btn btn-success btn-large" title="{% trans %}Create a dataset{% endtrans %}">{% trans %}Upload a dataset{% endtrans %}</a></p>
             </div>
           </div>
         </div>
@@ -50,13 +50,13 @@
               <a title="01-explore by okfn, on Flickr" href="http://openspending.org/search"><img src="//farm4.staticflickr.com/3670/9575044337_71d0e520ae_n.jpg" class="img-rounded" alt="01-explore"></a>
             </div>
             <div class="span8">
-              <h2>Explore the database</h2>
+              <h2>{% trans %}Explore the database{% endtrans %}</h2>
               
-              <p>OpenSpending holds nearly 16 mio. transactions from more than 300 datasets across more than 70 countries.</p>
+              <p>{% trans %}OpenSpending holds nearly 16 mio. transactions from more than 300 datasets across more than 70 countries.{% endtrans %}</p>
               
-              <p>Browse the <a href="http://openspending.org/datasets">list of datasets</a> and learn about public finances from around the world, or browse <a href="http://apps.openspending.org/maps/">our map of cities</a> on OpenSpending.</p>
+              <p>{% trans indexurl=h.url(controller='dataset', action='index') %}Browse the <a href="{{ indexurl }}">list of datasets</a> and learn about public finances from around the world, or browse <a href="http://apps.openspending.org/maps/">our map of cities</a> on OpenSpending.{% endtrans %}</p>
               
-              <p><a href="http://openspending.org/search" class="btn btn-success btn-large" title="Search the datasets">Search transactions</a> <small>or <a href="http://openspending.org/datasets/" title="List of datasets">look at the datasets</a></small></p>
+              <p><a href="{{ h.url(controller='entry', action='search') }}" class="btn btn-success btn-large" title="{% trans %}Search the datasets{% endtrans %}">{% trans %}Search transactions{% endtrans %}</a> <small><a href="{{ h.url(controller='dataset', action='index') }}" title="{% trans %}List of datasets{% endtrans %}">{% trans %}...or look at the datasets{% endtrans %}</a></small></p>
             </div>
           </div>
         </div>
@@ -66,13 +66,13 @@
               <a title="02-extend by okfn, on Flickr" href="http://community.openspending.org/help/api/"><img src="//farm6.staticflickr.com/5549/9577836924_378752d5f3_n.jpg" class="img-rounded" alt="02-extend"></a>
             </div>
             <div class="span8">
-              <h2>Create your own dataviz with our API</h2>
+              <h2>{% trans %}Create your own dataviz with our API{% endtrans %}</h2>
               
-              <p>Create your own visualizations with the <a href="http://community.openspending.org/help/api/aggregate/">OpenSpending API</a> using libraries like <a href="http://community.openspending.org/2013/08/20/okfb-inesc/">D3.js</a>, jit and Raphael.</p>
+              <p>{% trans %}Create your own visualizations with the <a href="http://community.openspending.org/help/api/aggregate/">OpenSpending API</a> using libraries like <a href="http://community.openspending.org/2013/08/20/okfb-inesc/">D3.js</a>, jit, and Raphael.{% endtrans %}</p>
               
-              <p>You can even create a satellite site while still using OpenSpending as a backend.</p>
+              <p>{% trans %}You can even create a satellite site while still using OpenSpending as a backend.{% endtrans %}</p>
               
-              <p><a href="http://community.openspending.org/help/api/" class="btn btn-success btn-large" title="API documentation">Look at the API</a></p>
+              <p><a href="http://community.openspending.org/help/api/" class="btn btn-success btn-large" title="{% trans %}API documentation{% endtrans %}">{% trans %}Look at the API{% endtrans %}</a></p>
             </div>
           </div>
         </div>
@@ -82,12 +82,12 @@
               <a title="03-community by okfn, on Flickr" href="http://community.openspending.org/get-involved/community/"><img src="//farm6.staticflickr.com/5475/9575044189_f4de292c78_n.jpg" class="img-rounded" alt="03-community"></a>
             </div>
             <div class="span8">
-              <h2>Join the community!</h2>
-              <p>OpenSpending is a community run project and all material is open - open-source code and open data.</p>
+              <h2>{% trans %}Join the community!{% endtrans %}</h2>
+              <p>{% trans %}OpenSpending is a community run project and all material is open - open-source code and open data.{% endtrans %}</p>
               
-              <p>Get involved in loading data, developing the technology, doing analysis or writing news stories!</p>
+              <p>{% trans %}Get involved in loading data, developing the technology, doing analysis or writing news stories!{% endtrans %}</p>
               
-              <p><a href="http://community.openspending.org/contribute/" class="btn btn-success btn-large" title="Community introduction">Join the spending community</a></p>
+              <p><a href="http://community.openspending.org/contribute/" class="btn btn-success btn-large" title="{% trans %}Community introduction{% endtrans %}">{% trans %}Join the spending community{% endtrans %}</a></p>
             </div>
           </div>
         </div>
