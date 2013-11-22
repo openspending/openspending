@@ -5,7 +5,7 @@
 {% block content %}
 <h2 class="page-header">{% trans %}OpenSpending Dataset Maintainers{% endtrans %}</h2>
 
-{% for row in c.score|batch(6) %}
+{% for row in c.page|batch(6) %}
 <div class="row" style="text-align:center">
   {% for user in row %}
   <div class="span2">
@@ -16,5 +16,6 @@
   {% endfor %}
 </div>
 {% endfor %}
+{{ c.page.pager() }}
 
 {% endblock %}

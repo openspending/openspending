@@ -253,9 +253,12 @@ class AccountController(BaseController):
         user_score = user_score.filter(Account.name != 'system')
         user_score = user_score.order_by(desc('score'))
 
-        # Fetch all and assign to a context variable score
-        # It might be worth it to paginate here for instances with many users
-        c.score = user_score.all()
+        # Fetch all and assign to a context variable score and paginate them
+	# We paginate 42 users per page, just because that's an awesome number
+        scores = user_score.all()
+        c.page = templating.Page(scores, items_per_page=42,
+                                 item_count=len(scores),
+                                 **request.params)
 
         return templating.render('account/scoreboard.html')
 
