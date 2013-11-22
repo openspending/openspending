@@ -5,7 +5,7 @@ import logging
 import colander
 
 from pylons import app_globals, request, response, tmpl_context as c
-from pylons.controllers.util import redirect
+from pylons.controllers.util import abort, redirect
 from pylons.i18n import _
 
 from repoze.who.api import get_api
@@ -246,9 +246,11 @@ class AccountController(BaseController):
         # Order users based on their score which is the sum of the dataset
         # scores they maintain
         user_score = db.session.query(Account.name, Account.email,
-                                      db.func.sum(score.c.sum).label('score'))
-        user_score = user_score.join(Account.datasets).join(score)
+                                      db.func.coalesce(db.func.sum(score.c.sum),0).label('score'))
+        user_score = user_score.outerjoin(Account.datasets).outerjoin(score)
         user_score = user_score.group_by(Account.name, Account.email)
+        # We exclude the system user
+        user_score = user_score.filter(Account.name != 'system')
         user_score = user_score.order_by(desc('score'))
 
         # Fetch all and assign to a context variable score
