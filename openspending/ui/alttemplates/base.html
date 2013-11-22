@@ -72,6 +72,10 @@
 	      <ul class="dropdown-menu account-dropdown">
 		<li><a href="{{ h.url(controller='account', action='dashboard') }}">{% trans %}Dashboard{% endtrans %}</a></li>
 		<li><a href="{{ h.url(controller='account', action='settings') }}">{% trans %}Settings{% endtrans %}</a></li>
+                {% if c.account.admin %}
+                <li class="divider"></li>
+                <li><a href="{{ h.url(controller='account', action='scoreboard') }}">{% trans %}User scoreboard{% endtrans %}</li>
+                {% endif %}
 		<li class="divider"></li>
 		<li><a href="/logout">{% trans %}Logout{% endtrans %}</a></li>
 	      </ul>

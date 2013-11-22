@@ -31,6 +31,7 @@ def make_map():
     map.connect('/register', controller='account', action='register')
     map.connect('/settings', controller='account', action='settings')
     map.connect('/dashboard', controller='account', action='dashboard')
+    map.connect('/accounts/scoreboard', controller='account', action='scoreboard')
     map.connect('/accounts/_complete', controller='account', action='complete')
     map.connect('/after_login', controller='account', action='after_login')
     map.connect('/after_logout', controller='account', action='after_logout')

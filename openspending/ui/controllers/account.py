@@ -21,7 +21,7 @@ from openspending.ui.lib.mailman import subscribe_lists
 from openspending.lib.jsonexport import to_jsonp
 from openspending.lib.mailer import send_reset_link
 from openspending.ui.alttemplates import templating
-
+from sqlalchemy.sql.expression import desc
 log = logging.getLogger(__name__)
 
 
@@ -218,6 +218,44 @@ class AccountController(BaseController):
 
         # Return the profile page for the user
         return self.profile(c.account.name)
+
+    def scoreboard(self, format='html'):
+        """
+        A list of users ordered by their score. The score is computed by
+        by assigning every dataset a score (10 divided by number of maintainers)
+        and then adding that score up for all maintainers.
+
+        This does give users who maintain a single dataset a higher score than
+        those who are a part of a maintenance team, which is not really what 
+        we want (since that rewards single points of failure in the system).
+
+        But this is an adequate initial score and this will only be accessible
+        to administrators (who may be interested in findin these single points
+        of failures).
+        """
+
+        # If user is not an administrator we abort
+        if not (c.account and c.account.admin):
+            abort(403, _("You are not authorized to view this page"))
+        
+        # Assign scores to each dataset based on number of maintainers
+        score = db.session.query(Dataset.id,
+                                 (10/db.func.count(Account.id)).label('sum'))
+        score = score.join('managers').group_by(Dataset.id).subquery()
+
+        # Order users based on their score which is the sum of the dataset
+        # scores they maintain
+        user_score = db.session.query(Account.name, Account.email,
+                                      db.func.sum(score.c.sum).label('score'))
+        user_score = user_score.join(Account.datasets).join(score)
+        user_score = user_score.group_by(Account.name, Account.email)
+        user_score = user_score.order_by(desc('score'))
+
+        # Fetch all and assign to a context variable score
+        # It might be worth it to paginate here for instances with many users
+        c.score = user_score.all()
+
+        return templating.render('account/scoreboard.html')
 
     def complete(self, format='json'):
         self._disable_cache()
