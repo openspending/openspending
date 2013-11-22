@@ -368,3 +368,75 @@ class TestAccountController(ControllerTestCase):
         # Reset cache setting
         response.app_globals.cache_enabled = cache_settings
  
+    def test_user_scoreboard(self):
+        """
+        Test if the user scoreboard works and is only accessible by
+        administrators
+        """
+
+        # Create dataset and users and make normal user owner of dataset
+        admin_user = h.make_account('test_admin', admin=True)
+
+        dataset = h.load_fixture('cra')
+        normal_user = h.make_account('test_user')
+        normal_user.datasets.append(dataset)
+        db.session.add(normal_user)
+        db.session.commit()
+
+        # Refetch the accounts into scope after the commit
+        admin_user = Account.by_name('test_admin')
+        normal_user = Account.by_name('test_user')
+
+        # Get the URL to user scoreboard
+        scoreboard_url = url(controller='account', action='scoreboard')
+        # Get the home page (could be just any page
+        user_response = self.app.get(url(controller='home', action='index'),
+                                     extra_environ={'REMOTE_USER':
+                                                        str(normal_user.name)})
+        admin_response = self.app.get(url(controller='home', action='index'),
+                                      extra_environ={'REMOTE_USER':
+                                                         str(admin_user.name)})
+
+        # Admin user should be the only one to see a link
+        # to the user scoreboard (not the normal user)
+        assert scoreboard_url not in user_response.body, \
+            "Normal user can see scoreboard url on the home page"
+
+        assert scoreboard_url in admin_response.body, \
+            "Admin user cannot see the scoreboard url on the home page"
+
+        # Normal user should not be able to access the scoreboard url
+        user_response = self.app.get(scoreboard_url,
+                                     expect_errors=True,
+                                     extra_environ={'REMOTE_USER':
+                                                        str(normal_user.name)})
+        assert '403' in user_response.status, \
+            "Normal user is authorized to see user scoreboard"
+
+        # Administrator should see scoreboard and users should be there in
+        # in the following order normal user - admin user (with 10 and 0 points
+        # respectively)
+        admin_response = self.app.get(scoreboard_url,
+                                     extra_environ={'REMOTE_USER':
+                                                        str(admin_user.name)})
+
+        assert '200' in admin_response.status, \
+            "Administrator did not get a 200 status for user scoreboard"
+
+        # We need to remove everything before an 'Dataset Maintainers' because
+        # the admin user name comes first because of the navigational bar
+        heading_index = admin_response.body.find('Dataset Maintainers')
+        check_body = admin_response.body[heading_index:]
+
+        admin_index = check_body.find(admin_user.name)
+        user_index = check_body.find(normal_user.name)
+        assert admin_index > user_index, \
+            "Admin index comes before normal user index"
+
+        # Same thing as with the username we check for the scores
+        # they are represented as <p>10</p> and <p>0</p>
+        admin_index = check_body.find('<p>0</p>')
+        user_index = check_body.find('<p>10</p>')
+        assert admin_index > user_index, \
+            "Admin score does not come before the user score"
+
