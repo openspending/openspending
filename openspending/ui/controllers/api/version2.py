@@ -259,6 +259,33 @@ class APIv2Controller(BaseController):
         load_source.delay(source.id)
         return to_jsonp(dataset_apply_links(dataset.as_dict()))
 
+    def permissions(self):
+        """
+        Check a user's permissions for a given dataset. This could also be
+        done via request to the user, but since we're not really doing a
+        RESTful service we do this via the api instead.
+        """
+
+        # Check the parameters. Since we only use one parameter we check it
+        # here instead of creating a specific parameter parser
+        if len(request.params) != 1 or 'dataset' not in request.params:
+            return to_jsonp({'error': 'Parameter dataset missing'})
+
+        # Get the dataset we want to check permissions for
+        dataset = Dataset.by_name(request.params['dataset'])
+
+        # Return permissions
+        return to_jsonp({
+                "create":\
+                    can.dataset.create() and dataset is None,
+                "read":\
+                    False if dataset is None else can.dataset.read(dataset),
+                "update":\
+                    False if dataset is None else can.dataset.update(dataset),
+                "delete":\
+                    False if dataset is None else can.dataset.delete(dataset)
+                })
+
 def _expand_facets(facets, dataset):
     dim_names = [d.name for d in dataset.dimensions]
     for name in facets.keys():

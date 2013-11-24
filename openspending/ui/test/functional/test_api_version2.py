@@ -1,5 +1,5 @@
 from openspending.lib import json
-from openspending.model import Dataset, Account
+from openspending.model import Dataset, Account, meta as db
 from csv import DictReader
 from .. import ControllerTestCase, url, helpers as h
 
@@ -267,6 +267,145 @@ class TestApi2Controller(ControllerTestCase):
             "No warning given when inflation not possible"
         assert result['summary']['amount'] == 57300000.0, \
             "Amount does not fall back to the original amount"
+
+    def test_permissions(self):
+        """
+        Test permissions API which tells users if they are allowed to
+        perform CRUD operations on a given dataset
+        """
+
+        # Create our users
+        h.make_account('test_admin', admin=True)
+        maintainer = h.make_account('maintainer')
+        h.make_account('test_user')
+        
+        # Set maintainer as maintainer of cra dataset
+        dataset = Dataset.by_name('cra')
+        dataset.managers.append(maintainer)
+        db.session.add(dataset)
+        db.session.commit()
+
+        # Get the users again because of commit (cleared session)
+        admin_user = Account.by_name('test_admin')
+        maintainer = Account.by_name('maintainer')
+        normal_user = Account.by_name('test_user')
+
+        # Make the url reusable
+        permission = url(controller='api/version2', action='permissions')
+
+        # First we try to get permissions without dataset parameter
+        # This should return a 200 but include an error message and nothing
+        # else
+        response = self.app.get(permission)
+        json_response = json.loads(response.body)
+        assert len(json_response.keys()) == 1, \
+            'Parameterless call response includes more than one properties'
+        assert 'error' in json_response, \
+            'Error property not present in parameterless call response'
+        
+        # Dataset is public by default
+        
+        # Anonymous user
+        response = self.app.get(permission, params={'dataset': 'cra'})
+        anon_response = json.loads(response.body)
+        assert anon_response['create'] == False, \
+            'Anonymous user can create existing dataset'
+        assert anon_response['read'] == True, \
+            'Anonymous user cannot read public dataset'
+        assert anon_response['update'] == False, \
+            'Anonymous user can update existing dataset'
+        assert anon_response['delete'] == False, \
+            'Anonymous user can delete existing dataset'
+        # Normal user
+        response = self.app.get(permission, params={'dataset': 'cra'},
+                                extra_environ={'REMOTE_USER':'test_user'})
+        normal_response = json.loads(response.body)
+        assert anon_response == normal_response, \
+            'Normal user has wrong permissions for a public dataset'
+        # Maintainer
+        response = self.app.get(permission, params={'dataset': 'cra'},
+                                extra_environ={'REMOTE_USER': 'maintainer'})
+        main_response = json.loads(response.body)
+        assert main_response['create'] == False,\
+            'Maintainer can create a dataset with an existing (public) name'
+        assert main_response['read'] == True,\
+            'Maintainer is not able to read public dataset'
+        assert main_response['update'] == True,\
+            'Maintainer is not able to update public dataset'
+        assert main_response['delete'] == True,\
+            'Maintainer is not able to delete public dataset'
+        # Administrator
+        response = self.app.get(permission, params={'dataset': 'cra'},
+                                extra_environ={'REMOTE_USER': 'test_admin'})
+        admin_response = json.loads(response.body)
+        # Permissions for admins should be the same as for maintainer
+        assert main_response == admin_response, \
+            'Admin and maintainer permissions differ on public datasets'
+
+        # Set cra dataset as private so only maintainer and admin should be
+        # able to 'read' (and 'update' and 'delete'). All others should get
+        # False on everything
+        dataset = Dataset.by_name('cra')
+        dataset.private = True
+        db.session.add(dataset)
+        db.session.commit()
+
+        # Get the users again because of commit (cleared session)
+        admin_user = Account.by_name('test_admin')
+        maintainer = Account.by_name('maintainer')
+        normal_user = Account.by_name('test_user')
+
+        # Anonymous user
+        response = self.app.get(permission, params={'dataset': 'cra'})
+        anon_response = json.loads(response.body)
+        assert True not in anon_response.values(), \
+            'Anonymous user has access to a private dataset'
+        # Normal user
+        response = self.app.get(permission, params={'dataset': 'cra'},
+                                extra_environ={'REMOTE_USER': 'test_user'})
+        normal_response = json.loads(response.body)
+        assert anon_response == normal_response, \
+            'Normal user has access to a private dataset'
+        # Maintainer
+        response = self.app.get(permission, params={'dataset': 'cra'},
+                                extra_environ={'REMOTE_USER': 'maintainer'})
+        main_response = json.loads(response.body)
+        assert main_response['create'] == False,\
+            'Maintainer can create a dataset with an existing (private) name'
+        assert main_response['read'] == True,\
+            'Maintainer is not able to read private dataset'
+        assert main_response['update'] == True,\
+            'Maintainer is not able to update private dataset'
+        assert main_response['delete'] == True,\
+            'Maintainer is not able to delete private dataset'
+        # Administrator
+        response = self.app.get(permission, params={'dataset': 'cra'},
+                                extra_environ={'REMOTE_USER': 'test_admin'})
+        admin_response = json.loads(response.body)
+        # Permissions for admins should be the same as for maintainer
+        assert main_response == admin_response, \
+            'Admin does not have the same permissions as maintainer'
+
+        # Now we try accessing a nonexistent dataset
+        # Everyone except anonymous user should have the same permissions
+        # We don't need to check with maintainer or admin now since this
+        # applies to all logged in users
+        response = self.app.get(permission, params={'dataset': 'nonexistent'})
+        anon_response = json.loads(response.body)
+        assert True not in anon_response.values(), \
+            'Anonymous users has permissions on a nonexistent datasets'
+        # Any logged in user (we use normal user)
+        response = self.app.get(permission, params={'dataset': 'nonexistent'},
+                                extra_environ={'REMOTE_USER': 'test_user'})
+        normal_response = json.loads(response.body)
+        assert normal_response['create'] == True,\
+            'User cannot create a nonexistent dataset'
+        assert normal_response['read'] == False,\
+            'User can read a nonexistent dataset'
+        assert normal_response['update'] == False,\
+            'User can update a nonexistent dataset'
+        assert normal_response['delete'] == False,\
+            'User can delete a nonexistent dataset'
 
 class TestApiNewDataset(ControllerTestCase):
     """
