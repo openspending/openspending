@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the openspending project.
 # 
 # Translators:
-# Vantharith Oum <vantharith.oum@gmail.com>, 2013
+# ppanhh <vietnamesel10n@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenSpending\n"
@@ -11,12 +11,12 @@ msgstr ""
 "POT-Creation-Date: 2013-11-20 09:27+0000\n"
 "PO-Revision-Date: 2013-11-20 09:50+0000\n"
 "Last-Translator: tryggvib <tryggvib@fsfi.is>\n"
-"Language-Team: Khmer (http://www.transifex.com/projects/p/openspending/language/km/)\n"
+"Language-Team: Vietnamese (http://www.transifex.com/projects/p/openspending/language/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
-"Language: km\n"
+"Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: openspending/lib/mailer.py:20
@@ -65,7 +65,7 @@ msgstr ""
 #: openspending/ui/alttemplates/account/profile.html:32
 #: openspending/ui/alttemplates/badge/information.html:23
 msgid "Datasets"
-msgstr "សំនំុទិន្នន័យ"
+msgstr "Thiết lập dữ liệu"
 
 #: openspending/ui/alttemplates/base.html:47
 #: openspending/ui/alttemplates/dataset/_nav.html:39
@@ -73,7 +73,7 @@ msgstr "សំនំុទិន្នន័យ"
 #: openspending/ui/alttemplates/entry/search.html:2
 #: openspending/ui/alttemplates/entry/search.html:34
 msgid "Search"
-msgstr "ស្វែងរក"
+msgstr ""
 
 #: openspending/ui/alttemplates/base.html:50
 msgid "Community"
@@ -82,17 +82,17 @@ msgstr ""
 #: openspending/ui/alttemplates/base.html:53
 #: openspending/ui/alttemplates/base.html:126
 msgid "Help"
-msgstr "ជំនួយ"
+msgstr "Trợ giúp"
 
 #: openspending/ui/alttemplates/base.html:56
 #: openspending/ui/alttemplates/dataset/_nav.html:42
 msgid "About"
-msgstr "អំពី"
+msgstr "Thông ti"
 
 #: openspending/ui/alttemplates/base.html:59
 #: openspending/ui/alttemplates/base.html:127
 msgid "Contact"
-msgstr "ទំនាក់ទំនង"
+msgstr "Liên lạc"
 
 #: openspending/ui/alttemplates/base.html:62
 msgid "Blog"
@@ -105,15 +105,15 @@ msgstr ""
 
 #: openspending/ui/alttemplates/base.html:74
 msgid "Settings"
-msgstr "ការកំណត់នានា"
+msgstr "Thiết lập"
 
 #: openspending/ui/alttemplates/base.html:76
 msgid "Logout"
-msgstr ""
+msgstr "Đăng xuất"
 
 #: openspending/ui/alttemplates/base.html:81
 msgid "Login/Register"
-msgstr ""
+msgstr "Đăng nhập/Đăng ký"
 
 #: openspending/ui/alttemplates/base.html:85
 msgid "Language"
@@ -143,7 +143,7 @@ msgstr "API"
 
 #: openspending/ui/alttemplates/base.html:129
 msgid "Privacy"
-msgstr "ភាពជាឯកជន"
+msgstr "Riêng tư"
 
 #: openspending/ui/alttemplates/base.html:131
 msgid ""
@@ -163,13 +163,13 @@ msgstr ""
 #: openspending/ui/alttemplates/account/login.html:27
 #: openspending/ui/alttemplates/account/login.html:37
 msgid "Login"
-msgstr ""
+msgstr "Đăng nhập"
 
 #: openspending/ui/alttemplates/account/login.html:20
 #: openspending/ui/alttemplates/account/login.html:58
 #: openspending/ui/alttemplates/account/settings.html:36
 msgid "Password"
-msgstr "ពាក្យសម្ងាត់"
+msgstr "Mật khẩu"
 
 #: openspending/ui/alttemplates/account/login.html:30
 msgid "Forgot your password?"
@@ -181,18 +181,18 @@ msgstr ""
 
 #: openspending/ui/alttemplates/account/login.html:33
 msgid "Create an account"
-msgstr "បង្កើតគណនី"
+msgstr "Tạo một tài khoản"
 
 #: openspending/ui/alttemplates/account/login.html:43
 #: openspending/ui/alttemplates/account/settings.html:12
 msgid "Fullname"
-msgstr "ឈ្មោះពេញ"
+msgstr "Tên đầy đủ"
 
 #: openspending/ui/alttemplates/account/login.html:49
 #: openspending/ui/alttemplates/account/settings.html:18
 #: openspending/ui/alttemplates/account/trigger_reset.html:19
 msgid "E-Mail"
-msgstr ""
+msgstr "E-Mail"
 
 #: openspending/ui/alttemplates/account/login.html:53
 msgid "Visible to other users"
@@ -201,7 +201,7 @@ msgstr ""
 #: openspending/ui/alttemplates/account/login.html:64
 #: openspending/ui/alttemplates/account/settings.html:42
 msgid "Password (repeat)"
-msgstr "ពាក្យសម្ងាត់ (ម្តងទៀត)"
+msgstr "Mật khẩu (lặp lại)"
 
 #: openspending/ui/alttemplates/account/login.html:73
 msgid ""
@@ -254,7 +254,7 @@ msgstr ""
 #: openspending/ui/alttemplates/dataset/new.html:21
 #: openspending/ui/alttemplates/dataset/new_cta.html:3
 msgid "Import a dataset"
-msgstr "នាំចូលសំនំុទិន្នន័យ"
+msgstr ""
 
 #: openspending/ui/alttemplates/account/profile.html:52
 #: openspending/ui/alttemplates/editor/_nav.html:29
@@ -263,11 +263,11 @@ msgstr ""
 
 #: openspending/ui/alttemplates/account/settings.html:3
 msgid "Settings for:"
-msgstr ""
+msgstr "Thiết lập cho:"
 
 #: openspending/ui/alttemplates/account/settings.html:6
 msgid "Account Settings"
-msgstr "ការកំណត់គណនី"
+msgstr "Thiết lập tài khoản"
 
 #: openspending/ui/alttemplates/account/settings.html:22
 #: openspending/ui/alttemplates/account/settings.html:31
@@ -280,7 +280,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/account/settings.html:49
 msgid "API Key"
-msgstr "API Key"
+msgstr "Khóa API"
 
 #: openspending/ui/alttemplates/account/settings.html:52
 msgid "Use this key to access the OpenSpending API programmatically."
@@ -345,7 +345,7 @@ msgstr ""
 #: openspending/ui/alttemplates/editor/dimensions.html:393
 #: openspending/ui/alttemplates/view/new.html:71
 msgid "Description"
-msgstr "ការបរិយាយ"
+msgstr ""
 
 #: openspending/ui/alttemplates/badge/index.html:27
 msgid ""
@@ -426,7 +426,7 @@ msgstr ""
 #: openspending/ui/alttemplates/dataset/index.html:42
 #: openspending/ui/alttemplates/dataset/new.html:85
 msgid "Countries"
-msgstr "ប្រទេស"
+msgstr ""
 
 #: openspending/ui/alttemplates/dataset/_select.html:10
 msgid "Filter by country"
@@ -436,7 +436,7 @@ msgstr ""
 #: openspending/ui/alttemplates/dataset/index.html:56
 #: openspending/ui/alttemplates/dataset/new.html:95
 msgid "Languages"
-msgstr "ភាសា"
+msgstr ""
 
 #: openspending/ui/alttemplates/dataset/_select.html:26
 msgid "Filter by language"
@@ -462,7 +462,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/dataset/about.html:38
 msgid "Sources"
-msgstr "ប្រភព"
+msgstr ""
 
 #: openspending/ui/alttemplates/dataset/about.html:40
 msgid ""
@@ -473,7 +473,7 @@ msgstr ""
 #: openspending/ui/alttemplates/dataset/about.html:55
 #: openspending/ui/alttemplates/editor/_nav.html:32
 msgid "Team"
-msgstr "ក្រុមការងារ"
+msgstr ""
 
 #: openspending/ui/alttemplates/dataset/about.html:57
 msgid ""
@@ -531,7 +531,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/dataset/dropdb.html:3
 msgid "Database erased"
-msgstr ""
+msgstr "Cơ sở dữ liệu đã bị xóa"
 
 #: openspending/ui/alttemplates/dataset/dropdb.html:11
 msgid ""
@@ -541,7 +541,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/dataset/index.html:3
 msgid "All datasets"
-msgstr "សំនំុទិន្នន័យទាំងអស់"
+msgstr ""
 
 #: openspending/ui/alttemplates/dataset/index.html:6
 msgid "Available data sets"
@@ -581,7 +581,7 @@ msgstr ""
 #: openspending/ui/alttemplates/dataset/new.html:43
 #: openspending/ui/alttemplates/view/new.html:67
 msgid "Title"
-msgstr "ចំណងជើង"
+msgstr ""
 
 #: openspending/ui/alttemplates/dataset/new.html:45
 msgid "My Dataset"
@@ -843,7 +843,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/editor/dimensions.html:165
 msgid "Date"
-msgstr "កាលបរិច្ឆេទ"
+msgstr ""
 
 #: openspending/ui/alttemplates/editor/dimensions.html:167
 msgid "Temporal value, e.g. start of project, date of disbursement."
@@ -1344,23 +1344,23 @@ msgstr ""
 #: openspending/ui/alttemplates/run/view.html:54
 #: openspending/ui/alttemplates/source/_list.html:13
 msgid "Error"
-msgstr "កំហុស"
+msgstr "Lỗi"
 
 #: openspending/ui/alttemplates/errors/403.html:7
 msgid "Access denied."
-msgstr ""
+msgstr "Truy cập bị từ chối."
 
 #: openspending/ui/alttemplates/errors/403.html:14
 msgid "You may not have the relevant rights."
-msgstr ""
+msgstr "Bạn không có các quyền liên quan."
 
 #: openspending/ui/alttemplates/errors/403.html:18
 msgid "You may need to login."
-msgstr ""
+msgstr "Bạn cần phải đăng nhập."
 
 #: openspending/ui/alttemplates/errors/404.html:7
 msgid "Resource not found"
-msgstr ""
+msgstr "Không tìm thấy nguồn tài nguyên"
 
 #: openspending/ui/alttemplates/errors/404.html:10
 msgid "Maybe the URL is misspelled or the data has been deleted."
@@ -1372,7 +1372,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/errors/500.html:7
 msgid "Internal Server Error"
-msgstr ""
+msgstr "Internal Server Error"
 
 #: openspending/ui/alttemplates/home/index.html:22
 msgid "Mapping the money."
@@ -1529,7 +1529,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:103
 msgid "Spending Blog"
-msgstr ""
+msgstr "Nhật trình gửi"
 
 #: openspending/ui/alttemplates/home/index.html:104
 msgid "Projects Portfolio"
@@ -1537,7 +1537,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:105
 msgid "Mailing List"
-msgstr ""
+msgstr "Danh sách email"
 
 #: openspending/ui/alttemplates/home/index.html:106
 msgid "Contribute"
@@ -1804,12 +1804,12 @@ msgstr ""
 
 #: openspending/ui/controllers/account.py:79
 msgid "Login name already exists, please choose a different one"
-msgstr ""
+msgstr "Tên đăng nhập đã tồn tại, xin chọn một tên khác"
 
 #: openspending/ui/controllers/account.py:85
 #: openspending/ui/controllers/account.py:161
 msgid "Passwords don't match!"
-msgstr ""
+msgstr "Mật khẩu không trùng nhau!"
 
 #: openspending/ui/controllers/account.py:118
 #, python-format
@@ -1818,7 +1818,7 @@ msgstr ""
 
 #: openspending/ui/controllers/account.py:188
 msgid "Your settings have been updated."
-msgstr ""
+msgstr "Thiết lập của bạn đã được cập nhật."
 
 #: openspending/ui/controllers/account.py:231
 msgid "You are not authorized to see that page"
@@ -1827,15 +1827,15 @@ msgstr ""
 #: openspending/ui/controllers/account.py:252
 #, python-format
 msgid "Welcome back, %s!"
-msgstr "សូមស្វាគមន័ជាថ្មីម្ដងទៀត %s!"
+msgstr "Chào mừng trở lại, %s!"
 
 #: openspending/ui/controllers/account.py:255
 msgid "Incorrect user name or password!"
-msgstr ""
+msgstr "Tên người dùng hoặc mật khẩu không đúng!"
 
 #: openspending/ui/controllers/account.py:260
 msgid "You have been logged out."
-msgstr ""
+msgstr "Bạn đã đăng xuất."
 
 #: openspending/ui/controllers/account.py:280
 msgid "Please enter an email address!"
@@ -1889,21 +1889,21 @@ msgstr ""
 #: openspending/ui/controllers/dimension.py:34
 #: openspending/ui/controllers/dimension.py:36
 msgid "This is not a dimension"
-msgstr ""
+msgstr "Đây không phải là phần kích thước"
 
 #: openspending/ui/controllers/dimension.py:46
 #, python-format
 msgid "Sorry, there is no member named %r"
-msgstr ""
+msgstr "Rất tiếc, không có người dùng nào có tên %r"
 
 #: openspending/ui/controllers/dimension.py:52
 #, python-format
 msgid "Sorry, there is no dimension named %r"
-msgstr ""
+msgstr "Rất tiếc, không có phần kích thước được đặt tên %r"
 
 #: openspending/ui/controllers/editor.py:87
 msgid "The dataset has been updated."
-msgstr ""
+msgstr "Thiết lập dữ liệu đã được cập nhật."
 
 #: openspending/ui/controllers/editor.py:117
 msgid ""
@@ -1963,7 +1963,7 @@ msgstr ""
 #: openspending/ui/controllers/entry.py:47
 #, python-format
 msgid "Sorry, there is no entry %r"
-msgstr ""
+msgstr "Rất tiếc, không có dòng thông tin %r"
 
 #: openspending/ui/controllers/entry.py:87
 msgid "Unable to adjust for inflation"
@@ -2022,7 +2022,7 @@ msgstr ""
 #: openspending/ui/lib/base.py:130
 #, python-format
 msgid "Sorry, there is no dataset named %r"
-msgstr ""
+msgstr "Rất tiếc, không có thiết lập dữ liệu có tên %r"
 
 #: openspending/ui/lib/views.py:36
 msgid "Untitled"
