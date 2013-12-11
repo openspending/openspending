@@ -239,14 +239,15 @@ class APIv2Controller(BaseController):
                 log.error("%s: %s", field, error)
             abort(status_code=400, detail='Model is not well formed')
         dataset = Dataset.by_name(model['dataset']['name'])
-        if not dataset:
+        if dataset is None:
             dataset = Dataset(model)
             require.dataset.create()
             dataset.managers.append(c.account)
             dataset.private = True #Default value
             db.session.add(dataset)
-            
-        require.dataset.update(dataset)
+        else:    
+            require.dataset.update(dataset)
+
         log.info("Dataset: %s", dataset.name)
         source = Source(dataset=dataset, creator=c.account, url=csv_file)
 
