@@ -226,7 +226,10 @@ class APIv2Controller(BaseController):
             else abort(status_code=400, detail='csv_file is missing')
 
         # We proceed with the dataset
-        model = json.load(urllib2.urlopen(metadata))
+        try:
+            model = json.load(urllib2.urlopen(metadata))
+        except:
+            abort(status_code=400, detail='JSON model could not be parsed')
         try:
             log.info("Validating model")
             model = validate_model(model)
