@@ -3,27 +3,26 @@
 # This file is distributed under the same license as the openspending project.
 # 
 # Translators:
-# Elys <lombardo.elisabetta@gmail.com>, 2013
-# M2M <matteo.merlanti@gmail.com>, 2011-2012
+# MayaBa <maya.barisic@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenSpending\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2013-11-20 09:27+0000\n"
-"PO-Revision-Date: 2013-12-08 22:50+0000\n"
-"Last-Translator: Elys <lombardo.elisabetta@gmail.com>\n"
-"Language-Team: Italian (http://www.transifex.com/projects/p/openspending/language/it/)\n"
+"PO-Revision-Date: 2013-11-27 12:06+0000\n"
+"Last-Translator: MayaBa <maya.barisic@gmail.com>\n"
+"Language-Team: Bosnian (Bosnia and Herzegovina) (http://www.transifex.com/projects/p/openspending/language/bs_BA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
-"Language: it\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: bs_BA\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: openspending/lib/mailer.py:20
 #, python-format
 msgid "Dear %s,"
-msgstr "Caro %s,"
+msgstr "Poštovani/Poštovana %s,"
 
 #: openspending/lib/mailer.py:32
 #, python-format
@@ -32,7 +31,7 @@ msgstr ""
 
 #: openspending/lib/mailer.py:48
 msgid "No recipient email address available!"
-msgstr "Nessuno indirizzo email destinatario disponibile! "
+msgstr "Email adresa primaoca nije dostupna!"
 
 #: openspending/lib/mailer.py:53
 #, python-format
@@ -42,31 +41,31 @@ msgid ""
 "Please click the following link to confirm this request:\n"
 "\n"
 "   %(reset_link)s\n"
-msgstr "Hai richiesto il ripristino della tua password su %(site_title)s \n\n\n\nClicca sul link seguente per confermare la tua richiesta:\n\n\n\n%(reset_link)s\n"
+msgstr "Zatražili ste da vaša lozinka na %(site_title)s bude izmijenjena.\n\nKliknite na sljedeći link da potvrdite svoj zahtjev:\n\n%(reset_link)s\n"
 
 #: openspending/lib/mailer.py:75
 #: openspending/ui/alttemplates/account/trigger_reset.html:6
 msgid "Reset your password"
-msgstr "Ripristina la tua password "
+msgstr "Izmijenite svoju lozinku"
 
 #: openspending/ui/alttemplates/_dimension_list.html:8
 msgid "Part of unique key"
-msgstr "Parte di chiave unica"
+msgstr "Dio jedinstvenog ključa"
 
 #: openspending/ui/alttemplates/base.html:11
 msgid ""
 "We're enabling anyone to explore, visualize and track government spending."
-msgstr ""
+msgstr "Omogućujemo svakome da istražuje, vizualizira i prati potrošnju vlade."
 
 #: openspending/ui/alttemplates/base.html:15
 msgid "Latest Datasets on OpenSpending"
-msgstr "Nuovi Datasets su OpenSpending"
+msgstr "Posljednji setovi podataka na OpenSpending"
 
 #: openspending/ui/alttemplates/base.html:44
 #: openspending/ui/alttemplates/account/profile.html:32
 #: openspending/ui/alttemplates/badge/information.html:23
 msgid "Datasets"
-msgstr "Dataset"
+msgstr "Setovi podataka"
 
 #: openspending/ui/alttemplates/base.html:47
 #: openspending/ui/alttemplates/dataset/_nav.html:39
@@ -74,26 +73,26 @@ msgstr "Dataset"
 #: openspending/ui/alttemplates/entry/search.html:2
 #: openspending/ui/alttemplates/entry/search.html:34
 msgid "Search"
-msgstr "Cerca"
+msgstr "Pretraga"
 
 #: openspending/ui/alttemplates/base.html:50
 msgid "Community"
-msgstr "Community"
+msgstr "Zajednica"
 
 #: openspending/ui/alttemplates/base.html:53
 #: openspending/ui/alttemplates/base.html:126
 msgid "Help"
-msgstr "Aiuto"
+msgstr "Pomoć"
 
 #: openspending/ui/alttemplates/base.html:56
 #: openspending/ui/alttemplates/dataset/_nav.html:42
 msgid "About"
-msgstr "About"
+msgstr "Više"
 
 #: openspending/ui/alttemplates/base.html:59
 #: openspending/ui/alttemplates/base.html:127
 msgid "Contact"
-msgstr "Contatti"
+msgstr "Kontakt"
 
 #: openspending/ui/alttemplates/base.html:62
 msgid "Blog"
@@ -102,49 +101,49 @@ msgstr ""
 #: openspending/ui/alttemplates/base.html:73
 #: openspending/ui/alttemplates/editor/_nav.html:23
 msgid "Dashboard"
-msgstr "Cruscotto"
+msgstr "Instrument tabla"
 
 #: openspending/ui/alttemplates/base.html:74
 msgid "Settings"
-msgstr "Impostazioni"
+msgstr "Postavke"
 
 #: openspending/ui/alttemplates/base.html:76
 msgid "Logout"
-msgstr "Logout"
+msgstr "Odjava"
 
 #: openspending/ui/alttemplates/base.html:81
 msgid "Login/Register"
-msgstr "Login/Registrazione"
+msgstr "Prijava/Registracija"
 
 #: openspending/ui/alttemplates/base.html:85
 msgid "Language"
-msgstr "Linguaggio"
+msgstr "Jezik"
 
 #: openspending/ui/alttemplates/base.html:109
 msgid "This site uses cookies"
-msgstr "Questo sito utilizza cookies"
+msgstr "Ova stranica koristi cookies"
 
 #: openspending/ui/alttemplates/base.html:109
 msgid "Okay, thanks"
-msgstr "Okay, grazie"
+msgstr "Uredu, hvala"
 
 #: openspending/ui/alttemplates/base.html:109
 msgid "Find out more"
-msgstr "Per saperne di più"
+msgstr "Saznaj više"
 
 #: openspending/ui/alttemplates/base.html:113
 msgid ""
 "This is an <a href=\"http://okfn.org\">Open Knowledge Foundation</a>\n"
 "            project"
-msgstr "Questo è un progetto della <a href=\"http://okfn.org\">Open Knowledge Foundation</a>"
+msgstr "Ovo je </a>projekat <a href=\"http://okfn.org\"> Fondacije Open knowledge."
 
 #: openspending/ui/alttemplates/base.html:128
 msgid "API"
-msgstr "API"
+msgstr ""
 
 #: openspending/ui/alttemplates/base.html:129
 msgid "Privacy"
-msgstr "Privacy"
+msgstr ""
 
 #: openspending/ui/alttemplates/base.html:131
 msgid ""
@@ -157,52 +156,52 @@ msgstr ""
 
 #: openspending/ui/alttemplates/account/login.html:6
 msgid "Sign in to OpenSpending"
-msgstr "Entra in OpenSpending"
+msgstr "Prijavi se na OpenSpending"
 
 #: openspending/ui/alttemplates/account/login.html:10
 #: openspending/ui/alttemplates/account/login.html:14
 #: openspending/ui/alttemplates/account/login.html:27
 #: openspending/ui/alttemplates/account/login.html:37
 msgid "Login"
-msgstr "Login"
+msgstr "Prijava"
 
 #: openspending/ui/alttemplates/account/login.html:20
 #: openspending/ui/alttemplates/account/login.html:58
 #: openspending/ui/alttemplates/account/settings.html:36
 msgid "Password"
-msgstr "Password"
+msgstr "Lozinka"
 
 #: openspending/ui/alttemplates/account/login.html:30
 msgid "Forgot your password?"
-msgstr "Hai dimenticato la tua password?"
+msgstr "Zaboravili ste lozinku?"
 
 #: openspending/ui/alttemplates/account/login.html:30
 msgid "Request a password reset."
-msgstr "Richiedi il ripristino della password."
+msgstr "Zatražite izmjenu lozinke."
 
 #: openspending/ui/alttemplates/account/login.html:33
 msgid "Create an account"
-msgstr "Crea un account"
+msgstr "Kreiraj korisnički račun"
 
 #: openspending/ui/alttemplates/account/login.html:43
 #: openspending/ui/alttemplates/account/settings.html:12
 msgid "Fullname"
-msgstr "Nominativo"
+msgstr "Puno ime"
 
 #: openspending/ui/alttemplates/account/login.html:49
 #: openspending/ui/alttemplates/account/settings.html:18
 #: openspending/ui/alttemplates/account/trigger_reset.html:19
 msgid "E-Mail"
-msgstr "E-Mail"
+msgstr "E-mail"
 
 #: openspending/ui/alttemplates/account/login.html:53
 msgid "Visible to other users"
-msgstr "Visibile agli altri utenti"
+msgstr "Vidljivo ostalima"
 
 #: openspending/ui/alttemplates/account/login.html:64
 #: openspending/ui/alttemplates/account/settings.html:42
 msgid "Password (repeat)"
-msgstr "Password (ripeti)"
+msgstr "Lozinka (ponovni unos)"
 
 #: openspending/ui/alttemplates/account/login.html:73
 msgid ""
@@ -212,32 +211,32 @@ msgstr ""
 
 #: openspending/ui/alttemplates/account/login.html:79
 msgid "Add me to the OpenSpending community mailing list"
-msgstr "Aggiungimi alla mailing list della community OpenSpending"
+msgstr "Dodaj me u mejling listu OpenSpending zajednice"
 
 #: openspending/ui/alttemplates/account/login.html:85
 msgid "Sign me up for the OpenSpending developer mailing list"
-msgstr "Iscrivimi alla mailing list di OpenSpending per developers "
+msgstr "Uvrsti me na OpenSpending mejling listu za developere"
 
 #: openspending/ui/alttemplates/account/login.html:93
 msgid "Create new account"
-msgstr "Crea un nuovo account"
+msgstr "Stvori novi korisnički račun"
 
 #: openspending/ui/alttemplates/account/profile.html:13
 msgid "Information"
-msgstr "Informazione"
+msgstr "Informacije"
 
 #: openspending/ui/alttemplates/account/profile.html:13
 msgid "(change)"
-msgstr "(cambia)"
+msgstr "(promijeni)"
 
 #: openspending/ui/alttemplates/account/profile.html:16
 #: openspending/ui/alttemplates/editor/dimensions.html:135
 msgid "Name"
-msgstr "Nome"
+msgstr "Ime"
 
 #: openspending/ui/alttemplates/account/profile.html:19
 msgid "Username"
-msgstr "Username"
+msgstr "Korisničko ime"
 
 #: openspending/ui/alttemplates/account/profile.html:22
 #: openspending/ui/alttemplates/home/index.html:118
@@ -247,7 +246,7 @@ msgstr "Email"
 
 #: openspending/ui/alttemplates/account/profile.html:42
 msgid "It looks like you haven't uploaded any datasets."
-msgstr "Sembra che tu non abbia inserito alcun dataset. "
+msgstr "Izgleda da niste unijeli nijedan set podataka."
 
 #: openspending/ui/alttemplates/account/profile.html:47
 #: openspending/ui/alttemplates/dataset/_select.html:96
@@ -255,88 +254,88 @@ msgstr "Sembra che tu non abbia inserito alcun dataset. "
 #: openspending/ui/alttemplates/dataset/new.html:21
 #: openspending/ui/alttemplates/dataset/new_cta.html:3
 msgid "Import a dataset"
-msgstr "Importa un Dataset"
+msgstr "Uvezi set podataka"
 
 #: openspending/ui/alttemplates/account/profile.html:52
 #: openspending/ui/alttemplates/editor/_nav.html:29
 msgid "Views"
-msgstr "Viste"
+msgstr "Perspektive"
 
 #: openspending/ui/alttemplates/account/settings.html:3
 msgid "Settings for:"
-msgstr "Impostazioni per:"
+msgstr "Postavke za:"
 
 #: openspending/ui/alttemplates/account/settings.html:6
 msgid "Account Settings"
-msgstr "Impostazioni Account"
+msgstr "Postavke korisničkog računa"
 
 #: openspending/ui/alttemplates/account/settings.html:22
 #: openspending/ui/alttemplates/account/settings.html:31
 msgid "Visible to users"
-msgstr "Visibile agli utenti"
+msgstr "Vidljivo korisnicima"
 
 #: openspending/ui/alttemplates/account/settings.html:45
 msgid "Leave both fields blank to keep your current password."
-msgstr "Lascia entrami i campi vuoti se vuoi mantenere la password attuale."
+msgstr "Ostavite oba polja praznima ako želite zadržati postojeću lozinku."
 
 #: openspending/ui/alttemplates/account/settings.html:49
 msgid "API Key"
-msgstr "Chiave API"
+msgstr ""
 
 #: openspending/ui/alttemplates/account/settings.html:52
 msgid "Use this key to access the OpenSpending API programmatically."
-msgstr "Usa questa chiave per accedere alle API OpenSpending per via programmatica."
+msgstr "Koristite ovaj ključ da biste pristupili programskom dijelu Open Spending API."
 
 #: openspending/ui/alttemplates/account/settings.html:56
 msgid "Script Location"
-msgstr "Posizione dello Script"
+msgstr ""
 
 #: openspending/ui/alttemplates/account/settings.html:59
 msgid ""
 "Set a different location for JavaScript imports to develop new widgets."
-msgstr "Stabilisci un'area differente per le importazioni di JavaScript per sviluppare nuovi widgets."
+msgstr ""
 
 #: openspending/ui/alttemplates/account/settings.html:64
 #: openspending/ui/alttemplates/editor/team.html:98
 #: openspending/ui/alttemplates/view/new.html:75
 msgid "Save"
-msgstr "Salva"
+msgstr "Sačuvaj"
 
 #: openspending/ui/alttemplates/account/trigger_reset.html:3
 msgid "Password reset"
-msgstr "Ripristino della password"
+msgstr "Resetiranje lozinke"
 
 #: openspending/ui/alttemplates/account/trigger_reset.html:10
 msgid ""
 "If you have forgotten the password for your account, you can\n"
 "      request an email with a link that will allow you to reset your\n"
 "      account password."
-msgstr "Se hai dimenticato la password per il tuo account, puoi ripristinarla richiedendo di ricevere un'email e cliccando sul link per il ripristino."
+msgstr "Ako ste zaboravili lozinku za svoj račun, možete\nzatražiti email poruku s linkom koji će vam omogućiti da izmijenite\nlozinku korisničkog računa."
 
 #: openspending/ui/alttemplates/account/trigger_reset.html:16
 msgid "Please enter the email address you used to register your account"
-msgstr "Inserisci l'indirizzo email utilizzato per la registrazione dell'account."
+msgstr "Molimo unesite email adresu koju ste koristili kod registracije svoj računa"
 
 #: openspending/ui/alttemplates/account/trigger_reset.html:20
 msgid "Request a reset"
-msgstr "Richiedi il ripristino "
+msgstr "Zatražite izmjenu"
 
 #: openspending/ui/alttemplates/badge/index.html:3
 #: openspending/ui/alttemplates/badge/index.html:7
 msgid "Badges in OpenSpending"
-msgstr "Badges su OpenSpending"
+msgstr "Značke na OpenSpending"
 
 #: openspending/ui/alttemplates/badge/index.html:14
 #: openspending/ui/alttemplates/badge/information.html:3
 #: openspending/ui/alttemplates/badge/information.html:6
 msgid "Badge"
-msgstr "Badge"
+msgstr "Značka"
 
 #: openspending/ui/alttemplates/badge/index.html:14
 #: openspending/ui/alttemplates/badge/index.html:39
 #: openspending/ui/alttemplates/editor/dimensions.html:333
 msgid "Label"
-msgstr ""
+msgstr "Etiketa"
 
 #: openspending/ui/alttemplates/badge/index.html:14
 #: openspending/ui/alttemplates/badge/index.html:42
@@ -346,7 +345,7 @@ msgstr ""
 #: openspending/ui/alttemplates/editor/dimensions.html:393
 #: openspending/ui/alttemplates/view/new.html:71
 msgid "Description"
-msgstr "Descrizione"
+msgstr "Opis"
 
 #: openspending/ui/alttemplates/badge/index.html:27
 msgid ""
@@ -360,7 +359,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/badge/index.html:32
 msgid "Create a new badge"
-msgstr "Crea un nuovo budget "
+msgstr "Kreiraj novu značku"
 
 #: openspending/ui/alttemplates/badge/index.html:35
 msgid ""
@@ -380,90 +379,90 @@ msgstr ""
 #: openspending/ui/alttemplates/badge/index.html:45
 #: openspending/ui/alttemplates/badge/information.html:10
 msgid "Representative image"
-msgstr "Immagine rappresentativa "
+msgstr ""
 
 #: openspending/ui/alttemplates/badge/index.html:49
 msgid "Create badge"
-msgstr "Crea badge"
+msgstr "Kreiraj značku"
 
 #: openspending/ui/alttemplates/badge/information.html:20
 msgid "Look at more OpenSpending badges"
-msgstr "Vedi altri badges OpenSpending"
+msgstr "Pregledaj druge značke OpenSpending"
 
 #: openspending/ui/alttemplates/badge/information.html:25
 msgid "The following datasets have been awarded this badge"
-msgstr "I dataset seguenti hanno ricevuto questo badge"
+msgstr "Sljedeći setovi podataka su dobili ovu značku"
 
 #: openspending/ui/alttemplates/badge/information.html:31
 msgid "<strong>No</strong> datasets have been awarded this badge"
-msgstr "<strong>Nessun</strong> dataset ha ricevuto questo badge"
+msgstr "<strong>Nijedan</strong> set podataka nije dobio ovu značku"
 
 #: openspending/ui/alttemplates/dataset/_nav.html:13
 #: openspending/ui/alttemplates/dataset/about.html:74
 msgid "Badges"
-msgstr ""
+msgstr "Značke"
 
 #: openspending/ui/alttemplates/dataset/_nav.html:15
 msgid "What are badges?"
-msgstr "Cosa sono i badges?"
+msgstr "Šta su značke?"
 
 #: openspending/ui/alttemplates/dataset/_nav.html:45
 msgid "Visualisations"
-msgstr "Visualizzazioni"
+msgstr "Vizualizacije"
 
 #: openspending/ui/alttemplates/dataset/_nav.html:61
 msgid "Create a visualisation..."
-msgstr "Crea una visualizzazione..."
+msgstr "Kreiraj vizualizaciju..."
 
 #: openspending/ui/alttemplates/dataset/_nav.html:67
 msgid "Manage"
-msgstr "Gestione"
+msgstr ""
 
 #: openspending/ui/alttemplates/dataset/_select.html:6
 msgid "Filter..."
-msgstr "Filtro..."
+msgstr "Filter..."
 
 #: openspending/ui/alttemplates/dataset/_select.html:8
 #: openspending/ui/alttemplates/dataset/index.html:42
 #: openspending/ui/alttemplates/dataset/new.html:85
 msgid "Countries"
-msgstr "Paesi"
+msgstr "Države"
 
 #: openspending/ui/alttemplates/dataset/_select.html:10
 msgid "Filter by country"
-msgstr "Filtra per paese"
+msgstr "Filter prema državi"
 
 #: openspending/ui/alttemplates/dataset/_select.html:24
 #: openspending/ui/alttemplates/dataset/index.html:56
 #: openspending/ui/alttemplates/dataset/new.html:95
 msgid "Languages"
-msgstr "Linguaggi"
+msgstr "Jezici"
 
 #: openspending/ui/alttemplates/dataset/_select.html:26
 msgid "Filter by language"
-msgstr "Filtra per lingua"
+msgstr "Filter prema jeziku"
 
 #: openspending/ui/alttemplates/dataset/_select.html:40
 msgid "Types of data"
-msgstr ""
+msgstr "Tipovi podataka"
 
 #: openspending/ui/alttemplates/dataset/_select.html:89
 #: openspending/ui/alttemplates/dataset/dropdb.html:10
 msgid "mapping the money"
-msgstr ""
+msgstr "Mapiranje novca"
 
 #: openspending/ui/alttemplates/dataset/_select.html:97
 msgid "Close"
-msgstr "Chiudi"
+msgstr "Zatvori"
 
 #: openspending/ui/alttemplates/dataset/about.html:31
 #, python-format
 msgid "No description is available for %(dataset)s"
-msgstr ""
+msgstr "Opis nije dostupan za %(dataset)s"
 
 #: openspending/ui/alttemplates/dataset/about.html:38
 msgid "Sources"
-msgstr "Sorgenti"
+msgstr "Izvori"
 
 #: openspending/ui/alttemplates/dataset/about.html:40
 msgid ""
@@ -474,98 +473,98 @@ msgstr ""
 #: openspending/ui/alttemplates/dataset/about.html:55
 #: openspending/ui/alttemplates/editor/_nav.html:32
 msgid "Team"
-msgstr "Team"
+msgstr "Tim"
 
 #: openspending/ui/alttemplates/dataset/about.html:57
 msgid ""
 "These people are the managers of the dataset. They can\n"
 "              make modifications to its schema and are responsible\n"
 "              to make sure the data is accurate."
-msgstr "Queste persone sono i gestori del dataset. Essi possono apportare modifiche al suo schema e sono responsabili della correttezza dei dati."
+msgstr "Ove osobe upravljaju setom podataka. Oni mogu\npraviti izmjene šeme podataka i odgovorni su \nza tačnost podataka."
 
 #: openspending/ui/alttemplates/dataset/about.html:76
 msgid "This dataset has been awarded"
-msgstr "Questo dataset ha ricevuto"
+msgstr "Ovaj set podataka dobio je"
 
 #: openspending/ui/alttemplates/dataset/about.html:77
 msgid "List of badges"
-msgstr "Lista di badges"
+msgstr "Lista značaka"
 
 #: openspending/ui/alttemplates/dataset/about.html:77
 msgid "badges"
-msgstr "badges"
+msgstr "značke"
 
 #: openspending/ui/alttemplates/dataset/about.html:78
 msgid ""
 "Badges can be given by OpenSpending administrators on behalf of\n"
 "\t      entities approved by <a href=\"http://okfn.org/\" title=\"OKF\">the Open Knowledge Foundation</a>."
-msgstr ""
+msgstr "Značke dodjeljuju administratori Open Spending u ime\nstruktura koje je odobrila <a href=\"http://okfn.org/\" title=\"OKF\">Fondacija Open knowledge</a>."
 
 #: openspending/ui/alttemplates/dataset/about.html:87
 msgid "Give badge"
-msgstr "Assegna un badge"
+msgstr "Dodijeli značku"
 
 #: openspending/ui/alttemplates/dataset/about.html:94
 msgid "Give"
-msgstr "Assegna"
+msgstr "Dodijeli"
 
 #: openspending/ui/alttemplates/dataset/about.html:107
 msgid "Measures"
-msgstr "Misure"
+msgstr "Mjere"
 
 #: openspending/ui/alttemplates/dataset/about.html:109
 msgid ""
 "Measures are the numeric properties of each entry in this\n"
 "          dataset."
-msgstr ""
+msgstr "Mjere su numerička svojstva svakog unosa u ovom\nsetu podataka"
 
 #: openspending/ui/alttemplates/dataset/about.html:124
 #: openspending/ui/alttemplates/dimension/index.html:9
 msgid "Dimensions"
-msgstr "Dimensioni"
+msgstr "Dimenzije"
 
 #: openspending/ui/alttemplates/dataset/about.html:126
 msgid ""
 "Dimensions are different aspects of the dataset, such as the\n"
 "          spender, recipient or classifications that apply."
-msgstr "Le dimensioni sono aspetti differenti di un dataset, come ad esempio il centro di costo, il destinatario o le classificazioni che si applicano al caso."
+msgstr "Dimenzije su različiti aspekti setova podataka, kao npr.\npotrošač, primaoc ili klasifikacija koja se primjenjuje."
 
 #: openspending/ui/alttemplates/dataset/dropdb.html:3
 msgid "Database erased"
-msgstr "Database cancellato"
+msgstr "Baza podataka izbrisana"
 
 #: openspending/ui/alttemplates/dataset/dropdb.html:11
 msgid ""
 "The database should now have been erased. You'll even have to create a new "
 "user to log in again."
-msgstr "Il database verrà ora cancellato. Dovrà essere creato un account per poter accedere nuovamente."
+msgstr "Baza podataka bi sada trebala biti izbrisana. Morat ćete napraviti novi korisnički račun da biste se ponovo prijavili."
 
 #: openspending/ui/alttemplates/dataset/index.html:3
 msgid "All datasets"
-msgstr "Tutti i dataset"
+msgstr "Svi setovi podataka"
 
 #: openspending/ui/alttemplates/dataset/index.html:6
 msgid "Available data sets"
-msgstr "Dataset disponibili"
+msgstr "Dostupni setovi podataka"
 
 #: openspending/ui/alttemplates/dataset/index.html:10
 msgid "The database contains the following datasets"
-msgstr "Il database contiene i seguenti dataset"
+msgstr "Baza podataka sadrži sljedeće setove podataka"
 
 #: openspending/ui/alttemplates/dataset/index.html:38
 msgid "Import a new dataset"
-msgstr "Importa un nuovo dataset"
+msgstr "Uvezi novi set podataka"
 
 #: openspending/ui/alttemplates/dataset/index.html:39
 msgid "Import"
-msgstr "Importa"
+msgstr "Uvezi"
 
 #: openspending/ui/alttemplates/dataset/new.html:25
 msgid ""
 "If you have a spending or budget dataset that \n"
 "          you can contribute, please give some basic information \n"
 "          here."
-msgstr ""
+msgstr "Ako imate set podataka o potrošnji ili o budžetu s kojim\nmožete doprinijeti bazi, molimo da unesete neke osnovne informacije\novde."
 
 #: openspending/ui/alttemplates/dataset/new.html:28
 msgid ""
@@ -582,30 +581,30 @@ msgstr ""
 #: openspending/ui/alttemplates/dataset/new.html:43
 #: openspending/ui/alttemplates/view/new.html:67
 msgid "Title"
-msgstr "Titolo"
+msgstr "Naslov"
 
 #: openspending/ui/alttemplates/dataset/new.html:45
 msgid "My Dataset"
-msgstr "Il mio Dataset"
+msgstr "Moj set podataka"
 
 #: openspending/ui/alttemplates/dataset/new.html:49
 msgid "Identifier"
-msgstr "Identificatore"
+msgstr "Identifikator"
 
 #: openspending/ui/alttemplates/dataset/new.html:51
 msgid "my_dataset"
-msgstr ""
+msgstr "moj_setpodataka"
 
 #: openspending/ui/alttemplates/dataset/new.html:52
 msgid ""
 "The identifier will become part of the\n"
 "                  dataset URL and cannot be changed later. It may only \n"
 "                  contain alphanumeric characters, dashes and underscores."
-msgstr "L'identificatore sarà parte dell'URL del dataset e non potrà essere modificato successivamente. Può contenere solamente caratteri alfanumerici, trattini e sottolineature."
+msgstr "Identifikator će postati dio \nURL seta podataka i neće se moći mijenjati kasnije. Može\nuključivati samo slova i brojeve, crticu i donju crtu."
 
 #: openspending/ui/alttemplates/dataset/new.html:58
 msgid "Category"
-msgstr "Categoria"
+msgstr "Kategorija"
 
 #: openspending/ui/alttemplates/dataset/new.html:68
 msgid "Currency"
@@ -613,19 +612,19 @@ msgstr "Valuta"
 
 #: openspending/ui/alttemplates/dataset/new.html:71
 msgid "Commonly used currencies"
-msgstr "Valute comunemente utilizzate"
+msgstr "Najčešće valute"
 
 #: openspending/ui/alttemplates/dataset/new.html:76
 msgid "All currencies"
-msgstr "Tutte le valute"
+msgstr "Sve valute"
 
 #: openspending/ui/alttemplates/dataset/new.html:112
 msgid "Next Step"
-msgstr "Prossimo step"
+msgstr "Sljedeći koraci"
 
 #: openspending/ui/alttemplates/dataset/new_cta.html:8
 msgid "Contribute your local data!"
-msgstr "Contribuisci con i tuoi dati locali!"
+msgstr "Doprinesite sa svojim lokalnim podacima!"
 
 #: openspending/ui/alttemplates/dataset/new_cta.html:11
 msgid ""
@@ -636,17 +635,17 @@ msgid ""
 "        aims to facilitate the presentation of financial information so \n"
 "        anyone - whether data geek or concerned citizen - can contribute \n"
 "        their local city budget or spending reports."
-msgstr "Stiamo tentando di raccogliere <strong>informazioni sulle spese mondiali</strong> in un unico database, in modo tale da mettere a disposizione strumenti di <strong>analisi, visualizzazione e comparazione</strong> dati. OpenSpending è una piattaforma aperta il cui scopo è facilitare la rappresentazione delle informazioni finanziarie affinché chiunque - un esperto di dati così come un cittadino interessato - possa contribuire al bilancio della propria città o ai report di spesa."
+msgstr ""
 
 #: openspending/ui/alttemplates/dataset/new_cta.html:20
 msgid "Why should you contribute?"
-msgstr "Perchè dovrestri contribuire?"
+msgstr "Zašto da doprinesete?"
 
 #: openspending/ui/alttemplates/dataset/new_cta.html:23
 msgid ""
 "There are many projects that aim to track financial information. All\n"
 "        require these basic services, which we aim to provide"
-msgstr ""
+msgstr "Postoji mnogo projekata koji ciljano prate finansijske informacije. Svima \nsu potrebne ove osnovne usluge koje je nama cilj da pružimo"
 
 #: openspending/ui/alttemplates/dataset/new_cta.html:27
 msgid "Data loading and validation facilities."
@@ -656,7 +655,7 @@ msgstr ""
 msgid ""
 "Common visualization types (treemaps, charts, and the bubble\n"
 "          tree)."
-msgstr ""
+msgstr "Uobičajeni tipovi vizualizacije (stablo, grafikon i stablo \nbalončića)."
 
 #: openspending/ui/alttemplates/dataset/new_cta.html:30
 msgid "Full-text search for all entries."
@@ -666,22 +665,22 @@ msgstr ""
 msgid ""
 "Means to track provenance and provide access to the raw\n"
 "          data."
-msgstr ""
+msgstr "Sredstva praćenje porijekla podataka i pružanje pristupa sirovim\npodacima."
 
 #: openspending/ui/alttemplates/dataset/new_cta.html:36
 msgid "Sign up to contribute"
-msgstr "Iscriviti per contribuire"
+msgstr "Registrujte se da biste doprinijeli"
 
 #: openspending/ui/alttemplates/dataset/new_cta.html:38
 msgid "Learn more"
-msgstr "Per saperne di più"
+msgstr "Saznajte više"
 
 #: openspending/ui/alttemplates/dataset/view.html:37
 #: openspending/ui/alttemplates/dimension/member.html:43
 #: openspending/ui/alttemplates/dimension/view.html:43
 #: openspending/ui/alttemplates/view/view.html:63
 msgid "Embed"
-msgstr "Incorpora"
+msgstr "Uvrsti"
 
 #: openspending/ui/alttemplates/dataset/view.html:38
 #: openspending/ui/alttemplates/dimension/entries.html:84
@@ -689,77 +688,77 @@ msgstr "Incorpora"
 #: openspending/ui/alttemplates/dimension/view.html:44
 #: openspending/ui/alttemplates/view/view.html:64
 msgid "Change"
-msgstr "Cambia"
+msgstr "Izmijeni"
 
 #: openspending/ui/alttemplates/dataset/view.html:39
 #: openspending/ui/alttemplates/dimension/member.html:45
 #: openspending/ui/alttemplates/dimension/view.html:45
 #: openspending/ui/alttemplates/view/view.html:65
 msgid "Data"
-msgstr "Data"
+msgstr "Podaci"
 
 #: openspending/ui/alttemplates/dimension/_nav.html:45
 #: openspending/ui/alttemplates/dimension/_nav.html:51
 #, python-format
 msgid "%(member)s on OpenCorporates"
-msgstr ""
+msgstr "%(member)s na OpenCorporates"
 
 #: openspending/ui/alttemplates/dimension/_nav.html:57
 #, python-format
 msgid "%(member)s on PublicBodies.org"
-msgstr ""
+msgstr "%(member)s na PublicBodies.org"
 
 #: openspending/ui/alttemplates/dimension/entries.html:3
 #: openspending/ui/alttemplates/entry/view.html:31
 msgid "Entries"
-msgstr "Voci"
+msgstr "Unosi"
 
 #: openspending/ui/alttemplates/dimension/entries.html:50
 msgid "Download first 100 entries as JSON"
-msgstr "Scarica le prime 100 voci in formato JSON"
+msgstr "Skini prvih 100 unosa kao JSON"
 
 #: openspending/ui/alttemplates/dimension/entries.html:56
 msgid "Download first 100 entries as CSV"
-msgstr "Scarica le prime 100 voci in formato CSV"
+msgstr "Skini prvih 100 unosa kao CSV"
 
 #: openspending/ui/alttemplates/dimension/entries.html:62
 msgid "Download all entries as JSON"
-msgstr "Scarica tutte le voci in formato JSON"
+msgstr "Skini sve unose kao JSON"
 
 #: openspending/ui/alttemplates/dimension/entries.html:68
 msgid "Download all entries as CSV"
-msgstr "Scarica tutte le voci in formato CSV"
+msgstr "Skini sve unose kao CSV"
 
 #: openspending/ui/alttemplates/dimension/entries.html:78
 #, python-format
 msgid "Total of %(member)s by year"
-msgstr ""
+msgstr "Ukupno %(member)s godišnje"
 
 #: openspending/ui/alttemplates/dimension/entries.html:82
 msgid "Year"
-msgstr "Anno"
+msgstr "Godina"
 
 #: openspending/ui/alttemplates/dimension/entries.html:83
 msgid "Amount"
-msgstr "Importo"
+msgstr "Iznos"
 
 #: openspending/ui/alttemplates/dimension/index.html:3
 #, python-format
 msgid "Dimensions in %(dataset)s"
-msgstr ""
+msgstr "Dimenzije u %(dataset)s"
 
 #: openspending/ui/alttemplates/dimension/index.html:10
 msgid "Facets of the dataset."
-msgstr "Aspetti del dataset."
+msgstr ""
 
 #: openspending/ui/alttemplates/dimension/index.html:13
 #, python-format
 msgid "%(dataset)s has the following dimensions"
-msgstr ""
+msgstr "%(dataset)s uključuje sljedeće dimenzije"
 
 #: openspending/ui/alttemplates/editor/_nav.html:14
 msgid "Manage the dataset"
-msgstr "Gestisci il dataset"
+msgstr "Upravljajte setom podataka"
 
 #: openspending/ui/alttemplates/editor/_nav.html:26
 msgid "Dimensions &amp; Measures"
@@ -771,61 +770,61 @@ msgstr "Meta"
 
 #: openspending/ui/alttemplates/editor/_nav.html:38
 msgid "Templates"
-msgstr ""
+msgstr "Predložak"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:89
 msgid "Add Dimension"
-msgstr "Un valore semplice, ad esempio una descrizione o un identificativo di transazione."
+msgstr "Dodaj dimenziju"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:92
 msgid "Make sure your dimensions import all source data columns."
-msgstr "Assicurati che le tue dimensioni importino tutte le colonne dei dati sorgenti. "
+msgstr "Obezbijedi da tvoje dimenzije uključuju sve kolone iz izvora podataka."
 
 #: openspending/ui/alttemplates/editor/dimensions.html:97
 msgid "Set Unique Dimensions"
-msgstr "Imposta Dimensione Unica"
+msgstr "Postavi jedinstvene dimenzije"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:100
 msgid "Identify the dimensions that help to identify each entry."
-msgstr "Identifica le dimensioni che aiutano a riconoscere ogni voce."
+msgstr "Identifikuj dimenzije koje pomažu kod identifikovanja svakog unosa."
 
 #: openspending/ui/alttemplates/editor/dimensions.html:103
 msgid "Exisiting Dimensions"
-msgstr "Dimensioni Esistenti"
+msgstr "Postojeće dimenzije"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:112
 msgid "Specify which dimensions identify an entry uniquely"
-msgstr "Specifica quali dimensioni identificano univocamente una voce"
+msgstr ""
 
 #: openspending/ui/alttemplates/editor/dimensions.html:120
 msgid "Update"
-msgstr "Aggiorna"
+msgstr "Ažuriraj"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:128
 msgid "Add new dimension"
-msgstr "Aggiungi una nuova dimensione"
+msgstr "Dodaj nove dimenzije"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:139
 msgid ""
 "The name you choose should only contain letters, numbers and dashes (i.e., "
 "no spaces)"
-msgstr "Il nome scelto deve contenere solamente lettere, numeri e trattini (e.g. no spazi)"
+msgstr "Ime koje odaberete smije sadržavati samo slova, brojeve i crtice (t.j. bez razmaka)"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:142
 msgid ""
 "Where the dimension represents the ultimate source or destination of the "
 "funds, call it <code>from</code> or <code>to</code>"
-msgstr ""
+msgstr "Tamo gdje dimenzija predstavlja krajnji izvor ili odredište sredstava, nazovite je <code>iz</code> ili <code>za</code>"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:147
 #: openspending/ui/alttemplates/editor/dimensions.html:417
 msgid "Type"
-msgstr "Tipo"
+msgstr "Tip"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:151
 #: openspending/ui/alttemplates/entry/view.html:119
 msgid "Dimension"
-msgstr "Dimensione"
+msgstr "Dimenzija"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:153
 msgid ""
@@ -836,44 +835,44 @@ msgstr ""
 #: openspending/ui/alttemplates/editor/dimensions.html:158
 #: openspending/ui/alttemplates/run/view.html:52
 msgid "Attribute"
-msgstr "Attributo"
+msgstr "Atribut"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:160
 msgid "A simple value, e.g. descriptions or transaction IDs."
-msgstr "Un valore semplice, ad esempio una descrizione o un identificativo di transazione."
+msgstr "Jednostavna vrijednost, npr. opisi ili broj transakcije."
 
 #: openspending/ui/alttemplates/editor/dimensions.html:165
 msgid "Date"
-msgstr "Date"
+msgstr "Datum"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:167
 msgid "Temporal value, e.g. start of project, date of disbursement."
-msgstr "Un valore temporale, ad esempio l'inizio del progetto o la data di pagamento."
+msgstr "Vremenska vrijednost, npr. početak projekta, datum isplate."
 
 #: openspending/ui/alttemplates/editor/dimensions.html:172
 msgid "Measure"
-msgstr "Misura"
+msgstr "Mjera"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:174
 msgid "Monetary information, e.g. amount disbursed or allocated."
-msgstr "Una informazione monetaria, ad esempio l'importo pagato o allocato."
+msgstr "Novčane informacije, npr. isplaćeni ili doznačeni iznos."
 
 #: openspending/ui/alttemplates/editor/dimensions.html:181
 msgid "Unmapped source data columns"
-msgstr "Colonne sorgente dati non associate"
+msgstr "Kolone s nemapiranim izvorom podataka"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:189
 msgid "Cancel"
-msgstr "Cancella"
+msgstr "Odustani"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:190
 #: openspending/ui/alttemplates/editor/team.html:91
 msgid "Add"
-msgstr "Aggiungi"
+msgstr "Dodaj"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:200
 msgid "Your model was saved."
-msgstr "Il tuo modello è stato salvato."
+msgstr ""
 
 #: openspending/ui/alttemplates/editor/dimensions.html:200
 msgid ""
@@ -893,7 +892,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/editor/dimensions.html:230
 msgid "Dimension mapping"
-msgstr "Mappatura delle dimensioni"
+msgstr "Mapiranje dimenzija"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:232
 msgid ""
@@ -930,7 +929,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/editor/dimensions.html:258
 msgid "What do I do here?"
-msgstr "Che cosa faccio qui?"
+msgstr "Šta treba da radim ovde?"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:260
 msgid ""
@@ -1035,7 +1034,7 @@ msgstr ""
 #: openspending/ui/alttemplates/editor/dimensions.html:416
 #: openspending/ui/alttemplates/run/view.html:51
 msgid "Column"
-msgstr "Colonna"
+msgstr "Kolona"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:362
 msgid "Source column in the source CSV file."
@@ -1079,15 +1078,15 @@ msgstr ""
 
 #: openspending/ui/alttemplates/editor/dimensions.html:443
 msgid "Save Dimensions"
-msgstr "Salva le dimensioni"
+msgstr ""
 
 #: openspending/ui/alttemplates/editor/dimensions.html:444
 msgid "Delete All Dimensions"
-msgstr "Salva tutte le dimensioni"
+msgstr ""
 
 #: openspending/ui/alttemplates/editor/dimensions_errors.html:15
 msgid "You cannot edit dimensions while data is loaded."
-msgstr "Non è possibile modificare le dimensioni mentre i dati vengono caricati."
+msgstr "Ne možete uređivati dimenzije za vrijeme ažuriranja podataka."
 
 #: openspending/ui/alttemplates/editor/dimensions_errors.html:16
 msgid ""
@@ -1105,7 +1104,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/editor/dimensions_errors.html:29
 msgid "You need to define at least one data source."
-msgstr "E' necessario definire almeno una sorgente dati."
+msgstr "Potrebno je definisati najmanje jedan izvor podataka."
 
 #: openspending/ui/alttemplates/editor/dimensions_errors.html:30
 msgid ""
@@ -1139,11 +1138,11 @@ msgstr ""
 #: openspending/ui/alttemplates/editor/index.html:30
 #: openspending/ui/alttemplates/editor/index.html:64
 msgid "Add a source"
-msgstr "Aggiungi una sorgente"
+msgstr "Dodaj izvor"
 
 #: openspending/ui/alttemplates/editor/index.html:38
 msgid "Let me see..."
-msgstr "Vediamo..."
+msgstr ""
 
 #: openspending/ui/alttemplates/editor/index.html:38
 msgid ""
@@ -1157,7 +1156,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/editor/index.html:48
 msgid "Good stuff!"
-msgstr "Bene!"
+msgstr ""
 
 #: openspending/ui/alttemplates/editor/index.html:48
 msgid ""
@@ -1167,32 +1166,32 @@ msgstr ""
 
 #: openspending/ui/alttemplates/editor/index.html:54
 msgid "Create a model"
-msgstr "Crea un modello"
+msgstr ""
 
 #: openspending/ui/alttemplates/editor/index.html:62
 msgid "Source files"
-msgstr "File sorgente"
+msgstr "Dokumenti"
 
 #: openspending/ui/alttemplates/editor/index.html:70
 msgid "Summary"
-msgstr "Sommario"
+msgstr "Sažetak"
 
 #: openspending/ui/alttemplates/editor/index.html:72
 msgid "Entries loaded:"
-msgstr "Voci caricate:"
+msgstr ""
 
 #: openspending/ui/alttemplates/editor/index.html:73
 msgid "Searchable:"
-msgstr "Ricercabile:"
+msgstr "Pretraživo:"
 
 #: openspending/ui/alttemplates/editor/index.html:76
 msgid "Dataset Actions"
-msgstr "Azioni Dataset"
+msgstr "Aktivnosti sa setom podataka"
 
 #: openspending/ui/alttemplates/editor/index.html:81
 #: openspending/ui/alttemplates/editor/index.html:86
 msgid "Delete loaded data"
-msgstr "Cancella i dati caricati"
+msgstr "Obriši unesene podatke"
 
 #: openspending/ui/alttemplates/editor/index.html:82
 msgid ""
@@ -1209,7 +1208,7 @@ msgstr ""
 #: openspending/ui/alttemplates/editor/index.html:96
 #: openspending/ui/alttemplates/editor/index.html:101
 msgid "Make public"
-msgstr "Rendi pubblico"
+msgstr "Objavi"
 
 #: openspending/ui/alttemplates/editor/index.html:97
 msgid ""
@@ -1231,23 +1230,23 @@ msgstr ""
 msgid ""
 "If you have noted serious quality\n"
 "        issues or legal issues, you can un-publish this dataset."
-msgstr "Se hai notato seri problemi legati alla qualità dei dati o relativi ad aspetti legali, puoi revocare la pubblicazione di questo dataset."
+msgstr ""
 
 #: openspending/ui/alttemplates/editor/index.html:116
 msgid "Delete entire dataset"
-msgstr "Cancella l'intero dataset"
+msgstr ""
 
 #: openspending/ui/alttemplates/editor/index.html:117
 msgid "This action cannot be undone."
-msgstr "Questa azione non può essere annullata."
+msgstr ""
 
 #: openspending/ui/alttemplates/editor/index.html:130
 msgid "Create a new data source"
-msgstr "Crea una nuova sorgente dati"
+msgstr "Napravi novi izvor podataka"
 
 #: openspending/ui/alttemplates/editor/index.html:136
 msgid "Create"
-msgstr "Crea"
+msgstr "Kreiraj"
 
 #: openspending/ui/alttemplates/editor/team.html:70
 msgid ""
@@ -1257,11 +1256,11 @@ msgstr ""
 
 #: openspending/ui/alttemplates/editor/team.html:84
 msgid "Current team"
-msgstr "Squadra attuale"
+msgstr "Trenutni tim"
 
 #: openspending/ui/alttemplates/editor/team.html:88
 msgid "Add someone"
-msgstr "Aggiungi qualcuno"
+msgstr "Dodaj nekoga"
 
 #: openspending/ui/alttemplates/entry/index.html:44
 msgid "Time range for dataset:"
@@ -1269,11 +1268,11 @@ msgstr ""
 
 #: openspending/ui/alttemplates/entry/search.html:10
 msgid "Search OpenSpending"
-msgstr "Cerca su OpenSpending"
+msgstr ""
 
 #: openspending/ui/alttemplates/entry/search.html:18
 msgid "e.g."
-msgstr "per esempio"
+msgstr ""
 
 #: openspending/ui/alttemplates/entry/search.html:20
 msgid ""
@@ -1283,7 +1282,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/entry/search.html:26
 msgid "Transactions"
-msgstr "Transazioni"
+msgstr ""
 
 #: openspending/ui/alttemplates/entry/search.html:31
 msgid "All data"
@@ -1298,7 +1297,7 @@ msgstr ""
 #: openspending/ui/alttemplates/entry/view.html:35
 #, python-format
 msgid "%(currency)s %(amount)s on %(time)s"
-msgstr "%(currency)s %(amount)s in %(time)s"
+msgstr ""
 
 #: openspending/ui/alttemplates/entry/view.html:45
 #, python-format
@@ -1307,7 +1306,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/entry/view.html:46
 msgid "Detailed View of Transaction"
-msgstr "Vista Dettagliata della Transazione"
+msgstr ""
 
 #: openspending/ui/alttemplates/entry/view.html:101
 msgid "Adjusted for inflation"
@@ -1328,7 +1327,7 @@ msgstr ""
 #: openspending/ui/alttemplates/entry/view.html:120
 #: openspending/ui/alttemplates/run/view.html:53
 msgid "Value"
-msgstr "Valore"
+msgstr "Vrijednost"
 
 #: openspending/ui/alttemplates/entry/view.html:152
 msgid "Notes"
@@ -1336,7 +1335,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/errors/400.html:7
 msgid "Invalid request."
-msgstr "Richiesta non valida."
+msgstr "Neispravan zahtjev."
 
 #: openspending/ui/alttemplates/errors/400.html:7
 #: openspending/ui/alttemplates/errors/403.html:7
@@ -1345,23 +1344,23 @@ msgstr "Richiesta non valida."
 #: openspending/ui/alttemplates/run/view.html:54
 #: openspending/ui/alttemplates/source/_list.html:13
 msgid "Error"
-msgstr "Errore"
+msgstr "Pogreška"
 
 #: openspending/ui/alttemplates/errors/403.html:7
 msgid "Access denied."
-msgstr "Accesso negato."
+msgstr "Pristup nije dopušten."
 
 #: openspending/ui/alttemplates/errors/403.html:14
 msgid "You may not have the relevant rights."
-msgstr "Potresti non avere i diritti necessari."
+msgstr "Moguće je da nemate odgovarajuća prava."
 
 #: openspending/ui/alttemplates/errors/403.html:18
 msgid "You may need to login."
-msgstr "Sarebbe necessario autenticarsi."
+msgstr "Moguće je da se trebate prijaviti."
 
 #: openspending/ui/alttemplates/errors/404.html:7
 msgid "Resource not found"
-msgstr "Risorsa non trovata"
+msgstr "Izvor nije pronađen"
 
 #: openspending/ui/alttemplates/errors/404.html:10
 msgid "Maybe the URL is misspelled or the data has been deleted."
@@ -1369,15 +1368,15 @@ msgstr ""
 
 #: openspending/ui/alttemplates/errors/500.html:7
 msgid "Something went wrong."
-msgstr "Qualcosa non ha funzionato"
+msgstr ""
 
 #: openspending/ui/alttemplates/errors/500.html:7
 msgid "Internal Server Error"
-msgstr "Internal Server Error"
+msgstr "Pogreška na serveru"
 
 #: openspending/ui/alttemplates/home/index.html:22
 msgid "Mapping the money."
-msgstr "Mappa le transazioni monetarie."
+msgstr "Mapiranje novca."
 
 #: openspending/ui/alttemplates/home/index.html:23
 msgid ""
@@ -1510,43 +1509,43 @@ msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:97
 msgid "Getting started"
-msgstr "Come iniziare"
+msgstr "Početak"
 
 #: openspending/ui/alttemplates/home/index.html:98
 msgid "What can I do here?"
-msgstr "Cosa posso fare?"
+msgstr "Šta mogu da radim ovde?"
 
 #: openspending/ui/alttemplates/home/index.html:99
 msgid "FAQ"
-msgstr "FAQ"
+msgstr "Česta pitanja"
 
 #: openspending/ui/alttemplates/home/index.html:100
 msgid "Browse datasets"
-msgstr "Naviga i dataset"
+msgstr "Pregledaj setove podataka"
 
 #: openspending/ui/alttemplates/home/index.html:102
 msgid "The project"
-msgstr "Il progetto"
+msgstr "Projekt"
 
 #: openspending/ui/alttemplates/home/index.html:103
 msgid "Spending Blog"
-msgstr "Spending Blog"
+msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:104
 msgid "Projects Portfolio"
-msgstr "Protfolio dei Progetti"
+msgstr "Portfolio projekta"
 
 #: openspending/ui/alttemplates/home/index.html:105
 msgid "Mailing List"
-msgstr "Mailing List"
+msgstr "Mejling lista"
 
 #: openspending/ui/alttemplates/home/index.html:106
 msgid "Contribute"
-msgstr "Contribuisci"
+msgstr "Doprinesi"
 
 #: openspending/ui/alttemplates/home/index.html:115
 msgid "Join our discussion list!"
-msgstr "Iscriviti alla nostra discussion list!"
+msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:119
 #: openspending/ui/alttemplates/home/index.html:127
@@ -1559,28 +1558,28 @@ msgstr ""
 
 #: openspending/ui/alttemplates/home/rest.html:3
 msgid "REST API"
-msgstr "REST API"
+msgstr ""
 
 #: openspending/ui/alttemplates/home/rest.html:7
 msgid "The Store's REST API"
-msgstr "Le REST API Store"
+msgstr ""
 
 #: openspending/ui/alttemplates/home/rest.html:9
 msgid ""
 "This API returns JSON versions of the store's domain objects.\n"
 "    The URLs are generally the same as the URLs used by the web interface for\n"
 "    the same objects, but with \"/api/rest\" prepended."
-msgstr "Questa API restituisce una versione JSON degli oggetti del dominio memorizzati. Gli URL sono generalmente gli stessi di quelli utilizzati dall'interfaccia web per gli stessi oggetti, ma con un prefisso \"/api/rest\"."
+msgstr ""
 
 #: openspending/ui/alttemplates/home/rest.html:15
 msgid "Here are some examples"
-msgstr "Ecco alcuni esempi"
+msgstr ""
 
 #: openspending/ui/alttemplates/home/rest.html:25
 msgid ""
 "The JSON response generally contains the same information as the\n"
 "    corresponding web page, but in more detail."
-msgstr "La risposta JSON contiene generalmente le stesse informazioni della corrispondente pagina web, ma in modo più dettagliato."
+msgstr "Odgovor JSON obično sadrži iste informacije kao i\nodgovarajuća web stranica, ali s više detalja."
 
 #: openspending/ui/alttemplates/home/rest.html:28
 msgid ""
@@ -1597,11 +1596,11 @@ msgstr ""
 #: openspending/ui/alttemplates/run/view.html:12
 #: openspending/ui/alttemplates/source/_list.html:81
 msgid "errors"
-msgstr "errori"
+msgstr ""
 
 #: openspending/ui/alttemplates/run/view.html:16
 msgid "Nothing to report!"
-msgstr "Niente da segnalare!"
+msgstr "Ništa za prijaviti!"
 
 #: openspending/ui/alttemplates/run/view.html:16
 msgid ""
@@ -1613,23 +1612,23 @@ msgstr ""
 
 #: openspending/ui/alttemplates/run/view.html:28
 msgid "Level"
-msgstr "Livello"
+msgstr "Nivo"
 
 #: openspending/ui/alttemplates/run/view.html:29
 msgid "Message"
-msgstr "Messaggio"
+msgstr "Poruka"
 
 #: openspending/ui/alttemplates/run/view.html:50
 msgid "Row"
-msgstr "Riga"
+msgstr "Red"
 
 #: openspending/ui/alttemplates/source/_list.html:6
 msgid "Link"
-msgstr "Associazione"
+msgstr "Link"
 
 #: openspending/ui/alttemplates/source/_list.html:7
 msgid "Operations"
-msgstr "Operazioni"
+msgstr "Operacije"
 
 #: openspending/ui/alttemplates/source/_list.html:15
 msgid "OK"
@@ -1637,7 +1636,7 @@ msgstr "OK"
 
 #: openspending/ui/alttemplates/source/_list.html:24
 msgid "columns"
-msgstr "colonne"
+msgstr "kolone"
 
 #: openspending/ui/alttemplates/source/_list.html:30
 msgid "Successfully loaded"
@@ -1653,15 +1652,15 @@ msgstr ""
 
 #: openspending/ui/alttemplates/source/_list.html:39
 msgid "Load"
-msgstr "Carica"
+msgstr "Popuni"
 
 #: openspending/ui/alttemplates/source/_list.html:46
 msgid "Test a sample"
-msgstr "Test di un campione"
+msgstr "Testiraj uzorak"
 
 #: openspending/ui/alttemplates/source/_list.html:46
 msgid "Test"
-msgstr "Test"
+msgstr ""
 
 #: openspending/ui/alttemplates/source/_list.html:53
 msgid "Delete source"
@@ -1670,31 +1669,31 @@ msgstr ""
 #: openspending/ui/alttemplates/source/_list.html:53
 #: openspending/ui/alttemplates/view/view.html:61
 msgid "Delete"
-msgstr "Cancella"
+msgstr ""
 
 #: openspending/ui/alttemplates/source/_list.html:60
 msgid "Reports"
-msgstr "Segnalazioni"
+msgstr "Izvještaji"
 
 #: openspending/ui/alttemplates/source/_list.html:70
 msgid "Running"
-msgstr "Esecuzione"
+msgstr "U toku"
 
 #: openspending/ui/alttemplates/source/_list.html:72
 msgid "Complete"
-msgstr "Completo"
+msgstr "Završeno"
 
 #: openspending/ui/alttemplates/source/_list.html:74
 msgid "Errors"
-msgstr "Errori"
+msgstr "Pogreške"
 
 #: openspending/ui/alttemplates/source/_list.html:76
 msgid "Removed"
-msgstr "Rimosso"
+msgstr ""
 
 #: openspending/ui/alttemplates/source/_list.html:87
 msgid "Analysis"
-msgstr "Analisi"
+msgstr ""
 
 #: openspending/ui/alttemplates/source/_list.html:90
 msgid "We found these columns in the CSV file:"
@@ -1706,11 +1705,11 @@ msgstr ""
 
 #: openspending/ui/alttemplates/source/_list.html:97
 msgid "No columns found."
-msgstr "Nessuna colonna trovata"
+msgstr ""
 
 #: openspending/ui/alttemplates/source/_list.html:99
 msgid "Still analysing"
-msgstr "Analisi ancora in corso"
+msgstr ""
 
 #: openspending/ui/alttemplates/source/_list.html:99
 msgid "Try refreshing in a moment."
@@ -1754,7 +1753,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/view/new.html:5
 msgid "Create a visualisation"
-msgstr "Crea una visualizzazione"
+msgstr "Kreiraj vizualizaciju"
 
 #: openspending/ui/alttemplates/view/new.html:61
 msgid "Name your visualisation"
@@ -1783,11 +1782,11 @@ msgstr ""
 
 #: openspending/ui/alttemplates/view/new.html:96
 msgid "Width"
-msgstr "Larghezza"
+msgstr ""
 
 #: openspending/ui/alttemplates/view/new.html:100
 msgid "Height"
-msgstr "Altezza"
+msgstr ""
 
 #: openspending/ui/alttemplates/view/view.html:37
 msgid ""
@@ -1805,12 +1804,12 @@ msgstr ""
 
 #: openspending/ui/controllers/account.py:79
 msgid "Login name already exists, please choose a different one"
-msgstr "Username già esistente, per favore scegline uno differente"
+msgstr "Korisničko ime već postoji, molimo da izaberete neko drugo"
 
 #: openspending/ui/controllers/account.py:85
 #: openspending/ui/controllers/account.py:161
 msgid "Passwords don't match!"
-msgstr "Le password non corrispondono!"
+msgstr "Lozinka nije odgovarajuća."
 
 #: openspending/ui/controllers/account.py:118
 #, python-format
@@ -1819,7 +1818,7 @@ msgstr ""
 
 #: openspending/ui/controllers/account.py:188
 msgid "Your settings have been updated."
-msgstr "Le configurazioni sono state salvate correttamente."
+msgstr "Vaše postavke su ažurirane."
 
 #: openspending/ui/controllers/account.py:231
 msgid "You are not authorized to see that page"
@@ -1828,15 +1827,15 @@ msgstr ""
 #: openspending/ui/controllers/account.py:252
 #, python-format
 msgid "Welcome back, %s!"
-msgstr "Bentornato, %s!"
+msgstr "Dobrodošli nazad, %s!"
 
 #: openspending/ui/controllers/account.py:255
 msgid "Incorrect user name or password!"
-msgstr "Username o password non corrette!"
+msgstr "Netačno korisničko ime ili lozinka."
 
 #: openspending/ui/controllers/account.py:260
 msgid "You have been logged out."
-msgstr "Sei stato disconnesso."
+msgstr "Odjavljeni ste."
 
 #: openspending/ui/controllers/account.py:280
 msgid "Please enter an email address!"
@@ -1877,7 +1876,7 @@ msgstr ""
 
 #: openspending/ui/controllers/dataset.py:143
 msgid "A dataset with this identifer already exists!"
-msgstr "Un dataset con questo identificatore esiste già!"
+msgstr "Set podataka s ovim identifikatorom već postoji!"
 
 #: openspending/ui/controllers/dataset.py:244
 msgid "Recently Created Datasets"
@@ -1890,30 +1889,30 @@ msgstr ""
 #: openspending/ui/controllers/dimension.py:34
 #: openspending/ui/controllers/dimension.py:36
 msgid "This is not a dimension"
-msgstr "Questa non è una dimensione"
+msgstr "Ovo nije dimenzija"
 
 #: openspending/ui/controllers/dimension.py:46
 #, python-format
 msgid "Sorry, there is no member named %r"
-msgstr "Spiacente, non esiste alcun utente chiamato %r"
+msgstr "Žao nam je, ne postoji član pod imenom %r"
 
 #: openspending/ui/controllers/dimension.py:52
 #, python-format
 msgid "Sorry, there is no dimension named %r"
-msgstr "Spiacente, non esiste alcuna dimensione chiamata %r"
+msgstr "Žao nam je, ne postoji dimenzija naziva %r"
 
 #: openspending/ui/controllers/editor.py:87
 msgid "The dataset has been updated."
-msgstr "Il dataset è stato caricato correttamente."
+msgstr "Set podataka je ažuriran."
 
 #: openspending/ui/controllers/editor.py:117
 msgid ""
 "You cannot edit the dimensions model when data is loaded for the dataset."
-msgstr "Non è possibile modificare il modello delle dimensioni quando vengono caricati i dati per il dataset."
+msgstr "Niste u mogućnosti da uređujete dimenzije modela kada su podatci unešeni za se podataka."
 
 #: openspending/ui/controllers/editor.py:135
 msgid "The mapping data could not be decoded as JSON!"
-msgstr "I dati di mappatura non possono essere decodificati in JSON!"
+msgstr "Podaci za mapiranje nisu dekodirani kao JSON!"
 
 #: openspending/ui/controllers/editor.py:160
 msgid "The templates have been updated."
@@ -1921,50 +1920,50 @@ msgstr ""
 
 #: openspending/ui/controllers/editor.py:184
 msgid "The views have been updated."
-msgstr "Le viste sono state aggiornate."
+msgstr ""
 
 #: openspending/ui/controllers/editor.py:186
 msgid "The views could not be decoded as JSON!"
-msgstr "Le viste non possono essere decodificate in JSON!"
+msgstr ""
 
 #: openspending/ui/controllers/editor.py:208
 msgid "User account cannot be found."
-msgstr "L'account utente non può essere trovato."
+msgstr "Korisnički račun nije pronađen"
 
 #: openspending/ui/controllers/editor.py:217
 msgid "The team has been updated."
-msgstr "Il team è stato aggiornato."
+msgstr "Tim je ažuriran"
 
 #: openspending/ui/controllers/editor.py:236
 msgid "The dataset has been cleared."
-msgstr "Il dataset è stato vuotato."
+msgstr "Set podataka je izbrisan."
 
 #: openspending/ui/controllers/editor.py:244
 msgid "This dataset is already public!"
-msgstr "Il dataset è già pubblico!"
+msgstr "Set podataka je objavljen!"
 
 #: openspending/ui/controllers/editor.py:255
 #, python-format
 msgid ""
 "Congratulations, the dataset has been published. It is now available at: %s"
-msgstr "Congratulazioni, il dataset è stato pubblicato. E' ora disponibile al seguente indirizzo: %s"
+msgstr "Čestitamo, set podataka je objavljen, Dostupan je na: %s"
 
 #: openspending/ui/controllers/editor.py:264
 msgid "This dataset is already private!"
-msgstr "Il dataset è già privato!"
+msgstr "Ovaj set podataka je već privatan!"
 
 #: openspending/ui/controllers/editor.py:274
 msgid "The dataset has been retracted. It is no longer visible to others."
-msgstr "Il dataset è stato retratto. Non è più visibile ad altri utenti."
+msgstr "Set podataka je povučen. Nije više vidljiv drugima."
 
 #: openspending/ui/controllers/editor.py:286
 msgid "The dataset has been deleted."
-msgstr "Il dataset è stato cancellato."
+msgstr "Set podataka je izbrisan."
 
 #: openspending/ui/controllers/entry.py:47
 #, python-format
 msgid "Sorry, there is no entry %r"
-msgstr "Spiacente, non esiste alcuna voce %r"
+msgstr "Žao nam je, ne postoji unos pod nazivom %r"
 
 #: openspending/ui/controllers/entry.py:87
 msgid "Unable to adjust for inflation"
@@ -1972,22 +1971,22 @@ msgstr ""
 
 #: openspending/ui/controllers/home.py:56
 msgid "Sent ping!"
-msgstr "Ping inviato!"
+msgstr ""
 
 #: openspending/ui/controllers/run.py:20
 #: openspending/ui/controllers/source.py:57
 #, python-format
 msgid "There is no source '%s'"
-msgstr "Non vi è nessuna sorgente '%s'"
+msgstr "Ne postoji izvor pod nazivom \"%s\""
 
 #: openspending/ui/controllers/run.py:23
 #, python-format
 msgid "There is no run '%s'"
-msgstr "Non è in esecuzione '%s'"
+msgstr ""
 
 #: openspending/ui/controllers/source.py:41
 msgid "The source has been created."
-msgstr "La sorgente è stata creata."
+msgstr "Izvor je kreiran."
 
 #: openspending/ui/controllers/source.py:79
 msgid "Already running!"
@@ -1995,21 +1994,21 @@ msgstr ""
 
 #: openspending/ui/controllers/source.py:86
 msgid "Now loading..."
-msgstr "Caricamento..."
+msgstr ""
 
 #: openspending/ui/controllers/view.py:38
 #, python-format
 msgid "Invalid widget type: %r"
-msgstr "Tipo widget non valido: %r"
+msgstr ""
 
 #: openspending/ui/controllers/view.py:68
 #, python-format
 msgid "Sorry, there is no view %r"
-msgstr "Spiacente, non c'è nessuna vista %r"
+msgstr "Žao nam je, nije moguć pregled %r"
 
 #: openspending/ui/controllers/view.py:97
 msgid "You are not authorized to delete this view."
-msgstr "Non sei autorizzato a eliminare questa vista."
+msgstr "Nemate dozvolu da izbrišete ovu perspektivu."
 
 #: openspending/ui/controllers/view.py:98
 #, python-format
@@ -2018,18 +2017,18 @@ msgstr ""
 
 #: openspending/ui/controllers/view.py:168
 msgid "No widget type has been specified."
-msgstr "Nessun tipo widget è stato specificato."
+msgstr ""
 
 #: openspending/ui/lib/base.py:130
 #, python-format
 msgid "Sorry, there is no dataset named %r"
-msgstr "Spiacente, non esiste alcun dataset chiamato %r"
+msgstr "Žao nam je, ne postoji set podataka pod nazivom %r"
 
 #: openspending/ui/lib/views.py:36
 msgid "Untitled"
-msgstr "Senza Titolo"
+msgstr "Bez naslova"
 
 #: openspending/ui/lib/widgets.py:15
 #, python-format
 msgid "No widget named '%s' exists."
-msgstr "Non esiste alcun widged chiamato '%s'"
+msgstr ""
