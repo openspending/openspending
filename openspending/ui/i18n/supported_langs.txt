@@ -20,3 +20,5 @@ vi
 ro_RO
 eo
 km
+bs_BA
+ne

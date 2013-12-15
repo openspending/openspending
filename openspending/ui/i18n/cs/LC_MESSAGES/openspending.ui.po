@@ -3,14 +3,16 @@
 # This file is distributed under the same license as the openspending project.
 # 
 # Translators:
+# JanaSekaninova <jana.sekaninova01@gmail.com>, 2013
 # michalskop <michal.skop@kohovolit.eu>, 2011
+# Nela <n.jungmannova@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenSpending\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2013-11-20 09:27+0000\n"
-"PO-Revision-Date: 2013-11-20 09:50+0000\n"
-"Last-Translator: tryggvib <tryggvib@fsfi.is>\n"
+"PO-Revision-Date: 2013-12-13 18:40+0000\n"
+"Last-Translator: Nela <n.jungmannova@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/openspending/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -50,7 +52,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/_dimension_list.html:8
 msgid "Part of unique key"
-msgstr ""
+msgstr "Součást jedinečného klíče"
 
 #: openspending/ui/alttemplates/base.html:11
 msgid ""
@@ -77,7 +79,7 @@ msgstr "Hledat"
 
 #: openspending/ui/alttemplates/base.html:50
 msgid "Community"
-msgstr ""
+msgstr "Společnost"
 
 #: openspending/ui/alttemplates/base.html:53
 #: openspending/ui/alttemplates/base.html:126
@@ -101,7 +103,7 @@ msgstr ""
 #: openspending/ui/alttemplates/base.html:73
 #: openspending/ui/alttemplates/editor/_nav.html:23
 msgid "Dashboard"
-msgstr ""
+msgstr "Přístrojová deska"
 
 #: openspending/ui/alttemplates/base.html:74
 msgid "Settings"
@@ -117,7 +119,7 @@ msgstr "Přihlášení/Registrace"
 
 #: openspending/ui/alttemplates/base.html:85
 msgid "Language"
-msgstr ""
+msgstr "Jazyk"
 
 #: openspending/ui/alttemplates/base.html:109
 msgid "This site uses cookies"
@@ -156,7 +158,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/account/login.html:6
 msgid "Sign in to OpenSpending"
-msgstr ""
+msgstr "Přihlásit se do OpenSpending"
 
 #: openspending/ui/alttemplates/account/login.html:10
 #: openspending/ui/alttemplates/account/login.html:14
@@ -232,7 +234,7 @@ msgstr ""
 #: openspending/ui/alttemplates/account/profile.html:16
 #: openspending/ui/alttemplates/editor/dimensions.html:135
 msgid "Name"
-msgstr ""
+msgstr "Jméno"
 
 #: openspending/ui/alttemplates/account/profile.html:19
 msgid "Username"
@@ -254,7 +256,7 @@ msgstr ""
 #: openspending/ui/alttemplates/dataset/new.html:21
 #: openspending/ui/alttemplates/dataset/new_cta.html:3
 msgid "Import a dataset"
-msgstr ""
+msgstr "Import datového souboru"
 
 #: openspending/ui/alttemplates/account/profile.html:52
 #: openspending/ui/alttemplates/editor/_nav.html:29
@@ -288,7 +290,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/account/settings.html:56
 msgid "Script Location"
-msgstr ""
+msgstr "Lokace skriptů"
 
 #: openspending/ui/alttemplates/account/settings.html:59
 msgid ""
@@ -408,15 +410,15 @@ msgstr ""
 
 #: openspending/ui/alttemplates/dataset/_nav.html:45
 msgid "Visualisations"
-msgstr ""
+msgstr "Vizualizace"
 
 #: openspending/ui/alttemplates/dataset/_nav.html:61
 msgid "Create a visualisation..."
-msgstr ""
+msgstr "Vytvořte vizualizaci..."
 
 #: openspending/ui/alttemplates/dataset/_nav.html:67
 msgid "Manage"
-msgstr ""
+msgstr "Spravovat"
 
 #: openspending/ui/alttemplates/dataset/_select.html:6
 msgid "Filter..."
@@ -426,7 +428,7 @@ msgstr ""
 #: openspending/ui/alttemplates/dataset/index.html:42
 #: openspending/ui/alttemplates/dataset/new.html:85
 msgid "Countries"
-msgstr ""
+msgstr "Země"
 
 #: openspending/ui/alttemplates/dataset/_select.html:10
 msgid "Filter by country"
@@ -436,7 +438,7 @@ msgstr ""
 #: openspending/ui/alttemplates/dataset/index.html:56
 #: openspending/ui/alttemplates/dataset/new.html:95
 msgid "Languages"
-msgstr ""
+msgstr "Jazyky"
 
 #: openspending/ui/alttemplates/dataset/_select.html:26
 msgid "Filter by language"
@@ -453,7 +455,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/dataset/_select.html:97
 msgid "Close"
-msgstr ""
+msgstr "Zavřít"
 
 #: openspending/ui/alttemplates/dataset/about.html:31
 #, python-format
@@ -462,7 +464,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/dataset/about.html:38
 msgid "Sources"
-msgstr ""
+msgstr "Zdroje"
 
 #: openspending/ui/alttemplates/dataset/about.html:40
 msgid ""
@@ -473,14 +475,14 @@ msgstr ""
 #: openspending/ui/alttemplates/dataset/about.html:55
 #: openspending/ui/alttemplates/editor/_nav.html:32
 msgid "Team"
-msgstr ""
+msgstr "Tým"
 
 #: openspending/ui/alttemplates/dataset/about.html:57
 msgid ""
 "These people are the managers of the dataset. They can\n"
 "              make modifications to its schema and are responsible\n"
 "              to make sure the data is accurate."
-msgstr ""
+msgstr "Tito lidé jsou správci datové sady. Mohou provést změny jejího schématu a jsou zodpovědní za to, že údaje jsou správné."
 
 #: openspending/ui/alttemplates/dataset/about.html:76
 msgid "This dataset has been awarded"
@@ -510,7 +512,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/dataset/about.html:107
 msgid "Measures"
-msgstr ""
+msgstr "Opatření"
 
 #: openspending/ui/alttemplates/dataset/about.html:109
 msgid ""
@@ -581,7 +583,7 @@ msgstr ""
 #: openspending/ui/alttemplates/dataset/new.html:43
 #: openspending/ui/alttemplates/view/new.html:67
 msgid "Title"
-msgstr ""
+msgstr "Název"
 
 #: openspending/ui/alttemplates/dataset/new.html:45
 msgid "My Dataset"
@@ -589,7 +591,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/dataset/new.html:49
 msgid "Identifier"
-msgstr ""
+msgstr "Identifikátor"
 
 #: openspending/ui/alttemplates/dataset/new.html:51
 msgid "my_dataset"
@@ -600,23 +602,23 @@ msgid ""
 "The identifier will become part of the\n"
 "                  dataset URL and cannot be changed later. It may only \n"
 "                  contain alphanumeric characters, dashes and underscores."
-msgstr ""
+msgstr "Identifikátor se stane součástí URL datové sady a později nemůže být změněn. Může obsahovat pouze alfanumerické znaky, pomlčky a podtržítka."
 
 #: openspending/ui/alttemplates/dataset/new.html:58
 msgid "Category"
-msgstr ""
+msgstr "Kategorie"
 
 #: openspending/ui/alttemplates/dataset/new.html:68
 msgid "Currency"
-msgstr ""
+msgstr "Měna"
 
 #: openspending/ui/alttemplates/dataset/new.html:71
 msgid "Commonly used currencies"
-msgstr ""
+msgstr "Běžně používané měny"
 
 #: openspending/ui/alttemplates/dataset/new.html:76
 msgid "All currencies"
-msgstr ""
+msgstr "Všechny měny"
 
 #: openspending/ui/alttemplates/dataset/new.html:112
 msgid "Next Step"
@@ -639,7 +641,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/dataset/new_cta.html:20
 msgid "Why should you contribute?"
-msgstr ""
+msgstr "Proč byste měl/a přispět?"
 
 #: openspending/ui/alttemplates/dataset/new_cta.html:23
 msgid ""
@@ -680,7 +682,7 @@ msgstr ""
 #: openspending/ui/alttemplates/dimension/view.html:43
 #: openspending/ui/alttemplates/view/view.html:63
 msgid "Embed"
-msgstr ""
+msgstr "Vložit"
 
 #: openspending/ui/alttemplates/dataset/view.html:38
 #: openspending/ui/alttemplates/dimension/entries.html:84
@@ -688,7 +690,7 @@ msgstr ""
 #: openspending/ui/alttemplates/dimension/view.html:44
 #: openspending/ui/alttemplates/view/view.html:64
 msgid "Change"
-msgstr ""
+msgstr "Změnit"
 
 #: openspending/ui/alttemplates/dataset/view.html:39
 #: openspending/ui/alttemplates/dimension/member.html:45
@@ -758,7 +760,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/editor/_nav.html:14
 msgid "Manage the dataset"
-msgstr ""
+msgstr "Správa datové sady"
 
 #: openspending/ui/alttemplates/editor/_nav.html:26
 msgid "Dimensions &amp; Measures"
@@ -766,7 +768,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/editor/_nav.html:35
 msgid "Meta"
-msgstr ""
+msgstr "Meta"
 
 #: openspending/ui/alttemplates/editor/_nav.html:38
 msgid "Templates"
@@ -774,41 +776,41 @@ msgstr ""
 
 #: openspending/ui/alttemplates/editor/dimensions.html:89
 msgid "Add Dimension"
-msgstr ""
+msgstr "Přidat rozměr"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:92
 msgid "Make sure your dimensions import all source data columns."
-msgstr ""
+msgstr "Ujistěte se, že vaše rozměry importovaly všechny zdroje datových sloupců."
 
 #: openspending/ui/alttemplates/editor/dimensions.html:97
 msgid "Set Unique Dimensions"
-msgstr ""
+msgstr "Nastavit jednoznačný rozměr"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:100
 msgid "Identify the dimensions that help to identify each entry."
-msgstr ""
+msgstr "Určite dimenze, které pomáhají identifikovat každou položku."
 
 #: openspending/ui/alttemplates/editor/dimensions.html:103
 msgid "Exisiting Dimensions"
-msgstr ""
+msgstr "Existující rozměry"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:112
 msgid "Specify which dimensions identify an entry uniquely"
-msgstr ""
+msgstr "Určete, které rozměry identifikují položku jednoznačně"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:120
 msgid "Update"
-msgstr ""
+msgstr "Aktualizace"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:128
 msgid "Add new dimension"
-msgstr ""
+msgstr "Přitejte nový rozměr"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:139
 msgid ""
 "The name you choose should only contain letters, numbers and dashes (i.e., "
 "no spaces)"
-msgstr ""
+msgstr "Jméno, které si vyberete, by mělo obsahovat pouze písmena, čísla a čárky (tj. žádné mezery)"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:142
 msgid ""
@@ -819,7 +821,7 @@ msgstr ""
 #: openspending/ui/alttemplates/editor/dimensions.html:147
 #: openspending/ui/alttemplates/editor/dimensions.html:417
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:151
 #: openspending/ui/alttemplates/entry/view.html:119
@@ -835,40 +837,40 @@ msgstr ""
 #: openspending/ui/alttemplates/editor/dimensions.html:158
 #: openspending/ui/alttemplates/run/view.html:52
 msgid "Attribute"
-msgstr ""
+msgstr "Vlastnost"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:160
 msgid "A simple value, e.g. descriptions or transaction IDs."
-msgstr ""
+msgstr "Jednoduchá hodnota, např. popis nebo ID transakce."
 
 #: openspending/ui/alttemplates/editor/dimensions.html:165
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:167
 msgid "Temporal value, e.g. start of project, date of disbursement."
-msgstr ""
+msgstr "Časová hodnota, např. začátek projektu nebo den výplaty."
 
 #: openspending/ui/alttemplates/editor/dimensions.html:172
 msgid "Measure"
-msgstr ""
+msgstr "Opatření"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:174
 msgid "Monetary information, e.g. amount disbursed or allocated."
-msgstr ""
+msgstr "Měnová hodnota, např. vyplacená nebo přidělená částka. "
 
 #: openspending/ui/alttemplates/editor/dimensions.html:181
 msgid "Unmapped source data columns"
-msgstr ""
+msgstr "Datové sloupce nezmapovaných zdrojů"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:189
 msgid "Cancel"
-msgstr ""
+msgstr "Zrušit"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:190
 #: openspending/ui/alttemplates/editor/team.html:91
 msgid "Add"
-msgstr ""
+msgstr "Přidat"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:200
 msgid "Your model was saved."
@@ -892,7 +894,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/editor/dimensions.html:230
 msgid "Dimension mapping"
-msgstr ""
+msgstr "Mapování rozměru"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:232
 msgid ""
@@ -929,7 +931,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/editor/dimensions.html:258
 msgid "What do I do here?"
-msgstr ""
+msgstr "Co tu dělám?"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:260
 msgid ""
@@ -1034,7 +1036,7 @@ msgstr ""
 #: openspending/ui/alttemplates/editor/dimensions.html:416
 #: openspending/ui/alttemplates/run/view.html:51
 msgid "Column"
-msgstr ""
+msgstr "Sloupec"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:362
 msgid "Source column in the source CSV file."
@@ -1086,7 +1088,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/editor/dimensions_errors.html:15
 msgid "You cannot edit dimensions while data is loaded."
-msgstr ""
+msgstr "Nemůžete upravovat rozměry, když se načítají data."
 
 #: openspending/ui/alttemplates/editor/dimensions_errors.html:16
 msgid ""
@@ -1104,7 +1106,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/editor/dimensions_errors.html:29
 msgid "You need to define at least one data source."
-msgstr ""
+msgstr "Musíte definovat alespoň jeden datový zdroj."
 
 #: openspending/ui/alttemplates/editor/dimensions_errors.html:30
 msgid ""
@@ -1138,7 +1140,7 @@ msgstr ""
 #: openspending/ui/alttemplates/editor/index.html:30
 #: openspending/ui/alttemplates/editor/index.html:64
 msgid "Add a source"
-msgstr ""
+msgstr "Přidat zdroj"
 
 #: openspending/ui/alttemplates/editor/index.html:38
 msgid "Let me see..."
@@ -1170,19 +1172,19 @@ msgstr ""
 
 #: openspending/ui/alttemplates/editor/index.html:62
 msgid "Source files"
-msgstr ""
+msgstr "Zdrojové soubory"
 
 #: openspending/ui/alttemplates/editor/index.html:70
 msgid "Summary"
-msgstr ""
+msgstr "Shrnutí"
 
 #: openspending/ui/alttemplates/editor/index.html:72
 msgid "Entries loaded:"
-msgstr ""
+msgstr "Položky nahrány:"
 
 #: openspending/ui/alttemplates/editor/index.html:73
 msgid "Searchable:"
-msgstr ""
+msgstr "Vyhledávatelné:"
 
 #: openspending/ui/alttemplates/editor/index.html:76
 msgid "Dataset Actions"
@@ -1191,7 +1193,7 @@ msgstr ""
 #: openspending/ui/alttemplates/editor/index.html:81
 #: openspending/ui/alttemplates/editor/index.html:86
 msgid "Delete loaded data"
-msgstr ""
+msgstr "Smazat nahraná data."
 
 #: openspending/ui/alttemplates/editor/index.html:82
 msgid ""
@@ -1208,7 +1210,7 @@ msgstr ""
 #: openspending/ui/alttemplates/editor/index.html:96
 #: openspending/ui/alttemplates/editor/index.html:101
 msgid "Make public"
-msgstr ""
+msgstr "Zveřejnit"
 
 #: openspending/ui/alttemplates/editor/index.html:97
 msgid ""
@@ -1242,11 +1244,11 @@ msgstr ""
 
 #: openspending/ui/alttemplates/editor/index.html:130
 msgid "Create a new data source"
-msgstr ""
+msgstr "Vytvořit nový datový zdroj"
 
 #: openspending/ui/alttemplates/editor/index.html:136
 msgid "Create"
-msgstr ""
+msgstr "Vytvořit"
 
 #: openspending/ui/alttemplates/editor/team.html:70
 msgid ""
@@ -1335,7 +1337,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/errors/400.html:7
 msgid "Invalid request."
-msgstr ""
+msgstr "Neplatný požadavek."
 
 #: openspending/ui/alttemplates/errors/400.html:7
 #: openspending/ui/alttemplates/errors/403.html:7
@@ -1600,7 +1602,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/run/view.html:16
 msgid "Nothing to report!"
-msgstr ""
+msgstr "Nic k nahlášení!"
 
 #: openspending/ui/alttemplates/run/view.html:16
 msgid ""
@@ -1612,31 +1614,31 @@ msgstr ""
 
 #: openspending/ui/alttemplates/run/view.html:28
 msgid "Level"
-msgstr ""
+msgstr "Úroveň"
 
 #: openspending/ui/alttemplates/run/view.html:29
 msgid "Message"
-msgstr ""
+msgstr "Zpráva"
 
 #: openspending/ui/alttemplates/run/view.html:50
 msgid "Row"
-msgstr ""
+msgstr "Řádek"
 
 #: openspending/ui/alttemplates/source/_list.html:6
 msgid "Link"
-msgstr ""
+msgstr "Odkaz"
 
 #: openspending/ui/alttemplates/source/_list.html:7
 msgid "Operations"
-msgstr ""
+msgstr "Obsluha"
 
 #: openspending/ui/alttemplates/source/_list.html:15
 msgid "OK"
-msgstr ""
+msgstr "Ok"
 
 #: openspending/ui/alttemplates/source/_list.html:24
 msgid "columns"
-msgstr ""
+msgstr "Sloupce"
 
 #: openspending/ui/alttemplates/source/_list.html:30
 msgid "Successfully loaded"
@@ -1652,11 +1654,11 @@ msgstr ""
 
 #: openspending/ui/alttemplates/source/_list.html:39
 msgid "Load"
-msgstr ""
+msgstr "Nahrát"
 
 #: openspending/ui/alttemplates/source/_list.html:46
 msgid "Test a sample"
-msgstr ""
+msgstr "Test vzorku"
 
 #: openspending/ui/alttemplates/source/_list.html:46
 msgid "Test"
@@ -1673,19 +1675,19 @@ msgstr ""
 
 #: openspending/ui/alttemplates/source/_list.html:60
 msgid "Reports"
-msgstr ""
+msgstr "Hlášení"
 
 #: openspending/ui/alttemplates/source/_list.html:70
 msgid "Running"
-msgstr ""
+msgstr "Průběh"
 
 #: openspending/ui/alttemplates/source/_list.html:72
 msgid "Complete"
-msgstr ""
+msgstr "Hotovo"
 
 #: openspending/ui/alttemplates/source/_list.html:74
 msgid "Errors"
-msgstr ""
+msgstr "Chyby"
 
 #: openspending/ui/alttemplates/source/_list.html:76
 msgid "Removed"
@@ -1717,7 +1719,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/source/_new_form.html:4
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: openspending/ui/alttemplates/source/_new_form.html:7
 msgid ""
@@ -1753,7 +1755,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/view/new.html:5
 msgid "Create a visualisation"
-msgstr ""
+msgstr "Vytvořit vizualizaci"
 
 #: openspending/ui/alttemplates/view/new.html:61
 msgid "Name your visualisation"
@@ -1876,7 +1878,7 @@ msgstr ""
 
 #: openspending/ui/controllers/dataset.py:143
 msgid "A dataset with this identifer already exists!"
-msgstr ""
+msgstr "dataset"
 
 #: openspending/ui/controllers/dataset.py:244
 msgid "Recently Created Datasets"
@@ -1908,11 +1910,11 @@ msgstr "Dataset byl aktualizován."
 #: openspending/ui/controllers/editor.py:117
 msgid ""
 "You cannot edit the dimensions model when data is loaded for the dataset."
-msgstr ""
+msgstr "Nemůžete upravovat rozměrový model, když se data načítají do datové sady. "
 
 #: openspending/ui/controllers/editor.py:135
 msgid "The mapping data could not be decoded as JSON!"
-msgstr ""
+msgstr "Mapovací data nemohou být dekódována jako JSON!"
 
 #: openspending/ui/controllers/editor.py:160
 msgid "The templates have been updated."
@@ -1920,15 +1922,15 @@ msgstr ""
 
 #: openspending/ui/controllers/editor.py:184
 msgid "The views have been updated."
-msgstr ""
+msgstr "Zobrazení bylo aktualizováno."
 
 #: openspending/ui/controllers/editor.py:186
 msgid "The views could not be decoded as JSON!"
-msgstr ""
+msgstr "Zobrazení nemůže být dekódováno jako JSON!"
 
 #: openspending/ui/controllers/editor.py:208
 msgid "User account cannot be found."
-msgstr ""
+msgstr "Uživatelský účet nelze nalézt. "
 
 #: openspending/ui/controllers/editor.py:217
 msgid "The team has been updated."
@@ -1936,29 +1938,29 @@ msgstr ""
 
 #: openspending/ui/controllers/editor.py:236
 msgid "The dataset has been cleared."
-msgstr ""
+msgstr "Datová sada byla vyčištěna. "
 
 #: openspending/ui/controllers/editor.py:244
 msgid "This dataset is already public!"
-msgstr ""
+msgstr "Tato datová sada je již veřejná!"
 
 #: openspending/ui/controllers/editor.py:255
 #, python-format
 msgid ""
 "Congratulations, the dataset has been published. It is now available at: %s"
-msgstr ""
+msgstr "Gratuluji, datová sada byla zveřejněna. Nyní je dostupná na: %s"
 
 #: openspending/ui/controllers/editor.py:264
 msgid "This dataset is already private!"
-msgstr ""
+msgstr "Tato datová sada je již soukromá!"
 
 #: openspending/ui/controllers/editor.py:274
 msgid "The dataset has been retracted. It is no longer visible to others."
-msgstr ""
+msgstr "Datová sada byla stáhnuta. Již není viditelná pro ostatní. "
 
 #: openspending/ui/controllers/editor.py:286
 msgid "The dataset has been deleted."
-msgstr ""
+msgstr "Datová sada byla smazána. "
 
 #: openspending/ui/controllers/entry.py:47
 #, python-format
@@ -1971,22 +1973,22 @@ msgstr ""
 
 #: openspending/ui/controllers/home.py:56
 msgid "Sent ping!"
-msgstr ""
+msgstr "Zaslán ping!"
 
 #: openspending/ui/controllers/run.py:20
 #: openspending/ui/controllers/source.py:57
 #, python-format
 msgid "There is no source '%s'"
-msgstr ""
+msgstr "Neexistuje zdroj '%s'"
 
 #: openspending/ui/controllers/run.py:23
 #, python-format
 msgid "There is no run '%s'"
-msgstr ""
+msgstr "Neexistuje spouštěč '%s'"
 
 #: openspending/ui/controllers/source.py:41
 msgid "The source has been created."
-msgstr ""
+msgstr "Zdroj byl vytvořen."
 
 #: openspending/ui/controllers/source.py:79
 msgid "Already running!"
@@ -1994,21 +1996,21 @@ msgstr ""
 
 #: openspending/ui/controllers/source.py:86
 msgid "Now loading..."
-msgstr ""
+msgstr "Načítání... "
 
 #: openspending/ui/controllers/view.py:38
 #, python-format
 msgid "Invalid widget type: %r"
-msgstr ""
+msgstr "Neplatný typ ovládacího prvku: %r"
 
 #: openspending/ui/controllers/view.py:68
 #, python-format
 msgid "Sorry, there is no view %r"
-msgstr ""
+msgstr "Pardon, neexistuje zobrazení %r"
 
 #: openspending/ui/controllers/view.py:97
 msgid "You are not authorized to delete this view."
-msgstr ""
+msgstr "Nejste autorizován smazat toto zobrazení. "
 
 #: openspending/ui/controllers/view.py:98
 #, python-format
@@ -2017,7 +2019,7 @@ msgstr ""
 
 #: openspending/ui/controllers/view.py:168
 msgid "No widget type has been specified."
-msgstr ""
+msgstr "Nebyl specifikován typ ovládacího prvku."
 
 #: openspending/ui/lib/base.py:130
 #, python-format
@@ -2026,9 +2028,9 @@ msgstr "Omlouváme se, ale žádný dataset s názvem %r není"
 
 #: openspending/ui/lib/views.py:36
 msgid "Untitled"
-msgstr ""
+msgstr "Bez názvu"
 
 #: openspending/ui/lib/widgets.py:15
 #, python-format
 msgid "No widget named '%s' exists."
-msgstr ""
+msgstr "Ovládací prvek s názvem '%s' neexistuje."
