@@ -93,7 +93,7 @@ def aggregate(dataset, measures=['amount'], drilldowns=None, cuts=None,
                 inflated_amount = adjustment['inflated']
 
                 # Get the item key
-                item_key = tuple([get_value(k, item) for k in hash_key])
+                item_key = unicode([get_value(k, item) for k in hash_key])
                 if item_key not in adjusted_drilldowns:
                     # We copy the item in case something happens (then we
                     # catch it and serve the original aggregation result)
