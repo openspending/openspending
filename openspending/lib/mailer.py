@@ -1,11 +1,9 @@
 import smtplib
 import logging
-import uuid
 from time import time
 from email.mime.text import MIMEText
 from email.header import Header
 from email import Utils
-from urlparse import urljoin
 
 from pylons.i18n.translation import _
 from pylons import config, app_globals
