@@ -1,7 +1,7 @@
 from nose.tools import assert_raises
 
 from openspending.test.unit.model.helpers import \
-        SIMPLE_MODEL, load_dataset
+        SIMPLE_MODEL
 from openspending.test import DatabaseTestCase, helpers as h
 
 from openspending.model import meta as db
