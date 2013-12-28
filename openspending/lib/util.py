@@ -1,4 +1,3 @@
-import csv
 import re
 from hashlib import sha1
 from unidecode import unidecode
