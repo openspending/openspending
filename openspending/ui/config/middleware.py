@@ -13,11 +13,8 @@ from pylons.wsgiapp import PylonsApp
 from routes.middleware import RoutesMiddleware
 
 from repoze.who.middleware import PluggableAuthenticationMiddleware
-from repoze.who.interfaces import IIdentifier, IChallenger
 from repoze.who.plugins.basicauth import BasicAuthPlugin
 from repoze.who.plugins.auth_tkt import AuthTktCookiePlugin
-from repoze.who.plugins.redirector import RedirectorPlugin
-from repoze.who.plugins.htpasswd import HTPasswdPlugin
 from repoze.who.classifiers import (default_request_classifier,
                                     default_challenge_decider)
 from repoze.who.plugins.friendlyform import FriendlyFormPlugin
