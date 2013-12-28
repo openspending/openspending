@@ -7,9 +7,7 @@ import json
 import hashlib
 import urllib
 
-from pylons import config
-
-from openspending.model import Dataset, Source, meta as db
+from openspending.model import Dataset, Source
 
 log = logging.getLogger(__name__)
 
