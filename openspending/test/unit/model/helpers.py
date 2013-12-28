@@ -1,5 +1,3 @@
-from tempfile import mkdtemp
-
 SIMPLE_MODEL = {
     'dataset': {
         'name': 'test',
