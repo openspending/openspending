@@ -1,6 +1,6 @@
 from .. import ControllerTestCase, url, helpers as h
 from openspending.ui.lib import helpers
-from openspending.model import Account, Badge, meta as db
+from openspending.model import Badge, meta as db
 from pylons import config
 import json
 import os
