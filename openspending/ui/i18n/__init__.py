@@ -1,4 +1,4 @@
-from pylons.i18n import _, add_fallback, get_lang, set_lang, gettext
+from pylons.i18n import get_lang, set_lang
 from pylons import config
 from babel import Locale
 
