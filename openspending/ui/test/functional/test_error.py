@@ -1,5 +1,4 @@
-from pylons import config
-from .. import ControllerTestCase, url, helpers as h
+from .. import ControllerTestCase, url
 
 class TestErrorController(ControllerTestCase):
 
