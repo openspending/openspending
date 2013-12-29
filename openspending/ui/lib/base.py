@@ -2,21 +2,18 @@
 
 Provides the BaseController class for subclassing.
 """
-from time import time, gmtime, strftime
-from datetime import datetime, timedelta
+from time import time
 import hashlib
 
 from pylons.controllers import WSGIController
-from pylons.templating import literal, pylons_globals
 from pylons.controllers.util import etag_cache
-from pylons import tmpl_context as c, request, response, config
+from pylons import tmpl_context as c, request, response
 from pylons import app_globals, session
 from pylons.controllers.util import abort
 from pylons.i18n import _
 
 from openspending.model import meta as db
 from openspending.auth import require
-import openspending.auth as can
 from openspending import model
 from openspending.ui import i18n
 
