@@ -1,7 +1,6 @@
 from lxml import html
 from urlparse import urljoin
 import requests
-import os
 
 from pylons import app_globals
 
