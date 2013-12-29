@@ -350,11 +350,6 @@ class TestApi2Controller(ControllerTestCase):
         db.session.add(dataset)
         db.session.commit()
 
-        # Get the users again because of commit (cleared session)
-        admin_user = Account.by_name('test_admin')
-        maintainer = Account.by_name('maintainer')
-        normal_user = Account.by_name('test_user')
-
         # Anonymous user
         response = self.app.get(permission, params={'dataset': 'cra'})
         anon_response = json.loads(response.body)
