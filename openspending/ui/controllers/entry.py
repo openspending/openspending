@@ -1,15 +1,14 @@
 import logging
 
-from pylons import app_globals, request, response, tmpl_context as c
+from pylons import request, response, tmpl_context as c
 from pylons.controllers.util import abort, redirect
 from pylons.i18n import _
 
-from openspending.ui.lib.base import BaseController, \
-        etag_cache_keygen
+from openspending.ui.lib.base import BaseController
 from openspending.ui.lib.views import handle_request
 from openspending.ui.lib.hypermedia import entry_apply_links
 from openspending.lib.csvexport import write_csv
-from openspending.lib.jsonexport import write_json, to_jsonp
+from openspending.lib.jsonexport import to_jsonp
 from openspending.ui.lib import helpers as h
 from openspending.ui.alttemplates import templating
 

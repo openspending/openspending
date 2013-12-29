@@ -1,9 +1,5 @@
-import csv
-import json
-from StringIO import StringIO
-
 from .. import ControllerTestCase, url, helpers as h
-from openspending.model import Dataset, Source, Account, meta as db
+from openspending.model import Source, Account, meta as db
 from openspending.test.unit.importer.test_csv import csvimport_fixture
 from openspending.importer import CSVImporter
 

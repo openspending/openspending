@@ -1,7 +1,3 @@
-from os.path import dirname, join
-from StringIO import StringIO
-from urlparse import urlunparse
-
 from openspending.model import Dataset, Source
 from openspending.model import meta as db
 from openspending.lib import json

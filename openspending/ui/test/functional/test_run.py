@@ -1,6 +1,6 @@
-from .. import ControllerTestCase, url, helpers as h
+from .. import ControllerTestCase, url
 from openspending.test.unit.importer.test_csv import csvimport_fixture
-from openspending.model import Account, meta as db
+from openspending.model import Account
 from openspending.importer import CSVImporter
 from openspending.ui.lib.helpers import readable_url
 

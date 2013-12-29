@@ -4,7 +4,7 @@ import logging
 
 import colander
 
-from pylons import app_globals, request, response, tmpl_context as c
+from pylons import request, response, tmpl_context as c
 from pylons.controllers.util import abort, redirect
 from pylons.i18n import _
 

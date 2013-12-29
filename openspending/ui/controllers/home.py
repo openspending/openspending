@@ -1,21 +1,16 @@
 import logging
 import os
-import random
 import subprocess
-from datetime import datetime
 
-from pylons import request, response, tmpl_context as c, url, config
+from pylons import request, tmpl_context as c
 from pylons.controllers.util import redirect
-from pylons.decorators.cache import beaker_cache
 from pylons.i18n import _
 
 from openspending.model import Dataset
 from openspending.lib.solr_util import dataset_entries
 from openspending.ui.i18n import set_session_locale
-from openspending.ui.lib import views
-from openspending.ui.lib.base import BaseController, require
-from openspending.ui.lib.helpers import flash_success, flash_error
-from openspending.ui.lib import helpers as h
+from openspending.ui.lib.base import BaseController
+from openspending.ui.lib.helpers import flash_success
 from openspending.ui.alttemplates import templating
 
 log = logging.getLogger(__name__)

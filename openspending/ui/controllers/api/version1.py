@@ -1,24 +1,16 @@
 import logging
-import urllib2
-import json
+
 from collections import defaultdict
 
-from pylons import request, response, app_globals, tmpl_context as c
+from pylons import request, response, tmpl_context as c
 from pylons.controllers.util import abort
 
 from openspending import model
-from openspending.model import Source, Dataset, Account
-from openspending.model import meta as db
-from openspending.importer import CSVImporter
 from openspending.lib import calculator
 from openspending.lib import solr_util as solr
 from openspending.ui.lib.base import BaseController, require
 from openspending.ui.lib.cache import AggregationCache
 from openspending.lib.jsonexport import jsonpify
-from openspending.validation.model import validate_model
-from openspending.ui.lib.authenticator import ApiKeyAuthenticator
-from openspending.ui.lib.hypermedia import dataset_apply_links
-from openspending.lib.jsonexport import to_jsonp
 
 log = logging.getLogger(__name__)
 

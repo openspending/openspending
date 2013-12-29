@@ -1,6 +1,5 @@
 import logging
 import os
-import json
 
 from pylons import config
 
@@ -8,8 +7,7 @@ from openspending.model import Dataset, meta as db
 from openspending.test.helpers import load_fixture
 
 import migrate.versioning.api as migrate_api
-from migrate.exceptions import DatabaseNotControlledError, \
-        DatabaseAlreadyControlledError
+from migrate.exceptions import DatabaseNotControlledError
 
 log = logging.getLogger(__name__)
 

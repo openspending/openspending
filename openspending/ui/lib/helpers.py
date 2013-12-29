@@ -8,17 +8,13 @@ available to Controllers. This module is available to templates as 'h'.
 from pylons import config, url, tmpl_context, app_globals
 from routes import url_for as routes_url_for
 from lxml import html
-from webhelpers.html import escape, HTML, literal, url_escape
+from webhelpers.html import literal
 from webhelpers.html.tags import *
 from webhelpers.markdown import markdown as _markdown
-from webhelpers.number import format_number as format_number_full
 from webhelpers.pylonslib import Flash as _Flash
 from webhelpers.text import truncate
 
-from openspending import model
 from openspending.lib import json
-from openspending.lib.util import slugify
-from openspending.lib.jsonexport import to_jsonp, to_json
 from openspending.reference import country
 
 import math
@@ -155,7 +151,7 @@ def upload(url, obj):
     # We use versioning so that the cache won't serve removed images
     version = config.get("openspending.static_cache_version", "")
     if version:
-        uri_ = "%s?%s" % (url_, version)
+        uri_ = "%s?%s" % (uri_, version)
 
     return uri_
 

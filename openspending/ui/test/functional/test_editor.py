@@ -1,6 +1,4 @@
-import csv
 import json
-from StringIO import StringIO
 
 from .. import ControllerTestCase, url, helpers as h
 from openspending.model import Dataset, Source, meta as db

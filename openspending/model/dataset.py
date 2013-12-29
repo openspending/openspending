@@ -11,13 +11,13 @@ import logging
 from collections import defaultdict
 from datetime import datetime
 from itertools import count
-from sqlalchemy import ForeignKeyConstraint, distinct
+from sqlalchemy import ForeignKeyConstraint
 
 from openspending.model import meta as db
 from openspending.lib.util import hash_values
 
 from openspending.model.common import TableHandler, JSONType, \
-        ALIAS_PLACEHOLDER, decode_row
+        decode_row
 from openspending.model.dimension import CompoundDimension, \
         AttributeDimension, DateDimension
 from openspending.model.dimension import Measure

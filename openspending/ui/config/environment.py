@@ -1,14 +1,12 @@
 """Pylons environment configuration"""
 import logging
 import os
-from gettext import translation
 
 from pylons import config
 
 from sqlalchemy import engine_from_config
 from migrate.versioning.util import construct_engine
 
-import pylons
 from webhelpers import markdown
 
 from openspending.model import init_model
@@ -38,9 +36,6 @@ def load_environment(global_conf, app_conf):
 
     # set log level in markdown
     markdown.logger.setLevel(logging.WARN)
-
-    # Establish celery loader:
-    from openspending.command import celery
 
     # SQLAlchemy
     engine = engine_from_config(config, 'openspending.db.')

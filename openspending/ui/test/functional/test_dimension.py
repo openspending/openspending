@@ -2,7 +2,7 @@ import json
 
 from .. import ControllerTestCase, url, helpers as h
 from openspending.ui.lib.helpers import member_url
-from openspending.model import Dataset, CompoundDimension, meta as db
+from openspending.model import Dataset, CompoundDimension
 
 
 class TestDimensionController(ControllerTestCase):

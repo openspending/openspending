@@ -1,10 +1,7 @@
-from sys import maxint
-import math
 import hashlib
 import logging
 
-from paste.deploy.converters import asbool
-from pylons import cache, config, app_globals
+from pylons import cache, app_globals
 from openspending.ui.lib.aggregation import aggregate
 from openspending.ui.lib.indices import dataset_index, language_index, \
     territory_index, category_index

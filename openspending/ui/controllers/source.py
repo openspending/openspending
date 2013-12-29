@@ -1,12 +1,11 @@
 import logging
 
-from pylons import request, response, tmpl_context as c
+from pylons import request, tmpl_context as c
 from pylons.controllers.util import redirect
 from paste.deploy.converters import asbool
 from pylons.i18n import _
 from colander import Invalid
 
-from openspending import model
 from openspending.model import Source, meta as db
 from openspending.lib.jsonexport import to_jsonp
 from openspending.ui.lib import helpers as h

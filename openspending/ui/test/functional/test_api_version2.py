@@ -285,11 +285,6 @@ class TestApi2Controller(ControllerTestCase):
         db.session.add(dataset)
         db.session.commit()
 
-        # Get the users again because of commit (cleared session)
-        admin_user = Account.by_name('test_admin')
-        maintainer = Account.by_name('maintainer')
-        normal_user = Account.by_name('test_user')
-
         # Make the url reusable
         permission = url(controller='api/version2', action='permissions')
 
@@ -349,11 +344,6 @@ class TestApi2Controller(ControllerTestCase):
         dataset.private = True
         db.session.add(dataset)
         db.session.commit()
-
-        # Get the users again because of commit (cleared session)
-        admin_user = Account.by_name('test_admin')
-        maintainer = Account.by_name('maintainer')
-        normal_user = Account.by_name('test_user')
 
         # Anonymous user
         response = self.app.get(permission, params={'dataset': 'cra'})

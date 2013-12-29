@@ -5,7 +5,6 @@ may take precedent over the more generic routes. For more information
 refer to the routes manual at http://routes.groovie.org/docs/
 """
 from pylons import config
-from paste.deploy.converters import asbool
 from routes import Mapper
 
 def make_map():

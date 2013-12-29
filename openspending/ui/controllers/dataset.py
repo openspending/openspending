@@ -1,4 +1,3 @@
-from datetime import datetime
 import json
 import logging
 from StringIO import StringIO
@@ -11,8 +10,7 @@ from pylons.controllers.util import abort, redirect
 from pylons.i18n import _
 from colander import SchemaNode, String, Invalid
 
-from openspending.model import Dataset, DatasetTerritory, \
-        DatasetLanguage, View, Badge, meta as db
+from openspending.model import Dataset, Badge, meta as db
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import to_jsonp
 from openspending.lib.paramparser import DatasetIndexParamParser
@@ -60,11 +58,11 @@ class DatasetController(BaseController):
             abort(400, 
                   _('Parameter values not supported: %s') % concatenated_errors)
 
-        # We need to pop the page and pagesize paramters since they're not
+        # We need to pop the page and pagesize parameters since they're not
         # used for the cache (we have to get all of the datasets to do the
         # language, territory, and category counts (these are then only used
         # for the html response)
-        page = params.pop('page')
+        params.pop('page')
         pagesize = params.pop('pagesize')
 
         # Get cached indices (this will also generate them if there are no
