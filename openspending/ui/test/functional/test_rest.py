@@ -1,4 +1,4 @@
-from openspending.model import Dataset, meta as db
+from openspending.model import Dataset
 from .. import ControllerTestCase, url, helpers as h
 
 class TestRestController(ControllerTestCase):
