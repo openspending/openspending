@@ -1,4 +1,3 @@
-from pylons import app_globals
 from openspending.ui.lib import helpers
 
 def get_value(key, item):
@@ -105,7 +104,7 @@ def aggregate(dataset, measures=['amount'], drilldowns=None, cuts=None,
                 else:
                     adjusted_drilldowns[item_key]['inflation_adjustment']\
                         .append(adjustment)
-                    adjust_drilldowns[item_key]['amount'] += inflated_amount
+                    adjusted_drilldowns[item_key]['amount'] += inflated_amount
 
                 summary_total += inflated_amount
             
