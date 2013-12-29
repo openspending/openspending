@@ -1,6 +1,4 @@
 from openspending.lib import json
-from openspending.lib import solr_util as solr
-from openspending.model import Dataset, Account
 
 from .. import ControllerTestCase, url, helpers as h
 
