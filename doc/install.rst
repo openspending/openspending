@@ -1,6 +1,25 @@
 Installation and Setup
 ======================
 
+
+Using Vagrant
+'''''''''''''
+
+You can avoid installing OpenSpending on your development machine by using Vagrant_ to execute the application and all of its dependencies in a virtual machine. To make use of this option, make sure to install Vagrant and the included VirtualBox provider. Then, from the source repository, you can set up a VM with::
+
+    $ vagrant up
+
+This will run for a while (fetch a coffee), until a working VM with Ubuntu 13.04 and OpenSpending has been deployed. Once the application has run, you can run OpenSpending within the VM::
+
+    $ vagrant ssh
+    vagrant@openspending$ cd /vagrant
+    vagrant@openspending$ paster serve --reload vagrant.ini 
+
+The virtual machine includes OpenSpending, Postgres, RabbitMQ and Solr.
+
+.. _Vagrant: http://vagrantup.com/
+
+
 Requirements
 '''''''''''''
 
