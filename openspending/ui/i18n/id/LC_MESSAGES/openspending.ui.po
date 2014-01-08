@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the openspending project.
 # 
 # Translators:
+# DarisLi <ldinc88@hotmail.com>, 2013
 # demank <sukmabudi@yahoo.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenSpending\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2013-11-20 09:27+0000\n"
-"PO-Revision-Date: 2013-11-20 09:50+0000\n"
-"Last-Translator: tryggvib <tryggvib@fsfi.is>\n"
+"PO-Revision-Date: 2013-12-16 00:00+0000\n"
+"Last-Translator: DarisLi <ldinc88@hotmail.com>\n"
 "Language-Team: Indonesian (http://www.transifex.com/projects/p/openspending/language/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,16 +23,16 @@ msgstr ""
 #: openspending/lib/mailer.py:20
 #, python-format
 msgid "Dear %s,"
-msgstr ""
+msgstr "Dengan hormat %s,"
 
 #: openspending/lib/mailer.py:32
 #, python-format
 msgid "%s <%s>"
-msgstr ""
+msgstr "%s"
 
 #: openspending/lib/mailer.py:48
 msgid "No recipient email address available!"
-msgstr ""
+msgstr "Tidak ada alamat email penerima"
 
 #: openspending/lib/mailer.py:53
 #, python-format
@@ -41,12 +42,12 @@ msgid ""
 "Please click the following link to confirm this request:\n"
 "\n"
 "   %(reset_link)s\n"
-msgstr ""
+msgstr "Anda telah meminta kata sandi Anda pada %(site_title)s dibuat ulang.\n\nMohon klik tautan dibawah untuk konfirmasi permintaan ini:\n\n%(reset_link)s\n"
 
 #: openspending/lib/mailer.py:75
 #: openspending/ui/alttemplates/account/trigger_reset.html:6
 msgid "Reset your password"
-msgstr ""
+msgstr "Buat ulang kata sandi Anda"
 
 #: openspending/ui/alttemplates/_dimension_list.html:8
 msgid "Part of unique key"
