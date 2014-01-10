@@ -45,7 +45,7 @@
         <a href="#" class="btn btn-mini hidden" id="widget-download-link"><i class="icon-download"></i> {% trans %}Data{% endtrans %}</a>
       </div>
       <p>
-		{% if c.member.get('description') and len(c.member.get('description')) %}
+		{% if c.member.get('description') and c.member.get('description')|length %}
           {{h.markdown(c.member.get('description'))}}
         &nbsp;
 		{% endif %}
