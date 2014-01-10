@@ -37,6 +37,12 @@ def load_environment(global_conf, app_conf):
     # set log level in markdown
     markdown.logger.setLevel(logging.WARN)
 
+    # Establish celery loader
+    # This must be done (even if it results in a pyflakes error) because
+    # celery loading is done from openspending.command.celery.__init__.py
+    # Fixing that loading is how you would fix the flakes error
+    from openspending.command import celery
+
     # SQLAlchemy
     engine = engine_from_config(config, 'openspending.db.')
     engine = construct_engine(engine)
