@@ -84,6 +84,9 @@ def update_source(archive_dir, source):
     if os.path.isfile(fname):
         log.info("OK: %s", sizeof_fmt(os.path.getsize(fname)))
 
+def date_handler(obj):
+    return obj.isoformat() if hasattr(obj, 'isoformat') else obj
+
 def update(archive_dir, dataset=None):
     """
     Download all sources into an archive directory. If dataset parameter
@@ -121,7 +124,7 @@ def archive_model(dataset, archive_dir):
 
     # Write the result to a file
     with open(os.path.join(archive_dir, 'model.json'), 'w') as f:
-        print(json.dumps(model, indent=2), file=f)
+        print(json.dumps(model, indent=2, default=date_handler), file=f)
 
 def archive_visualisations(dataset, archive_dir):
     """
@@ -135,7 +138,8 @@ def archive_visualisations(dataset, archive_dir):
 
     # Write the result to a file
     with open(os.path.join(archive_dir, 'visualisations.json'), 'w') as f:
-        print(json.dumps(visualisations, indent=2), file=f)
+        print(json.dumps(visualisations, indent=2, default=date_handler),
+              file=f)
 
 def archive_one(dataset_name, archive_dir):
     """
