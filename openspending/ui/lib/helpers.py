@@ -229,7 +229,8 @@ def format_currency(amount, dataset):
     Wrapper around babel's format_currency which fetches the currency
     from the dataset.
     """
-    return babel.numbers.format_currency(amount, dataset.currency)
+    return babel.numbers.format_currency(amount, dataset.currency,
+                                         u'¤ #,##0.00')
 
 def entry_description(entry):
     fragments = []

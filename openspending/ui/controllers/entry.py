@@ -9,10 +9,14 @@ from openspending.model.common import decode_row
 from openspending.ui.lib.base import BaseController
 from openspending.ui.lib.views import handle_request
 from openspending.ui.lib.hypermedia import entry_apply_links
+from openspending.lib.browser import Browser
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import to_jsonp
 from openspending.ui.lib import helpers as h
 from openspending.ui.alttemplates import templating
+
+from openspending.lib.solr_util import SolrException
+from openspending.lib.paramparser import ParamParser
 
 log = logging.getLogger(__name__)
 
@@ -26,19 +30,38 @@ class EntryController(BaseController):
         # If the format is either json or csv we direct the user to the search
         # API instead
         if format in ['json', 'csv']:
-            return redirect(h.url_for(controller='api/version2', action='search',
-                format=format, dataset=dataset,
-                **request.params))
+            return redirect(h.url_for(controller='api/version2',
+                                      action='search',
+                                      format=format, dataset=dataset,
+                                      **request.params))
 
         # Get the default view
         handle_request(request, c, c.dataset)
 
-        # Create a pager for the entries fro mthe sql query
-        c.page = templating.Page(c.dataset.entry_query(),
-                                 sqlalchemy_session=db.session,
-                                 **request.params)
-        # Decode each row (turn them into a dict)
-        c.entries = [decode_row(entry, c.dataset) for entry in c.page]
+        # Parse the parameters
+        parser = ParamParser(request.params)
+        params, errors = parser.parse()
+
+        # We have to remove page from the parameters because that's also
+        # used in the Solr browser (which fetches the queries)
+        params.pop('page')
+
+        # We limit ourselve to only our dataset
+        params['filter'] = {'dataset': [c.dataset.name]}
+
+        # Create a Solr browser and execute it
+        b = Browser(**params)
+        try:
+            b.execute()
+        except SolrException, e:
+            return {'errors': [unicode(e)]}
+
+        # Get the entries, each item is a tuple of the dataset and entry
+        solr_entries = b.get_entries()
+        entries = [entry for (dataset,entry) in solr_entries]
+
+        # Create a pager for the entries
+        c.entries = templating.Page(entries, **request.params)
 
         # Render the entries page
         return templating.render('entry/index.html')
