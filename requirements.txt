@@ -12,7 +12,7 @@ Pygments==1.5
 Pylons==1.0
 Routes==1.13
 SQLAlchemy==0.7.2
-Sphinx==1.0.7
+Sphinx>=1.2b
 Tempita==0.5.1
 Unidecode==0.04.9
 WebError==0.10.3
