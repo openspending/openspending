@@ -295,33 +295,6 @@ class Dataset(TableHandler, db.Model):
                 first_row = False
                 yield decode_row(row, self)
 
-    def entry_query(self, conditions="1=1", order_by=None, fields=None):
-        """ Generate a fully denormalized view of the entries on this
-        table. This view is nested so that each dimension will be a hash
-        of its attributes.
-
-        This is somewhat similar to the entries collection in the fully
-        denormalized schema before OpenSpending 0.11 (MongoDB).
-        """
-        if not self.is_generated:
-            return
-
-        if fields is None:
-            fields = self.fields
-
-        joins = self.alias
-        for d in self.dimensions:
-            if d in fields:
-                joins = d.join(joins)
-        selects = [f.selectable for f in fields] + [self.alias.c.id]
-
-        # enforce stable sorting:
-        if order_by is None:
-            order_by = [self.alias.c.id.asc()]
-
-        return db.select(selects, conditions, joins, order_by=order_by,
-                         use_labels=True)
-
     def aggregate(self, measures=['amount'], drilldowns=[], cuts=[],
             page=1, pagesize=10000, order=[]):
         """ Query the dataset for a subset of cells based on cuts and
