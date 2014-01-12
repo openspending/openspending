@@ -22,6 +22,7 @@ import os
 import uuid
 import hashlib
 import datetime
+import babel.numbers
 
 def markdown(*args, **kwargs):
     return literal(_markdown(*args, **kwargs))
@@ -222,6 +223,13 @@ def get_uuid_filename(filename):
     uuid_name = uuid.uuid4().get_hex()
     # Split out the extension and append it to the uuid name
     return ''.join([uuid_name, os.path.splitext(filename)[1]])
+
+def format_currency(amount, dataset):
+    """
+    Wrapper around babel's format_currency which fetches the currency
+    from the dataset.
+    """
+    return babel.numbers.format_currency(amount, dataset.currency)
 
 def entry_description(entry):
     fragments = []

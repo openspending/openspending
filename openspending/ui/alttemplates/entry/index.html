@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% from "dataset/_nav.html" import dataset_nav as dataset_nav %}
-
 {% block page_title %}{{c.dataset.label}}{% endblock %}
 
 {% block optional_head %}
@@ -14,27 +13,35 @@
     {{h.script_tag('app/data_table/openspending.data_table')}}
     {{h.script_tag('app/faceter/openspending.faceter')}}
     {{h.script_tag('app/browser/openspending.browser')}}
-    <script>
-      (function () {
-        "use strict";
-
-        var b = new OpenSpending.Browser(
-          document.getElementById('openspending_browser'),
-          "{{c.dataset.name}}"
-        );
-        b.init();
-      }());
-    </script>
 {% endblock %}
 
 {% block content %}
     <!-- templates/entry/index.html -->
     {{dataset_nav(h, c, can, 'search')}}
 
-    <div id="openspending_browser" class="row">
-      <div class="span9 browser_datatable">
-      </div>
-      <div class="span3 browser_faceter">
+    <div class="row">
+      <div class="span9">
+        <div class="form-inline" role="grid">
+          <table class="table table-striped table-condensed" cellspacing="0" cellpadding="0" border="0">
+            <thead>
+              <tr role="row">
+                <th>{% trans %}Time{% endtrans %}</th>
+                <th>{% trans %}Amount{% endtrans %}</th>
+                <th> </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for entry in c.entries %}
+              <tr>
+                <td>{{ entry.time.year }}</td>
+                <td>{{ h.format_currency(entry.amount, c.dataset) }}</td>
+                <td><a href="{{ h.url_for(controller='entry', action='view', dataset=c.dataset.name, id=entry.id) }}">{% trans %}details{% endtrans %}&raquo;</a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {{ c.page.pager() }}
+        </div>
       </div>
     </div>
 

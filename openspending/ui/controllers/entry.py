@@ -4,6 +4,8 @@ from pylons import request, response, tmpl_context as c
 from pylons.controllers.util import abort, redirect
 from pylons.i18n import _
 
+from openspending.model import meta as db
+from openspending.model.common import decode_row
 from openspending.ui.lib.base import BaseController
 from openspending.ui.lib.views import handle_request
 from openspending.ui.lib.hypermedia import entry_apply_links
@@ -18,14 +20,27 @@ log = logging.getLogger(__name__)
 class EntryController(BaseController):
 
     def index(self, dataset, format='html'):
+        # Get the dataset into the context variable 'c'
         self._get_dataset(dataset)
 
+        # If the format is either json or csv we direct the user to the search
+        # API instead
         if format in ['json', 'csv']:
             return redirect(h.url_for(controller='api/version2', action='search',
                 format=format, dataset=dataset,
                 **request.params))
 
+        # Get the default view
         handle_request(request, c, c.dataset)
+
+        # Create a pager for the entries fro mthe sql query
+        c.page = templating.Page(c.dataset.entry_query(),
+                                 sqlalchemy_session=db.session,
+                                 **request.params)
+        # Decode each row (turn them into a dict)
+        c.entries = [decode_row(entry, c.dataset) for entry in c.page]
+
+        # Render the entries page
         return templating.render('entry/index.html')
 
     def view(self, dataset, id, format='html'):
