@@ -16,7 +16,7 @@ from openspending.ui.lib import helpers as h
 from openspending.ui.alttemplates import templating
 
 from openspending.lib.solr_util import SolrException
-from openspending.lib.paramparser import ParamParser
+from openspending.lib.paramparser import EntryIndexParamParser
 
 log = logging.getLogger(__name__)
 
@@ -38,8 +38,8 @@ class EntryController(BaseController):
         # Get the default view
         handle_request(request, c, c.dataset)
 
-        # Parse the parameters
-        parser = ParamParser(request.params)
+        # Parse the parameters using the SearchParamParser (used by the API)
+        parser = EntryIndexParamParser(request.params)
         params, errors = parser.parse()
 
         # We have to remove page from the parameters because that's also
@@ -62,6 +62,8 @@ class EntryController(BaseController):
 
         # Create a pager for the entries
         c.entries = templating.Page(entries, **request.params)
+        # Set the search word and default to empty string
+        c.search = params.get('q', '')
 
         # Render the entries page
         return templating.render('entry/index.html')

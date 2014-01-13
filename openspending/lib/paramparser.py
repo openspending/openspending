@@ -258,6 +258,14 @@ class AggregateParamParser(ParamParser):
 
         return result
 
+class EntryIndexParamParser(ParamParser):
+    """
+    This class extends the ParamParser to parse and provide an empty string
+    default for the q parameter.
+    """
+    defaults = ParamParser.defaults.copy()
+    defaults['q'] = ''
+
 class SearchParamParser(ParamParser):
     defaults = ParamParser.defaults.copy()
     defaults['q'] = ''
