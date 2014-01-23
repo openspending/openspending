@@ -2,6 +2,7 @@ from pylons import config
 from paste.deploy.converters import asbool
 from economics import Inflation
 
+
 class Globals(object):
     """\
     Globals acts as a container for objects available throughout the

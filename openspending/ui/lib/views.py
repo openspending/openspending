@@ -84,7 +84,7 @@ class View(object):
     def full_cuts(self):
         cuts = dict(self.cuts.items())
         if self.dimension.lower() != 'dataset' and \
-           self.entity.lower() != 'dataset':
+                        self.entity.lower() != 'dataset':
             cuts[self.dimension] = self.obj.get('name')
         return cuts
 
@@ -94,7 +94,7 @@ class View(object):
             'drilldown': self.drilldown,
             'cuts': self.full_cuts,
             'year': self.year
-            }
+        }
 
     @property
     def vis_widget(self):
@@ -106,7 +106,7 @@ class View(object):
             'drilldowns': [self.drilldown],
             'cuts': self.full_cuts,
             'year': self.year
-            }
+        }
 
     @property
     def table_widget(self):

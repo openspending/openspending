@@ -4,6 +4,7 @@ import requests
 
 from pylons import app_globals
 
+
 class ContentResource(object):
 
     def __init__(self, section, path, headers=None):
@@ -16,16 +17,16 @@ class ContentResource(object):
         # for spam protection can also be used
         if headers is None:
             # Defaults for the user agent and accept
-            self.headers = {'User-Agent':'OpenSpending in-site browser',
+            self.headers = {'User-Agent': 'OpenSpending in-site browser',
                             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'}
         else:
-            self.headers=headers
+            self.headers = headers
 
     @property
     def url(self):
         root = app_globals.content_root
         if not root.endswith('/'):
-            root = root + '/'
+            root += '/'
         root += self.section + '/'
         return urljoin(root, self.path)
 

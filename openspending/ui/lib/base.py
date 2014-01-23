@@ -27,6 +27,7 @@ ACCEPT_MIMETYPES = {
     "text/csv": "csv"
 }
 
+
 def etag_cache_keygen(*a):
     """
     Generate ETag key for the cache.
@@ -38,6 +39,7 @@ def etag_cache_keygen(*a):
     account_name = request.environ.get('REMOTE_USER', None)
     etag = hashlib.sha1(repr(a)+repr(account_name)).hexdigest()
     etag_cache(etag)
+
 
 def set_vary_header():
     """
@@ -54,6 +56,7 @@ def set_vary_header():
     if not response.etag:
         etag_cache_keygen()
 
+
 class BaseController(WSGIController):
 
     def __call__(self, environ, start_response):
@@ -68,7 +71,7 @@ class BaseController(WSGIController):
             db.session.remove()
             db.session.close()
             log.debug("Request to %s took %sms" % (request.path,
-               int((time() - begin) * 1000)))
+                                                   int((time() - begin) * 1000)))
 
     def __before__(self, action, **params):
         account_name = request.environ.get('REMOTE_USER', None)
@@ -113,8 +116,7 @@ class BaseController(WSGIController):
 
     def _detect_format(self, format):
         for mimetype, mimeformat in self.accept_mimetypes.items():
-            if format == mimeformat or \
-                    mimetype in request.headers.get("Accept", ""):
+            if format == mimeformat or mimetype in request.headers.get("Accept", ""):
                 return mimeformat
         return "html"
 
