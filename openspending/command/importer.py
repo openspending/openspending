@@ -41,6 +41,7 @@ import_parser.add_argument('--raise-on-error', action="store_true",
                            dest='raise_errors', default=False,
                            help='Get full traceback on first error.')
 
+
 def shell_account():
     account = Account.by_name(SHELL_USER)
     if account is not None:
@@ -49,6 +50,7 @@ def shell_account():
     account.name = SHELL_USER
     db.session.add(account)
     return account
+
 
 def _is_local_file(url):
     """
@@ -61,6 +63,7 @@ def _is_local_file(url):
     parsed_result = urlparse.urlparse(url)
     return parsed_result.scheme == ''
 
+
 def json_of_url(url):
     # Check if it's a local file
     if _is_local_file(url):
@@ -69,6 +72,7 @@ def json_of_url(url):
     else:
         # If it isn't we open the url as a file
         return json.load(urllib2.urlopen(url))
+
 
 def create_view(dataset, view_config):
     """
@@ -88,7 +92,7 @@ def create_view(dataset, view_config):
         view.label = view_config['label']
         view.description = view_config['description']
         view.public = view_config['public']
-        
+
         # Set the dataset as the current dataset
         view.dataset = dataset
 
@@ -101,6 +105,7 @@ def create_view(dataset, view_config):
         # Commit view to database
         db.session.add(view)
         db.session.commit()
+
 
 def get_model(model):
     """
@@ -124,6 +129,7 @@ def get_model(model):
     # Return the model
     return model
 
+
 def get_or_create_dataset(model):
     """
     Based on a provided model we get the model (if it doesn't exist we
@@ -143,13 +149,14 @@ def get_or_create_dataset(model):
     log.info("Dataset: %s", dataset.name)
     return dataset
 
+
 def import_csv(dataset, url, args):
     """
     Import the csv data into the dataset
     """
 
-    csv_data_url, source_url = url 
-    source = Source(dataset, shell_account(), 
+    csv_data_url, source_url = url
+    source = Source(dataset, shell_account(),
                     csv_data_url)
     # Analyse the csv data and add it to the source
     # If we don't analyse it we'll be left with a weird message
@@ -161,7 +168,7 @@ def import_csv(dataset, url, args):
             break
     db.session.add(source)
     db.session.commit()
-    
+
     dataset.generate()
     importer = CSVImporter(source)
     importer.run(**vars(args))
@@ -175,6 +182,7 @@ def import_csv(dataset, url, args):
         source.url = source_url
         db.session.commit()
 
+
 def import_views(dataset, views_url):
     """
     Import views into the provided dataset which are defined in a json object
@@ -185,6 +193,7 @@ def import_views(dataset, views_url):
     for view in json_of_url(views_url)['visualisations']:
         create_view(dataset, view)
 
+
 def map_source_urls(model, urls):
     """
     Go through the source urls of the dataset model and map them to the
@@ -193,11 +202,12 @@ def map_source_urls(model, urls):
     """
 
     # Create map from file to model sources
-    source_files = {get_url_filename(s):s 
+    source_files = {get_url_filename(s): s
                     for s in model['dataset'].get('sources', [])}
 
     # Return a map for the representation of csv urls
-    return {u:source_files.get(os.path.basename(u), u) for u in urls}
+    return {u: source_files.get(os.path.basename(u), u) for u in urls}
+
 
 def _csvimport(args):
     """
@@ -220,6 +230,7 @@ def _csvimport(args):
     if args.views:
         import_views(dataset, args.views)
 
+
 def configure_parser(subparser):
     p = subparser.add_parser('csvimport',
                              help='Load a CSV dataset',
@@ -234,7 +245,6 @@ def configure_parser(subparser):
                    default=None, metavar='url/file',
                    help="URL/file of JSON format visualisations.")
     # Load multiple sources via the dataset_urls (all remaining arguments)
-    p.add_argument('dataset_urls', nargs=argparse.REMAINDER, 
+    p.add_argument('dataset_urls', nargs=argparse.REMAINDER,
                    help="Dataset file URL")
     p.set_defaults(func=_csvimport)
-

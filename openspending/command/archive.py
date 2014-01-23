@@ -11,6 +11,7 @@ from openspending.model import Dataset, Source
 
 log = logging.getLogger(__name__)
 
+
 def exit_with_error(message):
     """
     Exit the program after printing out a message to the stderr
@@ -21,23 +22,25 @@ def exit_with_error(message):
     # Exit program
     sys.exit(1)
 
+
 def get_confirmation(message):
     """
     Get a y/n answer from the user (return True/False respectively).
     """
 
     # Get an answer from the user as lowercase
-    answer = raw_input(message+" (y/n) ").lower()
-    
+    answer = raw_input(message + " (y/n) ").lower()
+
     # Return True if user answered yes
     if answer == 'y':
         return True
-    # Return False if user answered no
+        # Return False if user answered no
     if answer == 'n':
         return False
 
     # User answered something else so we ask again
     return get_confirmation(message)
+
 
 def get_url_filename(url):
     """
@@ -51,6 +54,7 @@ def get_url_filename(url):
     return '-'.join([hashlib.sha1(url).hexdigest()[:10],
                      posixpath.basename(url)])
 
+
 def file_name(path, source):
     """
     Return a filename based on the source url located at the relative or 
@@ -62,7 +66,7 @@ def file_name(path, source):
 
 
 def sizeof_fmt(num):
-    for x in ['bytes','KB','MB','GB']:
+    for x in ['bytes', 'KB', 'MB', 'GB']:
         if num < 1024.0:
             return "%3.1f%s" % (num, x)
         num /= 1024.0
@@ -77,15 +81,17 @@ def update_source(archive_dir, source):
     log.info("Fetching %s to %s", source.url, fname)
     if not os.path.isfile(fname):
         try:
-            (fn, headers) = urllib.urlretrieve(source.url, fname_tmp)
+            urllib.urlretrieve(source.url, fname_tmp)
             os.rename(fname_tmp, fname)
         except Exception, e:
             log.exception(e)
     if os.path.isfile(fname):
         log.info("OK: %s", sizeof_fmt(os.path.getsize(fname)))
 
+
 def date_handler(obj):
     return obj.isoformat() if hasattr(obj, 'isoformat') else obj
+
 
 def update(archive_dir, dataset=None):
     """
@@ -105,8 +111,10 @@ def update(archive_dir, dataset=None):
     for source in sources:
         update_source(archive_dir, source)
 
+
 def _update(args):
     return update(args.archive_dir)
+
 
 def archive_model(dataset, archive_dir):
     """
@@ -126,13 +134,14 @@ def archive_model(dataset, archive_dir):
     with open(os.path.join(archive_dir, 'model.json'), 'w') as f:
         print(json.dumps(model, indent=2, default=date_handler), file=f)
 
+
 def archive_visualisations(dataset, archive_dir):
     """
     Archive the visualisations for a dataset and put it into a special
     visualisations.json file in the archive directory
     """
 
-    visualisations = {'visualisations':[v.as_dict() for v in dataset.views]}
+    visualisations = {'visualisations': [v.as_dict() for v in dataset.views]}
     log.info('Creating %s/visualisations.json for %s',
              archive_dir, dataset.name)
 
@@ -140,6 +149,7 @@ def archive_visualisations(dataset, archive_dir):
     with open(os.path.join(archive_dir, 'visualisations.json'), 'w') as f:
         print(json.dumps(visualisations, indent=2, default=date_handler),
               file=f)
+
 
 def archive_one(dataset_name, archive_dir):
     """
@@ -155,10 +165,10 @@ def archive_one(dataset_name, archive_dir):
     # If the archive_dir exists we have to ask the user if we should overwrite
     if os.path.exists(archive_dir):
         # If user doesn't want to write over it we exit 
-        if not get_confirmation("%s exists. Do you want to overwrite?" \
-                                    % archive_dir):
+        if not get_confirmation("%s exists. Do you want to overwrite?"
+                % archive_dir):
             sys.exit(0)
-        # If the archive dir is a file we don't do anything
+            # If the archive dir is a file we don't do anything
         if os.path.isfile(archive_dir):
             exit_with_error("Cannot overwrite a file (need a directory).")
     # If the archive_dir doesn't exist we create it
@@ -175,6 +185,7 @@ def archive_one(dataset_name, archive_dir):
     archive_visualisations(dataset, archive_dir)
     # Download all sources
     update(os.path.join(archive_dir, 'sources'), dataset)
+
 
 def _archive_one(args):
     """
@@ -195,13 +206,14 @@ def _archive_one(args):
     # Archive the dataset
     archive_one(args.dataset, args.output)
 
+
 def configure_parser(subparsers):
     parser = subparsers.add_parser('archive', help='Archival of source data')
     sp = parser.add_subparsers(title='subcommands')
 
     p = sp.add_parser('update',
                       help='Create a source data archive')
-    p.add_argument('archive_dir', help="Archive folder path")    
+    p.add_argument('archive_dir', help="Archive folder path")
     p.set_defaults(func=_update)
 
     # Add a subcommand to archive one specific dataset
