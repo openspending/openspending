@@ -45,7 +45,7 @@ def analyze_csv(url, sample=1000):
                 'label': header.value,
                 'column': header.value,
                 'datatype': type_
-                }
+            }
             if type_ in ['decimal', 'integer', 'float']:
                 meta['type'] = 'measure'
                 meta['datatype'] = 'float'
@@ -55,7 +55,7 @@ def analyze_csv(url, sample=1000):
             else:
                 meta['type'] = 'attribute'
             mapping[name] = meta
-        return {'columns': [h.value for h in headers], \
+        return {'columns': [h.value for h in headers],
                 'mapping': mapping}
     except Exception, e:
         log.exception(e)
