@@ -281,15 +281,12 @@ class APIv2Controller(BaseController):
 
         # Return permissions
         return to_jsonp({
-            "create":
-                can.dataset.create() and dataset is None,
-            "read":
-                False if dataset is None else can.dataset.read(dataset),
-            "update":
-                False if dataset is None else can.dataset.update(dataset),
-            "delete":
-                False if dataset is None else can.dataset.delete(dataset)
+            "create": can.dataset.create() and dataset is None,
+            "read": False if dataset is None else can.dataset.read(dataset),
+            "update": False if dataset is None else can.dataset.update(dataset),
+            "delete": False if dataset is None else can.dataset.delete(dataset)
         })
+
 
 def _expand_facets(facets, dataset):
     dim_names = [d.name for d in dataset.dimensions]

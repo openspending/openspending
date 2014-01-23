@@ -102,7 +102,8 @@ class APIv1Controller(BaseController):
         #TODO: handle statistics as key-values ??? what's the point?
         for k, v in statistics:
             result = statistic_normalize(dataset, result, v, k)
-            # translate to old format: group by drilldown, then by date.
+
+        # translate to old format: group by drilldown, then by date.
         translated_result = defaultdict(dict)
         for cell in result['drilldown']:
             key = tuple([cellget(cell, d) for d in drilldowns])
