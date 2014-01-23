@@ -38,9 +38,9 @@ def valid_widget_name(widget):
 class CreateView(colander.MappingSchema):
     label = colander.SchemaNode(colander.String())
     widget = colander.SchemaNode(colander.String(),
-        validator=colander.Function(valid_widget_name))
+                                 validator=colander.Function(valid_widget_name))
     description = colander.SchemaNode(colander.String(),
-        missing=None)
+                                      missing=None)
     state = colander.SchemaNode(JSONSchemaType())
 
 
@@ -79,9 +79,9 @@ class ViewController(BaseController):
         self._disable_cache()
         handle_request(request, c, c.dataset)
         c.widgets = dict([(n, widgets.get_widget(n)) \
-            for n in widgets.list_widgets()])
+                          for n in widgets.list_widgets()])
         if 'dev_widget' in request.params and \
-            request.params.get('dev_widget') not in widgets.list_widgets():
+                        request.params.get('dev_widget') not in widgets.list_widgets():
             n = request.params.get('dev_widget')
             c.widgets[n] = widgets.get_widget(n, force=True)
         c.errors = errors
@@ -96,7 +96,7 @@ class ViewController(BaseController):
         db.session.delete(c.named_view)
         db.session.commit()
         return redirect(h.url_for(controller='view',
-            action='index', dataset=c.dataset.name))
+                                  action='index', dataset=c.dataset.name))
 
     def create(self, dataset):
         self._get_dataset(dataset)
@@ -116,7 +116,7 @@ class ViewController(BaseController):
             db.session.add(view)
             db.session.commit()
             redirect(h.url_for(controller='view', action='view',
-                dataset=c.dataset.name, name=view.name))
+                               dataset=c.dataset.name, name=view.name))
         except colander.Invalid as inv:
             return self.new(dataset, errors=inv.asdict())
 

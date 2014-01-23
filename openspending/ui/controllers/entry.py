@@ -22,8 +22,8 @@ class EntryController(BaseController):
 
         if format in ['json', 'csv']:
             return redirect(h.url_for(controller='api/version2', action='search',
-                format=format, dataset=dataset,
-                **request.params))
+                                      format=format, dataset=dataset,
+                                      **request.params))
 
         handle_request(request, c, c.dataset)
         return templating.render('entry/index.html')
@@ -44,7 +44,7 @@ class EntryController(BaseController):
         # contain one entry, if not then we return an error
         if not len(entries) == 1:
             abort(404, _('Sorry, there is no entry %r') % id)
-        # Add urls to the dataset and assign assign it as a context variable
+            # Add urls to the dataset and assign assign it as a context variable
         c.entry = entry_apply_links(dataset, entries.pop())
 
         # Get and set some context variables from the entry
@@ -59,7 +59,7 @@ class EntryController(BaseController):
         # Get the amount for the entry
         amount = c.entry.get('amount')
         # We adjust for inflation if the user as asked for this to be inflated
-        if request.params.has_key('inflate'):
+        if 'inflate' in request.params:
             try:
                 # Inflate the amount. Target date is provided in request.params
                 # as value for inflate and reference date is the date of the
@@ -126,4 +126,3 @@ class EntryController(BaseController):
     def search(self):
         c.content_section = 'search'
         return templating.render('entry/search.html')
-

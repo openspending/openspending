@@ -4,6 +4,7 @@ documents.
 """
 from openspending.ui.lib.base import BaseController, abort
 
+
 class ErrorTestController(BaseController):
     def not_found(self):
         abort(404, "Custom 404 error message")
@@ -13,4 +14,3 @@ class ErrorTestController(BaseController):
 
     def server_error(self):
         abort(500, "Custom 500 error message")
-

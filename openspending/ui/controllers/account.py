@@ -116,7 +116,7 @@ class AccountController(BaseController):
                 # Notify if the mailing list subscriptions failed
                 if errors:
                     h.flash_notice(_("Subscription to the following mailing " +
-                            "lists probably failed: %s.") % ', '.join(errors))
+                                     "lists probably failed: %s.") % ', '.join(errors))
 
                 # Registration successful - Redirect to the front page
                 return redirect("/")
@@ -162,10 +162,10 @@ class AccountController(BaseController):
 
                 # Update full name
                 c.account.fullname = data['fullname']
-                
+
                 # Update the script root
                 c.account.script_root = data['script_root']
-                
+
                 # Update email and whether email should be public
                 c.account.email = data['email']
                 c.account.public_email = data['public_email']
@@ -183,7 +183,7 @@ class AccountController(BaseController):
                 # Do the actual update in the database
                 db.session.add(c.account)
                 db.session.commit()
-                
+
                 # Let the user know we've updated successfully
                 h.flash_success(_("Your settings have been updated."))
             except colander.Invalid, i:
@@ -237,7 +237,7 @@ class AccountController(BaseController):
         # If user is not an administrator we abort
         if not (c.account and c.account.admin):
             abort(403, _("You are not authorized to view this page"))
-        
+
         # Assign scores to each dataset based on number of maintainers
         score = db.session.query(Dataset.id,
                                  (10/db.func.count(Account.id)).label('sum'))
@@ -254,7 +254,7 @@ class AccountController(BaseController):
         user_score = user_score.order_by(desc('score'))
 
         # Fetch all and assign to a context variable score and paginate them
-	# We paginate 42 users per page, just because that's an awesome number
+        # We paginate 42 users per page, just because that's an awesome number
         scores = user_score.all()
         c.page = templating.Page(scores, items_per_page=42,
                                  item_count=len(scores),
@@ -272,7 +272,7 @@ class AccountController(BaseController):
         if not c.account:
             response.status = 403
             return to_jsonp({'errors': _("You are not authorized to see that "
-                            "page")})
+                                         "page")})
 
         query = db.session.query(Account)
         filter_string = params.get('q') + '%'
@@ -281,13 +281,13 @@ class AccountController(BaseController):
         count = query.count()
         query = query.limit(params.get('pagesize'))
         query = query.offset(int((params.get('page') - 1) *
-                             params.get('pagesize')))
+                                 params.get('pagesize')))
         results = [dict(fullname=x.fullname, name=x.name) for x in list(query)]
 
         return to_jsonp({
             'results': results,
             'count': count
-            })
+        })
 
     def after_login(self):
         self._disable_cache()
@@ -336,7 +336,7 @@ class AccountController(BaseController):
 
         # Let the user know that email with link has been sent
         h.flash_success(_("You've received an email with a link to reset your "
-            + "password. Please check your inbox."))
+                          + "password. Please check your inbox."))
 
         # Redirect to the login page
         redirect(h.url_for(controller='account', action='login'))
@@ -355,10 +355,10 @@ class AccountController(BaseController):
             redirect(h.url_for(controller='account', action='login'))
         who_api = request.environ['repoze.who.plugins']['auth_tkt']
         headers = who_api.remember(request.environ,
-                {'repoze.who.userid': account.name})
+                                   {'repoze.who.userid': account.name})
         response.headers.extend(headers)
         h.flash_success(_("Thanks! You have now been signed in - please change "
-            + "your password!"))
+                          + "your password!"))
         redirect(h.url_for(controller='account', action='settings'))
 
     def profile(self, name=None):

@@ -16,19 +16,20 @@ log = logging.getLogger(__name__)
 
 __controller__ = 'APIv1Controller'
 
+
 def statistic_normalize(dataset, result, per, statistic):
     drilldowns = []
     values = {}
     for drilldown in result['drilldown']:
         per_value = drilldown.get(per)
         if not per_value in values:
-            entries = list(dataset.entries(dataset.table.c[per]==per_value,
-                    limit=1))
+            entries = list(dataset.entries(dataset.table.c[per] == per_value,
+                                           limit=1))
             if len(entries):
                 values[per_value] = entries[0].get(statistic, 0.0)
             else:
                 values[per_value] = 0.0
-        if values[per_value]: # skip division by zero oppprtunities
+        if values[per_value]:  # skip division by zero oppprtunities
             drilldown['amount'] /= values[per_value]
             drilldowns.append(drilldown)
     result['drilldown'] = drilldowns
@@ -41,12 +42,13 @@ def cellget(cell, key):
         return val.get('name', val.get('id'))
     return val
 
+
 class APIv1Controller(BaseController):
     @jsonpify
     def index(self):
         out = {
             'doc': 'http://openspending.org/help/api.html'
-            }
+        }
         return out
 
     def search(self):
@@ -95,22 +97,22 @@ class APIv1Controller(BaseController):
             elif 'breakdown' == op:
                 drilldowns.append(key)
         cache = AggregationCache(dataset)
-        result = cache.aggregate(drilldowns=drilldowns + ['time'], 
+        result = cache.aggregate(drilldowns=drilldowns + ['time'],
                                  cuts=cuts)
         #TODO: handle statistics as key-values ??? what's the point?
         for k, v in statistics:
             result = statistic_normalize(dataset, result, v, k)
-        # translate to old format: group by drilldown, then by date.
+            # translate to old format: group by drilldown, then by date.
         translated_result = defaultdict(dict)
         for cell in result['drilldown']:
             key = tuple([cellget(cell, d) for d in drilldowns])
             translated_result[key][cell['time']['name']] = \
-                    cell['amount']
+                cell['amount']
         dates = sorted(set([d['time']['name'] for d in \
-                result['drilldown']]))
+                            result['drilldown']]))
         # give a value (or 0) for each present date in sorted order
         translated_result = [(k, [v.get(d, 0.0) for d in dates]) \
-                for k, v in translated_result.items()]
+                             for k, v in translated_result.items()]
         return {'results': translated_result,
                 'metadata': {
                     'dataset': dataset.name,
@@ -119,8 +121,8 @@ class APIv1Controller(BaseController):
                     'axes': drilldowns,
                     'per': statistics,
                     'per_time': []
-                    }
                 }
+        }
 
     @jsonpify
     def mytax(self):

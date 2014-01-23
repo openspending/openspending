@@ -20,7 +20,7 @@ from openspending.ui.lib.base import BaseController, require
 from openspending.ui.lib.base import etag_cache_keygen
 from openspending.ui.lib.cache import AggregationCache
 from openspending.ui.lib.hypermedia import entry_apply_links, \
-        drilldowns_apply_links, dataset_apply_links
+    drilldowns_apply_links, dataset_apply_links
 from openspending.tasks import load_source
 from openspending.validation.model import validate_model
 from colander import Invalid
@@ -28,6 +28,7 @@ from colander import Invalid
 log = logging.getLogger(__name__)
 
 __controller__ = 'APIv2Controller'
+
 
 class APIv2Controller(BaseController):
 
@@ -94,7 +95,7 @@ class APIv2Controller(BaseController):
             # dimensions (linked data).
             if 'drilldown' in result:
                 result['drilldown'] = drilldowns_apply_links(dataset.name,
-                    result['drilldown'])
+                                                             result['drilldown'])
 
             # Do the ETag caching based on the cache_key in the summary
             # this is a weird place to do it since the heavy lifting has
@@ -113,7 +114,7 @@ class APIv2Controller(BaseController):
         # a csv file and return it, if not we return a jsonp result (default)
         if format == 'csv':
             return write_csv(result['drilldown'], response,
-                filename=dataset.name + '.csv')
+                             filename=dataset.name + '.csv')
         return to_jsonp(result)
 
     def search(self):
@@ -192,7 +193,7 @@ class APIv2Controller(BaseController):
 
         if format == 'csv':
             return write_csv(_entries, response,
-                filename='entries.csv')
+                             filename='entries.csv')
 
         if expand_facets and len(datasets) == 1:
             _expand_facets(facets, datasets[0])
@@ -245,7 +246,7 @@ class APIv2Controller(BaseController):
             dataset.managers.append(c.account)
             dataset.private = True #Default value
             db.session.add(dataset)
-        else:    
+        else:
             require.dataset.update(dataset)
 
         log.info("Dataset: %s", dataset.name)
@@ -280,15 +281,15 @@ class APIv2Controller(BaseController):
 
         # Return permissions
         return to_jsonp({
-                "create":\
-                    can.dataset.create() and dataset is None,
-                "read":\
-                    False if dataset is None else can.dataset.read(dataset),
-                "update":\
-                    False if dataset is None else can.dataset.update(dataset),
-                "delete":\
-                    False if dataset is None else can.dataset.delete(dataset)
-                })
+            "create":
+                can.dataset.create() and dataset is None,
+            "read":
+                False if dataset is None else can.dataset.read(dataset),
+            "update":
+                False if dataset is None else can.dataset.update(dataset),
+            "delete":
+                False if dataset is None else can.dataset.delete(dataset)
+        })
 
 def _expand_facets(facets, dataset):
     dim_names = [d.name for d in dataset.dimensions]

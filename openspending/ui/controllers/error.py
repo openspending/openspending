@@ -9,6 +9,7 @@ from webhelpers.html.builder import literal
 from openspending.ui.lib.base import BaseController
 from openspending.ui.alttemplates import templating
 
+
 class ErrorController(BaseController):
 
     """Generates error documents as and when they are required.
