@@ -1,5 +1,6 @@
 from .. import ControllerTestCase, url
 
+
 class TestHomeController(ControllerTestCase):
 
     def test_index(self):

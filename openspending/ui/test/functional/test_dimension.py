@@ -14,7 +14,7 @@ class TestDimensionController(ControllerTestCase):
         self.cra = Dataset.by_name('cra')
         for dimension in self.cra.dimensions:
             if isinstance(dimension, CompoundDimension) and \
-                    dimension.name == 'cofog1':
+                            dimension.name == 'cofog1':
                 members = list(dimension.members(
                     dimension.alias.c.name == '3',
                     limit=1))
@@ -69,7 +69,6 @@ class TestDimensionController(ControllerTestCase):
         obj = json.loads(response.body)['results']
         assert len(obj) == 1, obj
         assert obj[0]['label'].startswith(q), obj[0]
-
 
     def test_view_csv(self):
         h.skip("CSV dimension view not yet implemented!")

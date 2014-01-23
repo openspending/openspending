@@ -1,6 +1,7 @@
 from openspending.model import Dataset
 from .. import ControllerTestCase, url, helpers as h
 
+
 class TestRestController(ControllerTestCase):
 
     def setup(self):

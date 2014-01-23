@@ -72,9 +72,9 @@ class TestDatasetController(ControllerTestCase):
         cra.private = True
         db.session.commit()
         response = self.app.get(url(controller='dataset', action='view',
-            dataset='cra'), status=403)
+                                    dataset='cra'), status=403)
         h.assert_false('Country Regional Analysis v2009' in response,
-                      "'Country Regional Analysis v2009' not in response!")
+                       "'Country Regional Analysis v2009' not in response!")
         h.assert_false('openspending_browser' in response, "'openspending_browser' not in response!")
 
     def test_about_has_format_links(self):
@@ -82,7 +82,7 @@ class TestDatasetController(ControllerTestCase):
         response = self.app.get(url_)
 
         url_ = url(controller='dataset', action='model', dataset='cra',
-           format='json')
+                   format='json')
 
         h.assert_true(url_ in response,
                       "Link to view page (JSON format) not in response!")
@@ -92,12 +92,11 @@ class TestDatasetController(ControllerTestCase):
         db.session.add(self.dataset)
         db.session.commit()
         response = self.app.get(url(controller='dataset', action='about',
-                                dataset='cra'))
+                                    dataset='cra'))
         profile_url = url(controller='account', action='profile',
                           name=self.user.name)
         assert('<li><a href="{url}">{fullname}</a></li>'.format(
-                url=profile_url, fullname=self.user.fullname) \
-                   in response.body)
+            url=profile_url, fullname=self.user.fullname) in response.body)
 
     def test_about_has_timestamps(self):
         """
@@ -159,12 +158,12 @@ class TestDatasetController(ControllerTestCase):
 
     def test_new_form(self):
         response = self.app.get(url(controller='dataset', action='new'),
-            params={'limit': '20'}, extra_environ={'REMOTE_USER': 'test'})
+                                params={'limit': '20'}, extra_environ={'REMOTE_USER': 'test'})
         assert "Import a dataset" in response.body
 
     def test_create_dataset(self):
         response = self.app.post(url(controller='dataset', action='create'),
-            extra_environ={'REMOTE_USER': 'test'})
+                                 extra_environ={'REMOTE_USER': 'test'})
         assert "Import a dataset" in response.body
         assert "Required" in response.body
 
@@ -173,7 +172,7 @@ class TestDatasetController(ControllerTestCase):
                   'currency': 'EUR'}
 
         response = self.app.post(url(controller='dataset', action='create'),
-                params=params, extra_environ={'REMOTE_USER': 'test'})
+                                 params=params, extra_environ={'REMOTE_USER': 'test'})
         assert "302" in response.status
 
         ds = Dataset.by_name('testds')
@@ -226,12 +225,12 @@ class TestDatasetController(ControllerTestCase):
         db.session.add(admin_user)
         db.session.commit()
         response = self.app.get(url(controller='dataset', action='feed_rss'),
-            extra_environ={'REMOTE_USER': 'admin'})
+                                extra_environ={'REMOTE_USER': 'admin'})
         assert '<title>Recently Created Datasets</title>' in response
         assert '<item><title>Country Regional Analysis v2009' in response
         assert 'application/xml' in response.content_type
 
         response = self.app.get(url(controller='dataset', action='index'))
         assert ('<link rel="alternate" type="application/rss+xml" title="'
-            'Latest Datasets on OpenSpending" href="/datasets.rss"' in
-            response)
+                'Latest Datasets on OpenSpending" href="/datasets.rss"' in
+                response)

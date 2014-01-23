@@ -2,11 +2,12 @@ from openspending.lib import json
 
 from .. import ControllerTestCase, url, helpers as h
 
+
 class TestApiController(ControllerTestCase):
     def setup(self):
         super(TestApiController, self).setup()
         h.load_fixture('cra')
-    
+
     def test_aggregate(self):
         response = self.app.get(url(controller='api/version1',
                                     action='aggregate',
@@ -31,10 +32,10 @@ class TestApiController(ControllerTestCase):
         # Copied from test_aggregate_with_breakdown.
         callback = randomjsonpcallback()
         u = url(controller='api/version1',
-            callback=callback, action='aggregate', **{
-            'dataset': 'cra',
-            'breakdown-region': 'yes',
-        })
+                callback=callback, action='aggregate', **{
+                'dataset': 'cra',
+                'breakdown-region': 'yes',
+                })
         response = self.app.get(u)
         assert '"region"' in response, response
         assert '"ENGLAND_London"' in response, response
@@ -62,7 +63,7 @@ class TestApiController(ControllerTestCase):
         # Copied from test_mytax.
         callback = randomjsonpcallback()
         u = url(controller='api/version1', action='mytax', income=20000,
-          callback=callback)
+                callback=callback)
         response = self.app.get(u)
         assert '"tax": ' in response, response
         assert '"explanation": ' in response, response
@@ -76,7 +77,7 @@ def randomjsonpcallback(prefix='cb'):
     import random
     import string
     return prefix + ''.join(random.choice(string.letters) for
-      _ in range(6))
+                            _ in range(6))
 
 
 def valid_jsonp(response, callback):
@@ -88,6 +89,7 @@ def valid_jsonp(response, callback):
         ((callback + '(') in response, response) and
         (str(response)[-2:] == ');' or str(response)[-1] == ')')
     )
+
 
 class TestApiSearch(ControllerTestCase):
 
@@ -123,7 +125,3 @@ class TestApiSearch(ControllerTestCase):
         response = self.app.get(url(controller='api/version1', action='search',
                                     q='time:'), expect_errors=True)
         assert "400" in response.status, response.status
-
-
-
-    

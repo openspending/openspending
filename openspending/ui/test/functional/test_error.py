@@ -1,5 +1,6 @@
 from .. import ControllerTestCase, url
 
+
 class TestErrorController(ControllerTestCase):
 
     def test_403(self):
@@ -30,7 +31,6 @@ class TestErrorController(ControllerTestCase):
         assert "Custom 404 error message" in response, \
             "Custom error message was not passed through to 404 error page."
 
-
     def test_500(self):
         # NB: This test will fail if the tests are run in debug mode. Add the
         # following line to your test.ini under [app:main]:
@@ -49,4 +49,3 @@ class TestErrorController(ControllerTestCase):
 
         assert "Custom 500 error message" in response, \
             "Custom error message was not passed through to 500 error page."
-
