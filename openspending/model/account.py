@@ -7,16 +7,18 @@ from openspending.model.dataset import Dataset
 
 REGISTER_NAME_RE = r"^[a-zA-Z0-9_\-]{3,255}$"
 
+
 def make_uuid():
     return unicode(uuid.uuid4())
 
 
-account_dataset_table = db.Table('account_dataset', db.metadata,
-        db.Column('dataset_id', db.Integer, db.ForeignKey('dataset.id'),
-            primary_key=True),
-        db.Column('account_id', db.Integer, db.ForeignKey('account.id'),
-            primary_key=True)
-    )
+account_dataset_table = db.Table(
+    'account_dataset', db.metadata,
+    db.Column('dataset_id', db.Integer, db.ForeignKey('dataset.id'),
+              primary_key=True),
+    db.Column('account_id', db.Integer, db.ForeignKey('account.id'),
+              primary_key=True)
+)
 
 
 class Account(db.Model):
@@ -36,8 +38,8 @@ class Account(db.Model):
     terms = db.Column(db.Boolean, default=False)
 
     datasets = db.relationship(Dataset,
-            secondary=account_dataset_table,
-            backref=db.backref('managers', lazy='dynamic'))
+                               secondary=account_dataset_table,
+                               backref=db.backref('managers', lazy='dynamic'))
 
     def __init__(self):
         pass
@@ -77,7 +79,7 @@ class Account(db.Model):
             'fullname': self.fullname,
             'email': self.email,
             'admin': self.admin
-            }
+        }
 
         # If the user has a twitter handle we add it
         if self.twitter_handle is not None:
@@ -101,9 +103,9 @@ class AccountRegister(colander.MappingSchema):
                                     validator=colander.Length(min=4))
     terms = colander.SchemaNode(colander.Bool())
     subscribe_community = colander.SchemaNode(colander.Boolean(),
-            missing=False)
+                                              missing=False)
     subscribe_developer = colander.SchemaNode(colander.Boolean(),
-            missing=False)
+                                              missing=False)
 
 
 class AccountSettings(colander.MappingSchema):
@@ -115,8 +117,8 @@ class AccountSettings(colander.MappingSchema):
                                   validator=colander.Length(max=140))
     public_twitter = colander.SchemaNode(colander.Boolean(), missing=False)
     password1 = colander.SchemaNode(colander.String(),
-                                missing=None, default=None)
+                                    missing=None, default=None)
     password2 = colander.SchemaNode(colander.String(),
-                                missing=None, default=None)
+                                    missing=None, default=None)
     script_root = colander.SchemaNode(colander.String(),
-                                missing=None, default=None)
+                                      missing=None, default=None)

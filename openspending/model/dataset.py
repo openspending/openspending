@@ -17,9 +17,9 @@ from openspending.model import meta as db
 from openspending.lib.util import hash_values
 
 from openspending.model.common import TableHandler, JSONType, \
-        decode_row
+    decode_row
 from openspending.model.dimension import CompoundDimension, \
-        AttributeDimension, DateDimension
+    AttributeDimension, DateDimension
 from openspending.model.dimension import Measure
 
 log = logging.getLogger(__name__)
@@ -100,7 +100,7 @@ class Dataset(TableHandler, db.Model):
                 self.measures.append(Measure(self, dim, data))
                 continue
             elif data.get('type') == 'date' or \
-                (dim == 'time' and data.get('datatype') == 'date'):
+                    (dim == 'time' and data.get('datatype') == 'date'):
                 dimension = DateDimension(self, dim, data)
             elif data.get('type') in ['value', 'attribute']:
                 dimension = AttributeDimension(self, dim, data)
@@ -133,7 +133,7 @@ class Dataset(TableHandler, db.Model):
     def compounds(self):
         """ Return only compound dimensions. """
         return filter(lambda d: isinstance(d, CompoundDimension),
-                self.dimensions)
+                      self.dimensions)
 
     @property
     def facet_dimensions(self):
@@ -249,7 +249,7 @@ class Dataset(TableHandler, db.Model):
         return self.alias.c[dimension.column.name]
 
     def entries(self, conditions="1=1", order_by=None, limit=None,
-            offset=0, step=10000, fields=None):
+                offset=0, step=10000, fields=None):
         """ Generate a fully denormalized view of the entries on this
         table. This view is nested so that each dimension will be a hash
         of its attributes.
@@ -296,7 +296,7 @@ class Dataset(TableHandler, db.Model):
                 yield decode_row(row, self)
 
     def aggregate(self, measures=['amount'], drilldowns=[], cuts=[],
-            page=1, pagesize=10000, order=[]):
+                  page=1, pagesize=10000, order=[]):
         """ Query the dataset for a subset of cells based on cuts and
         drilldowns. It returns a structure with a list of drilldown items
         and a summary about the slice cutted by the query.
@@ -380,7 +380,7 @@ class Dataset(TableHandler, db.Model):
             # If the dimension is year or month we're interested in 'time'
             if dimension in labels:
                 dimension = 'time'
-            # If the dimension table isn't in the automatic joins we add it
+                # If the dimension table isn't in the automatic joins we add it
             if dimension not in [c.table.name for c in joins.columns]:
                 joins = dataset[dimension].join(joins)
 
@@ -420,7 +420,7 @@ class Dataset(TableHandler, db.Model):
                 column = labels[key]
             else:
                 column = dataset.key(key)
-            # We add the value to the set for that particular column
+                # We add the value to the set for that particular column
             filters[column].add(value)
 
         # Loop over the columns in the filter and add that to the conditions
@@ -448,7 +448,7 @@ class Dataset(TableHandler, db.Model):
             # ...if not we just get the column from the dataset
             else:
                 column = dataset.key(key)
-            # We append the column and set the direction (True == descending)
+                # We append the column and set the direction (True == descending)
             order_by.append(column.desc() if direction else column.asc())
 
         # query 1: get overall sums.
@@ -501,13 +501,13 @@ class Dataset(TableHandler, db.Model):
         # for backwards compatibility
         summary = {key: value for (key,value) in total}
         summary.update({
-                'num_entries': num_entries,
-                'currency': {m: dataset.currency for m in measures},
-                'num_drilldowns': num_drilldowns,
-                'page': page,
-                'pages': int(math.ceil(num_drilldowns / float(pagesize))),
-                'pagesize': pagesize
-                })
+            'num_entries': num_entries,
+            'currency': {m: dataset.currency for m in measures},
+            'num_drilldowns': num_drilldowns,
+            'page': page,
+            'pages': int(math.ceil(num_drilldowns / float(pagesize))),
+            'pagesize': pagesize
+        })
 
         return { 'drilldown': drilldown, 'summary': summary }
 
@@ -530,7 +530,7 @@ class Dataset(TableHandler, db.Model):
 
     def __repr__(self):
         return "<Dataset(%s:%s:%s)>" % (self.name, self.dimensions,
-                self.measures)
+                                        self.measures)
 
     def __len__(self):
         if not self.is_generated:
@@ -552,11 +552,11 @@ class Dataset(TableHandler, db.Model):
             'timestamps': {
                 'created': self.created_at,
                 'last_modified': self.updated_at
-                },
+            },
             'languages': list(self.languages),
             'territories': list(self.territories),
             'badges': [b.as_dict(short=True) for b in self.badges]
-            }
+        }
 
     @classmethod
     def all_by_account(cls, account):
@@ -572,4 +572,3 @@ class Dataset(TableHandler, db.Model):
     @classmethod
     def by_name(cls, name):
         return db.session.query(cls).filter_by(name=name).first()
-

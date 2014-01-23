@@ -23,6 +23,7 @@ session = None
 # names, you'll need a metadata for each database
 metadata = MetaData()
 
+
 class Model(object):
     """Baseclass for custom user models."""
 
@@ -30,5 +31,4 @@ class Model(object):
     query = None
 
 Model = declarative_base(cls=Model, name='Model',
-            metadata=metadata)
-
+                         metadata=metadata)
