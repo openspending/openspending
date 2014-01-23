@@ -24,15 +24,18 @@ def default_json(obj):
         return obj.as_dict()
     raise TypeError("%r is not JSON serializable" % obj)
 
+
 def write_json(entries, response, filename=None):
     response.content_type = 'application/json'
     if filename:
         response.content_disposition = 'attachment; filename=%s' % filename
     return generate_json(entries)
 
+
 def generate_json(entries):
     for e in entries:
         yield to_json(e, indent=None) + '\n'
+
 
 def write_browser_json(entries, stats, facets, response):
     """ Streaming support for large result sets, specific to the browser as
@@ -44,10 +47,11 @@ def write_browser_json(entries, stats, facets, response):
         callback = str(request.params['callback'])
     return generate_browser_json(entries, stats, facets, callback)
 
+
 def generate_browser_json(entries, stats, facets, callback):
     yield callback + '({' if callback else '{'
     yield '"stats": %s, "facets": %s, "results": [' % (
-            to_json(stats), to_json(facets))
+        to_json(stats), to_json(facets))
     iter = entries.__iter__()
     has_next, first = True, True
     while has_next:
@@ -61,6 +65,7 @@ def generate_browser_json(entries, stats, facets, callback):
             yield to_json(row)
         first = False
     yield ']})' if callback else ']}'
+
 
 def to_json(data, indent=2):
     return json.dumps(data, default=default_json, indent=indent)

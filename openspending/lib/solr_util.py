@@ -7,7 +7,7 @@ import logging
 import json
 from unicodedata import category
 
-from solr import SolrConnection, SolrException
+from solr import SolrConnection
 
 from openspending import model
 from openspending.lib.util import flatten
@@ -137,6 +137,7 @@ def build_all_index():
         log.info("Indexing: %s (%s entries)", dataset.name, count)
         drop_index(dataset.name)
         build_index(dataset.name)
+
 
 def _safe_unicode(s):
     if not isinstance(s, basestring):

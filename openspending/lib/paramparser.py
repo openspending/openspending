@@ -97,6 +97,7 @@ class ParamParser(object):
             return True
         return False
 
+
 class DatasetIndexParamParser(ParamParser):
     """
     Parameter parser for the dataset index page (which is served
@@ -128,8 +129,8 @@ class DatasetIndexParamParser(ParamParser):
         does not support that.
         """
         # We force the language codes to lowercase and strip whitespace
-        languages = [l.lower().strip() \
-                         for l in self.request_params.getall('languages')]
+        languages = [l.lower().strip()
+                     for l in self.request_params.getall('languages')]
         # Check if this language is supported by OpenSpending
         # If not we add an error
         for lang in languages:
@@ -147,8 +148,8 @@ class DatasetIndexParamParser(ParamParser):
         # We force the territory codes to uppercase and strip whitespace
         # Isn't it great that we're so consistent with uppercase and lowercase
         # (uppercase here, lowercase in languages and categories)
-        territories = [t.upper().strip() \
-                           for t in self.request_params.getall('territories')]
+        territories = [t.upper().strip()
+                       for t in self.request_params.getall('territories')]
 
         # Check if this territory is supported by OpenSpending
         # If not we add an error
@@ -174,6 +175,7 @@ class DatasetIndexParamParser(ParamParser):
 
         # We return None if there's an error of no category
         return None
+
 
 class AggregateParamParser(ParamParser):
     defaults = ParamParser.defaults.copy()
@@ -257,6 +259,7 @@ class AggregateParamParser(ParamParser):
             result.append(measure)
 
         return result
+
 
 class SearchParamParser(ParamParser):
     defaults = ParamParser.defaults.copy()
@@ -346,10 +349,6 @@ class DistinctParamParser(ParamParser):
     defaults['q'] = ''
     defaults['page'] = 1
     defaults['pagesize'] = 100
-
-    def __init__(self, params):
-        self.params = self.defaults.copy()
-        self.params.update(params)
 
     def parse_pagesize(self, pagesize):
         return min(100, self._to_int('pagesize', pagesize))

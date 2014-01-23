@@ -2,6 +2,7 @@ import re
 from hashlib import sha1
 from unidecode import unidecode
 
+
 def flatten(data, sep='.'):
     out = {}
     for k, v in data.items():
@@ -13,15 +14,17 @@ def flatten(data, sep='.'):
             out[k] = v
     return out
 
+
 def hash_values(iterable):
     """Return a cryptographic hash of an iterable."""
-    return sha1(''.join(sha1(unicode(val).encode('utf-8')).hexdigest() \
-            for val in iterable)).hexdigest()
+    return sha1(''.join(sha1(unicode(val).encode('utf-8')).hexdigest()
+                        for val in iterable)).hexdigest()
+
 
 def check_rest_suffix(name):
     '''\
     Assert that the ``name`` does not end with a string like
-    '.csv', '.json'. Read the source for a list of all recogniced
+    '.csv', '.json'. Read the source for a list of all recognized
     extensions.
     '''
     for sfx in ['csv', 'json', 'xml', 'rdf', 'html', 'htm', 'n3', 'nt']:
@@ -30,6 +33,7 @@ def check_rest_suffix(name):
 
 
 SLUG_RE = re.compile(r'[\t !"#$%&\'()*\-/<=>?@\[\\\]^_`{|},.]+')
+
 
 def slugify(text, delimiter='-'):
     '''\
@@ -73,4 +77,3 @@ def sort_by_reference(ref, sort, sort_fn=None):
             ordered[ref_map[key]] = x
 
     return filter(lambda x: x is not None, ordered)
-
