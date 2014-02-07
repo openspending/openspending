@@ -34,7 +34,7 @@ def get_confirmation(message):
     # Return True if user answered yes
     if answer == 'y':
         return True
-        # Return False if user answered no
+    # Return False if user answered no
     if answer == 'n':
         return False
 
@@ -168,7 +168,7 @@ def archive_one(dataset_name, archive_dir):
         if not get_confirmation("%s exists. Do you want to overwrite?"
                 % archive_dir):
             sys.exit(0)
-            # If the archive dir is a file we don't do anything
+        # If the archive dir is a file we don't do anything
         if os.path.isfile(archive_dir):
             exit_with_error("Cannot overwrite a file (need a directory).")
     # If the archive_dir doesn't exist we create it

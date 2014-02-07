@@ -44,7 +44,7 @@ class EntryController(BaseController):
         # contain one entry, if not then we return an error
         if not len(entries) == 1:
             abort(404, _('Sorry, there is no entry %r') % id)
-            # Add urls to the dataset and assign assign it as a context variable
+        # Add urls to the dataset and assign assign it as a context variable
         c.entry = entry_apply_links(dataset, entries.pop())
 
         # Get and set some context variables from the entry
