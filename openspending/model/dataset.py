@@ -420,7 +420,7 @@ class Dataset(TableHandler, db.Model):
                 column = labels[key]
             else:
                 column = dataset.key(key)
-                # We add the value to the set for that particular column
+            # We add the value to the set for that particular column
             filters[column].add(value)
 
         # Loop over the columns in the filter and add that to the conditions
@@ -448,7 +448,7 @@ class Dataset(TableHandler, db.Model):
             # ...if not we just get the column from the dataset
             else:
                 column = dataset.key(key)
-                # We append the column and set the direction (True == descending)
+            # We append the column and set the direction (True == descending)
             order_by.append(column.desc() if direction else column.asc())
 
         # query 1: get overall sums.
