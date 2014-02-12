@@ -40,16 +40,17 @@ class EntryController(BaseController):
         # Parse the parameters using the SearchParamParser (used by the API)
         parser = EntryIndexParamParser(request.params)
         params, errors = parser.parse()
-
+        
         # We have to remove page from the parameters because that's also
         # used in the Solr browser (which fetches the queries)
         params.pop('page')
 
         # We limit ourselve to only our dataset
-        params['filter'] = {'dataset': [c.dataset.name]}
-        facet_dimensions = [field for field in c.dataset.dimensions \
-                                if field.facet]
-        params['facet_field'] = [field.name for field in facet_dimensions]
+        params['filter']['dataset'] = [c.dataset.name]
+        facet_dimensions = {field.name:field\
+                                for field in c.dataset.dimensions \
+                                if field.facet}
+        params['facet_field'] = facet_dimensions.keys()
 
         # Create a Solr browser and execute it
         b = Browser(**params)
@@ -62,7 +63,7 @@ class EntryController(BaseController):
         solr_entries = b.get_entries()
         entries = [entry for (dataset,entry) in solr_entries]
 
-        # Get expanded facets for this dataset
+        # Get expanded facets for this dataset, 
         c.facets = b.get_expanded_facets(c.dataset)
 
         # Create a pager for the entries
@@ -70,6 +71,13 @@ class EntryController(BaseController):
 
         # Set the search word and default to empty string
         c.search = params.get('q', '')
+
+        # Set filters (but remove the dataset as we don't need it)
+        c.filters = params['filter']
+        del c.filters['dataset']
+
+        # We also make the facet dimensions available to the template
+        c.facet_dimensions = facet_dimensions
 
         # Render the entries page
         return templating.render('entry/index.html')

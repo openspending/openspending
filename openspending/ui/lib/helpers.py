@@ -232,6 +232,26 @@ def format_currency(amount, dataset):
     return babel.numbers.format_currency(amount, dataset.currency,
                                          u'¤ #,##0.00')
 
+def join_filters(filters, append=[], remove=[]):
+    """
+    Join filters which are used to filter Solr entries according to
+    the OpenSpending convention. The conventions is that each key/value
+    pair is joined with a colon : and the filters are joined with a
+    pipe | so the output should be key1:value1|key2:value2
+
+    The function allows users to append more values from a list to
+    the output and remove values in a list from the output
+    """
+
+    # Join filter dictionary but skip pairs in remove
+    filter_values = [':'.join(pair) for pair in filters.iteritems()\
+                         if pair not in remove]
+    # Extend the filters with pairs from append
+    filter_values.extend([':'.join(pair) for pair in append])
+    # Return the joined filters
+    return '|'.join(filter_values)
+    
+
 def entry_description(entry):
     fragments = []
     if 'from' in entry and 'to' in entry:

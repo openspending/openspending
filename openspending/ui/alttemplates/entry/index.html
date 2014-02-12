@@ -22,7 +22,7 @@
     <div class="row">
       <div class="span9">
         <div role="grid">
-          <form class="form-horizontal" action="" method="post">
+          <form class="form-horizontal" action="" method="get">
             <input type="text" name="q" class="span9" placeholder="Search..." value="{{ c.search }}">
           </form>
           <hr/>
@@ -49,13 +49,24 @@
       </div>
       <div class="span3">
         {% for facet, values in c.facets.iteritems() %}
-        <h4>{{ facet }}</h4>
+        <h4>{{ c.facet_dimensions[facet].label }}</h4>
         <table class="table table-condensed facets">
           <tbody>
             {% for item, count in values %}
             <tr>
               <td class="count num" width="5%">{{ count }}</td>
-              <td><a href="#">{{ item.label }}</a>
+              <td>
+                {% if facet not in c.filters %}
+                {% set filters = h.join_filters(c.filters, append=[(facet,item.name)]) %}
+                {% else %}
+                {% set filters = h.join_filters(c.filters, remove=[(facet,item.name)]) %}
+                {% endif %}
+                {% if filters %}
+                <a href="{{ h.url_for(controller='entry', action='index', dataset=c.dataset.name, filter=filters) }}">{{ item.label }}</a>
+                {% else %}
+                <a href="{{ h.url_for(controller='entry', action='index', dataset=c.dataset.name) }}">{{ item.label }}</a>
+                {% endif %}
+              </td>
             </tr>
             {% endfor %}
             </tbody>

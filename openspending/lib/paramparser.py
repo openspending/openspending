@@ -265,8 +265,28 @@ class EntryIndexParamParser(ParamParser):
     """
     defaults = ParamParser.defaults.copy()
     defaults['q'] = ''
+    defaults['filter'] = None
     defaults['facet_page'] = 1
     defaults['facet_pagesize'] = 100
+
+    def parse_filter(self, filters):
+        if not filters:
+            return {}
+
+        parsed_filters = {}
+        
+        for _filter in filters.split('|'):
+            try:
+                key, value = _filter.split(':')
+                parsed_filters[key] = value
+            except ValueError:
+                self._error('Wrong format for "filter". It has to be '
+                            'specified with request parameters in the form '
+                            '"filter=key1:value1". '
+                            'We got: "filter=%s"' % filter)
+                break
+
+        return parsed_filters
 
 class SearchParamParser(ParamParser):
     defaults = ParamParser.defaults.copy()
