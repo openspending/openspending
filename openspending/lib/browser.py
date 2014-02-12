@@ -60,6 +60,20 @@ class Browser(object):
     def get_facets(self):
         return self.facets
 
+    def get_expanded_facets(self, dataset):
+        facets = {}
+        dim_names = [d.name for d in dataset.dimensions]
+        for name in self.facets.keys():
+            if name in dim_names and dataset[name].is_compound:
+                dim = dataset[name]
+                member_names = [x[0] for x in self.facets[name]]
+                facet_values = [x[1] for x in self.facets[name]]
+                members = dim.members(dim.alias.c.name.in_(member_names))
+                members = util.sort_by_reference(member_names, members,
+                                                 lambda x: x['name'])
+                facets[name] = zip(members, facet_values)
+        return facets
+
     def get_entries(self):
         return self.entries
 

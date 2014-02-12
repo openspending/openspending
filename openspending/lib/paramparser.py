@@ -265,6 +265,8 @@ class EntryIndexParamParser(ParamParser):
     """
     defaults = ParamParser.defaults.copy()
     defaults['q'] = ''
+    defaults['facet_page'] = 1
+    defaults['facet_pagesize'] = 100
 
 class SearchParamParser(ParamParser):
     defaults = ParamParser.defaults.copy()

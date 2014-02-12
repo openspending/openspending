@@ -14,7 +14,6 @@ from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import to_jsonp
 from openspending.ui.lib import helpers as h
 from openspending.ui.alttemplates import templating
-
 from openspending.lib.solr_util import SolrException
 from openspending.lib.paramparser import EntryIndexParamParser
 
@@ -48,6 +47,9 @@ class EntryController(BaseController):
 
         # We limit ourselve to only our dataset
         params['filter'] = {'dataset': [c.dataset.name]}
+        facet_dimensions = [field for field in c.dataset.dimensions \
+                                if field.facet]
+        params['facet_field'] = [field.name for field in facet_dimensions]
 
         # Create a Solr browser and execute it
         b = Browser(**params)
@@ -60,8 +62,12 @@ class EntryController(BaseController):
         solr_entries = b.get_entries()
         entries = [entry for (dataset,entry) in solr_entries]
 
+        # Get expanded facets for this dataset
+        c.facets = b.get_expanded_facets(c.dataset)
+
         # Create a pager for the entries
         c.entries = templating.Page(entries, **request.params)
+
         # Set the search word and default to empty string
         c.search = params.get('q', '')
 

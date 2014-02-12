@@ -24,7 +24,6 @@
         <div role="grid">
           <form class="form-horizontal" action="" method="post">
             <input type="text" name="q" class="span9" placeholder="Search..." value="{{ c.search }}">
-            </div>
           </form>
           <hr/>
           <table class="table table-striped table-condensed" cellspacing="0" cellpadding="0" border="0">
@@ -48,8 +47,22 @@
           {{ c.entries.pager() }}
         </div>
       </div>
+      <div class="span3">
+        {% for facet, values in c.facets.iteritems() %}
+        <h4>{{ facet }}</h4>
+        <table class="table table-condensed facets">
+          <tbody>
+            {% for item, count in values %}
+            <tr>
+              <td class="count num" width="5%">{{ count }}</td>
+              <td><a href="#">{{ item.label }}</a>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endfor %}
+      </div>
     </div>
-
     {% if c.timerange %}
     <div class="row">
       <div class="span4">
