@@ -30,9 +30,16 @@
             <thead>
               <tr role="row">
                 <th>{% trans %}Time{% endtrans %}</th>
+                {% if 'from' in c.dimensions %}
+                <th>{% trans %}From{% endtrans %}</th>
+                {% if 'to' in c.dimensions %}
+                <th>{% trans %}To{% endtrans %}</th>
+                {% endif %}
+                {% else %}
                 {% for name,dimension in c.facet_dimensions.iteritems() %}
                 <th>{{ dimension.label }}</th>
                 {% endfor %}
+                {% endif %}
                 <th>{% trans %}Amount{% endtrans %}</th>
                 <th> </th>
               </tr>
@@ -41,9 +48,16 @@
               {% for entry in c.entries %}
               <tr>
                 <td>{{ entry.time.year }}</td>
+                {% if 'from' in c.dimensions %}
+                <td>{{ entry.from.label }}</td>
+                {% if 'to' in c.dimensions %}
+                <td>{{ entry.to.label }}</td>
+                {% endif %}
+                {% else %}
                 {% for name,dimension in c.facet_dimensions.iteritems() %}
                 <td>{{ entry[dimension.name].label }}</td>
                 {% endfor %}
+                {% endif %}
                 <td>{{ h.format_currency(entry.amount, c.dataset) }}</td>
                 <td><a href="{{ h.url_for(controller='entry', action='view', dataset=c.dataset.name, id=entry.id) }}">{% trans %}details{% endtrans %}&raquo;</a></td>
               </tr>

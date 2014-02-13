@@ -76,8 +76,9 @@ class EntryController(BaseController):
         c.filters = params['filter']
         del c.filters['dataset']
 
-        # We also make the facet dimensions available to the template
+        # We also make the facet dimensions and dimension names available
         c.facet_dimensions = facet_dimensions
+        c.dimensions = [dimension.name for dimension in c.dataset.dimensions]
 
         # Render the entries page
         return templating.render('entry/index.html')
