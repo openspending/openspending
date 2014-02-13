@@ -171,7 +171,8 @@ class APIv2Controller(BaseController):
                     datasets,
                     params,
                     pagesize=parser.defaults['pagesize'],
-                    expand_facets=_expand_facets if expand_facets else None,
+                    expand_facets=util.expand_facets \
+                        if expand_facets else None,
                     callback=request.params.get('callback')
                 )
                 return streamer.response()
@@ -289,4 +290,3 @@ class APIv2Controller(BaseController):
                 "delete":\
                     False if dataset is None else can.dataset.delete(dataset)
                 })
-

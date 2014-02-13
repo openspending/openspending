@@ -63,9 +63,9 @@
               <td class="count num" width="5%">{{ count }}</td>
               <td>
                 {% if facet not in c.filters %}
-                {% set filters = h.join_filters(c.filters, append=[(facet,item.name)]) %}
+                {% set filters = h.join_filters(c.filters, append=[(facet,item)]) %}
                 {% else %}
-                {% set filters = h.join_filters(c.filters, remove=[(facet,item.name)]) %}
+                {% set filters = h.join_filters(c.filters, remove=[facet]) %}
                 {% endif %}
                 {% if filters %}
                 <a href="{{ h.url_for(controller='entry', action='index', dataset=c.dataset.name, filter=filters) }}">{{ item.label }}</a>

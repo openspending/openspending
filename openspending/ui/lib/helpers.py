@@ -243,11 +243,20 @@ def join_filters(filters, append=[], remove=[]):
     the output and remove values in a list from the output
     """
 
-    # Join filter dictionary but skip pairs in remove
-    filter_values = [':'.join(pair) for pair in filters.iteritems()\
-                         if pair not in remove]
+    # Join filter dictionary but skip pairs with key in remove
+    filter_values = [u'%s:%s' % (key, item)\
+                         for (key, value) in filters.iteritems()\
+                         if key not in remove]
     # Extend the filters with pairs from append
-    filter_values.extend([':'.join(pair) for pair in append])
+    for (key, item) in append:
+        # We expect the item to be a dictionary with a key name who's value
+        # is the filter we want to add. If it isn't we try to add it as a
+        # string and if that fails we just don't do anything
+        try:
+            filter_values.append('%s:%s' % (key, item.get('name', item)))
+        except:
+            pass
+
     # Return the joined filters
     return '|'.join(filter_values)
     
