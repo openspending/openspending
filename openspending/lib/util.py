@@ -74,3 +74,50 @@ def sort_by_reference(ref, sort, sort_fn=None):
 
     return filter(lambda x: x is not None, ordered)
 
+def expand_facets(facets, dataset):
+    """
+    For the given dataset we return the facets as a dict with facet
+    names for keys and the value is the list of its members along with
+    the total count (facet_values).
+    """
+
+    # We'll fill in and return this dict
+    expanded_facets = {}
+
+    # Find dimension names in the dataset
+    dimension_names = [d.name for d in dataset.dimensions]
+
+    # Loop over all facets (their names)
+    for (facet_name, facet_members) in facets.iteritems():
+        # We only act on facets which are compound dimensions
+        if facet_name in dimension_names and dataset[facet_name].is_compound:
+            # Get the dimension from the dataset
+            dimension = dataset[facet_name]
+            # We get the member names and their facet values into
+            # their own variables because we need to work more with
+            # the member names
+            member_names = []
+            facet_values = []
+            for member in facet_members:
+                # We've processed the members so that they're tuples
+                # that look like: (name,count)
+                member_names.append(member[0])
+                facet_values.append(member[1])
+
+            # Get all the members for this dimension
+            members = dimension.members(dimension.alias.c.name.\
+                                            in_(member_names))
+            # We need to sort them by the member names so that they retain
+            # the same order as the facet_alues
+            members = sort_by_reference(member_names, members,
+                                        lambda x: x['name'])
+
+            # Now we zip them all up into tuples and add into the output dict
+            expanded_facets[facet_name] = zip(members, facet_values)
+        else:
+            # If the facet isn't a compound dimension we still want to keep
+            # it around
+            expanded_facets[facet_name] = facet_members
+
+    # ... and return it
+    return expanded_facets

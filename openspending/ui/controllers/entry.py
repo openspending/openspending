@@ -4,13 +4,18 @@ from pylons import request, response, tmpl_context as c
 from pylons.controllers.util import abort, redirect
 from pylons.i18n import _
 
+from openspending.model import meta as db
+from openspending.model.common import decode_row
 from openspending.ui.lib.base import BaseController
 from openspending.ui.lib.views import handle_request
 from openspending.ui.lib.hypermedia import entry_apply_links
+from openspending.lib.browser import Browser
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import to_jsonp
 from openspending.ui.lib import helpers as h
 from openspending.ui.alttemplates import templating
+from openspending.lib.solr_util import SolrException
+from openspending.lib.paramparser import EntryIndexParamParser
 
 log = logging.getLogger(__name__)
 
@@ -18,14 +23,64 @@ log = logging.getLogger(__name__)
 class EntryController(BaseController):
 
     def index(self, dataset, format='html'):
+        # Get the dataset into the context variable 'c'
         self._get_dataset(dataset)
 
+        # If the format is either json or csv we direct the user to the search
+        # API instead
         if format in ['json', 'csv']:
-            return redirect(h.url_for(controller='api/version2', action='search',
-                format=format, dataset=dataset,
-                **request.params))
+            return redirect(h.url_for(controller='api/version2',
+                                      action='search',
+                                      format=format, dataset=dataset,
+                                      **request.params))
 
+        # Get the default view
         handle_request(request, c, c.dataset)
+
+        # Parse the parameters using the SearchParamParser (used by the API)
+        parser = EntryIndexParamParser(request.params)
+        params, errors = parser.parse()
+        
+        # We have to remove page from the parameters because that's also
+        # used in the Solr browser (which fetches the queries)
+        params.pop('page')
+
+        # We limit ourselve to only our dataset
+        params['filter']['dataset'] = [c.dataset.name]
+        facet_dimensions = {field.name:field\
+                                for field in c.dataset.dimensions \
+                                if field.facet}
+        params['facet_field'] = facet_dimensions.keys()
+
+        # Create a Solr browser and execute it
+        b = Browser(**params)
+        try:
+            b.execute()
+        except SolrException, e:
+            return {'errors': [unicode(e)]}
+
+        # Get the entries, each item is a tuple of the dataset and entry
+        solr_entries = b.get_entries()
+        entries = [entry for (dataset,entry) in solr_entries]
+
+        # Get expanded facets for this dataset, 
+        c.facets = b.get_expanded_facets(c.dataset)
+
+        # Create a pager for the entries
+        c.entries = templating.Page(entries, **request.params)
+
+        # Set the search word and default to empty string
+        c.search = params.get('q', '')
+
+        # Set filters (but remove the dataset as we don't need it)
+        c.filters = params['filter']
+        del c.filters['dataset']
+
+        # We also make the facet dimensions and dimension names available
+        c.facet_dimensions = facet_dimensions
+        c.dimensions = [dimension.name for dimension in c.dataset.dimensions]
+
+        # Render the entries page
         return templating.render('entry/index.html')
 
     def view(self, dataset, id, format='html'):

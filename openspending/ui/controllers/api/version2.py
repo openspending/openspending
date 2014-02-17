@@ -171,36 +171,37 @@ class APIv2Controller(BaseController):
                     datasets,
                     params,
                     pagesize=parser.defaults['pagesize'],
-                    expand_facets=_expand_facets if expand_facets else None,
+                    expand_facets=util.expand_facets \
+                        if expand_facets else None,
                     callback=request.params.get('callback')
                 )
                 return streamer.response()
 
-        b = Browser(**params)
+        solr_browser = Browser(**params)
         try:
-            b.execute()
+            solr_browser.execute()
         except SolrException, e:
             return {'errors': [unicode(e)]}
 
-        stats, facets, entries = b.get_stats(), b.get_facets(), b.get_entries()
-
-        _entries = []
-        for dataset, entry in entries:
+        entries = []
+        for dataset, entry in solr_browser.get_entries():
             entry = entry_apply_links(dataset.name, entry)
             entry['dataset'] = dataset_apply_links(dataset.as_dict())
-            _entries.append(entry)
+            entries.append(entry)
 
         if format == 'csv':
-            return write_csv(_entries, response,
+            return write_csv(entries, response,
                 filename='entries.csv')
 
         if expand_facets and len(datasets) == 1:
-            _expand_facets(facets, datasets[0])
+            facets = solr_browser.get_expanded_facets(datasets[0])
+        else:
+            facets = solr_browser.get_facets()
 
         return to_jsonp({
-            'stats': stats,
+            'stats': solr_browser.get_stats(),
             'facets': facets,
-            'results': _entries
+            'results': entries
         })
 
     def create(self):
@@ -289,14 +290,3 @@ class APIv2Controller(BaseController):
                 "delete":\
                     False if dataset is None else can.dataset.delete(dataset)
                 })
-
-def _expand_facets(facets, dataset):
-    dim_names = [d.name for d in dataset.dimensions]
-    for name in facets.keys():
-        if name in dim_names and dataset[name].is_compound:
-            dim = dataset[name]
-            member_names = [x[0] for x in facets[name]]
-            facet_values = [x[1] for x in facets[name]]
-            members = dim.members(dim.alias.c.name.in_(member_names))
-            members = util.sort_by_reference(member_names, members, lambda x: x['name'])
-            facets[name] = zip(members, facet_values)
