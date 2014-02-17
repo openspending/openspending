@@ -227,10 +227,13 @@ def get_uuid_filename(filename):
 def format_currency(amount, dataset):
     """
     Wrapper around babel's format_currency which fetches the currency
-    from the dataset.
+    from the dataset. Uses the current locale to format the number.
     """
-    return babel.numbers.format_currency(amount, dataset.currency,
-                                         u'¤ #,##0.00')
+    try:
+        return babel.numbers.format_currency(amount, dataset.currency,
+                                             locale=tmpl_context.locale)
+    except:
+        return amount
 
 def join_filters(filters, append=[], remove=[]):
     """
