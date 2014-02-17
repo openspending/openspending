@@ -2,8 +2,8 @@ Installation and Setup
 ======================
 
 
-Using Vagrant
-'''''''''''''
+Simple install
+''''''''''''''
 
 Requirements
 ------------
@@ -28,8 +28,11 @@ The virtual machine includes OpenSpending, Postgres, RabbitMQ and Solr.
 .. _Vagrant: http://vagrantup.com/
 
 
+Manual install
+''''''''''''''
+
 Requirements
-'''''''''''''
+------------
 
 * Python_ >= 2.7, with pip_ and virtualenv_   
 * PostgreSQL_ >= 8.4
@@ -44,7 +47,7 @@ Requirements
 .. _pip: http://pypi.python.org/pypi/pip
 
 Installation
-''''''''''''
+------------
 
 First, check out the source code from the repository, e.g. via git on 
 the command line::
@@ -136,7 +139,7 @@ frontend components using the ping action::
 This should result in "Pong." being printed to the background daemon's console.
 
 Setup Solr
-''''''''''
+----------
 
 Create a configuration home directory to use with Solr. This is most easily 
 done by copying the Solr example configuration from the `Solr tarball`_, and 
