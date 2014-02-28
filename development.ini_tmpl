@@ -85,6 +85,15 @@ openspending.content_root = http://content.openspending.org
 # Directory containing migration modules
 # openspending.migrate_dir = %(here)s/migration
 
+
+# ############################## #
+# OpenSpending debugging options #
+# ############################## # 
+
+# Use a fake inflation library (that simulates 0% inflation)
+# openspending.fake_inflation = false
+
+
 # ############# #
 # Celery config #
 # ############# # 
