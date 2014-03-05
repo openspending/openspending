@@ -60,6 +60,9 @@ class Browser(object):
     def get_facets(self):
         return self.facets
 
+    def get_expanded_facets(self, dataset):
+        return util.expand_facets(self.facets, dataset)
+
     def get_entries(self):
         return self.entries
 

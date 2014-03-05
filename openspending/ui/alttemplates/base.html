@@ -97,18 +97,25 @@
         </div>
       </div>
     </div>
-    <div class="container">
-	  {% if messages %}
-        <div>
-		  {% for m in messages %}
-          <div class="alert alert-{{ m.category }}">
-            {{ m.message }}
+    <div class="banner">
+      <div class="container">
+        {% if messages %}
+        <div class="container">
+          <div>
+	    {% for m in messages %}
+            <div class="alert alert-{{ m.category }}">
+              {{ m.message }}
+            </div>
+	    {% endfor %}
           </div>
-		  {% endfor %}
         </div>
-	  {% endif %}
-
+        {% endif %}
+        {% block banner %}{% endblock %}
+      </div>
+    </div>
+    <div class="container">
     {% block content %}{% endblock %}
+    </div>
   </div>
     <div id="catapult-cookie-bar">{% trans %}This site uses cookies{% endtrans %}<button id="catapultCookie" tabindex="1">{% trans %}Okay, thanks{% endtrans %}</button><a tabindex="1" href="http://okfn.org/cookie-policy">{% trans %}Find out more{% endtrans %}</a></div>
     <footer>
@@ -138,7 +145,7 @@
           openly licensed in accordance with the
           <a href="http://opendefinition.org/">open definition</a>{% endtrans %}.
           <br/><br/>
-          <a href="http://opendefinition.org"><img src="//d3k5w2zhyxw0xz.cloudfront.net/images/ok_buttons/od_80x15_blue.png" alt="Open Content" /></a></p>
+          <a href="http://opendefinition.org"><img src="//assets.okfn.org/images/ok_buttons/od_80x15_blue.png" alt="Open Content" /></a></p>
         </div>
       </div>
     </footer>
