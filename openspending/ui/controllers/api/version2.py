@@ -191,7 +191,7 @@ class APIv2Controller(BaseController):
             entries.append(entry)
 
         if format == 'csv':
-            return write_csv(_entries, response,
+            return write_csv(entries, response,
                              filename='entries.csv')
 
         if expand_facets and len(datasets) == 1:
