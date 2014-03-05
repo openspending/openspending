@@ -40,13 +40,13 @@ class Source(db.Model):
         # It shouldn't be loaded again into the database
         if self.successfully_loaded:
             return False
-            # It needs mapping to be loadable
+        # It needs mapping to be loadable
         if not len(self.dataset.mapping):
             return False
-            # There can be no errors in the analysis of the source
+        # There can be no errors in the analysis of the source
         if 'error' in self.analysis:
             return False
-            # All is good... proceed
+        # All is good... proceed
         return True
 
     @property

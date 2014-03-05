@@ -380,7 +380,7 @@ class Dataset(TableHandler, db.Model):
             # If the dimension is year or month we're interested in 'time'
             if dimension in labels:
                 dimension = 'time'
-                # If the dimension table isn't in the automatic joins we add it
+            # If the dimension table isn't in the automatic joins we add it
             if dimension not in [c.table.name for c in joins.columns]:
                 joins = dataset[dimension].join(joins)
 
