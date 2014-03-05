@@ -5,7 +5,7 @@ Consists of functions to typically be used within templates, but also
 available to Controllers. This module is available to templates as 'h'.
 """
 
-from pylons import config, tmpl_context, app_globals
+from pylons import config, url, tmpl_context, app_globals
 from routes import url_for as routes_url_for
 from lxml import html
 from webhelpers.html import literal
