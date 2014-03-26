@@ -13,7 +13,13 @@ Requirements
 Installation
 ------------
 
-You can avoid installing OpenSpending on your development machine by using Vagrant_ to execute the application and all of its dependencies in a virtual machine. To make use of this option, make sure to install Vagrant and the included VirtualBox provider. Then, from the source repository, you can set up a VM with::
+You can avoid installing OpenSpending on your development machine by using Vagrant_ to execute the application and all of its dependencies in a virtual machine. To make use of this option, make sure to install Vagrant and the included VirtualBox provider. 
+
+If you haven't already, you'll need to install Vagrant's `cachier` plugin:
+
+    $ vagrant plugin install vagrant-cachier
+
+Then, from the source repository, you can set up a VM with::
 
     $ vagrant up
 
