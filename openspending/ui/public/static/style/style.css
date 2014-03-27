@@ -227,7 +227,7 @@ footer a.twitter {
     font-size: 18px;
 }
 
-.statistics, .search {
+.statistics, .searchbar .search {
     position: absolute;
     padding: 20px;
     background: #6a9b4a;
