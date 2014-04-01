@@ -60,7 +60,6 @@ class TestDatasetController(ControllerTestCase):
         # The dataset label should be present in the response
         h.assert_true('Country Regional Analysis v2009' in response,
                       "'Country Regional Analysis v2009' not in response!")
-        #h.assert_true('openspending_browser' in response, "'openspending_browser' not in response!")
 
         # Assertions about time range
         assert 'Time range' in response.body, \
@@ -169,7 +168,8 @@ class TestDatasetController(ControllerTestCase):
 
     def test_new_form(self):
         response = self.app.get(url(controller='dataset', action='new'),
-                                params={'limit': '20'}, extra_environ={'REMOTE_USER': 'test'})
+                                params={'limit': '20'},
+                                extra_environ={'REMOTE_USER': 'test'})
         assert "Import a dataset" in response.body
 
     def test_create_dataset(self):
@@ -183,7 +183,8 @@ class TestDatasetController(ControllerTestCase):
                   'currency': 'EUR'}
 
         response = self.app.post(url(controller='dataset', action='create'),
-                                 params=params, extra_environ={'REMOTE_USER': 'test'})
+                                 params=params,
+                                 extra_environ={'REMOTE_USER': 'test'})
         assert "302" in response.status
 
         ds = Dataset.by_name('testds')

@@ -319,13 +319,13 @@ class TestApi2Controller(ControllerTestCase):
         # Anonymous user
         response = self.app.get(permission, params={'dataset': 'cra'})
         anon_response = json.loads(response.body)
-        assert anon_response['create'] == False, \
+        assert not anon_response['create'], \
             'Anonymous user can create existing dataset'
-        assert anon_response['read'] == True, \
+        assert anon_response['read'], \
             'Anonymous user cannot read public dataset'
-        assert anon_response['update'] == False, \
+        assert not anon_response['update'], \
             'Anonymous user can update existing dataset'
-        assert anon_response['delete'] == False, \
+        assert not anon_response['delete'], \
             'Anonymous user can delete existing dataset'
         # Normal user
         response = self.app.get(permission, params={'dataset': 'cra'},
@@ -337,13 +337,13 @@ class TestApi2Controller(ControllerTestCase):
         response = self.app.get(permission, params={'dataset': 'cra'},
                                 extra_environ={'REMOTE_USER': 'maintainer'})
         main_response = json.loads(response.body)
-        assert main_response['create'] == False,\
+        assert not main_response['create'], \
             'Maintainer can create a dataset with an existing (public) name'
-        assert main_response['read'] == True,\
+        assert main_response['read'], \
             'Maintainer is not able to read public dataset'
-        assert main_response['update'] == True,\
+        assert main_response['update'], \
             'Maintainer is not able to update public dataset'
-        assert main_response['delete'] == True,\
+        assert main_response['delete'], \
             'Maintainer is not able to delete public dataset'
         # Administrator
         response = self.app.get(permission, params={'dataset': 'cra'},
@@ -376,13 +376,13 @@ class TestApi2Controller(ControllerTestCase):
         response = self.app.get(permission, params={'dataset': 'cra'},
                                 extra_environ={'REMOTE_USER': 'maintainer'})
         main_response = json.loads(response.body)
-        assert main_response['create'] == False,\
+        assert not main_response['create'], \
             'Maintainer can create a dataset with an existing (private) name'
-        assert main_response['read'] == True,\
+        assert main_response['read'], \
             'Maintainer is not able to read private dataset'
-        assert main_response['update'] == True,\
+        assert main_response['update'], \
             'Maintainer is not able to update private dataset'
-        assert main_response['delete'] == True,\
+        assert main_response['delete'], \
             'Maintainer is not able to delete private dataset'
         # Administrator
         response = self.app.get(permission, params={'dataset': 'cra'},
@@ -404,13 +404,13 @@ class TestApi2Controller(ControllerTestCase):
         response = self.app.get(permission, params={'dataset': 'nonexistent'},
                                 extra_environ={'REMOTE_USER': 'test_user'})
         normal_response = json.loads(response.body)
-        assert normal_response['create'] == True,\
+        assert normal_response['create'], \
             'User cannot create a nonexistent dataset'
-        assert normal_response['read'] == False,\
+        assert not normal_response['read'], \
             'User can read a nonexistent dataset'
-        assert normal_response['update'] == False,\
+        assert not normal_response['update'], \
             'User can update a nonexistent dataset'
-        assert normal_response['delete'] == False,\
+        assert not normal_response['delete'], \
             'User can delete a nonexistent dataset'
 
 
@@ -442,7 +442,7 @@ class TestApiNewDataset(ControllerTestCase):
         }
         apikey_header = 'apikey {0}'.format(user.api_key)
         response = self.app.post(u, params, {'Authorization': apikey_header})
-        #Dataset.by_name('openspending-example').private = False
+        # Dataset.by_name('openspending-example').private = False
         assert "200" in response.status
         assert Dataset.by_name('openspending-example')
 
@@ -472,7 +472,7 @@ class TestApiNewDataset(ControllerTestCase):
         }
         apikey_header = 'apikey {0}'.format(user.api_key)
         response = self.app.post(u, params, {'Authorization': apikey_header})
-        #Dataset.by_name('openspending-example').private = False
+        # Dataset.by_name('openspending-example').private = False
         assert "200" in response.status
         assert Dataset.by_name('openspending-example')
 

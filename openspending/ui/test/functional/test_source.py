@@ -19,7 +19,8 @@ class TestSourceController(ControllerTestCase):
         db.session.add(source)
         db.session.commit()
         response = self.app.get(url(controller='source',
-                                    action='view', dataset='cra', id=source.id),
+                                    action='view', dataset='cra',
+                                    id=source.id),
                                 extra_environ={'REMOTE_USER': 'test'})
         assert response.headers['Location'] == url_, response.headers
 
@@ -80,7 +81,9 @@ class TestSourceController(ControllerTestCase):
 
         # Delete the source
         response = self.app.post(url(controller='source',
-                                     action='delete', dataset=source.dataset.name, id=source.id),
+                                     action='delete',
+                                     dataset=source.dataset.name,
+                                     id=source.id),
                                  extra_environ={'REMOTE_USER': 'test'})
 
         # Check if source has been deleted
@@ -108,7 +111,9 @@ class TestSourceController(ControllerTestCase):
 
         # Delete the source
         response = self.app.post(url(controller='source',
-                                     action='delete', dataset=source.dataset.name, id=source.id),
+                                     action='delete',
+                                     dataset=source.dataset.name,
+                                     id=source.id),
                                  extra_environ={'REMOTE_USER': 'test'})
 
         # Check if source has been deleted

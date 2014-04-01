@@ -30,8 +30,9 @@ class TestEditorController(ControllerTestCase):
         self.app.post(url(controller='editor',
                           action='core_update', dataset='cra'),
                       params={'name': 'cra', 'label': 'Common Rough Act',
-                              'description': 'I\'m a banana', 'currency': 'EUR',
-                              'languages': 'en', 'territories': 'gb',
+                              'description': 'I\'m a banana',
+                              'currency': 'EUR', 'languages': 'en',
+                              'territories': 'gb',
                               'category': 'budget', 'default_time': 2009},
                       extra_environ={'REMOTE_USER': 'test'})
         cra = Dataset.by_name('cra')
@@ -41,10 +42,13 @@ class TestEditorController(ControllerTestCase):
     def test_core_update_invalid_category(self):
         response = self.app.post(url(controller='editor',
                                      action='core_update', dataset='cra'),
-                                 params={'name': 'cra', 'label': 'Common Rough Act',
-                                         'description': 'I\'m a banana', 'currency': 'EUR',
-                                         'languages': 'en', 'territories': 'gb',
-                                         'category': 'foo', 'default_time': 2009},
+                                 params={'name': 'cra',
+                                         'label': 'Common Rough Act',
+                                         'description': 'I\'m a banana',
+                                         'currency': 'EUR', 'languages': 'en',
+                                         'territories': 'gb',
+                                         'category': 'foo',
+                                         'default_time': 2009},
                                  extra_environ={'REMOTE_USER': 'test'})
         assert 'valid category' in response.body
         cra = Dataset.by_name('cra')
@@ -54,7 +58,8 @@ class TestEditorController(ControllerTestCase):
         response = self.app.post(url(controller='editor',
                                      action='core_update', dataset='cra'),
                                  params={'name': 'cra', 'label': '',
-                                         'description': 'I\'m a banana', 'currency': 'GBP'},
+                                         'description': 'I\'m a banana',
+                                         'currency': 'GBP'},
                                  extra_environ={'REMOTE_USER': 'test'})
         assert 'Required' in response.body
         cra = Dataset.by_name('cra')
@@ -63,30 +68,36 @@ class TestEditorController(ControllerTestCase):
     def test_core_update_invalid_language(self):
         response = self.app.post(url(controller='editor',
                                      action='core_update', dataset='cra'),
-                                 params={'name': 'cra', 'label': 'CRA', 'languages': 'esperanto',
-                                         'description': 'I\'m a banana', 'currency': 'GBP',
+                                 params={'name': 'cra', 'label': 'CRA',
+                                         'languages': 'esperanto',
+                                         'description': 'I\'m a banana',
+                                         'currency': 'GBP',
                                          'default_time': 2009},
                                  extra_environ={'REMOTE_USER': 'test'})
-        assert not 'updated' in response.body
+        assert 'updated' not in response.body
         cra = Dataset.by_name('cra')
-        assert not 'esperanto' in cra.languages
+        assert 'esperanto' not in cra.languages
 
     def test_core_update_invalid_territory(self):
         response = self.app.post(url(controller='editor',
                                      action='core_update', dataset='cra'),
-                                 params={'name': 'cra', 'label': 'CRA', 'territories': 'su',
-                                         'description': 'I\'m a banana', 'currency': 'GBP',
+                                 params={'name': 'cra', 'label': 'CRA',
+                                         'territories': 'su',
+                                         'description': 'I\'m a banana',
+                                         'currency': 'GBP',
                                          'default_time': 2009},
                                  extra_environ={'REMOTE_USER': 'test'})
-        assert not 'updated' in response.body
+        assert 'updated' not in response.body
         cra = Dataset.by_name('cra')
-        assert not 'su' in cra.territories
+        assert 'su' not in cra.territories
 
     def test_core_update_invalid_currency(self):
         response = self.app.post(url(controller='editor',
                                      action='core_update', dataset='cra'),
-                                 params={'name': 'cra', 'label': 'Common Rough Act',
-                                         'description': 'I\'m a banana', 'currency': 'glass pearls',
+                                 params={'name': 'cra',
+                                         'label': 'Common Rough Act',
+                                         'description': 'I\'m a banana',
+                                         'currency': 'glass pearls',
                                          'default_time': 2009},
                                  extra_environ={'REMOTE_USER': 'test'})
         assert 'not a valid currency' in response.body
@@ -127,7 +138,8 @@ class TestEditorController(ControllerTestCase):
         cra.init()
         cra.generate()
         response = self.app.post(url(controller='editor',
-                                     action='dimensions_update', dataset='cra'),
+                                     action='dimensions_update',
+                                     dataset='cra'),
                                  params={'mapping': 'banana'},
                                  extra_environ={'REMOTE_USER': 'test'},
                                  expect_errors=True)
