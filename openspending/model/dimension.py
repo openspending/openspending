@@ -202,8 +202,8 @@ class CompoundDimension(Dimension, TableHandler):
 
     def members(self, conditions="1=1", limit=None, offset=0):
         """ Get a listing of all the members of the dimension (i.e. all the
-        distinct values) matching the filter in ``conditions``. This can also be
-        used to find a single individual member, e.g. a dimension value
+        distinct values) matching the filter in ``conditions``. This can also
+        be used to find a single individual member, e.g. a dimension value
         identified by its name. """
         query = db.select([self.alias], conditions,
                           limit=limit, offset=offset,

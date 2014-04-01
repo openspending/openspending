@@ -41,7 +41,7 @@ class TestCompoundDimension(DatabaseTestCase):
         assert self.classifier.name == 'cofog1', self.classifier.name
 
     def test_generated_tables(self):
-        #assert not hasattr(self.entity, 'table'), self.entity
+        # assert not hasattr(self.entity, 'table'), self.entity
         # self.ds.generate()
         assert hasattr(self.entity, 'table'), self.entity
         assert self.entity.table.name == 'cra__' + \

@@ -22,7 +22,7 @@ def statistic_normalize(dataset, result, per, statistic):
     values = {}
     for drilldown in result['drilldown']:
         per_value = drilldown.get(per)
-        if not per_value in values:
+        if per_value not in values:
             entries = list(dataset.entries(dataset.table.c[per] == per_value,
                                            limit=1))
             if len(entries):
@@ -64,9 +64,9 @@ class APIv1Controller(BaseController):
         fq = ' OR '.join(map(lambda d: '+dataset:"%s"' % d.name, datasets))
         solrargs['fq'] = '(%s)' % fq
 
-        if 'callback' in solrargs and not 'json.wrf' in solrargs:
+        if 'callback' in solrargs and 'json.wrf' not in solrargs:
             solrargs['json.wrf'] = solrargs['callback']
-        if not 'sort' in solrargs:
+        if 'sort' not in solrargs:
             solrargs['sort'] = 'score desc,amount desc'
         try:
             query = solr.get_connection().raw_query(**solrargs)
@@ -88,7 +88,7 @@ class APIv1Controller(BaseController):
 
         drilldowns, cuts, statistics = [], [], []
         for key, value in sorted(request.params.items()):
-            if not '-' in key:
+            if '-' not in key:
                 continue
             op, key = key.split('-', 1)
             if 'include' == op:

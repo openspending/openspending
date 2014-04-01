@@ -18,7 +18,7 @@ def decode_row(row, dataset):
             if dimension == 'entry':
                 result[attribute] = value
             else:
-                if not dimension in result:
+                if dimension not in result:
                     result[dimension] = {}
 
                     # TODO: backwards-compat?

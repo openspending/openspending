@@ -130,7 +130,7 @@ class EditorController(BaseController):
             c.dataset._load_model()
             c.dataset.generate()
             db.session.commit()
-            #h.flash_success(_("The mapping has been updated."))
+            # h.flash_success(_("The mapping has been updated."))
             saved = True
         except (ValueError, TypeError, AttributeError):
             abort(400, _("The mapping data could not be decoded as JSON!"))
@@ -209,7 +209,7 @@ class EditorController(BaseController):
                 errors[account_name] = _("User account cannot be found.")
             else:
                 accounts.append(account)
-        if not c.account in accounts:
+        if c.account not in accounts:
             accounts.append(c.account)
         if not len(errors):
             c.dataset.managers = accounts

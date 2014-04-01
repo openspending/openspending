@@ -147,7 +147,7 @@ class Dataset(TableHandler, db.Model):
         the model physically. """
         self.bind = db.engine
         self.meta = db.MetaData()
-        #self.tx = self.bind.begin()
+        # self.tx = self.bind.begin()
         self.meta.bind = db.engine
 
         self._init_table(self.meta, self.name, 'entry',
@@ -189,7 +189,7 @@ class Dataset(TableHandler, db.Model):
     def commit(self):
         pass
         # self.tx.commit()
-        #self.tx = self.bind.begin()
+        # self.tx = self.bind.begin()
 
     def _make_key(self, data):
         """ Generate a unique identifier for an entry. This is better
@@ -562,7 +562,7 @@ class Dataset(TableHandler, db.Model):
     @classmethod
     def all_by_account(cls, account):
         """ Query available datasets based on dataset visibility. """
-        criteria = [cls.private == False]
+        criteria = [not cls.private]
         if account is not None:
             criteria += ["1=1" if account.admin else "1=2",
                          cls.managers.any(type(account).id == account.id)]

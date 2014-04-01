@@ -83,14 +83,14 @@ class ParamParser(object):
             return float(value)
         except ValueError:
             self._error('"%s" has to be a number, it is: %s' %
-                       (name, value))
+                        (name, value))
 
     def _to_int(self, name, value):
         try:
             return int(value)
         except ValueError:
             self._error('"%s" has to be an integer, it is: %s' %
-                       (name, value))
+                        (name, value))
 
     def _to_bool(self, value):
         if value.lower().strip() in ['true', '1', 'yes', 'on']:
@@ -207,7 +207,7 @@ class AggregateParamParser(ParamParser):
 
     def parse_format(self, format):
         format = format.lower().strip()
-        if not format or not format in ('json', 'csv'):
+        if not format or format not in ('json', 'csv'):
             return 'json'
         return format
 
@@ -333,7 +333,7 @@ class SearchParamParser(ParamParser):
 
     def parse_format(self, format):
         format = format.lower().strip()
-        if not format or not format in ('json', 'csv'):
+        if not format or format not in ('json', 'csv'):
             return 'json'
         return format
 

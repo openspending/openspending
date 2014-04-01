@@ -76,7 +76,7 @@ class TestSolrUtil(TestCase):
             'foo.name': u'uber',
             'foo': u'uber',
             'foo.label': 'UberLabel',
-            #'foo.label_str': 'UberLabel',
+            # 'foo.label_str': 'UberLabel',
             'foo.label_facet': 'UberLabel',
             'foo.tags': 'one two three'
         }

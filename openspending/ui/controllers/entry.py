@@ -167,7 +167,7 @@ class EntryController(BaseController):
                 # Entry dimension must be a dataset dimension and not in
                 # the predefined excluded keys
                 if key in c.desc and \
-                        not key in excluded_keys:
+                        key not in excluded_keys:
                     c.extras[key] = c.entry[key]
 
         # Return entry based on

@@ -41,4 +41,5 @@ class LogRecord(db.Model):
 
     def __repr__(self):
         return "<LogRecord(%s:%s:%s:%s:%s)>" % (self.category, self.level,
-                                                self.error, self.timestamp, self.message)
+                                                self.error, self.timestamp,
+                                                self.message)
