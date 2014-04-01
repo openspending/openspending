@@ -5,6 +5,7 @@ from openspending.model.common import TableHandler, ALIAS_PLACEHOLDER
 
 
 class Dimension(object):
+
     """ A base class for dimensions. A dimension is any property of an entry
     that can serve to describe it beyond its purely numeric ``Measure``.  """
 
@@ -55,6 +56,7 @@ class Dimension(object):
 
 
 class AttributeDimension(Dimension, Attribute):
+
     """ A simple dimension that does not create its own values table
     but keeps its values directly as columns on the facts table. This is
     somewhat unusual for a star schema but appropriate for properties such as
@@ -92,6 +94,7 @@ class AttributeDimension(Dimension, Attribute):
 
 
 class Measure(Attribute):
+
     """ A value on the facts table that can be subject to aggregation,
     and is specific to this one fact. This would typically be some
     financial unit, i.e. the amount associated with the transaction or
@@ -112,6 +115,7 @@ class Measure(Attribute):
 
 
 class CompoundDimension(Dimension, TableHandler):
+
     """ A compound dimension is an outer table on the star schema, i.e. an
     associated table that is referenced from the fact table. It can have
     any number of attributes but in the case of OpenSpending it will not
@@ -133,7 +137,8 @@ class CompoundDimension(Dimension, TableHandler):
         """ This will return a query fragment that can be used to establish
         an aliased join between the fact table and the dimension table.
         """
-        return from_clause.join(self.alias, self.alias.c.id == self.column_alias)
+        return from_clause.join(
+            self.alias, self.alias.c.id == self.column_alias)
 
     def flush(self, bind):
         """ Clear all data in the dimension table but keep the table structure
@@ -231,13 +236,14 @@ class CompoundDimension(Dimension, TableHandler):
 
 
 class DateDimension(CompoundDimension):
+
     """ DateDimensions are closely related to :py:class:`CompoundDimensions`
     but the value is set up from a Python date object to automatically contain
     several properties of the date in their own attributes (e.g. year, month,
     quarter, day). """
 
     DATE_ATTRIBUTES = {
-        'name': { 'datatype': 'string'},
+        'name': {'datatype': 'string'},
         'label': {'datatype': 'string'},
         'year': {'datatype': 'string'},
         'quarter': {'datatype': 'string'},
@@ -246,7 +252,7 @@ class DateDimension(CompoundDimension):
         'day': {'datatype': 'string'},
         # legacy query support:
         'yearmonth': {'datatype': 'string'},
-        }
+    }
 
     def __init__(self, dataset, name, data):
         Dimension.__init__(self, dataset, name, data)

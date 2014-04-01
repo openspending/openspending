@@ -12,7 +12,7 @@ class ContentResource(object):
         self.path = path
         self.res = None
         self._doc = None
-        
+
         # Set the headers so that sites that require accept and user-agent
         # for spam protection can also be used
         if headers is None:

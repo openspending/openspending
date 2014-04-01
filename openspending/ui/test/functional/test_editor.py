@@ -11,7 +11,7 @@ class TestEditorController(ControllerTestCase):
         super(TestEditorController, self).setup()
         self.user = h.make_account('test')
         h.load_fixture('cra', self.user)
-        #h.clean_and_reindex_solr()
+        # h.clean_and_reindex_solr()
 
     def test_overview(self):
         response = self.app.get(url(controller='editor',
@@ -91,7 +91,7 @@ class TestEditorController(ControllerTestCase):
                                  extra_environ={'REMOTE_USER': 'test'})
         assert 'not a valid currency' in response.body
         cra = Dataset.by_name('cra')
-        assert cra.currency=='GBP', cra.label
+        assert cra.currency == 'GBP', cra.label
 
     def test_dimensions_edit_mask(self):
         cra = Dataset.by_name('cra')
@@ -176,7 +176,7 @@ class TestEditorController(ControllerTestCase):
                                  expect_errors=True)
         assert '200' in response.status, response.status
         cra = Dataset.by_name('cra')
-        assert len(cra.managers.all())==1, cra.managers
+        assert len(cra.managers.all()) == 1, cra.managers
 
     def test_templates_edit_mask(self):
         response = self.app.get(url(controller='editor',
@@ -192,35 +192,35 @@ class TestEditorController(ControllerTestCase):
                                  expect_errors=True)
         assert '200' in response.status, response.status
         cra = Dataset.by_name('cra')
-        assert cra.serp_title=='BANANA', cra.serp_title
+        assert cra.serp_title == 'BANANA', cra.serp_title
 
     def test_drop(self):
         cra = Dataset.by_name('cra')
-        assert len(cra)==36, len(cra)
+        assert len(cra) == 36, len(cra)
         # double-check authz
         response = self.app.post(url(controller='editor',
                                      action='drop', dataset='cra'),
                                  expect_errors=True)
         assert '403' in response.status
         cra = Dataset.by_name('cra')
-        assert len(cra)==36, len(cra)
+        assert len(cra) == 36, len(cra)
 
         response = self.app.post(url(controller='editor',
                                      action='drop', dataset='cra'),
                                  extra_environ={'REMOTE_USER': 'test'})
         cra = Dataset.by_name('cra')
-        assert len(cra)==0, len(cra)
+        assert len(cra) == 0, len(cra)
 
     def test_delete(self):
         cra = Dataset.by_name('cra')
-        assert len(cra)==36, len(cra)
+        assert len(cra) == 36, len(cra)
         # double-check authz
         response = self.app.post(url(controller='editor',
                                      action='delete', dataset='cra'),
                                  expect_errors=True)
         assert '403' in response.status
         cra = Dataset.by_name('cra')
-        assert len(cra)==36, len(cra)
+        assert len(cra) == 36, len(cra)
 
         response = self.app.post(url(controller='editor',
                                      action='delete', dataset='cra'),

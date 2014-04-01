@@ -120,7 +120,7 @@ class AccountController(BaseController):
 
                 # Registration successful - Redirect to the front page
                 return redirect("/")
-            except colander.Invalid, i:
+            except colander.Invalid as i:
                 # Mark colander errors
                 errors = i.asdict()
 
@@ -178,7 +178,8 @@ class AccountController(BaseController):
 
                 # If a new password was provided we update it as well
                 if data['password1'] is not None and len(data['password1']):
-                    c.account.password = generate_password_hash(data['password1'])
+                    c.account.password = generate_password_hash(
+                        data['password1'])
 
                 # Do the actual update in the database
                 db.session.add(c.account)
@@ -186,14 +187,14 @@ class AccountController(BaseController):
 
                 # Let the user know we've updated successfully
                 h.flash_success(_("Your settings have been updated."))
-            except colander.Invalid, i:
+            except colander.Invalid as i:
                 # Load errors if we get here
                 errors = i.asdict()
         else:
             # Get the account values to autofill the form
             values = c.account.as_dict()
 
-            # We need to put public checks separately because they're not 
+            # We need to put public checks separately because they're not
             # a part of the dictionary representation of the account
             if c.account.public_email:
                 values['public_email'] = c.account.public_email
@@ -226,7 +227,7 @@ class AccountController(BaseController):
         and then adding that score up for all maintainers.
 
         This does give users who maintain a single dataset a higher score than
-        those who are a part of a maintenance team, which is not really what 
+        those who are a part of a maintenance team, which is not really what
         we want (since that rewards single points of failure in the system).
 
         But this is an adequate initial score and this will only be accessible
@@ -240,13 +241,13 @@ class AccountController(BaseController):
 
         # Assign scores to each dataset based on number of maintainers
         score = db.session.query(Dataset.id,
-                                 (10/db.func.count(Account.id)).label('sum'))
+                                 (10 / db.func.count(Account.id)).label('sum'))
         score = score.join('managers').group_by(Dataset.id).subquery()
 
         # Order users based on their score which is the sum of the dataset
         # scores they maintain
         user_score = db.session.query(Account.name, Account.email,
-                                      db.func.coalesce(db.func.sum(score.c.sum),0).label('score'))
+                                      db.func.coalesce(db.func.sum(score.c.sum), 0).label('score'))
         user_score = user_score.outerjoin(Account.datasets).outerjoin(score)
         user_score = user_score.group_by(Account.name, Account.email)
         # We exclude the system user
@@ -381,7 +382,7 @@ class AccountController(BaseController):
         # to administrators and to owner (account is same as context account)
         show_info = (c.account and c.account.admin) or (c.account == account)
 
-        # ..or if the user has chosen to make it public 
+        # ..or if the user has chosen to make it public
         c.show_email = show_info or account.public_email
         c.show_twitter = show_info or account.public_twitter
 

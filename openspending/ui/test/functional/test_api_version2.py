@@ -5,13 +5,14 @@ from .. import ControllerTestCase, url, helpers as h
 
 
 class TestApi2Controller(ControllerTestCase):
+
     def setup(self):
         super(TestApi2Controller, self).setup()
         h.load_fixture('cra')
         h.clean_and_reindex_solr()
 
     def test_aggregate(self):
-        response = self.app.get(url(controller='api/version2', 
+        response = self.app.get(url(controller='api/version2',
                                     action='aggregate',
                                     dataset='cra'))
         h.assert_equal(response.status, '200 OK')
@@ -19,16 +20,16 @@ class TestApi2Controller(ControllerTestCase):
         result = json.loads(response.body)
         h.assert_equal(sorted(result.keys()), [u'drilldown', u'summary'])
         h.assert_equal(sorted(result['summary'].items()),
-                         [(u'amount', -371500000.0),
-                          (u'currency', {u'amount': u'GBP'}),
-                          (u'num_drilldowns', 1),
-                          (u'num_entries', 36),
-                          (u'page', 1),
-                          (u'pages', 1),
-                          (u'pagesize', 10000)])
+                       [(u'amount', -371500000.0),
+                        (u'currency', {u'amount': u'GBP'}),
+                        (u'num_drilldowns', 1),
+                        (u'num_entries', 36),
+                        (u'page', 1),
+                        (u'pages', 1),
+                        (u'pagesize', 10000)])
 
     def test_aggregate_drilldown(self):
-        response = self.app.get(url(controller='api/version2', 
+        response = self.app.get(url(controller='api/version2',
                                     action='aggregate',
                                     dataset='cra', drilldown='cofog1|cofog2'))
         h.assert_equal(response.status, '200 OK')
@@ -68,7 +69,7 @@ class TestApi2Controller(ControllerTestCase):
                                     dataset='cra', cut='year:2009',
                                     measure='amount|total'))
 
-        # This should return a status code 200. 
+        # This should return a status code 200.
         assert '200' in response.status, \
             'Aggregation for multiple measures did not return successfully'
 
@@ -109,10 +110,10 @@ class TestApi2Controller(ControllerTestCase):
                                     drilldown='year'))
         h.assert_equal(response.status, '200 OK')
         result = json.loads(response.body)
-        order = [cell['year']  for cell in result['drilldown']]
+        order = [cell['year'] for cell in result['drilldown']]
         h.assert_equal(unique(order),
-                         map(unicode, [2003, 2004, 2005, 2006, 2007, 2008, 2009,
-                             2010]))
+                       map(unicode, [2003, 2004, 2005, 2006, 2007, 2008, 2009,
+                                     2010]))
 
         response = self.app.get(url(controller='api/version2',
                                     action='aggregate',
@@ -120,13 +121,14 @@ class TestApi2Controller(ControllerTestCase):
                                     drilldown='year'))
         h.assert_equal(response.status, '200 OK')
         result = json.loads(response.body)
-        order = [cell['year']  for cell in result['drilldown']]
+        order = [cell['year'] for cell in result['drilldown']]
         h.assert_equal(unique(order),
-                         map(unicode, [2010, 2009, 2008, 2007, 2006, 2005, 2004,
-                             2003]))
+                       map(unicode, [2010, 2009, 2008, 2007, 2006, 2005, 2004,
+                                     2003]))
 
     def test_search(self):
-        response = self.app.get(url(controller='api/version2', action='search'))
+        response = self.app.get(
+            url(controller='api/version2', action='search'))
         result = json.loads(response.body)
 
         h.assert_equal(result['stats']['results_count'], 36)
@@ -135,11 +137,14 @@ class TestApi2Controller(ControllerTestCase):
         h.assert_equal(len(result['results']), 36)
 
     def test_search_results_dataset(self):
-        response = self.app.get(url(controller='api/version2', action='search'))
+        response = self.app.get(
+            url(controller='api/version2', action='search'))
         result = json.loads(response.body)
 
         h.assert_equal(result['results'][0]['dataset']['name'], 'cra')
-        h.assert_equal(result['results'][0]['dataset']['label'],'Country Regional Analysis v2009')
+        h.assert_equal(
+            result['results'][0]['dataset']['label'],
+            'Country Regional Analysis v2009')
 
     def test_search_page_pagesize(self):
         response = self.app.get(url(controller='api/version2', action='search',
@@ -156,7 +161,9 @@ class TestApi2Controller(ControllerTestCase):
 
         h.assert_equal(result['stats']['results_count'], 5)
         h.assert_equal(result['stats']['results_count_query'], 5)
-        h.assert_equal(result['results'][0]['id'], "06dafa7250420ab1dc616d2bbbe310c9ad6e485e")
+        h.assert_equal(
+            result['results'][0]['id'],
+            "06dafa7250420ab1dc616d2bbbe310c9ad6e485e")
 
     def test_search_filter(self):
         response = self.app.get(url(controller='api/version2', action='search',
@@ -165,7 +172,9 @@ class TestApi2Controller(ControllerTestCase):
 
         h.assert_equal(result['stats']['results_count'], 5)
         h.assert_equal(result['stats']['results_count_query'], 5)
-        h.assert_equal(result['results'][0]['id'], "06dafa7250420ab1dc616d2bbbe310c9ad6e485e")
+        h.assert_equal(
+            result['results'][0]['id'],
+            "06dafa7250420ab1dc616d2bbbe310c9ad6e485e")
 
     def test_search_facet(self):
         response = self.app.get(url(controller='api/version2', action='search',
@@ -184,7 +193,12 @@ class TestApi2Controller(ControllerTestCase):
                                     expand_facet_dimensions="1"))
         result = json.loads(response.body)
 
-        hra = {"taxonomy": "from", "description": "", "id": 5, "name": "999", "label": "ENG_HRA"}
+        hra = {
+            "taxonomy": "from",
+            "description": "",
+            "id": 5,
+            "name": "999",
+            "label": "ENG_HRA"}
 
         h.assert_equal(result['facets']['from'][0][0], hra)
         h.assert_equal(result['facets']['to.name'][0][0], 'society')
@@ -197,7 +211,8 @@ class TestApi2Controller(ControllerTestCase):
                                     expand_facet_dimensions="1"))
         result = json.loads(response.body)
 
-        # facets should *NOT* be expanded unless exactly 1 dataset was specified
+        # facets should *NOT* be expanded unless exactly 1 dataset was
+        # specified
         h.assert_equal(result['facets']['from'][0][0], '999')
 
     def test_search_order(self):
@@ -261,7 +276,7 @@ class TestApi2Controller(ControllerTestCase):
                                     inflate='1000'))
         assert '200' in response.status, \
             "Incorrect inflation did not return sucessfully (status isn't 200)"
-        
+
         result = json.loads(response.body)
 
         assert 'warning' in result, \
@@ -279,7 +294,7 @@ class TestApi2Controller(ControllerTestCase):
         h.make_account('test_admin', admin=True)
         maintainer = h.make_account('maintainer')
         h.make_account('test_user')
-        
+
         # Set maintainer as maintainer of cra dataset
         dataset = Dataset.by_name('cra')
         dataset.managers.append(maintainer)
@@ -298,9 +313,9 @@ class TestApi2Controller(ControllerTestCase):
             'Parameterless call response includes more than one properties'
         assert 'error' in json_response, \
             'Error property not present in parameterless call response'
-        
+
         # Dataset is public by default
-        
+
         # Anonymous user
         response = self.app.get(permission, params={'dataset': 'cra'})
         anon_response = json.loads(response.body)
@@ -314,7 +329,7 @@ class TestApi2Controller(ControllerTestCase):
             'Anonymous user can delete existing dataset'
         # Normal user
         response = self.app.get(permission, params={'dataset': 'cra'},
-                                extra_environ={'REMOTE_USER':'test_user'})
+                                extra_environ={'REMOTE_USER': 'test_user'})
         normal_response = json.loads(response.body)
         assert anon_response == normal_response, \
             'Normal user has wrong permissions for a public dataset'
@@ -398,7 +413,9 @@ class TestApi2Controller(ControllerTestCase):
         assert normal_response['delete'] == False,\
             'User can delete a nonexistent dataset'
 
+
 class TestApiNewDataset(ControllerTestCase):
+
     """
     This checks for authentication with a header api key while also
     testing for loading of data via the api
@@ -417,14 +434,14 @@ class TestApiNewDataset(ControllerTestCase):
         assert user.api_key == 'd0610659-627b-4403-8b7f-6e2820ebc95d'
 
         u = url(controller='api/version2', action='create')
-        params= {
+        params = {
             'metadata':
-                'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
+            'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
             'csv_file':
-                'http://mk.ucant.org/info/data/sample-openspending-dataset.csv'
-            }
+            'http://mk.ucant.org/info/data/sample-openspending-dataset.csv'
+        }
         apikey_header = 'apikey {0}'.format(user.api_key)
-        response = self.app.post(u, params, {'Authorization':apikey_header})
+        response = self.app.post(u, params, {'Authorization': apikey_header})
         #Dataset.by_name('openspending-example').private = False
         assert "200" in response.status
         assert Dataset.by_name('openspending-example')
@@ -433,14 +450,14 @@ class TestApiNewDataset(ControllerTestCase):
         u = url(controller='api/version2', action='create')
         params = {
             'metadata':
-                'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
+            'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
             'csv_file':
-                'http://mk.ucant.org/info/data/sample-openspending-dataset.csv'
-            }
+            'http://mk.ucant.org/info/data/sample-openspending-dataset.csv'
+        }
         response = self.app.post(u, params, expect_errors=True)
         assert "400" in response.status
         assert not Dataset.by_name('openspending-example')
-        
+
     def test_new_wrong_user(self):
         # First we add a Dataset with user 'test_new'
         user = Account.by_name('test_new')
@@ -449,12 +466,12 @@ class TestApiNewDataset(ControllerTestCase):
         u = url(controller='api/version2', action='create')
         params = {
             'metadata':
-                'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
+            'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
             'csv_file':
-                'http://mk.ucant.org/info/data/sample-openspending-dataset.csv'
-            }
+            'http://mk.ucant.org/info/data/sample-openspending-dataset.csv'
+        }
         apikey_header = 'apikey {0}'.format(user.api_key)
-        response = self.app.post(u, params, {'Authorization':apikey_header})
+        response = self.app.post(u, params, {'Authorization': apikey_header})
         #Dataset.by_name('openspending-example').private = False
         assert "200" in response.status
         assert Dataset.by_name('openspending-example')
@@ -462,15 +479,15 @@ class TestApiNewDataset(ControllerTestCase):
         # After that we try to update the Dataset with user 'test_new2'
         user = Account.by_name('test_new2')
         assert user.api_key == 'c011c340-8dad-419c-8138-1c6ded86ead5'
-        
+
         u = url(controller='api/version2', action='create')
         params = {
             'metadata':
-                'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
+            'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
             'csv_file':
-                'http://mk.ucant.org/info/data/sample-openspending-dataset.csv'
-            }
+            'http://mk.ucant.org/info/data/sample-openspending-dataset.csv'
+        }
         apikey_header = 'apikey {0}'.format(user.api_key)
-        response = self.app.post(u, params, {'Authorization':apikey_header},
+        response = self.app.post(u, params, {'Authorization': apikey_header},
                                  expect_errors=True)
-        assert '403' in response.status    
+        assert '403' in response.status

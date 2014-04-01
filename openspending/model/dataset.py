@@ -26,6 +26,7 @@ log = logging.getLogger(__name__)
 
 
 class Dataset(TableHandler, db.Model):
+
     """ The dataset is the core entity of any access to data. All
     requests to the actual data store are routed through it, as well
     as data loading and model generation.
@@ -165,7 +166,7 @@ class Dataset(TableHandler, db.Model):
             if isinstance(dim, CompoundDimension):
                 self.table.append_constraint(ForeignKeyConstraint(
                     [dim.name + '_id'], [dim.table.name + '.id'],
-                    #use_alter=True,
+                    # use_alter=True,
                     name='fk_' + self.name + '_' + dim.name
                 ))
         self._generate_table()
@@ -187,7 +188,7 @@ class Dataset(TableHandler, db.Model):
 
     def commit(self):
         pass
-        #self.tx.commit()
+        # self.tx.commit()
         #self.tx = self.bind.begin()
 
     def _make_key(self, data):
@@ -302,7 +303,7 @@ class Dataset(TableHandler, db.Model):
         and a summary about the slice cutted by the query.
 
         ``measures``
-            The numeric units to be aggregated over, defaults to 
+            The numeric units to be aggregated over, defaults to
             [``amount``]. (type: `list`)
         ``drilldowns``
             Dimensions to drill down to. (type: `list`)
@@ -367,7 +368,7 @@ class Dataset(TableHandler, db.Model):
         labels = {
             'year': dataset['time']['year'].column_alias.label('year'),
             'month': dataset['time']['yearmonth'].column_alias.label('month'),
-            }
+        }
 
         # Get the dimensions we're interested in. These would be the drilldowns
         # and the cuts. For compound dimensions we are only interested in the
@@ -499,7 +500,7 @@ class Dataset(TableHandler, db.Model):
         # statistics such as page, number of entries. The currency value is
         # strange since it's redundant for multiple measures but is left as is
         # for backwards compatibility
-        summary = {key: value for (key,value) in total}
+        summary = {key: value for (key, value) in total}
         summary.update({
             'num_entries': num_entries,
             'currency': {m: dataset.currency for m in measures},
@@ -509,7 +510,7 @@ class Dataset(TableHandler, db.Model):
             'pagesize': pagesize
         })
 
-        return { 'drilldown': drilldown, 'summary': summary }
+        return {'drilldown': drilldown, 'summary': summary}
 
     def timerange(self):
         """

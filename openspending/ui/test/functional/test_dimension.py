@@ -14,7 +14,7 @@ class TestDimensionController(ControllerTestCase):
         self.cra = Dataset.by_name('cra')
         for dimension in self.cra.dimensions:
             if isinstance(dimension, CompoundDimension) and \
-                            dimension.name == 'cofog1':
+                    dimension.name == 'cofog1':
                 members = list(dimension.members(
                     dimension.alias.c.name == '3',
                     limit=1))
@@ -26,8 +26,12 @@ class TestDimensionController(ControllerTestCase):
                                     action='index'))
         h.assert_true('Paid by' in response, "'Paid by' not in response!")
         h.assert_true('Paid to' in response, "'Paid to' not in response!")
-        h.assert_true('Programme Object Group' in response, "'Programme Object Group' not in response!")
-        h.assert_true('CG, LG or PC' in response, "'CG, LG or PC' not in response!")
+        h.assert_true(
+            'Programme Object Group' in response,
+            "'Programme Object Group' not in response!")
+        h.assert_true(
+            'CG, LG or PC' in response,
+            "'CG, LG or PC' not in response!")
 
     def test_index_json(self):
         response = self.app.get(url(controller='dimension', dataset='cra',

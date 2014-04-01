@@ -113,7 +113,7 @@ def build_index(dataset_name):
     for i, entry in enumerate(dataset_.entries()):
         ourdata = extend_entry(entry, dataset_)
         #from pprint import pprint
-        #pprint(ourdata)
+        # pprint(ourdata)
         buf.append(ourdata)
         if i and i % 1000 == 0:
             solr.add_many(buf)

@@ -17,19 +17,22 @@ from webtest import TestApp
 import pylons.test
 
 from openspending.test import (TestCase, DatabaseTestCase,
-                     setup_package as _setup_package)
+                               setup_package as _setup_package)
 
 __all__ = ['environ', 'url', 'TestCase', 'DatabaseTestCase',
            'ControllerTestCase']
 
 environ = {}
 
+
 def setup_package():
     _setup_package()
     # Invoke websetup with the current config file
     SetupCommand('setup-app').run([config['__file__']])
 
+
 class ControllerTestCase(DatabaseTestCase):
+
     def __init__(self, *args, **kwargs):
         wsgiapp = pylons.test.pylonsapp
         self.app = TestApp(wsgiapp)

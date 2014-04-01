@@ -67,7 +67,6 @@ class TestBadgeController(ControllerTestCase):
         # The dummy files we'll upload
         files = [("badge-image", "badge.png", "Test badge file")]
 
-
         # Create upload directory if it doesn't exist
         object_upload_dir = os.path.join(
             config['pylons.paths']['static_files'],
@@ -78,7 +77,7 @@ class TestBadgeController(ControllerTestCase):
             upload_dir_created = False
         else:
             # Doesn't exist (so we'll remove it afterwards
-            os.mkdir(object_upload_dir, 0744)
+            os.mkdir(object_upload_dir, 0o744)
             upload_dir_created = True
 
         # Create a new badge (should return unauthorized)
@@ -126,7 +125,7 @@ class TestBadgeController(ControllerTestCase):
         badge_json = self.app.get(url(controller='badge', action='index',
                                       format='json'))
         badge_index = json.loads(badge_json.body)
-        assert len(badge_index['badges']) == existing_badges+1, \
+        assert len(badge_index['badges']) == existing_badges + 1, \
             "One badge should have been added but it wasn't"
 
         # Check image exists

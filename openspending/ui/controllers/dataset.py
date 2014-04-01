@@ -80,7 +80,8 @@ class DatasetController(BaseController):
         # We also don't set c._must_revalidate to True since we don't care
         # if the index needs a hard refresh
         try:
-            etag_cache_keygen(results['datasets'][0]['timestamps']['last_modified'])
+            etag_cache_keygen(
+                results['datasets'][0]['timestamps']['last_modified'])
         except IndexError:
             etag_cache_keygen(None)
 
@@ -116,12 +117,12 @@ class DatasetController(BaseController):
             return templating.render('dataset/new_cta.html')
         require.dataset.create()
         c.key_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if k],
-                                  key=lambda (k, v): v)
+                                  key=lambda k_v: k_v[1])
         c.all_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if not k],
-                                  key=lambda (k, v): v)
-        c.languages = sorted(LANGUAGES.items(), key=lambda (k, v): v)
-        c.territories = sorted(COUNTRIES.items(), key=lambda (k, v): v)
-        c.categories = sorted(CATEGORIES.items(), key=lambda (k, v): v)
+                                  key=lambda k_v1: k_v1[1])
+        c.languages = sorted(LANGUAGES.items(), key=lambda k_v2: k_v2[1])
+        c.territories = sorted(COUNTRIES.items(), key=lambda k_v3: k_v3[1])
+        c.categories = sorted(CATEGORIES.items(), key=lambda k_v4: k_v4[1])
         errors = [(k[len('dataset.'):], v) for k, v in errors.items()]
         return templating.render('dataset/new.html', form_errors=dict(errors),
                                  form_fill=request.params if errors else {'currency': 'USD'})
@@ -145,7 +146,7 @@ class DatasetController(BaseController):
             db.session.commit()
             redirect(h.url_for(controller='editor', action='index',
                                dataset=dataset.name))
-        except Invalid, i:
+        except Invalid as i:
             errors = i.asdict()
             return self.new(errors)
 
@@ -153,7 +154,7 @@ class DatasetController(BaseController):
         """
         Dataset viewer. Default format is html. This will return either
         an entry index if there is no default view or the defaul view.
-        If a request parameter embed is given the default view is 
+        If a request parameter embed is given the default view is
         returned as an embeddable page.
 
         If json is provided as a format the json representation of the
@@ -237,11 +238,11 @@ class DatasetController(BaseController):
                 'author_name': ', '.join([person.fullname for person in
                                           feed_item.managers if
                                           person.fullname]),
-                })
+            })
         feed = Rss201rev2Feed(_('Recently Created Datasets'), url(
             controller='home', action='index', qualified=True),
-                              _('Recently created datasets in the OpenSpending Platform'),
-                              author_name='Openspending')
+            _('Recently created datasets in the OpenSpending Platform'),
+            author_name='Openspending')
         for item in items:
             feed.add_item(**item)
         sio = StringIO()

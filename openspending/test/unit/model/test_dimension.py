@@ -1,7 +1,7 @@
 from nose.tools import assert_raises
 
 from openspending.test.unit.model.helpers import \
-        SIMPLE_MODEL
+    SIMPLE_MODEL
 from openspending.test import DatabaseTestCase, helpers as h
 
 from openspending.model import meta as db
@@ -9,6 +9,7 @@ from openspending.model import Dataset
 
 
 class TestAttributeDimension(DatabaseTestCase):
+
     def setup(self):
         super(TestAttributeDimension, self).setup()
         self.engine = db.engine
@@ -41,9 +42,10 @@ class TestCompoundDimension(DatabaseTestCase):
 
     def test_generated_tables(self):
         #assert not hasattr(self.entity, 'table'), self.entity
-        #self.ds.generate()
+        # self.ds.generate()
         assert hasattr(self.entity, 'table'), self.entity
-        assert self.entity.table.name == 'cra__' + self.entity.taxonomy, self.entity.table.name
+        assert self.entity.table.name == 'cra__' + \
+            self.entity.taxonomy, self.entity.table.name
         assert hasattr(self.entity, 'alias')
         assert self.entity.alias.name == self.entity.name, self.entity.alias.name
         cols = self.entity.table.c
@@ -65,5 +67,7 @@ class TestCompoundDimension(DatabaseTestCase):
         members = list(self.entity.members())
         h.assert_equal(len(members), 5)
 
-        members = list(self.entity.members(self.entity.alias.c.name == 'Dept032'))
+        members = list(
+            self.entity.members(
+                self.entity.alias.c.name == 'Dept032'))
         h.assert_equal(len(members), 1)

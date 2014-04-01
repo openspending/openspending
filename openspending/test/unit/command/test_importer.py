@@ -7,6 +7,7 @@ from openspending.test import TestCase, helpers as h
 
 
 class TestImporter(TestCase):
+
     @h.patch.object(Account, 'by_name', return_value='the account')
     def test_shell_account_when_it_exists(self, account_mock):
         assert shell_account() == 'the account'

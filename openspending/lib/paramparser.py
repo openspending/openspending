@@ -92,13 +92,14 @@ class ParamParser(object):
             self._error('"%s" has to be an integer, it is: %s' %
                        (name, value))
 
-    def _to_bool(self, value): 
+    def _to_bool(self, value):
         if value.lower().strip() in ['true', '1', 'yes', 'on']:
             return True
         return False
 
 
 class DatasetIndexParamParser(ParamParser):
+
     """
     Parameter parser for the dataset index page (which is served
     differently based on languages, territories and category chosen.
@@ -262,6 +263,7 @@ class AggregateParamParser(ParamParser):
 
 
 class EntryIndexParamParser(ParamParser):
+
     """
     This class extends the ParamParser to parse and provide an empty string
     default for the q parameter.
@@ -277,7 +279,7 @@ class EntryIndexParamParser(ParamParser):
             return {}
 
         parsed_filters = {}
-        
+
         for _filter in filters.split('|'):
             try:
                 key, value = _filter.split(':')
@@ -369,7 +371,8 @@ class SearchParamParser(ParamParser):
         return self._to_bool(stats)
 
     def parse_facet_pagesize(self, pagesize):
-        return min(self.MAX_FACET_PAGESIZE, self._to_int('facet_pagesize', pagesize))
+        return min(
+            self.MAX_FACET_PAGESIZE, self._to_int('facet_pagesize', pagesize))
 
     def parse_expand_facet_dimensions(self, expand_facet_dimensions):
         return expand_facet_dimensions is not None

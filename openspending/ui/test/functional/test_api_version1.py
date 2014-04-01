@@ -4,6 +4,7 @@ from .. import ControllerTestCase, url, helpers as h
 
 
 class TestApiController(ControllerTestCase):
+
     def setup(self):
         super(TestApiController, self).setup()
         h.load_fixture('cra')
@@ -33,8 +34,8 @@ class TestApiController(ControllerTestCase):
         callback = randomjsonpcallback()
         u = url(controller='api/version1',
                 callback=callback, action='aggregate', **{
-                'dataset': 'cra',
-                'breakdown-region': 'yes',
+                    'dataset': 'cra',
+                    'breakdown-region': 'yes',
                 })
         response = self.app.get(u)
         assert '"region"' in response, response
@@ -100,7 +101,8 @@ class TestApiSearch(ControllerTestCase):
         h.clean_and_reindex_solr()
 
     def test_search_01_no_query(self):
-        response = self.app.get(url(controller='api/version1', action='search'))
+        response = self.app.get(
+            url(controller='api/version1', action='search'))
         out = json.loads(str(response.body))['response']
         assert out['numFound'] == 36, out['numFound']
         assert out['docs'][0]['dataset'] == 'cra', out

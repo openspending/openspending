@@ -11,7 +11,7 @@ class TestSourceController(ControllerTestCase):
         super(TestSourceController, self).setup()
         self.user = h.make_account('test')
         self.dataset = h.load_fixture('cra', self.user)
-        #h.clean_and_reindex_solr()
+        # h.clean_and_reindex_solr()
 
     def test_view_source(self):
         url_ = 'http://banana.com/split.csv'

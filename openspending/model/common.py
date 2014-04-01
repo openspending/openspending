@@ -50,6 +50,7 @@ class JSONType(MutableType, TypeDecorator):
 
 
 class TableHandler(object):
+
     """ Used by automatically generated objects such as datasets
     and dimensions to generate, write and clear the table under
     its management. """

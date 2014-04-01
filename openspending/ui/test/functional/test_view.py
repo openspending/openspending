@@ -10,7 +10,7 @@ class TestViewController(ControllerTestCase):
         super(TestViewController, self).setup()
         self.user = h.make_account('test')
         h.load_fixture('cra', self.user)
-        #h.clean_and_reindex_solr()
+        # h.clean_and_reindex_solr()
 
     def test_index(self):
         response = self.app.get(url(controller='view',

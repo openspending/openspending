@@ -54,14 +54,14 @@ def aggregate(dataset, measures=['amount'], drilldowns=None, cuts=None,
     care of those computations
     """
 
-    # If we have to inflate we need to add a year to the drilldowns 
+    # If we have to inflate we need to add a year to the drilldowns
     # (since inflation only supports years at the moment).
     if inflate:
         drilldowns.append('time.year')
 
     # Aggregate the dataset via its own aggregate function
     result = dataset.aggregate(measures=measures, drilldowns=drilldowns,
-                               cuts=cuts, page=page,pagesize=pagesize,
+                               cuts=cuts, page=page, pagesize=pagesize,
                                order=order)
 
     # If we have to inflate we do some inflation calculations
@@ -114,7 +114,7 @@ def aggregate(dataset, measures=['amount'], drilldowns=None, cuts=None,
             result['drilldown'] = adjusted_drilldowns.values()
             result['summary']['original'] = result['summary']['amount']
             result['summary']['amount'] = summary_total
-        except KeyError, error:
+        except KeyError as error:
             # If inflation fails because a date wasn't found in the inflation
             # data, then it raises a KeyError (returning the date in the
             # exception message

@@ -46,7 +46,7 @@ class Browser(object):
 
         if self.params['stats']:
             self.stats.update(q.get('stats', {}).get('stats_fields', {}).
-                    get('amount', {}))
+                              get('amount', {}))
 
         self.facets = q.get('facet_counts', {}).get('facet_fields', {})
         for k in self.facets.keys():
@@ -73,11 +73,11 @@ class Browser(object):
 
 def _build_query(params):
     query = {
-        'q':     params['q'] or '*:*',
-        'fq':    _build_fq(params['filter']),
-        'wt':    'json',
-        'fl':    'id, dataset',
-        'sort':  _build_sort(params['order']),
+        'q': params['q'] or '*:*',
+        'fq': _build_fq(params['filter']),
+        'wt': 'json',
+        'fl': 'id, dataset',
+        'sort': _build_sort(params['order']),
         'stats': str(params['stats']).lower(),
         'stats.field': 'amount',
         # FIXME: In a future version of the API, we really should use
@@ -86,7 +86,7 @@ def _build_query(params):
         # NB: we permit fractional page sizes to overcome the limits of
         # page/pagesize vs offset/limit
         'start': int((params['page'] - 1) * params['pagesize']),
-        'rows':  params['pagesize'],
+        'rows': params['pagesize'],
     }
     if params['facet_field']:
         query.update({
@@ -96,7 +96,8 @@ def _build_query(params):
             'facet.sort': 'count',
             # NB: we permit fractional page sizes to overcome the limits of
             # page/pagesize vs offset/limit
-            'facet.offset': int((params['facet_page'] - 1) * params['facet_pagesize']),
+            'facet.offset': int((params['facet_page'] - 1)
+                                * params['facet_pagesize']),
             'facet.limit': params['facet_pagesize']
         })
     return query
@@ -106,7 +107,8 @@ def _build_fq(filters):
     """
     Make a Solr 'fq' object from a filters dict.
 
-    Returns a list, suitable for passing as the 'fq' keyword argument to ``raw_query()``
+    Returns a list, suitable for passing as the 'fq' keyword
+    argument to ``raw_query()``
     """
     def fq_for(key, value):
         return "+%s:\"%s\"" % (key, value.replace('"', '\\"'))
@@ -130,7 +132,7 @@ def _parse_facets(facets):
     out = []
 
     for i in xrange(0, len(facets), 2):
-        out.append([facets[i], facets[i+1]])
+        out.append([facets[i], facets[i + 1]])
 
     return out
 

@@ -2,7 +2,9 @@ import collections
 
 InflationResult = collections.namedtuple('Inflation', 'factor value')
 
+
 class Inflation(object):
+
     def __init__(self, source=None, reference=None, country=None):
         pass
 

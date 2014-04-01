@@ -2,7 +2,8 @@ from pylons import tmpl_context
 
 
 def logged_in():
-    return hasattr(tmpl_context, 'account') and tmpl_context.account is not None
+    return hasattr(
+        tmpl_context, 'account') and tmpl_context.account is not None
 
 
 def create():

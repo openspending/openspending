@@ -80,12 +80,13 @@ def url_for(*args, **kwargs):
     # from a config and set it
     protocol = config.get('openspending.enforced_protocol', None)
     if protocol:
-        kwargs.update({'protocol':protocol})
+        kwargs.update({'protocol': protocol})
     return routes_url_for(*args, **kwargs)
 
 
 def site_url():
-    return url_for(controller='home', action='index', qualified=True).rstrip('/')
+    return url_for(
+        controller='home', action='index', qualified=True).rstrip('/')
 
 
 def gravatar(email, size=None, default='mm'):
@@ -107,7 +108,7 @@ def gravatar(email, size=None, default='mm'):
     # Generate the Gravatar url
     url = gravatar_url.format(digest=digest,
                               default=default,
-                              query='&s='+str(size) if size else '')
+                              query='&s=' + str(size) if size else '')
 
     # Return it
     return url
@@ -185,7 +186,7 @@ def get_object_upload_dir(obj):
         # Get public directory on filesystem
         pylons_upload = config['pylons.paths']['static_files']
         # Get upload directory as defined in config file (we default to a
-        # folder called files (also default for 
+        # folder called files (also default for
         upload_path = config.get('openspending.upload_directory', 'files')
         # Check to see the upload dir exists. If not we raise OSError
         upload_dir = os.path.join(pylons_upload, upload_path)
@@ -207,7 +208,7 @@ def get_object_upload_dir(obj):
     # creating this in the static folder or raising OSError (therefore we
     # use os.mkdir, not os.makedirs
     try:
-        os.mkdir(object_upload_dir, 0744)
+        os.mkdir(object_upload_dir, 0o744)
     except OSError as exception:
         # Highly unlikely we end up here, but we will if there's a race
         # condition. We might also end up here if there's a regular file
@@ -245,6 +246,7 @@ def format_currency(amount, dataset):
     except:
         return amount
 
+
 def join_filters(filters, append=[], remove=[]):
     """
     Join filters which are used to filter Solr entries according to
@@ -257,9 +259,9 @@ def join_filters(filters, append=[], remove=[]):
     """
 
     # Join filter dictionary but skip pairs with key in remove
-    filter_values = [u'%s:%s' % (key, item)\
-                         for (key, value) in filters.iteritems()\
-                         if key not in remove]
+    filter_values = [u'%s:%s' % (key, item)
+                     for (key, value) in filters.iteritems()
+                     if key not in remove]
     # Extend the filters with pairs from append
     for (key, item) in append:
         # We expect the item to be a dictionary with a key name who's value
@@ -272,7 +274,7 @@ def join_filters(filters, append=[], remove=[]):
 
     # Return the joined filters
     return '|'.join(filter_values)
-    
+
 
 def entry_description(entry):
     fragments = []
@@ -373,7 +375,7 @@ def format_number_with_commas(number):
 
 def get_date_object(unparsed_date):
     """
-    Parse either a dict or a string to retreive a datetime.date object. 
+    Parse either a dict or a string to retreive a datetime.date object.
     The dictionary has to be like the one returned by the database, i.e.
     it must have at least three keys, year, month and day.
     The string can be of any of three formats: yyyy, yyyy-mm-dd, or dd-mm-yyyy.
@@ -381,7 +383,7 @@ def get_date_object(unparsed_date):
     """
 
     # If unparsed_date is a dict it's probably a time entry as returned by
-    # the database so we try to get the data 
+    # the database so we try to get the data
     if isinstance(unparsed_date, dict):
         try:
             # Year is necessary, month and day can default to 1
@@ -475,5 +477,5 @@ def style_tag(name):
 
 def has_datatype_attr(c, key):
     return c.desc.get(key) and \
-           hasattr(c.desc.get(key), 'datatype') and \
-           c.desc.get(key).datatype == 'url'
+        hasattr(c.desc.get(key), 'datatype') and \
+        c.desc.get(key).datatype == 'url'

@@ -6,8 +6,10 @@ from openspending.importer import CSVImporter
 
 from ... import DatabaseTestCase, helpers as h
 
+
 def csvimport_fixture_path(name, path):
     return h.fixture_path('csv_import/%s/%s' % (name, path))
+
 
 def csvimport_fixture_file(name, path):
     try:
@@ -19,6 +21,7 @@ def csvimport_fixture_file(name, path):
             fp = csvimport_fixture_file('default', path)
 
     return fp
+
 
 def csvimport_fixture(name):
     model_fp = csvimport_fixture_file(name, 'model.json')
@@ -35,6 +38,7 @@ def csvimport_fixture(name):
     db.session.add(source)
     db.session.commit()
     return source
+
 
 class TestCSVImporter(DatabaseTestCase):
 
@@ -101,7 +105,9 @@ class TestCSVImporter(DatabaseTestCase):
         records = list(importer._run.records)
         h.assert_equal(records[0].row, 0)
         h.assert_equal(records[1].row, 0)
-        h.assert_true("Didn't read any lines of data" in str(records[1].message))
+        h.assert_true(
+            "Didn't read any lines of data" in str(
+                records[1].message))
 
     def test_malformed_csv(self):
         source = csvimport_fixture('malformed')
@@ -154,7 +160,7 @@ class TestCSVImportDatasets(DatabaseTestCase):
     def _test_import(self, name):
         source = csvimport_fixture(name)
         data = open(source.url)
-        lines = self.count_lines_in_stream(data) - 1 # -1 for header row
+        lines = self.count_lines_in_stream(data) - 1  # -1 for header row
 
         importer = CSVImporter(source)
         importer.run()
@@ -169,4 +175,3 @@ class TestCSVImportDatasets(DatabaseTestCase):
     def test_all_imports(self):
         for dir in self.datasets_to_test:
             yield self._test_import, dir
-

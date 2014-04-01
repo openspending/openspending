@@ -7,6 +7,7 @@ from openspending.model.common import JSONType
 
 
 class View(db.Model):
+
     """ A view stores a specific configuration of a visualisation widget. """
 
     __tablename__ = 'view'

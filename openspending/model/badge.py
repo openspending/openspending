@@ -5,12 +5,19 @@ from openspending.model import Account, meta as db
 # Badges and dataset share a many to many relationship
 # therefore we need to create an associate table
 badges_on_datasets = db.Table('badges_on_datasets', db.metadata,
-                              db.Column('badge_id', db.Integer, db.ForeignKey('badge.id')),
-                              db.Column('dataset_id', db.Integer, db.ForeignKey('dataset.id'))
-)
+                              db.Column(
+                                  'badge_id',
+                                  db.Integer,
+                                  db.ForeignKey('badge.id')),
+                              db.Column(
+                                  'dataset_id',
+                                  db.Integer,
+                                  db.ForeignKey('dataset.id'))
+                              )
 
 
 class Badge(db.Model):
+
     """
     This model allows marking datasets with various badges.
     Examples could be "World Bank" - data verified by the World bank.
@@ -86,7 +93,7 @@ class Badge(db.Model):
             "id": self.id,
             "label": self.label,
             "image": self.image,
-            }
+        }
         if not short:
             badge.update({
                 "description": self.description,

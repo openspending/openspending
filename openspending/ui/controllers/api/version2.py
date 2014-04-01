@@ -47,13 +47,13 @@ class APIv2Controller(BaseController):
             k = k.replace('_', ' ').replace('-', ' ').split()
             k = '-'.join(['X'] + [l.capitalize() for l in k])
 
-            # Add the header along with it's value encoded as ascii but 
+            # Add the header along with it's value encoded as ascii but
             # ignore all errors in encoding
             response.headers[k] = unicode(v).encode('ascii', 'ignore')
 
     def aggregate(self):
         """
-        Aggregation of a dataset based on URL parameters. It serves the 
+        Aggregation of a dataset based on URL parameters. It serves the
         aggregation from a cache if possible, and if not it computes it (it's
         performed in the aggregation cache for some reason).
         """
@@ -172,8 +172,8 @@ class APIv2Controller(BaseController):
                     datasets,
                     params,
                     pagesize=parser.defaults['pagesize'],
-                    expand_facets=util.expand_facets \
-                        if expand_facets else None,
+                    expand_facets=util.expand_facets
+                    if expand_facets else None,
                     callback=request.params.get('callback')
                 )
                 return streamer.response()
@@ -181,7 +181,7 @@ class APIv2Controller(BaseController):
         solr_browser = Browser(**params)
         try:
             solr_browser.execute()
-        except SolrException, e:
+        except SolrException as e:
             return {'errors': [unicode(e)]}
 
         entries = []
@@ -235,7 +235,7 @@ class APIv2Controller(BaseController):
         try:
             log.info("Validating model")
             model = validate_model(model)
-        except Invalid, i:
+        except Invalid as i:
             log.error("Errors occured during model validation:")
             for field, error in i.asdict().items():
                 log.error("%s: %s", field, error)
@@ -245,7 +245,7 @@ class APIv2Controller(BaseController):
             dataset = Dataset(model)
             require.dataset.create()
             dataset.managers.append(c.account)
-            dataset.private = True #Default value
+            dataset.private = True  # Default value
             db.session.add(dataset)
         else:
             require.dataset.update(dataset)

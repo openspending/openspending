@@ -1,5 +1,6 @@
 """Pylons middleware initialization"""
-import logging, sys
+import logging
+import sys
 
 from beaker.middleware import CacheMiddleware, SessionMiddleware
 from paste.cascade import Cascade

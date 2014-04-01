@@ -78,7 +78,7 @@ def modelmigrate():
         version = model.get('dataset').get('schema_version')
         if 'dataset' in model:
             del model['dataset']
-        q = dataset.update().where(dataset.c.id==ds['id'])
+        q = dataset.update().where(dataset.c.id == ds['id'])
         q = q.values({'data': model, 'schema_version': version})
         db.engine.execute(q)
     return 0

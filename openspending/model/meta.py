@@ -25,6 +25,7 @@ metadata = MetaData()
 
 
 class Model(object):
+
     """Baseclass for custom user models."""
 
     query_class = orm.Query

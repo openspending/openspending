@@ -20,8 +20,9 @@ template_rootdir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Page(paginate.Page):
-    # Overwrite the pager method of the webhelpers.paginate.Page class, 
+    # Overwrite the pager method of the webhelpers.paginate.Page class,
     # so we have our custom layout set as default.
+
     def pager(self, *args, **kwargs):
         kwargs.update(
             format="<div class='pager'>$link_previous ~2~ $link_next</div>",
@@ -33,13 +34,13 @@ class Page(paginate.Page):
 def languages(detected_languages, current_language):
     def lang_triple(lang):
         return {
-            "lang_code": lang[0], 
-            "lang_name": lang[1], 
+            "lang_code": lang[0],
+            "lang_name": lang[1],
             "current_locale": {
                 True: "current_locale",
                 False: ""
-                }[current_language == lang[0]]
-            }
+            }[current_language == lang[0]]
+        }
     return [lang_triple(l) for l in detected_languages]
 
 
@@ -48,10 +49,10 @@ def section_active(section):
     tmp = dict([(s, section == s)for s in sections])
     tmp["dataset"] = bool(c.dataset)
 
-    return dict([ (k, {
+    return dict([(k, {
                 True: "active",
                 False: ""
-                }[v]) for k,v in tmp.iteritems() ])
+                }[v]) for k, v in tmp.iteritems()])
 
 
 def postprocess_forms(s, form_errors):
@@ -117,7 +118,7 @@ def render(path, **kwargs):
         "g": app_globals,
         "can": can,
         "show_rss": hasattr(c, 'show_rss') and c.show_rss or None
-        }
+    }
     params.update(kwargs)
     form_errors = params.get('form_errors', {})
     return postprocess_forms(template.render(params), form_errors)

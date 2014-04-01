@@ -5,6 +5,7 @@ from openspending.ui.lib.views import View
 
 
 class TestViews(DatabaseTestCase):
+
     def setup(self):
         super(TestViews, self).setup()
         h.load_fixture('cra')

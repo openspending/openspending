@@ -27,13 +27,16 @@ class TestAccountController(ControllerTestCase):
                                 extra_environ={'REMOTE_USER': 'mockaccount'})
 
     def test_after_login(self):
-        response = self.app.get(url(controller='account', action='after_login'))
+        response = self.app.get(
+            url(controller='account', action='after_login'))
 
     def test_after_logout(self):
-        response = self.app.get(url(controller='account', action='after_logout'))
+        response = self.app.get(
+            url(controller='account', action='after_logout'))
 
     def test_trigger_reset_get(self):
-        response = self.app.get(url(controller='account', action='trigger_reset'))
+        response = self.app.get(
+            url(controller='account', action='trigger_reset'))
         assert 'email address you used to register your account' in response.body, response.body
 
     def test_trigger_reset_post_fail(self):
@@ -142,7 +145,7 @@ class TestAccountController(ControllerTestCase):
         # Display email and twitter handle for the user
         response = self.app.get(url(controller='account', action='profile',
                                     name='test'), extra_environ={'REMOTE_USER':
-                                                                     'test'})
+                                                                 'test'})
 
         assert '200' in response.status, \
             'Profile not successfully returned for user'
@@ -192,7 +195,7 @@ class TestAccountController(ControllerTestCase):
         # Display email for admins
         response = self.app.get(url(controller='account', action='profile',
                                     name='test'), extra_environ={'REMOTE_USER':
-                                                                     'admin'})
+                                                                 'admin'})
 
         assert '200' in response.status, \
             'Profile not successfully returned for admins'
@@ -238,7 +241,7 @@ class TestAccountController(ControllerTestCase):
 
         response = self.app.get(url(controller='account', action='profile',
                                     name='test'), extra_environ={'REMOTE_USER':
-                                                                     'test'})
+                                                                 'test'})
         # Check if the Twitter heading is there
         assert '<dt>Twitter</dt>' not in response.body, \
             'Twitter heading is in profile even though twitter handle is empty'
@@ -270,10 +273,10 @@ class TestAccountController(ControllerTestCase):
             'Terms of use url not in response'
 
         # Headers to immitate a browser
-        headers = {'User-Agent':'OpenSpending in-site browser',
-                   'Accept': ','.join(['text/html','application/xhtml+xml',
-                                       'application/xml;q=0.9','*/*;q=0.8'])
-        }
+        headers = {'User-Agent': 'OpenSpending in-site browser',
+                   'Accept': ','.join(['text/html', 'application/xhtml+xml',
+                                       'application/xml;q=0.9', '*/*;q=0.8'])
+                   }
 
         # We use urllib2 instead of webtest's get because of redirects
         request = urllib2.Request('http://okfn.org/terms-of-use',
@@ -297,11 +300,11 @@ class TestAccountController(ControllerTestCase):
         # Check that not filling up the field throws a 'required' response
         # if the terms box is not in the post request (not checked)
         response = self.app.post(url(controller='account', action='register'),
-                                 params={'name':'termschecker',
-                                         'fullname':'Term Checker',
+                                 params={'name': 'termschecker',
+                                         'fullname': 'Term Checker',
                                          'email': 'termchecker@test.com',
-                                         'password1':'secret',
-                                         'password2':'secret'})
+                                         'password1': 'secret',
+                                         'password2': 'secret'})
         assert 'name="terms"' in response.body, \
             'Terms of use checkbox not present after registering without tick'
         # Check if user is told it is required (this can be anywhere on the
@@ -318,7 +321,7 @@ class TestAccountController(ControllerTestCase):
                                          'email': 'termchecker@test.com',
                                          'password1': 'secret',
                                          'password2': 'secret',
-                                         'terms':True})
+                                         'terms': True})
         assert 'name="terms"' not in response.body, \
             'Terms of use checkbox is present even after a successful register'
 
@@ -393,10 +396,10 @@ class TestAccountController(ControllerTestCase):
         # Get the home page (could be just any page
         user_response = self.app.get(url(controller='home', action='index'),
                                      extra_environ={'REMOTE_USER':
-                                                        str(normal_user.name)})
+                                                    str(normal_user.name)})
         admin_response = self.app.get(url(controller='home', action='index'),
                                       extra_environ={'REMOTE_USER':
-                                                         str(admin_user.name)})
+                                                     str(admin_user.name)})
 
         # Admin user should be the only one to see a link
         # to the user scoreboard (not the normal user)
@@ -410,7 +413,7 @@ class TestAccountController(ControllerTestCase):
         user_response = self.app.get(scoreboard_url,
                                      expect_errors=True,
                                      extra_environ={'REMOTE_USER':
-                                                        str(normal_user.name)})
+                                                    str(normal_user.name)})
         assert '403' in user_response.status, \
             "Normal user is authorized to see user scoreboard"
 
@@ -419,7 +422,7 @@ class TestAccountController(ControllerTestCase):
         # respectively)
         admin_response = self.app.get(scoreboard_url,
                                       extra_environ={'REMOTE_USER':
-                                                         str(admin_user.name)})
+                                                     str(admin_user.name)})
 
         assert '200' in admin_response.status, \
             "Administrator did not get a 200 status for user scoreboard"

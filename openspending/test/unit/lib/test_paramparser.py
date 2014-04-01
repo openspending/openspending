@@ -4,6 +4,7 @@ from openspending.lib.paramparser import ParamParser, AggregateParamParser, Sear
 
 
 class TestParamParser(TestCase):
+
     def test_defaults(self):
         out, err = ParamParser({}).parse()
         h.assert_equal(out['page'], 1)
@@ -36,7 +37,9 @@ class TestParamParser(TestCase):
         out, err = ParamParser({'order': 'foo:boop'}).parse()
         h.assert_true('Order direction can be "asc" or "desc"' in err[0])
 
+
 class TestAggregateParamParser(TestCase):
+
     def test_defaults(self):
         out, err = AggregateParamParser({}).parse()
         h.assert_equal(out['page'], 1)
@@ -72,10 +75,12 @@ class TestAggregateParamParser(TestCase):
         ds.measures = []
         model_mock.by_name.return_value = ds
 
-        out, err = AggregateParamParser({'dataset': 'foo', 'cut': 'foo:one|bar:two'}).parse()
+        out, err = AggregateParamParser(
+            {'dataset': 'foo', 'cut': 'foo:one|bar:two'}).parse()
         h.assert_equal(out['cut'], [('foo', 'one'), ('bar', 'two')])
 
-        out, err = AggregateParamParser({'dataset': 'foo', 'cut': 'foo:one|bar'}).parse()
+        out, err = AggregateParamParser(
+            {'dataset': 'foo', 'cut': 'foo:one|bar'}).parse()
         h.assert_true('Wrong format for "cut"' in err[0])
 
     @h.patch('openspending.lib.paramparser.model.Dataset')
@@ -91,16 +96,19 @@ class TestAggregateParamParser(TestCase):
         out, err = AggregateParamParser({'dataset': 'foo'}).parse()
         h.assert_equal(out['measure'], ['amount'])
 
-        out, err = AggregateParamParser({'dataset': 'foo', 'measure': 'bar'}).parse()
+        out, err = AggregateParamParser(
+            {'dataset': 'foo', 'measure': 'bar'}).parse()
         h.assert_equal(out['measure'], ['bar'])
 
-        out, err = AggregateParamParser({'dataset': 'foo', 'measure': 'amount|bar'}).parse()
+        out, err = AggregateParamParser(
+            {'dataset': 'foo', 'measure': 'amount|bar'}).parse()
         assert 'amount' in out['measure'], \
             "AggregateParamParser doesn't return amount measure"
         assert 'bar' in out['measure'], \
             "AggregateParamParser doesn't return bar measure"
 
-        out, err = AggregateParamParser({'dataset': 'foo', 'measure': 'baz'}).parse()
+        out, err = AggregateParamParser(
+            {'dataset': 'foo', 'measure': 'baz'}).parse()
         h.assert_true('no measure with name "baz"' in err[0])
 
 

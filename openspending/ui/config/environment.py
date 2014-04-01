@@ -29,7 +29,11 @@ def load_environment(global_conf, app_conf):
                  templates=[os.path.join(root, 'templates')])
 
     # Initialize config with the basic options
-    config.init_app(global_conf, app_conf, package='openspending.ui', paths=paths)
+    config.init_app(
+        global_conf,
+        app_conf,
+        package='openspending.ui',
+        paths=paths)
 
     config['routes.map'] = routing.make_map()
     config['pylons.app_globals'] = app_globals.Globals()

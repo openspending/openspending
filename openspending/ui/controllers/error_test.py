@@ -6,6 +6,7 @@ from openspending.ui.lib.base import BaseController, abort
 
 
 class ErrorTestController(BaseController):
+
     def not_found(self):
         abort(404, "Custom 404 error message")
 

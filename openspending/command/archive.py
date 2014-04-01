@@ -1,7 +1,8 @@
 from __future__ import print_function
 
 import logging
-import os, posixpath
+import os
+import posixpath
 import sys
 import json
 import hashlib
@@ -57,7 +58,7 @@ def get_url_filename(url):
 
 def file_name(path, source):
     """
-    Return a filename based on the source url located at the relative or 
+    Return a filename based on the source url located at the relative or
     absolute path provided
     """
 
@@ -83,7 +84,7 @@ def update_source(archive_dir, source):
         try:
             urllib.urlretrieve(source.url, fname_tmp)
             os.rename(fname_tmp, fname)
-        except Exception, e:
+        except Exception as e:
             log.exception(e)
     if os.path.isfile(fname):
         log.info("OK: %s", sizeof_fmt(os.path.getsize(fname)))
@@ -164,9 +165,9 @@ def archive_one(dataset_name, archive_dir):
 
     # If the archive_dir exists we have to ask the user if we should overwrite
     if os.path.exists(archive_dir):
-        # If user doesn't want to write over it we exit 
+        # If user doesn't want to write over it we exit
         if not get_confirmation("%s exists. Do you want to overwrite?"
-                % archive_dir):
+                                % archive_dir):
             sys.exit(0)
         # If the archive dir is a file we don't do anything
         if os.path.isfile(archive_dir):

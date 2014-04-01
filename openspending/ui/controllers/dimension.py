@@ -42,7 +42,7 @@ class DimensionController(BaseController):
                 members = list(dimension.members(cond, limit=1))
                 if not len(members):
                     abort(404, _('Sorry, there is no member named %r')
-                               % name)
+                          % name)
                 c.dimension = dimension
                 c.member = members.pop()
                 c.num_entries = dimension.num_entries(cond)
@@ -81,7 +81,10 @@ class DimensionController(BaseController):
 
         q = params.get('attribute').column_alias.ilike(params.get('q') + '%')
         offset = int((params.get('page') - 1) * params.get('pagesize'))
-        members = c.dimension.members(q, offset=offset, limit=params.get('pagesize'))
+        members = c.dimension.members(
+            q,
+            offset=offset,
+            limit=params.get('pagesize'))
         return to_jsonp({
             'results': list(members),
             'count': c.dimension.num_entries(q)
@@ -117,6 +120,7 @@ class DimensionController(BaseController):
                                     **request.params))
 
         handle_request(request, c, c.member, c.dimension.name)
-        entries = c.dataset.entries(c.dimension.alias.c.name == c.member['name'])
+        entries = c.dataset.entries(
+            c.dimension.alias.c.name == c.member['name'])
         entries = (entry_apply_links(dataset, e) for e in entries)
         return templating.render('dimension/entries.html')

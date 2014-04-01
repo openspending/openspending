@@ -18,16 +18,19 @@ class MailerException(Exception):
 
 def add_msg_niceties(recipient_name, body, sender_name):
     return _(u"Dear %s,") % recipient_name \
-           + u"\r\n\r\n%s\r\n\r\n" % body \
-           + u"--\r\n%s" % sender_name
+        + u"\r\n\r\n%s\r\n\r\n" % body \
+        + u"--\r\n%s" % sender_name
 
 
 def mail_recipient(recipient_name, recipient_email,
-        subject, body, headers={}):
-    mail_from = config.get('openspending.mail_from', 'noreply@openspending.org')
+                   subject, body, headers={}):
+    mail_from = config.get(
+        'openspending.mail_from',
+        'noreply@openspending.org')
     body = add_msg_niceties(recipient_name, body, app_globals.site_title)
     msg = MIMEText(body.encode('utf-8'), 'plain', 'utf-8')
-    for k, v in headers.items(): msg[k] = v
+    for k, v in headers.items():
+        msg[k] = v
     subject = Header(subject.encode('utf-8'), 'utf-8')
     msg['Subject'] = subject
     msg['From'] = _("%s <%s>") % (app_globals.site_title, mail_from)
@@ -39,7 +42,7 @@ def mail_recipient(recipient_name, recipient_email,
         server = smtplib.SMTP(config.get('smtp_server', 'localhost'))
         server.sendmail(mail_from, [recipient_email], msg.as_string())
         server.quit()
-    except Exception, e:
+    except Exception as e:
         msg = '%r' % e
         log.exception(msg)
         raise MailerException(msg)
@@ -49,11 +52,11 @@ def mail_account(recipient, subject, body, headers={}):
     if (recipient.email is None) or not len(recipient.email):
         raise MailerException(_("No recipient email address available!"))
     mail_recipient(recipient.display_name, recipient.email, subject,
-            body, headers=headers)
+                   body, headers=headers)
 
 
 RESET_LINK_MESSAGE = _(
-'''You have requested your password on %(site_title)s to be reset.
+    '''You have requested your password on %(site_title)s to be reset.
 
 Please click the following link to confirm this request:
 
@@ -70,7 +73,7 @@ def get_reset_body(account):
     d = {
         'reset_link': reset_link,
         'site_title': app_globals.site_title
-        }
+    }
     return RESET_LINK_MESSAGE % d
 
 

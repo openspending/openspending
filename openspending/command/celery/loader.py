@@ -3,7 +3,7 @@ from celery.schedules import crontab
 
 from pylons import config
 
-to_pylons = lambda x: x.replace('_','.').lower()
+to_pylons = lambda x: x.replace('_', '.').lower()
 
 LIST_PARAMS = """CELERY_IMPORTS ADMINS ROUTES""".split()
 
@@ -20,7 +20,9 @@ SCHEDULE = {
     },
 }
 
+
 class PylonsSettingsProxy(object):
+
     """Pylons Settings Proxy
 
     Proxies settings from pylons.config
@@ -38,7 +40,8 @@ class PylonsSettingsProxy(object):
             return SCHEDULE
         pylons_key = to_pylons(key)
         value = config[pylons_key]
-        if key in LIST_PARAMS: return value.split()
+        if key in LIST_PARAMS:
+            return value.split()
         return value
 
     def __setattr__(self, key, value):
@@ -47,11 +50,13 @@ class PylonsSettingsProxy(object):
 
 
 class PylonsLoader(BaseLoader):
+
     """Pylons celery loader
 
     Maps the celery config onto pylons.config
 
     """
+
     def read_configuration(self):
         self.configured = True
         return PylonsSettingsProxy()
