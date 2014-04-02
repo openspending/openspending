@@ -3,7 +3,7 @@ from datetime import datetime
 from openspending.model import meta as db
 from openspending.model.dataset import Dataset
 from openspending.model.account import Account
-from openspending.model.common import JSONType
+from openspending.model.common import MutableDict, JSONType
 
 
 class View(db.Model):
@@ -16,7 +16,7 @@ class View(db.Model):
     name = db.Column(db.Unicode(2000))
     label = db.Column(db.Unicode(2000))
     description = db.Column(db.Unicode())
-    state = db.Column(JSONType, default=dict)
+    state = db.Column(MutableDict.as_mutable(JSONType), default=dict)
     public = db.Column(db.Boolean, default=False)
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)

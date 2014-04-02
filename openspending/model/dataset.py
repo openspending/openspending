@@ -16,7 +16,7 @@ from sqlalchemy import ForeignKeyConstraint
 from openspending.model import meta as db
 from openspending.lib.util import hash_values
 
-from openspending.model.common import TableHandler, JSONType, \
+from openspending.model.common import TableHandler, MutableDict, JSONType, \
     decode_row
 from openspending.model.dimension import CompoundDimension, \
     AttributeDimension, DateDimension
@@ -52,7 +52,7 @@ class Dataset(TableHandler, db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow,
                            onupdate=datetime.utcnow)
-    data = db.Column(JSONType, default=dict)
+    data = db.Column(MutableDict.as_mutable(JSONType), default=dict)
 
     languages = db.association_proxy('_languages', 'code')
     territories = db.association_proxy('_territories', 'code')
