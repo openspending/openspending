@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from openspending.model import meta as db
-from openspending.model.common import JSONType
+from openspending.model.common import MutableDict, JSONType
 from openspending.model.dataset import Dataset
 from openspending.model.account import Account
 
@@ -13,7 +13,7 @@ class Source(db.Model):
     url = db.Column(db.Unicode)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
-    analysis = db.Column(JSONType, default=dict)
+    analysis = db.Column(MutableDict.as_mutable(JSONType), default=dict)
 
     dataset_id = db.Column(db.Integer, db.ForeignKey('dataset.id'))
     dataset = db.relationship(Dataset,
