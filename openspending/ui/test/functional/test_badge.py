@@ -5,8 +5,9 @@ from pylons import config
 import json
 import os
 
+
 class TestBadgeController(ControllerTestCase):
-    
+
     def setup(self):
         """
         Set up the TestBadgeController. Setup creates two users, one regular
@@ -21,7 +22,7 @@ class TestBadgeController(ControllerTestCase):
         self.admin = h.make_account('admin')
         self.admin.admin = True
         db.session.commit()
-        
+
         # Load dataset we use for tests
         self.dataset = h.load_fixture('cra')
 
@@ -39,7 +40,7 @@ class TestBadgeController(ControllerTestCase):
         response = self.app.get(url(controller='badge', action='index'))
         assert create_url not in response.body, \
             "URL to create a badge is present in badge index for non-users"
-        
+
         # Check for normal users
         response = self.app.get(url(controller='badge', action='index'),
                                 extra_environ={'REMOTE_USER': 'test'})
@@ -56,7 +57,7 @@ class TestBadgeController(ControllerTestCase):
         Test badge creation. Only administrators can create badges.
         To create a badge user must provide label, description and image
         """
-        
+
         # Get all existing badges (should be zero but we never know)
         badge_json = self.app.get(url(controller='badge', action='index',
                                       format='json'))
@@ -71,7 +72,7 @@ class TestBadgeController(ControllerTestCase):
         object_upload_dir = os.path.join(
             config['pylons.paths']['static_files'],
             config.get('openspending.upload_directory', 'test_uploads'))
-        
+
         if os.path.isdir(object_upload_dir):
             # Upload dir exists (so we won't change a thing)
             upload_dir_created = False
@@ -82,8 +83,8 @@ class TestBadgeController(ControllerTestCase):
 
         # Create a new badge (should return unauthorized)
         response = self.app.post(url(controller='badge', action='create'),
-                                 params={'badge-label':'testbadge',
-                                         'badge-description':'testdescription'},
+                                 params={'badge-label': 'testbadge',
+                                         'badge-description': 'testdescription'},
                                  upload_files=files,
                                  expect_errors=True)
         # Check if it returned Forbidden (which is http status code 403)
@@ -100,8 +101,8 @@ class TestBadgeController(ControllerTestCase):
 
         # Create a new badge (should return forbidden)
         response = self.app.post(url(controller='badge', action='create'),
-                                 params={'badge-label':'testbadge',
-                                         'badge-description':'testdescription'},
+                                 params={'badge-label': 'testbadge',
+                                         'badge-description': 'testdescription'},
                                  upload_files=files,
                                  extra_environ={'REMOTE_USER': 'test'},
                                  expect_errors=True)
@@ -116,10 +117,10 @@ class TestBadgeController(ControllerTestCase):
             "A non-admin user was able to change the existing badges"
 
         response = self.app.post(url(controller='badge', action='create'),
-                                 params={'badge-label':'testbadge',
-                                         'badge-description':'testdescription'},
+                                 params={'badge-label': 'testbadge',
+                                         'badge-description': 'testdescription'},
                                  upload_files=files,
-                                extra_environ={'REMOTE_USER': 'admin'})
+                                 extra_environ={'REMOTE_USER': 'admin'})
 
         # Check to see there is now badge more in the list than to begin with
         badge_json = self.app.get(url(controller='badge', action='index',
@@ -171,7 +172,7 @@ class TestBadgeController(ControllerTestCase):
                                     dataset=self.dataset.name))
         assert badge_give_url not in response.body, \
             "URL to give dataset a badge is in about page for non-users"
-        
+
         # Check for normal users
         response = self.app.get(url(controller='dataset', action='about',
                                     dataset=self.dataset.name),
@@ -190,7 +191,7 @@ class TestBadgeController(ControllerTestCase):
         Test giving dataset a badge. Only administrators should be able to
         give datasets a badge.
         """
-        
+
         badge = Badge('give-me', 'testimage', 'give me', self.admin)
         db.session.add(badge)
         db.session.commit()
@@ -198,7 +199,7 @@ class TestBadgeController(ControllerTestCase):
         # Check if non-user can award badges
         response = self.app.post(url(controller='badge', action='give',
                                      dataset='cra'),
-                                 params={'badge':badge.id},
+                                 params={'badge': badge.id},
                                  expect_errors=True)
         # Check if it returned Forbidden (which is http status code 403)
         # This should actually return 401 Unauthorized but that's an
@@ -216,7 +217,7 @@ class TestBadgeController(ControllerTestCase):
         # Check if normal user can award badges
         response = self.app.post(url(controller='badge', action='give',
                                      dataset='cra'),
-                                 params={'badge':badge.id},
+                                 params={'badge': badge.id},
                                  extra_environ={'REMOTE_USER': 'test'},
                                  expect_errors=True)
         # Check if it returned Forbidden (which is http status code 403)
@@ -233,7 +234,7 @@ class TestBadgeController(ControllerTestCase):
         # Finally we check if admin user can award badges
         response = self.app.post(url(controller='badge', action='give',
                                      dataset='cra'),
-                                 params={'badge':'not an id'},
+                                 params={'badge': 'not an id'},
                                  extra_environ={'REMOTE_USER': 'admin'},
                                  expect_errors=True)
 
@@ -248,7 +249,7 @@ class TestBadgeController(ControllerTestCase):
         # Finally we check if admin user can award badges
         response = self.app.post(url(controller='badge', action='give',
                                      dataset='cra'),
-                                 params={'badge':badge.id},
+                                 params={'badge': badge.id},
                                  extra_environ={'REMOTE_USER': 'admin'})
 
         # Check to see that badge has been awarded to the dataset

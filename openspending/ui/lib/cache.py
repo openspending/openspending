@@ -8,6 +8,7 @@ from openspending.ui.lib.indices import dataset_index, language_index, \
 
 log = logging.getLogger(__name__)
 
+
 class DatasetIndexCache(object):
     """
     A proxy object to run cached calls against the dataset
@@ -44,7 +45,7 @@ class DatasetIndexCache(object):
             key = hashlib.sha1(repr(key_parts)).hexdigest()
 
             # If the cache key exists we serve directly from the cache
-            if self.cache.has_key(key):
+            if key in self.cache:
                 log.debug("Index cache hit: %s", key)
                 return self.cache.get(key)
         else:
@@ -64,8 +65,8 @@ class DatasetIndexCache(object):
         # into dict for the caching (since the datasets are returned as
         # classes with functions that cannot be cached).
         results = {'datasets': map(lambda d: d.as_dict(), datasets), 
-                   'languages': languages, 'territories':territories, 
-                   'categories':categories}
+                   'languages': languages, 'territories': territories,
+                   'categories': categories}
 
         # Cache the results if we have caching enabled and then return
         # the results
@@ -73,6 +74,7 @@ class DatasetIndexCache(object):
             self.cache.put(key, results)
 
         return results
+
 
 class AggregationCache(object):
     """ A proxy object to run cached calls against the dataset 
@@ -131,6 +133,3 @@ class AggregationCache(object):
     def invalidate(self):
         """ Clear the cache. """
         self.cache.clear()
-
-
-

@@ -9,6 +9,7 @@ from openspending.reference.language import LANGUAGES
 import logging
 log = logging.getLogger(__name__)
 
+
 def language_index(datasets):
     """
     Get a list of languages by count of datasets
@@ -22,6 +23,7 @@ def language_index(datasets):
              'label': LANGUAGES.get(code, code)}
             for (code, count) in languages]
 
+
 def territory_index(datasets):
     """
     Get a list of territories by count of datasets
@@ -34,6 +36,7 @@ def territory_index(datasets):
                               action='index', territories=code),
              'label': COUNTRIES.get(code, code)}
             for (code, count) in territories]
+
 
 def category_index(datasets):
     """
@@ -56,12 +59,13 @@ def category_index(datasets):
                                   action='index', category=category),
                  'label': CATEGORIES.get(category, category)}
                 for (category, count) in categories if category is not None]
-    
+
     # We return an empty string if no datasets found
     return []
 
+
 def dataset_index(languages=[], territories=[], category=None):
-    
+
     # Get all of the public datasets ordered by when they were last updated
     results = db.session.query(Dataset)
     results = results.filter_by(private = False)
@@ -82,5 +86,5 @@ def dataset_index(languages=[], territories=[], category=None):
     # Filter category if that has been provided
     if category:
         results = results.filter(Dataset.category == category)
-        
+
     return list(results)

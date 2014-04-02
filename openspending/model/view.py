@@ -27,12 +27,14 @@ class View(db.Model):
                            nullable=True)
 
     dataset = db.relationship(Dataset,
-                              backref=db.backref('views',
+                              backref=db.backref(
+                                  'views',
                                   cascade='all,delete,delete-orphan',
                                   lazy='dynamic'))
 
     account = db.relationship(Account,
-                              backref=db.backref('views',
+                              backref=db.backref(
+                                  'views',
                                   cascade='all,delete,delete-orphan',
                                   lazy='dynamic'))
 
@@ -63,7 +65,7 @@ class View(db.Model):
             'public': self.public,
             'dataset': self.dataset.name,
             'account': self.account.name if self.account else None
-            }
+        }
 
     def __repr__(self):
         return "<View(%s,%s)>" % (self.dataset.name, self.name)

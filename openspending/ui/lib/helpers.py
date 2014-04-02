@@ -22,6 +22,8 @@ import os
 import uuid
 import hashlib
 import datetime
+import babel.numbers
+
 
 def markdown(*args, **kwargs):
     return literal(_markdown(*args, **kwargs))
@@ -35,7 +37,7 @@ def markdown_preview(text, length=150):
         text = md.text_content()
     except:
         pass
-    if length: 
+    if length:
         text = truncate(text, length=length, whole_word=True)
     return text.replace('\n', ' ')
 
@@ -66,6 +68,7 @@ def readable_url(url):
         return url[:15] + " .. " + url[len(url) - 25:]
     return url
 
+
 def url_for(*args, **kwargs):
     """
     Overwrite routes url_for so that we can set the protocol based on
@@ -80,8 +83,10 @@ def url_for(*args, **kwargs):
         kwargs.update({'protocol':protocol})
     return routes_url_for(*args, **kwargs)
 
+
 def site_url():
     return url_for(controller='home', action='index', qualified=True).rstrip('/')
+
 
 def gravatar(email, size=None, default='mm'):
     """
@@ -107,8 +112,10 @@ def gravatar(email, size=None, default='mm'):
     # Return it
     return url
 
+
 def twitter_uri(handle):
     return '//twitter.com/{handle}'.format(handle=handle.lstrip('@'))
+
 
 def script_root():
     c = tmpl_context
@@ -134,6 +141,7 @@ def static(url, obj=None):
         url_ = "%s?%s" % (url_, version)
     return url_
 
+
 def upload(url, obj):
     """
     Get upload uri based on either the upload_uri configurations (set when
@@ -154,6 +162,7 @@ def upload(url, obj):
         uri_ = "%s?%s" % (uri_, version)
 
     return uri_
+
 
 def get_object_upload_dir(obj):
     """
@@ -211,6 +220,7 @@ def get_object_upload_dir(obj):
     # Successfully created, return it
     return object_upload_dir
 
+
 def get_uuid_filename(filename):
     """
     Return a random uuid based path for a specific object.
@@ -223,13 +233,54 @@ def get_uuid_filename(filename):
     # Split out the extension and append it to the uuid name
     return ''.join([uuid_name, os.path.splitext(filename)[1]])
 
+
+def format_currency(amount, dataset):
+    """
+    Wrapper around babel's format_currency which fetches the currency
+    from the dataset. Uses the current locale to format the number.
+    """
+    try:
+        return babel.numbers.format_currency(amount, dataset.currency,
+                                             locale=tmpl_context.locale)
+    except:
+        return amount
+
+def join_filters(filters, append=[], remove=[]):
+    """
+    Join filters which are used to filter Solr entries according to
+    the OpenSpending convention. The conventions is that each key/value
+    pair is joined with a colon : and the filters are joined with a
+    pipe | so the output should be key1:value1|key2:value2
+
+    The function allows users to append more values from a list to
+    the output and remove values in a list from the output
+    """
+
+    # Join filter dictionary but skip pairs with key in remove
+    filter_values = [u'%s:%s' % (key, item)\
+                         for (key, value) in filters.iteritems()\
+                         if key not in remove]
+    # Extend the filters with pairs from append
+    for (key, item) in append:
+        # We expect the item to be a dictionary with a key name who's value
+        # is the filter we want to add. If it isn't we try to add it as a
+        # string and if that fails we just don't do anything
+        try:
+            filter_values.append('%s:%s' % (key, item.get('name', item)))
+        except:
+            pass
+
+    # Return the joined filters
+    return '|'.join(filter_values)
+    
+
 def entry_description(entry):
     fragments = []
     if 'from' in entry and 'to' in entry:
         fragments.extend([
             entry.get('from').get('label'),
             entry.get('to').get('label')
-            ])
+        ])
     if isinstance(entry.get('description'), basestring):
         fragments.append(entry.get('description'))
     else:
@@ -242,6 +293,7 @@ def entry_description(entry):
                 fragments.append(v)
     description = " - ".join(fragments)
     return markdown_preview(description)
+
 
 def member_url(dataset, dimension, member, **kwargs):
     return url_for(controller='dimension',
@@ -309,7 +361,7 @@ def format_number_with_commas(number):
         s = str(int(number))
     except TypeError:
         msg = "Value was not numeric: %s (type: %s)" \
-            % (repr(number), type(number))
+              % (repr(number), type(number))
         raise TypeError(msg)
 
     groups = []
@@ -317,6 +369,7 @@ def format_number_with_commas(number):
         groups.append(s[-3:])
         s = s[:-3]
     return s + ','.join(reversed(groups))
+
 
 def get_date_object(unparsed_date):
     """
@@ -341,13 +394,13 @@ def get_date_object(unparsed_date):
             # return a ValueError instead (last line of the method). We do that
             # since the problem is in fact the value of unparsed_date
             pass
-            
+
     # If unparsed_date is a string (unicode or str) we try to parse it using
     # datetime's builtin date parser
     if isinstance(unparsed_date, basestring):
         # Supported date formats we can parse
         supported_formats = ['%Y', '%Y-%m-%d', '%d-%m-%Y']
-    
+
         # Loop through the supported formats and try to parse the datestring
         for dateformat in supported_formats:
             try:
@@ -364,6 +417,7 @@ def get_date_object(unparsed_date):
     # so we raise a value error to notify of faulty argument.
     raise ValueError('Unable to parse date')
 
+
 def get_sole_country(territories):
     """
     Get a single country from a list of dataset territories.
@@ -377,6 +431,7 @@ def get_sole_country(territories):
         raise IndexError('Cannot find a sole country')
 
     return country.COUNTRIES.get(territories[0])
+
 
 def inflate(amount, target, reference, territories):
     """
@@ -397,25 +452,28 @@ def inflate(amount, target, reference, territories):
 
     # Inflate the amount from reference date to the target date
     inflated_amount = app_globals.inflation.inflate(amount, target_date,
-                                                    reference_date, 
+                                                    reference_date,
                                                     dataset_country)
 
     # Return an inflation dictionary where we show the reference and target
     # dates along with original and inflated amounts.
     return {'reference': reference_date, 'target': target_date,
-            'original': amount, 'inflated':inflated_amount}
+            'original': amount, 'inflated': inflated_amount}
+
 
 def script_tag(name):
     return '''<script type="text/javascript" src="''' + \
-        '%s/%s.js' % (script_root(), name) + \
-        '''"></script>'''
+           '%s/%s.js' % (script_root(), name) + \
+           '''"></script>'''
+
 
 def style_tag(name):
     return '''<link rel="stylesheet" href="''' + \
-        '%s/%s.css' % (script_root(), name) + \
-        '''" />'''
+           '%s/%s.css' % (script_root(), name) + \
+           '''" />'''
+
 
 def has_datatype_attr(c, key):
     return c.desc.get(key) and \
-        hasattr(c.desc.get(key), 'datatype') and \
-        c.desc.get(key).datatype=='url'
+           hasattr(c.desc.get(key), 'datatype') and \
+           c.desc.get(key).datatype == 'url'

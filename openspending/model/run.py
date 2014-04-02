@@ -29,16 +29,18 @@ class Run(db.Model):
     dataset_id = db.Column(db.Integer, db.ForeignKey('dataset.id'),
                            nullable=True)
     source_id = db.Column(db.Integer, db.ForeignKey('source.id'),
-                           nullable=True)
+                          nullable=True)
 
     dataset = db.relationship(Dataset,
-                              backref=db.backref('runs',
+                              backref=db.backref(
+                                  'runs',
                                   order_by='Run.time_start.desc()',
                                   lazy='dynamic'))
     source = db.relationship(Source,
-                              backref=db.backref('runs', 
-                                  order_by='Run.time_start.desc()',
-                                  lazy='dynamic'))
+                             backref=db.backref(
+                                 'runs',
+                                 order_by='Run.time_start.desc()',
+                                 lazy='dynamic'))
 
     def __init__(self, operation, status, dataset, source):
         self.operation = operation
@@ -53,7 +55,7 @@ class Run(db.Model):
         and ran without failures.
         """
         return self.operation == self.OPERATION_SAMPLE and \
-            self.status == self.STATUS_COMPLETE
+               self.status == self.STATUS_COMPLETE
 
     @property
     def successful_load(self):
@@ -62,7 +64,7 @@ class Run(db.Model):
         and ran without failures.
         """
         return self.operation == self.OPERATION_IMPORT and \
-            self.status == self.STATUS_COMPLETE
+               self.status == self.STATUS_COMPLETE
 
     @property
     def is_running(self):

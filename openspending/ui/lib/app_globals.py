@@ -2,6 +2,7 @@ from pylons import config
 from paste.deploy.converters import asbool
 from economics import Inflation
 
+
 class Globals(object):
     """\
     Globals acts as a container for objects available throughout the
@@ -27,4 +28,8 @@ class Globals(object):
         self.script_root = config.get('openspending.script_root', '/static/js')
         self.content_root = config['openspending.content_root']
 
-        self.inflation = Inflation()
+        if asbool(config.get('openspending.fake_inflation', False)):
+            from .fake_inflation import Inflation as FakeInflation
+            self.inflation = FakeInflation()
+        else:
+            self.inflation = Inflation()

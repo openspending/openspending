@@ -1,5 +1,6 @@
 from openspending.ui.lib import helpers
 
+
 def get_value(key, item):
     """
     Get value of key in an item dict where it can be nested with . as a
@@ -17,6 +18,7 @@ def get_value(key, item):
     # Item now contains the the value of key/subkey in item
     return item
 
+
 def remove_excessive_time(keys, item):
     """
     Checks for time.year in keys and if not present deletes either time.year
@@ -30,7 +32,7 @@ def remove_excessive_time(keys, item):
         if 'time' not in [k.split('.')[0] for k in keys]:
             del item['time']
             return item
-        
+
         # Delete only year if time.year is not in keys (this happens in the
         # rare case that a user drills down into time.month to compare months
         # and not years (or something similar)
@@ -42,6 +44,7 @@ def remove_excessive_time(keys, item):
         pass
 
     return item
+
 
 def aggregate(dataset, measures=['amount'], drilldowns=None, cuts=None,
               page=1, pagesize=10000, order=None, inflate=None):
@@ -67,7 +70,7 @@ def aggregate(dataset, measures=['amount'], drilldowns=None, cuts=None,
             # Since different parts of the drilldowns are going to change
             # (differently) we need to recompute the sumamry total
             summary_total = 0
-        
+
             # We collect adjusted drilldowns into a new dict since if
             # inflation fails we can still serve the uninflated content
             adjusted_drilldowns = {}
@@ -102,12 +105,12 @@ def aggregate(dataset, measures=['amount'], drilldowns=None, cuts=None,
                     adjusted_drilldown['amount'] = inflated_amount
                     adjusted_drilldowns[item_key] = adjusted_drilldown
                 else:
-                    adjusted_drilldowns[item_key]['inflation_adjustment']\
+                    adjusted_drilldowns[item_key]['inflation_adjustment'] \
                         .append(adjustment)
                     adjusted_drilldowns[item_key]['amount'] += inflated_amount
 
                 summary_total += inflated_amount
-            
+
             result['drilldown'] = adjusted_drilldowns.values()
             result['summary']['original'] = result['summary']['amount']
             result['summary']['amount'] = summary_total
@@ -118,11 +121,7 @@ def aggregate(dataset, measures=['amount'], drilldowns=None, cuts=None,
 
             # Note we do not remove time.year from the drilldown here since
             # it can help resolve the warning (and it's bothersome)
-            result['warning'] = {'inflation':
-                                     'Unable to do inflation adjustment',
+            result['warning'] = {'inflation': 'Unable to do inflation adjustment',
                                  'error': 'Inflation error: %s' % error}
 
     return result
-
-
-

@@ -43,6 +43,7 @@ except ImportError:
 else:
     etl_command.configure_parsers(subparsers)
 
+
 def main():
     args = parser.parse_args()
 
@@ -58,10 +59,12 @@ def main():
 
     sys.exit(args.func(args))
 
+
 def _configure_logging(config_file):
     logging.config.fileConfig(config_file,
                               dict(__file__=config_file,
                                    here=os.path.dirname(config_file)))
+
 
 def _configure_pylons(config_file):
     conf = appconfig('config:%s' % os.path.basename(config_file),

@@ -10,6 +10,7 @@ from openspending.ui.alttemplates import templating
 
 log = logging.getLogger(__name__)
 
+
 class RunController(BaseController):
 
     def _get_run(self, dataset, source, id):
@@ -27,11 +28,11 @@ class RunController(BaseController):
         system = c.run.records.filter_by(category=LogRecord.CATEGORY_SYSTEM)
         c.num_system = system.count()
         c.system_page = templating.Page(system.order_by(LogRecord.timestamp.asc()),
-                page=self._get_page('system_page'),
-                items_per_page=10)
+                                        page=self._get_page('system_page'),
+                                        items_per_page=10)
         data = c.run.records.filter_by(category=LogRecord.CATEGORY_DATA)
         c.num_data = data.count()
         c.data_page = templating.Page(data.order_by(LogRecord.timestamp.asc()),
-                page=self._get_page('data_page'),
-                items_per_page=20)
+                                      page=self._get_page('data_page'),
+                                      items_per_page=20)
         return templating.render('run/view.html')

@@ -1,6 +1,7 @@
 from ... import TestCase
 from openspending.ui.lib import helpers
 
+
 class TestFormatNumber(TestCase):
     def _check(self, ourmethod, testsets):
         for inp, res in testsets:
@@ -33,4 +34,3 @@ class TestFormatNumber(TestCase):
             [2109400000, '2.11b'],
         ]
         self._check(helpers.format_number, testsets)
-

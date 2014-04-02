@@ -11,13 +11,16 @@ from openspending.ui.lib import helpers as h
 
 log = logging.getLogger(__name__)
 
+
 class MailerException(Exception):
     pass
+
 
 def add_msg_niceties(recipient_name, body, sender_name):
     return _(u"Dear %s,") % recipient_name \
            + u"\r\n\r\n%s\r\n\r\n" % body \
            + u"--\r\n%s" % sender_name
+
 
 def mail_recipient(recipient_name, recipient_email,
         subject, body, headers={}):
@@ -41,6 +44,7 @@ def mail_recipient(recipient_name, recipient_email,
         log.exception(msg)
         raise MailerException(msg)
 
+
 def mail_account(recipient, subject, body, headers={}):
     if (recipient.email is None) or not len(recipient.email):
         raise MailerException(_("No recipient email address available!"))
@@ -56,6 +60,7 @@ Please click the following link to confirm this request:
    %(reset_link)s
 ''')
 
+
 def get_reset_body(account):
     reset_link = h.url_for(controller='account',
                            action='do_reset',
@@ -68,8 +73,7 @@ def get_reset_body(account):
         }
     return RESET_LINK_MESSAGE % d
 
+
 def send_reset_link(account):
     body = get_reset_body(account)
     mail_account(account, _('Reset your password'), body)
-
-

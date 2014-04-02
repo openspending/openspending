@@ -5,6 +5,7 @@ from pylons import config
 import json
 import urllib2
 
+
 class TestAccountController(ControllerTestCase):
 
     def test_login(self):
@@ -37,10 +38,10 @@ class TestAccountController(ControllerTestCase):
 
     def test_trigger_reset_post_fail(self):
         response = self.app.post(url(controller='account', action='trigger_reset'),
-                params={'emailx': "foo@bar"})
+                                 params={'emailx': "foo@bar"})
         assert 'Please enter an email address' in response.body, response.body
         response = self.app.post(url(controller='account', action='trigger_reset'),
-                params={'email': "foo@bar"})
+                                 params={'email': "foo@bar"})
         assert 'No user is registered' in response.body, response.body
 
     @h.raises(MailerException)
@@ -50,7 +51,7 @@ class TestAccountController(ControllerTestCase):
             config['smtp_server'] = 'non-existent-smtp-server'
             account = h.make_account()
             response = self.app.post(url(controller='account', action='trigger_reset'),
-                    params={'email': "test@example.com"})
+                                     params={'email': "test@example.com"})
         finally:
             config['smtp_server'] = original_smtp_server
 
@@ -94,7 +95,7 @@ class TestAccountController(ControllerTestCase):
 
     def test_dashboard_not_logged_in(self):
         response = self.app.get(url(controller='account', action='dashboard'),
-            status=403)
+                                status=403)
         assert '403' in response.status, response.status
 
     def test_dashboard(self):
@@ -117,7 +118,7 @@ class TestAccountController(ControllerTestCase):
 
         # Get the user profile for an anonymous user
         response = self.app.get(url(controller='account', action='profile',
-                                name='test'))
+                                    name='test'))
 
         assert '200' in response.status, \
             'Profile not successfully returned for anonymous user'
@@ -140,8 +141,8 @@ class TestAccountController(ControllerTestCase):
 
         # Display email and twitter handle for the user
         response = self.app.get(url(controller='account', action='profile',
-                                name='test'), extra_environ={'REMOTE_USER':
-                                                             'test'})
+                                    name='test'), extra_environ={'REMOTE_USER':
+                                                                     'test'})
 
         assert '200' in response.status, \
             'Profile not successfully returned for user'
@@ -163,7 +164,7 @@ class TestAccountController(ControllerTestCase):
 
         # Get the site as an anonymous user
         response = self.app.get(url(controller='account', action='profile',
-                                name='test'))
+                                    name='test'))
 
         assert '200' in response.status, \
             'Profile with public contact info not returned to anonymous user'
@@ -190,8 +191,8 @@ class TestAccountController(ControllerTestCase):
 
         # Display email for admins
         response = self.app.get(url(controller='account', action='profile',
-                                name='test'), extra_environ={'REMOTE_USER':
-                                                             'admin'})
+                                    name='test'), extra_environ={'REMOTE_USER':
+                                                                     'admin'})
 
         assert '200' in response.status, \
             'Profile not successfully returned for admins'
@@ -218,7 +219,7 @@ class TestAccountController(ControllerTestCase):
         db.session.commit()
 
         response = self.app.get(url(controller='account', action='profile',
-                                name='test'))
+                                    name='test'))
 
         assert '200' in response.status, \
             'Profile page not successfully returned without full name'
@@ -236,8 +237,8 @@ class TestAccountController(ControllerTestCase):
         db.session.commit()
 
         response = self.app.get(url(controller='account', action='profile',
-                                name='test'), extra_environ={'REMOTE_USER':
-                                                             'test'})
+                                    name='test'), extra_environ={'REMOTE_USER':
+                                                                     'test'})
         # Check if the Twitter heading is there
         assert '<dt>Twitter</dt>' not in response.body, \
             'Twitter heading is in profile even though twitter handle is empty'
@@ -272,7 +273,7 @@ class TestAccountController(ControllerTestCase):
         headers = {'User-Agent':'OpenSpending in-site browser',
                    'Accept': ','.join(['text/html','application/xhtml+xml',
                                        'application/xml;q=0.9','*/*;q=0.8'])
-                   }
+        }
 
         # We use urllib2 instead of webtest's get because of redirects
         request = urllib2.Request('http://okfn.org/terms-of-use',
@@ -312,11 +313,11 @@ class TestAccountController(ControllerTestCase):
         # Check that terms input field is not present after a successful
         # register
         response = self.app.post(url(controller='account', action='register'),
-                                 params={'name':'termschecker',
-                                         'fullname':'Term Checker',
+                                 params={'name': 'termschecker',
+                                         'fullname': 'Term Checker',
                                          'email': 'termchecker@test.com',
-                                         'password1':'secret',
-                                         'password2':'secret',
+                                         'password1': 'secret',
+                                         'password2': 'secret',
                                          'terms':True})
         assert 'name="terms"' not in response.body, \
             'Terms of use checkbox is present even after a successful register'
@@ -345,7 +346,7 @@ class TestAccountController(ControllerTestCase):
             'Vary header is not present in response'
         assert 'Cookie' in response.headers.get('Vary'), \
             'Cookie is not in the vary header'
-        
+
         # Save the ETag for an assertion
         etag_for_no_cookie = response.headers.get('etag')
 
@@ -355,19 +356,19 @@ class TestAccountController(ControllerTestCase):
         # a GET as closely as possible)
         response = self.app.get(url(controller='home', action='index'),
                                 extra_environ={'REMOTE_USER': 'test'})
-        
+
         # Get the ETag for the login cookie based GET
         etag_for_cookie = response.headers.get('etag')
         # Check if ETag is different in a login cookie based GET
         assert etag_for_cookie != etag_for_no_cookie, \
             'ETags for login cookie and no login cookie are the same'
-        
+
         # Remove the login cookie from the cookiejar
         del self.app.cookies['openspending.login']
 
         # Reset cache setting
         response.app_globals.cache_enabled = cache_settings
- 
+
     def test_user_scoreboard(self):
         """
         Test if the user scoreboard works and is only accessible by
@@ -417,8 +418,8 @@ class TestAccountController(ControllerTestCase):
         # in the following order normal user - admin user (with 10 and 0 points
         # respectively)
         admin_response = self.app.get(scoreboard_url,
-                                     extra_environ={'REMOTE_USER':
-                                                        str(admin_user.name)})
+                                      extra_environ={'REMOTE_USER':
+                                                         str(admin_user.name)})
 
         assert '200' in admin_response.status, \
             "Administrator did not get a 200 status for user scoreboard"
@@ -439,4 +440,3 @@ class TestAccountController(ControllerTestCase):
         user_index = check_body.find('<p>10</p>')
         assert admin_index > user_index, \
             "Admin score does not come before the user score"
-

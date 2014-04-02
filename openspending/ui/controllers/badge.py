@@ -14,6 +14,7 @@ from openspending.ui.alttemplates import templating
 
 log = logging.getLogger(__name__)
 
+
 class BadgeController(BaseController):
 
     def index(self, format='html'):
@@ -26,7 +27,7 @@ class BadgeController(BaseController):
 
         # If the requested format is json return a list of badges
         if format == 'json':
-            return to_jsonp({"badges":badges_apply_links([b.as_dict() 
+            return to_jsonp({"badges":badges_apply_links([b.as_dict()
                                                           for b in c.badges])})
 
         # Return html representation
@@ -45,7 +46,7 @@ class BadgeController(BaseController):
         # Return a json representation if the format requested is 'json'
         if format == 'json':
             return to_jsonp({"badge":badge_apply_links(c.badge.as_dict())})
-        
+
         # Return html representation
         return templating.render('badge/information.html')
 
@@ -66,7 +67,7 @@ class BadgeController(BaseController):
             # Get upload directory for Badge and generate a random filename
             upload_dir = h.get_object_upload_dir(Badge)
             random_filename = h.get_uuid_filename(image.filename)
-            
+
             # Open the filename and copy the uploaded image
             permanent_filename = os.path.join(upload_dir, random_filename)
             permanent_image = open(permanent_filename, 'w')
@@ -84,7 +85,7 @@ class BadgeController(BaseController):
         db.session.add(badge)
         db.session.commit()
 
-        redirect(h.url_for(controller='badge', action='information', 
+        redirect(h.url_for(controller='badge', action='information',
                            id=badge.id))
 
     def give(self, dataset):

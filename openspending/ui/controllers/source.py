@@ -18,6 +18,7 @@ from openspending.ui.validation.source import source_schema
 
 log = logging.getLogger(__name__)
 
+
 class SourceController(BaseController):
 
     def new(self, dataset, errors={}):
@@ -38,7 +39,7 @@ class SourceController(BaseController):
             db.session.commit()
             analyze_source.apply_async(args=[source.id], countdown=2)
             h.flash_success(_("The source has been created."))
-            redirect(h.url_for(controller='editor', action='index', 
+            redirect(h.url_for(controller='editor', action='index',
                                dataset=c.dataset.name))
         except Invalid, i:
             errors = i.asdict()
@@ -48,7 +49,7 @@ class SourceController(BaseController):
     def index(self, dataset, format='json'):
         self._get_dataset(dataset)
         return to_jsonp([src.as_dict() for src in c.dataset.sources])
-    
+
     def _get_source(self, dataset, id):
         self._get_dataset(dataset)
         c.source = Source.by_id(id)
@@ -87,7 +88,7 @@ class SourceController(BaseController):
                 abort(400, e)
 
         # Send the user to the editor index page for this dataset
-        redirect(h.url_for(controller='editor', action='index', 
+        redirect(h.url_for(controller='editor', action='index',
                            dataset=c.dataset.name))
 
     def delete(self, dataset, id):
@@ -105,7 +106,7 @@ class SourceController(BaseController):
             db.session.delete(c.source)
             db.session.commit()
 
-        redirect(h.url_for(controller='editor', action='index', 
+        redirect(h.url_for(controller='editor', action='index',
                            dataset=c.dataset.name))
 
     def analysis(self, dataset, source, format='json'):

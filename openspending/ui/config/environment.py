@@ -15,6 +15,7 @@ from openspending.ui.config import routing
 from openspending.ui.lib import app_globals
 from openspending.ui.lib import helpers
 
+
 def load_environment(global_conf, app_conf):
     """\
     Configure the Pylons environment via the ``pylons.config`` object
@@ -51,4 +52,3 @@ def load_environment(global_conf, app_conf):
     # Configure Solr
     import openspending.lib.solr_util as solr
     solr.configure(config)
-

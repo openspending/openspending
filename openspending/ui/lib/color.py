@@ -24,12 +24,14 @@ DEFAULT_PALETTE = [
 
 DEFAULT_COLOR = "#607890"
 
+
 def palette_colors(num):
     colors = []
     for i, color in enumerate(cycle(DEFAULT_PALETTE)):
         if i >= num:
             return colors
         colors.append(color)
+
 
 def tuple_to_hex(tup):
     return "#" + "%02x%02x%02x" % (int(tup[0]), int(tup[1]), int(tup[2]))

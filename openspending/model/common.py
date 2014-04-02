@@ -1,4 +1,4 @@
-#coding: utf-8
+# coding=utf-8
 from json import dumps, loads
 from sqlalchemy.types import Text, MutableType, TypeDecorator
 
@@ -24,7 +24,7 @@ def decode_row(row, dataset):
                     # TODO: backwards-compat?
                     if isinstance(dataset[dimension], CompoundDimension):
                         result[dimension]['taxonomy'] = \
-                                dataset[dimension].taxonomy
+                            dataset[dimension].taxonomy
                 result[dimension][attribute] = value
         else:
             if key == 'entries':
@@ -75,8 +75,8 @@ class TableHandler(object):
         query for the set of unique columns and either update an
         existing row or create a new one. In both cases, the ID
         of the changed row will be returned. """
-        key = db.and_(*[self.table.c[c] == data.get(c) for \
-                c in unique_columns])
+        key = db.and_(*[self.table.c[c] == data.get(c)
+                        for c in unique_columns])
         q = self.table.update(key, data)
         if bind.execute(q).rowcount == 0:
             q = self.table.insert(data)
@@ -107,6 +107,6 @@ class DatasetFacetMixin(object):
         if not len(ds_ids):
             return []
         q = db.select([cls.code, db.func.count(cls.dataset_id)],
-            cls.dataset_id.in_(ds_ids), group_by=cls.code,
-            order_by=db.func.count(cls.dataset_id).desc())
+                      cls.dataset_id.in_(ds_ids), group_by=cls.code,
+                      order_by=db.func.count(cls.dataset_id).desc())
         return db.session.bind.execute(q).fetchall()

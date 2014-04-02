@@ -1,11 +1,13 @@
 from account import logged_in
 from pylons import tmpl_context
 
+
 def create():
     """
     Permission to create a new badge. Only administrators can create badges.
     """
     return logged_in() and tmpl_context.account.admin
+
 
 def give(badge, dataset):
     """

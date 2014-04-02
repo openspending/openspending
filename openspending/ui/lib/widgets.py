@@ -24,7 +24,7 @@ def get_widget(name, force=False):
         'class_name': widget_class,
         'name': name,
         'preview': prefix + '/preview.png'
-        }
+    }
 
 
 def list_widgets():

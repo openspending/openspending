@@ -11,15 +11,18 @@ from migrate.exceptions import DatabaseNotControlledError
 
 log = logging.getLogger(__name__)
 
+
 def drop():
     log.warn("Dropping database")
     db.metadata.reflect()
     db.metadata.drop_all()
     return 0
 
+
 def drop_collections():
     # Kept for backwards compatibility
     return drop()
+
 
 def drop_dataset(name):
     log.warn("Dropping dataset '%s'", name)
@@ -32,11 +35,13 @@ def drop_dataset(name):
     db.session.commit()
     return 0
 
+
 def load_example(name):
     # TODO: separate the concepts of example/development data and test
     #       fixtures.
     load_fixture(name)
     return 0
+
 
 def migrate():
     url = config.get('openspending.db.url')
@@ -59,6 +64,7 @@ def migrate():
 
     return 0
 
+
 def modelmigrate():
     from openspending.validation.model.migration import migrate_model
     dataset = db.Table('dataset', db.metadata, autoload=True)
@@ -77,29 +83,38 @@ def modelmigrate():
         db.engine.execute(q)
     return 0
 
+
 def init():
     migrate()
+
 
 def _init(args):
     return init()
 
+
 def _drop(args):
     return drop()
+
 
 def _drop_collections(args):
     return drop_collections()
 
+
 def _drop_dataset(args):
     return drop_dataset(args.name)
+
 
 def _load_example(args):
     return load_example(args.name)
 
+
 def _migrate(args):
     return migrate()
 
+
 def _modelmigrate(args):
     return modelmigrate()
+
 
 def configure_parser(subparsers):
     parser = subparsers.add_parser('db', help='Database operations')

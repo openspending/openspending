@@ -24,6 +24,7 @@ from openspending.ui.lib.authenticator import (UsernamePasswordAuthenticator,
                                                ApiKeyIdentifier,
                                                ApiKeyAuthenticator)
 
+
 def make_app(global_conf, full_stack=True, static_files=True, **app_conf):
     """Create a Pylons WSGI application and return it
 
@@ -61,15 +62,15 @@ def make_app(global_conf, full_stack=True, static_files=True, **app_conf):
     # CUSTOM MIDDLEWARE HERE (filtered by error handling middlewares)
     basicauth = BasicAuthPlugin('OpenSpending')
     auth_tkt = AuthTktCookiePlugin('RANDOM_KEY_THAT_ONLY_LOOKS_LIKE_A_PLACEHOLDER',
-            cookie_name = 'openspending_login', timeout = 86400 * 90,
-            reissue_time = 3600)
+                                   cookie_name='openspending_login', timeout=86400 * 90,
+                                   reissue_time=3600)
     form = FriendlyFormPlugin(
-            '/login',
-            '/perform_login',
-            '/after_login',
-            '/logout',
-            '/after_logout',
-            rememberer_name='auth_tkt')
+        '/login',
+        '/perform_login',
+        '/after_login',
+        '/logout',
+        '/after_logout',
+        rememberer_name='auth_tkt')
     identifiers = [('auth_tkt', auth_tkt),
                    ('basicauth', basicauth),
                    ('form', form),
@@ -84,9 +85,9 @@ def make_app(global_conf, full_stack=True, static_files=True, **app_conf):
         app, identifiers, authenticators, challengers, [],
         default_request_classifier,
         default_challenge_decider,
-        log_stream = log_stream,
-        log_level = logging.WARNING
-        )
+        log_stream=log_stream,
+        log_level=logging.WARNING
+    )
 
     if asbool(full_stack):
         # Handle Python exceptions

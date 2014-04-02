@@ -102,4 +102,3 @@ def check_password_hash(pwhash, password):
         return False
     method, salt, hashval = pwhash.split('$', 2)
     return _hash_internal(method, salt, password) == hashval
-

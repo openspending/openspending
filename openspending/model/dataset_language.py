@@ -4,6 +4,7 @@ from openspending.model import meta as db
 from openspending.model.dataset import Dataset
 from openspending.model.common import DatasetFacetMixin
 
+
 class DatasetLanguage(db.Model, DatasetFacetMixin):
     __tablename__ = 'dataset_language'
 
@@ -14,11 +15,8 @@ class DatasetLanguage(db.Model, DatasetFacetMixin):
 
     dataset_id = db.Column(db.Integer, db.ForeignKey('dataset.id'))
     dataset = db.relationship(Dataset, backref=db.backref('_languages',
-                          lazy=False))
+                                                          lazy=False))
 
     def __init__(self, code):
         #self.dataset = dataset
         self.code = code
-
-
-

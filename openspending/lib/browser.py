@@ -60,12 +60,16 @@ class Browser(object):
     def get_facets(self):
         return self.facets
 
+    def get_expanded_facets(self, dataset):
+        return util.expand_facets(self.facets, dataset)
+
     def get_entries(self):
         return self.entries
 
     def query(self):
         data = solr.get_connection().raw_query(**_build_query(self.params))
         return json.loads(data)
+
 
 def _build_query(params):
     query = {
@@ -97,6 +101,7 @@ def _build_query(params):
         })
     return query
 
+
 def _build_fq(filters):
     """
     Make a Solr 'fq' object from a filters dict.
@@ -113,11 +118,13 @@ def _build_fq(filters):
             fq.append(' OR '.join(map(lambda v: fq_for(key, v), value)))
     return fq
 
+
 def _build_sort(order):
     sort = []
     for field, reverse in order:
         sort.append('{0} {1}'.format(field, 'desc' if reverse else 'asc'))
     return ', '.join(sort)
+
 
 def _parse_facets(facets):
     out = []
@@ -126,6 +133,7 @@ def _parse_facets(facets):
         out.append([facets[i], facets[i+1]])
 
     return out
+
 
 def _get_entries(docs):
     # List of ids in Solr return order

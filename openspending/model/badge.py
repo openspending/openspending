@@ -5,9 +5,10 @@ from openspending.model import Account, meta as db
 # Badges and dataset share a many to many relationship
 # therefore we need to create an associate table
 badges_on_datasets = db.Table('badges_on_datasets', db.metadata,
-    db.Column('badge_id', db.Integer, db.ForeignKey('badge.id')),
-    db.Column('dataset_id', db.Integer, db.ForeignKey('dataset.id'))
+                              db.Column('badge_id', db.Integer, db.ForeignKey('badge.id')),
+                              db.Column('dataset_id', db.Integer, db.ForeignKey('dataset.id'))
 )
+
 
 class Badge(db.Model):
     """
@@ -26,13 +27,13 @@ class Badge(db.Model):
     label = db.Column(db.Unicode)
     image = db.Column(db.Unicode)
     description = db.Column(db.Unicode)
- 
+
     # Define relationship with datasets via the associate table
     datasets = db.relationship("Dataset",
                                secondary=badges_on_datasets,
                                backref=db.backref('badges',
                                                   lazy='dynamic'))
-   
+
     # Creator (and relationship)
     creator_id = db.Column(db.Integer, db.ForeignKey('account.id'))
     creator = db.relationship(Account,
@@ -88,9 +89,9 @@ class Badge(db.Model):
             }
         if not short:
             badge.update({
-                    "description": self.description,
-                    "datasets": [ds.name for ds in self.datasets],
-                    "created_at": self.created_at
-                    })
+                "description": self.description,
+                "datasets": [ds.name for ds in self.datasets],
+                "created_at": self.created_at
+            })
 
         return badge

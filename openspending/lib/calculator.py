@@ -23,14 +23,15 @@ reader = csv.reader(StringIO('''
 income_table = list(reader)
 income_table = [[(float(income)) for income in row] for row in income_table]
 
+
 class TaxCalculator2010(object):
-    def total_tax(self, 
-          income, 
-          spending=None,
-          is_smoker=True,
-          is_drinker=True,
-          is_driver=True,
-        ):
+    def total_tax(self,
+                  income,
+                  spending=None,
+                  is_smoker=True,
+                  is_drinker=True,
+                  is_driver=True,
+                  ):
         '''Estimates a person's tax contribution based on the following
         information.
         
@@ -55,9 +56,9 @@ class TaxCalculator2010(object):
         if income <= 0.0:
             tax_results['tax'] = 0.0
             explanation.append('Incomes must be positive.')
-            return tax_results, explanation    
+            return tax_results, explanation
 
-        # First, find the relevant income deciles.     
+        # First, find the relevant income deciles.
         for i, upper in enumerate(income_table[1]):
             if income < upper:
                 # Found the right band. Use linear interpolation.
@@ -68,33 +69,37 @@ gross household income of %.2f, and pays %.2f in direct tax, %.2f in VAT, \
 and %.2f in other indirect taxes), and decile %s (which has average gross \
 household income of %.2f, and pays %.2f in direct tax, %.2f in VAT, \
 %.2f in smoking taxes, %.2f in alcohol-related taxes, %.2f in car-related taxes, \
-and %.2f in other indirect taxes).''' \
-                % (i-1, lower, income_table[2][i-1], income_table[3][i-1], income_table[4][i-1],
-                   income_table[5][i-1], income_table[6][i-1], income_table[7][i-1], 
-                   i, upper, income_table[2][i], income_table[3][i], income_table[4][i],
-                   income_table[5][i], income_table[6][i], income_table[7][i]))
+and %.2f in other indirect taxes).'''
+                                   % (i-1, lower,
+                                      income_table[2][i-1], income_table[3][i-1],
+                                      income_table[4][i-1], income_table[5][i-1],
+                                      income_table[6][i-1], income_table[7][i-1],
+                                      i, upper,
+                                      income_table[2][i], income_table[3][i],
+                                      income_table[4][i], income_table[5][i],
+                                      income_table[6][i], income_table[7][i]))
                 # Linear interpolation.
                 multiplier = (income-lower) / (upper-lower)
                 tax_results['total_direct_tax'] = income_table[2][i-1] + \
-                       (income_table[2][i] - income_table[2][i-1]) * multiplier
+                                                  (income_table[2][i] - income_table[2][i-1]) * multiplier
                 indirect_tax_minus_extras = income_table[3][i-1] + \
-                       (income_table[3][i] - income_table[3][i-1]) * multiplier
+                                            (income_table[3][i] - income_table[3][i-1]) * multiplier
                 tax_results['vat'] = income_table[4][i-1] + \
-	                       (income_table[4][i] - income_table[4][i-1]) * multiplier
+                                     (income_table[4][i] - income_table[4][i-1]) * multiplier
                 if is_smoker:
                     tax_results['tobacco_tax'] = income_table[5][i-1] + \
-	                       (income_table[5][i] - income_table[5][i-1]) * multiplier
-                else: 
+                                                 (income_table[5][i] - income_table[5][i-1]) * multiplier
+                else:
                     tax_results['tobacco_tax'] = 0
                 if is_drinker:
                     tax_results['alcohol_tax'] = income_table[6][i-1] + \
-	                       (income_table[6][i] - income_table[6][i-1]) * multiplier
-                else: 
+                                                 (income_table[6][i] - income_table[6][i-1]) * multiplier
+                else:
                     tax_results['alcohol_tax'] = 0
                 if is_driver:
                     tax_results['car_related_tax'] = income_table[7][i-1] + \
-	                       (income_table[7][i] - income_table[7][i-1]) * multiplier
-                else: 
+                                                     (income_table[7][i] - income_table[7][i-1]) * multiplier
+                else:
                     tax_results['car_related_tax'] = 0
                 break
             else:
@@ -109,24 +114,24 @@ and %.2f in other indirect taxes).''' \
             tax_results['vat'] = income * vat_top_rate
             if is_smoker:
                 tax_results['tobacco_tax'] = income * (income_table[5][-1] / income_table[1][-1])
-            else: 
+            else:
                 tax_results['tobacco_tax'] = 0
             if is_drinker:
-                tax_results['alcohol_tax'] = income * (income_table[6][-1] / income_table[1][-1]) 
-            else: 
+                tax_results['alcohol_tax'] = income * (income_table[6][-1] / income_table[1][-1])
+            else:
                 tax_results['alcohol_tax'] = 0
             if is_drinker:
                 tax_results['car_related_tax'] = income * (income_table[7][-1] / income_table[1][-1])
-            else: 
+            else:
                 tax_results['car_related_tax'] = 0
             explanation.append('''\
 For very high-earning households, in the top income decile, we don't use linear interpolation,
 but assume the fractions of income paid as tax are the average for the top decile.''')
 
         # Calculate indirect tax by adding up all the other kinds of tax.
-        tax_results['total_indirect_tax'] = indirect_tax_minus_extras \
-          + tax_results['vat'] + tax_results['tobacco_tax'] + \
-          + tax_results['alcohol_tax'] + tax_results['car_related_tax']
+        tax_results['total_indirect_tax'] = indirect_tax_minus_extras + \
+                                            tax_results['vat'] + tax_results['tobacco_tax'] + \
+                                            tax_results['alcohol_tax'] + tax_results['car_related_tax']
 
         # Set up the explanation text. 
         explanation_text = 'Therefore, a'
@@ -136,8 +141,9 @@ but assume the fractions of income paid as tax are the average for the top decil
             explanation_text += ' non-driving'
         if not is_driver:
             explanation_text += ' non-driving'
-        explanation_text += ' household with an income of %.2f pays approximately %.2f in direct tax and %.2f in total indirect tax.' % \
-            (income, tax_results['total_direct_tax'], tax_results['total_indirect_tax'])
+        explanation_text += ' household with an income of %.2f pays approximately %.2f' \
+                            'in direct tax and %.2f in total indirect tax.' % \
+                            (income, tax_results['total_direct_tax'], tax_results['total_indirect_tax'])
         explanation.append(explanation_text)
 
         tax_results['tax'] = tax_results['total_direct_tax'] + tax_results['total_indirect_tax']

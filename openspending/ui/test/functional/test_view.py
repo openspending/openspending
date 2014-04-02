@@ -14,21 +14,21 @@ class TestViewController(ControllerTestCase):
 
     def test_index(self):
         response = self.app.get(url(controller='view',
-            action='index', dataset='cra'),
-            extra_environ={'REMOTE_USER': 'test'})
+                                    action='index', dataset='cra'),
+                                extra_environ={'REMOTE_USER': 'test'})
         assert 'Library of visualisations' in response.body
 
     def test_delete(self):
         # TODO: Create the view using a fixture
         self.app.post(url(controller='view', action='create',
-                                    dataset='cra'),
-                        params={'widget': 'treemap',
-                                'label': 'I am a banana!',
-                                'state': '{"foo":"banana"}'},
-                        extra_environ={'REMOTE_USER': 'test'})
+                          dataset='cra'),
+                      params={'widget': 'treemap',
+                              'label': 'I am a banana!',
+                              'state': '{"foo":"banana"}'},
+                      extra_environ={'REMOTE_USER': 'test'})
         response = self.app.delete(url(controller='view',
-            action='delete', dataset='cra', name='i-am-a-banana'),
-            extra_environ={'REMOTE_USER': 'test'})
+                                       action='delete', dataset='cra', name='i-am-a-banana'),
+                                   extra_environ={'REMOTE_USER': 'test'})
         dataset = Dataset.by_name('cra')
         view = View.by_name(dataset, 'i-am-a-banana')
         assert view is None
@@ -37,15 +37,15 @@ class TestViewController(ControllerTestCase):
     def test_delete_by_unauthorized_user(self):
         # TODO: Create the view using a fixture
         self.app.post(url(controller='view', action='create',
-                                    dataset='cra'),
-                        params={'widget': 'treemap',
-                                'label': 'I am a banana!',
-                                'state': '{"foo":"banana"}'},
-                        extra_environ={'REMOTE_USER': 'test'})
+                          dataset='cra'),
+                      params={'widget': 'treemap',
+                              'label': 'I am a banana!',
+                              'state': '{"foo":"banana"}'},
+                      extra_environ={'REMOTE_USER': 'test'})
         response = self.app.delete(url(controller='view',
-            action='delete', dataset='cra', name='i-am-a-banana'),
-            expect_errors=True,
-            extra_environ={'REMOTE_USER': 'unauthorized_user'})
+                                       action='delete', dataset='cra', name='i-am-a-banana'),
+                                   expect_errors=True,
+                                   extra_environ={'REMOTE_USER': 'unauthorized_user'})
         dataset = Dataset.by_name('cra')
         view = View.by_name(dataset, 'i-am-a-banana')
         assert view is not None
@@ -53,26 +53,26 @@ class TestViewController(ControllerTestCase):
 
     def test_new(self):
         response = self.app.get(url(controller='view',
-            action='new', dataset='cra'),
-            extra_environ={'REMOTE_USER': 'test'})
+                                    action='new', dataset='cra'),
+                                extra_environ={'REMOTE_USER': 'test'})
         assert 'widgets.js' in response.body
 
     def test_create_noauth(self):
         response = self.app.post(url(controller='view', action='create',
-                                    dataset='cra'),
-                        params={'widget': 'treemap',
-                                'label': 'I am a banana!',
-                                'state': '{"foo":"banana"}'},
-                        expect_errors=True)
+                                     dataset='cra'),
+                                 params={'widget': 'treemap',
+                                         'label': 'I am a banana!',
+                                         'state': '{"foo":"banana"}'},
+                                 expect_errors=True)
         assert '403' in response.status, response.status
 
     def test_create(self):
         response = self.app.post(url(controller='view', action='create',
-                                    dataset='cra'),
-                        params={'widget': 'treemap',
-                                'label': 'I am a banana!',
-                                'state': '{"foo":"banana"}'},
-                        extra_environ={'REMOTE_USER': 'test'})
+                                     dataset='cra'),
+                                 params={'widget': 'treemap',
+                                         'label': 'I am a banana!',
+                                         'state': '{"foo":"banana"}'},
+                                 extra_environ={'REMOTE_USER': 'test'})
         assert '302' in response.status, response.status
         assert '/cra/views/i-am-a-banana' in response.headers.get('location'), \
             response.headers
@@ -81,7 +81,7 @@ class TestViewController(ControllerTestCase):
                                     dataset='cra', name='i-am-a-banana',
                                     format='json'))
         data = json.loads(response.body)
-        assert data['widget']=='treemap', data
+        assert data['widget'] == 'treemap', data
 
         response = self.app.get(url(controller='view', action='view',
                                     dataset='cra', name='i-am-a-banana'))
@@ -94,18 +94,18 @@ class TestViewController(ControllerTestCase):
         # Create the view (we do it via a controller but it would be
         # better to create it manually (or via a fixture)
         self.app.post(url(controller='view', action='create',
-                                    dataset='cra'),
-                        params={'widget': 'treemap',
-                                'label': 'I am a banana!',
-                                'state': '{"foo":"banana"}'},
-                        extra_environ={'REMOTE_USER': 'test'})
+                          dataset='cra'),
+                      params={'widget': 'treemap',
+                              'label': 'I am a banana!',
+                              'state': '{"foo":"banana"}'},
+                      extra_environ={'REMOTE_USER': 'test'})
 
         # Check whether a non-user can update the view
         response = self.app.post(url(controller='view', action='update',
                                      dataset='cra', name='i-am-a-banana'),
-                                 params={'label':'I am an apple',
-                                         'state':'{"foo":"apple"}',
-                                         'description':'An apple!'},
+                                 params={'label': 'I am an apple',
+                                         'state': '{"foo":"apple"}',
+                                         'description': 'An apple!'},
                                  expect_errors=True)
         # The user should receive a 403 Forbidden (actually should get 401)
         assert '403' in response.status, \
@@ -117,17 +117,17 @@ class TestViewController(ControllerTestCase):
             "View's label was changed by a non-user"
         assert view.state['foo'] == 'banana', \
             "View's state was changed by a non-user"
-        assert view.description == None, \
+        assert view.description is None, \
             "View's description was changed by a non-user"
 
         # Check whether an unauthorized user can update the view
         response = self.app.post(url(controller='view', action='update',
-                                    dataset='cra', name='i-am-a-banana'),
-                                 params={'label':'I am an apple',
-                                         'state':'{"foo":"apple"}',
-                                         'description':'An apple!'},
+                                     dataset='cra', name='i-am-a-banana'),
+                                 params={'label': 'I am an apple',
+                                         'state': '{"foo":"apple"}',
+                                         'description': 'An apple!'},
                                  expect_errors=True,
-                                 extra_environ={'REMOTE_USER':'anotheruser'})
+                                 extra_environ={'REMOTE_USER': 'anotheruser'})
         # The user should receive a 403 (Forbidden)
         assert '403' in response.status, \
             "Unauthorized user was able to update a view"
@@ -138,18 +138,18 @@ class TestViewController(ControllerTestCase):
             "View's label was changed by an unauthorized user"
         assert view.state['foo'] == 'banana', \
             "View's state was changed by an unauthorized user"
-        assert view.description == None, \
+        assert view.description is None, \
             "View's description was changed by an unauthorized user"
 
         # Check whether a managing user can update the view
         response = self.app.post(url(controller='view', action='update',
                                      dataset='cra', name='i-am-a-banana'),
-                                 params={'label':'I am an apple',
-                                         'name':'can-i-be-an-apple',
-                                         'state':'{"foo":"apple"}',
-                                         'description':'An apple!'},
-                                 extra_environ={'REMOTE_USER':'test'})
-        
+                                 params={'label': 'I am an apple',
+                                         'name': 'can-i-be-an-apple',
+                                         'state': '{"foo":"apple"}',
+                                         'description': 'An apple!'},
+                                 extra_environ={'REMOTE_USER': 'test'})
+
         dataset = Dataset.by_name('cra')
         view = View.by_name(dataset, 'i-am-a-banana')
         # Name cannot have been changed because the view might have been
@@ -166,22 +166,22 @@ class TestViewController(ControllerTestCase):
     def test_embed(self):
         response = self.app.get(url(controller='view', action='embed',
                                     dataset='cra'),
-                        params={'widget': 'treemap'})
+                                params={'widget': 'treemap'})
         assert u"Embedded" in response.body, response.body
         response = self.app.get(url(controller='view', action='embed',
                                     dataset='cra'),
-            expect_errors=True)
+                                expect_errors=True)
         assert "400" in response.status, response.status
 
     def test_embed_state(self):
         response = self.app.get(url(controller='view', action='embed',
                                     dataset='cra'),
-                        params={'widget': 'treemap',
-                                'state': '{"foo":"banana"}'})
+                                params={'widget': 'treemap',
+                                        'state': '{"foo":"banana"}'})
         assert u"banana" in response.body, response.body
         response = self.app.get(url(controller='view', action='embed',
                                     dataset='cra'),
-                        params={'widget': 'treemap',
-                                'state': '{"foo:"banana"}'},
-            expect_errors=True)
+                                params={'widget': 'treemap',
+                                        'state': '{"foo:"banana"}'},
+                                expect_errors=True)
         assert "400" in response.status, response.status

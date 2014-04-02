@@ -1,20 +1,25 @@
 from openspending.lib import solr_util as solr
 
+
 def load(dataset):
     solr.build_index(dataset)
     return 0
+
 
 def loadall():
     solr.build_all_index()
     return 0
 
+
 def delete(dataset):
     solr.drop_index(dataset)
     return 0
 
+
 def optimize():
     solr.get_connection().optimize()
     return 0
+
 
 def clean():
     s = solr.get_connection()
@@ -22,24 +27,30 @@ def clean():
     s.commit()
     return 0
 
+
 def _load(args):
     return load(args.dataset)
+
 
 def _loadall(args):
     return loadall()
 
+
 def _delete(args):
     return delete(args.dataset)
+
 
 def _optimize(args):
     return optimize()
 
+
 def _clean(args):
     return clean()
 
+
 def configure_parser(subparsers):
     parser = subparsers.add_parser('solr',
-                              help='Solr index operations')
+                                   help='Solr index operations')
     sp = parser.add_subparsers(title='subcommands')
 
     p = sp.add_parser('load', help='Load data for dataset into Solr')

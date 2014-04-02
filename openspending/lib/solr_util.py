@@ -138,6 +138,7 @@ def build_all_index():
         drop_index(dataset.name)
         build_index(dataset.name)
 
+
 def _safe_unicode(s):
     if not isinstance(s, basestring):
         return s

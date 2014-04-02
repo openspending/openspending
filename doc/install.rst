@@ -1,8 +1,44 @@
 Installation and Setup
 ======================
 
+
+Simple install
+''''''''''''''
+
 Requirements
-'''''''''''''
+------------
+
+* Vagrant_ >= 1.4
+
+Installation
+------------
+
+You can avoid installing OpenSpending on your development machine by using Vagrant_ to execute the application and all of its dependencies in a virtual machine. To make use of this option, make sure to install Vagrant and the included VirtualBox provider. 
+
+If you haven't already, you'll need to install Vagrant's `cachier` plugin:
+
+    $ vagrant plugin install vagrant-cachier
+
+Then, from the source repository, you can set up a VM with::
+
+    $ vagrant up
+
+This will run for a while (fetch a coffee), until a working VM with Ubuntu 13.04 and OpenSpending has been deployed. Once the application has run, you can run OpenSpending within the VM::
+
+    $ vagrant ssh
+    vagrant@openspending$ cd /vagrant
+    vagrant@openspending$ paster serve --reload vagrant.ini 
+
+The virtual machine includes OpenSpending, Postgres, RabbitMQ and Solr.
+
+.. _Vagrant: http://vagrantup.com/
+
+
+Manual install
+''''''''''''''
+
+Requirements
+------------
 
 * Python_ >= 2.7, with pip_ and virtualenv_   
 * PostgreSQL_ >= 8.4
@@ -17,7 +53,7 @@ Requirements
 .. _pip: http://pypi.python.org/pypi/pip
 
 Installation
-''''''''''''
+------------
 
 First, check out the source code from the repository, e.g. via git on 
 the command line::
@@ -109,7 +145,7 @@ frontend components using the ping action::
 This should result in "Pong." being printed to the background daemon's console.
 
 Setup Solr
-''''''''''
+----------
 
 Create a configuration home directory to use with Solr. This is most easily 
 done by copying the Solr example configuration from the `Solr tarball`_, and 

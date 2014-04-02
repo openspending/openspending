@@ -73,7 +73,7 @@ class AttributeDimension(Dimension, Attribute):
         """ Get a listing of all the members of the dimension (i.e. all the
         distinct values) matching the filter in ``conditions``. """
         query = db.select([self.column_alias], conditions,
-            limit=limit, offset=offset, distinct=True)
+                          limit=limit, offset=offset, distinct=True)
         rp = self.dataset.bind.execute(query)
         while True:
             row = rp.fetchone()
@@ -201,8 +201,8 @@ class CompoundDimension(Dimension, TableHandler):
         used to find a single individual member, e.g. a dimension value
         identified by its name. """
         query = db.select([self.alias], conditions,
-            limit=limit, offset=offset,
-            distinct=True)
+                          limit=limit, offset=offset,
+                          distinct=True)
         rp = self.dataset.bind.execute(query)
         while True:
             row = rp.fetchone()
@@ -222,13 +222,13 @@ class CompoundDimension(Dimension, TableHandler):
         rp = self.dataset.bind.execute(query)
         return rp.fetchone()[0]
 
-
     def __len__(self):
         rp = self.dataset.bind.execute(self.alias.count())
         return rp.fetchone()[0]
 
     def __repr__(self):
         return "<CompoundDimension(%s:%s)>" % (self.name, self.attributes)
+
 
 class DateDimension(CompoundDimension):
     """ DateDimensions are closely related to :py:class:`CompoundDimensions`
@@ -237,15 +237,15 @@ class DateDimension(CompoundDimension):
     quarter, day). """
 
     DATE_ATTRIBUTES = {
-            'name': { 'datatype': 'string'},
-            'label': {'datatype': 'string'},
-            'year': {'datatype': 'string'},
-            'quarter': {'datatype': 'string'},
-            'month': {'datatype': 'string'},
-            'week': {'datatype': 'string'},
-            'day': {'datatype': 'string'},
-            # legacy query support:
-            'yearmonth': {'datatype': 'string'},
+        'name': { 'datatype': 'string'},
+        'label': {'datatype': 'string'},
+        'year': {'datatype': 'string'},
+        'quarter': {'datatype': 'string'},
+        'month': {'datatype': 'string'},
+        'week': {'datatype': 'string'},
+        'day': {'datatype': 'string'},
+        # legacy query support:
+        'yearmonth': {'datatype': 'string'},
         }
 
     def __init__(self, dataset, name, data):
@@ -271,15 +271,15 @@ class DateDimension(CompoundDimension):
         * yearmonth - combined year and month (e.g. 201112)
         """
         data = {
-                'name': value.isoformat(),
-                'label': value.strftime("%d. %B %Y"),
-                'year': value.strftime('%Y'),
-                'quarter': str(value.month / 4),
-                'month': value.strftime('%m'),
-                'week': value.strftime('%W'),
-                'day': value.strftime('%d'),
-                'yearmonth': value.strftime('%Y%m')
-            }
+            'name': value.isoformat(),
+            'label': value.strftime("%d. %B %Y"),
+            'year': value.strftime('%Y'),
+            'quarter': str(value.month / 4),
+            'month': value.strftime('%m'),
+            'week': value.strftime('%W'),
+            'day': value.strftime('%d'),
+            'yearmonth': value.strftime('%Y%m')
+        }
         return super(DateDimension, self).load(bind, data)
 
     def __repr__(self):

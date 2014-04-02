@@ -27,7 +27,7 @@ class LogRecord(db.Model):
     value = db.Column(db.Unicode)
 
     run = db.relationship(Run, backref=db.backref('records',
-                          lazy='dynamic'))
+                                                  lazy='dynamic'))
 
     def __init__(self, run, category, level, message):
         self.run = run
@@ -41,4 +41,4 @@ class LogRecord(db.Model):
 
     def __repr__(self):
         return "<LogRecord(%s:%s:%s:%s:%s)>" % (self.category, self.level,
-            self.error, self.timestamp, self.message)
+                                                self.error, self.timestamp, self.message)

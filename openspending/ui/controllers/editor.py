@@ -46,9 +46,9 @@ class EditorController(BaseController):
         self._disable_cache()
         require.dataset.update(c.dataset)
         c.key_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if k],
-                key=lambda (k, v): v)
+                                  key=lambda (k, v): v)
         c.all_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if not k],
-                key=lambda (k, v): v)
+                                  key=lambda (k, v): v)
         c.languages = sorted(LANGUAGES.items(), key=lambda (k, v): v)
         c.territories = sorted(COUNTRIES.items(), key=lambda (k, v): v)
         c.categories = sorted(CATEGORIES.items(), key=lambda (k, v): v)
@@ -64,7 +64,7 @@ class EditorController(BaseController):
         if errors:
             fill.update(request.params)
         return templating.render('editor/core.html', form_errors=dict(errors),
-                form_fill=fill)
+                                 form_fill=fill)
 
     def core_update(self, dataset, format='html'):
         self._get_dataset(dataset)
@@ -90,7 +90,7 @@ class EditorController(BaseController):
         return self.core_edit(dataset, errors=errors)
 
     def dimensions_edit(self, dataset, errors={}, mapping=None,
-            format='html', saved=False):
+                        format='html', saved=False):
 
         self._get_dataset(dataset)
         self._disable_cache()
@@ -114,8 +114,8 @@ class EditorController(BaseController):
 
         require.dataset.update(c.dataset)
         if len(c.dataset):
-            abort(400, _("You cannot edit the dimensions model when " \
-                    "data is loaded for the dataset."))
+            abort(400, _("You cannot edit the dimensions model when "
+                         "data is loaded for the dataset."))
 
         errors, mapping, saved = {}, None, False
         try:
@@ -136,10 +136,10 @@ class EditorController(BaseController):
         except Invalid, i:
             errors = i.asdict()
         return self.dimensions_edit(dataset, errors=errors,
-                mapping=mapping, saved=saved)
+                                    mapping=mapping, saved=saved)
 
     def templates_edit(self, dataset, errors={}, values=None,
-            format='html'):
+                       format='html'):
         self._get_dataset(dataset)
         self._disable_cache()
         require.dataset.update(c.dataset)
@@ -163,7 +163,7 @@ class EditorController(BaseController):
         return self.templates_edit(dataset, errors=errors, values=values)
 
     def views_edit(self, dataset, errors={}, views=None,
-            format='html'):
+                   format='html'):
         self._get_dataset(dataset)
         self._disable_cache()
         require.dataset.update(c.dataset)
@@ -189,7 +189,7 @@ class EditorController(BaseController):
         return self.views_edit(dataset, errors=errors, views=views)
 
     def team_edit(self, dataset, errors={}, accounts=None,
-            format='html'):
+                  format='html'):
         self._get_dataset(dataset)
         self._disable_cache()
         require.dataset.update(c.dataset)
@@ -228,7 +228,7 @@ class EditorController(BaseController):
         AggregationCache(c.dataset).invalidate()
 
         # For every source in the dataset we set the status to removed
-        for source in c.dataset.sources:            
+        for source in c.dataset.sources:
             for run in source.runs:
                 run.status = Run.STATUS_REMOVED
 
@@ -251,9 +251,9 @@ class EditorController(BaseController):
         cache.invalidate()
 
         public_url = h.url_for(controller='dataset', action='view',
-                           dataset=c.dataset.name, qualified=True)
-        h.flash_success(_("Congratulations, the dataset has been " \
-                "published. It is now available at: %s") % public_url)
+                               dataset=c.dataset.name, qualified=True)
+        h.flash_success(_("Congratulations, the dataset has been "
+                          "published. It is now available at: %s") % public_url)
         redirect(h.url_for(controller='editor', action='index',
                            dataset=c.dataset.name))
 
@@ -270,9 +270,9 @@ class EditorController(BaseController):
         # Need to invalidate the cache of the dataset index
         cache = DatasetIndexCache()
         cache.invalidate()
-        
-        h.flash_success(_("The dataset has been retracted. " \
-                "It is no longer visible to others."))
+
+        h.flash_success(_("The dataset has been retracted. "
+                          "It is no longer visible to others."))
         redirect(h.url_for(controller='editor', action='index',
                            dataset=c.dataset.name))
 
@@ -285,4 +285,3 @@ class EditorController(BaseController):
         db.session.commit()
         h.flash_success(_("The dataset has been deleted."))
         redirect(h.url_for(controller='dataset', action='index'))
-

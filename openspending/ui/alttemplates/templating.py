@@ -18,6 +18,7 @@ from lxml.html import builder as E
 # Set the directory where this file is as the template root directory
 template_rootdir = os.path.abspath(os.path.dirname(__file__))
 
+
 class Page(paginate.Page):
     # Overwrite the pager method of the webhelpers.paginate.Page class, 
     # so we have our custom layout set as default.
@@ -28,27 +29,30 @@ class Page(paginate.Page):
         )
         return super(Page, self).pager(*args, **kwargs)
 
+
 def languages(detected_languages, current_language):
     def lang_triple(lang):
         return {
             "lang_code": lang[0], 
             "lang_name": lang[1], 
-            "current_locale" : {
+            "current_locale": {
                 True: "current_locale",
                 False: ""
-                }[ current_language == lang[0] ]
+                }[current_language == lang[0]]
             }
-    return [ lang_triple(l) for l in detected_languages ]
+    return [lang_triple(l) for l in detected_languages]
+
 
 def section_active(section):
-    sections = [ "blog", "dataset", "search", "resources", "help", "about" ]
-    tmp = dict([ (s, section == s)for s in sections ])
+    sections = ["blog", "dataset", "search", "resources", "help", "about"]
+    tmp = dict([(s, section == s)for s in sections])
     tmp["dataset"] = bool(c.dataset)
 
     return dict([ (k, {
                 True: "active",
                 False: ""
                 }[v]) for k,v in tmp.iteritems() ])
+
 
 def postprocess_forms(s, form_errors):
     def tag_errors(tag, root):
@@ -71,8 +75,9 @@ def postprocess_forms(s, form_errors):
 
     root = lxml.html.fromstring(s)
     processors = [input_errors, select_errors, textarea_errors]
-    [ process(root) for process in processors ]
+    [process(root) for process in processors]
     return lxml.html.tostring(root, doctype=root.getroottree().docinfo.doctype)
+
 
 def render(path, **kwargs):
     """Render a template with jinja2
@@ -83,11 +88,11 @@ def render(path, **kwargs):
 
     """
 
-    env = Environment(loader=FileSystemLoader(template_rootdir), extensions=[formencode_jinja2.formfill, 'jinja2.ext.i18n'])
+    env = Environment(loader=FileSystemLoader(template_rootdir),
+                      extensions=[formencode_jinja2.formfill, 'jinja2.ext.i18n'])
     env.install_gettext_translations(i18n)
 
     template = env.get_template(path)
-
 
     static_cache_version = config.get("openspending.static_cache_version", "")
     if static_cache_version != "":

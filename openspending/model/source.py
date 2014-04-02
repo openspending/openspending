@@ -17,8 +17,9 @@ class Source(db.Model):
 
     dataset_id = db.Column(db.Integer, db.ForeignKey('dataset.id'))
     dataset = db.relationship(Dataset,
-                              backref=db.backref('sources', lazy='dynamic',
-                                order_by='Source.created_at.desc()'))
+                              backref=db.backref(
+                                  'sources', lazy='dynamic',
+                                  order_by='Source.created_at.desc()'))
 
     creator_id = db.Column(db.Integer, db.ForeignKey('account.id'))
     creator = db.relationship(Account,
@@ -95,4 +96,4 @@ class Source(db.Model):
             "url": self.url,
             "dataset": self.dataset.name,
             "created_at": self.created_at
-            }
+        }

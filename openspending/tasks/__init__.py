@@ -61,6 +61,7 @@ def index_dataset(dataset_name):
     from openspending.lib.solr_util import build_index
     build_index(dataset_name)
 
+
 @task(ignore_result=True)
 def clean_sessions():
     import os

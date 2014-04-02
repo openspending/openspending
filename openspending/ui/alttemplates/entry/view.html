@@ -89,8 +89,7 @@
       <div class="amount span7">
         <div class="number">
           <img src="{{h.static('img/icons/cd_16x16.png')}}" />
-          {{h.format_number_with_commas(c.amount)}}
-          <div class="currency">{{c.currency}}</div>
+          {{ h.format_currency(c.amount, c.dataset) }}
           <div class="date">
             <img src="{{h.static('img/icons/calendar_alt_stroke_16x16.png')}}" />
             {{c.time.get('label')}}

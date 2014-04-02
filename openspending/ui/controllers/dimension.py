@@ -42,7 +42,7 @@ class DimensionController(BaseController):
                 members = list(dimension.members(cond, limit=1))
                 if not len(members):
                     abort(404, _('Sorry, there is no member named %r')
-                            % name)
+                               % name)
                 c.dimension = dimension
                 c.member = members.pop()
                 c.num_entries = dimension.num_entries(cond)
@@ -53,8 +53,8 @@ class DimensionController(BaseController):
         self._get_dataset(dataset)
         etag_cache_keygen(c.dataset.updated_at, format)
         if format == 'json':
-            dimensions = [dimension_apply_links(dataset, d.as_dict()) \
-                for d in c.dataset.dimensions]
+            dimensions = [dimension_apply_links(dataset, d.as_dict())
+                          for d in c.dataset.dimensions]
             return to_jsonp(dimensions)
         else:
             return templating.render('dimension/index.html')
@@ -85,7 +85,7 @@ class DimensionController(BaseController):
         return to_jsonp({
             'results': list(members),
             'count': c.dimension.num_entries(q)
-            })
+        })
 
     def member(self, dataset, dimension, name, format="html"):
         self._get_member(dataset, dimension, name)
@@ -100,12 +100,12 @@ class DimensionController(BaseController):
             # search page
             if c.view is None:
                 return redirect(url_for(controller='dimension', action='entries',
-                    dataset=c.dataset.name, dimension=dimension, name=name))
+                                        dataset=c.dataset.name, dimension=dimension, name=name))
             if 'embed' in request.params:
                 return redirect(url_for(controller='view',
-                    action='embed', dataset=c.dataset.name,
-                    widget=c.view.vis_widget.get('name'),
-                    state=json.dumps(c.view.vis_state)))
+                                        action='embed', dataset=c.dataset.name,
+                                        widget=c.view.vis_widget.get('name'),
+                                        state=json.dumps(c.view.vis_state)))
             return templating.render('dimension/member.html')
 
     def entries(self, dataset, dimension, name, format='html'):

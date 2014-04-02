@@ -13,8 +13,10 @@ def grant_admin(username):
 
     return 0
 
+
 def _grant_admin(args):
     return grant_admin(args.username)
+
 
 def configure_parser(subparsers):
     parser = subparsers.add_parser('user', help='User operations')

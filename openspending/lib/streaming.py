@@ -84,7 +84,7 @@ class JSONStreamingResponse(StreamingResponse):
         stats['results_count'] = self.params
 
         if self.expand_facets and len(self.datasets) == 1:
-            self.expand_facets(facets, self.datasets[0])
+            facets = self.expand_facets(facets, self.datasets[0])
 
         template = generate_jsonp({
             'stats': stats,

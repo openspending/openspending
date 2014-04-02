@@ -46,16 +46,16 @@ class DatasetController(BaseController):
         # language etc.)
         c.query = request.params.items()
         c.add_filter = lambda f, v: '?' + urlencode(c.query +
-                [(f, v)] if (f, v) not in c.query else c.query)
+                                                    [(f, v)] if (f, v) not in c.query else c.query)
         c.del_filter = lambda f, v: '?' + urlencode([(k, x) for k, x in
-            c.query if (k, x) != (f, v)])
+                                                     c.query if (k, x) != (f, v)])
 
         # Parse the request parameters to get them into the right format
         parser = DatasetIndexParamParser(request.params)
         params, errors = parser.parse()
         if errors:
             concatenated_errors = ', '.join(errors)
-            abort(400, 
+            abort(400,
                   _('Parameter values not supported: %s') % concatenated_errors)
 
         # We need to pop the page and pagesize parameters since they're not
@@ -80,8 +80,7 @@ class DatasetController(BaseController):
         # We also don't set c._must_revalidate to True since we don't care
         # if the index needs a hard refresh
         try:
-            etag_cache_keygen(results['datasets'][0]\
-                                  ['timestamps']['last_modified'])
+            etag_cache_keygen(results['datasets'][0]['timestamps']['last_modified'])
         except IndexError:
             etag_cache_keygen(None)
 
@@ -92,8 +91,8 @@ class DatasetController(BaseController):
 
         if format == 'json':
             # Apply links to the dataset lists before returning the json
-            results['datasets'] = [dataset_apply_links(r) \
-                                       for r in results['datasets']]
+            results['datasets'] = [dataset_apply_links(r)
+                                   for r in results['datasets']]
             return to_jsonp(results)
         elif format == 'csv':
             # The CSV response only shows datasets, not languages,
@@ -117,15 +116,15 @@ class DatasetController(BaseController):
             return templating.render('dataset/new_cta.html')
         require.dataset.create()
         c.key_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if k],
-                key=lambda (k, v): v)
+                                  key=lambda (k, v): v)
         c.all_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if not k],
-                key=lambda (k, v): v)
+                                  key=lambda (k, v): v)
         c.languages = sorted(LANGUAGES.items(), key=lambda (k, v): v)
         c.territories = sorted(COUNTRIES.items(), key=lambda (k, v): v)
         c.categories = sorted(CATEGORIES.items(), key=lambda (k, v): v)
         errors = [(k[len('dataset.'):], v) for k, v in errors.items()]
         return templating.render('dataset/new.html', form_errors=dict(errors),
-                form_fill=request.params if errors else {'currency': 'USD'})
+                                 form_fill=request.params if errors else {'currency': 'USD'})
 
     def create(self):
         require.dataset.create()
@@ -138,7 +137,7 @@ class DatasetController(BaseController):
             data = schema.deserialize(dataset)
             if Dataset.by_name(data['name']) is not None:
                 raise Invalid(SchemaNode(String(), name='dataset.name'),
-                    _("A dataset with this identifer already exists!"))
+                              _("A dataset with this identifer already exists!"))
             dataset = Dataset({'dataset': data})
             dataset.private = True
             dataset.managers.append(c.account)
@@ -169,7 +168,7 @@ class DatasetController(BaseController):
 
         # Compute the number of entries in the dataset
         c.num_entries = len(c.dataset)
-        
+
         # Handle the request for the dataset, this will return
         # a default view in c.view if there is any
         handle_request(request, c, c.dataset)
@@ -191,10 +190,10 @@ class DatasetController(BaseController):
                 # If embed is requested using the url parameters we return
                 # a redirect to an embed page for the default view
                 return redirect(h.url_for(controller='view',
-                    action='embed', dataset=c.dataset.name,
-                    widget=c.view.vis_widget.get('name'),
-                    state=json.dumps(c.view.vis_state)))
-            # Return the dataset view (for the default view)
+                                          action='embed', dataset=c.dataset.name,
+                                          widget=c.view.vis_widget.get('name'),
+                                          state=json.dumps(c.view.vis_state)))
+                # Return the dataset view (for the default view)
             return templating.render('dataset/view.html')
 
     def about(self, dataset, format='html'):
@@ -225,7 +224,7 @@ class DatasetController(BaseController):
     def feed_rss(self):
         q = db.session.query(Dataset)
         if not (c.account and c.account.admin):
-            q = q.filter_by(private = False)
+            q = q.filter_by(private=False)
         feed_items = q.order_by(Dataset.created_at.desc()).limit(20)
         items = []
         for feed_item in feed_items:
@@ -233,16 +232,16 @@ class DatasetController(BaseController):
                 'title': feed_item.label,
                 'pubdate': feed_item.updated_at,
                 'link': url(controller='dataset', action='view',
-                    dataset=feed_item.name, qualified=True),
+                            dataset=feed_item.name, qualified=True),
                 'description': feed_item.description,
                 'author_name': ', '.join([person.fullname for person in
                                           feed_item.managers if
                                           person.fullname]),
                 })
         feed = Rss201rev2Feed(_('Recently Created Datasets'), url(
-            controller='home', action='index', qualified=True), _('Recently '
-            'created datasets in the OpenSpending Platform'),
-            author_name='Openspending')
+            controller='home', action='index', qualified=True),
+                              _('Recently created datasets in the OpenSpending Platform'),
+                              author_name='Openspending')
         for item in items:
             feed.add_item(**item)
         sio = StringIO()

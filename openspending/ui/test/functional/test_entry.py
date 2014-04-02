@@ -2,6 +2,7 @@ from openspending.model import Dataset, meta as db
 
 from .. import ControllerTestCase, url, helpers as h
 
+
 class TestEntryController(ControllerTestCase):
 
     def setup(self):
@@ -72,5 +73,4 @@ class TestEntryController(ControllerTestCase):
                                     id=t['id']))
 
         assert tpl % (t['id'], t['name']) in response, \
-               'Custom HTML not present in rendered page!'
-
+            'Custom HTML not present in rendered page!'

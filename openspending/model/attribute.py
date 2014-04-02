@@ -1,5 +1,6 @@
 from openspending.model import meta as db
 
+
 class Attribute(object):
     """ An attribute describes some concrete value stored in the data model.
     This value can either be stored directly on the facts table or on a 
@@ -35,7 +36,7 @@ class Attribute(object):
             'constant': db.UnicodeText,
             'date': db.UnicodeText,
             'float': db.Float,
-                }
+            }
         type_ = types.get(self.datatype, db.UnicodeText)
         column = db.Column(self.name, type_)
         table.append_column(column)

@@ -8,6 +8,7 @@ from openspending.ui.lib.security import check_password_hash
 import logging
 log = logging.getLogger(__name__)
 
+
 class UsernamePasswordAuthenticator(object):
     implements(IAuthenticator)
 
@@ -69,6 +70,7 @@ class ApiKeyIdentifier(object):
         # either (and thus no header mechanism)
         return None
 
+
 class ApiKeyAuthenticator(object):
     implements(IAuthenticator)
 
@@ -85,4 +87,3 @@ class ApiKeyAuthenticator(object):
                 return acc.name
 
         return None
-

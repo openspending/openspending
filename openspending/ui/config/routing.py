@@ -7,6 +7,7 @@ refer to the routes manual at http://routes.groovie.org/docs/
 from pylons import config
 from routes import Mapper
 
+
 def make_map():
     """Create, configure and return the routes Mapper"""
     map = Mapper(directory=config['pylons.paths']['controllers'],
@@ -49,10 +50,10 @@ def make_map():
     map.connect('/datasets.{format}', controller='dataset', action='index')
     map.connect('/datasets/cta', controller='dataset', action='cta')
     map.connect('/datasets/territories', controller='dataset',
-            action='territories')
+                action='territories')
     map.connect('/datasets/new', controller='dataset', action='new')
     map.connect('/datasets', controller='dataset', action='create',
-            conditions=dict(method=['POST']))
+                conditions=dict(method=['POST']))
     map.connect('/datasets', controller='dataset', action='index')
 
     map.connect('/search', controller='entry', action='search')
@@ -83,60 +84,60 @@ def make_map():
 
     map.connect('/{dataset}/views/new', controller='view', action='new')
     map.connect('/{dataset}/views', controller='view', action='create',
-        conditions=dict(method=['POST']))
+                conditions=dict(method=['POST']))
     map.connect('/{dataset}/views.{format}', controller='view', action='index')
     map.connect('/{dataset}/views', controller='view', action='index')
     map.connect('/{dataset}/views/{name}.{format}', controller='view', action='view')
     map.connect('/{dataset}/views/{name}', controller='view', action='update',
-        conditions=dict(method=['POST']))
+                conditions=dict(method=['POST']))
     map.connect('/{dataset}/views/{name}', controller='view', action='delete',
-        conditions=dict(method=['DELETE']))
+                conditions=dict(method=['DELETE']))
     map.connect('/{dataset}/views/{name}', controller='view', action='view')
     map.connect('/{dataset}/embed', controller='view', action='embed')
 
     map.connect('/{dataset}/editor', controller='editor', action='index')
     map.connect('/{dataset}/editor/core', controller='editor',
-            action='core_update', conditions=dict(method=['POST']))
+                action='core_update', conditions=dict(method=['POST']))
     map.connect('/{dataset}/editor/core', controller='editor', action='core_edit')
     map.connect('/{dataset}/editor/dimensions', controller='editor',
-            action='dimensions_update', conditions=dict(method=['POST']))
+                action='dimensions_update', conditions=dict(method=['POST']))
     map.connect('/{dataset}/editor/dimensions', controller='editor',
-            action='dimensions_edit')
+                action='dimensions_edit')
     map.connect('/{dataset}/editor/dimensions_src', controller='editor',
-            action='dimensions_edit', mode='source')
+                action='dimensions_edit', mode='source')
     map.connect('/{dataset}/editor/views', controller='editor',
-            action='views_update', conditions=dict(method=['POST']))
+                action='views_update', conditions=dict(method=['POST']))
     map.connect('/{dataset}/editor/views', controller='editor',
-            action='views_edit')
+                action='views_edit')
     map.connect('/{dataset}/editor/team', controller='editor',
-            action='team_update', conditions=dict(method=['POST']))
+                action='team_update', conditions=dict(method=['POST']))
     map.connect('/{dataset}/editor/team', controller='editor',
-            action='team_edit')
+                action='team_edit')
     map.connect('/{dataset}/editor/templates', controller='editor',
-            action='templates_update', conditions=dict(method=['POST']))
+                action='templates_update', conditions=dict(method=['POST']))
     map.connect('/{dataset}/editor/templates', controller='editor',
-            action='templates_edit')
+                action='templates_edit')
     map.connect('/{dataset}/editor/publish', controller='editor',
-            action='publish', conditions=dict(method=['POST']))
+                action='publish', conditions=dict(method=['POST']))
     map.connect('/{dataset}/editor/retract', controller='editor',
-            action='retract', conditions=dict(method=['POST']))
+                action='retract', conditions=dict(method=['POST']))
     map.connect('/{dataset}/editor/drop', controller='editor',
-            action='drop', conditions=dict(method=['POST']))
+                action='drop', conditions=dict(method=['POST']))
     map.connect('/{dataset}/editor/delete', controller='editor',
-            action='delete', conditions=dict(method=['POST']))
+                action='delete', conditions=dict(method=['POST']))
 
     map.connect('/{dataset}/sources', controller='source',
-            action='create', conditions=dict(method=['POST']))
+                action='create', conditions=dict(method=['POST']))
     map.connect('/{dataset}/sources.{format}', controller='source',
-            action='index')
+                action='index')
     map.connect('/{dataset}/sources/new', controller='source', action='new')
     map.connect('/{dataset}/sources/{id}', controller='source', action='view')
     map.connect('/{dataset}/sources/{id}/load', controller='source',
-            action='load', conditions=dict(method=['POST']))
+                action='load', conditions=dict(method=['POST']))
     map.connect('/{dataset}/sources/{id}/delete', controller='source',
-            action='delete', conditions=dict(method=['POST']))
+                action='delete', conditions=dict(method=['POST']))
     map.connect('/{dataset}/sources/{source}/runs/{id}',
-            controller='run', action='view')
+                controller='run', action='view')
     map.connect('/{dataset}/sources/{source}/analysis.{format}',
                 controller='source', action='analysis')
 
