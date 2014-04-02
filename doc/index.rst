@@ -15,12 +15,14 @@ Contents:
    :maxdepth: 2
 
    overview
+   api
    install
    deployment
    developer
    model/design
    model/objects
    appendix_migration
+   
 
 Indices and tables
 ==================
