@@ -72,12 +72,12 @@ household income of %.2f, and pays %.2f in direct tax, %.2f in VAT, \
 %.2f in smoking taxes, %.2f in alcohol-related taxes, %.2f in car-related taxes, \
 and %.2f in other indirect taxes).'''
                                    % (i - 1, lower,
-                                      income_table[2][
-                                          i - 1], income_table[3][i - 1],
-                                      income_table[4][
-                                          i - 1], income_table[5][i - 1],
-                                      income_table[6][
-                                          i - 1], income_table[7][i - 1],
+                                      income_table[2][i - 1],
+                                      income_table[3][i - 1],
+                                      income_table[4][i - 1],
+                                      income_table[5][i - 1],
+                                      income_table[6][i - 1],
+                                      income_table[7][i - 1],
                                       i, upper,
                                       income_table[2][i], income_table[3][i],
                                       income_table[4][i], income_table[5][i],
@@ -155,7 +155,7 @@ but assume the fractions of income paid as tax are the average for the top decil
                             'in direct tax and %.2f in total indirect tax.' % \
                             (income,
                              tax_results['total_direct_tax'],
-                                tax_results['total_indirect_tax'])
+                             tax_results['total_indirect_tax'])
         explanation.append(explanation_text)
 
         tax_results['tax'] = tax_results['total_direct_tax'] + \

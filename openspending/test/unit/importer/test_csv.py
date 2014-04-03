@@ -106,8 +106,8 @@ class TestCSVImporter(DatabaseTestCase):
         h.assert_equal(records[0].row, 0)
         h.assert_equal(records[1].row, 0)
         h.assert_true(
-            "Didn't read any lines of data" in str(
-                records[1].message))
+            "Didn't read any lines of data" in
+            str(records[1].message))
 
     def test_malformed_csv(self):
         source = csvimport_fixture('malformed')

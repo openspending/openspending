@@ -12,6 +12,7 @@ from collections import defaultdict
 from datetime import datetime
 from itertools import count
 from sqlalchemy import ForeignKeyConstraint
+from sqlalchemy.sql.expression import false
 
 from openspending.model import meta as db
 from openspending.lib.util import hash_values
@@ -562,7 +563,7 @@ class Dataset(TableHandler, db.Model):
     @classmethod
     def all_by_account(cls, account):
         """ Query available datasets based on dataset visibility. """
-        criteria = [not cls.private]
+        criteria = [cls.private == false()]
         if account is not None:
             criteria += ["1=1" if account.admin else "1=2",
                          cls.managers.any(type(account).id == account.id)]
