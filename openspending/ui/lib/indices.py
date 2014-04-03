@@ -53,7 +53,7 @@ def category_index(datasets):
         # Execute the queery to the the list of categories
         categories = db.session.bind.execute(q).fetchall()
         # Return a list of categories as dicts with category, count, url
-        # and label 
+        # and label
         return [{'category': category, 'count': count,
                  'url': h.url_for(controller='dataset',
                                   action='index', category=category),
@@ -68,7 +68,7 @@ def dataset_index(languages=[], territories=[], category=None):
 
     # Get all of the public datasets ordered by when they were last updated
     results = db.session.query(Dataset)
-    results = results.filter_by(private = False)
+    results = results.filter_by(private=False)
     results = results.order_by(Dataset.updated_at.desc())
 
     # Filter by languages if they have been provided

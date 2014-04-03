@@ -2,12 +2,14 @@ from openspending import model
 
 from ... import DatabaseTestCase, helpers as h
 
+
 def make_account():
     return {
         'name': 'Joe Bloggs',
         'label': 'Tester',
         'email': 'joe.bloggs@example.com'
     }
+
 
 class TestAccount(DatabaseTestCase):
 

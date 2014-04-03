@@ -46,15 +46,16 @@ class EditorController(BaseController):
         self._disable_cache()
         require.dataset.update(c.dataset)
         c.key_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if k],
-                                  key=lambda (k, v): v)
+                                  key=lambda k_v: k_v[1])
         c.all_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if not k],
-                                  key=lambda (k, v): v)
-        c.languages = sorted(LANGUAGES.items(), key=lambda (k, v): v)
-        c.territories = sorted(COUNTRIES.items(), key=lambda (k, v): v)
-        c.categories = sorted(CATEGORIES.items(), key=lambda (k, v): v)
+                                  key=lambda k_v1: k_v1[1])
+        c.languages = sorted(LANGUAGES.items(), key=lambda k_v2: k_v2[1])
+        c.territories = sorted(COUNTRIES.items(), key=lambda k_v3: k_v3[1])
+        c.categories = sorted(CATEGORIES.items(), key=lambda k_v4: k_v4[1])
 
         if 'time' in c.dataset:
-            c.available_times = [m['year'] for m in c.dataset['time'].members()]
+            c.available_times = [m['year']
+                                 for m in c.dataset['time'].members()]
             c.available_times = sorted(set(c.available_times), reverse=True)
         else:
             c.available_times = []
@@ -85,7 +86,7 @@ class EditorController(BaseController):
             c.dataset.languages = data['languages']
             db.session.commit()
             h.flash_success(_("The dataset has been updated."))
-        except Invalid, i:
+        except Invalid as i:
             errors = i.asdict()
         return self.core_edit(dataset, errors=errors)
 
@@ -129,11 +130,11 @@ class EditorController(BaseController):
             c.dataset._load_model()
             c.dataset.generate()
             db.session.commit()
-            #h.flash_success(_("The mapping has been updated."))
+            # h.flash_success(_("The mapping has been updated."))
             saved = True
         except (ValueError, TypeError, AttributeError):
             abort(400, _("The mapping data could not be decoded as JSON!"))
-        except Invalid, i:
+        except Invalid as i:
             errors = i.asdict()
         return self.dimensions_edit(dataset, errors=errors,
                                     mapping=mapping, saved=saved)
@@ -158,7 +159,7 @@ class EditorController(BaseController):
             c.dataset.serp_teaser = values.get('serp_teaser', None)
             db.session.commit()
             h.flash_success(_("The templates have been updated."))
-        except Invalid, i:
+        except Invalid as i:
             errors = i.asdict()
         return self.templates_edit(dataset, errors=errors, values=values)
 
@@ -184,7 +185,7 @@ class EditorController(BaseController):
             h.flash_success(_("The views have been updated."))
         except (ValueError, TypeError):
             abort(400, _("The views could not be decoded as JSON!"))
-        except Invalid, i:
+        except Invalid as i:
             errors = i.asdict()
         return self.views_edit(dataset, errors=errors, views=views)
 
@@ -208,7 +209,7 @@ class EditorController(BaseController):
                 errors[account_name] = _("User account cannot be found.")
             else:
                 accounts.append(account)
-        if not c.account in accounts:
+        if c.account not in accounts:
             accounts.append(c.account)
         if not len(errors):
             c.dataset.managers = accounts

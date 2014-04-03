@@ -1,4 +1,6 @@
-import os, sys
+import os
+import sys
+
 os.environ['CELERY_LOADER'] = 'openspending.command.celery.loader.PylonsLoader'
 
 from paste.script.command import Command, BadCommand
@@ -6,7 +8,9 @@ from openspending.command import _configure_pylons
 
 __all__ = ['CeleryDaemonCommand']
 
+
 class CeleryCommand(Command):
+
     """
     Abstract Base Class for celery commands.
 
@@ -56,6 +60,7 @@ class CeleryCommand(Command):
 
 
 class CeleryDaemonCommand(CeleryCommand):
+
     """Start the celery worker
 
     Starts the celery worker that uses a paste.deploy configuration
@@ -78,4 +83,3 @@ class CeleryDaemonCommand(CeleryCommand):
         from celery.bin.celeryd import WorkerCommand
         w = WorkerCommand()
         w.execute_from_commandline(['celeryd'] + sys.argv[3:])
-

@@ -3,6 +3,7 @@ from openspending.ui.lib import helpers
 
 
 class TestFormatNumber(TestCase):
+
     def _check(self, ourmethod, testsets):
         for inp, res in testsets:
             out = ourmethod(inp)

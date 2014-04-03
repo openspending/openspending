@@ -10,6 +10,7 @@ log = logging.getLogger(__name__)
 
 
 class DatasetIndexCache(object):
+
     """
     A proxy object to run cached calls against the dataset
     index (dataset index page and dataset.json)
@@ -40,7 +41,7 @@ class DatasetIndexCache(object):
             # Key parts of the request, used to compute the cache key
             key_parts = (category, sorted(languages),
                          sorted(territories))
-        
+
             # Return a hash of the key parts as the cache key
             key = hashlib.sha1(repr(key_parts)).hexdigest()
 
@@ -64,7 +65,7 @@ class DatasetIndexCache(object):
         # Create a results dictionary. We need to transform the datasets
         # into dict for the caching (since the datasets are returned as
         # classes with functions that cannot be cached).
-        results = {'datasets': map(lambda d: d.as_dict(), datasets), 
+        results = {'datasets': map(lambda d: d.as_dict(), datasets),
                    'languages': languages, 'territories': territories,
                    'categories': categories}
 
@@ -77,21 +78,22 @@ class DatasetIndexCache(object):
 
 
 class AggregationCache(object):
-    """ A proxy object to run cached calls against the dataset 
-    aggregation function. This is neither a concern of the data 
-    model itself, nor should it be repeated at each location 
-    where caching of aggregates should occur - thus it ends up 
+
+    """ A proxy object to run cached calls against the dataset
+    aggregation function. This is neither a concern of the data
+    model itself, nor should it be repeated at each location
+    where caching of aggregates should occur - thus it ends up
     here. """
 
     def __init__(self, dataset, type='dbm'):
         self.dataset = dataset
         self.cache_enabled = app_globals.cache_enabled and \
-                not self.dataset.private
+            not self.dataset.private
         self.cache = cache.get_cache('DSCACHE_' + dataset.name,
                                      type=type)
 
     def aggregate(self, measures=['amount'], drilldowns=None, cuts=None,
-        page=1, pagesize=10000, order=None, inflate=None):
+                  page=1, pagesize=10000, order=None, inflate=None):
         """ For call docs, see ``model.Dataset.aggregate``. """
 
         # Initialise cache key
@@ -107,7 +109,7 @@ class AggregationCache(object):
             key = hashlib.sha1(repr(key_parts)).hexdigest()
 
             # If the cache key exists we serve directly from the cache
-            if self.cache.has_key(key):
+            if key in self.cache:
                 log.debug("Cache hit: %s", key)
                 return self.cache.get(key)
         else:

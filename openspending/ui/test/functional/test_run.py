@@ -17,7 +17,8 @@ class TestRunController(ControllerTestCase):
 
     def test_view_run(self):
         response = self.app.get(url(controller='run',
-                                    action='view', dataset=self.source.dataset.name,
+                                    action='view',
+                                    dataset=self.source.dataset.name,
                                     source=self.source.id,
                                     id=self.importer._run.id),
                                 extra_environ={'REMOTE_USER': 'test'},
@@ -26,7 +27,8 @@ class TestRunController(ControllerTestCase):
 
     def test_view_run_does_not_exist(self):
         response = self.app.get(url(controller='run',
-                                    action='view', dataset=self.source.dataset.name,
+                                    action='view',
+                                    dataset=self.source.dataset.name,
                                     source=self.source.id,
                                     id=47347893),
                                 extra_environ={'REMOTE_USER': 'test'},

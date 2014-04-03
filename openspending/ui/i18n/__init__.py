@@ -29,13 +29,13 @@ def get_language_pairs():
                    [Locale.parse(lang).display_name for lang in languages])
     # Filter out bogus language codes before they screw us over completely
     # (Hint: 'no' is not a real language code)
-    return filter(lambda (language, name): name is not None, langlist)
+    return filter(lambda language_name: language_name[1] is not None, langlist)
 
 
 def get_default_locale():
     from pylons import config
     return Locale.parse(config.get('lang')) or \
-            Locale.parse('en')
+        Locale.parse('en')
 
 
 def set_session_locale(locale):
@@ -53,7 +53,10 @@ def handle_request(request, tmpl_context):
         locale = Locale.parse(session.get('locale'))
     else:
         requested = [l.replace('-', '_') for l in request.languages]
-        locale = Locale.parse(Locale.negotiate(get_available_languages(), requested))
+        locale = Locale.parse(
+            Locale.negotiate(
+                get_available_languages(),
+                requested))
 
     if locale is None:
         locale = get_default_locale()
@@ -61,7 +64,7 @@ def handle_request(request, tmpl_context):
     tmpl_context.locale = locale
 
     options = [str(locale), locale.language, str(get_default_locale()),
-        get_default_locale().language]
+               get_default_locale().language]
     for language in options:
         try:
             set_lang(language)

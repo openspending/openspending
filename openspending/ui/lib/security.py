@@ -22,7 +22,8 @@ try:
     _sha1_mod = sha1
     _md5_mod = md5
 except ImportError:
-    import sha as _sha1_mod, md5 as _md5_mod
+    import sha as _sha1_mod
+    import md5 as _md5_mod
     _hash_mods = {'sha1': _sha1_mod, 'md5': _md5_mod}
     _hash_funcs = {'sha1': _sha1_mod.new, 'md5': _md5_mod.new}
 

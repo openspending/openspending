@@ -17,6 +17,7 @@ from openspending.test.helpers import clean_all, clean_db
 
 __all__ = ['TestCase', 'DatabaseTestCase']
 
+
 def setup_package():
     '''
     Create a new, not scoped  global sqlalchemy session
@@ -34,6 +35,7 @@ def setup_package():
     engine = construct_engine(engine)
     init_model(engine)
 
+
 class TestCase(object):
 
     def setup(self):
@@ -41,6 +43,7 @@ class TestCase(object):
 
     def teardown(self):
         pass
+
 
 class DatabaseTestCase(TestCase):
 

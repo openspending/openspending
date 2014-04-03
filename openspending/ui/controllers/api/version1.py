@@ -22,7 +22,7 @@ def statistic_normalize(dataset, result, per, statistic):
     values = {}
     for drilldown in result['drilldown']:
         per_value = drilldown.get(per)
-        if not per_value in values:
+        if per_value not in values:
             entries = list(dataset.entries(dataset.table.c[per] == per_value,
                                            limit=1))
             if len(entries):
@@ -44,6 +44,7 @@ def cellget(cell, key):
 
 
 class APIv1Controller(BaseController):
+
     @jsonpify
     def index(self):
         out = {
@@ -60,16 +61,16 @@ class APIv1Controller(BaseController):
         solrargs['wt'] = 'json'
 
         datasets = model.Dataset.all_by_account(c.account)
-        fq =  ' OR '.join(map(lambda d: '+dataset:"%s"' % d.name, datasets))
+        fq = ' OR '.join(map(lambda d: '+dataset:"%s"' % d.name, datasets))
         solrargs['fq'] = '(%s)' % fq
 
-        if 'callback' in solrargs and not 'json.wrf' in solrargs:
+        if 'callback' in solrargs and 'json.wrf' not in solrargs:
             solrargs['json.wrf'] = solrargs['callback']
-        if not 'sort' in solrargs:
+        if 'sort' not in solrargs:
             solrargs['sort'] = 'score desc,amount desc'
         try:
             query = solr.get_connection().raw_query(**solrargs)
-        except solr.SolrException, se:
+        except solr.SolrException as se:
             response.status_int = se.httpcode
             return se.body
         response.content_type = 'application/json'
@@ -77,7 +78,9 @@ class APIv1Controller(BaseController):
 
     @jsonpify
     def aggregate(self):
-        dataset_name = request.params.get('dataset', request.params.get('slice'))
+        dataset_name = request.params.get(
+            'dataset',
+            request.params.get('slice'))
         dataset = model.Dataset.by_name(dataset_name)
         if dataset is None:
             abort(400, "Dataset %s not found" % dataset_name)
@@ -85,7 +88,7 @@ class APIv1Controller(BaseController):
 
         drilldowns, cuts, statistics = [], [], []
         for key, value in sorted(request.params.items()):
-            if not '-' in key:
+            if '-' not in key:
                 continue
             op, key = key.split('-', 1)
             if 'include' == op:
@@ -99,7 +102,7 @@ class APIv1Controller(BaseController):
         cache = AggregationCache(dataset)
         result = cache.aggregate(drilldowns=drilldowns + ['time'],
                                  cuts=cuts)
-        #TODO: handle statistics as key-values ??? what's the point?
+        # TODO: handle statistics as key-values ??? what's the point?
         for k, v in statistics:
             result = statistic_normalize(dataset, result, v, k)
 
@@ -109,10 +112,10 @@ class APIv1Controller(BaseController):
             key = tuple([cellget(cell, d) for d in drilldowns])
             translated_result[key][cell['time']['name']] = \
                 cell['amount']
-        dates = sorted(set([d['time']['name'] for d in \
+        dates = sorted(set([d['time']['name'] for d in
                             result['drilldown']]))
         # give a value (or 0) for each present date in sorted order
-        translated_result = [(k, [v.get(d, 0.0) for d in dates]) \
+        translated_result = [(k, [v.get(d, 0.0) for d in dates])
                              for k, v in translated_result.items()]
         return {'results': translated_result,
                 'metadata': {
@@ -123,7 +126,7 @@ class APIv1Controller(BaseController):
                     'per': statistics,
                     'per_time': []
                 }
-        }
+                }
 
     @jsonpify
     def mytax(self):

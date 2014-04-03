@@ -15,6 +15,7 @@ log = logging.getLogger(__name__)
 
 
 class BaseImporter(object):
+
     def __init__(self, source):
         self.source = source
         self.dataset = source.dataset
@@ -70,7 +71,7 @@ class BaseImporter(object):
 
         num_loaded = len(self.dataset) - before_count
         if not dry_run and not self.errors and \
-                        num_loaded < (self.row_number - 1):
+                num_loaded < (self.row_number - 1):
             self.log_exception(
                 ValueError("The number of entries loaded is "
                            "smaller than the number of source rows read."),
@@ -159,6 +160,7 @@ class BaseImporter(object):
 
 
 class CSVImporter(BaseImporter):
+
     @property
     def lines(self):
         fh = urlopen(self.source.url)

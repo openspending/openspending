@@ -78,6 +78,7 @@ def sort_by_reference(ref, sort, sort_fn=None):
 
     return filter(lambda x: x is not None, ordered)
 
+
 def expand_facets(facets, dataset):
     """
     For the given dataset we return the facets as a dict with facet
@@ -109,8 +110,8 @@ def expand_facets(facets, dataset):
                 facet_values.append(member[1])
 
             # Get all the members for this dimension
-            members = dimension.members(dimension.alias.c.name.\
-                                            in_(member_names))
+            members = dimension.members(dimension.alias.c.name.
+                                        in_(member_names))
             # We need to sort them by the member names so that they retain
             # the same order as the facet_alues
             members = sort_by_reference(member_names, members,

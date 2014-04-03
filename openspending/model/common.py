@@ -18,7 +18,7 @@ def decode_row(row, dataset):
             if dimension == 'entry':
                 result[attribute] = value
             else:
-                if not dimension in result:
+                if dimension not in result:
                     result[dimension] = {}
 
                     # TODO: backwards-compat?
@@ -92,6 +92,7 @@ class JSONType(TypeDecorator):
 
 
 class TableHandler(object):
+
     """ Used by automatically generated objects such as datasets
     and dimensions to generate, write and clear the table under
     its management. """

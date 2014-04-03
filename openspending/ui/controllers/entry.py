@@ -40,30 +40,30 @@ class EntryController(BaseController):
         # Parse the parameters using the SearchParamParser (used by the API)
         parser = EntryIndexParamParser(request.params)
         params, errors = parser.parse()
-        
+
         # We have to remove page from the parameters because that's also
         # used in the Solr browser (which fetches the queries)
         params.pop('page')
 
         # We limit ourselve to only our dataset
         params['filter']['dataset'] = [c.dataset.name]
-        facet_dimensions = {field.name:field\
-                                for field in c.dataset.dimensions \
-                                if field.facet}
+        facet_dimensions = {field.name: field
+                            for field in c.dataset.dimensions
+                            if field.facet}
         params['facet_field'] = facet_dimensions.keys()
 
         # Create a Solr browser and execute it
         b = Browser(**params)
         try:
             b.execute()
-        except SolrException, e:
+        except SolrException as e:
             return {'errors': [unicode(e)]}
 
         # Get the entries, each item is a tuple of the dataset and entry
         solr_entries = b.get_entries()
-        entries = [entry for (dataset,entry) in solr_entries]
+        entries = [entry for (dataset, entry) in solr_entries]
 
-        # Get expanded facets for this dataset, 
+        # Get expanded facets for this dataset,
         c.facets = b.get_expanded_facets(c.dataset)
 
         # Create a pager for the entries
@@ -91,11 +91,11 @@ class EntryController(BaseController):
 
         # Generate the dataset
         self._get_dataset(dataset)
-        # Get the entry that matches the given id. c.dataset.entries is 
+        # Get the entry that matches the given id. c.dataset.entries is
         # a generator so we create a list from it's responses based on the
         # given constraint
         entries = list(c.dataset.entries(c.dataset.alias.c.id == id))
-        # Since we're trying to get a single entry the list should only 
+        # Since we're trying to get a single entry the list should only
         # contain one entry, if not then we return an error
         if not len(entries) == 1:
             abort(404, _('Sorry, there is no entry %r') % id)
@@ -167,10 +167,10 @@ class EntryController(BaseController):
                 # Entry dimension must be a dataset dimension and not in
                 # the predefined excluded keys
                 if key in c.desc and \
-                        not key in excluded_keys:
+                        key not in excluded_keys:
                     c.extras[key] = c.entry[key]
 
-        # Return entry based on 
+        # Return entry based on
         if format == 'json':
             return to_jsonp(c.entry)
         elif format == 'csv':

@@ -20,7 +20,8 @@ from openspending.ui.config.environment import load_environment
 
 log = logging.getLogger(__name__.split('.')[0])
 
-parser = argparse.ArgumentParser(description='Interface to common administrative tasks for OpenSpending.')
+parser = argparse.ArgumentParser(
+    description='Interface to common administrative tasks for OpenSpending.')
 parser.add_argument('-v', '--verbose',
                     dest='verbose', action='append_const', const=1,
                     help='Increase the logging level')

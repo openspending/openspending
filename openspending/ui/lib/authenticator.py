@@ -13,7 +13,7 @@ class UsernamePasswordAuthenticator(object):
     implements(IAuthenticator)
 
     def authenticate(self, environ, identity):
-        if not 'login' in identity or not 'password' in identity:
+        if 'login' not in identity or 'password' not in identity:
             return None
         account = Account.by_name(identity['login'])
         if account is None:

@@ -84,7 +84,7 @@ class View(object):
     def full_cuts(self):
         cuts = dict(self.cuts.items())
         if self.dimension.lower() != 'dataset' and \
-                        self.entity.lower() != 'dataset':
+                self.entity.lower() != 'dataset':
             cuts[self.dimension] = self.obj.get('name')
         return cuts
 

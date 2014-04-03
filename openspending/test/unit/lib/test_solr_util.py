@@ -4,6 +4,7 @@ from openspending.lib import solr_util as solr
 
 from ... import TestCase, helpers as h
 
+
 class TestSolrUtil(TestCase):
 
     def setup(self):
@@ -35,12 +36,16 @@ class TestSolrUtil(TestCase):
     def test_get_connection(self):
         conn = solr.get_connection()
         conn = solr.get_connection()
-        self.mock_solr.assert_called_once_with('http://localhost:8983/solr', http_user=None, http_pass=None)
+        self.mock_solr.assert_called_once_with(
+            'http://localhost:8983/solr',
+            http_user=None,
+            http_pass=None)
         h.assert_equal(conn, self.mock_solr.return_value)
 
     def test_drop_index(self):
         solr.drop_index('foo')
-        self.mock_solr.return_value.delete_query.assert_called_once_with('dataset:foo')
+        self.mock_solr.return_value.delete_query.assert_called_once_with(
+            'dataset:foo')
         self.mock_solr.return_value.commit.assert_called_once()
 
     def test_dataset_entries(self):
@@ -71,7 +76,7 @@ class TestSolrUtil(TestCase):
             'foo.name': u'uber',
             'foo': u'uber',
             'foo.label': 'UberLabel',
-            #'foo.label_str': 'UberLabel',
+            # 'foo.label_str': 'UberLabel',
             'foo.label_facet': 'UberLabel',
             'foo.tags': 'one two three'
         }
@@ -81,7 +86,6 @@ class TestSolrUtil(TestCase):
         print res
         print expected
         h.assert_equal(res, expected)
-
 
     @h.patch('openspending.lib.solr_util.model.Dataset')
     def test_build_index_no_dataset(self, mock_ds):

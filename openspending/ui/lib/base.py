@@ -34,10 +34,10 @@ def etag_cache_keygen(*a):
     This automatically includes the username taken from the session cookie
     with the help of pylons
     """
-    # Get the account name (authentication in pylons sets it to the 
+    # Get the account name (authentication in pylons sets it to the
     # environment variable REMOTE_USER)
     account_name = request.environ.get('REMOTE_USER', None)
-    etag = hashlib.sha1(repr(a)+repr(account_name)).hexdigest()
+    etag = hashlib.sha1(repr(a) + repr(account_name)).hexdigest()
     etag_cache(etag)
 
 
@@ -45,8 +45,8 @@ def set_vary_header():
     """
     Set the vary header to force intermediate caching to be controlled by
     different request headers. This only sets Cookie as the value of the Vary
-    header (because of user credentials in top navigation bar) but it could 
-    also include other request headers like Accept-Language if the site should 
+    header (because of user credentials in top navigation bar) but it could
+    also include other request headers like Accept-Language if the site should
     serve different locales based on request headers.
     """
     # Set the vary header as Cookie
@@ -85,7 +85,6 @@ class BaseController(WSGIController):
         c._cache_disabled = False
         c._must_revalidate = False
         c.content_section = c.dataset = None
-
 
         c.detected_l10n_languages = i18n.get_language_pairs()
 

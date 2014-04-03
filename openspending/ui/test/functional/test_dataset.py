@@ -22,22 +22,27 @@ class TestDatasetController(ControllerTestCase):
         assert 'cra' in response
 
     def test_index_json(self):
-        response = self.app.get(url(controller='dataset', action='index', format='json'))
+        response = self.app.get(
+            url(controller='dataset', action='index', format='json'))
         obj = json.loads(response.body)
         h.assert_equal(len(obj['datasets']), 1)
         h.assert_equal(obj['datasets'][0]['name'], 'cra')
-        h.assert_equal(obj['datasets'][0]['label'], 'Country Regional Analysis v2009')
+        h.assert_equal(
+            obj['datasets'][0]['label'],
+            'Country Regional Analysis v2009')
 
     def test_index_hide_private(self):
         cra = Dataset.by_name('cra')
         cra.private = True
         db.session.commit()
-        response = self.app.get(url(controller='dataset', action='index', format='json'))
+        response = self.app.get(
+            url(controller='dataset', action='index', format='json'))
         obj = json.loads(response.body)
         h.assert_equal(len(obj['datasets']), 0)
 
     def test_index_csv(self):
-        response = self.app.get(url(controller='dataset', action='index', format='csv'))
+        response = self.app.get(
+            url(controller='dataset', action='index', format='csv'))
         r = csv.DictReader(StringIO(response.body))
         obj = [l for l in r]
         h.assert_equal(len(obj), 1)
@@ -50,11 +55,11 @@ class TestDatasetController(ControllerTestCase):
         """
 
         # Get the view page for the dataset
-        response = self.app.get(url(controller='dataset', action='view', dataset='cra'))
+        response = self.app.get(
+            url(controller='dataset', action='view', dataset='cra'))
         # The dataset label should be present in the response
         h.assert_true('Country Regional Analysis v2009' in response,
                       "'Country Regional Analysis v2009' not in response!")
-        #h.assert_true('openspending_browser' in response, "'openspending_browser' not in response!")
 
         # Assertions about time range
         assert 'Time range' in response.body, \
@@ -66,7 +71,6 @@ class TestDatasetController(ControllerTestCase):
         assert '2010-01-01' in response.body, \
             'End date of time range not on view page for dataset'
 
-
     def test_view_private(self):
         cra = Dataset.by_name('cra')
         cra.private = True
@@ -75,7 +79,9 @@ class TestDatasetController(ControllerTestCase):
                                     dataset='cra'), status=403)
         h.assert_false('Country Regional Analysis v2009' in response,
                        "'Country Regional Analysis v2009' not in response!")
-        h.assert_false('openspending_browser' in response, "'openspending_browser' not in response!")
+        h.assert_false(
+            'openspending_browser' in response,
+            "'openspending_browser' not in response!")
 
     def test_about_has_format_links(self):
         url_ = url(controller='dataset', action='about', dataset='cra')
@@ -131,7 +137,9 @@ class TestDatasetController(ControllerTestCase):
         obj = json.loads(response.body)
         assert 'dataset' in obj.keys(), obj
         h.assert_equal(obj['dataset']['name'], 'cra')
-        h.assert_equal(obj['dataset']['label'], 'Country Regional Analysis v2009')
+        h.assert_equal(
+            obj['dataset']['label'],
+            'Country Regional Analysis v2009')
 
     def test_entries(self):
         self.app.get(url(controller='entry', action='index', dataset='cra'))
@@ -141,7 +149,8 @@ class TestDatasetController(ControllerTestCase):
                                     action='index',
                                     dataset='cra',
                                     format='json'))
-        assert '/api/2/search' in response.headers['Location'], response.headers
+        assert '/api/2/search' in response.headers[
+            'Location'], response.headers
         assert 'format=json' in response.headers['Location'], response.headers
 
     def test_entries_csv_export(self):
@@ -149,7 +158,8 @@ class TestDatasetController(ControllerTestCase):
                                     action='index',
                                     dataset='cra',
                                     format='csv'))
-        assert '/api/2/search' in response.headers['Location'], response.headers
+        assert '/api/2/search' in response.headers[
+            'Location'], response.headers
         assert 'format=csv' in response.headers['Location'], response.headers
         response = response.follow()
         r = csv.DictReader(StringIO(response.body))
@@ -158,7 +168,8 @@ class TestDatasetController(ControllerTestCase):
 
     def test_new_form(self):
         response = self.app.get(url(controller='dataset', action='new'),
-                                params={'limit': '20'}, extra_environ={'REMOTE_USER': 'test'})
+                                params={'limit': '20'},
+                                extra_environ={'REMOTE_USER': 'test'})
         assert "Import a dataset" in response.body
 
     def test_create_dataset(self):
@@ -172,7 +183,8 @@ class TestDatasetController(ControllerTestCase):
                   'currency': 'EUR'}
 
         response = self.app.post(url(controller='dataset', action='create'),
-                                 params=params, extra_environ={'REMOTE_USER': 'test'})
+                                 params=params,
+                                 extra_environ={'REMOTE_USER': 'test'})
         assert "302" in response.status
 
         ds = Dataset.by_name('testds')

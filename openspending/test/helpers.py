@@ -1,6 +1,8 @@
 # Shut up nose DeprecationWarnings
 import warnings
-warnings.filterwarnings('ignore', 'The compiler package is deprecated and removed in Python 3.x.')
+warnings.filterwarnings(
+    'ignore',
+    'The compiler package is deprecated and removed in Python 3.x.')
 
 from nose.tools import *
 from nose.plugins.skip import SkipTest
@@ -15,6 +17,7 @@ from openspending.model import Dataset, meta as db
 from openspending.lib import solr_util as _solr
 
 TEST_ROOT = _os.path.dirname(__file__)
+
 
 def load_fixture(name, manager=None):
     """
@@ -40,15 +43,18 @@ def load_fixture(name, manager=None):
     dataset.commit()
     return dataset
 
+
 def fixture_file(name):
     """Return a file-like object pointing to a named fixture."""
     return open(fixture_path(name))
+
 
 def model_fixture(name):
     model_fp = fixture_file('model/' + name + '.json')
     model = json.load(model_fp)
     model_fp.close()
     return model
+
 
 def fixture_path(name):
     """
@@ -58,9 +64,11 @@ def fixture_path(name):
     """
     return _os.path.join(TEST_ROOT, 'fixtures', name)
 
+
 def clean_all():
     clean_db()
     clean_solr()
+
 
 def make_account(name='test', fullname='Test User',
                  email='test@example.com', twitter='testuser',
@@ -84,9 +92,11 @@ def make_account(name='test', fullname='Test User',
 
     return account
 
+
 def clean_db():
     db.session.rollback()
     db.metadata.drop_all()
+
 
 def clean_solr():
     '''Clean all entries from Solr.'''
@@ -94,13 +104,13 @@ def clean_solr():
     s.delete_query('*:*')
     s.commit()
 
+
 def clean_and_reindex_solr():
     '''Clean Solr and reindex all entries in the database.'''
     clean_solr()
     for dataset in db.session.query(Dataset):
         _solr.build_index(dataset.name)
 
+
 def skip(*args, **kwargs):
     raise SkipTest(*args, **kwargs)
-
-

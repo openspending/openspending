@@ -6,6 +6,7 @@ from openspending.model.source import Source
 
 
 class Run(db.Model):
+
     """ A run is a generic grouping object for background operations
     that perform logging to the frontend. """
 
@@ -55,7 +56,7 @@ class Run(db.Model):
         and ran without failures.
         """
         return self.operation == self.OPERATION_SAMPLE and \
-               self.status == self.STATUS_COMPLETE
+            self.status == self.STATUS_COMPLETE
 
     @property
     def successful_load(self):
@@ -64,7 +65,7 @@ class Run(db.Model):
         and ran without failures.
         """
         return self.operation == self.OPERATION_IMPORT and \
-               self.status == self.STATUS_COMPLETE
+            self.status == self.STATUS_COMPLETE
 
     @property
     def is_running(self):

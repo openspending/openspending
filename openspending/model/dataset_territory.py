@@ -18,5 +18,5 @@ class DatasetTerritory(db.Model, DatasetFacetMixin):
                                                           lazy=False))
 
     def __init__(self, code):
-        #self.dataset = dataset
+        # self.dataset = dataset
         self.code = code

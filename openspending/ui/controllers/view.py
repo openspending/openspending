@@ -19,6 +19,7 @@ log = logging.getLogger(__name__)
 
 
 class JSONSchemaType(colander.SchemaType):
+
     def serialize(self, node, appstruct):
         return json.dumps(appstruct)
 
@@ -78,10 +79,10 @@ class ViewController(BaseController):
         self._get_dataset(dataset)
         self._disable_cache()
         handle_request(request, c, c.dataset)
-        c.widgets = dict([(n, widgets.get_widget(n)) \
+        c.widgets = dict([(n, widgets.get_widget(n))
                           for n in widgets.list_widgets()])
         if 'dev_widget' in request.params and \
-                        request.params.get('dev_widget') not in widgets.list_widgets():
+                request.params.get('dev_widget') not in widgets.list_widgets():
             n = request.params.get('dev_widget')
             c.widgets[n] = widgets.get_widget(n, force=True)
         c.errors = errors

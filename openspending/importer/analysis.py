@@ -24,7 +24,7 @@ def frequent_values(sample):
             values[i][value.value] += 1
     sorted_values = []
     for idx, column in values.items():
-        frequent = sorted(column.items(), key=lambda (v, c): c, reverse=True)
+        frequent = sorted(column.items(), key=lambda v_c: v_c[1], reverse=True)
         sorted_values.append(frequent[:5])
     return sorted_values
 
@@ -35,7 +35,7 @@ def analyze_csv(url, sample=1000):
         row_set = CSVRowSet('data', fileobj, window=sample)
         sample = list(row_set.sample)
         headers, sample = sample[0], sample[1:]
-        #values = frequent_values(sample)
+        # values = frequent_values(sample)
         types = type_guess(sample[500:], types=LIMITED_TYPES)
         mapping = {}
         for header, type_ in zip(headers, types):
@@ -57,6 +57,6 @@ def analyze_csv(url, sample=1000):
             mapping[name] = meta
         return {'columns': [h.value for h in headers],
                 'mapping': mapping}
-    except Exception, e:
+    except Exception as e:
         log.exception(e)
         return {'error': unicode(e)}

@@ -93,10 +93,13 @@ def generate_jsonp(data, indent=2, callback=None):
 
 
 def to_jsonp(data):
-    is_xhr = request.headers.get('x-requested-with', '').lower() == 'xmlhttprequest'
+    is_xhr = request.headers.get(
+        'x-requested-with',
+        '').lower() == 'xmlhttprequest'
     indent = None if is_xhr else 2
     json_headers()
-    return generate_jsonp(data, indent=indent, callback=request.params.get('callback'))
+    return generate_jsonp(
+        data, indent=indent, callback=request.params.get('callback'))
 
 
 @decorator

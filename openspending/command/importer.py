@@ -30,8 +30,9 @@ import_parser.add_argument('-n', '--dry-run',
                            action="store_true", dest='dry_run', default=False,
                            help="Perform a dry run, don't load any data.")
 
-import_parser.add_argument('--no-index', action="store_false", dest='build_indices',
-                           default=True, help='Suppress Solr index build.')
+import_parser.add_argument('--no-index', action="store_false",
+                           dest='build_indices', default=True,
+                           help='Suppress Solr index build.')
 
 import_parser.add_argument('--max-lines', action="store", dest='max_lines',
                            type=int, default=None, metavar='N',
@@ -120,7 +121,7 @@ def get_model(model):
     try:
         log.info("Validating model")
         model = validate_model(model)
-    except Invalid, i:
+    except Invalid as i:
         log.error("Errors occured during model validation:")
         for field, error in i.asdict().items():
             log.error("%s: %s", field, error)

@@ -5,10 +5,13 @@ from openspending.lib import solr_util as solr
 from openspending.lib.browser import Browser
 from openspending.lib.csvexport import generate_csv_row
 from openspending.lib.jsonexport import generate_jsonp, to_json
-from openspending.ui.lib.hypermedia import (entry_apply_links, dataset_apply_links)
+from openspending.ui.lib.hypermedia import (
+    entry_apply_links,
+    dataset_apply_links)
 
 
 class StreamingResponse(object):
+
     def __init__(self, datasets, params, pagesize=100):
         self.datasets = datasets
         self.params = params
@@ -42,7 +45,7 @@ class StreamingResponse(object):
             b = self.get_browser(i)
             try:
                 b.execute()
-            except solr.SolrException, e:
+            except solr.SolrException as e:
                 yield json.dumps({'errors': [unicode(e)]})
                 raise StopIteration
 
@@ -65,6 +68,7 @@ class StreamingResponse(object):
 
 
 class CSVStreamingResponse(StreamingResponse):
+
     def response(self):
         header = True
         for entry in self.entries_iterator():
@@ -73,6 +77,7 @@ class CSVStreamingResponse(StreamingResponse):
 
 
 class JSONStreamingResponse(StreamingResponse):
+
     def __init__(self, *args, **kwargs):
         self.expand_facets = kwargs.pop('expand_facets', None)
         self.callback = kwargs.pop('callback', None)

@@ -12,6 +12,7 @@ from collections import defaultdict
 from datetime import datetime
 from itertools import count
 from sqlalchemy import ForeignKeyConstraint
+from sqlalchemy.sql.expression import false
 
 from openspending.model import meta as db
 from openspending.lib.util import hash_values
@@ -26,6 +27,7 @@ log = logging.getLogger(__name__)
 
 
 class Dataset(TableHandler, db.Model):
+
     """ The dataset is the core entity of any access to data. All
     requests to the actual data store are routed through it, as well
     as data loading and model generation.
@@ -146,7 +148,7 @@ class Dataset(TableHandler, db.Model):
         the model physically. """
         self.bind = db.engine
         self.meta = db.MetaData()
-        #self.tx = self.bind.begin()
+        # self.tx = self.bind.begin()
         self.meta.bind = db.engine
 
         self._init_table(self.meta, self.name, 'entry',
@@ -165,7 +167,7 @@ class Dataset(TableHandler, db.Model):
             if isinstance(dim, CompoundDimension):
                 self.table.append_constraint(ForeignKeyConstraint(
                     [dim.name + '_id'], [dim.table.name + '.id'],
-                    #use_alter=True,
+                    # use_alter=True,
                     name='fk_' + self.name + '_' + dim.name
                 ))
         self._generate_table()
@@ -187,8 +189,8 @@ class Dataset(TableHandler, db.Model):
 
     def commit(self):
         pass
-        #self.tx.commit()
-        #self.tx = self.bind.begin()
+        # self.tx.commit()
+        # self.tx = self.bind.begin()
 
     def _make_key(self, data):
         """ Generate a unique identifier for an entry. This is better
@@ -302,7 +304,7 @@ class Dataset(TableHandler, db.Model):
         and a summary about the slice cutted by the query.
 
         ``measures``
-            The numeric units to be aggregated over, defaults to 
+            The numeric units to be aggregated over, defaults to
             [``amount``]. (type: `list`)
         ``drilldowns``
             Dimensions to drill down to. (type: `list`)
@@ -367,7 +369,7 @@ class Dataset(TableHandler, db.Model):
         labels = {
             'year': dataset['time']['year'].column_alias.label('year'),
             'month': dataset['time']['yearmonth'].column_alias.label('month'),
-            }
+        }
 
         # Get the dimensions we're interested in. These would be the drilldowns
         # and the cuts. For compound dimensions we are only interested in the
@@ -499,7 +501,7 @@ class Dataset(TableHandler, db.Model):
         # statistics such as page, number of entries. The currency value is
         # strange since it's redundant for multiple measures but is left as is
         # for backwards compatibility
-        summary = {key: value for (key,value) in total}
+        summary = {key: value for (key, value) in total}
         summary.update({
             'num_entries': num_entries,
             'currency': {m: dataset.currency for m in measures},
@@ -509,7 +511,7 @@ class Dataset(TableHandler, db.Model):
             'pagesize': pagesize
         })
 
-        return { 'drilldown': drilldown, 'summary': summary }
+        return {'drilldown': drilldown, 'summary': summary}
 
     def timerange(self):
         """
@@ -561,7 +563,7 @@ class Dataset(TableHandler, db.Model):
     @classmethod
     def all_by_account(cls, account):
         """ Query available datasets based on dataset visibility. """
-        criteria = [cls.private == False]
+        criteria = [cls.private == false()]
         if account is not None:
             criteria += ["1=1" if account.admin else "1=2",
                          cls.managers.any(type(account).id == account.id)]

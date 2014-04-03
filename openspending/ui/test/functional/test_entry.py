@@ -20,7 +20,8 @@ class TestEntryController(ControllerTestCase):
     def test_inflated_view(self):
         """
         Test whether a view of an entry can be inflated. This is done by
-        adding a url parameter inflate containing the target year for inflation.
+        adding a url parameter inflate containing the target year
+        for inflation.
 
         This test has hard coded values based on existing inflation data used
         by an external module. This may therefore need updating should the

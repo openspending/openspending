@@ -3,8 +3,10 @@ from ... import TestCase, helpers as h
 import json
 from openspending.lib.browser import Browser
 
+
 def make_entries(ids):
     return [{'id': id, 'dataset': 'mock_dataset'} for id in ids]
+
 
 def make_response(ids):
     entries = make_entries(ids)
@@ -15,7 +17,9 @@ def make_response(ids):
         }
     })
 
+
 class TestBrowser(TestCase):
+
     def setup(self):
         super(TestBrowser, self).setup()
 
@@ -67,7 +71,8 @@ class TestBrowser(TestCase):
         b.execute()
         entries = b.get_entries()
 
-        h.assert_equal(map(lambda (a, b): b, entries), make_entries([1, 2, 3]))
+        h.assert_equal(
+            map(lambda a_b: a_b[1], entries), make_entries([1, 2, 3]))
 
     def test_entries_stats(self):
         self.conn.raw_query.return_value = make_response([1, 2, 3])

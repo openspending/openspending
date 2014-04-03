@@ -41,7 +41,7 @@ class SourceController(BaseController):
             h.flash_success(_("The source has been created."))
             redirect(h.url_for(controller='editor', action='index',
                                dataset=c.dataset.name))
-        except Invalid, i:
+        except Invalid as i:
             errors = i.asdict()
             errors = [(k[len('source.'):], v) for k, v in errors.items()]
             return self.new(dataset, dict(errors))
@@ -62,7 +62,7 @@ class SourceController(BaseController):
 
     def load(self, dataset, id):
         """
-        Load the dataset into the database. If a url parameter 'sample' 
+        Load the dataset into the database. If a url parameter 'sample'
         is provided then its value is converted into a boolean. If the value
         equals true we only perform a sample run, else we do a full load.
         """
@@ -84,7 +84,7 @@ class SourceController(BaseController):
                 load_source.delay(c.source.id, sample)
                 # Let the user know we're loading the source
                 h.flash_success(_("Now loading..."))
-            except Exception, e:
+            except Exception as e:
                 abort(400, e)
 
         # Send the user to the editor index page for this dataset

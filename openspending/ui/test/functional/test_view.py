@@ -10,7 +10,7 @@ class TestViewController(ControllerTestCase):
         super(TestViewController, self).setup()
         self.user = h.make_account('test')
         h.load_fixture('cra', self.user)
-        #h.clean_and_reindex_solr()
+        # h.clean_and_reindex_solr()
 
     def test_index(self):
         response = self.app.get(url(controller='view',
@@ -27,7 +27,8 @@ class TestViewController(ControllerTestCase):
                               'state': '{"foo":"banana"}'},
                       extra_environ={'REMOTE_USER': 'test'})
         response = self.app.delete(url(controller='view',
-                                       action='delete', dataset='cra', name='i-am-a-banana'),
+                                       action='delete', dataset='cra',
+                                       name='i-am-a-banana'),
                                    extra_environ={'REMOTE_USER': 'test'})
         dataset = Dataset.by_name('cra')
         view = View.by_name(dataset, 'i-am-a-banana')
@@ -43,7 +44,8 @@ class TestViewController(ControllerTestCase):
                               'state': '{"foo":"banana"}'},
                       extra_environ={'REMOTE_USER': 'test'})
         response = self.app.delete(url(controller='view',
-                                       action='delete', dataset='cra', name='i-am-a-banana'),
+                                       action='delete', dataset='cra',
+                                       name='i-am-a-banana'),
                                    expect_errors=True,
                                    extra_environ={'REMOTE_USER': 'unauthorized_user'})
         dataset = Dataset.by_name('cra')

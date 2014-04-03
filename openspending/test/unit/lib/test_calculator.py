@@ -2,13 +2,14 @@ from openspending.lib.calculator import TaxCalculator2010
 
 calculator = TaxCalculator2010()
 
+
 def test_income_tax():
     # Check tax is never more than income.
     def test(income):
         tax, explanation = calculator.total_tax(income)
         tax = tax['tax']
-        assert abs(income-tax) >= 0.0, (tax, income, explanation)
-        assert (text !='' for text in explanation), (tax, income, explanation)
+        assert abs(income - tax) >= 0.0, (tax, income, explanation)
+        assert (text != '' for text in explanation), (tax, income, explanation)
 
     # Low incomes.
     yield test, 0
@@ -20,4 +21,3 @@ def test_income_tax():
 
     # Mid-ranking incomes, requiring interpolation.
     yield test, 25837.04
-
