@@ -5,7 +5,8 @@ from StringIO import StringIO
 # Taken from Table 14 in http://www.statistics.gov.uk/CCI/article.asp?ID=2440
 # Row 1 is average gross income per decile - including benefits, pensions etc
 # Row 2 is average direct taxation - income tax, employee NI and council tax
-# Row 3 is average total indirect taxation MINUS VAT, tobacco, alcohol, & car costs
+# Row 3 is average total indirect taxation MINUS VAT, tobacco, alcohol,
+# & car costs
 # Row 4 is average total VAT paid
 # Row 5 is average total tobacco tax paid
 # Row 6 is average total alcohol tax (beer, cider, wine & spirits) paid
@@ -47,8 +48,9 @@ class TaxCalculator2010(object):
         :param is_driver: - `True` if the person drives a car, `False` if not.
           Default is True.
 
-        :returns: a pair `(total_tax, explanation)`. The `explanation` is a list of
-            strings describing the steps of the calculation.
+        :returns: a pair `(total_tax, explanation)`.
+            The `explanation` is a list of strings describing the steps of
+            the calculation.
         '''
         lower = 0.0
         income = float(income)
@@ -64,13 +66,14 @@ class TaxCalculator2010(object):
             if income < upper:
                 # Found the right band. Use linear interpolation.
                 explanation.append('''\
-This household income falls between national average income decile %s (which has average \
-gross household income of %.2f, and pays %.2f in direct tax, %.2f in VAT, \
-%.2f in smoking taxes, %.2f in alcohol-related taxes, %.2f in car-related taxes, \
-and %.2f in other indirect taxes), and decile %s (which has average gross \
-household income of %.2f, and pays %.2f in direct tax, %.2f in VAT, \
-%.2f in smoking taxes, %.2f in alcohol-related taxes, %.2f in car-related taxes, \
-and %.2f in other indirect taxes).'''
+This household income falls between national average income decile %s \
+(which has average gross household income of %.2f, and pays %.2f in \
+direct tax, %.2f in VAT, %.2f in smoking taxes, %.2f in alcohol-related \
+taxes, %.2f in car-related taxes, and %.2f in other indirect taxes), \
+and decile %s (which has average gross household income of %.2f, and \
+pays %.2f in direct tax, %.2f in VAT, %.2f in smoking taxes, %.2f in \
+alcohol-related taxes, %.2f in car-related taxes, and %.2f in other \
+indirect taxes).'''
                                    % (i - 1, lower,
                                       income_table[2][i - 1],
                                       income_table[3][i - 1],
@@ -135,8 +138,9 @@ and %.2f in other indirect taxes).'''
             else:
                 tax_results['car_related_tax'] = 0
             explanation.append('''\
-For very high-earning households, in the top income decile, we don't use linear interpolation,
-but assume the fractions of income paid as tax are the average for the top decile.''')
+For very high-earning households, in the top income decile, we don't use \
+linear interpolation, but assume the fractions of income paid as tax are \
+the average for the top decile.''')
 
         # Calculate indirect tax by adding up all the other kinds of tax.
         tax_results['total_indirect_tax'] = indirect_tax_minus_extras + \
@@ -151,11 +155,12 @@ but assume the fractions of income paid as tax are the average for the top decil
             explanation_text += ' non-driving'
         if not is_driver:
             explanation_text += ' non-driving'
-        explanation_text += ' household with an income of %.2f pays approximately %.2f' \
-                            'in direct tax and %.2f in total indirect tax.' % \
-                            (income,
-                             tax_results['total_direct_tax'],
-                             tax_results['total_indirect_tax'])
+        explanation_text += ' household with an income of %.2f pays '\
+            'approximately %.2f in direct tax and %.2f in total '\
+            'indirect tax.' % \
+            (income,
+             tax_results['total_direct_tax'],
+             tax_results['total_indirect_tax'])
         explanation.append(explanation_text)
 
         tax_results['tax'] = tax_results['total_direct_tax'] + \

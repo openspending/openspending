@@ -121,7 +121,8 @@ def aggregate(dataset, measures=['amount'], drilldowns=None, cuts=None,
 
             # Note we do not remove time.year from the drilldown here since
             # it can help resolve the warning (and it's bothersome)
-            result['warning'] = {'inflation': 'Unable to do inflation adjustment',
-                                 'error': 'Inflation error: %s' % error}
+            result['warning'] = {
+                'inflation': 'Unable to do inflation adjustment',
+                'error': 'Inflation error: %s' % error}
 
     return result

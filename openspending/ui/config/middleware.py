@@ -62,9 +62,11 @@ def make_app(global_conf, full_stack=True, static_files=True, **app_conf):
 
     # CUSTOM MIDDLEWARE HERE (filtered by error handling middlewares)
     basicauth = BasicAuthPlugin('OpenSpending')
-    auth_tkt = AuthTktCookiePlugin('RANDOM_KEY_THAT_ONLY_LOOKS_LIKE_A_PLACEHOLDER',
-                                   cookie_name='openspending_login', timeout=86400 * 90,
-                                   reissue_time=3600)
+    auth_tkt = AuthTktCookiePlugin(
+        'RANDOM_KEY_THAT_ONLY_LOOKS_LIKE_A_PLACEHOLDER',
+        cookie_name='openspending_login', timeout=86400 * 90,
+        reissue_time=3600)
+
     form = FriendlyFormPlugin(
         '/login',
         '/perform_login',

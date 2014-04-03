@@ -70,8 +70,8 @@ class BaseController(WSGIController):
         finally:
             db.session.remove()
             db.session.close()
-            log.debug("Request to %s took %sms" % (request.path,
-                                                   int((time() - begin) * 1000)))
+            log.debug("Request to %s took %sms" %
+                      (request.path, int((time() - begin) * 1000)))
 
     def __before__(self, action, **params):
         account_name = request.environ.get('REMOTE_USER', None)
@@ -99,7 +99,8 @@ class BaseController(WSGIController):
             return
 
         del response.cache_control.no_cache
-        if len(session._session().keys()) == 2 and not len(request.cookies.keys()):
+        if len(session._session().keys()) == 2 and \
+                not len(request.cookies.keys()):
             session._current_obj().__dict__['_sess'] = None
             response.cache_control.public = True
         else:
@@ -115,7 +116,8 @@ class BaseController(WSGIController):
 
     def _detect_format(self, format):
         for mimetype, mimeformat in self.accept_mimetypes.items():
-            if format == mimeformat or mimetype in request.headers.get("Accept", ""):
+            if format == mimeformat or mimetype \
+                    in request.headers.get("Accept", ""):
                 return mimeformat
         return "html"
 

@@ -37,13 +37,16 @@ class TestAccountController(ControllerTestCase):
     def test_trigger_reset_get(self):
         response = self.app.get(
             url(controller='account', action='trigger_reset'))
-        assert 'email address you used to register your account' in response.body, response.body
+        assert 'email address you used to register your account'\
+            in response.body, response.body
 
     def test_trigger_reset_post_fail(self):
-        response = self.app.post(url(controller='account', action='trigger_reset'),
+        response = self.app.post(url(controller='account',
+                                     action='trigger_reset'),
                                  params={'emailx': "foo@bar"})
         assert 'Please enter an email address' in response.body, response.body
-        response = self.app.post(url(controller='account', action='trigger_reset'),
+        response = self.app.post(url(controller='account',
+                                     action='trigger_reset'),
                                  params={'email': "foo@bar"})
         assert 'No user is registered' in response.body, response.body
 
@@ -53,7 +56,8 @@ class TestAccountController(ControllerTestCase):
             original_smtp_server = config.get('smtp_server')
             config['smtp_server'] = 'non-existent-smtp-server'
             account = h.make_account()
-            response = self.app.post(url(controller='account', action='trigger_reset'),
+            response = self.app.post(url(controller='account',
+                                         action='trigger_reset'),
                                      params={'email': "test@example.com"})
         finally:
             config['smtp_server'] = original_smtp_server

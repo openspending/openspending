@@ -45,10 +45,12 @@ class DatasetController(BaseController):
         # Create facet filters (so we can look at a single country,
         # language etc.)
         c.query = request.params.items()
-        c.add_filter = lambda f, v: '?' + urlencode(c.query +
-                                                    [(f, v)] if (f, v) not in c.query else c.query)
-        c.del_filter = lambda f, v: '?' + urlencode([(k, x) for k, x in
-                                                     c.query if (k, x) != (f, v)])
+        c.add_filter = lambda f, v: \
+            '?' + urlencode(c.query +
+                            [(f, v)] if (f, v) not in c.query else c.query)
+        c.del_filter = lambda f, v: \
+            '?' + urlencode([(k, x) for k, x in
+                             c.query if (k, x) != (f, v)])
 
         # Parse the request parameters to get them into the right format
         parser = DatasetIndexParamParser(request.params)
@@ -56,7 +58,8 @@ class DatasetController(BaseController):
         if errors:
             concatenated_errors = ', '.join(errors)
             abort(400,
-                  _('Parameter values not supported: %s') % concatenated_errors)
+                  _('Parameter values not supported: %s') %
+                  concatenated_errors)
 
         # We need to pop the page and pagesize parameters since they're not
         # used for the cache (we have to get all of the datasets to do the
@@ -116,16 +119,19 @@ class DatasetController(BaseController):
         if not has.dataset.create():
             return templating.render('dataset/new_cta.html')
         require.dataset.create()
-        c.key_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if k],
-                                  key=lambda k_v: k_v[1])
-        c.all_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if not k],
-                                  key=lambda k_v1: k_v1[1])
+        c.key_currencies = sorted(
+            [(r, n) for (r, (n, k)) in CURRENCIES.items() if k],
+            key=lambda k_v: k_v[1])
+        c.all_currencies = sorted(
+            [(r, n) for (r, (n, k)) in CURRENCIES.items() if not k],
+            key=lambda k_v1: k_v1[1])
         c.languages = sorted(LANGUAGES.items(), key=lambda k_v2: k_v2[1])
         c.territories = sorted(COUNTRIES.items(), key=lambda k_v3: k_v3[1])
         c.categories = sorted(CATEGORIES.items(), key=lambda k_v4: k_v4[1])
         errors = [(k[len('dataset.'):], v) for k, v in errors.items()]
-        return templating.render('dataset/new.html', form_errors=dict(errors),
-                                 form_fill=request.params if errors else {'currency': 'USD'})
+        return templating.render(
+            'dataset/new.html', form_errors=dict(errors),
+            form_fill=request.params if errors else {'currency': 'USD'})
 
     def create(self):
         require.dataset.create()
@@ -137,8 +143,9 @@ class DatasetController(BaseController):
             schema = dataset_schema(ValidationState(model))
             data = schema.deserialize(dataset)
             if Dataset.by_name(data['name']) is not None:
-                raise Invalid(SchemaNode(String(), name='dataset.name'),
-                              _("A dataset with this identifer already exists!"))
+                raise Invalid(
+                    SchemaNode(String(), name='dataset.name'),
+                    _("A dataset with this identifer already exists!"))
             dataset = Dataset({'dataset': data})
             dataset.private = True
             dataset.managers.append(c.account)
@@ -190,10 +197,11 @@ class DatasetController(BaseController):
             if 'embed' in request.params:
                 # If embed is requested using the url parameters we return
                 # a redirect to an embed page for the default view
-                return redirect(h.url_for(controller='view',
-                                          action='embed', dataset=c.dataset.name,
-                                          widget=c.view.vis_widget.get('name'),
-                                          state=json.dumps(c.view.vis_state)))
+                return redirect(
+                    h.url_for(controller='view',
+                              action='embed', dataset=c.dataset.name,
+                              widget=c.view.vis_widget.get('name'),
+                              state=json.dumps(c.view.vis_state)))
                 # Return the dataset view (for the default view)
             return templating.render('dataset/view.html')
 

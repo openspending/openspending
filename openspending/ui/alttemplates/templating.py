@@ -90,7 +90,8 @@ def render(path, **kwargs):
     """
 
     env = Environment(loader=FileSystemLoader(template_rootdir),
-                      extensions=[formencode_jinja2.formfill, 'jinja2.ext.i18n'])
+                      extensions=[formencode_jinja2.formfill,
+                                  'jinja2.ext.i18n'])
     env.install_gettext_translations(i18n)
 
     template = env.get_template(path)

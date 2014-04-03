@@ -50,7 +50,7 @@ class AccountController(BaseController):
         require.account.create()
 
         # We add the config as a context variable in case anything happens
-        # (like with login we need this to allow subscriptions to mailing lists)
+        # (like with login we need this for subscriptions to mailing lists)
         c.config = config
 
         # Disable the cache (don't want anything getting in the way)
@@ -115,8 +115,9 @@ class AccountController(BaseController):
                 errors = subscribe_lists(('community', 'developer'), data)
                 # Notify if the mailing list subscriptions failed
                 if errors:
-                    h.flash_notice(_("Subscription to the following mailing " +
-                                     "lists probably failed: %s.") % ', '.join(errors))
+                    h.flash_notice(
+                        _("Subscription to the following mailing " +
+                          "lists probably failed: %s.") % ', '.join(errors))
 
                 # Registration successful - Redirect to the front page
                 return redirect("/")
@@ -223,7 +224,7 @@ class AccountController(BaseController):
     def scoreboard(self, format='html'):
         """
         A list of users ordered by their score. The score is computed by
-        by assigning every dataset a score (10 divided by number of maintainers)
+        by assigning every dataset a score (10 divided by no. of maintainers)
         and then adding that score up for all maintainers.
 
         This does give users who maintain a single dataset a higher score than
@@ -246,8 +247,9 @@ class AccountController(BaseController):
 
         # Order users based on their score which is the sum of the dataset
         # scores they maintain
-        user_score = db.session.query(Account.name, Account.email,
-                                      db.func.coalesce(db.func.sum(score.c.sum), 0).label('score'))
+        user_score = db.session.query(
+            Account.name, Account.email,
+            db.func.coalesce(db.func.sum(score.c.sum), 0).label('score'))
         user_score = user_score.outerjoin(Account.datasets).outerjoin(score)
         user_score = user_score.group_by(Account.name, Account.email)
         # We exclude the system user
@@ -358,8 +360,9 @@ class AccountController(BaseController):
         headers = who_api.remember(request.environ,
                                    {'repoze.who.userid': account.name})
         response.headers.extend(headers)
-        h.flash_success(_("Thanks! You have now been signed in - please change "
-                          + "your password!"))
+        h.flash_success(
+            _("Thanks! You have now been signed in - please change "
+              + "your password!"))
         redirect(h.url_for(controller='account', action='settings'))
 
     def profile(self, name=None):

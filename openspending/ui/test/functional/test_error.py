@@ -9,7 +9,7 @@ class TestErrorController(ControllerTestCase):
             status=403
         )
         assert "Access was denied" in response, \
-            "'Access was denied' not in response to request that should give a 403!"
+            "'Access was denied' not in response that should give a 403!"
 
         assert "OpenSpending" in response, \
             "'OpenSpending' not in 403 page! Is this not a custom 403?"

@@ -49,7 +49,8 @@ class TestSolrUtil(TestCase):
         self.mock_solr.return_value.commit.assert_called_once()
 
     def test_dataset_entries(self):
-        self.mock_solr.return_value.raw_query.return_value = '{"response":{"numFound":42}}'
+        self.mock_solr.return_value.raw_query.return_value = \
+            '{"response":{"numFound":42}}'
         h.assert_equal(solr.dataset_entries('foo'), 42)
 
     def test_extend_entry(self):
@@ -70,7 +71,8 @@ class TestSolrUtil(TestCase):
         expected = {
             '_id': 'mydataset::456',
             'id': 456,
-            'time': datetime(now.year, now.month, now.day, now.hour, now.minute, now.second, 0, solr.UTC()),
+            'time': datetime(now.year, now.month, now.day, now.hour,
+                             now.minute, now.second, 0, solr.UTC()),
             'dataset.id': 123,
             'dataset': 'mydataset',
             'foo.name': u'uber',

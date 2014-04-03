@@ -1,7 +1,6 @@
 from nose.tools import assert_raises
 
-from openspending.test.unit.model.helpers import \
-    SIMPLE_MODEL
+from openspending.test.unit.model.helpers import SIMPLE_MODEL
 from openspending.test import DatabaseTestCase, helpers as h
 
 from openspending.model import meta as db
@@ -47,7 +46,8 @@ class TestCompoundDimension(DatabaseTestCase):
         assert self.entity.table.name == 'cra__' + \
             self.entity.taxonomy, self.entity.table.name
         assert hasattr(self.entity, 'alias')
-        assert self.entity.alias.name == self.entity.name, self.entity.alias.name
+        assert self.entity.alias.name == self.entity.name, \
+            self.entity.alias.name
         cols = self.entity.table.c
         assert 'id' in cols
         assert_raises(KeyError, cols.__getitem__, 'field')

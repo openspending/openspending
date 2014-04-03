@@ -55,7 +55,7 @@ class TestEntryController(ControllerTestCase):
                                     dataset='cra', id=t['id'],
                                     inflate='1000'))
         assert '200' in response.status, \
-            "Inflated entry (bad year) isn't successful (status code isn't 200)"
+            "Inflated entry (bad year) unsuccessful (status code isn't 200)"
         assert 'Unable to adjust for inflation' in response.body, \
             "Inflation warning not present in inflated entry response (bad)"
 

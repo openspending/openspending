@@ -81,11 +81,13 @@ class TestBadgeController(ControllerTestCase):
             upload_dir_created = True
 
         # Create a new badge (should return unauthorized)
-        response = self.app.post(url(controller='badge', action='create'),
-                                 params={'badge-label': 'testbadge',
-                                         'badge-description': 'testdescription'},
-                                 upload_files=files,
-                                 expect_errors=True)
+        response = self.app.post(
+            url(controller='badge', action='create'),
+            params={'badge-label': 'testbadge',
+                    'badge-description': 'testdescription'},
+            upload_files=files,
+            expect_errors=True)
+
         # Check if it returned Forbidden (which is http status code 403)
         # This should actually return 401 Unauthorized but that's an
         # authentication implementation failure (which should be fixed)
@@ -99,15 +101,17 @@ class TestBadgeController(ControllerTestCase):
             "A non-user was able to change the existing badges"
 
         # Create a new badge (should return forbidden)
-        response = self.app.post(url(controller='badge', action='create'),
-                                 params={'badge-label': 'testbadge',
-                                         'badge-description': 'testdescription'},
-                                 upload_files=files,
-                                 extra_environ={'REMOTE_USER': 'test'},
-                                 expect_errors=True)
+        response = self.app.post(
+            url(controller='badge', action='create'),
+            params={'badge-label': 'testbadge',
+                    'badge-description': 'testdescription'},
+            upload_files=files,
+            extra_environ={'REMOTE_USER': 'test'},
+            expect_errors=True)
+
         # Check if it returned Forbidden (which is http status code 403)
         assert '403' in response.status, \
-            "A non-admin user should get an error when trying to create a badge"
+            "Non-admin user should get an error when trying to create a badge"
 
         # Check to see that badge list didn't change
         badge_json = self.app.get(url(controller='badge', action='index',
@@ -115,11 +119,12 @@ class TestBadgeController(ControllerTestCase):
         assert badge_index == json.loads(badge_json.body), \
             "A non-admin user was able to change the existing badges"
 
-        response = self.app.post(url(controller='badge', action='create'),
-                                 params={'badge-label': 'testbadge',
-                                         'badge-description': 'testdescription'},
-                                 upload_files=files,
-                                 extra_environ={'REMOTE_USER': 'admin'})
+        response = self.app.post(
+            url(controller='badge', action='create'),
+            params={'badge-label': 'testbadge',
+                    'badge-description': 'testdescription'},
+            upload_files=files,
+            extra_environ={'REMOTE_USER': 'admin'})
 
         # Check to see there is now badge more in the list than to begin with
         badge_json = self.app.get(url(controller='badge', action='index',
@@ -157,9 +162,9 @@ class TestBadgeController(ControllerTestCase):
 
     def test_give_badge_form(self):
         """
-        Test if badge giving form is only present for admin users on about page.
-        Only administrators should see a form to award a badge on the about
-        page for a given dataset.
+        Test if badge giving form is only present for admin users on about
+        page. Only administrators should see a form to award a badge on the
+        about page for a given dataset.
         """
 
         # Get badge create url

@@ -45,10 +45,12 @@ class EditorController(BaseController):
         self._get_dataset(dataset)
         self._disable_cache()
         require.dataset.update(c.dataset)
-        c.key_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if k],
-                                  key=lambda k_v: k_v[1])
-        c.all_currencies = sorted([(r, n) for (r, (n, k)) in CURRENCIES.items() if not k],
-                                  key=lambda k_v1: k_v1[1])
+        c.key_currencies = sorted(
+            [(r, n) for (r, (n, k)) in CURRENCIES.items() if k],
+            key=lambda k_v: k_v[1])
+        c.all_currencies = sorted(
+            [(r, n) for (r, (n, k)) in CURRENCIES.items() if not k],
+            key=lambda k_v1: k_v1[1])
         c.languages = sorted(LANGUAGES.items(), key=lambda k_v2: k_v2[1])
         c.territories = sorted(COUNTRIES.items(), key=lambda k_v3: k_v3[1])
         c.categories = sorted(CATEGORIES.items(), key=lambda k_v4: k_v4[1])
@@ -253,8 +255,9 @@ class EditorController(BaseController):
 
         public_url = h.url_for(controller='dataset', action='view',
                                dataset=c.dataset.name, qualified=True)
-        h.flash_success(_("Congratulations, the dataset has been "
-                          "published. It is now available at: %s") % public_url)
+        h.flash_success(
+            _("Congratulations, the dataset has been "
+              "published. It is now available at: %s") % public_url)
         redirect(h.url_for(controller='editor', action='index',
                            dataset=c.dataset.name))
 

@@ -51,7 +51,7 @@ class MutableDict(Mutable, dict):
             # If it is a dictionary we can convert it
             if isinstance(value, dict):
                 return MutableDict(value)
-                
+
             # Try to coerce but it will probably return a ValueError
             return Mutable.coerce(key, value)
         else:

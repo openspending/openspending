@@ -43,11 +43,14 @@ class TestViewController(ControllerTestCase):
                               'label': 'I am a banana!',
                               'state': '{"foo":"banana"}'},
                       extra_environ={'REMOTE_USER': 'test'})
-        response = self.app.delete(url(controller='view',
-                                       action='delete', dataset='cra',
-                                       name='i-am-a-banana'),
-                                   expect_errors=True,
-                                   extra_environ={'REMOTE_USER': 'unauthorized_user'})
+        response = self.app.delete(
+            url(controller='view',
+                action='delete', dataset='cra',
+                name='i-am-a-banana'),
+            expect_errors=True,
+            extra_environ={
+                'REMOTE_USER': 'unauthorized_user'})
+
         dataset = Dataset.by_name('cra')
         view = View.by_name(dataset, 'i-am-a-banana')
         assert view is not None
@@ -76,8 +79,8 @@ class TestViewController(ControllerTestCase):
                                          'state': '{"foo":"banana"}'},
                                  extra_environ={'REMOTE_USER': 'test'})
         assert '302' in response.status, response.status
-        assert '/cra/views/i-am-a-banana' in response.headers.get('location'), \
-            response.headers
+        assert '/cra/views/i-am-a-banana' \
+            in response.headers.get('location'), response.headers
 
         response = self.app.get(url(controller='view', action='view',
                                     dataset='cra', name='i-am-a-banana',
