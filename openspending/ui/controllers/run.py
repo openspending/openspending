@@ -27,9 +27,10 @@ class RunController(BaseController):
         self._get_run(dataset, source, id)
         system = c.run.records.filter_by(category=LogRecord.CATEGORY_SYSTEM)
         c.num_system = system.count()
-        c.system_page = templating.Page(system.order_by(LogRecord.timestamp.asc()),
-                                        page=self._get_page('system_page'),
-                                        items_per_page=10)
+        c.system_page = templating.Page(
+            system.order_by(LogRecord.timestamp.asc()),
+            page=self._get_page('system_page'),
+            items_per_page=10)
         data = c.run.records.filter_by(category=LogRecord.CATEGORY_DATA)
         c.num_data = data.count()
         c.data_page = templating.Page(data.order_by(LogRecord.timestamp.asc()),

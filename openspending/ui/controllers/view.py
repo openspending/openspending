@@ -38,8 +38,9 @@ def valid_widget_name(widget):
 
 class CreateView(colander.MappingSchema):
     label = colander.SchemaNode(colander.String())
-    widget = colander.SchemaNode(colander.String(),
-                                 validator=colander.Function(valid_widget_name))
+    widget = colander.SchemaNode(
+        colander.String(),
+        validator=colander.Function(valid_widget_name))
     description = colander.SchemaNode(colander.String(),
                                       missing=None)
     state = colander.SchemaNode(JSONSchemaType())

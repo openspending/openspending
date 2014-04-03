@@ -11,16 +11,19 @@ from openspending.model import meta as db
 from openspending.model import Source, Dataset
 from openspending.lib import util
 from openspending.lib.browser import Browser
-from openspending.lib.streaming import JSONStreamingResponse, CSVStreamingResponse
+from openspending.lib.streaming import (JSONStreamingResponse,
+                                        CSVStreamingResponse)
 from openspending.lib.solr_util import SolrException
 from openspending.lib.jsonexport import to_jsonp, json_headers
 from openspending.lib.csvexport import write_csv, csv_headers
-from openspending.lib.paramparser import AggregateParamParser, SearchParamParser
+from openspending.lib.paramparser import (AggregateParamParser,
+                                          SearchParamParser)
 from openspending.ui.lib.base import BaseController, require
 from openspending.ui.lib.base import etag_cache_keygen
 from openspending.ui.lib.cache import AggregationCache
-from openspending.ui.lib.hypermedia import entry_apply_links, \
-    drilldowns_apply_links, dataset_apply_links
+from openspending.ui.lib.hypermedia import (entry_apply_links,
+                                            drilldowns_apply_links,
+                                            dataset_apply_links)
 from openspending.tasks import load_source
 from openspending.validation.model import validate_model
 from colander import Invalid
@@ -94,8 +97,8 @@ class APIv2Controller(BaseController):
             # If the result has drilldown we create html_url values for its
             # dimensions (linked data).
             if 'drilldown' in result:
-                result['drilldown'] = drilldowns_apply_links(dataset.name,
-                                                             result['drilldown'])
+                result['drilldown'] = drilldowns_apply_links(
+                    dataset.name, result['drilldown'])
 
             # Do the ETag caching based on the cache_key in the summary
             # this is a weird place to do it since the heavy lifting has
@@ -281,9 +284,12 @@ class APIv2Controller(BaseController):
         dataset = Dataset.by_name(request.params['dataset'])
 
         # Return permissions
-        return to_jsonp({
-            "create": can.dataset.create() and dataset is None,
-            "read": False if dataset is None else can.dataset.read(dataset),
-            "update": False if dataset is None else can.dataset.update(dataset),
-            "delete": False if dataset is None else can.dataset.delete(dataset)
-        })
+        return to_jsonp(
+            {
+                "create": can.dataset.create() and dataset is None,
+                "read": False if dataset is None
+                else can.dataset.read(dataset),
+                "update": False if dataset is None
+                else can.dataset.update(dataset),
+                "delete": False if dataset is None
+                else can.dataset.delete(dataset)})

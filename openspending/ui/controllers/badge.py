@@ -8,7 +8,8 @@ from openspending.model import Badge, meta as db
 from openspending.ui.lib.base import require
 from openspending.lib.jsonexport import to_jsonp
 from openspending.ui.lib import helpers as h
-from openspending.ui.lib.hypermedia import badges_apply_links, badge_apply_links
+from openspending.ui.lib.hypermedia import (badges_apply_links,
+                                            badge_apply_links)
 from openspending.ui.lib.base import BaseController
 from openspending.ui.alttemplates import templating
 

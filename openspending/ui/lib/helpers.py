@@ -120,7 +120,8 @@ def twitter_uri(handle):
 
 def script_root():
     c = tmpl_context
-    if c.account and c.account.script_root and len(c.account.script_root.strip()):
+    if c.account and c.account.script_root\
+            and len(c.account.script_root.strip()):
         return c.account.script_root
     return app_globals.script_root
 

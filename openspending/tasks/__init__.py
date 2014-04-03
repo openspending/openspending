@@ -72,13 +72,15 @@ def clean_sessions():
 
     if cache_dir is None:
         log.warn(
-            "No 'cache_dir' found in pylons config, unable to clean session files!")
+            "No 'cache_dir' found in pylons config," +
+            "unable to clean session files!")
         return
 
     sessions_dir = os.path.join(cache_dir, 'sessions')
     if not os.path.isdir(sessions_dir):
         log.warn(
-            "No 'sessions' directory found in %s, skipping clean_sessions task!",
+            "No 'sessions' directory found in %s," +
+            "skipping clean_sessions task!",
             cache_dir)
         return
 

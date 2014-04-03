@@ -17,8 +17,12 @@ class ContentResource(object):
         # for spam protection can also be used
         if headers is None:
             # Defaults for the user agent and accept
-            self.headers = {'User-Agent': 'OpenSpending in-site browser',
-                            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'}
+            self.headers = {
+                'User-Agent': 'OpenSpending in-site browser',
+                'Accept': ','.join(['text/html',
+                                    'application/xhtml+xml',
+                                    'application/xml;q=0.9',
+                                    '*/*;q=0.8'])}
         else:
             self.headers = headers
 

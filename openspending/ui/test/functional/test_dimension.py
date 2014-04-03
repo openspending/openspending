@@ -48,8 +48,9 @@ class TestDimensionController(ControllerTestCase):
         response = self.app.get(url(controller='dimension', dataset='cra',
                                     action='view', dimension='from'))
         h.assert_true('Paid by' in response, "'Paid by' not in response!")
-        h.assert_true('The entity that the money was paid from.' in response.body,
-                      "'The entity that the money was paid from.' not in response!")
+        h.assert_true(
+            'The entity that the money was paid from.' in response.body,
+            "'The entity that the money was paid from.' not in response!")
 
     def test_view_json(self):
         response = self.app.get(url(controller='dimension', dataset='cra',

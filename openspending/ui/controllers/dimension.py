@@ -47,7 +47,8 @@ class DimensionController(BaseController):
                 c.member = members.pop()
                 c.num_entries = dimension.num_entries(cond)
                 return
-        abort(404, _('Sorry, there is no dimension named %r') % dimension_name)
+        abort(404,
+              _('Sorry, there is no dimension named %r') % dimension_name)
 
     def index(self, dataset, format='html'):
         self._get_dataset(dataset)
@@ -102,22 +103,26 @@ class DimensionController(BaseController):
             # If there are no views set up, then go direct to the entries
             # search page
             if c.view is None:
-                return redirect(url_for(controller='dimension', action='entries',
-                                        dataset=c.dataset.name, dimension=dimension, name=name))
+                return redirect(
+                    url_for(controller='dimension', action='entries',
+                            dataset=c.dataset.name, dimension=dimension,
+                            name=name))
             if 'embed' in request.params:
-                return redirect(url_for(controller='view',
-                                        action='embed', dataset=c.dataset.name,
-                                        widget=c.view.vis_widget.get('name'),
-                                        state=json.dumps(c.view.vis_state)))
+                return redirect(
+                    url_for(controller='view',
+                            action='embed', dataset=c.dataset.name,
+                            widget=c.view.vis_widget.get('name'),
+                            state=json.dumps(c.view.vis_state)))
             return templating.render('dimension/member.html')
 
     def entries(self, dataset, dimension, name, format='html'):
         self._get_member(dataset, dimension, name)
         if format in ['json', 'csv']:
-            return redirect(url_for(controller='api/version2', action='search',
-                                    format=format, dataset=dataset,
-                                    filter='%s.name:%s' % (dimension, name),
-                                    **request.params))
+            return redirect(
+                url_for(controller='api/version2', action='search',
+                        format=format, dataset=dataset,
+                        filter='%s.name:%s' % (dimension, name),
+                        **request.params))
 
         handle_request(request, c, c.member, c.dimension.name)
         entries = c.dataset.entries(

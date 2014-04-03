@@ -1,6 +1,7 @@
 from ... import TestCase, helpers as h
 
-from openspending.lib.paramparser import ParamParser, AggregateParamParser, SearchParamParser
+from openspending.lib.paramparser import (ParamParser, AggregateParamParser,
+                                          SearchParamParser)
 
 
 class TestParamParser(TestCase):
