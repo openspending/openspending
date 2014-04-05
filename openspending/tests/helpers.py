@@ -1,4 +1,4 @@
-# Shut up nose DeprecationWarnings
+# Silence nose DeprecationWarnings
 import warnings
 warnings.filterwarnings(
     'ignore',
