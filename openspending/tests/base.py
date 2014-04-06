@@ -1,4 +1,3 @@
-from paste.script.appinstall import SetupCommand
 from routes.util import URLGenerator
 from pylons import url, config
 from pylons.test import pylonsapp
