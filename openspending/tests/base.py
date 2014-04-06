@@ -22,15 +22,14 @@ class TestCase(object):
 class DatabaseTestCase(TestCase):
 
     def setup_database(self):
-        '''
-        Create a new, not scoped  global sqlalchemy session
-        and rebind it to a new root transaction to which we can roll
-        back. Otherwise :func:`adhocracy.model.init_model`
-        will create as scoped session and invalidates
-        the connection we need to begin a new root transaction.
+        """
+        Configure the database based on the provided configuration
+        file, but be sure to overwrite the url so that it will use
+        sqlite in memory, irrespective of what the user has set in
+        test.ini. Construct the sqlalchemy engine with versioning
+        and initialise everything.
+        """
 
-        Return: The new root `connection`
-        '''
         config['openspending.db.url'] = 'sqlite:///:memory:'
         engine = engine_from_config(config, 'openspending.db.')
         engine = construct_engine(engine)
