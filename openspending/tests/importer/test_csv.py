@@ -5,11 +5,11 @@ from openspending.lib import json
 from openspending.importer import CSVImporter
 
 from openspending.tests.base import DatabaseTestCase
-from openspending.tests import helpers as h
+from openspending.tests.helpers import fixture_path, make_account
 
 
 def csvimport_fixture_path(name, path):
-    return h.fixture_path('csv_import/%s/%s' % (name, path))
+    return fixture_path('csv_import/%s/%s' % (name, path))
 
 
 def csvimport_fixture_file(name, path):
@@ -34,7 +34,7 @@ def csvimport_fixture(name):
     dataset.generate()
     db.session.add(dataset)
     data_path = csvimport_fixture_path(name, 'data.csv')
-    user = h.make_account()
+    user = make_account()
     source = Source(dataset, user, data_path)
     db.session.add(source)
     db.session.commit()
@@ -48,16 +48,17 @@ class TestCSVImporter(DatabaseTestCase):
         importer = CSVImporter(source)
         importer.run()
         dataset = db.session.query(Dataset).first()
-        h.assert_true(dataset is not None, "Dataset should not be None")
-        h.assert_equal(dataset.name, "test-csv")
+
+        assert dataset is not None, "Dataset should not be None"
+        assert dataset.name == "test-csv"
+
         entries = dataset.entries()
-        h.assert_equal(len(list(entries)), 4)
+        assert len(list(entries)) == 4
 
         # TODO: provenance
         entry = list(dataset.entries(limit=1, offset=1)).pop()
-        h.assert_true(entry is not None,
-                      "Entry with name could not be found")
-        h.assert_equal(entry['amount'], 66097.77)
+        assert entry is not None, "Entry with name could not be found"
+        assert entry['amount'] == 66097.77
 
     def test_no_dimensions_for_measures(self):
         source = csvimport_fixture('simple')
@@ -66,35 +67,36 @@ class TestCSVImporter(DatabaseTestCase):
         dataset = db.session.query(Dataset).first()
 
         dimensions = [str(d.name) for d in dataset.dimensions]
-        h.assert_equal(sorted(dimensions), ['entry_id', 'from', 'time', 'to'])
+        assert sorted(dimensions) == ['entry_id', 'from', 'time', 'to']
 
     def test_successful_import_with_simple_testdata(self):
         source = csvimport_fixture('simple')
         importer = CSVImporter(source)
         importer.run()
-        h.assert_equal(importer.errors, 0)
+        assert importer.errors == 0
 
         dataset = db.session.query(Dataset).first()
-        h.assert_true(dataset is not None, "Dataset should not be None")
+        assert dataset is not None, "Dataset should not be None"
 
         entries = list(dataset.entries())
-        h.assert_equal(len(entries), 5)
+        assert len(entries) == 5
 
         entry = entries[0]
-        h.assert_equal(entry['from']['label'], 'Test From')
-        h.assert_equal(entry['to']['label'], 'Test To')
-        h.assert_equal(entry['time']['name'], '2010-01-01')
-        h.assert_equal(entry['amount'], 100.00)
+        assert entry['from']['label'] == 'Test From'
+        assert entry['to']['label'] == 'Test To'
+        assert entry['time']['name'] == '2010-01-01'
+        assert entry['amount'] == 100.00
 
     def test_import_errors(self):
         source = csvimport_fixture('import_errors')
 
         importer = CSVImporter(source)
         importer.run(dry_run=True)
-        h.assert_true(importer.errors > 1, "Should have errors")
+        assert importer.errors > 1, "Should have errors"
+
         records = list(importer._run.records)
-        h.assert_equal(records[0].row, 1,
-                       "Should detect missing date colum in line 1")
+        assert records[0].row == 1, \
+            "Should detect missing date colum in line 1"
 
     def test_empty_csv(self):
         source = csvimport_fixture('default')
@@ -102,19 +104,18 @@ class TestCSVImporter(DatabaseTestCase):
         importer = CSVImporter(source)
         importer.run(dry_run=True)
 
-        h.assert_equal(importer.errors, 2)
+        assert importer.errors == 2
+
         records = list(importer._run.records)
-        h.assert_equal(records[0].row, 0)
-        h.assert_equal(records[1].row, 0)
-        h.assert_true(
-            "Didn't read any lines of data" in
-            str(records[1].message))
+        assert records[0].row == 0
+        assert records[1].row == 0
+        assert "Didn't read any lines of data" in str(records[1].message)
 
     def test_malformed_csv(self):
         source = csvimport_fixture('malformed')
         importer = CSVImporter(source)
         importer.run(dry_run=True)
-        h.assert_equal(importer.errors, 1)
+        assert importer.errors == 1
 
     def test_erroneous_values(self):
         source = csvimport_fixture('erroneous_values')
@@ -125,32 +126,30 @@ class TestCSVImporter(DatabaseTestCase):
         # * unique key constraint not met (2x)
         # * amount cannot be parsed
         # * time cannot be parse
-        h.assert_equal(importer.errors, 4)
+        assert importer.errors == 4
+
         records = list(importer._run.records)
         # The fourth record should be about badly formed date
-        h.assert_true("time" in records[3].attribute,
-                      "Should find badly formatted date")
+        assert "time" in records[3].attribute, \
+            "Should find badly formatted date"
+
         # The row number of the badly formed date should be 5
-        h.assert_equal(records[3].row, 5)
+        assert records[3].row == 5
 
     def test_error_with_empty_additional_date(self):
         source = csvimport_fixture('empty_additional_date')
         importer = CSVImporter(source)
         importer.run()
-        # We are currently not able to import date cells without a value. See:
-        # http://trac.openspending.org/ticket/170
-        h.assert_equal(importer.errors, 1)
+        assert importer.errors == 1
 
     def test_quoting(self):
         source = csvimport_fixture('quoting')
         importer = CSVImporter(source)
         importer.run()
-        h.assert_equal(importer.errors, 0)
+        assert importer.errors == 0
 
 
 class TestCSVImportDatasets(DatabaseTestCase):
-
-    datasets_to_test = ('lbhf', 'mexico', 'sample', 'uganda')
 
     def count_lines_in_stream(self, f):
         try:
@@ -166,13 +165,13 @@ class TestCSVImportDatasets(DatabaseTestCase):
         importer = CSVImporter(source)
         importer.run()
 
-        h.assert_equal(importer.errors, 0)
+        assert importer.errors == 0
 
         # check correct number of entries
         dataset = db.session.query(Dataset).first()
         entries = list(dataset.entries())
-        h.assert_equal(len(entries), lines)
+        assert len(entries) == lines
 
     def test_all_imports(self):
-        for dir in self.datasets_to_test:
+        for dir in ('lbhf', 'mexico', 'sample', 'uganda'):
             yield self._test_import, dir

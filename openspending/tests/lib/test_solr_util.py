@@ -3,7 +3,8 @@ from datetime import datetime
 from openspending.lib import solr_util as solr
 
 from openspending.tests.base import TestCase
-from openspending.tests import helpers as h
+from nose.tools import assert_raises
+from mock import Mock, patch
 
 
 class TestSolrUtil(TestCase):
@@ -11,7 +12,7 @@ class TestSolrUtil(TestCase):
     def setup(self):
         super(TestSolrUtil, self).setup()
         reload(solr)
-        self.patcher = h.patch('openspending.lib.solr_util.SolrConnection')
+        self.patcher = patch('openspending.lib.solr_util.SolrConnection')
         self.mock_solr = self.patcher.start()
 
     def teardown(self):
@@ -21,18 +22,18 @@ class TestSolrUtil(TestCase):
     def test_configure_defaults(self):
         solr.configure()
 
-        h.assert_equal(solr.url, 'http://localhost:8983/solr')
-        h.assert_equal(solr.http_user, None)
-        h.assert_equal(solr.http_pass, None)
+        assert solr.url == 'http://localhost:8983/solr'
+        assert solr.http_user is None
+        assert solr.http_pass is None
 
     def test_configure(self):
-        config = h.Mock()
+        config = Mock()
         config.get.side_effect = ['myurl', 'myuser', 'mypass']
         solr.configure(config)
 
-        h.assert_equal(solr.url, 'myurl')
-        h.assert_equal(solr.http_user, 'myuser')
-        h.assert_equal(solr.http_pass, 'mypass')
+        assert solr.url == 'myurl'
+        assert solr.http_user == 'myuser'
+        assert solr.http_pass == 'mypass'
 
     def test_get_connection(self):
         conn = solr.get_connection()
@@ -41,7 +42,7 @@ class TestSolrUtil(TestCase):
             'http://localhost:8983/solr',
             http_user=None,
             http_pass=None)
-        h.assert_equal(conn, self.mock_solr.return_value)
+        assert conn == self.mock_solr.return_value
 
     def test_drop_index(self):
         solr.drop_index('foo')
@@ -52,10 +53,10 @@ class TestSolrUtil(TestCase):
     def test_dataset_entries(self):
         self.mock_solr.return_value.raw_query.return_value = \
             '{"response":{"numFound":42}}'
-        h.assert_equal(solr.dataset_entries('foo'), 42)
+        assert solr.dataset_entries('foo') == 42
 
     def test_extend_entry(self):
-        dataset = h.Mock()
+        dataset = Mock()
         dataset.id = 123
         dataset.name = 'mydataset'
 
@@ -79,24 +80,20 @@ class TestSolrUtil(TestCase):
             'foo.name': u'uber',
             'foo': u'uber',
             'foo.label': 'UberLabel',
-            # 'foo.label_str': 'UberLabel',
             'foo.label_facet': 'UberLabel',
             'foo.tags': 'one two three'
         }
 
         res = solr.extend_entry(entry, dataset)
+        assert res == expected
 
-        print res
-        print expected
-        h.assert_equal(res, expected)
-
-    @h.patch('openspending.lib.solr_util.model.Dataset')
+    @patch('openspending.lib.solr_util.model.Dataset')
     def test_build_index_no_dataset(self, mock_ds):
         mock_ds.by_name.return_value = None
-        h.assert_raises(ValueError, solr.build_index, 'foobar')
+        assert_raises(ValueError, solr.build_index, 'foobar')
 
-    @h.patch('openspending.lib.solr_util.model.Dataset')
-    @h.patch('openspending.lib.solr_util.extend_entry')
+    @patch('openspending.lib.solr_util.model.Dataset')
+    @patch('openspending.lib.solr_util.extend_entry')
     def test_build_index(self, mock_ee, mock_ds):
         ds = mock_ds.by_name.return_value
         ds.entries.return_value = [{'foo': 123}, {'foo': 456}, {'foo': 789}]
@@ -108,13 +105,13 @@ class TestSolrUtil(TestCase):
         conn.add_many.assert_called_once_with([123, 456, 789])
         conn.commit.assert_called_once()
 
-    @h.patch('openspending.lib.solr_util.model.Dataset')
-    @h.patch('openspending.lib.solr_util.extend_entry')
+    @patch('openspending.lib.solr_util.model.Dataset')
+    @patch('openspending.lib.solr_util.extend_entry')
     def test_build_index_batch(self, mock_ee, mock_ds):
         ds = mock_ds.by_name.return_value
         ds.entries.return_value = [{'foo': 'bar'}] * 2500
 
         solr.build_index('mydataset')
         conn = self.mock_solr.return_value
-        h.assert_equal(conn.add_many.call_count, 3)
-        h.assert_equal(conn.commit.call_count, 3)
+        assert conn.add_many.call_count == 3
+        assert conn.commit.call_count == 3

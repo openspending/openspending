@@ -1,5 +1,7 @@
 from openspending.tests.base import ControllerTestCase
-from openspending.tests import helpers as h
+from openspending.tests.helpers import make_account, load_fixture
+from nose.tools import raises
+from mock import patch
 
 from openspending.model import Account, meta as db
 from openspending.lib.mailer import MailerException
@@ -17,8 +19,12 @@ class TestAccountController(ControllerTestCase):
     def test_register(self):
         response = self.app.get(url(controller='account', action='register'))
 
-    @h.patch('openspending.auth.account.update')
-    @h.patch('openspending.ui.lib.base.model.Account.by_name')
+    def test_account_create_gives_api_key(self):
+        account = make_account()
+        assert len(account.api_key) == 36
+
+    @patch('openspending.auth.account.update')
+    @patch('openspending.ui.lib.base.model.Account.by_name')
     def test_settings(self, model_mock, update_mock):
         account = Account()
         account.name = 'mockaccount'
@@ -53,12 +59,12 @@ class TestAccountController(ControllerTestCase):
                                  params={'email': "foo@bar"})
         assert 'No user is registered' in response.body, response.body
 
-    @h.raises(MailerException)
+    @raises(MailerException)
     def test_trigger_reset_post_ok(self):
         try:
             original_smtp_server = config.get('smtp_server')
             config['smtp_server'] = 'non-existent-smtp-server'
-            account = h.make_account()
+            account = make_account()
             response = self.app.post(url(controller='account',
                                          action='trigger_reset'),
                                      params={'email': "test@example.com"})
@@ -70,7 +76,7 @@ class TestAccountController(ControllerTestCase):
                                     token='huhu',
                                     email='huhu@example.com'))
         assert '/login' in response.headers['location'], response.headers
-        account = h.make_account()
+        account = make_account()
         response = self.app.get(url(controller='account', action='do_reset',
                                     token=account.token,
                                     email=account.email))
@@ -83,7 +89,7 @@ class TestAccountController(ControllerTestCase):
         assert u'You are not authorized to see that page' == obj['errors']
 
     def test_distinct_json(self):
-        test = h.make_account()
+        test = make_account()
         response = self.app.get(url(controller='account', action='complete'),
                                 extra_environ={'REMOTE_USER': str(test.name)})
         obj = json.loads(response.body)['results']
@@ -109,8 +115,8 @@ class TestAccountController(ControllerTestCase):
         assert '403' in response.status, response.status
 
     def test_dashboard(self):
-        test = h.make_account('test')
-        cra = h.load_fixture('cra', manager=test)
+        test = make_account('test')
+        cra = load_fixture('cra', manager=test)
         response = self.app.get(url(controller='account', action='dashboard'),
                                 extra_environ={'REMOTE_USER': str(test.name)})
         assert '200' in response.status, response.status
@@ -124,7 +130,7 @@ class TestAccountController(ControllerTestCase):
         # Create the test user account using default
         # username is test, fullname is 'Test User',
         # email is test@example.com and twitter handle is testuser
-        test = h.make_account('test')
+        test = make_account('test')
 
         # Get the user profile for an anonymous user
         response = self.app.get(url(controller='account', action='profile',
@@ -194,7 +200,7 @@ class TestAccountController(ControllerTestCase):
         db.session.commit()
 
         # Create admin user
-        admin_user = h.make_account('admin', 'Admin', 'admin@os.com')
+        admin_user = make_account('admin', 'Admin', 'admin@os.com')
         admin_user.admin = True
         db.session.add(admin_user)
         db.session.commit()
@@ -386,10 +392,10 @@ class TestAccountController(ControllerTestCase):
         """
 
         # Create dataset and users and make normal user owner of dataset
-        admin_user = h.make_account('test_admin', admin=True)
+        admin_user = make_account('test_admin', admin=True)
 
-        dataset = h.load_fixture('cra')
-        normal_user = h.make_account('test_user')
+        dataset = load_fixture('cra')
+        normal_user = make_account('test_user')
         normal_user.datasets.append(dataset)
         db.session.add(normal_user)
         db.session.commit()

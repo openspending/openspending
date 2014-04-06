@@ -1,5 +1,6 @@
 from openspending.tests.base import DatabaseTestCase
-from openspending.tests import helpers as h
+from openspending.tests.helpers import load_fixture
+from nose.tools import assert_raises
 
 from openspending import model
 from openspending.ui.lib.views import View
@@ -9,7 +10,7 @@ class TestViews(DatabaseTestCase):
 
     def setup(self):
         super(TestViews, self).setup()
-        h.load_fixture('cra')
+        load_fixture('cra')
         self.dataset = model.Dataset.by_name('cra')
 
     def get_view(self, name='default', **kwargs):
@@ -29,5 +30,5 @@ class TestViews(DatabaseTestCase):
         assert cfa, cfa
         assert cfa.dimension == 'cofog1', cfa.dimension
 
-        h.assert_raises(ValueError, View.by_name, self.dataset,
-                        cfa, 'not-there')
+        assert_raises(ValueError, View.by_name, self.dataset,
+                      cfa, 'not-there')

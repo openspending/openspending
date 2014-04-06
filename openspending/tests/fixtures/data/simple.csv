@@ -1,0 +1,7 @@
+year,amount,field,to_name,to_label,func_name,func_label
+2010,200,foo,"bcorp","Big Corp",food,Food & Nutrition
+2009,190,bar,"bcorp","Big Corp",food,Food & Nutrition
+2010,500,foo,"acorp","Another Corp",food,Food & Nutrition
+2009,900,qux,"acorp","Another Corp",food,Food & Nutrition
+2010,300,foo,"ccorp","Central Corp",school,Schools & Education
+2009,600,qux,"ccorp","Central Corp",school,Schools & Education

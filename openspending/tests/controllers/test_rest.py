@@ -1,6 +1,6 @@
 from openspending.model import Dataset
 from openspending.tests.base import ControllerTestCase
-from openspending.tests import helpers as h
+from openspending.tests.helpers import load_fixture
 
 from pylons import url
 
@@ -9,7 +9,7 @@ class TestRestController(ControllerTestCase):
 
     def setup(self):
         super(TestRestController, self).setup()
-        h.load_fixture('cra')
+        load_fixture('cra')
         self.cra = Dataset.by_name('cra')
 
     def test_index(self):

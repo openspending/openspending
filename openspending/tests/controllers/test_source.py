@@ -1,5 +1,5 @@
 from openspending.tests.base import ControllerTestCase
-from openspending.tests import helpers as h
+from openspending.tests.helpers import make_account, load_fixture
 from openspending.tests.importer.test_csv import csvimport_fixture
 
 from openspending.model import Source, Account, meta as db
@@ -13,9 +13,8 @@ class TestSourceController(ControllerTestCase):
     def setup(self):
 
         super(TestSourceController, self).setup()
-        self.user = h.make_account('test')
-        self.dataset = h.load_fixture('cra', self.user)
-        # h.clean_and_reindex_solr()
+        self.user = make_account('test')
+        self.dataset = load_fixture('cra', self.user)
 
     def test_view_source(self):
         url_ = 'http://banana.com/split.csv'

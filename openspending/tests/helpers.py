@@ -4,44 +4,18 @@ warnings.filterwarnings(
     'ignore',
     'The compiler package is deprecated and removed in Python 3.x.')
 
-from nose.tools import *
-from nose.plugins.skip import SkipTest
-from mock import Mock, patch, MagicMock
-
 from datetime import datetime
 import os as _os
 import csv
 import json
 
+from openspending.validation.data import convert_types
 from openspending.model import Dataset, meta as db
 from openspending.lib import solr_util as _solr
+import csv
+
 
 TEST_ROOT = _os.path.dirname(__file__)
-
-
-def load_fixture(name, manager=None):
-    """
-    Load fixture data into the database.
-    """
-    from openspending.validation.data import convert_types
-    fh = fixture_file('%s.js' % name)
-    data = json.load(fh)
-    fh.close()
-    dataset = Dataset(data)
-    dataset.updated_at = datetime.utcnow()
-    if manager is not None:
-        dataset.managers.append(manager)
-    db.session.add(dataset)
-    db.session.commit()
-    dataset.generate()
-    fh = fixture_file('%s.csv' % name)
-    reader = csv.DictReader(fh)
-    for row in reader:
-        entry = convert_types(data['mapping'], row)
-        dataset.load(entry)
-    fh.close()
-    dataset.commit()
-    return dataset
 
 
 def fixture_file(name):
@@ -56,6 +30,10 @@ def model_fixture(name):
     return model
 
 
+def data_fixture(name):
+    return fixture_file('data/' + name + '.csv')
+
+
 def fixture_path(name):
     """
     Return the full path to a named fixture.
@@ -63,6 +41,38 @@ def fixture_path(name):
     Use fixture_file rather than this method wherever possible.
     """
     return _os.path.join(TEST_ROOT, 'fixtures', name)
+
+
+def load_fixture(name, manager=None):
+    """
+    Load fixture data into the database.
+    """
+    model = model_fixture(name)
+    dataset = Dataset(model)
+    dataset.updated_at = datetime.utcnow()
+    if manager is not None:
+        dataset.managers.append(manager)
+    db.session.add(dataset)
+    db.session.commit()
+    dataset.generate()
+    data = data_fixture(name)
+    reader = csv.DictReader(data)
+    for row in reader:
+        entry = convert_types(model['mapping'], row)
+        dataset.load(entry)
+    data.close()
+    dataset.commit()
+    return dataset
+
+
+def load_dataset(dataset):
+    simple_model = model_fixture('simple')
+    data = data_fixture('simple')
+    reader = csv.DictReader(data)
+    for row in reader:
+        row = convert_types(simple_model['mapping'], row)
+        dataset.load(row)
+    data.close()
 
 
 def clean_all():
@@ -110,7 +120,3 @@ def clean_and_reindex_solr():
     clean_solr()
     for dataset in db.session.query(Dataset):
         _solr.build_index(dataset.name)
-
-
-def skip(*args, **kwargs):
-    raise SkipTest(*args, **kwargs)

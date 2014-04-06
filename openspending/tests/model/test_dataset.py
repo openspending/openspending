@@ -1,11 +1,8 @@
-
-
 from sqlalchemy import Integer, UnicodeText, Float, Unicode
 from nose.tools import assert_raises
 
-from openspending.tests.model.helpers import SIMPLE_MODEL, load_dataset
+from openspending.tests.helpers import model_fixture, load_dataset
 from openspending.tests.base import DatabaseTestCase
-from openspending.tests import helpers as h
 
 from openspending.model import meta as db
 from openspending.model import Dataset, AttributeDimension, \
@@ -16,15 +13,12 @@ class TestDataset(DatabaseTestCase):
 
     def setup(self):
         super(TestDataset, self).setup()
-        self.ds = Dataset(SIMPLE_MODEL)
-
-    # def teardown(self):
-    # db.metadata.drop_all(engine=db.engine)
-    #    pass
+        self.model = model_fixture('simple')
+        self.ds = Dataset(self.model)
 
     def test_load_model_properties(self):
-        assert self.ds.name == SIMPLE_MODEL['dataset']['name'], self.ds.name
-        assert self.ds.label == SIMPLE_MODEL['dataset']['label'], self.ds.label
+        assert self.ds.name == self.model['dataset']['name'], self.ds.name
+        assert self.ds.label == self.model['dataset']['label'], self.ds.label
 
     def test_load_model_dimensions(self):
         assert len(self.ds.dimensions) == 4, self.ds.dimensions
@@ -42,9 +36,9 @@ class TestDataset(DatabaseTestCase):
         assert isinstance(dim.column.type, UnicodeText), dim.column
         assert 'field' == dim.column.name, dim.column
         assert dim.name == 'field', dim.name
-        assert dim.source_column == \
-            SIMPLE_MODEL['mapping']['field']['column'], dim.source_column
-        assert dim.label == SIMPLE_MODEL['mapping']['field']['label'], \
+        assert dim.source_column == self.model['mapping']['field']['column'],\
+            dim.source_column
+        assert dim.label == self.model['mapping']['field']['label'], \
             dim.label
         assert dim.constant is None, dim.constant
         assert dim.default_value is None, dim.default_value
@@ -59,7 +53,7 @@ class TestDataset(DatabaseTestCase):
         cols = self.ds.table.c
         assert 'id' in cols
         assert isinstance(cols['id'].type, Unicode)
-        # TODO:
+
         assert 'time_id' in cols
         assert isinstance(cols['time_id'].type, Integer)
         assert 'amount' in cols
@@ -73,14 +67,14 @@ class TestDataset(DatabaseTestCase):
         assert_raises(KeyError, cols.__getitem__, 'foo')
 
     def test_facet_dimensions(self):
-        h.assert_equal([d.name for d in self.ds.facet_dimensions], ['to'])
+        assert [d.name for d in self.ds.facet_dimensions] == ['to']
 
 
 class TestDatasetLoad(DatabaseTestCase):
 
     def setup(self):
         super(TestDatasetLoad, self).setup()
-        self.ds = Dataset(SIMPLE_MODEL)
+        self.ds = Dataset(model_fixture('simple'))
         self.ds.generate()
         self.engine = db.engine
 
@@ -105,6 +99,7 @@ class TestDatasetLoad(DatabaseTestCase):
         assert 'test__entry' in tn, tn
         assert 'test__to' in tn, tn
         assert 'test__function' in tn, tn
+
         self.ds.drop()
         tn = self.engine.table_names()
         assert 'test__entry' not in tn, tn

@@ -1,0 +1,49 @@
+{
+    "dataset": {
+        "name": "test",
+        "label": "Test Case Model",
+        "description": "I'm a banana!"
+    },
+    "mapping": {
+        "amount": {
+            "type": "value",
+            "label": "Amount",
+            "column": "amount",
+            "datatype": "float"
+        },
+        "time": {
+            "type": "value",
+            "label": "Year",
+            "column": "year",
+            "datatype": "date",
+            "key": true
+        },
+        "field": {
+            "type": "value",
+            "label": "Field 1",
+            "column": "field",
+            "datatype": "string"
+        },
+        "to": {
+            "label": "Einzelplan",
+            "type": "entity",
+            "facet": true,
+            "key": true,
+            "attributes": {
+                "name": {"column": "to_name", "datatype": "id"},
+                "label": {"column": "to_label", "datatype": "string"}
+            }
+        },
+        "function": {
+            "label": "Function code",
+            "type": "classifier",
+            "taxonomy": "funny",
+            "facet": false,
+            "key": true,
+            "attributes": {
+                "name": {"column": "func_name", "datatype": "id"},
+                "label": {"column": "func_label", "datatype": "string"}
+            }
+        }
+    }
+}

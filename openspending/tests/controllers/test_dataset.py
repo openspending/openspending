@@ -3,9 +3,10 @@ import json
 import datetime
 from StringIO import StringIO
 
-from openspending.tests.base import ControllerTestCase
-from openspending.tests import helpers as h
 from openspending.model import Dataset, meta as db
+from openspending.tests.base import ControllerTestCase
+from openspending.tests.helpers import (make_account, load_fixture,
+                                        clean_and_reindex_solr)
 
 from pylons import url
 
@@ -15,9 +16,9 @@ class TestDatasetController(ControllerTestCase):
     def setup(self):
 
         super(TestDatasetController, self).setup()
-        self.dataset = h.load_fixture('cra')
-        self.user = h.make_account('test')
-        h.clean_and_reindex_solr()
+        self.dataset = load_fixture('cra')
+        self.user = make_account('test')
+        clean_and_reindex_solr()
 
     def test_index(self):
         response = self.app.get(url(controller='dataset', action='index'))
@@ -28,11 +29,9 @@ class TestDatasetController(ControllerTestCase):
         response = self.app.get(
             url(controller='dataset', action='index', format='json'))
         obj = json.loads(response.body)
-        h.assert_equal(len(obj['datasets']), 1)
-        h.assert_equal(obj['datasets'][0]['name'], 'cra')
-        h.assert_equal(
-            obj['datasets'][0]['label'],
-            'Country Regional Analysis v2009')
+        assert len(obj['datasets']) == 1
+        assert obj['datasets'][0]['name'] == 'cra'
+        assert obj['datasets'][0]['label'] == 'Country Regional Analysis v2009'
 
     def test_index_hide_private(self):
         cra = Dataset.by_name('cra')
@@ -41,16 +40,16 @@ class TestDatasetController(ControllerTestCase):
         response = self.app.get(
             url(controller='dataset', action='index', format='json'))
         obj = json.loads(response.body)
-        h.assert_equal(len(obj['datasets']), 0)
+        assert len(obj['datasets']) == 0
 
     def test_index_csv(self):
         response = self.app.get(
             url(controller='dataset', action='index', format='csv'))
         r = csv.DictReader(StringIO(response.body))
         obj = [l for l in r]
-        h.assert_equal(len(obj), 1)
-        h.assert_equal(obj[0]['name'], 'cra')
-        h.assert_equal(obj[0]['label'], 'Country Regional Analysis v2009')
+        assert len(obj) == 1
+        assert obj[0]['name'] == 'cra'
+        assert obj[0]['label'] == 'Country Regional Analysis v2009'
 
     def test_view(self):
         """
@@ -61,8 +60,8 @@ class TestDatasetController(ControllerTestCase):
         response = self.app.get(
             url(controller='dataset', action='view', dataset='cra'))
         # The dataset label should be present in the response
-        h.assert_true('Country Regional Analysis v2009' in response,
-                      "'Country Regional Analysis v2009' not in response!")
+        assert 'Country Regional Analysis v2009' in response, \
+            "'Country Regional Analysis v2009' not in response!"
 
         # Assertions about time range
         assert 'Time range' in response.body, \
@@ -80,11 +79,10 @@ class TestDatasetController(ControllerTestCase):
         db.session.commit()
         response = self.app.get(url(controller='dataset', action='view',
                                     dataset='cra'), status=403)
-        h.assert_false('Country Regional Analysis v2009' in response,
-                       "'Country Regional Analysis v2009' not in response!")
-        h.assert_false(
-            'openspending_browser' in response,
-            "'openspending_browser' not in response!")
+        assert 'Country Regional Analysis v2009' not in response, \
+            "'Country Regional Analysis v2009' in response!"
+        assert 'openspending_browser' not in response, \
+            "'openspending_browser' in response!"
 
     def test_about_has_format_links(self):
         url_ = url(controller='dataset', action='about', dataset='cra')
@@ -93,8 +91,8 @@ class TestDatasetController(ControllerTestCase):
         url_ = url(controller='dataset', action='model', dataset='cra',
                    format='json')
 
-        h.assert_true(url_ in response,
-                      "Link to view page (JSON format) not in response!")
+        assert url_ in response, \
+            "Link to view page (JSON format) not in response!"
 
     def test_about_has_profile_links(self):
         self.dataset.managers.append(self.user)
@@ -104,8 +102,9 @@ class TestDatasetController(ControllerTestCase):
                                     dataset='cra'))
         profile_url = url(controller='account', action='profile',
                           name=self.user.name)
-        assert('<li><a href="{url}">{fullname}</a></li>'.format(
-            url=profile_url, fullname=self.user.fullname) in response.body)
+        profile_link = '<li><a href="{url}">{fullname}</a></li>'.format(
+            url=profile_url, fullname=self.user.fullname)
+        assert profile_link in response.body
 
     def test_about_has_timestamps(self):
         """
@@ -131,29 +130,24 @@ class TestDatasetController(ControllerTestCase):
         response = self.app.get(url(controller='dataset', action='view',
                                     dataset='cra', format='json'))
         obj = json.loads(response.body)
-        h.assert_equal(obj['name'], 'cra')
-        h.assert_equal(obj['label'], 'Country Regional Analysis v2009')
+        assert obj['name'] == 'cra'
+        assert obj['label'] == 'Country Regional Analysis v2009'
 
     def test_model_json(self):
         response = self.app.get(url(controller='dataset', action='model',
                                     dataset='cra', format='json'))
         obj = json.loads(response.body)
         assert 'dataset' in obj.keys(), obj
-        h.assert_equal(obj['dataset']['name'], 'cra')
-        h.assert_equal(
-            obj['dataset']['label'],
-            'Country Regional Analysis v2009')
-
-    def test_entries(self):
-        self.app.get(url(controller='entry', action='index', dataset='cra'))
+        assert obj['dataset']['name'] == 'cra'
+        assert obj['dataset']['label'] == 'Country Regional Analysis v2009'
 
     def test_entries_json_export(self):
         response = self.app.get(url(controller='entry',
                                     action='index',
                                     dataset='cra',
                                     format='json'))
-        assert '/api/2/search' in response.headers[
-            'Location'], response.headers
+        assert '/api/2/search' in response.headers['Location'], \
+            response.headers
         assert 'format=json' in response.headers['Location'], response.headers
 
     def test_entries_csv_export(self):
@@ -161,13 +155,13 @@ class TestDatasetController(ControllerTestCase):
                                     action='index',
                                     dataset='cra',
                                     format='csv'))
-        assert '/api/2/search' in response.headers[
-            'Location'], response.headers
+        assert '/api/2/search' in response.headers['Location'], \
+            response.headers
         assert 'format=csv' in response.headers['Location'], response.headers
         response = response.follow()
         r = csv.DictReader(StringIO(response.body))
         obj = [l for l in r]
-        h.assert_equal(len(obj), 36)
+        assert len(obj) == 36
 
     def test_new_form(self):
         response = self.app.get(url(controller='dataset', action='new'),
@@ -235,7 +229,7 @@ class TestDatasetController(ControllerTestCase):
         assert '<item><title>Country Regional Analysis v2009' not in response
 
         # Logged in admin user with one private dataset
-        admin_user = h.make_account('admin')
+        admin_user = make_account('admin')
         admin_user.admin = True
         db.session.add(admin_user)
         db.session.commit()

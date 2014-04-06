@@ -1,7 +1,7 @@
 from openspending.lib import json
 
 from openspending.tests.base import ControllerTestCase
-from openspending.tests import helpers as h
+from openspending.tests.helpers import load_fixture, clean_and_reindex_solr
 from pylons import url
 
 
@@ -9,7 +9,7 @@ class TestApiController(ControllerTestCase):
 
     def setup(self):
         super(TestApiController, self).setup()
-        h.load_fixture('cra')
+        load_fixture('cra')
 
     def test_aggregate(self):
         response = self.app.get(url(controller='api/version1',
@@ -99,8 +99,8 @@ class TestApiSearch(ControllerTestCase):
     def setup(self):
 
         super(TestApiSearch, self).setup()
-        h.load_fixture('cra')
-        h.clean_and_reindex_solr()
+        load_fixture('cra')
+        clean_and_reindex_solr()
 
     def test_search_01_no_query(self):
         response = self.app.get(
@@ -115,7 +115,7 @@ class TestApiSearch(ControllerTestCase):
         out = json.loads(str(response.body))['response']
         assert out['numFound'] == 7, out['numFound']
         exp_entity = 'Department for Children, Schools and Families'
-        print out['docs'][0]
+
         assert out['docs'][0]['from.label_facet'] == exp_entity, out['docs'][0]
 
     def test_search_03_jsonpify(self):

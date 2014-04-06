@@ -1,7 +1,7 @@
 import json
 
 from openspending.tests.base import ControllerTestCase
-from openspending.tests import helpers as h
+from openspending.tests.helpers import make_account, load_fixture
 from openspending.model import Dataset, Source, meta as db
 
 from pylons import url
@@ -12,9 +12,8 @@ class TestEditorController(ControllerTestCase):
     def setup(self):
 
         super(TestEditorController, self).setup()
-        self.user = h.make_account('test')
-        h.load_fixture('cra', self.user)
-        # h.clean_and_reindex_solr()
+        self.user = make_account('test')
+        load_fixture('cra', self.user)
 
     def test_overview(self):
         response = self.app.get(url(controller='editor',

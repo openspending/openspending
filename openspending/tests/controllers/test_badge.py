@@ -1,5 +1,5 @@
 from openspending.tests.base import ControllerTestCase
-from openspending.tests import helpers as h
+from openspending.tests.helpers import make_account, load_fixture
 from openspending.ui.lib import helpers
 from openspending.model import Badge, meta as db
 from pylons import config, url
@@ -17,15 +17,15 @@ class TestBadgeController(ControllerTestCase):
         super(TestBadgeController, self).setup()
 
         # Create test user
-        self.user = h.make_account('test')
+        self.user = make_account('test')
 
         # Create admin user
-        self.admin = h.make_account('admin')
+        self.admin = make_account('admin')
         self.admin.admin = True
         db.session.commit()
 
         # Load dataset we use for tests
-        self.dataset = h.load_fixture('cra')
+        self.dataset = load_fixture('cra')
 
     def test_create_badge_form(self):
         """

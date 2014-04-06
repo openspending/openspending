@@ -1,8 +1,7 @@
 from nose.tools import assert_raises
 
-from openspending.tests.model.helpers import SIMPLE_MODEL
+from openspending.tests.helpers import model_fixture, load_fixture
 from openspending.tests.base import DatabaseTestCase
-from openspending.tests import helpers as h
 
 from openspending.model import meta as db
 from openspending.model import Dataset
@@ -15,11 +14,11 @@ class TestAttributeDimension(DatabaseTestCase):
         self.engine = db.engine
         self.meta = db.metadata
         self.meta.bind = self.engine
-        self.ds = Dataset(SIMPLE_MODEL)
+        self.ds = Dataset(model_fixture('simple'))
         self.field = self.ds['field']
 
     def test_is_compound(self):
-        h.assert_false(self.field.is_compound)
+        assert not self.field.is_compound
 
 
 class TestCompoundDimension(DatabaseTestCase):
@@ -29,20 +28,18 @@ class TestCompoundDimension(DatabaseTestCase):
         self.engine = db.engine
         self.meta = db.metadata
         self.meta.bind = self.engine
-        self.ds = h.load_fixture('cra')
+        self.ds = load_fixture('cra')
         self.entity = self.ds['from']
         self.classifier = self.ds['cofog1']
 
     def test_is_compound(self):
-        h.assert_true(self.entity.is_compound)
+        assert self.entity.is_compound
 
     def test_basic_properties(self):
         assert self.entity.name == 'from', self.entity.name
         assert self.classifier.name == 'cofog1', self.classifier.name
 
     def test_generated_tables(self):
-        # assert not hasattr(self.entity, 'table'), self.entity
-        # self.ds.generate()
         assert hasattr(self.entity, 'table'), self.entity
         assert self.entity.table.name == 'cra__' + \
             self.entity.taxonomy, self.entity.table.name
@@ -66,9 +63,9 @@ class TestCompoundDimension(DatabaseTestCase):
 
     def test_members(self):
         members = list(self.entity.members())
-        h.assert_equal(len(members), 5)
+        assert len(members) == 5
 
         members = list(
             self.entity.members(
                 self.entity.alias.c.name == 'Dept032'))
-        h.assert_equal(len(members), 1)
+        assert len(members) == 1

@@ -1,7 +1,7 @@
 import json
 
 from openspending.tests.base import ControllerTestCase
-from openspending.tests import helpers as h
+from openspending.tests.helpers import make_account, load_fixture
 from openspending.model import View, Dataset
 
 from pylons import url
@@ -11,9 +11,8 @@ class TestViewController(ControllerTestCase):
 
     def setup(self):
         super(TestViewController, self).setup()
-        self.user = h.make_account('test')
-        h.load_fixture('cra', self.user)
-        # h.clean_and_reindex_solr()
+        self.user = make_account('test')
+        load_fixture('cra', self.user)
 
     def test_index(self):
         response = self.app.get(url(controller='view',
