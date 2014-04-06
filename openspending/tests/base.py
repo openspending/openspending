@@ -19,23 +19,8 @@ from webtest import TestApp
 from openspending.model import meta, init_model
 from openspending.tests.helpers import clean_db
 
-
-def setup_package():
-    '''
-    Create a new, not scoped  global sqlalchemy session
-    and rebind it to a new root transaction to which we can roll
-    back. Otherwise :func:`adhocracy.model.init_model`
-    will create as scoped session and invalidates
-    the connection we need to begin a new root transaction.
-
-    Return: The new root `connection`
-    '''
-    from sqlalchemy import engine_from_config
-    from migrate.versioning.util import construct_engine
-    config['openspending.db.url'] = 'sqlite:///:memory:'
-    engine = engine_from_config(config, 'openspending.db.')
-    engine = construct_engine(engine)
-    init_model(engine)
+from sqlalchemy import engine_from_config
+from migrate.versioning.util import construct_engine
 
 
 class TestCase(object):
@@ -49,8 +34,23 @@ class TestCase(object):
 
 class DatabaseTestCase(TestCase):
 
+    def setup_database(self):
+        '''
+        Create a new, not scoped  global sqlalchemy session
+        and rebind it to a new root transaction to which we can roll
+        back. Otherwise :func:`adhocracy.model.init_model`
+        will create as scoped session and invalidates
+        the connection we need to begin a new root transaction.
+
+        Return: The new root `connection`
+        '''
+        config['openspending.db.url'] = 'sqlite:///:memory:'
+        engine = engine_from_config(config, 'openspending.db.')
+        engine = construct_engine(engine)
+        init_model(engine)
+
     def setup(self):
-        setup_package()
+        self.setup_database()
         meta.metadata.create_all(meta.engine)
 
     def teardown(self):
