@@ -1,21 +1,11 @@
-# Silence nose DeprecationWarnings
-import warnings
-warnings.filterwarnings(
-    'ignore',
-    'The compiler package is deprecated and removed in Python 3.x.')
-
-from datetime import datetime
-import os as _os
-import csv
-import json
-
 from openspending.validation.data import convert_types
 from openspending.model import Dataset, meta as db
-from openspending.lib import solr_util as _solr
+from openspending.lib import solr_util as solr
+
+from datetime import datetime
+import os.path
+import json
 import csv
-
-
-TEST_ROOT = _os.path.dirname(__file__)
 
 
 def fixture_file(name):
@@ -40,7 +30,10 @@ def fixture_path(name):
 
     Use fixture_file rather than this method wherever possible.
     """
-    return _os.path.join(TEST_ROOT, 'fixtures', name)
+    # Get the directory of this file (helpers is placed in the test directory)
+    test_directory = os.path.dirname(__file__)
+    # Fixture is a directory in the test directory
+    return os.path.join(test_directory, 'fixtures', name)
 
 
 def load_fixture(name, manager=None):
@@ -75,11 +68,6 @@ def load_dataset(dataset):
     data.close()
 
 
-def clean_all():
-    clean_db()
-    clean_solr()
-
-
 def make_account(name='test', fullname='Test User',
                  email='test@example.com', twitter='testuser',
                  admin=False):
@@ -110,7 +98,7 @@ def clean_db():
 
 def clean_solr():
     '''Clean all entries from Solr.'''
-    s = _solr.get_connection()
+    s = solr.get_connection()
     s.delete_query('*:*')
     s.commit()
 
@@ -119,4 +107,4 @@ def clean_and_reindex_solr():
     '''Clean Solr and reindex all entries in the database.'''
     clean_solr()
     for dataset in db.session.query(Dataset):
-        _solr.build_index(dataset.name)
+        solr.build_index(dataset.name)

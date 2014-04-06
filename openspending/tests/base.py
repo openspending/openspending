@@ -11,13 +11,13 @@ doc/install.rst for more information.
 """
 
 from paste.script.appinstall import SetupCommand
-from pylons import url, config
-import pylons.test
 from routes.util import URLGenerator
+from pylons import url, config
+from pylons.test import pylonsapp
 from webtest import TestApp
 
 from openspending.model import meta, init_model
-from openspending.tests.helpers import clean_all, clean_db
+from openspending.tests.helpers import clean_db
 
 
 def setup_package():
@@ -61,7 +61,6 @@ class DatabaseTestCase(TestCase):
 class ControllerTestCase(DatabaseTestCase):
 
     def __init__(self, *args, **kwargs):
-        wsgiapp = pylons.test.pylonsapp
-        self.app = TestApp(wsgiapp)
+        self.app = TestApp(pylonsapp)
         url._push_object(URLGenerator(config['routes.map'], {}))
         super(DatabaseTestCase, self).__init__(*args, **kwargs)
