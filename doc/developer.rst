@@ -18,8 +18,8 @@ Creating a DB Migration
    db migrate``.
 
 
-Creating tests
-''''''''''''''
+Creating and running tests
+''''''''''''''''''''''''''
 
 We strive to test all functionality in OpenSpending. If you add a new
 functionality to the code base, please take the time to create a test for it.
@@ -66,3 +66,9 @@ look at the test helpers file.
 Test datasets are available in the fixtures directory, both models and data.
 These are loaded in via the ``load_fixture`` function in
 ``openspending.tests.helpers``.
+
+Run the OpenSpending test suite by running
+
+    nosetests
+
+in the root of the repository, while in an active virtualenv.

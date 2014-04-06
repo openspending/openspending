@@ -1,15 +1,3 @@
-"""\
-OpenSpending test module
-========================
-
-Run the OpenSpending test suite by running
-
-    nosetests
-
-in the root of the repository, while in an active virtualenv. See
-doc/install.rst for more information.
-"""
-
 from paste.script.appinstall import SetupCommand
 from routes.util import URLGenerator
 from pylons import url, config
