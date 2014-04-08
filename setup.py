@@ -2,6 +2,7 @@ import os
 import re
 from setuptools import setup, find_packages
 
+
 def get_version():
     """
     Parse the version from the openspending version file.
@@ -31,6 +32,7 @@ def get_version():
 
 PKG_ROOT = '.'
 
+
 def files_in_pkgdir(pkg, dirname):
     pkgdir = os.path.join(PKG_ROOT, *pkg.split('.'))
     walkdir = os.path.join(pkgdir, dirname)
@@ -41,14 +43,18 @@ def files_in_pkgdir(pkg, dirname):
         walkfiles += fpaths
     return walkfiles
 
+
 def package_filter(pkg):
-    if pkg in ['openspending.test', 'openspending.test.helpers']:
-        return True
-    elif (pkg.startswith('openspending.test') or
-          pkg.startswith('openspending.ui.test')):
-        return False
-    else:
-        return True
+    """
+    Filter packages so that we exclude test cases but include regular test
+    objects available in openspending.tests' modules (all test cases are
+    in subdirectories).
+    """
+
+    # We want to include openspending.tests but not its subpackages
+    # Hence we only check for things starting with openspending.tests.
+    # (note the trailing period to denote subpackages)
+    return not pkg.startswith('openspending.tests.')
 
 setup(
     name='openspending',
