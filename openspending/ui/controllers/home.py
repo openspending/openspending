@@ -41,8 +41,8 @@ class HomeController(BaseController):
         if process.returncode == 0:
             return output
         else:
-            import openspending.version
-            return openspending.version.__version__
+            from openspending._version import __version__
+            return __version__
 
     def favicon(self):
         return redirect('/static/img/favicon.ico', code=301)
