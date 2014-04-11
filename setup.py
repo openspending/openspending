@@ -14,7 +14,7 @@ def get_version():
 
     # Define version file, we define our version in
     # openspending._version and read the file
-    VERSIONFILE="openspending/_version.py"
+    VERSIONFILE = "openspending/_version.py"
     verstrline = open(VERSIONFILE, "rt").read()
 
     # Parse the file to find the line that defines the version
@@ -99,9 +99,10 @@ setup(
         ]
     },
 
-    message_extractors = {'openspending': [
-            ('**.py', 'python', None),
-            ('ui/alttemplates/**.html', 'jinja2', None),
-            ('ui/public/**', 'ignore', None),
-            ]},
+    message_extractors={
+        'openspending': [('**.py', 'python', None),
+                         ('ui/alttemplates/**.html', 'jinja2', None),
+                         ('ui/public/**', 'ignore', None),
+                         ]
+        },
 )
