@@ -28,6 +28,4 @@ openspending.widgets_base = http://localhost/openspendingjs/widgets/
 openspending.widgets = treemap bubbletree aggregate_table
 openspending.upload_directory = test_uploads
 
-openspending.content_root = http://content.openspending.org
-
 celery.always.eager = true

@@ -27,7 +27,6 @@ class Globals(object):
         ))
 
         self.script_root = config.get('openspending.script_root', '/static/js')
-        self.content_root = config['openspending.content_root']
 
         if asbool(config.get('openspending.fake_inflation', False)):
             from .fake_inflation import Inflation as FakeInflation

@@ -80,8 +80,6 @@ openspending.upload_directory = files
 # Where are uploads served from by web server
 # openspending.upload_uri = /files
 
-openspending.content_root = http://content.openspending.org
-
 # Static file cache version
 # openspending.static_cache_version =
 

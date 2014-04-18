@@ -77,7 +77,6 @@ openspending.upload_directory = files
 
 # JavaScript files root
 openspending.script_root = /static/openspendingjs
-openspending.content_root = http://content.openspending.org
 
 # Static file cache version
 # openspending.static_cache_version =
