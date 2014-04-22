@@ -23,14 +23,14 @@ def add_msg_niceties(recipient_name, body, sender_name):
 
 
 def mail_recipient(recipient_name, recipient_email,
-                   subject, body, headers={}):
+                   subject, body, headers=None):
     mail_from = config.get(
         'openspending.mail_from',
         'noreply@openspending.org')
     body = add_msg_niceties(recipient_name, body, app_globals.site_title)
     msg = MIMEText(body.encode('utf-8'), 'plain', 'utf-8')
-    for k, v in headers.items():
-        msg[k] = v
+    if headers:
+        msg.update(headers)
     subject = Header(subject.encode('utf-8'), 'utf-8')
     msg['Subject'] = subject
     msg['From'] = _("%s <%s>") % (app_globals.site_title, mail_from)
@@ -48,7 +48,7 @@ def mail_recipient(recipient_name, recipient_email,
         raise MailerException(msg)
 
 
-def mail_account(recipient, subject, body, headers={}):
+def mail_account(recipient, subject, body, headers=None):
     if (recipient.email is None) or not len(recipient.email):
         raise MailerException(_("No recipient email address available!"))
     mail_recipient(recipient.display_name, recipient.email, subject,
