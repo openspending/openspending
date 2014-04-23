@@ -12,7 +12,11 @@ from collections import defaultdict
 from datetime import datetime
 from itertools import count
 from sqlalchemy import ForeignKeyConstraint
+from sqlalchemy.orm import reconstructor
+from sqlalchemy.schema import Column
+from sqlalchemy.types import Integer, Unicode, Boolean, DateTime
 from sqlalchemy.sql.expression import false
+from sqlalchemy.ext.associationproxy import association_proxy
 
 from openspending.model import meta as db
 from openspending.lib.util import hash_values
@@ -38,26 +42,26 @@ class Dataset(TableHandler, db.Model):
     """
     __tablename__ = 'dataset'
 
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Unicode(255), unique=True)
-    label = db.Column(db.Unicode(2000))
-    description = db.Column(db.Unicode())
-    currency = db.Column(db.Unicode())
-    default_time = db.Column(db.Unicode())
-    schema_version = db.Column(db.Unicode())
-    entry_custom_html = db.Column(db.Unicode())
-    ckan_uri = db.Column(db.Unicode())
-    category = db.Column(db.Unicode())
-    serp_title = db.Column(db.Unicode(), nullable=True)
-    serp_teaser = db.Column(db.Unicode(), nullable=True)
-    private = db.Column(db.Boolean, default=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow,
-                           onupdate=datetime.utcnow)
-    data = db.Column(MutableDict.as_mutable(JSONType), default=dict)
+    id = Column(Integer, primary_key=True)
+    name = Column(Unicode(255), unique=True)
+    label = Column(Unicode(2000))
+    description = Column(Unicode())
+    currency = Column(Unicode())
+    default_time = Column(Unicode())
+    schema_version = Column(Unicode())
+    entry_custom_html = Column(Unicode())
+    ckan_uri = Column(Unicode())
+    category = Column(Unicode())
+    serp_title = Column(Unicode(), nullable=True)
+    serp_teaser = Column(Unicode(), nullable=True)
+    private = Column(Boolean, default=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow,
+                        onupdate=datetime.utcnow)
+    data = Column(MutableDict.as_mutable(JSONType), default=dict)
 
-    languages = db.association_proxy('_languages', 'code')
-    territories = db.association_proxy('_territories', 'code')
+    languages = association_proxy('_languages', 'code')
+    territories = association_proxy('_territories', 'code')
 
     def __init__(self, data):
         self.data = data.copy()
@@ -87,7 +91,7 @@ class Dataset(TableHandler, db.Model):
     def mapping(self):
         return self.data.get('mapping', {})
 
-    @db.reconstructor
+    @reconstructor
     def _load_model(self):
         """ Construct the in-memory object representation of this
         dataset's dimension and measures model.
@@ -152,7 +156,7 @@ class Dataset(TableHandler, db.Model):
         self.meta.bind = db.engine
 
         self._init_table(self.meta, self.name, 'entry',
-                         id_type=db.Unicode(42))
+                         id_type=Unicode(42))
         for field in self.fields:
             field.column = field.init(self.meta, self.table)
         self.alias = self.table.alias('entry')

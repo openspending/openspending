@@ -1,6 +1,7 @@
 # coding=utf-8
 from json import dumps, loads
-from sqlalchemy.types import Text, TypeDecorator
+from sqlalchemy.types import Text, TypeDecorator, Integer
+from sqlalchemy.schema import Table, Column
 from sqlalchemy.ext.mutable import Mutable
 from openspending.model import meta as db
 
@@ -97,14 +98,14 @@ class TableHandler(object):
     and dimensions to generate, write and clear the table under
     its management. """
 
-    def _init_table(self, meta, namespace, name, id_type=db.Integer):
+    def _init_table(self, meta, namespace, name, id_type=Integer):
         """ Create the given table if it does not exist, otherwise
         reflect the current table schema from the database.
         """
         name = namespace + '__' + name
-        self.table = db.Table(name, meta)
+        self.table = Table(name, meta)
         if id_type is not None:
-            col = db.Column('id', id_type, primary_key=True)
+            col = Column('id', id_type, primary_key=True)
             self.table.append_column(col)
 
     def _generate_table(self):
