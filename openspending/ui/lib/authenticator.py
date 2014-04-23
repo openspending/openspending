@@ -2,7 +2,7 @@ from zope.interface import implements
 from repoze.who.interfaces import IAuthenticator, IIdentifier
 from paste.httpheaders import AUTHORIZATION
 
-from openspending.model import Account
+from openspending.model.account import Account
 from openspending.ui.lib.security import check_password_hash
 
 import logging

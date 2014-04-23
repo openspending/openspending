@@ -1,5 +1,9 @@
 from datetime import datetime
 
+from sqlalchemy.orm import relationship, backref
+from sqlalchemy.schema import Column, ForeignKey
+from sqlalchemy.types import Integer, Unicode, Boolean, DateTime
+
 from openspending.model import meta as db
 from openspending.model.dataset import Dataset
 from openspending.model.account import Account
@@ -12,29 +16,29 @@ class View(db.Model):
 
     __tablename__ = 'view'
 
-    id = db.Column(db.Integer, primary_key=True)
-    widget = db.Column(db.Unicode(2000))
-    name = db.Column(db.Unicode(2000))
-    label = db.Column(db.Unicode(2000))
-    description = db.Column(db.Unicode())
-    state = db.Column(MutableDict.as_mutable(JSONType), default=dict)
-    public = db.Column(db.Boolean, default=False)
+    id = Column(Integer, primary_key=True)
+    widget = Column(Unicode(2000))
+    name = Column(Unicode(2000))
+    label = Column(Unicode(2000))
+    description = Column(Unicode())
+    state = Column(MutableDict.as_mutable(JSONType), default=dict)
+    public = Column(Boolean, default=False)
 
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, onupdate=datetime.utcnow)
 
-    dataset_id = db.Column(db.Integer, db.ForeignKey('dataset.id'))
-    account_id = db.Column(db.Integer, db.ForeignKey('account.id'),
+    dataset_id = Column(Integer, ForeignKey('dataset.id'))
+    account_id = Column(Integer, ForeignKey('account.id'),
                            nullable=True)
 
-    dataset = db.relationship(Dataset,
-                              backref=db.backref(
+    dataset = relationship(Dataset,
+                              backref=backref(
                                   'views',
                                   cascade='all,delete,delete-orphan',
                                   lazy='dynamic'))
 
-    account = db.relationship(Account,
-                              backref=db.backref(
+    account = relationship(Account,
+                              backref=backref(
                                   'views',
                                   cascade='all,delete,delete-orphan',
                                   lazy='dynamic'))

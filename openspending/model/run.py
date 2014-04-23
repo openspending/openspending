@@ -1,5 +1,9 @@
 from datetime import datetime
 
+from sqlalchemy.orm import relationship, backref
+from sqlalchemy.schema import Column, ForeignKey
+from sqlalchemy.types import Integer, Unicode, DateTime
+
 from openspending.model import meta as db
 from openspending.model.dataset import Dataset
 from openspending.model.source import Source
@@ -22,23 +26,23 @@ class Run(db.Model):
     OPERATION_SAMPLE = 'sample'
     OPERATION_IMPORT = 'import'
 
-    id = db.Column(db.Integer, primary_key=True)
-    operation = db.Column(db.Unicode(2000))
-    status = db.Column(db.Unicode(2000))
-    time_start = db.Column(db.DateTime, default=datetime.utcnow)
-    time_end = db.Column(db.DateTime)
-    dataset_id = db.Column(db.Integer, db.ForeignKey('dataset.id'),
+    id = Column(Integer, primary_key=True)
+    operation = Column(Unicode(2000))
+    status = Column(Unicode(2000))
+    time_start = Column(DateTime, default=datetime.utcnow)
+    time_end = Column(DateTime)
+    dataset_id = Column(Integer, ForeignKey('dataset.id'),
                            nullable=True)
-    source_id = db.Column(db.Integer, db.ForeignKey('source.id'),
+    source_id = Column(Integer, ForeignKey('source.id'),
                           nullable=True)
 
-    dataset = db.relationship(Dataset,
-                              backref=db.backref(
+    dataset = relationship(Dataset,
+                              backref=backref(
                                   'runs',
                                   order_by='Run.time_start.desc()',
                                   lazy='dynamic'))
-    source = db.relationship(Source,
-                             backref=db.backref(
+    source = relationship(Source,
+                             backref=backref(
                                  'runs',
                                  order_by='Run.time_start.desc()',
                                  lazy='dynamic'))

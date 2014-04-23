@@ -1,5 +1,9 @@
 from datetime import datetime
 
+from sqlalchemy.orm import relationship, backref
+from sqlalchemy.schema import Column, ForeignKey
+from sqlalchemy.types import Integer, Unicode, DateTime
+
 from openspending.model import meta as db
 from openspending.model.run import Run
 
@@ -11,22 +15,22 @@ class LogRecord(db.Model):
     CATEGORY_MODEL = 'model'
     CATEGORY_DATA = 'data'
 
-    id = db.Column(db.Integer, primary_key=True)
-    run_id = db.Column(db.Integer, db.ForeignKey('run.id'))
+    id = Column(Integer, primary_key=True)
+    run_id = Column(Integer, ForeignKey('run.id'))
 
-    category = db.Column(db.Unicode)
-    level = db.Column(db.Unicode)
-    message = db.Column(db.Unicode)
-    error = db.Column(db.Unicode)
-    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    category = Column(Unicode)
+    level = Column(Unicode)
+    message = Column(Unicode)
+    error = Column(Unicode)
+    timestamp = Column(DateTime, default=datetime.utcnow)
 
-    row = db.Column(db.Integer)
-    attribute = db.Column(db.Unicode)
-    column = db.Column(db.Unicode)
-    data_type = db.Column(db.Unicode)
-    value = db.Column(db.Unicode)
+    row = Column(Integer)
+    attribute = Column(Unicode)
+    column = Column(Unicode)
+    data_type = Column(Unicode)
+    value = Column(Unicode)
 
-    run = db.relationship(Run, backref=db.backref('records',
+    run = relationship(Run, backref=backref('records',
                                                   lazy='dynamic'))
 
     def __init__(self, run, category, level, message):

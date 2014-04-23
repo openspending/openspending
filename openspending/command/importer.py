@@ -9,7 +9,10 @@ import urlparse
 
 from openspending.lib import json
 
-from openspending.model import Source, Dataset, Account, View
+from openspending.model.source import Source
+from openspending.model.dataset import Dataset
+from openspending.model.account import Account
+from openspending.model.view import View
 from openspending.model import meta as db
 
 from openspending.importer import CSVImporter

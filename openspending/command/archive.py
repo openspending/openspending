@@ -8,7 +8,8 @@ import json
 import hashlib
 import urllib
 
-from openspending.model import Dataset, Source
+from openspending.model.dataset import Dataset
+from openspending.model.source import Source
 
 log = logging.getLogger(__name__)
 

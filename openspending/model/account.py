@@ -2,6 +2,11 @@ import colander
 import uuid
 import hmac
 
+from sqlalchemy.orm import relationship, backref
+from sqlalchemy.schema import Table, Column, ForeignKey
+from sqlalchemy.types import Integer, Unicode, Boolean
+
+
 from openspending.model import meta as db
 from openspending.model.dataset import Dataset
 
@@ -12,11 +17,11 @@ def make_uuid():
     return unicode(uuid.uuid4())
 
 
-account_dataset_table = db.Table(
+account_dataset_table = Table(
     'account_dataset', db.metadata,
-    db.Column('dataset_id', db.Integer, db.ForeignKey('dataset.id'),
+    Column('dataset_id', Integer, ForeignKey('dataset.id'),
               primary_key=True),
-    db.Column('account_id', db.Integer, db.ForeignKey('account.id'),
+    Column('account_id', Integer, ForeignKey('account.id'),
               primary_key=True)
 )
 
@@ -24,22 +29,22 @@ account_dataset_table = db.Table(
 class Account(db.Model):
     __tablename__ = 'account'
 
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Unicode(255), unique=True)
-    fullname = db.Column(db.Unicode(2000))
-    email = db.Column(db.Unicode(2000))
-    public_email = db.Column(db.Boolean, default=False)
-    twitter_handle = db.Column(db.Unicode(140))
-    public_twitter = db.Column(db.Boolean, default=False)
-    password = db.Column(db.Unicode(2000))
-    api_key = db.Column(db.Unicode(2000), default=make_uuid)
-    admin = db.Column(db.Boolean, default=False)
-    script_root = db.Column(db.Unicode(2000))
-    terms = db.Column(db.Boolean, default=False)
+    id = Column(Integer, primary_key=True)
+    name = Column(Unicode(255), unique=True)
+    fullname = Column(Unicode(2000))
+    email = Column(Unicode(2000))
+    public_email = Column(Boolean, default=False)
+    twitter_handle = Column(Unicode(140))
+    public_twitter = Column(Boolean, default=False)
+    password = Column(Unicode(2000))
+    api_key = Column(Unicode(2000), default=make_uuid)
+    admin = Column(Boolean, default=False)
+    script_root = Column(Unicode(2000))
+    terms = Column(Boolean, default=False)
 
-    datasets = db.relationship(Dataset,
+    datasets = relationship(Dataset,
                                secondary=account_dataset_table,
-                               backref=db.backref('managers', lazy='dynamic'))
+                               backref=backref('managers', lazy='dynamic'))
 
     def __init__(self):
         pass

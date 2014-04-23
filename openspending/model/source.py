@@ -1,5 +1,9 @@
 from datetime import datetime
 
+from sqlalchemy.orm import relationship, backref
+from sqlalchemy.schema import Column, ForeignKey
+from sqlalchemy.types import Integer, Unicode, DateTime
+
 from openspending.model import meta as db
 from openspending.model.common import MutableDict, JSONType
 from openspending.model.dataset import Dataset
@@ -9,21 +13,21 @@ from openspending.model.account import Account
 class Source(db.Model):
     __tablename__ = 'source'
 
-    id = db.Column(db.Integer, primary_key=True)
-    url = db.Column(db.Unicode)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
-    analysis = db.Column(MutableDict.as_mutable(JSONType), default=dict)
+    id = Column(Integer, primary_key=True)
+    url = Column(Unicode)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, onupdate=datetime.utcnow)
+    analysis = Column(MutableDict.as_mutable(JSONType), default=dict)
 
-    dataset_id = db.Column(db.Integer, db.ForeignKey('dataset.id'))
-    dataset = db.relationship(Dataset,
-                              backref=db.backref(
+    dataset_id = Column(Integer, ForeignKey('dataset.id'))
+    dataset = relationship(Dataset,
+                              backref=backref(
                                   'sources', lazy='dynamic',
                                   order_by='Source.created_at.desc()'))
 
-    creator_id = db.Column(db.Integer, db.ForeignKey('account.id'))
-    creator = db.relationship(Account,
-                              backref=db.backref('sources', lazy='dynamic'))
+    creator_id = Column(Integer, ForeignKey('account.id'))
+    creator = relationship(Account,
+                              backref=backref('sources', lazy='dynamic'))
 
     def __init__(self, dataset, creator, url):
         self.dataset = dataset
