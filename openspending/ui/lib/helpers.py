@@ -247,7 +247,7 @@ def format_currency(amount, dataset):
         return amount
 
 
-def join_filters(filters, append=[], remove=[]):
+def join_filters(filters, append=None, remove=None):
     """
     Join filters which are used to filter Solr entries according to
     the OpenSpending convention. The conventions is that each key/value
@@ -257,6 +257,12 @@ def join_filters(filters, append=[], remove=[]):
     The function allows users to append more values from a list to
     the output and remove values in a list from the output
     """
+
+    if append is None:
+        append = []
+
+    if remove is None:
+        remove = []
 
     # Join filter dictionary but skip pairs with key in remove
     filter_values = [u'%s:%s' % (key, item)
