@@ -1,8 +1,6 @@
 import logging
 from celery.task import task
 
-import openspending.command.celery
-
 log = logging.getLogger(__name__)
 
 
