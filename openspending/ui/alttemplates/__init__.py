@@ -1,1 +1,1 @@
-import templating
+import templating  # NOQA

@@ -2,11 +2,6 @@ import inspect
 
 from pylons.controllers.util import abort
 
-import account
-import badge
-import dataset
-import view
-
 
 class Requirement(object):
 

@@ -7,7 +7,7 @@ import logging
 import json
 from unicodedata import category
 
-from solr import SolrConnection, SolrException
+from solr import SolrConnection
 
 from openspending import model
 from openspending.lib.util import flatten

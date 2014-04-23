@@ -14,10 +14,10 @@ import urllib2
 class TestAccountController(ControllerTestCase):
 
     def test_login(self):
-        response = self.app.get(url(controller='account', action='login'))
+        self.app.get(url(controller='account', action='login'))
 
     def test_register(self):
-        response = self.app.get(url(controller='account', action='register'))
+        self.app.get(url(controller='account', action='register'))
 
     def test_account_create_gives_api_key(self):
         account = make_account()
@@ -32,16 +32,14 @@ class TestAccountController(ControllerTestCase):
         db.session.commit()
         model_mock.return_value = account
         update_mock.return_value = True
-        response = self.app.get(url(controller='account', action='settings'),
-                                extra_environ={'REMOTE_USER': 'mockaccount'})
+        self.app.get(url(controller='account', action='settings'),
+                     extra_environ={'REMOTE_USER': 'mockaccount'})
 
     def test_after_login(self):
-        response = self.app.get(
-            url(controller='account', action='after_login'))
+        self.app.get(url(controller='account', action='after_login'))
 
     def test_after_logout(self):
-        response = self.app.get(
-            url(controller='account', action='after_logout'))
+        self.app.get(url(controller='account', action='after_logout'))
 
     def test_trigger_reset_get(self):
         response = self.app.get(
@@ -64,10 +62,10 @@ class TestAccountController(ControllerTestCase):
         try:
             original_smtp_server = config.get('smtp_server')
             config['smtp_server'] = 'non-existent-smtp-server'
-            account = make_account()
-            response = self.app.post(url(controller='account',
-                                         action='trigger_reset'),
-                                     params={'email': "test@example.com"})
+            make_account()
+            self.app.post(url(controller='account',
+                              action='trigger_reset'),
+                          params={'email': "test@example.com"})
         finally:
             config['smtp_server'] = original_smtp_server
 

@@ -4,8 +4,6 @@ from pylons import request, response, tmpl_context as c
 from pylons.controllers.util import abort, redirect
 from pylons.i18n import _
 
-from openspending.model import meta as db
-from openspending.model.common import decode_row
 from openspending.ui.lib.base import BaseController
 from openspending.ui.lib.views import handle_request
 from openspending.ui.lib.hypermedia import entry_apply_links
