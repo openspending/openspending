@@ -5,16 +5,15 @@ Consists of functions to typically be used within templates, but also
 available to Controllers. This module is available to templates as 'h'.
 """
 
-from pylons import config, url, tmpl_context, app_globals
+from pylons import config, tmpl_context, app_globals
 from routes import url_for as routes_url_for
 from lxml import html
 from webhelpers.html import literal
-from webhelpers.html.tags import *
+from webhelpers.html.tags import link_to
 from webhelpers.markdown import markdown as _markdown
 from webhelpers.pylonslib import Flash as _Flash
 from webhelpers.text import truncate
 
-from openspending.lib import json
 from openspending.reference import country
 
 import math
