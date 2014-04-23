@@ -83,11 +83,11 @@ class TestSourceController(ControllerTestCase):
             "Import of csv failed. Source not found"
 
         # Delete the source
-        response = self.app.post(url(controller='source',
-                                     action='delete',
-                                     dataset=source.dataset.name,
-                                     id=source.id),
-                                 extra_environ={'REMOTE_USER': 'test'})
+        self.app.post(url(controller='source',
+                          action='delete',
+                          dataset=source.dataset.name,
+                          id=source.id),
+                      extra_environ={'REMOTE_USER': 'test'})
 
         # Check if source has been deleted
         assert db.session.query(Source).filter_by(id=source.id).count() == 0, \
@@ -113,11 +113,11 @@ class TestSourceController(ControllerTestCase):
             "Import of csv failed. Source not found"
 
         # Delete the source
-        response = self.app.post(url(controller='source',
-                                     action='delete',
-                                     dataset=source.dataset.name,
-                                     id=source.id),
-                                 extra_environ={'REMOTE_USER': 'test'})
+        self.app.post(url(controller='source',
+                          action='delete',
+                          dataset=source.dataset.name,
+                          id=source.id),
+                      extra_environ={'REMOTE_USER': 'test'})
 
         # Check if source has been deleted
         assert db.session.query(Source).filter_by(id=source.id).count() == 1, \
