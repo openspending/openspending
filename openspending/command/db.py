@@ -3,7 +3,8 @@ import os
 
 from pylons import config
 
-from openspending.model import Dataset, meta as db
+from openspending.model import meta as db
+from openspending.model.dataset import Dataset
 
 import migrate.versioning.api as migrate_api
 from migrate.exceptions import DatabaseNotControlledError
