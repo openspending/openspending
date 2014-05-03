@@ -30,8 +30,7 @@ class LogRecord(db.Model):
     data_type = Column(Unicode)
     value = Column(Unicode)
 
-    run = relationship(Run, backref=backref('records',
-                                                  lazy='dynamic'))
+    run = relationship(Run, backref=backref('records', lazy='dynamic'))
 
     def __init__(self, run, category, level, message):
         self.run = run

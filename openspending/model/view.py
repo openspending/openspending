@@ -28,20 +28,17 @@ class View(db.Model):
     updated_at = Column(DateTime, onupdate=datetime.utcnow)
 
     dataset_id = Column(Integer, ForeignKey('dataset.id'))
-    account_id = Column(Integer, ForeignKey('account.id'),
-                           nullable=True)
+    account_id = Column(Integer, ForeignKey('account.id'), nullable=True)
 
     dataset = relationship(Dataset,
-                              backref=backref(
-                                  'views',
-                                  cascade='all,delete,delete-orphan',
-                                  lazy='dynamic'))
+                           backref=backref('views',
+                                           cascade='all,delete,delete-orphan',
+                                           lazy='dynamic'))
 
     account = relationship(Account,
-                              backref=backref(
-                                  'views',
-                                  cascade='all,delete,delete-orphan',
-                                  lazy='dynamic'))
+                           backref=backref('views',
+                                           cascade='all,delete,delete-orphan',
+                                           lazy='dynamic'))
 
     def __init__(self):
         pass

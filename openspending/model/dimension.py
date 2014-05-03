@@ -2,7 +2,6 @@ from sqlalchemy.schema import Column
 from sqlalchemy.types import Integer
 from sqlalchemy.sql.expression import select, func
 
-from openspending.model import meta as db
 from openspending.model.attribute import Attribute
 from openspending.model.common import TableHandler, ALIAS_PLACEHOLDER
 
@@ -78,7 +77,7 @@ class AttributeDimension(Dimension, Attribute):
         """ Get a listing of all the members of the dimension (i.e. all the
         distinct values) matching the filter in ``conditions``. """
         query = select([self.column_alias], conditions,
-                          limit=limit, offset=offset, distinct=True)
+                       limit=limit, offset=offset, distinct=True)
         rp = self.dataset.bind.execute(query)
         while True:
             row = rp.fetchone()
@@ -91,7 +90,7 @@ class AttributeDimension(Dimension, Attribute):
         dimension set to a value matching the filter given by ``conditions``.
         """
         query = select([func.count(func.distinct(self.column_alias))],
-                          conditions)
+                       conditions)
         rp = self.dataset.bind.execute(query)
         return rp.fetchone()[0]
 
@@ -209,8 +208,8 @@ class CompoundDimension(Dimension, TableHandler):
         be used to find a single individual member, e.g. a dimension value
         identified by its name. """
         query = select([self.alias], conditions,
-                          limit=limit, offset=offset,
-                          distinct=True)
+                       limit=limit, offset=offset,
+                       distinct=True)
         rp = self.dataset.bind.execute(query)
         while True:
             row = rp.fetchone()
@@ -226,7 +225,7 @@ class CompoundDimension(Dimension, TableHandler):
         """
         joins = self.join(self.dataset.alias)
         query = select([func.count(func.distinct(self.column_alias))],
-                          conditions, joins)
+                       conditions, joins)
         rp = self.dataset.bind.execute(query)
         return rp.fetchone()[0]
 

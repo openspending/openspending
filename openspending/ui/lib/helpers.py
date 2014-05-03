@@ -266,7 +266,7 @@ def join_filters(filters, append=None, remove=None):
         remove = []
 
     # Join filter dictionary but skip pairs with key in remove
-    filter_values = [u'%s:%s' % (key, item)
+    filter_values = [u'%s:%s' % (key, value)
                      for (key, value) in filters.iteritems()
                      if key not in remove]
     # Extend the filters with pairs from append

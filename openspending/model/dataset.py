@@ -286,7 +286,7 @@ class Dataset(TableHandler, db.Model):
                 break
 
             query = select(selects, conditions, joins, order_by=order_by,
-                              use_labels=True, limit=qlimit, offset=qoffset)
+                           use_labels=True, limit=qlimit, offset=qoffset)
             rp = self.bind.execute(query)
 
             first_row = True

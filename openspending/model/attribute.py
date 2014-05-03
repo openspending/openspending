@@ -1,8 +1,6 @@
 from sqlalchemy.schema import Column
 from sqlalchemy.types import UnicodeText, Float
 
-from openspending.model import meta as db
-
 
 class Attribute(object):
 

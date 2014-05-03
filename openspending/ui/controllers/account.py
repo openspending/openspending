@@ -12,8 +12,8 @@ from repoze.who.api import get_api
 
 from openspending.model import meta as db
 from openspending.model.dataset import Dataset
-from openspending.model.account import Account, AccountRegister, \
-    AccountSettings
+from openspending.model.account import (Account, AccountRegister,
+                                        AccountSettings)
 from openspending.lib.paramparser import DistinctParamParser
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController, require
@@ -281,7 +281,7 @@ class AccountController(BaseController):
         query = db.session.query(Account)
         filter_string = params.get('q') + '%'
         query = query.filter(or_(Account.name.ilike(filter_string),
-                                    Account.fullname.ilike(filter_string)))
+                                 Account.fullname.ilike(filter_string)))
         count = query.count()
         query = query.limit(params.get('pagesize'))
         query = query.offset(int((params.get('page') - 1) *

@@ -5,8 +5,8 @@ from openspending.model import meta as db
 # (engine creation).
 from openspending.model.account import Account  # NOQA
 from openspending.model.badge import Badge  # NOQA
-from openspending.model.dataset import (Dataset, DatasetLanguage,
-                                        DatasetTerritory)  # NOQA
+from openspending.model.dataset import (Dataset, DatasetLanguage,  # NOQA
+                                        DatasetTerritory)
 from openspending.model.log_record import LogRecord  # NOQA
 from openspending.model.run import Run  # NOQA
 from openspending.model.source import Source  # NOQA

@@ -52,7 +52,7 @@ class Badge(db.Model):
     # Timestamps
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow,
-                           onupdate=datetime.utcnow)
+                        onupdate=datetime.utcnow)
 
     def __init__(self, label, image, description, creator):
         """

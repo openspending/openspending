@@ -20,14 +20,14 @@ class Source(db.Model):
     analysis = Column(MutableDict.as_mutable(JSONType), default=dict)
 
     dataset_id = Column(Integer, ForeignKey('dataset.id'))
-    dataset = relationship(Dataset,
-                              backref=backref(
-                                  'sources', lazy='dynamic',
-                                  order_by='Source.created_at.desc()'))
+    dataset = relationship(
+        Dataset,
+        backref=backref('sources', lazy='dynamic',
+                        order_by='Source.created_at.desc()'))
 
     creator_id = Column(Integer, ForeignKey('account.id'))
     creator = relationship(Account,
-                              backref=backref('sources', lazy='dynamic'))
+                           backref=backref('sources', lazy='dynamic'))
 
     def __init__(self, dataset, creator, url):
         self.dataset = dataset

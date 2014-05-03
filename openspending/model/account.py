@@ -6,7 +6,6 @@ from sqlalchemy.orm import relationship, backref
 from sqlalchemy.schema import Table, Column, ForeignKey
 from sqlalchemy.types import Integer, Unicode, Boolean
 
-
 from openspending.model import meta as db
 from openspending.model.dataset import Dataset
 
@@ -20,9 +19,9 @@ def make_uuid():
 account_dataset_table = Table(
     'account_dataset', db.metadata,
     Column('dataset_id', Integer, ForeignKey('dataset.id'),
-              primary_key=True),
+           primary_key=True),
     Column('account_id', Integer, ForeignKey('account.id'),
-              primary_key=True)
+           primary_key=True)
 )
 
 
@@ -43,8 +42,8 @@ class Account(db.Model):
     terms = Column(Boolean, default=False)
 
     datasets = relationship(Dataset,
-                               secondary=account_dataset_table,
-                               backref=backref('managers', lazy='dynamic'))
+                            secondary=account_dataset_table,
+                            backref=backref('managers', lazy='dynamic'))
 
     def __init__(self):
         pass

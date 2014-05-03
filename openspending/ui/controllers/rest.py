@@ -3,7 +3,7 @@ import logging
 from pylons import tmpl_context as c, url
 
 from openspending.model.dataset import Dataset
-from openspending.model import  meta as db
+from openspending.model import meta as db
 from openspending.ui.lib.base import BaseController
 from openspending.ui.alttemplates import templating
 
