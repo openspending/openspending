@@ -13,6 +13,13 @@ from openspending.model.source import Source  # NOQA
 from openspending.model.view import View  # NOQA
 
 
+# Silence SQLAlchemy warning:
+import warnings
+warnings.filterwarnings(
+    'ignore',
+    'Unicode type received non-unicode bind param value.')
+
+
 def init_model(engine):
     """ Initialize the SQLAlchemy driver and session maker. """
 
