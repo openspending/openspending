@@ -576,3 +576,34 @@ class Dataset(TableHandler, db.Model):
     @classmethod
     def by_name(cls, name):
         return db.session.query(cls).filter_by(name=name).first()
+
+
+class DatasetLanguage(db.Model, DatasetFacetMixin):
+    __tablename__ = 'dataset_language'
+
+    id = Column(Integer, primary_key=True)
+    code = Column(Unicode)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, onupdate=datetime.utcnow)
+
+    dataset_id = Column(Integer, ForeignKey('dataset.id'))
+    dataset = relationship(Dataset, backref=backref('_languages', lazy=False))
+
+    def __init__(self, code):
+        self.code = code
+
+
+class DatasetTerritory(db.Model, DatasetFacetMixin):
+    __tablename__ = 'dataset_territory'
+
+    id = Column(Integer, primary_key=True)
+    code = Column(Unicode)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, onupdate=datetime.utcnow)
+
+    dataset_id = Column(Integer, ForeignKey('dataset.id'))
+    dataset = relationship(Dataset, backref=backref('_territories',
+                                                    lazy=False))
+
+    def __init__(self, code):
+        self.code = code
