@@ -1,5 +1,6 @@
 from openspending.validation.data import convert_types
-from openspending.model import Dataset, meta as db
+from openspending.model.dataset import Dataset
+from openspending.model import meta as db
 from openspending.lib import solr_util as solr
 
 from datetime import datetime
@@ -71,7 +72,7 @@ def load_dataset(dataset):
 def make_account(name='test', fullname='Test User',
                  email='test@example.com', twitter='testuser',
                  admin=False):
-    from openspending.model import Account
+    from openspending.model.account import Account
 
     # First see if the account already exists and if so, return it
     account = Account.by_name(name)

@@ -9,7 +9,8 @@ from unicodedata import category
 
 from solr import SolrConnection
 
-from openspending import model
+from openspending.model.dataset import Dataset
+from openspending.model import meta as db
 from openspending.lib.util import flatten
 
 log = logging.getLogger(__name__)
@@ -106,7 +107,7 @@ def extend_entry(entry, dataset):
 
 def build_index(dataset_name):
     solr = get_connection()
-    dataset_ = model.Dataset.by_name(dataset_name)
+    dataset_ = Dataset.by_name(dataset_name)
     if dataset_ is None:
         raise ValueError("No such dataset: %s" % dataset_name)
     buf = []
@@ -123,11 +124,11 @@ def build_index(dataset_name):
     solr.add_many(buf)
     solr.commit()
     dataset_.updated_at = datetime.datetime.utcnow()
-    model.db.session.commit()
+    db.session.commit()
 
 
 def build_all_index():
-    for dataset in model.db.session.query(model.Dataset):
+    for dataset in db.session.query(Dataset):
         try:
             count = len(dataset)
         except:

@@ -12,8 +12,9 @@ from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import to_jsonp
 from openspending.ui.lib import helpers as h
 from openspending.ui.alttemplates import templating
-from openspending.lib.solr_util import SolrException
 from openspending.lib.paramparser import EntryIndexParamParser
+
+from solr import SolrException
 
 log = logging.getLogger(__name__)
 

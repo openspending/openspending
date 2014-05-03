@@ -5,7 +5,7 @@ from pylons import request, tmpl_context as c, response
 from pylons.controllers.util import abort, redirect
 from pylons.i18n import _
 
-from openspending import model
+from openspending.model.dimension import Dimension
 from openspending.ui.lib.base import BaseController
 from openspending.ui.lib.base import etag_cache_keygen
 from openspending.ui.lib.views import handle_request
@@ -30,7 +30,7 @@ class DimensionController(BaseController):
             c.dimension = c.dataset[dimension]
         except KeyError:
             abort(404, _('This is not a dimension'))
-        if not isinstance(c.dimension, model.Dimension):
+        if not isinstance(c.dimension, Dimension):
             abort(404, _('This is not a dimension'))
 
     def _get_member(self, dataset, dimension_name, name):

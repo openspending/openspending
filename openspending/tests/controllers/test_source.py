@@ -2,7 +2,9 @@ from openspending.tests.base import ControllerTestCase
 from openspending.tests.helpers import make_account, load_fixture
 from openspending.tests.importer.test_csv import csvimport_fixture
 
-from openspending.model import Source, Account, meta as db
+from openspending.model import meta as db
+from openspending.model.source import Source
+from openspending.model.account import Account
 from openspending.importer import CSVImporter
 
 from pylons import url

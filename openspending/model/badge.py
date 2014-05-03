@@ -1,19 +1,22 @@
 from datetime import datetime
 
-from openspending.model import Account, meta as db
+from sqlalchemy.orm import relationship, backref
+from sqlalchemy.schema import Table, Column, ForeignKey
+from sqlalchemy.types import Integer, Unicode, DateTime
+
+from openspending.model.account import Account
+from openspending.model import meta as db
 
 # Badges and dataset share a many to many relationship
 # therefore we need to create an associate table
-badges_on_datasets = db.Table('badges_on_datasets', db.metadata,
-                              db.Column(
-                                  'badge_id',
-                                  db.Integer,
-                                  db.ForeignKey('badge.id')),
-                              db.Column(
-                                  'dataset_id',
-                                  db.Integer,
-                                  db.ForeignKey('dataset.id'))
-                              )
+badges_on_datasets = Table('badges_on_datasets', db.metadata,
+                           Column('badge_id',
+                                  Integer,
+                                  ForeignKey('badge.id')),
+                           Column('dataset_id',
+                                  Integer,
+                                  ForeignKey('dataset.id'))
+                           )
 
 
 class Badge(db.Model):
@@ -28,28 +31,27 @@ class Badge(db.Model):
     """
     __tablename__ = 'badge'
 
-    id = db.Column(db.Integer, primary_key=True)
+    id = Column(Integer, primary_key=True)
 
     # Primary information for this badge
-    label = db.Column(db.Unicode)
-    image = db.Column(db.Unicode)
-    description = db.Column(db.Unicode)
+    label = Column(Unicode)
+    image = Column(Unicode)
+    description = Column(Unicode)
 
     # Define relationship with datasets via the associate table
-    datasets = db.relationship("Dataset",
-                               secondary=badges_on_datasets,
-                               backref=db.backref('badges',
-                                                  lazy='dynamic'))
+    datasets = relationship("Dataset",
+                            secondary=badges_on_datasets,
+                            backref=backref('badges', lazy='dynamic'))
 
     # Creator (and relationship)
-    creator_id = db.Column(db.Integer, db.ForeignKey('account.id'))
-    creator = db.relationship(Account,
-                              backref=db.backref('badge_creations',
-                                                 lazy='dynamic'))
+    creator_id = Column(Integer, ForeignKey('account.id'))
+    creator = relationship(Account,
+                           backref=backref('badge_creations',
+                                           lazy='dynamic'))
 
     # Timestamps
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow,
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow,
                            onupdate=datetime.utcnow)
 
     def __init__(self, label, image, description, creator):

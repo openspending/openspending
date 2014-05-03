@@ -1,3 +1,6 @@
+from sqlalchemy.schema import Column
+from sqlalchemy.types import Integer
+from sqlalchemy.sql.expression import select, func
 
 from openspending.model import meta as db
 from openspending.model.attribute import Attribute
@@ -74,7 +77,7 @@ class AttributeDimension(Dimension, Attribute):
     def members(self, conditions="1=1", limit=None, offset=0):
         """ Get a listing of all the members of the dimension (i.e. all the
         distinct values) matching the filter in ``conditions``. """
-        query = db.select([self.column_alias], conditions,
+        query = select([self.column_alias], conditions,
                           limit=limit, offset=offset, distinct=True)
         rp = self.dataset.bind.execute(query)
         while True:
@@ -87,7 +90,7 @@ class AttributeDimension(Dimension, Attribute):
         """ Return the count of entries on the dataset fact table having the
         dimension set to a value matching the filter given by ``conditions``.
         """
-        query = db.select([db.func.count(db.func.distinct(self.column_alias))],
+        query = select([func.count(func.distinct(self.column_alias))],
                           conditions)
         rp = self.dataset.bind.execute(query)
         return rp.fetchone()[0]
@@ -166,7 +169,7 @@ class CompoundDimension(Dimension, TableHandler):
         raise KeyError()
 
     def init(self, meta, fact_table, make_table=True):
-        column = db.Column(self.name + '_id', db.Integer, index=True)
+        column = Column(self.name + '_id', Integer, index=True)
         fact_table.append_column(column)
         if make_table is True:
             self._init_table(meta, self.dataset.name, self.name)
@@ -205,7 +208,7 @@ class CompoundDimension(Dimension, TableHandler):
         distinct values) matching the filter in ``conditions``. This can also
         be used to find a single individual member, e.g. a dimension value
         identified by its name. """
-        query = db.select([self.alias], conditions,
+        query = select([self.alias], conditions,
                           limit=limit, offset=offset,
                           distinct=True)
         rp = self.dataset.bind.execute(query)
@@ -222,7 +225,7 @@ class CompoundDimension(Dimension, TableHandler):
         dimension set to a value matching the filter given by ``conditions``.
         """
         joins = self.join(self.dataset.alias)
-        query = db.select([db.func.count(db.func.distinct(self.column_alias))],
+        query = select([func.count(func.distinct(self.column_alias))],
                           conditions, joins)
         rp = self.dataset.bind.execute(query)
         return rp.fetchone()[0]

@@ -12,7 +12,7 @@
     <meta name="author" content="Open Knowledge Foundation" />
     <link rel="shortcut icon" href="{{ static }}img/favicon.ico{{ static_cache_version }}" type="image/x-icon" />
 	{% if show_rss %}
-    <link rel="alternate" type="application/rss+xml" title="{% trans %}Latest Datasets on OpenSpending{% endtrans %}" href="{{ h.url(controller='dataset', action='feed_rss') }}" />
+    <link rel="alternate" type="application/rss+xml" title="{% trans %}Latest Datasets on OpenSpending{% endtrans %}" href="{{ h.url_for(controller='dataset', action='feed_rss') }}" />
 	{% endif %}
 
     <!-- Le styles -->
@@ -44,7 +44,7 @@
                 <a class="{{ section_active.dataset }}" href="/datasets">{% trans %}Datasets{% endtrans %}</a>
               </li>
               <li>
-                <a class="{{ section_active.search }}" href="{{ h.url(controller='entry', action='search') }}">{% trans %}Search{% endtrans %}</a>
+                <a class="{{ section_active.search }}" href="{{ h.url_for(controller='entry', action='search') }}">{% trans %}Search{% endtrans %}</a>
               </li>
               <li>
                 <a href="http://community.openspending.org/" onClick="_gaq.push(['_trackEvent', 'Community', 'Main', 'Navigational bar']);">{% trans %}Community{% endtrans %}</a>
@@ -70,11 +70,11 @@
 		<img src="{{ h.gravatar(c.account.email, 20) }}" alt="{{ c.account.fullname }}" style="vertical-align: middle;"> <strong>{{ c.account.name }}</strong>
 	      </a>
 	      <ul class="dropdown-menu account-dropdown">
-		<li><a href="{{ h.url(controller='account', action='dashboard') }}">{% trans %}Dashboard{% endtrans %}</a></li>
-		<li><a href="{{ h.url(controller='account', action='settings') }}">{% trans %}Settings{% endtrans %}</a></li>
+		<li><a href="{{ h.url_for(controller='account', action='dashboard') }}">{% trans %}Dashboard{% endtrans %}</a></li>
+		<li><a href="{{ h.url_for(controller='account', action='settings') }}">{% trans %}Settings{% endtrans %}</a></li>
                 {% if c.account.admin %}
                 <li class="divider"></li>
-                <li><a href="{{ h.url(controller='account', action='scoreboard') }}">{% trans %}User scoreboard{% endtrans %}</li>
+                <li><a href="{{ h.url_for(controller='account', action='scoreboard') }}">{% trans %}User scoreboard{% endtrans %}</li>
                 {% endif %}
 		<li class="divider"></li>
 		<li><a href="/logout">{% trans %}Logout{% endtrans %}</a></li>

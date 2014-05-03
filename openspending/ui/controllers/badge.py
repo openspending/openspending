@@ -4,7 +4,8 @@ from pylons import request, tmpl_context as c
 from pylons.controllers.util import redirect
 from pylons.i18n import _
 
-from openspending.model import Badge, meta as db
+from openspending.model import meta as db
+from openspending.model.badge import Badge
 from openspending.ui.lib.base import require
 from openspending.lib.jsonexport import to_jsonp
 from openspending.ui.lib import helpers as h

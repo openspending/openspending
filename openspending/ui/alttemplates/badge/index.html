@@ -15,8 +15,8 @@
       </tr>
       {% for badge in c.badges %}
       <tr>
-	<td><a href="{{ h.url(controller='badge', action='information', id=badge.id) }}"><img src="{{ badge.image }}" alt="{{ badge.label }}" title="{{ badge.label }}"></a></td>
-	<td><a href="{{ h.url(controller='badge', action='information', id=badge.id) }}"><em>{{ badge.label }}</em></a></td>
+	<td><a href="{{ h.url_for(controller='badge', action='information', id=badge.id) }}"><img src="{{ badge.image }}" alt="{{ badge.label }}" title="{{ badge.label }}"></a></td>
+	<td><a href="{{ h.url_for(controller='badge', action='information', id=badge.id) }}"><em>{{ badge.label }}</em></a></td>
 	<td>{{ h.markdown(badge.description) }}</td>
       </tr>
       {% endfor %}
@@ -27,7 +27,7 @@
     <p>{% trans %}These badges can be awarded to specific datasets by administrators of OpenSpending. The badges indicate that an official, either from <a href="http://okfn.org" title="Open Knowledge Foundation">The Open Knowledge Foundation</a> (OKF) or from another entity approved by the OKF, has carefully examined the dataset and decided to award it that particular badge.{% endtrans %}</p>
 
     {% if c.account.admin %}
-    <form action="{{h.url(controller='badge', action='create')}}" method="post" enctype="multipart/form-data">
+    <form action="{{h.url_for(controller='badge', action='create')}}" method="post" enctype="multipart/form-data">
       <fieldset>
 	<legend>{% trans %}Create a new badge{% endtrans %}</legend>
 

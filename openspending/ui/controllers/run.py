@@ -3,7 +3,10 @@ import logging
 from pylons import tmpl_context as c
 from pylons.i18n import _
 
-from openspending.model import Source, Run, LogRecord
+from openspending.model.source import Source
+from openspending.model.run import Run
+from openspending.model.log_record import LogRecord
+
 from openspending.ui.lib.base import BaseController
 from openspending.ui.lib.base import abort, require
 from openspending.ui.alttemplates import templating

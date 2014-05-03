@@ -1,7 +1,7 @@
 import json
 from collections import defaultdict
 
-from openspending import model
+from openspending.model.dataset import Dataset
 from openspending.lib import solr_util as solr
 from openspending.lib import util
 
@@ -152,7 +152,7 @@ def _get_entries(docs):
     # create a great big list of entries, one per doc
     entries = []
     for ds_name, ds_ids in by_dataset.iteritems():
-        dataset = model.Dataset.by_name(ds_name)
+        dataset = Dataset.by_name(ds_name)
         query = dataset.alias.c.id.in_(ds_ids)
         entries.extend([(dataset, e) for e in dataset.entries(query)])
 

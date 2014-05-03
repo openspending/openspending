@@ -35,7 +35,7 @@
         {% trans currency=c.dataset.currency, amount=h.format_number_with_commas(c.amount), time=c.time.get('label') %}{{currency}} {{amount}} on {{time}}{% endtrans %}
       </li>
       <div class="representations">
-        <a href="{{h.url(controller='entry', action='view', dataset=c.dataset.name, id=c.id, format='json')}}">
+        <a href="{{h.url_for(controller='entry', action='view', dataset=c.dataset.name, id=c.id, format='json')}}">
           <img src="{{h.static('img/icons/json.png')}}" alt="JSON" xml:lang="en" />
         </a>
       </div>

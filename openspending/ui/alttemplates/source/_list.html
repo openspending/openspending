@@ -33,13 +33,13 @@
       {% if source.is_running %}
       <a href="#" class="btn btn-info btn-small disabled">{% trans %}Running...{% endtrans %}</a>
       {% elif source.successfully_sampled %}
-      <form method="POST" action="{{h.url(controller='source',
+      <form method="POST" action="{{h.url_for(controller='source',
 			          action='load', dataset=dataset.name, 
                                   id=source.id) }}">
 	<button class="btn btn-success btn-small" title="{% trans %}Load source into OpenSpending{% endtrans %}"><i class="icon-upload icon-white"></i> {% trans %}Load{% endtrans %}</button>
       </form>
       {% else %}
-      <form method="POST" action="{{ h.url(controller='source',
+      <form method="POST" action="{{ h.url_for(controller='source',
 	 		          action='load', dataset=dataset.name,
                                   id=source.id) }}">
 	<input type="hidden" name="sample" value="true" />
@@ -47,7 +47,7 @@
       </form>
       {%- endif %}
       {%- endif %}
-      <form method="POST" action="{{ h.url(controller='source',
+      <form method="POST" action="{{ h.url_for(controller='source',
 		                  action='delete', dataset=dataset.name,
                                   id=source.id) }}">
         <button class="btn btn-danger btn-small" title="{% trans %}Delete source{% endtrans %}"><i class="icon-remove icon-white"></i> {% trans %}Delete{% endtrans %}</button>
@@ -62,7 +62,7 @@
       <ul class="runs">
         {% for run in source.runs[:5] %}
         <li>
-          <a href="{{ h.url(controller='run', action='view',
+          <a href="{{ h.url_for(controller='run', action='view',
                    dataset=dataset.name, source=source.id, id=run.id) }}">
             {{ run.time_start.strftime("%d.%m.%Y, %H:%M") }}</a>
 

@@ -31,7 +31,7 @@
 {{h.script_tag('app/bob/bob')}}
 
 <script type="text/javascript">
-  var widgets = {{h.json.dumps(c.widgets)}};
+  var widgets = {{h.json_to_string(c.widgets, indent=None)}};
 
   jQuery(function($) {
     window.app = new OpenSpending.Widgets.Editor({

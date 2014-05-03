@@ -5,15 +5,15 @@ import json
 from pylons import request, response, tmpl_context as c
 from pylons.controllers.util import abort, etag_cache
 
-from openspending import model
 from openspending import auth as can
 from openspending.model import meta as db
-from openspending.model import Source, Dataset
+from openspending.model.dataset import Dataset
+from openspending.model.source import Source
 from openspending.lib import util
 from openspending.lib.browser import Browser
 from openspending.lib.streaming import (JSONStreamingResponse,
                                         CSVStreamingResponse)
-from openspending.lib.solr_util import SolrException
+from solr import SolrException
 from openspending.lib.jsonexport import to_jsonp, json_headers
 from openspending.lib.csvexport import write_csv, csv_headers
 from openspending.lib.paramparser import (AggregateParamParser,
@@ -137,7 +137,7 @@ class APIv2Controller(BaseController):
 
         datasets = params.pop('dataset', None)
         if datasets is None or not datasets:
-            q = model.Dataset.all_by_account(c.account)
+            q = Dataset.all_by_account(c.account)
             if params.get('category'):
                 q = q.filter_by(category=params.pop('category'))
             datasets = q.all()

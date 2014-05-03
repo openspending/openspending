@@ -1,4 +1,5 @@
-from openspending.model import Dataset, meta as db
+from openspending.model import meta as db
+from openspending.model.dataset import Dataset
 
 from openspending.tests.base import ControllerTestCase
 from openspending.tests.helpers import load_fixture

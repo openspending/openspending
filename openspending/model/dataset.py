@@ -11,21 +11,20 @@ import logging
 from collections import defaultdict
 from datetime import datetime
 from itertools import count
-from sqlalchemy import ForeignKeyConstraint
-from sqlalchemy.orm import reconstructor
-from sqlalchemy.schema import Column
+from sqlalchemy import ForeignKeyConstraint, MetaData
+from sqlalchemy.orm import reconstructor, relationship, backref
+from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.types import Integer, Unicode, Boolean, DateTime
-from sqlalchemy.sql.expression import false
+from sqlalchemy.sql.expression import false, and_, or_, select, func
 from sqlalchemy.ext.associationproxy import association_proxy
 
 from openspending.model import meta as db
 from openspending.lib.util import hash_values
 
-from openspending.model.common import TableHandler, MutableDict, JSONType, \
-    decode_row
-from openspending.model.dimension import CompoundDimension, \
-    AttributeDimension, DateDimension
-from openspending.model.dimension import Measure
+from openspending.model.common import (TableHandler, MutableDict, JSONType,
+                                       DatasetFacetMixin, decode_row)
+from openspending.model.dimension import (CompoundDimension, DateDimension,
+                                          AttributeDimension, Measure)
 
 log = logging.getLogger(__name__)
 
@@ -151,8 +150,7 @@ class Dataset(TableHandler, db.Model):
         called both for access to the data and in order to generate
         the model physically. """
         self.bind = db.engine
-        self.meta = db.MetaData()
-        # self.tx = self.bind.begin()
+        self.meta = MetaData()
         self.meta.bind = db.engine
 
         self._init_table(self.meta, self.name, 'entry',
@@ -287,7 +285,7 @@ class Dataset(TableHandler, db.Model):
             if qlimit <= 0:
                 break
 
-            query = db.select(selects, conditions, joins, order_by=order_by,
+            query = select(selects, conditions, joins, order_by=order_by,
                               use_labels=True, limit=qlimit, offset=qoffset)
             rp = self.bind.execute(query)
 
@@ -362,9 +360,9 @@ class Dataset(TableHandler, db.Model):
 
         # Aggregation fields are all of the measures, so we create individual
         # summary fields with the sum function of SQLAlchemy
-        fields = [db.func.sum(alias.c[m]).label(m) for m in measures]
+        fields = [func.sum(alias.c[m]).label(m) for m in measures]
         # We append an aggregation field that counts the number of entries
-        fields.append(db.func.count(alias.c.id).label("entries"))
+        fields.append(func.count(alias.c.id).label("entries"))
         # Create a copy of the statistics fields (for later)
         stats_fields = list(fields)
 
@@ -416,7 +414,7 @@ class Dataset(TableHandler, db.Model):
 
         # Cuts are managed using AND statements and we use a dict with set as
         # the default value to create the filters (cut on various values)
-        conditions = db.and_()
+        conditions = and_()
         filters = defaultdict(set)
 
         for key, value in cuts:
@@ -433,7 +431,7 @@ class Dataset(TableHandler, db.Model):
         # For every value in the set we create and OR statement so we get e.g.
         # year=2007 AND (from.who == 'me' OR from.who == 'you')
         for attr, values in filters.items():
-            conditions.append(db.or_(*[attr == v for v in values]))
+            conditions.append(or_(*[attr == v for v in values]))
 
         # Ordering can be set by a parameter or ordered by measures by default
         order_by = []
@@ -447,7 +445,7 @@ class Dataset(TableHandler, db.Model):
             # If it's a part of the measures we have to order by the
             # aggregated values (the sum of the measure)
             if key in measures:
-                column = db.func.sum(alias.c[key]).label(key)
+                column = func.sum(alias.c[key]).label(key)
             # If it's in the labels we have to get the mapped column
             elif key in labels:
                 column = labels[key]
@@ -459,7 +457,7 @@ class Dataset(TableHandler, db.Model):
 
         # query 1: get overall sums.
         # Here we use the stats_field we saved earlier
-        query = db.select(stats_fields, conditions, joins)
+        query = select(stats_fields, conditions, joins)
         rp = dataset.bind.execute(query)
         # Execute the query and turn them to a list so we can pop the
         # entry count and then zip the measurements and the totals together
@@ -470,8 +468,8 @@ class Dataset(TableHandler, db.Model):
         # query 2: get total count of drilldowns
         if len(group_by):
             # Select 1 for each group in the group_by and count them
-            query = db.select(['1'], conditions, joins, group_by=group_by)
-            query = db.select([db.func.count('1')], '1=1', query.alias('q'))
+            query = select(['1'], conditions, joins, group_by=group_by)
+            query = select([func.count('1')], '1=1', query.alias('q'))
             rp = dataset.bind.execute(query)
             num_drilldowns, = rp.fetchone()
         else:
@@ -485,9 +483,9 @@ class Dataset(TableHandler, db.Model):
         offset = int((page - 1) * pagesize)
 
         # query 3: get the actual data
-        query = db.select(fields, conditions, joins, order_by=order_by,
-                          group_by=group_by, use_labels=True,
-                          limit=pagesize, offset=offset)
+        query = select(fields, conditions, joins, order_by=order_by,
+                       group_by=group_by, use_labels=True,
+                       limit=pagesize, offset=offset)
         rp = dataset.bind.execute(query)
 
         while True:
@@ -527,7 +525,7 @@ class Dataset(TableHandler, db.Model):
             # Get the time column
             time = self.key('time')
             # We use SQL's min and max functions to get the timestamps
-            query = db.session.query(db.func.min(time), db.func.max(time))
+            query = db.session.query(func.min(time), func.max(time))
             # We just need one result to get min and max time
             return [datetime.strptime(date, '%Y-%m-%d') if date else None
                     for date in query.one()]
@@ -571,7 +569,7 @@ class Dataset(TableHandler, db.Model):
         if account is not None:
             criteria += ["1=1" if account.admin else "1=2",
                          cls.managers.any(type(account).id == account.id)]
-        q = db.session.query(cls).filter(db.or_(*criteria))
+        q = db.session.query(cls).filter(or_(*criteria))
         q = q.order_by(cls.label.asc())
         return q
 

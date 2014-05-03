@@ -49,7 +49,7 @@
       create a <strong>data model</strong> to structure the dataset.{% endtrans %}
       <div class="alert-actions">
         <a class="btn btn-small" 
-           href="{{ h.url(controller='editor',
+           href="{{ h.url_for(controller='editor',
                     action='dimensions_edit', dataset=c.dataset.name) }}">
           {% trans %}Create a model{% endtrans %}
         </a>
@@ -75,7 +75,7 @@
 
     <h3>{% trans %}Dataset Actions{% endtrans %}</h3>
     {% if c.entries_count %}
-    <form method="POST" action="{{ h.url(controller='editor',
+    <form method="POST" action="{{ h.url_for(controller='editor',
             action='drop', dataset=c.dataset.name) }}">
       <input type="submit" class="btn btn-danger" 
              value="{% trans %}Delete loaded data{% endtrans %}" />
@@ -91,7 +91,7 @@
 
     {% if c.dataset.private %}
     {% if c.entries_count %}
-    <form method="POST" action="{{ h.url(controller='editor',
+    <form method="POST" action="{{ h.url_for(controller='editor',
                                 action='publish', dataset=c.dataset.name) }}">
       <input type="submit" class="btn btn-success" value="{% trans %}Make public{% endtrans %}" />
       <p class="help-block">{% trans %}After you've performed some QA,
@@ -103,7 +103,7 @@
       let the world see this dataset.{% endtrans %}</p>
     {% endif %}
     {% else %}
-    <form method="POST" action="{{ h.url(controller='editor',
+    <form method="POST" action="{{ h.url_for(controller='editor',
                                 action='retract', dataset=c.dataset.name) }}">
       <input type="submit" class="btn btn-danger" value="{% trans %}Retract{% endtrans %}" />
       <p class="help-block">{% trans %}If you have noted serious quality
@@ -111,7 +111,7 @@
     </form>
     {% endif %}
 
-    <form method="POST" action="{{ h.url(controller='editor',
+    <form method="POST" action="{{ h.url_for(controller='editor',
                                 action='delete', dataset=c.dataset.name) }}">
       <input type="submit" class="btn btn-danger" value="{% trans %}Delete entire dataset{% endtrans %}" />
       <p class="help-block">{% trans %}This action cannot be undone.{% endtrans %}</p>
@@ -124,7 +124,7 @@
   <!-- Create source modal -->
   <div id="new-source" class="modal hide fade"
        ckan-uri="{{ c.dataset.ckan_uri }}">
-    <form class="basic" action="{{ h.url(controller='source', action='create',
+    <form class="basic" action="{{ h.url_for(controller='source', action='create',
                                 dataset=c.dataset.name) }}" method="POST">
       <div class="modal-header">
         <h3>{% trans %}Create a new data source{% endtrans %}</h3>

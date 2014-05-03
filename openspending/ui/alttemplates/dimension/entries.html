@@ -45,25 +45,25 @@
         </div>
         <div class="download-links">
           <p>
-            <a class="input-large btn btn-small" href="{{ h.url(controller='dimension', action='entries', dataset=c.dataset.name, pagesize=100,
+            <a class="input-large btn btn-small" href="{{ h.url_for(controller='dimension', action='entries', dataset=c.dataset.name, pagesize=100,
           name=c.member['name'], dimension=c.dimension.name, format='json')}}" data-pagesize="100">
               <i class="icon-download"></i> {% trans %}Download first 100 entries as JSON{% endtrans %}
             </a>
           </p>
           <p>
-            <a class="input-large btn btn-small" href="{{ h.url(controller='dimension', action='entries', dataset=c.dataset.name, pagesize=100,
+            <a class="input-large btn btn-small" href="{{ h.url_for(controller='dimension', action='entries', dataset=c.dataset.name, pagesize=100,
           name=c.member['name'], dimension=c.dimension.name, format='csv')}}" data-pagesize="100">
               <i class="icon-download"></i> {% trans %}Download first 100 entries as CSV{% endtrans %}
             </a>
           </p>
           <p>
-            <a class="input-large btn btn-small" href="{{ h.url(controller='dimension', action='entries', dataset=c.dataset.name,
+            <a class="input-large btn btn-small" href="{{ h.url_for(controller='dimension', action='entries', dataset=c.dataset.name,
           name=c.member['name'], dimension=c.dimension.name, format='json')}}">
               <i class="icon-download"></i> {% trans %}Download all entries as JSON{% endtrans %}
             </a>
           </p>
           <p>
-            <a class="input-large btn btn-small" href="{{ h.url(controller='dimension', action='entries', dataset=c.dataset.name,
+            <a class="input-large btn btn-small" href="{{ h.url_for(controller='dimension', action='entries', dataset=c.dataset.name,
           name=c.member['name'], dimension=c.dimension.name, format='csv')}}">
               <i class="icon-download"></i> {% trans %}Download all entries as CSV{% endtrans %}
             </a>

@@ -4,7 +4,6 @@ from sqlalchemy import MetaData
 from sqlalchemy import orm
 from sqlalchemy.ext.declarative import declarative_base
 
-
 # SQLAlchemy database engine.  Updated by model.init_model()
 engine = None
 
@@ -23,5 +22,4 @@ class Model(object):
     query_class = orm.Query
     query = None
 
-Model = declarative_base(cls=Model, name='Model',
-                         metadata=metadata)
+Model = declarative_base(cls=Model, name='Model', metadata=metadata)

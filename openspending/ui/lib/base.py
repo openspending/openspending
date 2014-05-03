@@ -13,8 +13,9 @@ from pylons.controllers.util import abort
 from pylons.i18n import _
 
 from openspending.model import meta as db
+from openspending.model.account import Account
+from openspending.model.dataset import Dataset
 from openspending.auth import require
-from openspending import model
 from openspending.ui import i18n
 
 import logging
@@ -76,7 +77,7 @@ class BaseController(WSGIController):
     def __before__(self, action, **params):
         account_name = request.environ.get('REMOTE_USER', None)
         if account_name:
-            c.account = model.Account.by_name(account_name)
+            c.account = Account.by_name(account_name)
         else:
             c.account = None
 
@@ -125,7 +126,7 @@ class BaseController(WSGIController):
         c._cache_disabled = True
 
     def _get_dataset(self, dataset):
-        c.dataset = model.Dataset.by_name(dataset)
+        c.dataset = Dataset.by_name(dataset)
         if c.dataset is None:
             abort(404, _('Sorry, there is no dataset named %r') % dataset)
         require.dataset.read(c.dataset)

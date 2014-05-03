@@ -16,9 +16,9 @@
         {% trans %}In order to modify the dimensions model, you'll have to 
         delete all the data that is currently loaded from the database.{% endtrans %}
       </p>
-      <a href="{{ h.url(controller='editor', action='index',
+      <a href="{{ h.url_for(controller='editor', action='index',
                dataset=c.dataset.name) }}" class="btn">{% trans %}Go to dashboard{% endtrans %}</a>
-      <a href="{{ h.url(controller='dimension', action='index',
+      <a href="{{ h.url_for(controller='dimension', action='index',
               dataset=c.dataset.name) }}" class="btn">{% trans %}See dimensions{% endtrans %}</a>
     </div>
     {% endif %}

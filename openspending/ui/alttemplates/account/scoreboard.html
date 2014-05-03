@@ -10,7 +10,7 @@
   {% for user in row %}
   <div class="span2">
     <img src="{{ h.gravatar(user.email, 120) }}">
-    <h4><a href="{{ h.url(controller='account', action='profile', name=user.name) }}">{{ user.name }}</a></h4>
+    <h4><a href="{{ h.url_for(controller='account', action='profile', name=user.name) }}">{{ user.name }}</a></h4>
     <p>{{ user.score }}</p>
   </div>
   {% endfor %}

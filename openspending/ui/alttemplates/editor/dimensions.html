@@ -199,7 +199,7 @@
         <div class="alert block-message alert-success">
           <strong>{% trans %}Your model was saved.{% endtrans %}</strong> {% trans %}You can now try to load a sample of the data by returning back to the dashboard.{% endtrans %}
           <div class="alert-actions">
-            <a class="btn btn-small" href="{{ h.url(controller='editor',
+            <a class="btn btn-small" href="{{ h.url_for(controller='editor',
                                            action='index',
                                            dataset=c.dataset.name) }}">
               {% trans %}Visit dashboard{% endtrans %}</a>

@@ -1,4 +1,5 @@
-from openspending.model import Dataset, Source
+from openspending.model.dataset import Dataset
+from openspending.model.source import Source
 from openspending.model import meta as db
 from openspending.lib import json
 

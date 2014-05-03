@@ -18,7 +18,7 @@
   <div py:def="content">
     <ul class="breadcrumb">
       <div class="representations">
-        <a href="{{h.url(controller='dimension', action='view', dataset=c.dataset.name,
+        <a href="{{h.url_for(controller='dimension', action='view', dataset=c.dataset.name,
           dimension=c.dimension.name, format='json')}}">
           <img src="{{h.static('img/icons/json.png')}}" alt="JSON" xml:lang="en" /></a>
       </div>

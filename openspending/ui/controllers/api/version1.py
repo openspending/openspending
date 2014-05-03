@@ -8,6 +8,7 @@ from pylons.controllers.util import abort
 from openspending import model
 from openspending.lib import calculator
 from openspending.lib import solr_util as solr
+from solr import SolrException
 from openspending.ui.lib.base import BaseController, require
 from openspending.ui.lib.cache import AggregationCache
 from openspending.lib.jsonexport import jsonpify
@@ -70,7 +71,7 @@ class APIv1Controller(BaseController):
             solrargs['sort'] = 'score desc,amount desc'
         try:
             query = solr.get_connection().raw_query(**solrargs)
-        except solr.SolrException as se:
+        except SolrException as se:
             response.status_int = se.httpcode
             return se.body
         response.content_type = 'application/json'

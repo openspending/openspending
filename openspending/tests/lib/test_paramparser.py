@@ -49,7 +49,7 @@ class TestAggregateParamParser(TestCase):
         assert out['pagesize'] == 10000
         assert err[0] == 'dataset name not provided'
 
-    @patch('openspending.lib.paramparser.model.Dataset')
+    @patch('openspending.lib.paramparser.Dataset')
     def test_dataset(self, model_mock):
         ds = Mock()
         ds.measures = []
@@ -72,7 +72,7 @@ class TestAggregateParamParser(TestCase):
         out, err = AggregateParamParser({'format': 'html'}).parse()
         assert out['format'] == 'json'
 
-    @patch('openspending.lib.paramparser.model.Dataset')
+    @patch('openspending.lib.paramparser.Dataset')
     def test_cut(self, model_mock):
         ds = Mock()
         ds.measures = []
@@ -86,7 +86,7 @@ class TestAggregateParamParser(TestCase):
             {'dataset': 'foo', 'cut': 'foo:one|bar'}).parse()
         assert 'Wrong format for "cut"' in err[0]
 
-    @patch('openspending.lib.paramparser.model.Dataset')
+    @patch('openspending.lib.paramparser.Dataset')
     def test_measure(self, model_mock):
         ds = Mock()
         amt = Mock()
@@ -124,7 +124,7 @@ class TestSearchParamParser(TestCase):
         out, err = SearchParamParser({'filter': 'foo:one|bar'}).parse()
         assert 'Wrong format for "filter"' in err[0]
 
-    @patch('openspending.lib.paramparser.model.Dataset')
+    @patch('openspending.lib.paramparser.Dataset')
     def test_dataset(self, model_mock):
         def _mock_dataset(name):
             if name == 'baz':

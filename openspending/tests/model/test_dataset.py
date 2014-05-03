@@ -5,8 +5,9 @@ from openspending.tests.helpers import model_fixture, load_dataset
 from openspending.tests.base import DatabaseTestCase
 
 from openspending.model import meta as db
-from openspending.model import Dataset, AttributeDimension, \
-    CompoundDimension, Measure, DateDimension
+from openspending.model.dataset import Dataset
+from openspending.model.dimension import (AttributeDimension, Measure,
+                                          CompoundDimension, DateDimension)
 
 
 class TestDataset(DatabaseTestCase):

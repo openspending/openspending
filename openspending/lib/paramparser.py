@@ -1,7 +1,9 @@
 from ordereddict import OrderedDict
 import hashlib
 
-from openspending import model
+from openspending.model.dataset import Dataset
+from openspending.model.dimension import CompoundDimension
+
 from openspending.reference.category import CATEGORIES
 from openspending.reference.country import COUNTRIES
 from openspending.reference.language import LANGUAGES
@@ -193,7 +195,7 @@ class AggregateParamParser(ParamParser):
             self._error('dataset name not provided')
             return
 
-        dataset = model.Dataset.by_name(dataset_name)
+        dataset = Dataset.by_name(dataset_name)
         if dataset is None:
             self._error('no dataset with name "%s"' % dataset_name)
             return
@@ -342,7 +344,7 @@ class SearchParamParser(ParamParser):
 
         if dataset:
             for name in dataset.split('|'):
-                dataset = model.Dataset.by_name(name)
+                dataset = Dataset.by_name(name)
                 if dataset is None:
                     self._error('no dataset with name "%s"' % name)
                     return
@@ -397,7 +399,7 @@ class DistinctFieldParamParser(DistinctParamParser):
         super(DistinctFieldParamParser, self).__init__(params)
 
     def parse_attribute(self, attribute):
-        if not isinstance(self.dimension, model.CompoundDimension):
+        if not isinstance(self.dimension, CompoundDimension):
             return self.dimension
         try:
             return self.dimension[attribute]

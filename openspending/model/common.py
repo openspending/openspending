@@ -2,6 +2,7 @@
 from json import dumps, loads
 from sqlalchemy.types import Text, TypeDecorator, Integer
 from sqlalchemy.schema import Table, Column
+from sqlalchemy.sql.expression import and_, select, func
 from sqlalchemy.ext.mutable import Mutable
 from openspending.model import meta as db
 
@@ -119,8 +120,8 @@ class TableHandler(object):
         query for the set of unique columns and either update an
         existing row or create a new one. In both cases, the ID
         of the changed row will be returned. """
-        key = db.and_(*[self.table.c[c] == data.get(c)
-                        for c in unique_columns])
+        key = and_(*[self.table.c[c] == data.get(c)
+                     for c in unique_columns])
         q = self.table.update(key, data)
         if bind.execute(q).rowcount == 0:
             q = self.table.insert(data)
@@ -150,7 +151,7 @@ class DatasetFacetMixin(object):
         ds_ids = [d.id for d in datasets]
         if not len(ds_ids):
             return []
-        q = db.select([cls.code, db.func.count(cls.dataset_id)],
-                      cls.dataset_id.in_(ds_ids), group_by=cls.code,
-                      order_by=db.func.count(cls.dataset_id).desc())
+        q = select([cls.code, func.count(cls.dataset_id)],
+                   cls.dataset_id.in_(ds_ids), group_by=cls.code,
+                   order_by=func.count(cls.dataset_id).desc())
         return db.session.bind.execute(q).fetchall()

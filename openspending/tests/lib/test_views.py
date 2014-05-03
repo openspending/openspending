@@ -2,7 +2,7 @@ from openspending.tests.base import DatabaseTestCase
 from openspending.tests.helpers import load_fixture
 from nose.tools import assert_raises
 
-from openspending import model
+from openspending.model.dataset import Dataset
 from openspending.ui.lib.views import View
 
 
@@ -11,7 +11,7 @@ class TestViews(DatabaseTestCase):
     def setup(self):
         super(TestViews, self).setup()
         load_fixture('cra')
-        self.dataset = model.Dataset.by_name('cra')
+        self.dataset = Dataset.by_name('cra')
 
     def get_view(self, name='default', **kwargs):
         return View(self.dataset, kwargs)

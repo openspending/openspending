@@ -19,6 +19,7 @@ from openspending.reference import country
 import math
 import os
 import uuid
+import json
 import hashlib
 import datetime
 import babel.numbers
@@ -485,3 +486,11 @@ def has_datatype_attr(c, key):
     return c.desc.get(key) and \
         hasattr(c.desc.get(key), 'datatype') and \
         c.desc.get(key).datatype == 'url'
+
+
+def json_to_string(json_object, indent=2):
+    """
+    Wrapper around json.dumps which exposes a helper function
+    to dump a json object as string with default indent of 2.
+    """
+    return json.dumps(json_object, indent=indent)

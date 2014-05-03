@@ -3,7 +3,8 @@ import json
 from openspending.tests.base import ControllerTestCase
 from openspending.tests.helpers import load_fixture, clean_and_reindex_solr
 from openspending.ui.lib.helpers import member_url
-from openspending.model import Dataset, CompoundDimension
+from openspending.model.dataset import Dataset
+from openspending.model.dimension import CompoundDimension
 
 from pylons import url
 

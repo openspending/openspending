@@ -1,7 +1,8 @@
 def grant_admin(username):
-    from openspending.model import account, meta as db
+    from openspending.model import meta as db
+    from openspending.model.account import Account
 
-    a = account.Account.by_name(username)
+    a = Account.by_name(username)
 
     if a is None:
         print "Account `%s` not found." % username

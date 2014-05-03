@@ -1,5 +1,8 @@
 from openspending.lib import json
-from openspending.model import Dataset, Account, meta as db
+from openspending.model import meta as db
+from openspending.model.dataset import Dataset
+from openspending.model.account import Account
+
 from csv import DictReader
 from openspending.tests.base import ControllerTestCase
 from openspending.tests.helpers import (make_account, load_fixture,

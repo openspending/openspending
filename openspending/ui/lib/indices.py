@@ -1,5 +1,9 @@
-from openspending.model import Dataset, DatasetTerritory, \
-    DatasetLanguage, meta as db
+from sqlalchemy.sql.expression import select, func
+from sqlalchemy.orm import aliased
+from openspending.model import meta as db
+from openspending.model.dataset import Dataset
+from openspending.model.dataset_territory import DatasetTerritory
+from openspending.model.dataset_language import DatasetLanguage
 
 from openspending.ui.lib import helpers as h
 from openspending.reference.country import COUNTRIES
@@ -46,9 +50,9 @@ def category_index(datasets):
     ds_ids = [d.id for d in datasets]
     if len(ds_ids):
         # If we have dataset ids we count the dataset by category
-        q = db.select([Dataset.category, db.func.count(Dataset.id)],
-                      Dataset.id.in_(ds_ids), group_by=Dataset.category,
-                      order_by=db.func.count(Dataset.id).desc())
+        q = select([Dataset.category, func.count(Dataset.id)],
+                   Dataset.id.in_(ds_ids), group_by=Dataset.category,
+                   order_by=func.count(Dataset.id).desc())
 
         # Execute the queery to the the list of categories
         categories = db.session.bind.execute(q).fetchall()
@@ -73,13 +77,13 @@ def dataset_index(languages=[], territories=[], category=None):
 
     # Filter by languages if they have been provided
     for language in languages:
-        l = db.aliased(DatasetLanguage)
+        l = aliased(DatasetLanguage)
         results = results.join(l, Dataset._languages)
         results = results.filter(l.code == language)
 
     # Filter by territories if they have been provided
     for territory in territories:
-        t = db.aliased(DatasetTerritory)
+        t = aliased(DatasetTerritory)
         results = results.join(t, Dataset._territories)
         results = results.filter(t.code == territory)
 

@@ -87,12 +87,12 @@ class TestSolrUtil(TestCase):
         res = solr.extend_entry(entry, dataset)
         assert res == expected
 
-    @patch('openspending.lib.solr_util.model.Dataset')
+    @patch('openspending.lib.solr_util.Dataset')
     def test_build_index_no_dataset(self, mock_ds):
         mock_ds.by_name.return_value = None
         assert_raises(ValueError, solr.build_index, 'foobar')
 
-    @patch('openspending.lib.solr_util.model.Dataset')
+    @patch('openspending.lib.solr_util.Dataset')
     @patch('openspending.lib.solr_util.extend_entry')
     def test_build_index(self, mock_ee, mock_ds):
         ds = mock_ds.by_name.return_value
@@ -105,7 +105,7 @@ class TestSolrUtil(TestCase):
         conn.add_many.assert_called_once_with([123, 456, 789])
         conn.commit.assert_called_once()
 
-    @patch('openspending.lib.solr_util.model.Dataset')
+    @patch('openspending.lib.solr_util.Dataset')
     @patch('openspending.lib.solr_util.extend_entry')
     def test_build_index_batch(self, mock_ee, mock_ds):
         ds = mock_ds.by_name.return_value

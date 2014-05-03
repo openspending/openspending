@@ -11,7 +11,7 @@
   <div class="span12">
     <h3>{% trans %}Create a data source{% endtrans %}</h3>
     {% formfill form_fill with form_errors -%}
-    <form class="basic" action="{{ h.url(controller='source', action='create',
+    <form class="basic" action="{{ h.url_for(controller='source', action='create',
                                 dataset=c.dataset.name) }}" method="POST">
       {{ new_form() }}
       <div class="actions">

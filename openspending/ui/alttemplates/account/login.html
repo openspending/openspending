@@ -27,11 +27,11 @@
         <input value="{% trans %}Login{% endtrans %}" class="btn btn-primary" type="submit" />
       </div>
     </form>
-    <p class="help-block">{% trans %}Forgot your password?{% endtrans %} <a href="{{ h.url(controller='account', action='trigger_reset') }}">{% trans %}Request a password reset.{% endtrans %}</a></p>
+    <p class="help-block">{% trans %}Forgot your password?{% endtrans %} <a href="{{ h.url_for(controller='account', action='trigger_reset') }}">{% trans %}Request a password reset.{% endtrans %}</a></p>
   </div>
   <div class="span6">
     <h3>{% trans %}Create an account{% endtrans %}</h3>
-    <form class="basic register form-horizontal" id="register" action="{{ h.url(controller='account', action='register') }}" method="POST">
+    <form class="basic register form-horizontal" id="register" action="{{ h.url_for(controller='account', action='register') }}" method="POST">
       <fieldset>
         <div class="control-group">
           <label for="name">{% trans %}Login{% endtrans %}</label>

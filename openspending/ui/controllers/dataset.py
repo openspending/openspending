@@ -10,7 +10,9 @@ from pylons.controllers.util import abort, redirect
 from pylons.i18n import _
 from colander import SchemaNode, String, Invalid
 
-from openspending.model import Dataset, Badge, meta as db
+from openspending.model.dataset import Dataset
+from openspending.model.badge import Badge
+from openspending.model import meta as db
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import to_jsonp
 from openspending.lib.paramparser import DatasetIndexParamParser

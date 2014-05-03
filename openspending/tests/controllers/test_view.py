@@ -2,7 +2,10 @@ import json
 
 from openspending.tests.base import ControllerTestCase
 from openspending.tests.helpers import make_account, load_fixture
-from openspending.model import View, Dataset
+
+from openspending.model.dataset import Dataset
+from openspending.model.view import View
+
 
 from pylons import url
 

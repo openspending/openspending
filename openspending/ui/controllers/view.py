@@ -6,7 +6,8 @@ from pylons import request, tmpl_context as c
 from pylons.controllers.util import redirect, abort
 from pylons.i18n import _
 
-from openspending.model import meta as db, View
+from openspending.model import meta as db
+from openspending.model.view import View
 from openspending.ui.lib import helpers as h, widgets
 from openspending.lib import json
 from openspending.ui.lib.views import handle_request

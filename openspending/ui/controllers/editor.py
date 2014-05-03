@@ -7,7 +7,9 @@ from pylons import request, tmpl_context as c
 from pylons.i18n import _
 from colander import Invalid
 
-from openspending.model import Account, Run, meta as db
+from openspending.model.account import Account
+from openspending.model.run import Run
+from openspending.model import meta as db
 from openspending.lib import solr_util as solr
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController

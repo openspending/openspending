@@ -11,7 +11,7 @@
     
     {% for dataset in c.page %}
     <div>
-      <h3><a class="dataset-name" href="{{h.url(controller='dataset',
+      <h3><a class="dataset-name" href="{{h.url_for(controller='dataset',
 					action='view', dataset=dataset.name)}}">
           {{dataset.label}}
         </a>
@@ -19,7 +19,7 @@
       {% if dataset.badges %}
       <p>
 	{% for badge in dataset.badges %}
-	<a href="{{ h.url(controller='badge', action='information', id=badge.id)}}" title="{{badge.label}}"><img src="{{badge.image}}" alt="{{badge.label}}"></a> 
+	<a href="{{ h.url_for(controller='badge', action='information', id=badge.id)}}" title="{{badge.label}}"><img src="{{badge.image}}" alt="{{badge.label}}"></a> 
 	{% endfor %}
       </p>
       {% endif %}

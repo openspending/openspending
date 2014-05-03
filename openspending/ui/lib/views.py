@@ -6,7 +6,7 @@ from datetime import datetime
 
 from pylons.i18n import _
 
-from openspending.model import Dataset
+from openspending.model.dataset import Dataset
 from openspending.ui.lib import widgets
 
 log = logging.getLogger(__name__)

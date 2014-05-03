@@ -1,6 +1,6 @@
 from openspending.tests.base import ControllerTestCase
 from openspending.tests.importer.test_csv import csvimport_fixture
-from openspending.model import Account
+from openspending.model.account import Account
 from openspending.importer import CSVImporter
 from openspending.ui.lib.helpers import readable_url
 

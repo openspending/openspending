@@ -6,7 +6,8 @@ from pylons import request, tmpl_context as c
 from pylons.controllers.util import redirect
 from pylons.i18n import _
 
-from openspending.model import Dataset, DatasetTerritory
+from openspending.model.dataset import Dataset
+from openspending.model.dataset_territory import DatasetTerritory
 from openspending.lib.solr_util import dataset_entries
 from openspending.ui.i18n import set_session_locale
 from openspending.ui.lib.base import BaseController

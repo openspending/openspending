@@ -1,20 +1,23 @@
-"""The application's model objects"""
-from sqlalchemy import orm
-
+from sqlalchemy.orm import sessionmaker, scoped_session
 from openspending.model import meta as db
 
-# shut up useless SA warning:
-import warnings
-warnings.filterwarnings(
-    'ignore',
-    'Unicode type received non-unicode bind param value.')
+# We need to import all models to make them discoverable model init
+# (engine creation).
+from openspending.model.account import Account  # NOQA
+from openspending.model.badge import Badge  # NOQA
+from openspending.model.dataset import Dataset  # NOQA
+from openspending.model.dataset_territory import DatasetTerritory  # NOQA
+from openspending.model.dataset_language import DatasetLanguage  # NOQA
+from openspending.model.log_record import LogRecord  # NOQA
+from openspending.model.run import Run  # NOQA
+from openspending.model.source import Source  # NOQA
+from openspending.model.view import View  # NOQA
 
 
 def init_model(engine):
     """ Initialize the SQLAlchemy driver and session maker. """
-    # if db.session is not None:
-    #    return
-    sm = orm.sessionmaker(autoflush=True, bind=engine)
+
+    sm = sessionmaker(autoflush=True, bind=engine)
     db.engine = engine
     db.metadata.bind = engine
-    db.session = orm.scoped_session(sm)
+    db.session = scoped_session(sm)

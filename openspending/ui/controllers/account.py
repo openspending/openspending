@@ -10,7 +10,8 @@ from pylons.i18n import _
 
 from repoze.who.api import get_api
 
-from openspending.model import meta as db, Dataset
+from openspending.model import meta as db
+from openspending.model.dataset import Dataset
 from openspending.model.account import Account, AccountRegister, \
     AccountSettings
 from openspending.lib.paramparser import DistinctParamParser
@@ -21,7 +22,7 @@ from openspending.ui.lib.mailman import subscribe_lists
 from openspending.lib.jsonexport import to_jsonp
 from openspending.lib.mailer import send_reset_link
 from openspending.ui.alttemplates import templating
-from sqlalchemy.sql.expression import desc
+from sqlalchemy.sql.expression import desc, func, or_
 log = logging.getLogger(__name__)
 
 
@@ -242,14 +243,14 @@ class AccountController(BaseController):
 
         # Assign scores to each dataset based on number of maintainers
         score = db.session.query(Dataset.id,
-                                 (10 / db.func.count(Account.id)).label('sum'))
+                                 (10 / func.count(Account.id)).label('sum'))
         score = score.join('managers').group_by(Dataset.id).subquery()
 
         # Order users based on their score which is the sum of the dataset
         # scores they maintain
         user_score = db.session.query(
             Account.name, Account.email,
-            db.func.coalesce(db.func.sum(score.c.sum), 0).label('score'))
+            func.coalesce(func.sum(score.c.sum), 0).label('score'))
         user_score = user_score.outerjoin(Account.datasets).outerjoin(score)
         user_score = user_score.group_by(Account.name, Account.email)
         # We exclude the system user
@@ -279,7 +280,7 @@ class AccountController(BaseController):
 
         query = db.session.query(Account)
         filter_string = params.get('q') + '%'
-        query = query.filter(db.or_(Account.name.ilike(filter_string),
+        query = query.filter(or_(Account.name.ilike(filter_string),
                                     Account.fullname.ilike(filter_string)))
         count = query.count()
         query = query.limit(params.get('pagesize'))

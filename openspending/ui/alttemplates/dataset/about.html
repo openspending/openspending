@@ -20,7 +20,7 @@
 
     {{dataset_nav(h, c, can, 'about')}}
     <div class="representations">
-      <a href="{{h.url(controller='dataset', action='model', dataset=c.dataset.name, format='json')}}"><img src="{{h.static('img/icons/json.png')}}" alt="JSON" xml:lang="en" /></a>
+      <a href="{{h.url_for(controller='dataset', action='model', dataset=c.dataset.name, format='json')}}"><img src="{{h.static('img/icons/json.png')}}" alt="JSON" xml:lang="en" /></a>
     </div>
 
     <div class="row">
@@ -62,7 +62,7 @@
 			{% if c.managers %}
             <ul>
 			  {% for account in c.managers %}
-              <li><a href="{{h.url(controller='account', action='profile', name=account.name)}}">{{account.display_name}}</a></li>
+              <li><a href="{{h.url_for(controller='account', action='profile', name=account.name)}}">{{account.display_name}}</a></li>
 			  {% endfor %}
             </ul>
 			{% endif %}
@@ -74,7 +74,7 @@
 	    <h3>{% trans %}Badges{% endtrans %}</h3>
 	    <span class="help-block">
               <p>{% trans %}This dataset has been awarded{% endtrans %}
-	      <a href="{{ h.url(controller='badge', action='index') }}" title="{% trans %}List of badges{% endtrans %}">{% trans %}badges{% endtrans %}</a>.
+	      <a href="{{ h.url_for(controller='badge', action='index') }}" title="{% trans %}List of badges{% endtrans %}">{% trans %}badges{% endtrans %}</a>.
 	      {% trans %}Badges can be given by OpenSpending administrators on behalf of
 	      entities approved by <a href="http://okfn.org/" title="OKF">the Open Knowledge Foundation</a>.{% endtrans %}</p>
             </span>
@@ -85,7 +85,7 @@
 	    {% if c.account.admin %}
 	    <hr>
 	    <h4>{% trans %}Give badge{% endtrans %}</h4>
-	    <form class="form-horizontal" action="{{ h.url(controller='badge', action='give', dataset=c.dataset.name) }}" method="post">
+	    <form class="form-horizontal" action="{{ h.url_for(controller='badge', action='give', dataset=c.dataset.name) }}" method="post">
 	      <select name="badge">
 		{% for badge in c.badges %}
 		<option value="{{ badge.id }}">{{ badge.label }}</option>

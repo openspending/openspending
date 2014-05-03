@@ -26,7 +26,7 @@
     <script type="text/javascript" src="{{widget.js}}"></script>
     <script defer="defer">
         $(function() {
-            var state = {{h.json.dumps(state, indent=2)}};
+            var state = {{h.json_to_string(state)}};
             var context = {
               dataset: "{{c.dataset.name}}",
               siteUrl: "{{h.site_url()}}",

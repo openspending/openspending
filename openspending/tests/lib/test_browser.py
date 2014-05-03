@@ -35,13 +35,13 @@ class TestBrowser(TestCase):
 
         self.conn.raw_query.return_value = make_response([])
 
-        self.model_patcher = patch('openspending.lib.browser.model')
-        mock_model = self.model_patcher.start()
-        mock_model.Dataset.by_name.return_value = self.dataset
+        self.dataset_patcher = patch('openspending.lib.browser.Dataset')
+        mock_dataset = self.dataset_patcher.start()
+        mock_dataset.by_name.return_value = self.dataset
 
     def teardown(self):
         self.solr_patcher.stop()
-        self.model_patcher.stop()
+        self.dataset_patcher.stop()
 
     def test_defaults(self):
         b = Browser()

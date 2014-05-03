@@ -1,7 +1,9 @@
 from openspending.tests.base import ControllerTestCase
 from openspending.tests.helpers import make_account, load_fixture
 from openspending.ui.lib import helpers
-from openspending.model import Badge, meta as db
+
+from openspending.model import meta as db
+from openspending.model.badge import Badge
 from pylons import config, url
 import json
 import os

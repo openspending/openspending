@@ -4,7 +4,7 @@ from openspending.tests.helpers import model_fixture, load_fixture
 from openspending.tests.base import DatabaseTestCase
 
 from openspending.model import meta as db
-from openspending.model import Dataset
+from openspending.model.dataset import Dataset
 
 
 class TestAttributeDimension(DatabaseTestCase):

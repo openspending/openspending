@@ -1,3 +1,6 @@
+from sqlalchemy.schema import Column
+from sqlalchemy.types import UnicodeText, Float
+
 from openspending.model import meta as db
 
 
@@ -33,13 +36,13 @@ class Attribute(object):
         """
         # TODO: fetch this from AttributeType system?
         types = {
-            'string': db.UnicodeText,
-            'constant': db.UnicodeText,
-            'date': db.UnicodeText,
-            'float': db.Float,
+            'string': UnicodeText,
+            'constant': UnicodeText,
+            'date': UnicodeText,
+            'float': Float,
         }
-        type_ = types.get(self.datatype, db.UnicodeText)
-        column = db.Column(self.name, type_)
+        type_ = types.get(self.datatype, UnicodeText)
+        column = Column(self.name, type_)
         table.append_column(column)
         return column
 

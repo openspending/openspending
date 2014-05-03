@@ -56,16 +56,16 @@
 
         <p>{% trans %}Use our <a href="http://www.pbs.org/idealab/2013/03/how-to-embed-open-spending-visualizations-in-your-own-website078">widgets</a> to embed your visualization on your own website.{% endtrans %}</p>
 
-        <p><a href="{{ h.url(controller='dataset', action='new') }}" class="btn btn-success btn-large" title="{% trans %}Create a dataset{% endtrans %}">{% trans %}Upload a dataset{% endtrans %}</a></p>
+        <p><a href="{{ h.url_for(controller='dataset', action='new') }}" class="btn btn-success btn-large" title="{% trans %}Create a dataset{% endtrans %}">{% trans %}Upload a dataset{% endtrans %}</a></p>
       </div>
       <div class="span3">
         <h2>{% trans %}Explore{% endtrans %}</h2>
         <a title="01-explore by okfn, on Flickr" href="http://openspending.org/search"><img src="//farm4.staticflickr.com/3670/9575044337_71d0e520ae_n.jpg" class="img-rounded" alt="01-explore"></a>
         <p>{% trans %}OpenSpending holds nearly 16 mio. transactions from more than 300 datasets across more than 70 countries.{% endtrans %}</p>
               
-        <p>{% trans indexurl=h.url(controller='dataset', action='index') %}Browse the <a href="{{ indexurl }}">list of datasets</a> and learn about public finances from around the world, or browse <a href="http://apps.openspending.org/maps/">our map of cities</a> on OpenSpending.{% endtrans %}</p>
+        <p>{% trans indexurl=h.url_for(controller='dataset', action='index') %}Browse the <a href="{{ indexurl }}">list of datasets</a> and learn about public finances from around the world, or browse <a href="http://apps.openspending.org/maps/">our map of cities</a> on OpenSpending.{% endtrans %}</p>
               
-        <p><a href="{{ h.url(controller='entry', action='search') }}" class="btn btn-success btn-large" title="{% trans %}Search the datasets{% endtrans %}">{% trans %}Search transactions{% endtrans %}</a><br/><small><a href="{{ h.url(controller='dataset', action='index') }}" title="{% trans %}List of datasets{% endtrans %}">{% trans %}...or look at the datasets{% endtrans %}</a></small></p>
+        <p><a href="{{ h.url_for(controller='entry', action='search') }}" class="btn btn-success btn-large" title="{% trans %}Search the datasets{% endtrans %}">{% trans %}Search transactions{% endtrans %}</a><br/><small><a href="{{ h.url_for(controller='dataset', action='index') }}" title="{% trans %}List of datasets{% endtrans %}">{% trans %}...or look at the datasets{% endtrans %}</a></small></p>
       </div>
       <div class="span3">
         <h2>{% trans %}Visualize{% endtrans %}</h2>

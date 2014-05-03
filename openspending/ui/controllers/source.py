@@ -6,7 +6,9 @@ from paste.deploy.converters import asbool
 from pylons.i18n import _
 from colander import Invalid
 
-from openspending.model import Source, meta as db
+from openspending.model import meta as db
+from openspending.model.source import Source
+
 from openspending.lib.jsonexport import to_jsonp
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController

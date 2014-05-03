@@ -3,7 +3,8 @@ from openspending.tests.helpers import make_account, load_fixture
 from nose.tools import raises
 from mock import patch
 
-from openspending.model import Account, meta as db
+from openspending.model import meta as db
+from openspending.model.account import Account
 from openspending.lib.mailer import MailerException
 from pylons import config, url
 
@@ -24,7 +25,7 @@ class TestAccountController(ControllerTestCase):
         assert len(account.api_key) == 36
 
     @patch('openspending.auth.account.update')
-    @patch('openspending.ui.lib.base.model.Account.by_name')
+    @patch('openspending.model.account.Account.by_name')
     def test_settings(self, model_mock, update_mock):
         account = Account()
         account.name = 'mockaccount'
