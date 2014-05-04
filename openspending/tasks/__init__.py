@@ -1,7 +1,11 @@
 import logging
 from celery.task import task
 
-import openspending.command.celery
+# Establish celery loader
+# This must be done (even if it results in a pyflakes error) because
+# celery loading is done from openspending.command.celery.__init__.py
+# Fixing that loading is how you would fix the flakes error
+import openspending.command.celery  # NOQA
 
 log = logging.getLogger(__name__)
 
