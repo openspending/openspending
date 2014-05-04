@@ -58,9 +58,11 @@ class EntryController(BaseController):
         except SolrException as e:
             return {'errors': [unicode(e)]}
 
-        # Get the entries, each item is a tuple of the dataset and entry
+        # Get the entries, each item is a tuple of (dataset, entry)
         solr_entries = b.get_entries()
-        entries = [entry for entry in solr_entries.itervalues()]
+        # We are only interested in the entry in the tuple since  we know
+        # the dataset
+        entries = [entry[1] for entry in solr_entries]
 
         # Get expanded facets for this dataset,
         c.facets = b.get_expanded_facets(c.dataset)
