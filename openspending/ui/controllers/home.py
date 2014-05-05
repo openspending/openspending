@@ -48,7 +48,7 @@ class HomeController(BaseController):
         return redirect('/static/img/favicon.ico', code=301)
 
     def ping(self):
-        from openspending.tasks import ping
+        from openspending.tasks.generic import ping
         ping.delay()
         flash_success(_("Sent ping!"))
         redirect('/')

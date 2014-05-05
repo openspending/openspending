@@ -93,9 +93,6 @@ setup(
         ],
         'console_scripts': [
             'ostool = openspending.command:main'
-        ],
-        'paste.global_paster_command': [
-            'celeryd=openspending.command.celery:CeleryDaemonCommand',
         ]
     },
 
