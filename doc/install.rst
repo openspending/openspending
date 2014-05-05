@@ -135,7 +135,7 @@ In order to use web-based importing and loading, you will also need to set up
 the celery-based background daemon. When running this, make sure to have an
 instance of RabbitMQ installed and running and then execute::
 
-    $ paster celeryd development.ini
+    $ celery -A openspending.tasks -p development.ini worker
 
 You can validate the functioning of the communication between the backend and
 frontend components using the ping action::
