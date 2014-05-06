@@ -97,10 +97,29 @@ assumed. The key differences in a production install are these:
   $ mkdir .pylons_data
   $ chown www-data .pylons_data
 
+* Start celery workers (e.g. on a backend machine). Celery will configure
+  itself based on an environment variable ``BROKER_URL`` which should point
+  to a full uri for the message queue, i.e. ``amqp://backend.server.com:5672/``
+  (this needs to be set for both the celery worker process and the web app
+  itself, described in the next step).
+
+    (env)~/openspending$ export BROKER_URL='amqp://backend.server.com:5672/'
+
+  It is likely that you set this up so that the celery workers use a localhost
+  broker url (rabbitmq installed on the same machine as the celery worker
+  instance) while the frontend (web app) machine needs a broker url that points
+  to that backend machine.
+
+  Then start up celery by pointing to the site.ini (can be managed by
+  supervisor)::
+
+    (env)~/openspending$ celery -A openspending.tasks -p site.ini -l info worker
+
 * The application is run through ``gunicorn`` (Green Unicorn), a fast, 
   pre-fork based HTTP server for WSGI applications. The application provides
   special support for pastescript so that it can be started via a simple
-  prompt::
+  prompt (remember to set the BROKER_URL environment variable to be able to
+  send tasks to the backend workers)::
 
     (env)~/var/srvc/openspending.org$ gunicorn_paster site.ini
 
