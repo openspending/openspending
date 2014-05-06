@@ -9,7 +9,7 @@ from openspending.command import _configure_pylons
 
 # Get celery broker and backend from the environment with localhost
 # RabbitMQ (or other AMQP message queue on 5672) as default
-BROKER = os.environ.get('BROKER_URL', 'amqp://localhost:5672')
+BROKER = os.environ.get('BROKER_URL', 'amqp://guest:guest@localhost:5672//')
 BACKEND = os.environ.get('BACKEND_BROKER_URL', BROKER)
 
 # Create Celery app for tasks, this is imported where we set the tasks
