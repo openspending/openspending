@@ -20,10 +20,12 @@ Dataset: metadata and core functions
 Attributes, Dimensions and Measures
 -----------------------------------
 
-.. automodule:: openspending.model
+.. automodule:: openspending.model.attribute
 
   .. autoclass:: Attribute
      :members:
+
+.. automodule:: openspending.model.dimension
 
   .. autoclass:: Measure
      :members:
