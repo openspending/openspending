@@ -13,7 +13,7 @@ from openspending.lib.jsonexport import to_jsonp
 from openspending.ui.lib import helpers as h
 from openspending.ui.lib.base import BaseController
 from openspending.ui.lib.base import abort, require
-from openspending.tasks import analyze_source, load_source
+from openspending.tasks.dataset import analyze_source, load_source
 from openspending.ui.alttemplates import templating
 
 from openspending.ui.validation.source import source_schema

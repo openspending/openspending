@@ -449,7 +449,7 @@ class TestApiNewDataset(ControllerTestCase):
         apikey_header = 'apikey {0}'.format(user.api_key)
         response = self.app.post(u, params, {'Authorization': apikey_header})
         assert "200" in response.status
-        assert Dataset.by_name('openspending-example')
+        assert Dataset.by_name('openspending-example') is not None
 
     def test_new_no_apikey(self):
         u = url(controller='api/version2', action='create')
@@ -461,7 +461,7 @@ class TestApiNewDataset(ControllerTestCase):
         }
         response = self.app.post(u, params, expect_errors=True)
         assert "400" in response.status
-        assert not Dataset.by_name('openspending-example')
+        assert Dataset.by_name('openspending-example') is None
 
     def test_new_wrong_user(self):
         # First we add a Dataset with user 'test_new'
@@ -479,7 +479,7 @@ class TestApiNewDataset(ControllerTestCase):
         response = self.app.post(u, params, {'Authorization': apikey_header})
 
         assert "200" in response.status
-        assert Dataset.by_name('openspending-example')
+        assert Dataset.by_name('openspending-example') is not None
 
         # After that we try to update the Dataset with user 'test_new2'
         user = Account.by_name('test_new2')

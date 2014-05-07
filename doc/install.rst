@@ -135,7 +135,7 @@ In order to use web-based importing and loading, you will also need to set up
 the celery-based background daemon. When running this, make sure to have an
 instance of RabbitMQ installed and running and then execute::
 
-    $ paster celeryd development.ini
+    $ celery -A openspending.tasks -p development.ini worker
 
 You can validate the functioning of the communication between the backend and
 frontend components using the ping action::
@@ -152,7 +152,7 @@ done by copying the Solr example configuration from the `Solr tarball`_, and
 replacing the default schema with one from OpenSpending.::
 
     $ cp -R apache-solr-<version>/* ./solr/
-    $ ln -sf <full path to openspending>/solr/openspending_schema.xml ./solr/example/solr/collection1/conf/schema.xml
+    $ ln -sf <full path to openspending>/solr/schema.xml ./solr/example/solr/collection1/conf/
 
 .. _Solr tarball: http://www.apache.org/dyn/closer.cgi/lucene/solr/
 

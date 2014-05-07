@@ -24,7 +24,7 @@ from openspending.ui.lib.cache import AggregationCache
 from openspending.ui.lib.hypermedia import (entry_apply_links,
                                             drilldowns_apply_links,
                                             dataset_apply_links)
-from openspending.tasks import load_source
+from openspending.tasks.dataset import load_source
 from openspending.validation.model import validate_model
 from colander import Invalid
 

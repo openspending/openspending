@@ -12,7 +12,6 @@ from openspending.model.run import Run  # NOQA
 from openspending.model.source import Source  # NOQA
 from openspending.model.view import View  # NOQA
 
-
 # Silence SQLAlchemy warning:
 import warnings
 warnings.filterwarnings(
