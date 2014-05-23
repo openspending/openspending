@@ -24,3 +24,5 @@ solr
 .tx/config
 build/*
 .vagrant
+.project
+.pydevproject
