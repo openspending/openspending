@@ -15,7 +15,7 @@ echo "name=openspending" | sudo tee /var/solr/home/openspending/core.properties
 
 sudo mkdir /var/lib/tomcat7/lib
 sudo cp /var/solr/dist/solrj-lib/* /var/lib/tomcat7/lib
-sudo cp /vagrant/solr/openspending_schema.xml /var/solr/home/openspending/conf/schema.xml
+sudo cp /vagrant/solr/schema.xml /var/solr/home/openspending/
 
 echo -en "\n\nJAVA_OPTS=\"-Djava.awt.headless=true -Xmx512m -XX:+UseConcMarkSweepGC -Dsolr.solr.home=/var/solr/home\"\n" | sudo tee -a /etc/default/tomcat7
 sudo service tomcat7 restart
