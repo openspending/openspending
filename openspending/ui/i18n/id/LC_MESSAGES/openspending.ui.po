@@ -28,7 +28,7 @@ msgstr "Dengan hormat %s,"
 #: openspending/lib/mailer.py:36
 #, python-format
 msgid "%s <%s>"
-msgstr "%s"
+msgstr "%s <%s>"
 
 #: openspending/lib/mailer.py:53
 msgid "No recipient email address available!"
