@@ -1,8 +1,7 @@
 from __future__ import absolute_import
 import os
 
-from celery import Celery
-from celery import signals
+from celery import Celery, signals
 from celery.bin import Option
 
 from openspending.command import _configure_pylons
@@ -17,6 +16,17 @@ BACKEND = os.environ.get('BACKEND_BROKER_URL', BROKER)
 celery = Celery('openspending.tasks', broker=BROKER, backend=BACKEND,
                 include=['openspending.tasks.generic',
                          'openspending.tasks.dataset'])
+
+celery.conf.CELERY_ROUTES = {
+    'openspending.tasks.dataset.analyze_all_sources':
+        {'queue': 'analysis'},
+    'openspending.tasks.dataset.analyze_source':
+        {'queue': 'analysis'},
+    'openspending.tasks.dataset.load_source':
+        {'queue': 'loading'},
+    'openspending.tasks.dataset.index_dataset':
+        {'queue': 'loading'},
+}
 
 # Add a user option to celery where the configuration file for pylons
 # can be provided.
