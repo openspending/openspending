@@ -449,7 +449,29 @@ class TestApiNewDataset(ControllerTestCase):
         apikey_header = 'apikey {0}'.format(user.api_key)
         response = self.app.post(u, params, {'Authorization': apikey_header})
         assert "200" in response.status
-        assert Dataset.by_name('openspending-example') is not None
+        dataset = Dataset.by_name('openspending-example')
+        assert dataset is not None
+        assert dataset.private == False
+
+    def test_private_dataset(self):
+        user = Account.by_name('test_new')
+        assert user.api_key == 'd0610659-627b-4403-8b7f-6e2820ebc95d'
+
+        u = url(controller='api/version2', action='create')
+        params = {
+            'metadata':
+            'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
+            'csv_file':
+            'http://mk.ucant.org/info/data/sample-openspending-dataset.csv',
+            'private': 'true'
+                
+        }
+        apikey_header = 'apikey {0}'.format(user.api_key)
+        response = self.app.post(u, params, {'Authorization': apikey_header})
+        assert "200" in response.status
+        dataset = Dataset.by_name('openspending-example')
+        assert dataset is not None
+        assert dataset.private == True
 
     def test_new_no_apikey(self):
         u = url(controller='api/version2', action='create')
