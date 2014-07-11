@@ -95,9 +95,7 @@ class ParamParser(object):
                         (name, value))
 
     def _to_bool(self, value):
-        if value.lower().strip() in ['true', '1', 'yes', 'on']:
-            return True
-        return False
+        return value.lower().strip() in ['true', '1', 'yes', 'on']
 
 
 class DatasetIndexParamParser(ParamParser):
@@ -405,3 +403,13 @@ class DistinctFieldParamParser(DistinctParamParser):
             return self.dimension[attribute]
         except KeyError:
             return self.dimension['label']
+
+
+class LoadingAPIParamParser(ParamParser):
+    defaults = ParamParser.defaults.copy()
+    defaults['csv_file'] = None
+    defaults['metadata'] = None
+    defaults['private'] = 'false'
+
+    def parse_private(self, private):
+        return self._to_bool(private)

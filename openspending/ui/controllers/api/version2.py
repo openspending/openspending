@@ -17,7 +17,8 @@ from solr import SolrException
 from openspending.lib.jsonexport import to_jsonp, json_headers
 from openspending.lib.csvexport import write_csv, csv_headers
 from openspending.lib.paramparser import (AggregateParamParser,
-                                          SearchParamParser)
+                                          SearchParamParser,
+                                          LoadingAPIParamParser)
 from openspending.ui.lib.base import BaseController, require
 from openspending.ui.lib.base import etag_cache_keygen
 from openspending.ui.lib.cache import AggregationCache
@@ -218,23 +219,29 @@ class APIv2Controller(BaseController):
         if not c.account:
             abort(status_code=400, detail='user not authenticated')
 
-        # Check if the params are there ('metadata', 'csv_file')
-        if len(request.params) != 2:
-            abort(status_code=400, detail='incorrect number of params')
 
-        metadata = request.params['metadata'] \
-            if 'metadata' in request.params \
-            else abort(status_code=400, detail='metadata is missing')
+        # Parse the loading api parameters to get them into the right format
+        parser = LoadingAPIParamParser(request.params)
+        params, errors = parser.parse()
 
-        csv_file = request.params['csv_file'] \
-            if 'csv_file' in request.params \
-            else abort(status_code=400, detail='csv_file is missing')
+        if errors:
+            response.status = 400
+            return to_jsonp({'errors': errors})
+
+        if params['metadata'] is None:
+            response.status = 400
+            return to_jsonp({'errors': 'metadata is missing'})
+
+        if params['csv_file'] is None:
+            response.status = 400
+            return to_jsonp({'errors': 'csv_file is missing'})
 
         # We proceed with the dataset
         try:
-            model = json.load(urllib2.urlopen(metadata))
+            model = json.load(urllib2.urlopen(params['metadata']))
         except:
-            abort(status_code=400, detail='JSON model could not be parsed')
+            response.status = 400
+            return to_jsonp({'errors': 'JSON model could not be parsed'})
         try:
             log.info("Validating model")
             model = validate_model(model)
@@ -242,23 +249,25 @@ class APIv2Controller(BaseController):
             log.error("Errors occured during model validation:")
             for field, error in i.asdict().items():
                 log.error("%s: %s", field, error)
-            abort(status_code=400, detail='Model is not well formed')
+            response.status = 400
+            return to_jsonp({'errors': 'Model is not well formed'})
         dataset = Dataset.by_name(model['dataset']['name'])
         if dataset is None:
             dataset = Dataset(model)
             require.dataset.create()
             dataset.managers.append(c.account)
-            dataset.private = True  # Default value
+            dataset.private = params['private']
             db.session.add(dataset)
         else:
             require.dataset.update(dataset)
 
         log.info("Dataset: %s", dataset.name)
-        source = Source(dataset=dataset, creator=c.account, url=csv_file)
+        source = Source(dataset=dataset, creator=c.account,
+                        url=params['csv_file'])
 
         log.info(source)
         for source_ in dataset.sources:
-            if source_.url == csv_file:
+            if source_.url == params['csv_file']:
                 source = source_
                 break
         db.session.add(source)
