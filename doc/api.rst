@@ -587,6 +587,7 @@ Users can load datasets (or add sources to them) by making a *POST* request to `
 
 * *csv_file* - A **url** to the csv file to me imported for the dataset
 * *metadata* - A **url** to the json file with dataset metadata (name, currency, etc.) and the model. Views can also be defined in this file. Take a look at a sample json file - https://dl.dropbox.com/u/3250791/sample-openspending-model.json to see how it should be structured (the value for *mapping* is the model - how the csv file should be cast into dataset dimensions, and the value for *dataset* is the metadata itself). To gain a better understanding of how to do the mapping, take a look at the corresponding csv file - http://mk.ucant.org/info/data/sample-openspending-dataset.csv.
+* *private* - A **boolean** ("true"/"false") indicating whether the loaded dataset should be private or not (made public). By default new datasets loaded via the API are made public. If an existing dataset is updated via the loading API the *private* parameter does nothing and the private setting is retained.
 
-Along with these two an api key must be provided in the header of the request. For more details see [API Conventions](/help/api/conventions/).
+Along with these parameters an api key must be provided in the header of the request. For more details see [API Conventions](/help/api/conventions/).
 
