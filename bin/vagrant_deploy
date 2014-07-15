@@ -41,4 +41,5 @@ then
   ln -s openspendingjs openspending/ui/public/static/openspendingjs
 fi
 
+sed -e 's/openspending.db.url.*$/openspending.db.url = postgresql:\/\/vagrant:vagrant@localhost\/openspending/' -e 's/:8983\/solr/:8080\/solr\/openspending/' < development.ini_tmpl > vagrant.ini
 ostool vagrant.ini db init
