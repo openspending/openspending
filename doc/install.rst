@@ -29,6 +29,12 @@ This will run for a while (fetch a coffee), until a working VM with Ubuntu 13.04
     vagrant@openspending$ cd /vagrant
     vagrant@openspending$ paster serve --reload vagrant.ini 
 
+You will also need to start the backend workers which take care of the analysis and loading of datasets into your instance. You do this by opening another terminal and running within the VM::
+
+    $ vagrant ssh
+    vagrant@openspending$ cd /vagrant
+    vagrant@openspending$ celery -A openspending.tasks -Q celery,analysis,loading -p vagrant.ini worker -l info
+
 The virtual machine includes OpenSpending, Postgres, RabbitMQ and Solr.
 
 .. _Vagrant: http://vagrantup.com/
