@@ -2,22 +2,32 @@ sudo apt-get update -y
 sudo apt-get install python g++ make
 sudo apt-get install -y python-lxml libxml2-dev libxslt1-dev postgresql-9.3 python-virtualenv git postgresql-server-dev-9.3 postgresql-client-9.3 postgresql-contrib-9.3 python-dev tomcat7 rabbitmq-server
 
-wget -O /tmp/solr.tgz http://archive.apache.org/dist/lucene/solr/4.6.0/solr-4.6.0.tgz
+
+echo "downloading solr..."
+wget -qO /tmp/solr.tgz http://archive.apache.org/dist/lucene/solr/4.6.0/solr-4.6.0.tgz
+echo "done."
+
 cd /tmp
-tar xvfz /tmp/solr.tgz 
+echo "expanding solr.tgz....."
+tar xfz /tmp/solr.tgz
+echo "done."
+
 sudo mv solr-4.6.0 /var/solr
 sudo cp /var/solr/dist/solr-4.6.0.war /var/lib/tomcat7/webapps/solr.war
-sudo cp -R /var/solr/example/solr /var/solr/home
-sudo mv /var/solr/home/collection1 /var/solr/home/openspending
-sudo chown -R tomcat7.tomcat7 /var/solr/home
-echo "name=openspending" | sudo tee /var/solr/home/openspending/core.properties
 
-sudo mkdir /var/lib/tomcat7/lib
-sudo cp /var/solr/dist/solrj-lib/* /var/lib/tomcat7/lib
-sudo cp /vagrant/solr/schema.xml /var/solr/home/openspending/
+sudo cp -rp /var/solr/example /var/solr/home
+#mv /var/solr/home/collection1 /var/solr/home/solr/openspending
 
-echo -en "\n\nJAVA_OPTS=\"-Djava.awt.headless=true -Xmx512m -XX:+UseConcMarkSweepGC -Dsolr.solr.home=/var/solr/home\"\n" | sudo tee -a /etc/default/tomcat7
-sudo service tomcat7 restart
+#sudo chown -R tomcat7.tomcat7 /var/solr/home
+#echo "name=openspending" | sudo tee /var/solr/home/solr/collection1/core.properties
+sudo cp /vagrant/solr/schema.xml /var/solr/home/solr/collection1/conf/schema.xml
+
+
+#sudo mkdir /var/lib/tomcat7/lib
+#sudo cp /var/solr/dist/solrj-lib/* /var/lib/tomcat7/lib
+
+#echo -en "\n\nJAVA_OPTS=\"-Djava.awt.headless=true -Xmx512m -XX:+UseConcMarkSweepGC -Dsolr.solr.home=/var/solr/home\"\n" | sudo tee -a /etc/default/tomcat7
+#sudo service tomcat7 restart
 
 virtualenv /home/vagrant/env
 source /home/vagrant/env/bin/activate
@@ -40,5 +50,9 @@ then
   ln -s openspendingjs openspending/ui/public/static/openspendingjs
 fi
 
-sed -e 's/openspending.db.url.*$/openspending.db.url = postgresql:\/\/vagrant:vagrant@localhost\/openspending/' -e 's/:8983\/solr/:8080\/solr\/openspending/' < development.ini_tmpl > vagrant.ini
+sed -e 's/openspending.db.url.*$/openspending.db.url = postgresql:\/\/vagrant:vagrant@localhost\/openspending/' -e 's/:8983\/solr/:8983\/solr/' < development.ini_tmpl > vagrant.ini
+
+
 ostool vagrant.ini db init
+
+(cd /var/solr/home && java -Dsolr.velocity.enabled=false -jar start.jar)
