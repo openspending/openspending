@@ -16,7 +16,7 @@
       {% trans %}Please enter the email address you used to register your account{% endtrans %}:
     </p>
     <form action="{{ h.url_for(controller='account', action='trigger_reset') }}" method="POST" class="form-inline">
-      <input type="text" class="input-large span5" name="email" placeholder="{% trans %}E-Mail{% endtrans %}" />
+      <input type="text" class="input-large span5" name="email" placeholder="{% trans %}Email{% endtrans %}" />
       <button type="submit" class="btn">{% trans %}Request a reset{% endtrans %}</button>
     </form>
   </div>
