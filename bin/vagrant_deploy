@@ -49,8 +49,12 @@ fi
 
 
 #prepare vagrant file and init db with it.
-sed -e 's/openspending.db.url.*$/openspending.db.url = postgresql:\/\/vagrant:vagrant@localhost\/openspending/' -e 's/:8983\/solr/:8983\/solr/' < development.ini_tmpl > vagrant.ini
-ostool vagrant.ini db init
+sed -e 's/openspending.db.url.*$/openspending.db.url = postgresql:\/\/vagrant:vagrant@localhost\/openspending/' -e 's/:8983\/solr/:8983\/solr/' < development.ini_tmpl > development.ini
+ostool development.ini db init
+
+
+#create test.ini file
+cp /vagrant/test.ini_tmpl /vagrant/test.ini
 
 
 #all done, start up solr!
