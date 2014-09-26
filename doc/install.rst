@@ -23,11 +23,13 @@ Then, from the source repository, you can set up a VM with::
 
     $ vagrant up
 
-This will run for a while (fetch a coffee), until a working VM with Ubuntu 13.04 and OpenSpending has been deployed. Once the application has run, you can run OpenSpending within the VM::
+This will run for a while (fetch a coffee), until a working VM with Ubuntu 14.04 and OpenSpending has been deployed with Solr running.
+
+Once the application has run, you can run OpenSpending within the VM::
 
     $ vagrant ssh
     vagrant@openspending$ cd /vagrant
-    vagrant@openspending$ paster serve --reload vagrant.ini 
+    vagrant@openspending$ ./startserver
 
 The virtual machine includes OpenSpending, Postgres, RabbitMQ and Solr.
 
