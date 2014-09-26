@@ -12,7 +12,7 @@ host = 127.0.0.1
 port = 5001
 
 [app:main]
-use = config:vagrant.ini
+use = config:development.ini
 openspending.cache_enabled = False
 set openspending.mongodb.database = openspending_test
 set debug = False
@@ -22,7 +22,7 @@ set debug = False
 # development and running the tests. However, the tests will delete
 # all data from solr. Use with caution.
 
-# openspending.solr.url = http://localhost:8080/solr/openspending
+openspending.solr.url = http://localhost:8983/solr
 
 openspending.widgets_base = http://localhost/openspendingjs/widgets/
 openspending.widgets = treemap bubbletree aggregate_table
