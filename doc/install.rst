@@ -25,7 +25,7 @@ Then, from the source repository, you can set up a VM with::
 
 This will run for a while (fetch a coffee), until a working VM with Ubuntu 14.04 and OpenSpending has been deployed with Solr running.
 
-Once the application has run, you can run OpenSpending within the VM::
+Once the application has run, you can start OpenSpending within the VM with::
 
     $ vagrant ssh
     vagrant@openspending$ cd /vagrant
