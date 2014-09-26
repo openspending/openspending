@@ -1,24 +1,25 @@
-# Translations template for openspending.
+# Italian translations for openspending.
 # Copyright (C) 2014 ORGANIZATION
-# This file is distributed under the same license as the openspending project.
-# 
+# This file is distributed under the same license as the openspending
+# project.
+#
 # Translators:
 # Elys <lombardo.elisabetta@gmail.com>, 2013
 # M2M <matteo.merlanti@gmail.com>, 2011-2012
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenSpending\n"
+"Project-Id-Version:  OpenSpending\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-04-03 15:36+0000\n"
+"POT-Creation-Date: 2014-09-26 06:39+0000\n"
 "PO-Revision-Date: 2014-04-03 15:38+0000\n"
 "Last-Translator: tryggvib <tryggvib@fsfi.is>\n"
-"Language-Team: Italian (http://www.transifex.com/projects/p/openspending/language/it/)\n"
+"Language-Team: Italian "
+"(http://www.transifex.com/projects/p/openspending/language/it/)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
-"Language: it\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: openspending/lib/mailer.py:20
 #, python-format
@@ -42,7 +43,16 @@ msgid ""
 "Please click the following link to confirm this request:\n"
 "\n"
 "   %(reset_link)s\n"
-msgstr "Hai richiesto il ripristino della tua password su %(site_title)s \n\n\n\nClicca sul link seguente per confermare la tua richiesta:\n\n\n\n%(reset_link)s\n"
+msgstr ""
+"Hai richiesto il ripristino della tua password su %(site_title)s \n"
+"\n"
+"\n"
+"\n"
+"Clicca sul link seguente per confermare la tua richiesta:\n"
+"\n"
+"\n"
+"\n"
+"%(reset_link)s\n"
 
 #: openspending/lib/mailer.py:82
 #: openspending/ui/alttemplates/account/trigger_reset.html:6
@@ -54,8 +64,7 @@ msgid "Part of unique key"
 msgstr "Parte di chiave unica"
 
 #: openspending/ui/alttemplates/base.html:11
-msgid ""
-"We're enabling anyone to explore, visualize and track government spending."
+msgid "We're enabling anyone to explore, visualize and track government spending."
 msgstr ""
 
 #: openspending/ui/alttemplates/base.html:15
@@ -141,7 +150,9 @@ msgstr "Per saperne di più"
 msgid ""
 "This is an <a href=\"http://okfn.org\">Open Knowledge Foundation</a>\n"
 "            project"
-msgstr "Questo è un progetto della <a href=\"http://okfn.org\">Open Knowledge Foundation</a>"
+msgstr ""
+"Questo è un progetto della <a href=\"http://okfn.org\">Open Knowledge "
+"Foundation</a>"
 
 #: openspending/ui/alttemplates/base.html:139
 msgid "API"
@@ -154,8 +165,10 @@ msgstr "Privacy"
 #: openspending/ui/alttemplates/base.html:142
 msgid ""
 "All <a href=\"http://www.gnu.org/licenses/agpl.html\">code</a>,\n"
-"          <a href=\"http://creativecommons.org/licenses/by/3.0/\">content</a>\n"
-"          and <a href=\"http://opendatacommons.org/licenses/odbl/\">data</a> is\n"
+"          <a "
+"href=\"http://creativecommons.org/licenses/by/3.0/\">content</a>\n"
+"          and <a "
+"href=\"http://opendatacommons.org/licenses/odbl/\">data</a> is\n"
 "          openly licensed in accordance with the\n"
 "          <a href=\"http://opendefinition.org/\">open definition</a>"
 msgstr ""
@@ -195,10 +208,13 @@ msgid "Fullname"
 msgstr "Nominativo"
 
 #: openspending/ui/alttemplates/account/login.html:49
+#: openspending/ui/alttemplates/account/profile.html:22
 #: openspending/ui/alttemplates/account/settings.html:18
 #: openspending/ui/alttemplates/account/trigger_reset.html:19
-msgid "E-Mail"
-msgstr "E-Mail"
+#: openspending/ui/alttemplates/home/index.html:93
+#: openspending/ui/alttemplates/home/index.html:100
+msgid "Email"
+msgstr "Email"
 
 #: openspending/ui/alttemplates/account/login.html:53
 msgid "Visible to other users"
@@ -211,8 +227,10 @@ msgstr "Password (ripeti)"
 
 #: openspending/ui/alttemplates/account/login.html:73
 msgid ""
-"I agree to the <a href=\"http://okfn.org/terms-of-use/\">Terms of Use</a>\n"
-"              and <a href=\"http://okfn.org/privacy-policy/\">Privacy Policy</a>."
+"I agree to the <a href=\"http://okfn.org/terms-of-use/\">Terms of Use</a>"
+"\n"
+"              and <a href=\"http://okfn.org/privacy-policy/\">Privacy "
+"Policy</a>."
 msgstr ""
 
 #: openspending/ui/alttemplates/account/login.html:79
@@ -243,12 +261,6 @@ msgstr "Nome"
 #: openspending/ui/alttemplates/account/profile.html:19
 msgid "Username"
 msgstr "Username"
-
-#: openspending/ui/alttemplates/account/profile.html:22
-#: openspending/ui/alttemplates/home/index.html:93
-#: openspending/ui/alttemplates/home/index.html:100
-msgid "Email"
-msgstr "Email"
 
 #: openspending/ui/alttemplates/account/profile.html:42
 msgid "It looks like you haven't uploaded any datasets."
@@ -294,16 +306,19 @@ msgstr "Chiave API"
 
 #: openspending/ui/alttemplates/account/settings.html:52
 msgid "Use this key to access the OpenSpending API programmatically."
-msgstr "Usa questa chiave per accedere alle API OpenSpending per via programmatica."
+msgstr ""
+"Usa questa chiave per accedere alle API OpenSpending per via "
+"programmatica."
 
 #: openspending/ui/alttemplates/account/settings.html:56
 msgid "Script Location"
 msgstr "Posizione dello Script"
 
 #: openspending/ui/alttemplates/account/settings.html:59
-msgid ""
-"Set a different location for JavaScript imports to develop new widgets."
-msgstr "Stabilisci un'area differente per le importazioni di JavaScript per sviluppare nuovi widgets."
+msgid "Set a different location for JavaScript imports to develop new widgets."
+msgstr ""
+"Stabilisci un'area differente per le importazioni di JavaScript per "
+"sviluppare nuovi widgets."
 
 #: openspending/ui/alttemplates/account/settings.html:64
 #: openspending/ui/alttemplates/editor/team.html:98
@@ -320,7 +335,9 @@ msgid ""
 "If you have forgotten the password for your account, you can\n"
 "      request an email with a link that will allow you to reset your\n"
 "      account password."
-msgstr "Se hai dimenticato la password per il tuo account, puoi ripristinarla richiedendo di ricevere un'email e cliccando sul link per il ripristino."
+msgstr ""
+"Se hai dimenticato la password per il tuo account, puoi ripristinarla "
+"richiedendo di ricevere un'email e cliccando sul link per il ripristino."
 
 #: openspending/ui/alttemplates/account/trigger_reset.html:16
 msgid "Please enter the email address you used to register your account"
@@ -362,9 +379,9 @@ msgid ""
 "These badges can be awarded to specific datasets by administrators of "
 "OpenSpending. The badges indicate that an official, either from <a "
 "href=\"http://okfn.org\" title=\"Open Knowledge Foundation\">The Open "
-"Knowledge Foundation</a> (OKF) or from another entity approved by the OKF, "
-"has carefully examined the dataset and decided to award it that particular "
-"badge."
+"Knowledge Foundation</a> (OKF) or from another entity approved by the "
+"OKF, has carefully examined the dataset and decided to award it that "
+"particular badge."
 msgstr ""
 
 #: openspending/ui/alttemplates/badge/index.html:32
@@ -382,8 +399,7 @@ msgid "e.g. 'Cleaned by Shakespeare's typewriter crew'"
 msgstr ""
 
 #: openspending/ui/alttemplates/badge/index.html:43
-msgid ""
-"e.g. 'Awarded to datasets cleaned by a team of highly skilled monkeys.'"
+msgid "e.g. 'Awarded to datasets cleaned by a team of highly skilled monkeys.'"
 msgstr ""
 
 #: openspending/ui/alttemplates/badge/index.html:45
@@ -490,7 +506,9 @@ msgid ""
 "These people are the managers of the dataset. They can\n"
 "              make modifications to its schema and are responsible\n"
 "              to make sure the data is accurate."
-msgstr "Queste persone sono i gestori del dataset. Essi possono apportare modifiche al suo schema e sono responsabili della correttezza dei dati."
+msgstr ""
+"Queste persone sono i gestori del dataset. Essi possono apportare "
+"modifiche al suo schema e sono responsabili della correttezza dei dati."
 
 #: openspending/ui/alttemplates/dataset/about.html:76
 msgid "This dataset has been awarded"
@@ -507,7 +525,8 @@ msgstr "badges"
 #: openspending/ui/alttemplates/dataset/about.html:78
 msgid ""
 "Badges can be given by OpenSpending administrators on behalf of\n"
-"\t      entities approved by <a href=\"http://okfn.org/\" title=\"OKF\">the Open Knowledge Foundation</a>."
+"\t      entities approved by <a href=\"http://okfn.org/\" "
+"title=\"OKF\">the Open Knowledge Foundation</a>."
 msgstr ""
 
 #: openspending/ui/alttemplates/dataset/about.html:87
@@ -537,7 +556,10 @@ msgstr "Dimensioni"
 msgid ""
 "Dimensions are different aspects of the dataset, such as the\n"
 "          spender, recipient or classifications that apply."
-msgstr "Le dimensioni sono aspetti differenti di un dataset, come ad esempio il centro di costo, il destinatario o le classificazioni che si applicano al caso."
+msgstr ""
+"Le dimensioni sono aspetti differenti di un dataset, come ad esempio il "
+"centro di costo, il destinatario o le classificazioni che si applicano al"
+" caso."
 
 #: openspending/ui/alttemplates/dataset/dropdb.html:3
 msgid "Database erased"
@@ -545,9 +567,11 @@ msgstr "Database cancellato"
 
 #: openspending/ui/alttemplates/dataset/dropdb.html:11
 msgid ""
-"The database should now have been erased. You'll even have to create a new "
-"user to log in again."
-msgstr "Il database verrà ora cancellato. Dovrà essere creato un account per poter accedere nuovamente."
+"The database should now have been erased. You'll even have to create a "
+"new user to log in again."
+msgstr ""
+"Il database verrà ora cancellato. Dovrà essere creato un account per "
+"poter accedere nuovamente."
 
 #: openspending/ui/alttemplates/dataset/index.html:3
 msgid "All datasets"
@@ -581,8 +605,10 @@ msgid ""
 "In the next steps, you'll\n"
 "          <ul>\n"
 "            <li>add references to <strong>data sources</strong>,</li>\n"
-"            <li>create a <strong>data model</strong> to describe the format,</li>\n"
-"            <li><strong>test</strong> the correctness of your model,</li>\n"
+"            <li>create a <strong>data model</strong> to describe the "
+"format,</li>\n"
+"            <li><strong>test</strong> the correctness of your model,</li>"
+"\n"
 "            <li><strong>import</strong> the data,</li>\n"
 "            <li>and generate <strong>visualized views</strong>.</li>\n"
 "          </ul>"
@@ -610,7 +636,10 @@ msgid ""
 "The identifier will become part of the\n"
 "                  dataset URL and cannot be changed later. It may only \n"
 "                  contain alphanumeric characters, dashes and underscores."
-msgstr "L'identificatore sarà parte dell'URL del dataset e non potrà essere modificato successivamente. Può contenere solamente caratteri alfanumerici, trattini e sottolineature."
+msgstr ""
+"L'identificatore sarà parte dell'URL del dataset e non potrà essere "
+"modificato successivamente. Può contenere solamente caratteri "
+"alfanumerici, trattini e sottolineature."
 
 #: openspending/ui/alttemplates/dataset/new.html:58
 msgid "Category"
@@ -643,9 +672,18 @@ msgid ""
 "        common tools for <strong>analysis, visualization and\n"
 "        comparison</strong>. OpenSpending is an open platform that\n"
 "        aims to facilitate the presentation of financial information so \n"
-"        anyone - whether data geek or concerned citizen - can contribute \n"
+"        anyone - whether data geek or concerned citizen - can contribute"
+" \n"
 "        their local city budget or spending reports."
-msgstr "Stiamo tentando di raccogliere <strong>informazioni sulle spese mondiali</strong> in un unico database, in modo tale da mettere a disposizione strumenti di <strong>analisi, visualizzazione e comparazione</strong> dati. OpenSpending è una piattaforma aperta il cui scopo è facilitare la rappresentazione delle informazioni finanziarie affinché chiunque - un esperto di dati così come un cittadino interessato - possa contribuire al bilancio della propria città o ai report di spesa."
+msgstr ""
+"Stiamo tentando di raccogliere <strong>informazioni sulle spese "
+"mondiali</strong> in un unico database, in modo tale da mettere a "
+"disposizione strumenti di <strong>analisi, visualizzazione e "
+"comparazione</strong> dati. OpenSpending è una piattaforma aperta il cui "
+"scopo è facilitare la rappresentazione delle informazioni finanziarie "
+"affinché chiunque - un esperto di dati così come un cittadino interessato"
+" - possa contribuire al bilancio della propria città o ai report di "
+"spesa."
 
 #: openspending/ui/alttemplates/dataset/new_cta.html:20
 msgid "Why should you contribute?"
@@ -785,11 +823,15 @@ msgstr ""
 
 #: openspending/ui/alttemplates/editor/dimensions.html:89
 msgid "Add Dimension"
-msgstr "Un valore semplice, ad esempio una descrizione o un identificativo di transazione."
+msgstr ""
+"Un valore semplice, ad esempio una descrizione o un identificativo di "
+"transazione."
 
 #: openspending/ui/alttemplates/editor/dimensions.html:92
 msgid "Make sure your dimensions import all source data columns."
-msgstr "Assicurati che le tue dimensioni importino tutte le colonne dei dati sorgenti. "
+msgstr ""
+"Assicurati che le tue dimensioni importino tutte le colonne dei dati "
+"sorgenti. "
 
 #: openspending/ui/alttemplates/editor/dimensions.html:97
 msgid "Set Unique Dimensions"
@@ -817,9 +859,11 @@ msgstr "Aggiungi una nuova dimensione"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:139
 msgid ""
-"The name you choose should only contain letters, numbers and dashes (i.e., "
-"no spaces)"
-msgstr "Il nome scelto deve contenere solamente lettere, numeri e trattini (e.g. no spazi)"
+"The name you choose should only contain letters, numbers and dashes "
+"(i.e., no spaces)"
+msgstr ""
+"Il nome scelto deve contenere solamente lettere, numeri e trattini (e.g. "
+"no spazi)"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:142
 msgid ""
@@ -839,8 +883,8 @@ msgstr "Dimensione"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:153
 msgid ""
-"A defined set, like suppliers or classifications, with multiple attributes "
-"(e.g. supplier name and VAT number)."
+"A defined set, like suppliers or classifications, with multiple "
+"attributes (e.g. supplier name and VAT number)."
 msgstr ""
 
 #: openspending/ui/alttemplates/editor/dimensions.html:158
@@ -850,7 +894,9 @@ msgstr "Attributo"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:160
 msgid "A simple value, e.g. descriptions or transaction IDs."
-msgstr "Un valore semplice, ad esempio una descrizione o un identificativo di transazione."
+msgstr ""
+"Un valore semplice, ad esempio una descrizione o un identificativo di "
+"transazione."
 
 #: openspending/ui/alttemplates/editor/dimensions.html:165
 msgid "Date"
@@ -858,7 +904,9 @@ msgstr "Date"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:167
 msgid "Temporal value, e.g. start of project, date of disbursement."
-msgstr "Un valore temporale, ad esempio l'inizio del progetto o la data di pagamento."
+msgstr ""
+"Un valore temporale, ad esempio l'inizio del progetto o la data di "
+"pagamento."
 
 #: openspending/ui/alttemplates/editor/dimensions.html:172
 msgid "Measure"
@@ -1130,7 +1178,8 @@ msgstr ""
 #: openspending/ui/alttemplates/editor/index.html:17
 msgid ""
 "Next, you'll need to link to a source file that contains the data\n"
-"        (or a sample for testing if your dataset is very large!). The data\n"
+"        (or a sample for testing if your dataset is very large!). The "
+"data\n"
 "        must be in the CSV format."
 msgstr ""
 
@@ -1241,7 +1290,9 @@ msgstr ""
 msgid ""
 "If you have noted serious quality\n"
 "        issues or legal issues, you can un-publish this dataset."
-msgstr "Se hai notato seri problemi legati alla qualità dei dati o relativi ad aspetti legali, puoi revocare la pubblicazione di questo dataset."
+msgstr ""
+"Se hai notato seri problemi legati alla qualità dei dati o relativi ad "
+"aspetti legali, puoi revocare la pubblicazione di questo dataset."
 
 #: openspending/ui/alttemplates/editor/index.html:116
 msgid "Delete entire dataset"
@@ -1407,8 +1458,8 @@ msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:22
 msgid ""
-"By understanding how governments spend money <strong>in our name</strong> "
-"can we have a say in how that money will affect our own lives."
+"By understanding how governments spend money <strong>in our name</strong>"
+" can we have a say in how that money will affect our own lives."
 msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:22
@@ -1421,8 +1472,8 @@ msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:55
 msgid ""
-"Upload any kind of financial data to OpenSpending and explore it with our "
-"built-in interactive visualizations."
+"Upload any kind of financial data to OpenSpending and explore it with our"
+" built-in interactive visualizations."
 msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:55
@@ -1430,8 +1481,8 @@ msgid ""
 "Users publish <a "
 "href=\"https://openspending.org/budgetmarocain\">budgets</a>, <a "
 "href=\"https://openspending.org/marches-publics-senegal/views/liste-des-"
-"attributaires\">procurements</a>, <a href=\"https://openspending.org/ukgov-"
-"25k-spending\">spending data</a> and even <a "
+"attributaires\">procurements</a>, <a href=\"https://openspending.org"
+"/ukgov-25k-spending\">spending data</a> and even <a "
 "href=\"https://openspending.org/senadofederal/entries\">public employee "
 "salaries</a>."
 msgstr ""
@@ -1439,8 +1490,8 @@ msgstr ""
 #: openspending/ui/alttemplates/home/index.html:57
 msgid ""
 "Use our <a href=\"http://www.pbs.org/idealab/2013/03/how-to-embed-open-"
-"spending-visualizations-in-your-own-website078\">widgets</a> to embed your "
-"visualization on your own website."
+"spending-visualizations-in-your-own-website078\">widgets</a> to embed "
+"your visualization on your own website."
 msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:59
@@ -1457,8 +1508,8 @@ msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:64
 msgid ""
-"OpenSpending holds nearly 16 mio. transactions from more than 300 datasets "
-"across more than 70 countries."
+"OpenSpending holds nearly 16 mio. transactions from more than 300 "
+"datasets across more than 70 countries."
 msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:66
@@ -1493,10 +1544,10 @@ msgstr ""
 #: openspending/ui/alttemplates/home/index.html:73
 msgid ""
 "Create your own visualizations with the <a "
-"href=\"http://community.openspending.org/help/api/aggregate/\">OpenSpending "
-"API</a> using libraries like <a "
-"href=\"http://community.openspending.org/2013/08/20/okfb-inesc/\">D3.js</a>,"
-" jit, and Raphael."
+"href=\"http://community.openspending.org/help/api/aggregate/\">OpenSpending"
+" API</a> using libraries like <a "
+"href=\"http://community.openspending.org/2013/08/20/okfb-"
+"inesc/\">D3.js</a>, jit, and Raphael."
 msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:75
@@ -1525,8 +1576,8 @@ msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:84
 msgid ""
-"Get involved in loading data, developing the technology, doing analysis or "
-"writing news stories!"
+"Get involved in loading data, developing the technology, doing analysis "
+"or writing news stories!"
 msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:86
@@ -1561,9 +1612,14 @@ msgstr "Le REST API Store"
 #: openspending/ui/alttemplates/home/rest.html:9
 msgid ""
 "This API returns JSON versions of the store's domain objects.\n"
-"    The URLs are generally the same as the URLs used by the web interface for\n"
+"    The URLs are generally the same as the URLs used by the web interface"
+" for\n"
 "    the same objects, but with \"/api/rest\" prepended."
-msgstr "Questa API restituisce una versione JSON degli oggetti del dominio memorizzati. Gli URL sono generalmente gli stessi di quelli utilizzati dall'interfaccia web per gli stessi oggetti, ma con un prefisso \"/api/rest\"."
+msgstr ""
+"Questa API restituisce una versione JSON degli oggetti del dominio "
+"memorizzati. Gli URL sono generalmente gli stessi di quelli utilizzati "
+"dall'interfaccia web per gli stessi oggetti, ma con un prefisso "
+"\"/api/rest\"."
 
 #: openspending/ui/alttemplates/home/rest.html:15
 msgid "Here are some examples"
@@ -1573,7 +1629,9 @@ msgstr "Ecco alcuni esempi"
 msgid ""
 "The JSON response generally contains the same information as the\n"
 "    corresponding web page, but in more detail."
-msgstr "La risposta JSON contiene generalmente le stesse informazioni della corrispondente pagina web, ma in modo più dettagliato."
+msgstr ""
+"La risposta JSON contiene generalmente le stesse informazioni della "
+"corrispondente pagina web, ma in modo più dettagliato."
 
 #: openspending/ui/alttemplates/home/rest.html:28
 msgid ""
@@ -1722,10 +1780,11 @@ msgstr ""
 
 #: openspending/ui/alttemplates/source/_new_form.html:10
 msgid ""
-"We recommend using <strong>,</strong> as delimiter and wrapping values in "
-"double quotes (especially amounts). The first line will always be regarded "
-"as a header row. <a href=\"http://community.openspending.org/help/guide/en"
-"/formatting-data/\">Want to know more?</a>"
+"We recommend using <strong>,</strong> as delimiter and wrapping values in"
+" double quotes (especially amounts). The first line will always be "
+"regarded as a header row. <a "
+"href=\"http://community.openspending.org/help/guide/en/formatting-"
+"data/\">Want to know more?</a>"
 msgstr ""
 
 #: openspending/ui/alttemplates/view/embed.html:6
@@ -1755,8 +1814,8 @@ msgstr ""
 
 #: openspending/ui/alttemplates/view/new.html:63
 msgid ""
-"You can store your visualisation with a name so that you can come back to it"
-" later and it will become visible to others."
+"You can store your visualisation with a name so that you can come back to"
+" it later and it will become visible to others."
 msgstr ""
 
 #: openspending/ui/alttemplates/view/new.html:82
@@ -1769,9 +1828,9 @@ msgstr ""
 
 #: openspending/ui/alttemplates/view/new.html:92
 msgid ""
-"If you don't save this visualisation, you can still copy and paste the embed"
-" code below, to embed the widget in another website, such as a blog or "
-"article."
+"If you don't save this visualisation, you can still copy and paste the "
+"embed code below, to embed the widget in another website, such as a blog "
+"or article."
 msgstr ""
 
 #: openspending/ui/alttemplates/view/new.html:96
@@ -1785,102 +1844,105 @@ msgstr "Altezza"
 #: openspending/ui/alttemplates/view/view.html:37
 msgid ""
 "Here you can rename your widget and/or update the description.\n"
-"    You can also change and modify the the widget itself but keep in\n"
-"    mind that others might be using and embedding the widget as it is\n"
-"    now on their sites. <strong>Changing the widget here will change\n"
-"    it everywhere.</strong> This might then create a discrepancy\n"
-"    between the widget and the context of a page it's embedded in."
+"    You can also modify the widget itself, but keep in mind that others "
+"might be \n"
+"    using and embedding the widget as it is now on their sites. \n"
+"    <strong>Changing the widget here will change it everywhere.</strong>"
+" \n"
+"    This might then create a discrepancy between the widget and the "
+"context of \n"
+"    a page in which it's embedded."
 msgstr ""
 
 #: openspending/ui/alttemplates/view/view.html:45
 msgid "Update widget"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:79
+#: openspending/ui/controllers/account.py:80
 msgid "Login name already exists, please choose a different one"
 msgstr "Username già esistente, per favore scegline uno differente"
 
-#: openspending/ui/controllers/account.py:85
-#: openspending/ui/controllers/account.py:162
+#: openspending/ui/controllers/account.py:86
+#: openspending/ui/controllers/account.py:163
 msgid "Passwords don't match!"
 msgstr "Le password non corrispondono!"
 
-#: openspending/ui/controllers/account.py:119
+#: openspending/ui/controllers/account.py:120
 #, python-format
 msgid "Subscription to the following mailing lists probably failed: %s."
 msgstr ""
 
-#: openspending/ui/controllers/account.py:190
+#: openspending/ui/controllers/account.py:191
 msgid "Your settings have been updated."
 msgstr "Le configurazioni sono state salvate correttamente."
 
-#: openspending/ui/controllers/account.py:241
+#: openspending/ui/controllers/account.py:242
 msgid "You are not authorized to view this page"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:277
+#: openspending/ui/controllers/account.py:278
 msgid "You are not authorized to see that page"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:298
+#: openspending/ui/controllers/account.py:299
 #, python-format
 msgid "Welcome back, %s!"
 msgstr "Bentornato, %s!"
 
-#: openspending/ui/controllers/account.py:301
+#: openspending/ui/controllers/account.py:302
 msgid "Incorrect user name or password!"
 msgstr "Username o password non corrette!"
 
-#: openspending/ui/controllers/account.py:306
+#: openspending/ui/controllers/account.py:307
 msgid "You have been logged out."
 msgstr "Sei stato disconnesso."
 
-#: openspending/ui/controllers/account.py:326
+#: openspending/ui/controllers/account.py:327
 msgid "Please enter an email address!"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:334
-#: openspending/ui/controllers/account.py:354
+#: openspending/ui/controllers/account.py:335
+#: openspending/ui/controllers/account.py:355
 msgid "No user is registered under this address!"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:341
+#: openspending/ui/controllers/account.py:342
 msgid ""
-"You've received an email with a link to reset your password. Please check "
-"your inbox."
+"You've received an email with a link to reset your password. Please check"
+" your inbox."
 msgstr ""
 
-#: openspending/ui/controllers/account.py:350
-#: openspending/ui/controllers/account.py:357
+#: openspending/ui/controllers/account.py:351
+#: openspending/ui/controllers/account.py:358
 msgid "The reset link is invalid!"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:364
+#: openspending/ui/controllers/account.py:365
 msgid "Thanks! You have now been signed in - please change your password!"
 msgstr ""
 
-#: openspending/ui/controllers/badge.py:83
+#: openspending/ui/controllers/badge.py:84
 msgid "Uploading files not supported at the moment."
 msgstr ""
 
-#: openspending/ui/controllers/badge.py:111
+#: openspending/ui/controllers/badge.py:112
 msgid "Badge not found."
 msgstr ""
 
-#: openspending/ui/controllers/dataset.py:61
+#: openspending/ui/controllers/dataset.py:63
 #, python-format
 msgid "Parameter values not supported: %s"
 msgstr ""
 
-#: openspending/ui/controllers/dataset.py:148
+#: openspending/ui/controllers/dataset.py:150
 msgid "A dataset with this identifer already exists!"
 msgstr "Un dataset con questo identificatore esiste già!"
 
-#: openspending/ui/controllers/dataset.py:250
+#: openspending/ui/controllers/dataset.py:252
 msgid "Recently Created Datasets"
 msgstr ""
 
-#: openspending/ui/controllers/dataset.py:252
+#: openspending/ui/controllers/dataset.py:254
 msgid "Recently created datasets in the OpenSpending Platform"
 msgstr ""
 
@@ -1899,71 +1961,75 @@ msgstr "Spiacente, non esiste alcun utente chiamato %r"
 msgid "Sorry, there is no dimension named %r"
 msgstr "Spiacente, non esiste alcuna dimensione chiamata %r"
 
-#: openspending/ui/controllers/editor.py:90
+#: openspending/ui/controllers/editor.py:92
 msgid "The dataset has been updated."
 msgstr "Il dataset è stato caricato correttamente."
 
-#: openspending/ui/controllers/editor.py:120
-msgid ""
-"You cannot edit the dimensions model when data is loaded for the dataset."
-msgstr "Non è possibile modificare il modello delle dimensioni quando vengono caricati i dati per il dataset."
+#: openspending/ui/controllers/editor.py:122
+msgid "You cannot edit the dimensions model when data is loaded for the dataset."
+msgstr ""
+"Non è possibile modificare il modello delle dimensioni quando vengono "
+"caricati i dati per il dataset."
 
-#: openspending/ui/controllers/editor.py:138
+#: openspending/ui/controllers/editor.py:140
 msgid "The mapping data could not be decoded as JSON!"
 msgstr "I dati di mappatura non possono essere decodificati in JSON!"
 
-#: openspending/ui/controllers/editor.py:163
+#: openspending/ui/controllers/editor.py:165
 msgid "The templates have been updated."
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:187
+#: openspending/ui/controllers/editor.py:189
 msgid "The views have been updated."
 msgstr "Le viste sono state aggiornate."
 
-#: openspending/ui/controllers/editor.py:189
+#: openspending/ui/controllers/editor.py:191
 msgid "The views could not be decoded as JSON!"
 msgstr "Le viste non possono essere decodificate in JSON!"
 
-#: openspending/ui/controllers/editor.py:211
+#: openspending/ui/controllers/editor.py:213
 msgid "User account cannot be found."
 msgstr "L'account utente non può essere trovato."
 
-#: openspending/ui/controllers/editor.py:220
+#: openspending/ui/controllers/editor.py:222
 msgid "The team has been updated."
 msgstr "Il team è stato aggiornato."
 
-#: openspending/ui/controllers/editor.py:239
+#: openspending/ui/controllers/editor.py:241
 msgid "The dataset has been cleared."
 msgstr "Il dataset è stato vuotato."
 
-#: openspending/ui/controllers/editor.py:247
+#: openspending/ui/controllers/editor.py:249
 msgid "This dataset is already public!"
 msgstr "Il dataset è già pubblico!"
 
-#: openspending/ui/controllers/editor.py:259
+#: openspending/ui/controllers/editor.py:261
 #, python-format
 msgid ""
-"Congratulations, the dataset has been published. It is now available at: %s"
-msgstr "Congratulazioni, il dataset è stato pubblicato. E' ora disponibile al seguente indirizzo: %s"
+"Congratulations, the dataset has been published. It is now available at: "
+"%s"
+msgstr ""
+"Congratulazioni, il dataset è stato pubblicato. E' ora disponibile al "
+"seguente indirizzo: %s"
 
-#: openspending/ui/controllers/editor.py:268
+#: openspending/ui/controllers/editor.py:270
 msgid "This dataset is already private!"
 msgstr "Il dataset è già privato!"
 
-#: openspending/ui/controllers/editor.py:278
+#: openspending/ui/controllers/editor.py:280
 msgid "The dataset has been retracted. It is no longer visible to others."
 msgstr "Il dataset è stato retratto. Non è più visibile ad altri utenti."
 
-#: openspending/ui/controllers/editor.py:290
+#: openspending/ui/controllers/editor.py:292
 msgid "The dataset has been deleted."
 msgstr "Il dataset è stato cancellato."
 
-#: openspending/ui/controllers/entry.py:101
+#: openspending/ui/controllers/entry.py:102
 #, python-format
 msgid "Sorry, there is no entry %r"
 msgstr "Spiacente, non esiste alcuna voce %r"
 
-#: openspending/ui/controllers/entry.py:141
+#: openspending/ui/controllers/entry.py:142
 msgid "Unable to adjust for inflation"
 msgstr ""
 
@@ -1971,53 +2037,53 @@ msgstr ""
 msgid "Sent ping!"
 msgstr "Ping inviato!"
 
-#: openspending/ui/controllers/run.py:21
-#: openspending/ui/controllers/source.py:57
+#: openspending/ui/controllers/run.py:24
+#: openspending/ui/controllers/source.py:59
 #, python-format
 msgid "There is no source '%s'"
 msgstr "Non vi è nessuna sorgente '%s'"
 
-#: openspending/ui/controllers/run.py:24
+#: openspending/ui/controllers/run.py:27
 #, python-format
 msgid "There is no run '%s'"
 msgstr "Non è in esecuzione '%s'"
 
-#: openspending/ui/controllers/source.py:41
+#: openspending/ui/controllers/source.py:43
 msgid "The source has been created."
 msgstr "La sorgente è stata creata."
 
-#: openspending/ui/controllers/source.py:79
+#: openspending/ui/controllers/source.py:81
 msgid "Already running!"
 msgstr ""
 
-#: openspending/ui/controllers/source.py:86
+#: openspending/ui/controllers/source.py:88
 msgid "Now loading..."
 msgstr "Caricamento..."
 
-#: openspending/ui/controllers/view.py:36
+#: openspending/ui/controllers/view.py:37
 #, python-format
 msgid "Invalid widget type: %r"
 msgstr "Tipo widget non valido: %r"
 
-#: openspending/ui/controllers/view.py:67
+#: openspending/ui/controllers/view.py:68
 #, python-format
 msgid "Sorry, there is no view %r"
 msgstr "Spiacente, non c'è nessuna vista %r"
 
-#: openspending/ui/controllers/view.py:96
+#: openspending/ui/controllers/view.py:97
 msgid "You are not authorized to delete this view."
 msgstr "Non sei autorizzato a eliminare questa vista."
 
-#: openspending/ui/controllers/view.py:97
+#: openspending/ui/controllers/view.py:98
 #, python-format
 msgid "'%s' has been deleted."
 msgstr ""
 
-#: openspending/ui/controllers/view.py:167
+#: openspending/ui/controllers/view.py:168
 msgid "No widget type has been specified."
 msgstr "Nessun tipo widget è stato specificato."
 
-#: openspending/ui/lib/base.py:130
+#: openspending/ui/lib/base.py:131
 #, python-format
 msgid "Sorry, there is no dataset named %r"
 msgstr "Spiacente, non esiste alcun dataset chiamato %r"
@@ -2030,3 +2096,16 @@ msgstr "Senza Titolo"
 #, python-format
 msgid "No widget named '%s' exists."
 msgstr "Non esiste alcun widged chiamato '%s'"
+
+#~ msgid "E-Mail"
+#~ msgstr "E-Mail"
+
+#~ msgid ""
+#~ "Here you can rename your widget and/or update the description.\n"
+#~ "    You can also change and modify the the widget itself but keep in\n"
+#~ "    mind that others might be using and embedding the widget as it is\n"
+#~ "    now on their sites. <strong>Changing the widget here will change\n"
+#~ "    it everywhere.</strong> This might then create a discrepancy\n"
+#~ "    between the widget and the context of a page it's embedded in."
+#~ msgstr ""
+

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: openspending 0.11\n"
+"Project-Id-Version: openspending 0.15.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-04-03 15:36+0000\n"
+"POT-Creation-Date: 2014-09-26 06:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -193,9 +193,12 @@ msgid "Fullname"
 msgstr ""
 
 #: openspending/ui/alttemplates/account/login.html:49
+#: openspending/ui/alttemplates/account/profile.html:22
 #: openspending/ui/alttemplates/account/settings.html:18
 #: openspending/ui/alttemplates/account/trigger_reset.html:19
-msgid "E-Mail"
+#: openspending/ui/alttemplates/home/index.html:93
+#: openspending/ui/alttemplates/home/index.html:100
+msgid "Email"
 msgstr ""
 
 #: openspending/ui/alttemplates/account/login.html:53
@@ -241,12 +244,6 @@ msgstr ""
 
 #: openspending/ui/alttemplates/account/profile.html:19
 msgid "Username"
-msgstr ""
-
-#: openspending/ui/alttemplates/account/profile.html:22
-#: openspending/ui/alttemplates/home/index.html:93
-#: openspending/ui/alttemplates/home/index.html:100
-msgid "Email"
 msgstr ""
 
 #: openspending/ui/alttemplates/account/profile.html:42
@@ -1785,102 +1782,104 @@ msgstr ""
 #: openspending/ui/alttemplates/view/view.html:37
 msgid ""
 "Here you can rename your widget and/or update the description.\n"
-"    You can also change and modify the the widget itself but keep in\n"
-"    mind that others might be using and embedding the widget as it is\n"
-"    now on their sites. <strong>Changing the widget here will change\n"
-"    it everywhere.</strong> This might then create a discrepancy\n"
-"    between the widget and the context of a page it's embedded in."
+"    You can also modify the widget itself, but keep in mind that others might"
+" be \n"
+"    using and embedding the widget as it is now on their sites. \n"
+"    <strong>Changing the widget here will change it everywhere.</strong> \n"
+"    This might then create a discrepancy between the widget and the context "
+"of \n"
+"    a page in which it's embedded."
 msgstr ""
 
 #: openspending/ui/alttemplates/view/view.html:45
 msgid "Update widget"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:79
+#: openspending/ui/controllers/account.py:80
 msgid "Login name already exists, please choose a different one"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:85
-#: openspending/ui/controllers/account.py:162
+#: openspending/ui/controllers/account.py:86
+#: openspending/ui/controllers/account.py:163
 msgid "Passwords don't match!"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:119
+#: openspending/ui/controllers/account.py:120
 #, python-format
 msgid "Subscription to the following mailing lists probably failed: %s."
 msgstr ""
 
-#: openspending/ui/controllers/account.py:190
+#: openspending/ui/controllers/account.py:191
 msgid "Your settings have been updated."
 msgstr ""
 
-#: openspending/ui/controllers/account.py:241
+#: openspending/ui/controllers/account.py:242
 msgid "You are not authorized to view this page"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:277
+#: openspending/ui/controllers/account.py:278
 msgid "You are not authorized to see that page"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:298
+#: openspending/ui/controllers/account.py:299
 #, python-format
 msgid "Welcome back, %s!"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:301
+#: openspending/ui/controllers/account.py:302
 msgid "Incorrect user name or password!"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:306
+#: openspending/ui/controllers/account.py:307
 msgid "You have been logged out."
 msgstr ""
 
-#: openspending/ui/controllers/account.py:326
+#: openspending/ui/controllers/account.py:327
 msgid "Please enter an email address!"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:334
-#: openspending/ui/controllers/account.py:354
+#: openspending/ui/controllers/account.py:335
+#: openspending/ui/controllers/account.py:355
 msgid "No user is registered under this address!"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:341
+#: openspending/ui/controllers/account.py:342
 msgid ""
 "You've received an email with a link to reset your password. Please check "
 "your inbox."
 msgstr ""
 
-#: openspending/ui/controllers/account.py:350
-#: openspending/ui/controllers/account.py:357
+#: openspending/ui/controllers/account.py:351
+#: openspending/ui/controllers/account.py:358
 msgid "The reset link is invalid!"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:364
+#: openspending/ui/controllers/account.py:365
 msgid "Thanks! You have now been signed in - please change your password!"
 msgstr ""
 
-#: openspending/ui/controllers/badge.py:83
+#: openspending/ui/controllers/badge.py:84
 msgid "Uploading files not supported at the moment."
 msgstr ""
 
-#: openspending/ui/controllers/badge.py:111
+#: openspending/ui/controllers/badge.py:112
 msgid "Badge not found."
 msgstr ""
 
-#: openspending/ui/controllers/dataset.py:61
+#: openspending/ui/controllers/dataset.py:63
 #, python-format
 msgid "Parameter values not supported: %s"
 msgstr ""
 
-#: openspending/ui/controllers/dataset.py:148
+#: openspending/ui/controllers/dataset.py:150
 msgid "A dataset with this identifer already exists!"
 msgstr ""
 
-#: openspending/ui/controllers/dataset.py:250
+#: openspending/ui/controllers/dataset.py:252
 msgid "Recently Created Datasets"
 msgstr ""
 
-#: openspending/ui/controllers/dataset.py:252
+#: openspending/ui/controllers/dataset.py:254
 msgid "Recently created datasets in the OpenSpending Platform"
 msgstr ""
 
@@ -1899,69 +1898,69 @@ msgstr ""
 msgid "Sorry, there is no dimension named %r"
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:90
+#: openspending/ui/controllers/editor.py:92
 msgid "The dataset has been updated."
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:120
+#: openspending/ui/controllers/editor.py:122
 msgid "You cannot edit the dimensions model when data is loaded for the dataset."
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:138
+#: openspending/ui/controllers/editor.py:140
 msgid "The mapping data could not be decoded as JSON!"
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:163
+#: openspending/ui/controllers/editor.py:165
 msgid "The templates have been updated."
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:187
+#: openspending/ui/controllers/editor.py:189
 msgid "The views have been updated."
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:189
+#: openspending/ui/controllers/editor.py:191
 msgid "The views could not be decoded as JSON!"
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:211
+#: openspending/ui/controllers/editor.py:213
 msgid "User account cannot be found."
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:220
+#: openspending/ui/controllers/editor.py:222
 msgid "The team has been updated."
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:239
+#: openspending/ui/controllers/editor.py:241
 msgid "The dataset has been cleared."
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:247
+#: openspending/ui/controllers/editor.py:249
 msgid "This dataset is already public!"
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:259
+#: openspending/ui/controllers/editor.py:261
 #, python-format
 msgid "Congratulations, the dataset has been published. It is now available at: %s"
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:268
+#: openspending/ui/controllers/editor.py:270
 msgid "This dataset is already private!"
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:278
+#: openspending/ui/controllers/editor.py:280
 msgid "The dataset has been retracted. It is no longer visible to others."
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:290
+#: openspending/ui/controllers/editor.py:292
 msgid "The dataset has been deleted."
 msgstr ""
 
-#: openspending/ui/controllers/entry.py:101
+#: openspending/ui/controllers/entry.py:102
 #, python-format
 msgid "Sorry, there is no entry %r"
 msgstr ""
 
-#: openspending/ui/controllers/entry.py:141
+#: openspending/ui/controllers/entry.py:142
 msgid "Unable to adjust for inflation"
 msgstr ""
 
@@ -1969,52 +1968,52 @@ msgstr ""
 msgid "Sent ping!"
 msgstr ""
 
-#: openspending/ui/controllers/run.py:21 openspending/ui/controllers/source.py:57
+#: openspending/ui/controllers/run.py:24 openspending/ui/controllers/source.py:59
 #, python-format
 msgid "There is no source '%s'"
 msgstr ""
 
-#: openspending/ui/controllers/run.py:24
+#: openspending/ui/controllers/run.py:27
 #, python-format
 msgid "There is no run '%s'"
 msgstr ""
 
-#: openspending/ui/controllers/source.py:41
+#: openspending/ui/controllers/source.py:43
 msgid "The source has been created."
 msgstr ""
 
-#: openspending/ui/controllers/source.py:79
+#: openspending/ui/controllers/source.py:81
 msgid "Already running!"
 msgstr ""
 
-#: openspending/ui/controllers/source.py:86
+#: openspending/ui/controllers/source.py:88
 msgid "Now loading..."
 msgstr ""
 
-#: openspending/ui/controllers/view.py:36
+#: openspending/ui/controllers/view.py:37
 #, python-format
 msgid "Invalid widget type: %r"
 msgstr ""
 
-#: openspending/ui/controllers/view.py:67
+#: openspending/ui/controllers/view.py:68
 #, python-format
 msgid "Sorry, there is no view %r"
 msgstr ""
 
-#: openspending/ui/controllers/view.py:96
+#: openspending/ui/controllers/view.py:97
 msgid "You are not authorized to delete this view."
 msgstr ""
 
-#: openspending/ui/controllers/view.py:97
+#: openspending/ui/controllers/view.py:98
 #, python-format
 msgid "'%s' has been deleted."
 msgstr ""
 
-#: openspending/ui/controllers/view.py:167
+#: openspending/ui/controllers/view.py:168
 msgid "No widget type has been specified."
 msgstr ""
 
-#: openspending/ui/lib/base.py:130
+#: openspending/ui/lib/base.py:131
 #, python-format
 msgid "Sorry, there is no dataset named %r"
 msgstr ""

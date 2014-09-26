@@ -1,7 +1,8 @@
-# Translations template for openspending.
+# Nepali translations for openspending.
 # Copyright (C) 2014 ORGANIZATION
-# This file is distributed under the same license as the openspending project.
-# 
+# This file is distributed under the same license as the openspending
+# project.
+#
 # Translators:
 # kshitizkhanal7 <khanal1990@gmail.com>, 2013
 # manishdangol <dangol.manish@yahoo.com>, 2013
@@ -9,18 +10,18 @@
 # rajansilwal <rajansilwal20@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenSpending\n"
+"Project-Id-Version:  OpenSpending\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-04-03 15:36+0000\n"
+"POT-Creation-Date: 2014-09-26 06:39+0000\n"
 "PO-Revision-Date: 2014-04-03 15:38+0000\n"
 "Last-Translator: tryggvib <tryggvib@fsfi.is>\n"
-"Language-Team: Nepali (http://www.transifex.com/projects/p/openspending/language/ne/)\n"
+"Language-Team: Nepali "
+"(http://www.transifex.com/projects/p/openspending/language/ne/)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
-"Language: ne\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: openspending/lib/mailer.py:20
 #, python-format
@@ -44,7 +45,13 @@ msgid ""
 "Please click the following link to confirm this request:\n"
 "\n"
 "   %(reset_link)s\n"
-msgstr "तपाईं %(site_title)s को समायोजन सबै नष्ट गर्न आफ्नो पासवर्ड अनुरोध गर्दै हुनुहुन्छ।\n\nयो अनुरोध पुष्टि गर्न निम्न लिंक मा क्लिक गर्नुहोस्:\n\n%(reset_link)s\n"
+msgstr ""
+"तपाईं %(site_title)s को समायोजन सबै नष्ट गर्न आफ्नो पासवर्ड अनुरोध गर्दै "
+"हुनुहुन्छ।\n"
+"\n"
+"यो अनुरोध पुष्टि गर्न निम्न लिंक मा क्लिक गर्नुहोस्:\n"
+"\n"
+"%(reset_link)s\n"
 
 #: openspending/lib/mailer.py:82
 #: openspending/ui/alttemplates/account/trigger_reset.html:6
@@ -56,8 +63,7 @@ msgid "Part of unique key"
 msgstr "अद्वितीय कुञ्जीको भाग"
 
 #: openspending/ui/alttemplates/base.html:11
-msgid ""
-"We're enabling anyone to explore, visualize and track government spending."
+msgid "We're enabling anyone to explore, visualize and track government spending."
 msgstr "हामी, अन्वेषण कल्पना र सरकारी खर्च ट्रयाक सबैलाई उपलब्ध गराउदैछौ।"
 
 #: openspending/ui/alttemplates/base.html:15
@@ -143,7 +149,9 @@ msgstr "अरु पत्ता लगाउनुहोस्"
 msgid ""
 "This is an <a href=\"http://okfn.org\">Open Knowledge Foundation</a>\n"
 "            project"
-msgstr "यो एक <a href=\"http://okfn.org\"> ओपन ज्ञान फाउण्डेशन </ a>\nपरियोजना"
+msgstr ""
+"यो एक <a href=\"http://okfn.org\"> ओपन ज्ञान फाउण्डेशन </ a>\n"
+"परियोजना"
 
 #: openspending/ui/alttemplates/base.html:139
 msgid "API"
@@ -156,11 +164,19 @@ msgstr "गोपनीयता"
 #: openspending/ui/alttemplates/base.html:142
 msgid ""
 "All <a href=\"http://www.gnu.org/licenses/agpl.html\">code</a>,\n"
-"          <a href=\"http://creativecommons.org/licenses/by/3.0/\">content</a>\n"
-"          and <a href=\"http://opendatacommons.org/licenses/odbl/\">data</a> is\n"
+"          <a "
+"href=\"http://creativecommons.org/licenses/by/3.0/\">content</a>\n"
+"          and <a "
+"href=\"http://opendatacommons.org/licenses/odbl/\">data</a> is\n"
 "          openly licensed in accordance with the\n"
 "          <a href=\"http://opendefinition.org/\">open definition</a>"
-msgstr "सबै <a href=\"http://www.gnu.org/licenses/agpl.html\"> कोड </ a>,\n<a href=\"http://creativecommons.org/licenses/by/3.0/\"> सामाग्री </ a> \nर <a href=\"http://opendatacommons.org/licenses/odbl/\"> डेटा </ a> छ \nखुलेआम अनुसार लाइसेन्स\n<a href=\"http://opendefinition.org/\"> खुला परिभाषा </ a>\nखुलेआम अनुसार लाइसेन्स"
+msgstr ""
+"सबै <a href=\"http://www.gnu.org/licenses/agpl.html\"> कोड </ a>,\n"
+"<a href=\"http://creativecommons.org/licenses/by/3.0/\"> सामाग्री </ a> \n"
+"र <a href=\"http://opendatacommons.org/licenses/odbl/\"> डेटा </ a> छ \n"
+"खुलेआम अनुसार लाइसेन्स\n"
+"<a href=\"http://opendefinition.org/\"> खुला परिभाषा </ a>\n"
+"खुलेआम अनुसार लाइसेन्स"
 
 #: openspending/ui/alttemplates/account/login.html:6
 msgid "Sign in to OpenSpending"
@@ -197,9 +213,12 @@ msgid "Fullname"
 msgstr "पूरा नाम"
 
 #: openspending/ui/alttemplates/account/login.html:49
+#: openspending/ui/alttemplates/account/profile.html:22
 #: openspending/ui/alttemplates/account/settings.html:18
 #: openspending/ui/alttemplates/account/trigger_reset.html:19
-msgid "E-Mail"
+#: openspending/ui/alttemplates/home/index.html:93
+#: openspending/ui/alttemplates/home/index.html:100
+msgid "Email"
 msgstr "इमेल"
 
 #: openspending/ui/alttemplates/account/login.html:53
@@ -213,9 +232,14 @@ msgstr "पासवर्ड (पुनरावृत्ति)"
 
 #: openspending/ui/alttemplates/account/login.html:73
 msgid ""
-"I agree to the <a href=\"http://okfn.org/terms-of-use/\">Terms of Use</a>\n"
-"              and <a href=\"http://okfn.org/privacy-policy/\">Privacy Policy</a>."
-msgstr "मलाई मन्जुर छ कि<a href=\"http://okfn.org/terms-of-use/\">प्रयोग गर्न शर्तहरु </a>\nर <a href=\"http://okfn.org/privacy-policy/\"> गोपनीयता नीति </ a>।"
+"I agree to the <a href=\"http://okfn.org/terms-of-use/\">Terms of Use</a>"
+"\n"
+"              and <a href=\"http://okfn.org/privacy-policy/\">Privacy "
+"Policy</a>."
+msgstr ""
+"मलाई मन्जुर छ कि<a href=\"http://okfn.org/terms-of-use/\">प्रयोग गर्न "
+"शर्तहरु </a>\n"
+"र <a href=\"http://okfn.org/privacy-policy/\"> गोपनीयता नीति </ a>।"
 
 #: openspending/ui/alttemplates/account/login.html:79
 msgid "Add me to the OpenSpending community mailing list"
@@ -245,12 +269,6 @@ msgstr "नाम"
 #: openspending/ui/alttemplates/account/profile.html:19
 msgid "Username"
 msgstr "प्रयोगकर्ता नाम"
-
-#: openspending/ui/alttemplates/account/profile.html:22
-#: openspending/ui/alttemplates/home/index.html:93
-#: openspending/ui/alttemplates/home/index.html:100
-msgid "Email"
-msgstr "इमेल"
 
 #: openspending/ui/alttemplates/account/profile.html:42
 msgid "It looks like you haven't uploaded any datasets."
@@ -303,8 +321,7 @@ msgid "Script Location"
 msgstr "स्क्रिप्ट स्थान"
 
 #: openspending/ui/alttemplates/account/settings.html:59
-msgid ""
-"Set a different location for JavaScript imports to develop new widgets."
+msgid "Set a different location for JavaScript imports to develop new widgets."
 msgstr "विभिन्न स्थानबाट जावास्क्रिप्ट आयात गरि नयाँ विजेटहरु विकास गर्नुहोस् ।"
 
 #: openspending/ui/alttemplates/account/settings.html:64
@@ -322,7 +339,9 @@ msgid ""
 "If you have forgotten the password for your account, you can\n"
 "      request an email with a link that will allow you to reset your\n"
 "      account password."
-msgstr "तपाई आफ्नो खाताको लागि पासवर्ड भुल्नुभए, तपाई एउटा नयाँ इमेल लिंक सहित जसले तपाईलाई तपाईको पासवर्ड नष्ट गर्न अनुमति दिन्छ ।"
+msgstr ""
+"तपाई आफ्नो खाताको लागि पासवर्ड भुल्नुभए, तपाई एउटा नयाँ इमेल लिंक सहित "
+"जसले तपाईलाई तपाईको पासवर्ड नष्ट गर्न अनुमति दिन्छ ।"
 
 #: openspending/ui/alttemplates/account/trigger_reset.html:16
 msgid "Please enter the email address you used to register your account"
@@ -364,10 +383,15 @@ msgid ""
 "These badges can be awarded to specific datasets by administrators of "
 "OpenSpending. The badges indicate that an official, either from <a "
 "href=\"http://okfn.org\" title=\"Open Knowledge Foundation\">The Open "
-"Knowledge Foundation</a> (OKF) or from another entity approved by the OKF, "
-"has carefully examined the dataset and decided to award it that particular "
-"badge."
-msgstr "यी बैजहरु ओपनस्पेन्डिङको प्रशासकद्धारा विशिष्ट डाटासेटलाई प्रदान गर्न सकिन्छ ।यो बैजहरु सङ्केत एक अधिकारी, या देखि <a href=\"http://okfn.org\" title=\"Open Knowledge Foundation\">खुला ज्ञान स्थापना</a>(ओकेएफ) वा खुला ज्ञान स्थापनाद्धारा अनुमोदित कुनै अन्य संस्था देखि, डाटासेट राम्रो सँग जाँच गरेर विशेष बैच पुरस्कार दिने निर्णय ।"
+"Knowledge Foundation</a> (OKF) or from another entity approved by the "
+"OKF, has carefully examined the dataset and decided to award it that "
+"particular badge."
+msgstr ""
+"यी बैजहरु ओपनस्पेन्डिङको प्रशासकद्धारा विशिष्ट डाटासेटलाई प्रदान गर्न "
+"सकिन्छ ।यो बैजहरु सङ्केत एक अधिकारी, या देखि <a href=\"http://okfn.org\" "
+"title=\"Open Knowledge Foundation\">खुला ज्ञान स्थापना</a>(ओकेएफ) वा खुला"
+" ज्ञान स्थापनाद्धारा अनुमोदित कुनै अन्य संस्था देखि, डाटासेट राम्रो सँग "
+"जाँच गरेर विशेष बैच पुरस्कार दिने निर्णय ।"
 
 #: openspending/ui/alttemplates/badge/index.html:32
 msgid "Create a new badge"
@@ -377,15 +401,16 @@ msgstr "एउटा नयाँ बैज सिर्जना"
 msgid ""
 "Keep in mind that badges <strong>lose their value</strong> if there\n"
 "\t  are <strong>too many</strong> of them."
-msgstr "बैज ध्यान राख्नुहोस कि <strong>आफ्नो मूल्य गुमाए</strong>त्यहाँ भने \nती </ strong> धेरै <strong>छन्."
+msgstr ""
+"बैज ध्यान राख्नुहोस कि <strong>आफ्नो मूल्य गुमाए</strong>त्यहाँ भने \n"
+"ती </ strong> धेरै <strong>छन्."
 
 #: openspending/ui/alttemplates/badge/index.html:40
 msgid "e.g. 'Cleaned by Shakespeare's typewriter crew'"
 msgstr "जस्तै 'शेक्सपियरका टाईपराईटर चालक दल द्वारा सफा गरियो'"
 
 #: openspending/ui/alttemplates/badge/index.html:43
-msgid ""
-"e.g. 'Awarded to datasets cleaned by a team of highly skilled monkeys.'"
+msgid "e.g. 'Awarded to datasets cleaned by a team of highly skilled monkeys.'"
 msgstr "जस्तै 'अत्यधिक कुशल एउटा टीम साफ डेटासेट सम्मानित।'"
 
 #: openspending/ui/alttemplates/badge/index.html:45
@@ -480,7 +505,9 @@ msgstr "स्रोतहरु"
 msgid ""
 "This is a listing of all source data that was registered\n"
 "              for this dataset."
-msgstr "यो सबै सुची स्रोत डाटा हो जुन डाटासेटको लागि \nदर्ता भएको थियो ।"
+msgstr ""
+"यो सबै सुची स्रोत डाटा हो जुन डाटासेटको लागि \n"
+"दर्ता भएको थियो ।"
 
 #: openspending/ui/alttemplates/dataset/about.html:55
 #: openspending/ui/alttemplates/editor/_nav.html:32
@@ -492,7 +519,10 @@ msgid ""
 "These people are the managers of the dataset. They can\n"
 "              make modifications to its schema and are responsible\n"
 "              to make sure the data is accurate."
-msgstr "यी मानिसहरू डाटासेटको प्रबंधहरु हो।यिनीहरुले \nइस्कीमा संशोधन र डाटा सहि छ \nभनेर हर्न जिम्मेवार छन् । "
+msgstr ""
+"यी मानिसहरू डाटासेटको प्रबंधहरु हो।यिनीहरुले \n"
+"इस्कीमा संशोधन र डाटा सहि छ \n"
+"भनेर हर्न जिम्मेवार छन् । "
 
 #: openspending/ui/alttemplates/dataset/about.html:76
 msgid "This dataset has been awarded"
@@ -509,8 +539,12 @@ msgstr "ब्याज"
 #: openspending/ui/alttemplates/dataset/about.html:78
 msgid ""
 "Badges can be given by OpenSpending administrators on behalf of\n"
-"\t      entities approved by <a href=\"http://okfn.org/\" title=\"OKF\">the Open Knowledge Foundation</a>."
-msgstr "बैजहरु ओपनस्पेन्डिङ प्रशासकबाट दिन सकिन्छ तर्फबाट\nअनुमोदन संस्थाहरु<a href=\"http://okfn.org/\" title=\"OKF\">खुल्ला ज्ञान फाउण्डेशन</a>"
+"\t      entities approved by <a href=\"http://okfn.org/\" "
+"title=\"OKF\">the Open Knowledge Foundation</a>."
+msgstr ""
+"बैजहरु ओपनस्पेन्डिङ प्रशासकबाट दिन सकिन्छ तर्फबाट\n"
+"अनुमोदन संस्थाहरु<a href=\"http://okfn.org/\" title=\"OKF\">खुल्ला ज्ञान "
+"फाउण्डेशन</a>"
 
 #: openspending/ui/alttemplates/dataset/about.html:87
 msgid "Give badge"
@@ -528,7 +562,9 @@ msgstr "परिणाम"
 msgid ""
 "Measures are the numeric properties of each entry in this\n"
 "          dataset."
-msgstr "माप  यस मा प्रत्येक प्रविष्टि को संख्यात्मक गुण हो\nडाटासेट।"
+msgstr ""
+"माप  यस मा प्रत्येक प्रविष्टि को संख्यात्मक गुण हो\n"
+"डाटासेट।"
 
 #: openspending/ui/alttemplates/dataset/about.html:124
 #: openspending/ui/alttemplates/dimension/index.html:9
@@ -539,7 +575,9 @@ msgstr "आयामहरु"
 msgid ""
 "Dimensions are different aspects of the dataset, such as the\n"
 "          spender, recipient or classifications that apply."
-msgstr "आयामहरु जस्तै स्पेन्डर, प्राप्तकर्ता वा लागू वर्गीकरण रूपमा डाटासेट विभिन्न पक्षहरू, हो।"
+msgstr ""
+"आयामहरु जस्तै स्पेन्डर, प्राप्तकर्ता वा लागू वर्गीकरण रूपमा डाटासेट "
+"विभिन्न पक्षहरू, हो।"
 
 #: openspending/ui/alttemplates/dataset/dropdb.html:3
 msgid "Database erased"
@@ -547,9 +585,11 @@ msgstr "तथ्याङ्क मेटियो"
 
 #: openspending/ui/alttemplates/dataset/dropdb.html:11
 msgid ""
-"The database should now have been erased. You'll even have to create a new "
-"user to log in again."
-msgstr "तपाईको डाटाबेस मेटिएको हुनु पर्छ । तपाईं फेरि लगइन गर्न एउटा नयाँ प्रयोगकर्ता सिर्जना गर्नु पर्नेछ।"
+"The database should now have been erased. You'll even have to create a "
+"new user to log in again."
+msgstr ""
+"तपाईको डाटाबेस मेटिएको हुनु पर्छ । तपाईं फेरि लगइन गर्न एउटा नयाँ "
+"प्रयोगकर्ता सिर्जना गर्नु पर्नेछ।"
 
 #: openspending/ui/alttemplates/dataset/index.html:3
 msgid "All datasets"
@@ -576,19 +616,32 @@ msgid ""
 "If you have a spending or budget dataset that \n"
 "          you can contribute, please give some basic information \n"
 "          here."
-msgstr "तपाईसँग खर्च वा बजेट डाटासेट छ भने\nतपाई योगदान गर्न सक्नुहुन्छ, केहि आधारभूत जानकारी दिनुहोस्\nयहाँ। "
+msgstr ""
+"तपाईसँग खर्च वा बजेट डाटासेट छ भने\n"
+"तपाई योगदान गर्न सक्नुहुन्छ, केहि आधारभूत जानकारी दिनुहोस्\n"
+"यहाँ। "
 
 #: openspending/ui/alttemplates/dataset/new.html:28
 msgid ""
 "In the next steps, you'll\n"
 "          <ul>\n"
 "            <li>add references to <strong>data sources</strong>,</li>\n"
-"            <li>create a <strong>data model</strong> to describe the format,</li>\n"
-"            <li><strong>test</strong> the correctness of your model,</li>\n"
+"            <li>create a <strong>data model</strong> to describe the "
+"format,</li>\n"
+"            <li><strong>test</strong> the correctness of your model,</li>"
+"\n"
 "            <li><strong>import</strong> the data,</li>\n"
 "            <li>and generate <strong>visualized views</strong>.</li>\n"
 "          </ul>"
-msgstr "अर्को चरणमा, तपाईं\n<ul>\n<li>उल्लेख जोड <strong>डाटा स्रोतहरु</strong>,</li>\n<li>एउटा बनाउन<strong>डाटा मोडेल</strong>स्वरूप वर्णन गर्न</li>\n<li><strong>परीक्षण</strong>आफ्नो मोडेल को शुद्धता,</li>\n<li><strong>आयात</strong>डाटा,</li>\n<li>र उत्पन्न <strong>कल्पना विचार</strong>.</li>\n</u>"
+msgstr ""
+"अर्को चरणमा, तपाईं\n"
+"<ul>\n"
+"<li>उल्लेख जोड <strong>डाटा स्रोतहरु</strong>,</li>\n"
+"<li>एउटा बनाउन<strong>डाटा मोडेल</strong>स्वरूप वर्णन गर्न</li>\n"
+"<li><strong>परीक्षण</strong>आफ्नो मोडेल को शुद्धता,</li>\n"
+"<li><strong>आयात</strong>डाटा,</li>\n"
+"<li>र उत्पन्न <strong>कल्पना विचार</strong>.</li>\n"
+"</u>"
 
 #: openspending/ui/alttemplates/dataset/new.html:43
 #: openspending/ui/alttemplates/view/new.html:67
@@ -612,7 +665,10 @@ msgid ""
 "The identifier will become part of the\n"
 "                  dataset URL and cannot be changed later. It may only \n"
 "                  contain alphanumeric characters, dashes and underscores."
-msgstr "पहिचायक डाटासेट यूआरएलमा भाग हुनेछ \nर पछि परिवर्तन गर्न सकिँदैन। यो मात्र \nअल्फान्युमेरिक वर्ण, डैश र अंडरस्कोर समावेश गर्न सक्छ।"
+msgstr ""
+"पहिचायक डाटासेट यूआरएलमा भाग हुनेछ \n"
+"र पछि परिवर्तन गर्न सकिँदैन। यो मात्र \n"
+"अल्फान्युमेरिक वर्ण, डैश र अंडरस्कोर समावेश गर्न सक्छ।"
 
 #: openspending/ui/alttemplates/dataset/new.html:58
 msgid "Category"
@@ -645,9 +701,17 @@ msgid ""
 "        common tools for <strong>analysis, visualization and\n"
 "        comparison</strong>. OpenSpending is an open platform that\n"
 "        aims to facilitate the presentation of financial information so \n"
-"        anyone - whether data geek or concerned citizen - can contribute \n"
+"        anyone - whether data geek or concerned citizen - can contribute"
+" \n"
 "        their local city budget or spending reports."
-msgstr "हामी जम्मा गर्न प्रयास गर्दै <strong>संसारको खर्च\nजानकारी</strong>एक साधारण डाटावेसमा छ कि हामी प्रदान गर्न सक्छौ\nको लागि साधारण उपकरण<strong>विश्लेषण, दृश्य र\nतुलना </strong>. ओपनस्पेन्डिङ एउटा खुला मंच हो \nजस्ते वित्तिय जानकारीलाई सहजीकरण गर्दछ\nकोहीपनि-डाटा गीक अथवा चिन्तित नागरिक-योगदान गर्न \nआफ्नो स्थानीय शहर बजेट वा खर्च रिपोर्ट।"
+msgstr ""
+"हामी जम्मा गर्न प्रयास गर्दै <strong>संसारको खर्च\n"
+"जानकारी</strong>एक साधारण डाटावेसमा छ कि हामी प्रदान गर्न सक्छौ\n"
+"को लागि साधारण उपकरण<strong>विश्लेषण, दृश्य र\n"
+"तुलना </strong>. ओपनस्पेन्डिङ एउटा खुला मंच हो \n"
+"जस्ते वित्तिय जानकारीलाई सहजीकरण गर्दछ\n"
+"कोहीपनि-डाटा गीक अथवा चिन्तित नागरिक-योगदान गर्न \n"
+"आफ्नो स्थानीय शहर बजेट वा खर्च रिपोर्ट।"
 
 #: openspending/ui/alttemplates/dataset/new_cta.html:20
 msgid "Why should you contribute?"
@@ -667,7 +731,9 @@ msgstr "डेटा लोड र मान्यता सुविधा।"
 msgid ""
 "Common visualization types (treemaps, charts, and the bubble\n"
 "          tree)."
-msgstr "साधारण दृश्य प्रकार (रुखचित्र, चार्ट, र बबल\nरूख)।"
+msgstr ""
+"साधारण दृश्य प्रकार (रुखचित्र, चार्ट, र बबल\n"
+"रूख)।"
 
 #: openspending/ui/alttemplates/dataset/new_cta.html:30
 msgid "Full-text search for all entries."
@@ -677,7 +743,9 @@ msgstr "सबै प्रतियोगिताका लागि पूर
 msgid ""
 "Means to track provenance and provide access to the raw\n"
 "          data."
-msgstr "प्रोभिनान्स ट्रयाक र पहुँचबाट प्रदान गर्ने अर्थ कच्चा \nडाटा ।"
+msgstr ""
+"प्रोभिनान्स ट्रयाक र पहुँचबाट प्रदान गर्ने अर्थ कच्चा \n"
+"डाटा ।"
 
 #: openspending/ui/alttemplates/dataset/new_cta.html:36
 msgid "Sign up to contribute"
@@ -819,15 +887,19 @@ msgstr "नयाँ परिमाण थप्नुहोस"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:139
 msgid ""
-"The name you choose should only contain letters, numbers and dashes (i.e., "
-"no spaces)"
-msgstr "तपाईले चयन गर्नुभएको नाममा अक्षर, संख्या र डैश मात्र समावेश गर्नुपर्छ (अर्थात्ः खाली ठाँउ)"
+"The name you choose should only contain letters, numbers and dashes "
+"(i.e., no spaces)"
+msgstr ""
+"तपाईले चयन गर्नुभएको नाममा अक्षर, संख्या र डैश मात्र समावेश गर्नुपर्छ "
+"(अर्थात्ः खाली ठाँउ)"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:142
 msgid ""
 "Where the dimension represents the ultimate source or destination of the "
 "funds, call it <code>from</code> or <code>to</code>"
-msgstr "जहाँ परिमाण प्रतिनिधित्व परम स्रोत वा धनराशि गन्तव्य, यसलाई कल<code>बाट</code>वा<code>गर्न</code>"
+msgstr ""
+"जहाँ परिमाण प्रतिनिधित्व परम स्रोत वा धनराशि गन्तव्य, यसलाई "
+"कल<code>बाट</code>वा<code>गर्न</code>"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:147
 #: openspending/ui/alttemplates/editor/dimensions.html:417
@@ -841,9 +913,11 @@ msgstr "परिमाण"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:153
 msgid ""
-"A defined set, like suppliers or classifications, with multiple attributes "
-"(e.g. supplier name and VAT number)."
-msgstr "धेरै विशेषताहरु संग आपूर्तिकर्ता या वर्गीकरण जस्तै एक परिभाषित सेट (जस्तै आपूर्तिकर्ता नाम र भ्याट नम्बर)।"
+"A defined set, like suppliers or classifications, with multiple "
+"attributes (e.g. supplier name and VAT number)."
+msgstr ""
+"धेरै विशेषताहरु संग आपूर्तिकर्ता या वर्गीकरण जस्तै एक परिभाषित सेट (जस्तै"
+" आपूर्तिकर्ता नाम र भ्याट नम्बर)।"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:158
 #: openspending/ui/alttemplates/run/view.html:52
@@ -901,7 +975,9 @@ msgstr "ड्यासबोर्ड भ्रमण"
 msgid ""
 "The dimensions mapping could not be saved as it \n"
 "            contains some errors"
-msgstr "यहाँ केहि त्रुटिहरु भएकोले\nआयामको मानचित्रण सुरक्षित गर्न सकिएन  "
+msgstr ""
+"यहाँ केहि त्रुटिहरु भएकोले\n"
+"आयामको मानचित्रण सुरक्षित गर्न सकिएन  "
 
 #: openspending/ui/alttemplates/editor/dimensions.html:230
 msgid "Dimension mapping"
@@ -916,7 +992,14 @@ msgid ""
 "                    can be any property of a line item or \n"
 "                    transaction that should be presented\n"
 "                    within OpenSpending."
-msgstr "आफ्नो डाटासेटको लागि एउटा मोडेल बनाउन,\nआवश्यक स्तम्भहरू अनुवाद गर्न\nडाटा फाइल \"आयाम\" गर्न, लजिकल\n डाटासेट को विभाजन । एक परिमाण\nएक नयाँ वस्तुको कुनै पनि सम्पत्ति हुन सक्छ वा\nप्रस्तुत हुनुपर्छ भन्ने कारोबार\nओपनस्पेन्डिङ सँग ।"
+msgstr ""
+"आफ्नो डाटासेटको लागि एउटा मोडेल बनाउन,\n"
+"आवश्यक स्तम्भहरू अनुवाद गर्न\n"
+"डाटा फाइल \"आयाम\" गर्न, लजिकल\n"
+" डाटासेट को विभाजन । एक परिमाण\n"
+"एक नयाँ वस्तुको कुनै पनि सम्पत्ति हुन सक्छ वा\n"
+"प्रस्तुत हुनुपर्छ भन्ने कारोबार\n"
+"ओपनस्पेन्डिङ सँग ।"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:241
 msgid ""
@@ -928,7 +1011,15 @@ msgid ""
 "                    recipient of a specific transaction\n"
 "                    &mdash; both of those must be\n"
 "                    dimensions if they exist."
-msgstr "चार कोर आयामहरू छन्,<code>राशि</code>,\n<code>समय</code>-जो हो\nचिन्ह - साथै\n<code>यहाँ</code> को खर्चको लागि\nर<code>तिर</code> को लागि\nएक विशिष्ट लेनदेन प्राप्तकर्ता\n- ती दुवै हुनुपर्छ\nआयाम यदि छ भने ।"
+msgstr ""
+"चार कोर आयामहरू छन्,<code>राशि</code>,\n"
+"<code>समय</code>-जो हो\n"
+"चिन्ह - साथै\n"
+"<code>यहाँ</code> को खर्चको लागि\n"
+"र<code>तिर</code> को लागि\n"
+"एक विशिष्ट लेनदेन प्राप्तकर्ता\n"
+"- ती दुवै हुनुपर्छ\n"
+"आयाम यदि छ भने ।"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:251
 msgid ""
@@ -938,7 +1029,13 @@ msgid ""
 "                    descriptions, transaction IDs and any\n"
 "                    other details present in the source\n"
 "                    data."
-msgstr "त्यो भन्दा, तपार्इ आफ्नो थप्न सक्नुहुन्छ\nपक्षहरू वर्णन आयामहरुको यस्तो\nवर्गीकरण योजनाको रूप,\nवर्णन, कारोबार आईडी र कुनै पनि\nउपस्थित स्रोत अन्य विवरणहरू\nडाटा ।"
+msgstr ""
+"त्यो भन्दा, तपार्इ आफ्नो थप्न सक्नुहुन्छ\n"
+"पक्षहरू वर्णन आयामहरुको यस्तो\n"
+"वर्गीकरण योजनाको रूप,\n"
+"वर्णन, कारोबार आईडी र कुनै पनि\n"
+"उपस्थित स्रोत अन्य विवरणहरू\n"
+"डाटा ।"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:258
 msgid "What do I do here?"
@@ -949,7 +1046,10 @@ msgid ""
 "First off, make sure to set up the\n"
 "                    model to conform to these basic\n"
 "                    requirements:"
-msgstr "सबै भन्दा पहिले, स्थापित सुनिश्चित गर्नु्\nयी आधारभूत चल्न मोडेल\nआवश्यकताहरुः"
+msgstr ""
+"सबै भन्दा पहिले, स्थापित सुनिश्चित गर्नु्\n"
+"यी आधारभूत चल्न मोडेल\n"
+"आवश्यकताहरुः"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:265
 msgid ""
@@ -958,7 +1058,12 @@ msgid ""
 "                      <code>time</code> to represent the most \n"
 "                      representative temporal\n"
 "                      dimension."
-msgstr "सिर्जना<code>राशि</code> मुख्य सँग\nवित्तीय डाटासेट को उपाय र\n<code>समय</code>सबैभन्दा प्रतिनिधित्व गर्न\nप्रतिनिधि अस्थायी\nपरिमाण"
+msgstr ""
+"सिर्जना<code>राशि</code> मुख्य सँग\n"
+"वित्तीय डाटासेट को उपाय र\n"
+"<code>समय</code>सबैभन्दा प्रतिनिधित्व गर्न\n"
+"प्रतिनिधि अस्थायी\n"
+"परिमाण"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:270
 msgid ""
@@ -966,14 +1071,21 @@ msgid ""
 "                      contains the name of a department or \n"
 "                      body spending the funds, make sure to \n"
 "                      include a <code>from</code> dimension."
-msgstr "आफ्नो डेटा व्यवहार हो र यदि\nएउटा विभाग को नाम छ र\nधनराशि खर्च निकाय, पक्का बनाउन\nएउटा परिमाण<code>देखि</code> ।"
+msgstr ""
+"आफ्नो डेटा व्यवहार हो र यदि\n"
+"एउटा विभाग को नाम छ र\n"
+"धनराशि खर्च निकाय, पक्का बनाउन\n"
+"एउटा परिमाण<code>देखि</code> ।"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:274
 msgid ""
 "If the data mentions a recipient,\n"
 "                      such as a supplier, set\n"
 "                      <code>to</code> as another dimension."
-msgstr "यदि डाटाले प्राप्तकर्ता उल्लेखित,\nयस्तो आपूर्तिकर्ता, सेट\n<code>लागि</code>अर्को पक्ष हो।"
+msgstr ""
+"यदि डाटाले प्राप्तकर्ता उल्लेखित,\n"
+"यस्तो आपूर्तिकर्ता, सेट\n"
+"<code>लागि</code>अर्को पक्ष हो।"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:277
 msgid ""
@@ -983,7 +1095,13 @@ msgid ""
 "                      entries in the dataset. This can\n"
 "                      later be used for updating the\n"
 "                      dataset."
-msgstr "एक अद्वितीय कुञ्जी संयोजन सेट राख्ने यदि\nत्यस भित्रका मानहरू\nसंयोजन सबै बीच अलग छन्\nडाटासेट प्रविष्टिहरू । यो गर्न सक्छन्\nपछि अद्यावधिक गर्नको लागि प्रयोग गर्न \nडाटासेट"
+msgstr ""
+"एक अद्वितीय कुञ्जी संयोजन सेट राख्ने यदि\n"
+"त्यस भित्रका मानहरू\n"
+"संयोजन सबै बीच अलग छन्\n"
+"डाटासेट प्रविष्टिहरू । यो गर्न सक्छन्\n"
+"पछि अद्यावधिक गर्नको लागि प्रयोग गर्न \n"
+"डाटासेट"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:285
 msgid ""
@@ -995,7 +1113,15 @@ msgid ""
 "                    dimension, for example if each row \n"
 "                    mentions both a company's name and\n"
 "                    its VAT number."
-msgstr "यी आधारभूत कुराहरू गर्नुभएको पछि,\nपनि आयाम सिर्जना गर्न सुनिश्चित\nमा वर्तमान कुनै पनि अन्य पक्षहरू कवर\nस्रोत डाटा। तपाईं गर्न सक्छन् समूह\nएउटा एकल मा सम्बन्धित स्तम्भहरू\nपरिमाण, उदाहरणका लागि यदि प्रत्येक पंक्ति\nकम्पनीको नाम र दुवै उल्लेख\nत्यो भ्याट नम्बर।"
+msgstr ""
+"यी आधारभूत कुराहरू गर्नुभएको पछि,\n"
+"पनि आयाम सिर्जना गर्न सुनिश्चित\n"
+"मा वर्तमान कुनै पनि अन्य पक्षहरू कवर\n"
+"स्रोत डाटा। तपाईं गर्न सक्छन् समूह\n"
+"एउटा एकल मा सम्बन्धित स्तम्भहरू\n"
+"परिमाण, उदाहरणका लागि यदि प्रत्येक पंक्ति\n"
+"कम्पनीको नाम र दुवै उल्लेख\n"
+"त्यो भ्याट नम्बर।"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:304
 #: openspending/ui/alttemplates/editor/dimensions.html:382
@@ -1030,7 +1156,9 @@ msgstr "पूर्वनिर्धारित मान "
 msgid ""
 "A human-readable title for this\n"
 "                          dimension."
-msgstr "यस को लागि एउटा मानव पढ्नसक्ने शीर्षक\nपरिमाण।"
+msgstr ""
+"यस को लागि एउटा मानव पढ्नसक्ने शीर्षक\n"
+"परिमाण।"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:346
 msgid "Include in unique key"
@@ -1041,7 +1169,10 @@ msgid ""
 "Make this dimension part of the set of\n"
 "                          uniquely identifying values for each\n"
 "                          column."
-msgstr "को सेट को यो परिमाण अंश बनाउनुहोस्\nविशिष्ट प्रत्येक लागि मानहरू पहिचान\nस्तम्ब ।"
+msgstr ""
+"को सेट को यो परिमाण अंश बनाउनुहोस्\n"
+"विशिष्ट प्रत्येक लागि मानहरू पहिचान\n"
+"स्तम्ब ।"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:358
 #: openspending/ui/alttemplates/editor/dimensions.html:416
@@ -1061,7 +1192,9 @@ msgstr "पूर्वनिर्धारित मान "
 msgid ""
 "Empty cells will be padded with this\n"
 "                          value."
-msgstr "खाली कक्षहरू यस संग गद्देदार गरिनेछ \nमूल्य।"
+msgstr ""
+"खाली कक्षहरू यस संग गद्देदार गरिनेछ \n"
+"मूल्य।"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:379
 msgid "Data type"
@@ -1075,7 +1208,9 @@ msgstr "प्रविष्टि ब्राउजर मा पक्ष �
 msgid ""
 "Select a few dimensions which are useful\n"
 "                          to slice the dataset by."
-msgstr "केही आयाम छान्नुस जुन डाटासेट \nफालेमा उपयोगी छन् ।"
+msgstr ""
+"केही आयाम छान्नुस जुन डाटासेट \n"
+"फालेमा उपयोगी छन् ।"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:415
 msgid "Field"
@@ -1105,7 +1240,9 @@ msgstr "डाटा लोड गरिएको बेला आयाम स�
 msgid ""
 "In order to modify the dimensions model, you'll have to \n"
 "        delete all the data that is currently loaded from the database."
-msgstr "नाप मोडेल परिमार्जन गर्न, तपार्इले गर्नुपर्ने छ\nभर्खर लोड गरिएको सबै डाटाहबेसहरू मेट्ने ।"
+msgstr ""
+"नाप मोडेल परिमार्जन गर्न, तपार्इले गर्नुपर्ने छ\n"
+"भर्खर लोड गरिएको सबै डाटाहबेसहरू मेट्ने ।"
 
 #: openspending/ui/alttemplates/editor/dimensions_errors.html:20
 msgid "Go to dashboard"
@@ -1123,7 +1260,9 @@ msgstr "तपाईँले कम्तिमा एउटा डाटा �
 msgid ""
 "In order to create a dimensions model, at least on data source\n"
 "        needs to be available."
-msgstr "एक आयाम मोडेल सिर्जना गर्न, कम्तीमा डाटा स्रोत मा\nउपलब्ध हुनु आवश्यक छ।"
+msgstr ""
+"एक आयाम मोडेल सिर्जना गर्न, कम्तीमा डाटा स्रोत मा\n"
+"उपलब्ध हुनु आवश्यक छ।"
 
 #: openspending/ui/alttemplates/editor/index.html:16
 msgid "Congratulations, your dataset is now created."
@@ -1132,21 +1271,29 @@ msgstr "बधाई, तपाईंको डाटासेट अब सृ�
 #: openspending/ui/alttemplates/editor/index.html:17
 msgid ""
 "Next, you'll need to link to a source file that contains the data\n"
-"        (or a sample for testing if your dataset is very large!). The data\n"
+"        (or a sample for testing if your dataset is very large!). The "
+"data\n"
 "        must be in the CSV format."
-msgstr "अर्को, तपार्इले डाटा समावेश फाइल स्रोत सँग लिंक गर्न आवश्यक छ\n(वा परीक्षणका लागि नमूना आफ्नो डाटासेट धेरै ठूलो छ भने!) । डाटा\nसिएसवि ढाँचामा हुनुपर्छ ।"
+msgstr ""
+"अर्को, तपार्इले डाटा समावेश फाइल स्रोत सँग लिंक गर्न आवश्यक छ\n"
+"(वा परीक्षणका लागि नमूना आफ्नो डाटासेट धेरै ठूलो छ भने!) । डाटा\n"
+"सिएसवि ढाँचामा हुनुपर्छ ।"
 
 #: openspending/ui/alttemplates/editor/index.html:22
 msgid ""
 "Learn about <a href=\"#\">how to export CSV</a>\n"
 "          from various common applications."
-msgstr "बारेमा सिक्नुहोस्<a href=\"#\">सीएसवी निर्यात गर्न कसरी</a>\nविभिन्न साधारण देखि आवेदन।"
+msgstr ""
+"बारेमा सिक्नुहोस्<a href=\"#\">सीएसवी निर्यात गर्न कसरी</a>\n"
+"विभिन्न साधारण देखि आवेदन।"
 
 #: openspending/ui/alttemplates/editor/index.html:24
 msgid ""
 "Help on <a href=\"#\">common data wrangling tasks</a> needed to clean\n"
 "          source data."
-msgstr "सहयोग मा <a href=\"#\">साधारणा डाटा राङलीङ कार्य</a> सफा गर्न आवश्यक\nडाटा स्रोत ।"
+msgstr ""
+"सहयोग मा <a href=\"#\">साधारणा डाटा राङलीङ कार्य</a> सफा गर्न आवश्यक\n"
+"डाटा स्रोत ।"
 
 #: openspending/ui/alttemplates/editor/index.html:30
 #: openspending/ui/alttemplates/editor/index.html:64
@@ -1161,7 +1308,9 @@ msgstr "मलाई हेरौं ..."
 msgid ""
 "The data is now being checked to\n"
 "      see if it can be imported. This should not take very long."
-msgstr "डाटा अब जाँच भइरहेको छ\nआयात गर्न सक्छ भने देख्ने। यो धेरै लामो लिनु हुँदैन।"
+msgstr ""
+"डाटा अब जाँच भइरहेको छ\n"
+"आयात गर्न सक्छ भने देख्ने। यो धेरै लामो लिनु हुँदैन।"
 
 #: openspending/ui/alttemplates/editor/index.html:41
 msgid "Refresh"
@@ -1175,7 +1324,9 @@ msgstr "राम्रो सामान!"
 msgid ""
 "Your data is now ready. Next,\n"
 "      create a <strong>data model</strong> to structure the dataset."
-msgstr "तपाईंको डाटा अब तयार छ । अर्को,\nसिर्जना<strong>डाटा मोडेल</strong> डाटासेट संरचना गर्न ।"
+msgstr ""
+"तपाईंको डाटा अब तयार छ । अर्को,\n"
+"सिर्जना<strong>डाटा मोडेल</strong> डाटासेट संरचना गर्न ।"
 
 #: openspending/ui/alttemplates/editor/index.html:54
 msgid "Create a model"
@@ -1210,13 +1361,17 @@ msgstr "लोड डाटा मेट्नुहोस्"
 msgid ""
 "Delete all loaded data to fix \n"
 "        errors and re-edit the data dimensions."
-msgstr "ठीक गर्न सबै लोड डाटा मेट्नुहोस्\nत्रुटि र पुन: सम्पादन डाटा आयाम।"
+msgstr ""
+"ठीक गर्न सबै लोड डाटा मेट्नुहोस्\n"
+"त्रुटि र पुन: सम्पादन डाटा आयाम।"
 
 #: openspending/ui/alttemplates/editor/index.html:87
 msgid ""
 "You can remove the loaded data\n"
 "      at any time and start over."
-msgstr "तपाईं लोड डाटा हटाउन सक्नुहुन्छ\nकुनै पनि समयमा शुरू।"
+msgstr ""
+"तपाईं लोड डाटा हटाउन सक्नुहुन्छ\n"
+"कुनै पनि समयमा शुरू।"
 
 #: openspending/ui/alttemplates/editor/index.html:96
 #: openspending/ui/alttemplates/editor/index.html:101
@@ -1227,13 +1382,17 @@ msgstr "सार्वजनिक बनाउनुहोस्"
 msgid ""
 "After you've performed some QA,\n"
 "        let the world see this dataset."
-msgstr "तपाईंले केही क्यूए कार्यसम्पादन गरेपछि,\nसंसारले यस डाटासेट हेर्छन्।"
+msgstr ""
+"तपाईंले केही क्यूए कार्यसम्पादन गरेपछि,\n"
+"संसारले यस डाटासेट हेर्छन्।"
 
 #: openspending/ui/alttemplates/editor/index.html:102
 msgid ""
 "After you've performed some QA,\n"
 "      let the world see this dataset."
-msgstr "तपाईंले केही क्यूए कार्यसम्पादन गरेपछि,\nसंसारले यस डाटासेट हेर्छन्।"
+msgstr ""
+"तपाईंले केही क्यूए कार्यसम्पादन गरेपछि,\n"
+"संसारले यस डाटासेट हेर्छन्।"
 
 #: openspending/ui/alttemplates/editor/index.html:108
 msgid "Retract"
@@ -1243,7 +1402,9 @@ msgstr "फिर्ता लिनु"
 msgid ""
 "If you have noted serious quality\n"
 "        issues or legal issues, you can un-publish this dataset."
-msgstr "तपाईंले गम्भीर गुण टिप्पणी गर्नुभएको छ भने\nमुद्दा वा कानुनी सवालहरू, तपाईंले यस डाटासेट प्रकाशित नगरिए पनि हुन्छ।"
+msgstr ""
+"तपाईंले गम्भीर गुण टिप्पणी गर्नुभएको छ भने\n"
+"मुद्दा वा कानुनी सवालहरू, तपाईंले यस डाटासेट प्रकाशित नगरिए पनि हुन्छ।"
 
 #: openspending/ui/alttemplates/editor/index.html:116
 msgid "Delete entire dataset"
@@ -1265,7 +1426,9 @@ msgstr "सिर्जना"
 msgid ""
 "Here, you can select the users who will be authorized to \n"
 "    manage this dataset."
-msgstr "यहाँ, तपाईंले यहाँ को प्रयोगकर्ताहरू अधिकृत हुने चयन गर्न सक्नुहुन्छ\nयो डाटासेट व्यवस्थापन।"
+msgstr ""
+"यहाँ, तपाईंले यहाँ को प्रयोगकर्ताहरू अधिकृत हुने चयन गर्न सक्नुहुन्छ\n"
+"यो डाटासेट व्यवस्थापन।"
 
 #: openspending/ui/alttemplates/editor/team.html:84
 msgid "Current team"
@@ -1307,7 +1470,9 @@ msgstr "जस्तै"
 msgid ""
 "Transactional data is often more detailed than\n"
 "            information from budgets."
-msgstr "लेनदेन डेटा प्राय अधिक भन्दा  विस्तृत हुन्छ\nबजेट जानकारी।"
+msgstr ""
+"लेनदेन डेटा प्राय अधिक भन्दा  विस्तृत हुन्छ\n"
+"बजेट जानकारी।"
 
 #: openspending/ui/alttemplates/entry/search.html:26
 msgid "Transactions"
@@ -1321,7 +1486,9 @@ msgstr "सबै तथ्याङ्क"
 msgid ""
 "Type a search term to find government expenditure transactions\n"
 "            from across the globe."
-msgstr "सरकारी खर्च लेनदेन पाउन खोज शब्द टाइप\nसंसार भर देखि"
+msgstr ""
+"सरकारी खर्च लेनदेन पाउन खोज शब्द टाइप\n"
+"संसार भर देखि"
 
 #: openspending/ui/alttemplates/entry/view.html:35
 #, python-format
@@ -1346,7 +1513,9 @@ msgstr "मुद्रास्फीति लागि समायोजि�
 msgid ""
 "(from <span title=\"%(reference)s\">%(reference_year)s</span> \n"
 "             to <span title=\"%(target)s\">%(target_year)s</span>)"
-msgstr "(बाट <span title=\"%(reference)s\">%(reference_year)s</span>\nतिर <span title=\"%(target)s\">%(target_year)s</span>)"
+msgstr ""
+"(बाट <span title=\"%(reference)s\">%(reference_year)s</span>\n"
+"तिर <span title=\"%(target)s\">%(target_year)s</span>)"
 
 #: openspending/ui/alttemplates/entry/view.html:103
 #, python-format
@@ -1409,8 +1578,8 @@ msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:22
 msgid ""
-"By understanding how governments spend money <strong>in our name</strong> "
-"can we have a say in how that money will affect our own lives."
+"By understanding how governments spend money <strong>in our name</strong>"
+" can we have a say in how that money will affect our own lives."
 msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:22
@@ -1423,27 +1592,39 @@ msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:55
 msgid ""
-"Upload any kind of financial data to OpenSpending and explore it with our "
-"built-in interactive visualizations."
-msgstr "ओपनस्पेन्डिङमा कुनै पनि वित्तीय डाटा अपलोड गर्ने र हाम्रो निर्मित अन्तरक्रियात्मकबाट चित्रण गर्नुहोस् ।"
+"Upload any kind of financial data to OpenSpending and explore it with our"
+" built-in interactive visualizations."
+msgstr ""
+"ओपनस्पेन्डिङमा कुनै पनि वित्तीय डाटा अपलोड गर्ने र हाम्रो निर्मित "
+"अन्तरक्रियात्मकबाट चित्रण गर्नुहोस् ।"
 
 #: openspending/ui/alttemplates/home/index.html:55
 msgid ""
 "Users publish <a "
 "href=\"https://openspending.org/budgetmarocain\">budgets</a>, <a "
 "href=\"https://openspending.org/marches-publics-senegal/views/liste-des-"
-"attributaires\">procurements</a>, <a href=\"https://openspending.org/ukgov-"
-"25k-spending\">spending data</a> and even <a "
+"attributaires\">procurements</a>, <a href=\"https://openspending.org"
+"/ukgov-25k-spending\">spending data</a> and even <a "
 "href=\"https://openspending.org/senadofederal/entries\">public employee "
 "salaries</a>."
-msgstr "प्रयोगकर्ताद्धारा प्रकाशित<a href=\"https://openspending.org/budgetmarocain\">बजेटहरु</a>,<a href=\"https://openspending.org/marches-publics-senegal/views/liste-des-attributaires\">प्राप्ति </a>, <a href=\"https://openspending.org/ukgov-25k-spending\">खर्च डाटा</a>र पनि<a href=\"https://openspending.org/senadofederal/entries\">सार्वजनिक कर्मचारी तलब</a>."
+msgstr ""
+"प्रयोगकर्ताद्धारा प्रकाशित<a "
+"href=\"https://openspending.org/budgetmarocain\">बजेटहरु</a>,<a "
+"href=\"https://openspending.org/marches-publics-senegal/views/liste-des-"
+"attributaires\">प्राप्ति </a>, <a href=\"https://openspending.org/ukgov-"
+"25k-spending\">खर्च डाटा</a>र पनि<a "
+"href=\"https://openspending.org/senadofederal/entries\">सार्वजनिक "
+"कर्मचारी तलब</a>."
 
 #: openspending/ui/alttemplates/home/index.html:57
 msgid ""
 "Use our <a href=\"http://www.pbs.org/idealab/2013/03/how-to-embed-open-"
-"spending-visualizations-in-your-own-website078\">widgets</a> to embed your "
-"visualization on your own website."
-msgstr "प्रयोग हाम्रो<a href=\"http://www.pbs.org/idealab/2013/03/how-to-embed-open-spending-visualizations-in-your-own-website078\">विजेटहरू </ a>आफ्नो वेबसाइट मा आफ्नो दृश्य इम्बेड गर्न।"
+"spending-visualizations-in-your-own-website078\">widgets</a> to embed "
+"your visualization on your own website."
+msgstr ""
+"प्रयोग हाम्रो<a href=\"http://www.pbs.org/idealab/2013/03/how-to-embed-"
+"open-spending-visualizations-in-your-own-website078\">विजेटहरू </ a>आफ्नो"
+" वेबसाइट मा आफ्नो दृश्य इम्बेड गर्न।"
 
 #: openspending/ui/alttemplates/home/index.html:59
 msgid "Create a dataset"
@@ -1459,9 +1640,11 @@ msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:64
 msgid ""
-"OpenSpending holds nearly 16 mio. transactions from more than 300 datasets "
-"across more than 70 countries."
-msgstr "ओपनस्पेन्डिङले लगभग 16 मिओ लेनदेन 70 देशहरुमा 300 भन्दा डाटासेट धारण गरेको छ ।"
+"OpenSpending holds nearly 16 mio. transactions from more than 300 "
+"datasets across more than 70 countries."
+msgstr ""
+"ओपनस्पेन्डिङले लगभग 16 मिओ लेनदेन 70 देशहरुमा 300 भन्दा डाटासेट धारण "
+"गरेको छ ।"
 
 #: openspending/ui/alttemplates/home/index.html:66
 #, python-format
@@ -1470,7 +1653,11 @@ msgid ""
 "public finances from around the world, or browse <a "
 "href=\"http://apps.openspending.org/maps/\">our map of cities</a> on "
 "OpenSpending."
-msgstr "ब्राउज गर्नुहोस<a href=\"%(indexurl)s\">डाटासेटहरुको सुची</a>र दुनिया भर देखि सार्वजनिक वित्त सिक्न, वा ब्राउज<a href=\"http://apps.openspending.org/maps/\">शहरहरुको नक्सा</a>ओपनस्पेन्डिङ माथि"
+msgstr ""
+"ब्राउज गर्नुहोस<a href=\"%(indexurl)s\">डाटासेटहरुको सुची</a>र दुनिया भर "
+"देखि सार्वजनिक वित्त सिक्न, वा ब्राउज<a "
+"href=\"http://apps.openspending.org/maps/\">शहरहरुको "
+"नक्सा</a>ओपनस्पेन्डिङ माथि"
 
 #: openspending/ui/alttemplates/home/index.html:68
 msgid "Search the datasets"
@@ -1495,17 +1682,24 @@ msgstr ""
 #: openspending/ui/alttemplates/home/index.html:73
 msgid ""
 "Create your own visualizations with the <a "
-"href=\"http://community.openspending.org/help/api/aggregate/\">OpenSpending "
-"API</a> using libraries like <a "
-"href=\"http://community.openspending.org/2013/08/20/okfb-inesc/\">D3.js</a>,"
-" jit, and Raphael."
-msgstr "<a href=\"http://community.openspending.org/help/api/aggregate/\">ओपनस्पेन्डिङ एपिआई</a>सँग आफ्नै भिजुअलाइजेशन गर्नुहोस् पुस्तकालय जस्तै प्रयोग <a href=\"http://community.openspending.org/2013/08/20/okfb-inesc/\">D3.js</a>, जीत, र रफाएल।"
+"href=\"http://community.openspending.org/help/api/aggregate/\">OpenSpending"
+" API</a> using libraries like <a "
+"href=\"http://community.openspending.org/2013/08/20/okfb-"
+"inesc/\">D3.js</a>, jit, and Raphael."
+msgstr ""
+"<a "
+"href=\"http://community.openspending.org/help/api/aggregate/\">ओपनस्पेन्डिङ"
+" एपिआई</a>सँग आफ्नै भिजुअलाइजेशन गर्नुहोस् पुस्तकालय जस्तै प्रयोग <a "
+"href=\"http://community.openspending.org/2013/08/20/okfb-"
+"inesc/\">D3.js</a>, जीत, र रफाएल।"
 
 #: openspending/ui/alttemplates/home/index.html:75
 msgid ""
 "You can even create a satellite site while still using OpenSpending as a "
 "backend."
-msgstr "ब्याकइन्डमा ओपनस्पेन्डिङ प्रयोग गर्दा पनि तपाई एउटा उपग्रह साइट बनाउन सक्नुहुन्छ ।"
+msgstr ""
+"ब्याकइन्डमा ओपनस्पेन्डिङ प्रयोग गर्दा पनि तपाई एउटा उपग्रह साइट बनाउन "
+"सक्नुहुन्छ ।"
 
 #: openspending/ui/alttemplates/home/index.html:77
 msgid "API documentation"
@@ -1523,13 +1717,17 @@ msgstr "योगदान"
 msgid ""
 "OpenSpending is a community run project and all material is open - open-"
 "source code and open data."
-msgstr "ओपनस्पेन्डिङ एक समुदाय परियोजना हो र सबै भौतिक खुला छ - खुला स्रोत कोड र खुला डाटा।"
+msgstr ""
+"ओपनस्पेन्डिङ एक समुदाय परियोजना हो र सबै भौतिक खुला छ - खुला स्रोत कोड र "
+"खुला डाटा।"
 
 #: openspending/ui/alttemplates/home/index.html:84
 msgid ""
-"Get involved in loading data, developing the technology, doing analysis or "
-"writing news stories!"
-msgstr "डाटा लोडमा समावेश हुनुहोस्, प्रौद्योगिकी विकास, विश्लेषण गरेर वा समाचार लेखेर!"
+"Get involved in loading data, developing the technology, doing analysis "
+"or writing news stories!"
+msgstr ""
+"डाटा लोडमा समावेश हुनुहोस्, प्रौद्योगिकी विकास, विश्लेषण गरेर वा समाचार "
+"लेखेर!"
 
 #: openspending/ui/alttemplates/home/index.html:86
 msgid "Community introduction"
@@ -1563,9 +1761,13 @@ msgstr "यस स्टोर विश्राम एपीआई"
 #: openspending/ui/alttemplates/home/rest.html:9
 msgid ""
 "This API returns JSON versions of the store's domain objects.\n"
-"    The URLs are generally the same as the URLs used by the web interface for\n"
+"    The URLs are generally the same as the URLs used by the web interface"
+" for\n"
 "    the same objects, but with \"/api/rest\" prepended."
-msgstr "यो एपीआई स्टोर डोमेन वस्तुहरूको जेसोन संस्करणमा फर्कन्छ।\nयो यूआरएल सामान्यतया वेब इन्टरफेसको लागि प्रयोग यूआरएलों नै हो\nयही वस्तुहरु, तर \"/एपीआई/बाँकी\" संग प्रपेन्डेन्ट ।"
+msgstr ""
+"यो एपीआई स्टोर डोमेन वस्तुहरूको जेसोन संस्करणमा फर्कन्छ।\n"
+"यो यूआरएल सामान्यतया वेब इन्टरफेसको लागि प्रयोग यूआरएलों नै हो\n"
+"यही वस्तुहरु, तर \"/एपीआई/बाँकी\" संग प्रपेन्डेन्ट ।"
 
 #: openspending/ui/alttemplates/home/rest.html:15
 msgid "Here are some examples"
@@ -1575,14 +1777,19 @@ msgstr "यहाँ केही उदाहरणहरू छन्"
 msgid ""
 "The JSON response generally contains the same information as the\n"
 "    corresponding web page, but in more detail."
-msgstr "जेसोन प्रतिक्रिया साधारणतया नै जानकारी शामिल छ\nवेब पेज, तर विस्तृत रूपमा।"
+msgstr ""
+"जेसोन प्रतिक्रिया साधारणतया नै जानकारी शामिल छ\n"
+"वेब पेज, तर विस्तृत रूपमा।"
 
 #: openspending/ui/alttemplates/home/rest.html:28
 msgid ""
 "A JSONP object is returned if a <var>callback</var> parameter is\n"
 "    supplied (usually by appending \"?callback=myfun\" or\n"
 "    similar)."
-msgstr "यदि JSONP वस्तु फर्केको छ भने <var>कलब्याक</var>गरिएको परामिटर\nआपूर्ति (सामान्यतया थपेर \"? कलब्याक = myfun\" वा\nत्यस्तै) ।"
+msgstr ""
+"यदि JSONP वस्तु फर्केको छ भने <var>कलब्याक</var>गरिएको परामिटर\n"
+"आपूर्ति (सामान्यतया थपेर \"? कलब्याक = myfun\" वा\n"
+"त्यस्तै) ।"
 
 #: openspending/ui/alttemplates/run/view.html:4
 #: openspending/ui/alttemplates/run/view.html:10
@@ -1604,7 +1811,11 @@ msgid ""
 "  successfully. This does not mean the data is stored in a form \n"
 "  which is semantically useful, though, so don't forget to \n"
 "  sanity-check a few entries!"
-msgstr "स्रोत लोड गरिएको छ\nसफलतापूर्वक। यसको मतलब हैन कि यो एउटा फर्ममा भण्डारण गरेको छ\nशब्दार्थ उपयोगी छ, तर, त्यसैले भूल भएन्\nकेही प्रविष्टि विवेक-जाँच!"
+msgstr ""
+"स्रोत लोड गरिएको छ\n"
+"सफलतापूर्वक। यसको मतलब हैन कि यो एउटा फर्ममा भण्डारण गरेको छ\n"
+"शब्दार्थ उपयोगी छ, तर, त्यसैले भूल भएन्\n"
+"केही प्रविष्टि विवेक-जाँच!"
 
 #: openspending/ui/alttemplates/run/view.html:28
 msgid "Level"
@@ -1720,15 +1931,24 @@ msgid ""
 "This must point directly at a\n"
 "        valid CSV file. HTML landing pages or other formats, such as\n"
 "        Excel, will not work."
-msgstr "यसले सीधै औंल्याउँछन् पर्छ\nवैध सिएसवि फाइल । एचटीएमएल अवतरण पृष्ठ या जस्तै अन्य स्वरूप,\nएक्सेल, लेकाम गर्दैन।"
+msgstr ""
+"यसले सीधै औंल्याउँछन् पर्छ\n"
+"वैध सिएसवि फाइल । एचटीएमएल अवतरण पृष्ठ या जस्तै अन्य स्वरूप,\n"
+"एक्सेल, लेकाम गर्दैन।"
 
 #: openspending/ui/alttemplates/source/_new_form.html:10
 msgid ""
-"We recommend using <strong>,</strong> as delimiter and wrapping values in "
-"double quotes (especially amounts). The first line will always be regarded "
-"as a header row. <a href=\"http://community.openspending.org/help/guide/en"
-"/formatting-data/\">Want to know more?</a>"
-msgstr "हामी प्रयोग गर्न सिफारिस गर्छैा <strong>,</strong>दोहोरो उद्धरण मा सीमांकक र रैपिंग मान को रूप मा (विशेष गरी बराबर)। पहिलो लाइन संधै एउटा पङ्क्ति हेडर रुपमा मानिनेछ। <a href=\"http://community.openspending.org/help/guide/en/formatting-data/\">अझ बढी जान्न चाहनुहुन्छ?</a>"
+"We recommend using <strong>,</strong> as delimiter and wrapping values in"
+" double quotes (especially amounts). The first line will always be "
+"regarded as a header row. <a "
+"href=\"http://community.openspending.org/help/guide/en/formatting-"
+"data/\">Want to know more?</a>"
+msgstr ""
+"हामी प्रयोग गर्न सिफारिस गर्छैा <strong>,</strong>दोहोरो उद्धरण मा "
+"सीमांकक र रैपिंग मान को रूप मा (विशेष गरी बराबर)। पहिलो लाइन संधै एउटा "
+"पङ्क्ति हेडर रुपमा मानिनेछ। <a "
+"href=\"http://community.openspending.org/help/guide/en/formatting-"
+"data/\">अझ बढी जान्न चाहनुहुन्छ?</a>"
 
 #: openspending/ui/alttemplates/view/embed.html:6
 msgid "Embedded Visualisation"
@@ -1757,9 +1977,11 @@ msgstr "आफ्नो दृश्य नाम"
 
 #: openspending/ui/alttemplates/view/new.html:63
 msgid ""
-"You can store your visualisation with a name so that you can come back to it"
-" later and it will become visible to others."
-msgstr "तपाईंले पछि फिर्ता आउन सक्दैन र अरूलाई दृश्यात्मक हुनेछ ताकि तपाईं एउटा नाम संग आफ्नो दृश्य स्टोर गर्न सक्छन्।"
+"You can store your visualisation with a name so that you can come back to"
+" it later and it will become visible to others."
+msgstr ""
+"तपाईंले पछि फिर्ता आउन सक्दैन र अरूलाई दृश्यात्मक हुनेछ ताकि तपाईं एउटा "
+"नाम संग आफ्नो दृश्य स्टोर गर्न सक्छन्।"
 
 #: openspending/ui/alttemplates/view/new.html:82
 msgid "You need to be signed in to save a view."
@@ -1771,10 +1993,13 @@ msgstr "अर्को वेभसाइट इम्बेड"
 
 #: openspending/ui/alttemplates/view/new.html:92
 msgid ""
-"If you don't save this visualisation, you can still copy and paste the embed"
-" code below, to embed the widget in another website, such as a blog or "
-"article."
-msgstr "तपाईंले यो दृश्य बचत गर्नुभएन भने, तपाईंले अझै पनि प्रतिलिपि र तल embed कोड पेस्ट, यस्तो ब्लग वा लेख को रूप मा अन्य वेबसाइट, मा विजेट सम्मिलित गर्न सक्नुहुन्छ।"
+"If you don't save this visualisation, you can still copy and paste the "
+"embed code below, to embed the widget in another website, such as a blog "
+"or article."
+msgstr ""
+"तपाईंले यो दृश्य बचत गर्नुभएन भने, तपाईंले अझै पनि प्रतिलिपि र तल embed "
+"कोड पेस्ट, यस्तो ब्लग वा लेख को रूप मा अन्य वेबसाइट, मा विजेट सम्मिलित "
+"गर्न सक्नुहुन्छ।"
 
 #: openspending/ui/alttemplates/view/new.html:96
 msgid "Width"
@@ -1785,104 +2010,122 @@ msgid "Height"
 msgstr "उचाइ"
 
 #: openspending/ui/alttemplates/view/view.html:37
+#, fuzzy
+#| msgid "" "Here you can rename your widget and/or update the description.\n"
+#| "    You can also change and modify the the widget itself but keep in\n" "
+#| mind that others might be using and embedding the widget as it is\n" "
+#| now on their sites. <strong>Changing the widget here will change\n" "    it
+#| everywhere.</strong> This might then create a discrepancy\n" "    between
+#| the widget and the context of a page it's embedded in."
 msgid ""
 "Here you can rename your widget and/or update the description.\n"
-"    You can also change and modify the the widget itself but keep in\n"
-"    mind that others might be using and embedding the widget as it is\n"
-"    now on their sites. <strong>Changing the widget here will change\n"
-"    it everywhere.</strong> This might then create a discrepancy\n"
-"    between the widget and the context of a page it's embedded in."
-msgstr "यहाँ तपाईंले आफ्नो विजेट पुन: नामकरण र / वा विवरण अद्यावधिक सक्छ।\nतपाईं पनि परिवर्तन र विजेट नै परिमार्जन तर राख्न सक्छौं\nअरूलाई प्रयोग र यो रूप विजेट एम्बेडिंग हुन सक्छ कि मन\nउनीहरूको साइटमा। <strong>यहाँ विजेट परिवर्तन जता \nपरिवर्तन हुनेछ।</strong>यो त एउटा विसंगति बनाउन सक्छ\nविजेट र यसमा सम्मिलित गर्नुपर्छ एउटा पेज को प्रसङ्ग बीच"
+"    You can also modify the widget itself, but keep in mind that others "
+"might be \n"
+"    using and embedding the widget as it is now on their sites. \n"
+"    <strong>Changing the widget here will change it everywhere.</strong>"
+" \n"
+"    This might then create a discrepancy between the widget and the "
+"context of \n"
+"    a page in which it's embedded."
+msgstr ""
+"यहाँ तपाईंले आफ्नो विजेट पुन: नामकरण र / वा विवरण अद्यावधिक सक्छ।\n"
+"तपाईं पनि परिवर्तन र विजेट नै परिमार्जन तर राख्न सक्छौं\n"
+"अरूलाई प्रयोग र यो रूप विजेट एम्बेडिंग हुन सक्छ कि मन\n"
+"उनीहरूको साइटमा। <strong>यहाँ विजेट परिवर्तन जता \n"
+"परिवर्तन हुनेछ।</strong>यो त एउटा विसंगति बनाउन सक्छ\n"
+"विजेट र यसमा सम्मिलित गर्नुपर्छ एउटा पेज को प्रसङ्ग बीच"
 
 #: openspending/ui/alttemplates/view/view.html:45
 msgid "Update widget"
 msgstr "नवीनीकरण विजेट"
 
-#: openspending/ui/controllers/account.py:79
+#: openspending/ui/controllers/account.py:80
 msgid "Login name already exists, please choose a different one"
 msgstr "लग नाम पहिले नै अवस्थित छ, एक भिन्न चयन गर्नुहोस्"
 
-#: openspending/ui/controllers/account.py:85
-#: openspending/ui/controllers/account.py:162
+#: openspending/ui/controllers/account.py:86
+#: openspending/ui/controllers/account.py:163
 msgid "Passwords don't match!"
 msgstr "पासवर्ड मिलेन !"
 
-#: openspending/ui/controllers/account.py:119
+#: openspending/ui/controllers/account.py:120
 #, python-format
 msgid "Subscription to the following mailing lists probably failed: %s."
 msgstr "निम्न पत्राचार सूची लागि सदस्यता शायद असफल: %s।"
 
-#: openspending/ui/controllers/account.py:190
+#: openspending/ui/controllers/account.py:191
 msgid "Your settings have been updated."
 msgstr "तपाईंको सेटिङहरू अद्यावधिक गरिएको छ।"
 
-#: openspending/ui/controllers/account.py:241
+#: openspending/ui/controllers/account.py:242
 msgid "You are not authorized to view this page"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:277
+#: openspending/ui/controllers/account.py:278
 msgid "You are not authorized to see that page"
 msgstr "तपाईलाई यो पेज हर्न अधिकार छैन "
 
-#: openspending/ui/controllers/account.py:298
+#: openspending/ui/controllers/account.py:299
 #, python-format
 msgid "Welcome back, %s!"
 msgstr "पुनः स्वागत, %s!"
 
-#: openspending/ui/controllers/account.py:301
+#: openspending/ui/controllers/account.py:302
 msgid "Incorrect user name or password!"
 msgstr "गलत प्रयोगकर्ता नाम वा पासवर्ड!"
 
-#: openspending/ui/controllers/account.py:306
+#: openspending/ui/controllers/account.py:307
 msgid "You have been logged out."
 msgstr "तपाईं बाहिर आउनुभएको छ।"
 
-#: openspending/ui/controllers/account.py:326
+#: openspending/ui/controllers/account.py:327
 msgid "Please enter an email address!"
 msgstr "कृपया ईमेल ठेगाना प्रविष्ट गर्नुहोस्!"
 
-#: openspending/ui/controllers/account.py:334
-#: openspending/ui/controllers/account.py:354
+#: openspending/ui/controllers/account.py:335
+#: openspending/ui/controllers/account.py:355
 msgid "No user is registered under this address!"
 msgstr "कुनै प्रयोगकर्ता यो ठेगाना अन्तर्गत दर्ता छैन!"
 
-#: openspending/ui/controllers/account.py:341
+#: openspending/ui/controllers/account.py:342
 msgid ""
-"You've received an email with a link to reset your password. Please check "
-"your inbox."
-msgstr "तपाईं आफ्नो पासवर्ड समायोजन सबै नष्ट गर्न एउटा लिंक संग इमेल प्राप्त गर्नुभएको छ। आफ्नो इनबक्स जाँच गर्नुहोस्।"
+"You've received an email with a link to reset your password. Please check"
+" your inbox."
+msgstr ""
+"तपाईं आफ्नो पासवर्ड समायोजन सबै नष्ट गर्न एउटा लिंक संग इमेल प्राप्त "
+"गर्नुभएको छ। आफ्नो इनबक्स जाँच गर्नुहोस्।"
 
-#: openspending/ui/controllers/account.py:350
-#: openspending/ui/controllers/account.py:357
+#: openspending/ui/controllers/account.py:351
+#: openspending/ui/controllers/account.py:358
 msgid "The reset link is invalid!"
 msgstr "यो रिसेट लिंक अवैध छ!"
 
-#: openspending/ui/controllers/account.py:364
+#: openspending/ui/controllers/account.py:365
 msgid "Thanks! You have now been signed in - please change your password!"
 msgstr "धन्यवाद! अब तपाईं साइन इन भएको छ - आफ्नो पासवर्ड परिवर्तन गर्नुहोस्!"
 
-#: openspending/ui/controllers/badge.py:83
+#: openspending/ui/controllers/badge.py:84
 msgid "Uploading files not supported at the moment."
 msgstr "अपलोड फाइलहरू यस क्षण मा समर्थित छैन।"
 
-#: openspending/ui/controllers/badge.py:111
+#: openspending/ui/controllers/badge.py:112
 msgid "Badge not found."
 msgstr "बैज फेला परेन।"
 
-#: openspending/ui/controllers/dataset.py:61
+#: openspending/ui/controllers/dataset.py:63
 #, python-format
 msgid "Parameter values not supported: %s"
 msgstr "प्यारामिटर मान समर्थित छैन: %s"
 
-#: openspending/ui/controllers/dataset.py:148
+#: openspending/ui/controllers/dataset.py:150
 msgid "A dataset with this identifer already exists!"
 msgstr "यो पहिचायक संग एक डाटासेट पहिले नै अवस्थित छ!"
 
-#: openspending/ui/controllers/dataset.py:250
+#: openspending/ui/controllers/dataset.py:252
 msgid "Recently Created Datasets"
 msgstr "हालै बनाएको डाटासेट"
 
-#: openspending/ui/controllers/dataset.py:252
+#: openspending/ui/controllers/dataset.py:254
 msgid "Recently created datasets in the OpenSpending Platform"
 msgstr "ओपनस्पेन्डिङ प्लेटफर्ममा हालै सिर्जना डाटासेट"
 
@@ -1901,71 +2144,71 @@ msgstr "माफ गर्नुहोला, कुनै सदस्य न�
 msgid "Sorry, there is no dimension named %r"
 msgstr "माफ गर्नुहोला, %r नाम गरेको कुनै परिमाण छैन"
 
-#: openspending/ui/controllers/editor.py:90
+#: openspending/ui/controllers/editor.py:92
 msgid "The dataset has been updated."
 msgstr "डाटासेट अद्यावधिक गरिएको छ।"
 
-#: openspending/ui/controllers/editor.py:120
-msgid ""
-"You cannot edit the dimensions model when data is loaded for the dataset."
+#: openspending/ui/controllers/editor.py:122
+msgid "You cannot edit the dimensions model when data is loaded for the dataset."
 msgstr "डेटा डाटासेट लोड गर्दा तपाईं आयाम मोडेल सम्पादन गर्न सक्नुहुन्न्।"
 
-#: openspending/ui/controllers/editor.py:138
+#: openspending/ui/controllers/editor.py:140
 msgid "The mapping data could not be decoded as JSON!"
 msgstr "मानचित्रण डेटा जेसोन रूपमा डीकोड गर्न सकिँदैन!"
 
-#: openspending/ui/controllers/editor.py:163
+#: openspending/ui/controllers/editor.py:165
 msgid "The templates have been updated."
 msgstr "यस टेम्पलेट अद्यावधिक गरिएको छ।"
 
-#: openspending/ui/controllers/editor.py:187
+#: openspending/ui/controllers/editor.py:189
 msgid "The views have been updated."
 msgstr "यो विचार अद्यावधिक गरिएको छ।"
 
-#: openspending/ui/controllers/editor.py:189
+#: openspending/ui/controllers/editor.py:191
 msgid "The views could not be decoded as JSON!"
 msgstr "यो विचार जेसोन रूपमा डीकोड गर्न सकिँदैन!"
 
-#: openspending/ui/controllers/editor.py:211
+#: openspending/ui/controllers/editor.py:213
 msgid "User account cannot be found."
 msgstr "प्रयोगकर्ता खाता पाउन सकेन।"
 
-#: openspending/ui/controllers/editor.py:220
+#: openspending/ui/controllers/editor.py:222
 msgid "The team has been updated."
 msgstr "टोली अद्यावधिक गरिएको छ।"
 
-#: openspending/ui/controllers/editor.py:239
+#: openspending/ui/controllers/editor.py:241
 msgid "The dataset has been cleared."
 msgstr "डाटासेट हटाइएको छ।"
 
-#: openspending/ui/controllers/editor.py:247
+#: openspending/ui/controllers/editor.py:249
 msgid "This dataset is already public!"
 msgstr "यो डाटासेट पहिले नै सार्वजनिक छ!"
 
-#: openspending/ui/controllers/editor.py:259
+#: openspending/ui/controllers/editor.py:261
 #, python-format
 msgid ""
-"Congratulations, the dataset has been published. It is now available at: %s"
+"Congratulations, the dataset has been published. It is now available at: "
+"%s"
 msgstr "बधाई, डाटासेट प्रकाशित गरिएको छ। यो अब %s मा उपलब्ध छ ."
 
-#: openspending/ui/controllers/editor.py:268
+#: openspending/ui/controllers/editor.py:270
 msgid "This dataset is already private!"
 msgstr "यो डाटासेट पहिले नै निजी छ!"
 
-#: openspending/ui/controllers/editor.py:278
+#: openspending/ui/controllers/editor.py:280
 msgid "The dataset has been retracted. It is no longer visible to others."
 msgstr "डाटासेट बदलिए गरिएको छ। यो अब अरुद्धारा हेर्न सकिदैन ।"
 
-#: openspending/ui/controllers/editor.py:290
+#: openspending/ui/controllers/editor.py:292
 msgid "The dataset has been deleted."
 msgstr "डाटासेट मेटिएको छ।"
 
-#: openspending/ui/controllers/entry.py:101
+#: openspending/ui/controllers/entry.py:102
 #, python-format
 msgid "Sorry, there is no entry %r"
 msgstr "माफ गर्नुहोला, यहाँ प्रवेश छैन %r"
 
-#: openspending/ui/controllers/entry.py:141
+#: openspending/ui/controllers/entry.py:142
 msgid "Unable to adjust for inflation"
 msgstr "मुद्रास्फीति को लागि समायोजित गर्न असमर्थ"
 
@@ -1973,53 +2216,53 @@ msgstr "मुद्रास्फीति को लागि समायो
 msgid "Sent ping!"
 msgstr "पठाइयो पिंग!"
 
-#: openspending/ui/controllers/run.py:21
-#: openspending/ui/controllers/source.py:57
+#: openspending/ui/controllers/run.py:24
+#: openspending/ui/controllers/source.py:59
 #, python-format
 msgid "There is no source '%s'"
 msgstr "कुनै पनि स्रोत छैन '%s'"
 
-#: openspending/ui/controllers/run.py:24
+#: openspending/ui/controllers/run.py:27
 #, python-format
 msgid "There is no run '%s'"
 msgstr "केहि दैरेको छैन '%s'"
 
-#: openspending/ui/controllers/source.py:41
+#: openspending/ui/controllers/source.py:43
 msgid "The source has been created."
 msgstr "स्रोत सिर्जना गरिएको छ।"
 
-#: openspending/ui/controllers/source.py:79
+#: openspending/ui/controllers/source.py:81
 msgid "Already running!"
 msgstr "पहिले नै चलिरहेको छ!"
 
-#: openspending/ui/controllers/source.py:86
+#: openspending/ui/controllers/source.py:88
 msgid "Now loading..."
 msgstr "अब लोड ..."
 
-#: openspending/ui/controllers/view.py:36
+#: openspending/ui/controllers/view.py:37
 #, python-format
 msgid "Invalid widget type: %r"
 msgstr "अवैध विजेट प्रकार:%r"
 
-#: openspending/ui/controllers/view.py:67
+#: openspending/ui/controllers/view.py:68
 #, python-format
 msgid "Sorry, there is no view %r"
 msgstr "माफ गर्नुहोला, %r को कुनै दृष्टिकोण छैन"
 
-#: openspending/ui/controllers/view.py:96
+#: openspending/ui/controllers/view.py:97
 msgid "You are not authorized to delete this view."
 msgstr "तपाईंलार्इ यो दृश्य मेट्न अधिकार छैन।"
 
-#: openspending/ui/controllers/view.py:97
+#: openspending/ui/controllers/view.py:98
 #, python-format
 msgid "'%s' has been deleted."
 msgstr "'%s' मेटिएको छ।"
 
-#: openspending/ui/controllers/view.py:167
+#: openspending/ui/controllers/view.py:168
 msgid "No widget type has been specified."
 msgstr "कुनै विजेट प्रकार निर्दिष्ट गरिएको छ।"
 
-#: openspending/ui/lib/base.py:130
+#: openspending/ui/lib/base.py:131
 #, python-format
 msgid "Sorry, there is no dataset named %r"
 msgstr "माफ गर्नुहोला,%r नाम गरेको कुनै पनि डाटासेट छैन"
@@ -2032,3 +2275,7 @@ msgstr "शीर्षक नभएको"
 #, python-format
 msgid "No widget named '%s' exists."
 msgstr "'%s' नाम गरेको कुनै पनि विजेट भेटिएन।"
+
+#~ msgid "E-Mail"
+#~ msgstr "इमेल"
+

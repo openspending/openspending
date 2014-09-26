@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: openspending 0.11\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-04-03 15:36+0000\n"
+"POT-Creation-Date: 2014-09-26 06:39+0000\n"
 "PO-Revision-Date: 2012-02-01 16:43+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: en <LL@li.org>\n"
@@ -194,9 +194,12 @@ msgid "Fullname"
 msgstr ""
 
 #: openspending/ui/alttemplates/account/login.html:49
+#: openspending/ui/alttemplates/account/profile.html:22
 #: openspending/ui/alttemplates/account/settings.html:18
 #: openspending/ui/alttemplates/account/trigger_reset.html:19
-msgid "E-Mail"
+#: openspending/ui/alttemplates/home/index.html:93
+#: openspending/ui/alttemplates/home/index.html:100
+msgid "Email"
 msgstr ""
 
 #: openspending/ui/alttemplates/account/login.html:53
@@ -243,12 +246,6 @@ msgstr ""
 
 #: openspending/ui/alttemplates/account/profile.html:19
 msgid "Username"
-msgstr ""
-
-#: openspending/ui/alttemplates/account/profile.html:22
-#: openspending/ui/alttemplates/home/index.html:93
-#: openspending/ui/alttemplates/home/index.html:100
-msgid "Email"
 msgstr ""
 
 #: openspending/ui/alttemplates/account/profile.html:42
@@ -1791,102 +1788,105 @@ msgstr ""
 #: openspending/ui/alttemplates/view/view.html:37
 msgid ""
 "Here you can rename your widget and/or update the description.\n"
-"    You can also change and modify the the widget itself but keep in\n"
-"    mind that others might be using and embedding the widget as it is\n"
-"    now on their sites. <strong>Changing the widget here will change\n"
-"    it everywhere.</strong> This might then create a discrepancy\n"
-"    between the widget and the context of a page it's embedded in."
+"    You can also modify the widget itself, but keep in mind that others "
+"might be \n"
+"    using and embedding the widget as it is now on their sites. \n"
+"    <strong>Changing the widget here will change it everywhere.</strong>"
+" \n"
+"    This might then create a discrepancy between the widget and the "
+"context of \n"
+"    a page in which it's embedded."
 msgstr ""
 
 #: openspending/ui/alttemplates/view/view.html:45
 msgid "Update widget"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:79
+#: openspending/ui/controllers/account.py:80
 msgid "Login name already exists, please choose a different one"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:85
-#: openspending/ui/controllers/account.py:162
+#: openspending/ui/controllers/account.py:86
+#: openspending/ui/controllers/account.py:163
 msgid "Passwords don't match!"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:119
+#: openspending/ui/controllers/account.py:120
 #, python-format
 msgid "Subscription to the following mailing lists probably failed: %s."
 msgstr ""
 
-#: openspending/ui/controllers/account.py:190
+#: openspending/ui/controllers/account.py:191
 msgid "Your settings have been updated."
 msgstr ""
 
-#: openspending/ui/controllers/account.py:241
+#: openspending/ui/controllers/account.py:242
 msgid "You are not authorized to view this page"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:277
+#: openspending/ui/controllers/account.py:278
 msgid "You are not authorized to see that page"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:298
+#: openspending/ui/controllers/account.py:299
 #, python-format
 msgid "Welcome back, %s!"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:301
+#: openspending/ui/controllers/account.py:302
 msgid "Incorrect user name or password!"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:306
+#: openspending/ui/controllers/account.py:307
 msgid "You have been logged out."
 msgstr ""
 
-#: openspending/ui/controllers/account.py:326
+#: openspending/ui/controllers/account.py:327
 msgid "Please enter an email address!"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:334
-#: openspending/ui/controllers/account.py:354
+#: openspending/ui/controllers/account.py:335
+#: openspending/ui/controllers/account.py:355
 msgid "No user is registered under this address!"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:341
+#: openspending/ui/controllers/account.py:342
 msgid ""
 "You've received an email with a link to reset your password. Please check"
 " your inbox."
 msgstr ""
 
-#: openspending/ui/controllers/account.py:350
-#: openspending/ui/controllers/account.py:357
+#: openspending/ui/controllers/account.py:351
+#: openspending/ui/controllers/account.py:358
 msgid "The reset link is invalid!"
 msgstr ""
 
-#: openspending/ui/controllers/account.py:364
+#: openspending/ui/controllers/account.py:365
 msgid "Thanks! You have now been signed in - please change your password!"
 msgstr ""
 
-#: openspending/ui/controllers/badge.py:83
+#: openspending/ui/controllers/badge.py:84
 msgid "Uploading files not supported at the moment."
 msgstr ""
 
-#: openspending/ui/controllers/badge.py:111
+#: openspending/ui/controllers/badge.py:112
 msgid "Badge not found."
 msgstr ""
 
-#: openspending/ui/controllers/dataset.py:61
+#: openspending/ui/controllers/dataset.py:63
 #, python-format
 msgid "Parameter values not supported: %s"
 msgstr ""
 
-#: openspending/ui/controllers/dataset.py:148
+#: openspending/ui/controllers/dataset.py:150
 msgid "A dataset with this identifer already exists!"
 msgstr ""
 
-#: openspending/ui/controllers/dataset.py:250
+#: openspending/ui/controllers/dataset.py:252
 msgid "Recently Created Datasets"
 msgstr ""
 
-#: openspending/ui/controllers/dataset.py:252
+#: openspending/ui/controllers/dataset.py:254
 msgid "Recently created datasets in the OpenSpending Platform"
 msgstr ""
 
@@ -1905,71 +1905,71 @@ msgstr ""
 msgid "Sorry, there is no dimension named %r"
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:90
+#: openspending/ui/controllers/editor.py:92
 msgid "The dataset has been updated."
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:120
+#: openspending/ui/controllers/editor.py:122
 msgid "You cannot edit the dimensions model when data is loaded for the dataset."
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:138
+#: openspending/ui/controllers/editor.py:140
 msgid "The mapping data could not be decoded as JSON!"
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:163
+#: openspending/ui/controllers/editor.py:165
 msgid "The templates have been updated."
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:187
+#: openspending/ui/controllers/editor.py:189
 msgid "The views have been updated."
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:189
+#: openspending/ui/controllers/editor.py:191
 msgid "The views could not be decoded as JSON!"
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:211
+#: openspending/ui/controllers/editor.py:213
 msgid "User account cannot be found."
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:220
+#: openspending/ui/controllers/editor.py:222
 msgid "The team has been updated."
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:239
+#: openspending/ui/controllers/editor.py:241
 msgid "The dataset has been cleared."
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:247
+#: openspending/ui/controllers/editor.py:249
 msgid "This dataset is already public!"
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:259
+#: openspending/ui/controllers/editor.py:261
 #, python-format
 msgid ""
 "Congratulations, the dataset has been published. It is now available at: "
 "%s"
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:268
+#: openspending/ui/controllers/editor.py:270
 msgid "This dataset is already private!"
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:278
+#: openspending/ui/controllers/editor.py:280
 msgid "The dataset has been retracted. It is no longer visible to others."
 msgstr ""
 
-#: openspending/ui/controllers/editor.py:290
+#: openspending/ui/controllers/editor.py:292
 msgid "The dataset has been deleted."
 msgstr ""
 
-#: openspending/ui/controllers/entry.py:101
+#: openspending/ui/controllers/entry.py:102
 #, python-format
 msgid "Sorry, there is no entry %r"
 msgstr ""
 
-#: openspending/ui/controllers/entry.py:141
+#: openspending/ui/controllers/entry.py:142
 msgid "Unable to adjust for inflation"
 msgstr ""
 
@@ -1977,53 +1977,53 @@ msgstr ""
 msgid "Sent ping!"
 msgstr ""
 
-#: openspending/ui/controllers/run.py:21
-#: openspending/ui/controllers/source.py:57
+#: openspending/ui/controllers/run.py:24
+#: openspending/ui/controllers/source.py:59
 #, python-format
 msgid "There is no source '%s'"
 msgstr ""
 
-#: openspending/ui/controllers/run.py:24
+#: openspending/ui/controllers/run.py:27
 #, python-format
 msgid "There is no run '%s'"
 msgstr ""
 
-#: openspending/ui/controllers/source.py:41
+#: openspending/ui/controllers/source.py:43
 msgid "The source has been created."
 msgstr ""
 
-#: openspending/ui/controllers/source.py:79
+#: openspending/ui/controllers/source.py:81
 msgid "Already running!"
 msgstr ""
 
-#: openspending/ui/controllers/source.py:86
+#: openspending/ui/controllers/source.py:88
 msgid "Now loading..."
 msgstr ""
 
-#: openspending/ui/controllers/view.py:36
+#: openspending/ui/controllers/view.py:37
 #, python-format
 msgid "Invalid widget type: %r"
 msgstr ""
 
-#: openspending/ui/controllers/view.py:67
+#: openspending/ui/controllers/view.py:68
 #, python-format
 msgid "Sorry, there is no view %r"
 msgstr ""
 
-#: openspending/ui/controllers/view.py:96
+#: openspending/ui/controllers/view.py:97
 msgid "You are not authorized to delete this view."
 msgstr ""
 
-#: openspending/ui/controllers/view.py:97
+#: openspending/ui/controllers/view.py:98
 #, python-format
 msgid "'%s' has been deleted."
 msgstr ""
 
-#: openspending/ui/controllers/view.py:167
+#: openspending/ui/controllers/view.py:168
 msgid "No widget type has been specified."
 msgstr ""
 
-#: openspending/ui/lib/base.py:130
+#: openspending/ui/lib/base.py:131
 #, python-format
 msgid "Sorry, there is no dataset named %r"
 msgstr ""
@@ -2053,17 +2053,9 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid ""
-#~ "[1:%(message)s]: Maybe the URL is misspelled or the \n"
-#~ "      data has been deleted."
 #~ msgstr ""
 
 #~ msgid "Something went wrong"
-#~ msgstr ""
-
-#~ msgid ""
-#~ ":\n"
-#~ "      Sorry, there seems to be an internal problem in OpenSpending.\n"
-#~ "      The problem has now been reported and we're on it."
 #~ msgstr ""
 
 #~ msgid "[1:%(entries)s entries] found."
@@ -2111,36 +2103,10 @@ msgstr ""
 #~ msgid "nav-account"
 #~ msgstr ""
 
-#~ msgid ""
-#~ "Leave both fields blank to keep\n"
-#~ "                your current password."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Use this key to access the OpenSpending\n"
-#~ "                API programmatically."
-#~ msgstr ""
-
 #~ msgid "nav-dataset"
 #~ msgstr ""
 
 #~ msgid "No description is available for %(label)s"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "This is a listing of all source data that was registered\n"
-#~ "              for this dataset. If you"
-#~ " want to look at the exact data"
-#~ " \n"
-#~ "              that is used to generate"
-#~ " aggregates, you can also use a \n"
-#~ ""
-#~ "              [1:bulk export]."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Measures are the numeric properties of each entry in this \n"
-#~ "          dataset."
 #~ msgstr ""
 
 #~ msgid "OpenSpending: mapping the money"
@@ -2155,29 +2121,7 @@ msgstr ""
 #~ msgid "The database contains the following datasets:"
 #~ msgstr ""
 
-#~ msgid ""
-#~ "If you have a spending or budget dataset that \n"
-#~ "          you can contribute, please give some basic information \n"
-#~ "          here.\n"
-#~ "          [1:][2:]In the next steps, you'll\n"
-#~ "          [3:\n"
-#~ "            [4:add references to [5:data sources],]\n"
-#~ "            [6:create a [7:data model] to describe the format,]\n"
-#~ "            [8:[9:test] the correctness of your model,]\n"
-#~ "            [10:[11:import] the data,]\n"
-#~ "            [12:and generate [13:visualized views].]\n"
-#~ "          ]"
-#~ msgstr ""
-
 #~ msgid "Import from a DataHub Dataset"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Paste the url of your [1:http://thedatahub.org/] dataset\n"
-#~ "            and we will take care "
-#~ "of pulling all the relevant information"
-#~ " automatically\n"
-#~ "            (though you will get a chance to review and amend it)."
 #~ msgstr ""
 
 #~ msgid "OR"
@@ -2186,47 +2130,7 @@ msgstr ""
 #~ msgid "Dataset not yet on the DataHub?"
 #~ msgstr ""
 
-#~ msgid ""
-#~ "No problem! You can still import your dataset as long as the\n"
-#~ "            data file is online somewhere."
-#~ msgstr ""
-
 #~ msgid "Get Started »"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "We're trying to gather [1:the world's spending\n"
-#~ "          information]\n"
-#~ "        in a common\n"
-#~ "        database so that we can provide common tools for [2:analysis,\n"
-#~ "          visualization and comparison]. "
-#~ "OpenSpending is an open platform that"
-#~ "\n"
-#~ "        aims to facilitate the "
-#~ "presentation of financial information so \n"
-#~ ""
-#~ "        anyone - whether data geek "
-#~ "or concerned citizen - can contribute"
-#~ " \n"
-#~ "        their local city budget or spending reports."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "There are many projects that aim to track financial information. All\n"
-#~ "        require these basic services, which we aim to provide:\n"
-#~ "         [1:]  [2:]\n"
-#~ "        [3:\n"
-#~ "          [4:Data loading and validation facilities.]\n"
-#~ "          [5:Common visualization types "
-#~ "(treemaps, charts, and the bubble\n"
-#~ "          tree).]\n"
-#~ "          [6:Full-text search for all entries.]\n"
-#~ "          [7:Means to track provenance and provide access to the raw\n"
-#~ "          data.]\n"
-#~ "        ]\n"
-#~ "        \n"
-#~ "        [8:Sign up to contribute]\n"
-#~ "        [9:Learn more]"
 #~ msgstr ""
 
 #~ msgid "Timeline"
@@ -2253,11 +2157,6 @@ msgstr ""
 #~ msgid "Dimensions in"
 #~ msgstr ""
 
-#~ msgid ""
-#~ "%(dataset_label)s: Dimensions\n"
-#~ "      [1:Facets of the dataset.]"
-#~ msgstr ""
-
 #~ msgid "%(dataset)s has the following dimensions:"
 #~ msgstr ""
 
@@ -2268,12 +2167,6 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Dimension:"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "All figures are total financial "
-#~ "involvement, not just funds received or"
-#~ " spent."
 #~ msgstr ""
 
 #~ msgid "Sum (%(currency)s)"
@@ -2294,12 +2187,6 @@ msgstr ""
 #~ msgid "nav-editor"
 #~ msgstr ""
 
-#~ msgid ""
-#~ "Where the dimension represents the "
-#~ "ultimate source or destination of the"
-#~ " funds, call it [1:from] or [2:to]."
-#~ msgstr ""
-
 #~ msgid "Type:"
 #~ msgstr ""
 
@@ -2315,54 +2202,10 @@ msgstr ""
 #~ msgid "Source data columns:"
 #~ msgstr ""
 
-#~ msgid ""
-#~ "You cannot edit dimensions while data is\n"
-#~ "              loaded."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "In order to modify the dimensions model, you'll have to \n"
-#~ "            delete all the data that "
-#~ "is currently loaded from the database."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The dimensions mapping could not be saved as it \n"
-#~ "                                          contains some errors:"
-#~ msgstr ""
-
 #~ msgid "Dimensions (?)"
 #~ msgstr ""
 
 #~ msgid "Advanced"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The first and most important step in the creation of a model is\n"
-#~ "                                          the mapping "
-#~ "of columns in the data file to "
-#~ "\"dimensions\", the logical\n"
-#~ "                                          divisions of "
-#~ "the dataset. The four required "
-#~ "dimensions, [1:amount],\n"
-#~ "                                          [2:time], "
-#~ "[3:from], and [4:to] are laid\n"
-#~ "                                          out below, "
-#~ "and you can add your own "
-#~ "dimensions using the links at\n"
-#~ "                                          the bottom of the page."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "To create a model, you need to define the dimensions of your dataset\n"
-#~ "        in a JSON (JavaScript Object Notation) schema. Using the\n"
-#~ "        auto-generated schema, you likely need to define\n"
-#~ "        measures and compound dimensions."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Schema\n"
-#~ "            documentation"
 #~ msgstr ""
 
 #~ msgid "Background: How does OpenSpending store data?"
@@ -2374,85 +2217,10 @@ msgstr ""
 #~ msgid "Source data columns"
 #~ msgstr ""
 
-#~ msgid ""
-#~ "[1:Congratulations, your dataset is now created.] Next, you'll need\n"
-#~ "            to link to a source "
-#~ "file that contains the data (or a"
-#~ " sample for testing\n"
-#~ "            if your dataset is very "
-#~ "large!). The data must be in the"
-#~ " CSV format."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Learn about [1:how to export CSV] from various common\n"
-#~ "                applications."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Help on [1:common data wrangling tasks] needed to clean\n"
-#~ "                source data."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "[1:Let me see...] The data is now being checked to\n"
-#~ "            see if it can be "
-#~ "imported. This should not take very "
-#~ "long.\n"
-#~ "            [2:\n"
-#~ "              [3:Refresh]\n"
-#~ "            ]"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "[1:Good stuff!] Your data is now ready. Next,\n"
-#~ "            create a [2:data model] to structure the dataset.\n"
-#~ "            [3:\n"
-#~ "              [4:Create\n"
-#~ "                a model]\n"
-#~ "              [5:Learn\n"
-#~ "                more]\n"
-#~ "            ]"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Delete all loaded data to fix \n"
-#~ "              errors and re-edit the data dimensions."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "You can remove the loaded data\n"
-#~ "            at any time and start over."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "After you've performed some QA,\n"
-#~ "              let the world see this dataset."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "If you have noted serious quality\n"
-#~ "              issues or legal issues, you can un-publish this dataset."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "[1:Here be dragons.] The visualizations editor does \n"
-#~ "          not have a graphical interface"
-#~ " yet. If you still want to use"
-#~ " it, \n"
-#~ "          please check out the [2:documentation]\n"
-#~ "          for the 'views' system."
-#~ msgstr ""
-
 #~ msgid "Available Dimensions"
 #~ msgstr ""
 
 #~ msgid "Attributes:"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The views could not be saved as they contain some \n"
-#~ "                errors:"
 #~ msgstr ""
 
 #~ msgid "nav-entry"
@@ -2462,16 +2230,6 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "JSON"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "[1:\n"
-#~ "        [2:\n"
-#~ "          [3:]\n"
-#~ "        ]\n"
-#~ "      ]\n"
-#~ "      Entry in %(dataset_label)s\n"
-#~ "      [4:Detailed View of Transaction]"
 #~ msgstr ""
 
 #~ msgid "Notes:"
@@ -2486,59 +2244,10 @@ msgstr ""
 #~ msgid "Welcome"
 #~ msgstr ""
 
-#~ msgid ""
-#~ "Do you want to help map government finance from all around the globe?\n"
-#~ "     [1:Get involved] in Open Spending!"
-#~ msgstr ""
-
 #~ msgid "We're mapping the money."
 #~ msgstr ""
 
-#~ msgid ""
-#~ "Our aim is to track every government and corporate financial\n"
-#~ "              transaction across the world "
-#~ "and present it in useful and "
-#~ "engaging forms\n"
-#~ "              for everyone from a school-child to a data geek."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "We're an open community that anyone "
-#~ "is invited to join! We're looking "
-#~ "for\n"
-#~ "              researchers, coders and citizen"
-#~ " activists to join us and to "
-#~ "help gather\n"
-#~ "              and understand financial data."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "OpenSpending presents financial information [1:from many\n"
-#~ "        different countries] and sources.\n"
-#~ "        [2:Choose a\n"
-#~ "          dataset] to explore or visit our\n"
-#~ "          [3:Spending Blog], where we highlight\n"
-#~ "          spending stories and methods of analyzing the information."
-#~ msgstr ""
-
 #~ msgid "Investigate"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Do you have spending questions? Ask and help to answer them on\n"
-#~ "      our [1:discussion \n"
-#~ "        list]. When you've found interesting information in the data,\n"
-#~ "      become a contributor to the \n"
-#~ "      [2:Spending Blog] to share your findings."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Is your country, state or city not on OpenSpending yet? We're\n"
-#~ "        looking for spending data from"
-#~ " all over the world. [1:Import a\n"
-#~ ""
-#~ "          dataset] from your country or local community to visualize \n"
-#~ "        and explore government expenditure."
 #~ msgstr ""
 
 #~ msgid "Report an issue"
@@ -2547,27 +2256,10 @@ msgstr ""
 #~ msgid "Report a data issue"
 #~ msgstr ""
 
-#~ msgid ""
-#~ "If you notice any spending that either seems to be based on erroneous\n"
-#~ "      or misrepresented data or that "
-#~ "is implausible in terms of the "
-#~ "amount\n"
-#~ "      spent, the recipient or the "
-#~ "spender, please help us flag these "
-#~ "item by\n"
-#~ "      filling out the form below."
-#~ msgstr ""
-
 #~ msgid "nav-api"
 #~ msgstr ""
 
 #~ msgid "Here are some examples:"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "A JSONP object is returned if a [1:callback] parameter is\n"
-#~ "    supplied (usually by appending \"?callback=myfun\" or\n"
-#~ "    similar)."
 #~ msgstr ""
 
 #~ msgid "nav-source"
@@ -2579,24 +2271,21 @@ msgstr ""
 #~ msgid "Errors,"
 #~ msgstr ""
 
-#~ msgid ""
-#~ "The source has been loaded\n"
-#~ "      successfully. This does not mean the data is stored in a form \n"
-#~ "      which is semantically useful, though, so don't forget to \n"
-#~ "      sanity-check a few entries!"
-#~ msgstr ""
-
 #~ msgid "(%(count)s Errors)"
 #~ msgstr ""
 
-#~ msgid ""
-#~ "This must point directly at a\n"
-#~ "            valid CSV file. HTML landing"
-#~ " pages or other formats, such as\n"
-#~ ""
-#~ "            Excel, will not work."
+#~ msgid "Create a data source"
 #~ msgstr ""
 
-#~ msgid "Create a data source"
+#~ msgid "E-Mail"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Here you can rename your widget and/or update the description.\n"
+#~ "    You can also change and modify the the widget itself but keep in\n"
+#~ "    mind that others might be using and embedding the widget as it is\n"
+#~ "    now on their sites. <strong>Changing the widget here will change\n"
+#~ "    it everywhere.</strong> This might then create a discrepancy\n"
+#~ "    between the widget and the context of a page it's embedded in."
 #~ msgstr ""
 
