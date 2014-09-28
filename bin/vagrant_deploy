@@ -1,25 +1,26 @@
 
+#update and grab packages:
 sudo apt-get update -y
 sudo apt-get install python g++ make
-sudo apt-get install -y python-lxml libxml2-dev libxslt1-dev postgresql-9.1 python-virtualenv git postgresql-server-dev-9.1 postgresql-client-9.1 postgresql-contrib-9.1 python-dev tomcat7 rabbitmq-server
+sudo apt-get install -y python-lxml libxml2-dev libxslt1-dev postgresql-9.3 python-virtualenv git postgresql-server-dev-9.3 postgresql-client-9.3 postgresql-contrib-9.3 python-dev rabbitmq-server openjdk-7-jre-headless
 
-wget -O /tmp/solr.tgz http://archive.apache.org/dist/lucene/solr/4.6.0/solr-4.6.0.tgz
+
+#grab solr quietly (Vagrant and wget's stdout do not play nicely together):
+echo "downloading solr..."
+wget -qO /tmp/solr.tgz http://archive.apache.org/dist/lucene/solr/4.6.0/solr-4.6.0.tgz
+echo "done."
+
+#and install:
 cd /tmp
-tar xvfz /tmp/solr.tgz 
+echo "expanding solr.tgz....."
+tar xfz /tmp/solr.tgz
+echo "done."
+
 sudo mv solr-4.6.0 /var/solr
-sudo cp /var/solr/dist/solr-4.6.0.war /var/lib/tomcat7/webapps/solr.war
-sudo cp -R /var/solr/example/solr /var/solr/home
-sudo mv /var/solr/home/collection1 /var/solr/home/openspending
-sudo chown -R tomcat7.tomcat7 /var/solr/home
-echo "name=openspending" | sudo tee /var/solr/home/openspending/core.properties
+sudo cp -rp /var/solr/example /var/solr/home
+sudo cp /vagrant/solr/schema.xml /var/solr/home/solr/collection1/conf/schema.xml
 
-sudo mkdir /var/lib/tomcat7/lib
-sudo cp /var/solr/dist/solrj-lib/* /var/lib/tomcat7/lib
-sudo cp /vagrant/solr/schema.xml /var/solr/home/openspending/
-
-echo -en "\n\nJAVA_OPTS=\"-Djava.awt.headless=true -Xmx512m -XX:+UseConcMarkSweepGC -Dsolr.solr.home=/var/solr/home\"\n" | sudo tee -a /etc/default/tomcat7
-sudo service tomcat7 restart
-
+#activate virtualenv and install requirements:
 virtualenv /home/vagrant/env
 source /home/vagrant/env/bin/activate
 pip install -r /vagrant/requirements.txt
@@ -27,10 +28,14 @@ pip install -e /vagrant
 pip install psycopg2
 echo "source /home/vagrant/env/bin/activate" >>/home/vagrant/.profile
 
+
+#set up DB:
 sudo -u postgres createuser -s vagrant
 createdb -E utf-8 -O vagrant openspending
 psql -d openspending -c "ALTER USER vagrant PASSWORD 'vagrant';"
 
+
+#link js:
 cd /vagrant
 if [ ! -d /vagrant/openspendingjs ]
 then
@@ -41,5 +46,15 @@ then
   ln -s openspendingjs openspending/ui/public/static/openspendingjs
 fi
 
-sed -e 's/openspending.db.url.*$/openspending.db.url = postgresql:\/\/vagrant:vagrant@localhost\/openspending/' -e 's/:8983\/solr/:8080\/solr\/openspending/' < development.ini_tmpl > vagrant.ini
-ostool vagrant.ini db init
+#prepare vagrant file and init db with it.
+sed -e 's/openspending.db.url.*$/openspending.db.url = postgresql:\/\/vagrant:vagrant@localhost\/openspending/' -e 's/:8983\/solr/:8983\/solr/' < development.ini_tmpl > development.ini
+ostool development.ini db init
+
+
+#create test.ini file
+cp /vagrant/test.ini_tmpl /vagrant/test.ini
+
+
+#all done, start up solr!
+echo "Installation Complete.  Launching Solr....."
+(cd /var/solr/home && java -Dsolr.velocity.enabled=false -jar start.jar)

@@ -22,7 +22,7 @@ set debug = False
 # development and running the tests. However, the tests will delete
 # all data from solr. Use with caution.
 
-openspending.solr.url = http://localhost:18983/solr
+openspending.solr.url = http://localhost:8983/solr
 
 openspending.widgets_base = http://localhost/openspendingjs/widgets/
 openspending.widgets = treemap bubbletree aggregate_table

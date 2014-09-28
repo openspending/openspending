@@ -1,0 +1,4 @@
+#!/bin/bash
+cd /vagrant
+paster serve --reload development.ini &
+celery -A openspending.tasks -Q celery,analysis,loading -p development.ini worker -l info &

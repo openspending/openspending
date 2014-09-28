@@ -15,7 +15,7 @@ Installation
 
 You can avoid installing OpenSpending on your development machine by using Vagrant_ to execute the application and all of its dependencies in a virtual machine. To make use of this option, make sure to install Vagrant and the included VirtualBox provider. 
 
-If you haven't already, you'll need to install Vagrant's `cachier` plugin:
+If you haven't already, you'll need to install Vagrant's `cachier` plugin::
 
     $ vagrant plugin install vagrant-cachier
 
@@ -23,11 +23,13 @@ Then, from the source repository, you can set up a VM with::
 
     $ vagrant up
 
-This will run for a while (fetch a coffee), until a working VM with Ubuntu 13.04 and OpenSpending has been deployed. Once the application has run, you can run OpenSpending within the VM::
+This will run for a while (fetch a coffee), until a working VM with Ubuntu 14.04 and OpenSpending has been deployed and Solr has started running.
+
+Once the application has run, you can start OpenSpending within the VM with::
 
     $ vagrant ssh
     vagrant@openspending$ cd /vagrant
-    vagrant@openspending$ paster serve --reload vagrant.ini 
+    vagrant@openspending$ ./startserver
 
 You will also need to start the backend workers which take care of the analysis and loading of datasets into your instance. You do this by opening another terminal and running within the VM::
 
