@@ -407,6 +407,7 @@ class DistinctFieldParamParser(DistinctParamParser):
 
 class LoadingAPIParamParser(ParamParser):
     defaults = ParamParser.defaults.copy()
+    defaults['budget_data_package'] = None
     defaults['csv_file'] = None
     defaults['metadata'] = None
     defaults['private'] = 'false'

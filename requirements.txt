@@ -16,7 +16,7 @@ argparse==1.2.1
 celery==3.1.11
 colander==0.9.3
 decorator==3.3.3
-economics==0.1.1
+economics==0.1.2
 lxml==2.3.4
 messytables==0.2.1
 mock==0.8.0

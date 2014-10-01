@@ -32,6 +32,19 @@ def analyze_source(source_id):
 
 
 @celery.task(ignore_result=True)
+def analyze_budget_data_package(url, user, private):
+    """
+    Analyze and automatically load a budget data package
+    """
+    from openspending.importer.bdp import create_budget_data_package
+    log.info("Analyzing: {0}".format(url))
+    sources = create_budget_data_package(url, user, private)
+    for source in sources:
+        # Submit source to loading queue
+        load_budgetdatapackage.delay(source.id)
+
+
+@celery.task(ignore_result=True)
 def load_source(source_id, sample=False):
     from openspending.model.source import Source
     from openspending.importer import CSVImporter
@@ -45,6 +58,32 @@ def load_source(source_id, sample=False):
 
     source.dataset.generate()
     importer = CSVImporter(source)
+    if sample:
+        importer.run(dry_run=True, max_lines=1000, max_errors=1000)
+    else:
+        importer.run()
+        index_dataset.delay(source.dataset.name)
+
+
+@celery.task(ignore_result=True)
+def load_budgetdatapackage(source_id, sample=False):
+    """
+    Same as the CSV importer except that it uses the BudgetDataPackage
+    importer instead of the CSVImporter
+    """
+    from openspending.model.source import Source
+    from openspending.importer import BudgetDataPackageImporter
+
+    source = Source.by_id(source_id)
+    if not source:
+        log.error("No such source: %s", source_id)
+
+    if not source.loadable:
+        log.error("Dataset has no mapping.")
+        return
+
+    source.dataset.generate()
+    importer = BudgetDataPackageImporter(source)
     if sample:
         importer.run(dry_run=True, max_lines=1000, max_errors=1000)
     else:

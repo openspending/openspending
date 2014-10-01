@@ -25,7 +25,7 @@ from openspending.ui.lib.cache import AggregationCache
 from openspending.ui.lib.hypermedia import (entry_apply_links,
                                             drilldowns_apply_links,
                                             dataset_apply_links)
-from openspending.tasks.dataset import load_source
+from openspending.tasks.dataset import load_source, analyze_budget_data_package
 from openspending.validation.model import validate_model
 from colander import Invalid
 
@@ -219,7 +219,6 @@ class APIv2Controller(BaseController):
         if not c.account:
             abort(status_code=400, detail='user not authenticated')
 
-
         # Parse the loading api parameters to get them into the right format
         parser = LoadingAPIParamParser(request.params)
         params, errors = parser.parse()
@@ -228,17 +227,38 @@ class APIv2Controller(BaseController):
             response.status = 400
             return to_jsonp({'errors': errors})
 
-        if params['metadata'] is None:
+        # Precedence of budget data package over other methods
+        if 'budget_data_package' in params:
+            output = self.load_with_budget_data_package(
+                params['budget_data_package'], params['private'])
+        else:
+            output = self.load_with_model_and_csv(
+                params['metadata'], params['csv_file'], params['private'])
+
+        return output
+
+    def load_with_budget_data_package(self, bdp_url, private):
+        """
+        Analyze and load data using a budget data package
+        """
+        analyze_budget_data_package.delay(bdp_url, c.account, private)
+
+    def load_with_model_and_csv(self, metadata, csv_file, private):
+        """
+        Load a dataset using a metadata model file and a csv file
+        """
+
+        if metadata is None:
             response.status = 400
             return to_jsonp({'errors': 'metadata is missing'})
 
-        if params['csv_file'] is None:
+        if csv_file is None:
             response.status = 400
             return to_jsonp({'errors': 'csv_file is missing'})
 
         # We proceed with the dataset
         try:
-            model = json.load(urllib2.urlopen(params['metadata']))
+            model = json.load(urllib2.urlopen(metadata))
         except:
             response.status = 400
             return to_jsonp({'errors': 'JSON model could not be parsed'})
@@ -256,18 +276,18 @@ class APIv2Controller(BaseController):
             dataset = Dataset(model)
             require.dataset.create()
             dataset.managers.append(c.account)
-            dataset.private = params['private']
+            dataset.private = private
             db.session.add(dataset)
         else:
             require.dataset.update(dataset)
 
         log.info("Dataset: %s", dataset.name)
         source = Source(dataset=dataset, creator=c.account,
-                        url=params['csv_file'])
+                        url=csv_file)
 
         log.info(source)
         for source_ in dataset.sources:
-            if source_.url == params['csv_file']:
+            if source_.url == csv_file:
                 source = source_
                 break
         db.session.add(source)

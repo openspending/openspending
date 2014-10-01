@@ -451,7 +451,7 @@ class TestApiNewDataset(ControllerTestCase):
         assert "200" in response.status
         dataset = Dataset.by_name('openspending-example')
         assert dataset is not None
-        assert dataset.private == False
+        assert dataset.private is False
 
     def test_private_dataset(self):
         user = Account.by_name('test_new')
@@ -464,14 +464,13 @@ class TestApiNewDataset(ControllerTestCase):
             'csv_file':
             'http://mk.ucant.org/info/data/sample-openspending-dataset.csv',
             'private': 'true'
-                
         }
         apikey_header = 'apikey {0}'.format(user.api_key)
         response = self.app.post(u, params, {'Authorization': apikey_header})
         assert "200" in response.status
         dataset = Dataset.by_name('openspending-example')
         assert dataset is not None
-        assert dataset.private == True
+        assert dataset.private is True
 
     def test_new_no_apikey(self):
         u = url(controller='api/version2', action='create')

@@ -18,14 +18,24 @@ celery = Celery('openspending.tasks', broker=BROKER, backend=BACKEND,
                          'openspending.tasks.dataset'])
 
 celery.conf.CELERY_ROUTES = {
-    'openspending.tasks.dataset.analyze_all_sources':
-        {'queue': 'analysis'},
-    'openspending.tasks.dataset.analyze_source':
-        {'queue': 'analysis'},
-    'openspending.tasks.dataset.load_source':
-        {'queue': 'loading'},
-    'openspending.tasks.dataset.index_dataset':
-        {'queue': 'loading'},
+    'openspending.tasks.dataset.analyze_all_sources': {
+        'queue': 'analysis'
+    },
+    'openspending.tasks.dataset.analyze_source': {
+        'queue': 'analysis'
+    },
+    'openspending.tasks.dataset.analyze_budget_data_package': {
+        'queue': 'analysis'
+    },
+    'openspending.tasks.dataset.load_source': {
+        'queue': 'loading'
+    },
+    'openspending.tasks.dataset.load_budgetdatapackage': {
+        'queue': 'loading'
+    },
+    'openspending.tasks.dataset.index_dataset': {
+        'queue': 'loading'
+    },
 }
 
 # Add a user option to celery where the configuration file for pylons
