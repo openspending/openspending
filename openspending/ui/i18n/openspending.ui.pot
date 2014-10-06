@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: openspending 0.15.1\n"
+"Project-Id-Version: openspending 0.15.5\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-09-26 06:39+0000\n"
+"POT-Creation-Date: 2014-10-06 13:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,6 +69,7 @@ msgstr ""
 #: openspending/ui/alttemplates/dimension/_nav.html:42
 #: openspending/ui/alttemplates/entry/search.html:2
 #: openspending/ui/alttemplates/entry/search.html:34
+#: openspending/ui/alttemplates/home/index.html:44
 msgid "Search"
 msgstr ""
 
@@ -1411,6 +1412,32 @@ msgstr ""
 msgid "The journey starts here."
 msgstr ""
 
+#: openspending/ui/alttemplates/home/index.html:25
+#, python-format
+msgid "%(territory_count)s countries"
+msgstr ""
+
+#: openspending/ui/alttemplates/home/index.html:26
+#, python-format
+msgid "%(dataset_count)s datasets"
+msgstr ""
+
+#: openspending/ui/alttemplates/home/index.html:27
+#, python-format
+msgid "%(entry_count)s entries"
+msgstr ""
+
+#: openspending/ui/alttemplates/home/index.html:38
+msgid "Featured Application"
+msgstr ""
+
+#: openspending/ui/alttemplates/home/index.html:39
+msgid ""
+"How much is that really? &mdash; See the stories behind the numbers in the "
+"news with the <a href=\"http://spendingstories.org\" "
+"target=\"_blank\">Spending Stories application</a>."
+msgstr ""
+
 #: openspending/ui/alttemplates/home/index.html:53
 msgid "Upload"
 msgstr ""
@@ -1452,9 +1479,10 @@ msgid "Explore"
 msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:64
+#, python-format
 msgid ""
-"OpenSpending holds nearly 16 mio. transactions from more than 300 datasets "
-"across more than 70 countries."
+"OpenSpending holds more than %(transactions)s mio. transactions from "
+"%(datasets)s datasets across %(territories)s countries."
 msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:66
