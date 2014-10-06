@@ -512,19 +512,13 @@ def create_budget_data_package(url, user, private):
 
     sources = []
     for (idx, resource) in enumerate(bdpkg.resources):
-        # We create the dataset name based on the data package and resource
-        # names
-        dataset_name = '{package}-{resource}'.format(
-            package=bdpkg.name[:(127-len(resource.name))],
-            resource=resource.name)
-
-        dataset = Dataset.by_name(dataset_name)
+        dataset = Dataset.by_name(resource.name)
         if dataset is None:
             # Get information from the descriptior file for the given
             # resource (at index idx)
             info = get_dataset_info_from_descriptor(bdpkg, idx)
             # Set the dataset name based on the previously computed one
-            info['dataset']['name'] = dataset_name
+            info['dataset']['name'] = resource.name
             # Create the model from the resource schema
             model = create_model_from_schema(resource.schema)
             # Set the default value for the time to the fiscal year of the
@@ -542,7 +536,7 @@ def create_budget_data_package(url, user, private):
             db.session.commit()
         else:
             log.error("Dataset by name {0} already exists".format(
-                dataset_name))
+                resource.name))
             return []
 
         if 'url' in resource:
