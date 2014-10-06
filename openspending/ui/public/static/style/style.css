@@ -281,9 +281,8 @@ footer a.twitter {
   stroke: #d3d0d0;
 	fill: #d3d0d0;
   */
-  stroke: #333;
-  fill: #333;
-  opacity: 1;
+  stroke: #6a9b4a;
+  fill: none;
 }
 
 #fp-search {

@@ -48,16 +48,12 @@
 			data: d1,
 			colors: function(d) {
 			    // Color of svg object (territory)
-			    if (d === null) return '#fff';
+			    if (d === null) return '#83bf5b';
 			    return config.colorscale.getColor(d);
 			},
 			duration: function(d) {
 			    // For how long should it fade in
 			    return Math.min(900,300*d)
-			},
-			delay: function(d) { 
-			    // When should it fade in
-//			    return 100 + 200*(10-d)+Math.random()*300
 			}
 		    });
 		    
@@ -90,7 +86,7 @@
 	},
 	click: function(e) {}, // Default behaviour of clicking is nothing
 	colorscale: new chroma.ColorScale({  // Default colorscale is green
-	    colors: chroma.brewer.Greys.reverse(),    // (overwrite needs to have a
+	    colors: chroma.brewer.Greens.reverse(), // override with array
 	    limits: [-2,-1,0,1,2,3,4,5,6,7]  // getColor function (like chroma)
 	})
     };
@@ -126,7 +122,12 @@
 		url: $(element).attr('data-map-url'),		
 		group: $(element).attr('data-map-group'),
 		id: $(element).attr('data-map-path-id')
-	    }
+	    },
+	    colorscale: $(element).attr('data-colorscale') ?
+		new chroma.ColorScale({
+		    colors: $(element).attr('data-colorscale').split(','),
+		    limits: [-2,-1,0,1,2,3,4,5,6,7]
+		}) : undefined,
 	}	     
     };
 
