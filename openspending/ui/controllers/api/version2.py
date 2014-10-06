@@ -155,8 +155,6 @@ class APIv2Controller(BaseController):
         response.last_modified = max([d.updated_at for d in datasets])
         etag_cache_keygen(parser.key(), response.last_modified)
 
-        self._response_params(params)
-
         if params['pagesize'] > parser.defaults['pagesize']:
 
             # http://wiki.nginx.org/X-accel#X-Accel-Buffering
