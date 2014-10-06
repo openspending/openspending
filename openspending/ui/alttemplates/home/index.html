@@ -22,9 +22,9 @@
       <p class="blurb">{% trans %}By understanding how governments spend money <strong>in our name</strong> can we have a say in how that money will affect our own lives.{% endtrans %}<br/>{% trans %}The journey starts here.{% endtrans %}
       <div class="row">
         <div class="statistics span5">
-          <p>{{ c.territories|length }} countries</p>
-          <p>{{ c.datasets.count() }} datasets</p>
-          <p>{{ c.num_entries }} entries</p>
+          <p>{% trans territory_count=c.territories|length %}{{ territory_count }} countries{% endtrans %}</p>
+          <p>{% trans dataset_count=c.datasets.count() %}{{ dataset_count }} datasets{% endtrans %}</p>
+          <p>{% trans entry_count=c.num_entries %}{{ entry_count }} entries{% endtrans %}</p>
         </div>
       </div>
     </div>
@@ -35,13 +35,13 @@
   <div class="searchbar">
     <div class="row">
       <div class="span7 ad">
-        <h3 style="margin-top:10px;">Featured Application</h3>
-        <p style="font-size:105%">How much is that really? &mdash; See the stories behind the numbers in the news with the <a href="http://spendingstories.org" target="_blank">Spending Stories application</a>.</p>
+        <h3 style="margin-top:10px;">{% trans %}Featured Application{% endtrans %}</h3>
+        <p style="font-size:105%">{% trans %}How much is that really? &mdash; See the stories behind the numbers in the news with the <a href="http://spendingstories.org" target="_blank">Spending Stories application</a>.{% endtrans %}</p>
       </div>
       <div class="span5">
         <div class="row">
           <div class="search span5">
-            <form action="{{ h.url_for(controller='entry', action='search') }}"><input class="span5" type="text" placeholder="Search..." name="q"></form>
+            <form action="{{ h.url_for(controller='entry', action='search') }}"><input class="span5" type="text" placeholder="{% trans %}Search{% endtrans %}..." name="q"></form>
           </div>
         </div>
       </div>
@@ -61,7 +61,7 @@
       <div class="span3">
         <h2>{% trans %}Explore{% endtrans %}</h2>
         <a title="01-explore by okfn, on Flickr" href="http://openspending.org/search"><img src="//farm4.staticflickr.com/3670/9575044337_71d0e520ae_n.jpg" class="img-rounded" alt="01-explore"></a>
-		<p>{% trans transactions=c.num_entries/1000000, datasets=c.datasets.count(), territories=c.territories|length%}OpenSpending holds more than {{ transactions }} mio. transactions from {{ datasets }} datasets across {{ territories }} countries.{% endtrans %}</p>
+		<p>{% trans transactions=c.num_entries/1000000, datasets=c.datasets.count(), territories=c.territories|length %}OpenSpending holds more than {{ transactions }} mio. transactions from {{ datasets }} datasets across {{ territories }} countries.{% endtrans %}</p>
               
         <p>{% trans indexurl=h.url_for(controller='dataset', action='index') %}Browse the <a href="{{ indexurl }}">list of datasets</a> and learn about public finances from around the world, or browse <a href="http://apps.openspending.org/maps/">our map of cities</a> on OpenSpending.{% endtrans %}</p>
               
