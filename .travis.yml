@@ -15,7 +15,7 @@ before_script:
   - curl https://raw.githubusercontent.com/moliware/travis-solr/master/travis-solr.sh | SOLR_VERSION=4.7.2 SOLR_CONFS="solr/schema.xml" SOLR_PORT=8983 bash
   - psql -c 'create database openspending;' -U postgres
   - cp development.ini_tmpl development.ini
-  - sed -e 's/:8983\/solr/:8983\/solr\/core0/' < test.ini_tmpl > test.ini cp test.ini_tmpl test.ini
+  - sed -e 's/:8983\/solr/:8983\/solr\/core0/' < test.ini_tmpl > test.ini
   - git submodule init && git submodule update
   - nosetests --version
 script:
