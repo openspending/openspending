@@ -1,33 +1,32 @@
-# Japanese (Japan) translations for openspending.
+# Translations template for openspending.
 # Copyright (C) 2014 ORGANIZATION
-# This file is distributed under the same license as the openspending
-# project.
-#
+# This file is distributed under the same license as the openspending project.
+# 
 # Translators:
-# hal_sk <hal@plants-web.jp>, 2013
-# Takahisa Kawando <kawando@gmail.com>, 2013
+# Hal Seki <hal@plants-web.jp>, 2013
+# kawando <kawando@gmail.com>, 2013
 # nyampire <nyampire@gmail.com>, 2013
 # rigg <rinacult@gmail.com>, 2013
-# niryuu <niryuu@gmail.com>, 2013
-# takano32 <takano32@gmail.com>, 2013
-# hagino3000 <hagino.3000@gmail.com>, 2013
-# to.sato3 <to.sato3@gmail.com>, 2013
-# Toshikazu SETO <tosseto@gmail.com>, 2013
-# jmblog <yjimbo@gmail.com>, 2013
+# Tajima Itsuro <niryuu@gmail.com>, 2013
+# TAKANO Mitsuhiro <takano32@gmail.com>, 2013
+# Takashi Nishibayashi <hagino.3000@gmail.com>, 2013
+# Toshihide Sato <to.sato3@gmail.com>, 2013
+# tosseto <tosseto@gmail.com>, 2013
+# Yoshihide Jimbo <yjimbo@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version:  OpenSpending\n"
+"Project-Id-Version: OpenSpending\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-09-26 06:39+0000\n"
-"PO-Revision-Date: 2014-04-03 15:38+0000\n"
-"Last-Translator: tryggvib <tryggvib@fsfi.is>\n"
-"Language-Team: Japanese (Japan) "
-"(http://www.transifex.com/projects/p/openspending/language/ja_JP/)\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"POT-Creation-Date: 2014-10-06 13:26+0000\n"
+"PO-Revision-Date: 2014-10-06 13:27+0000\n"
+"Last-Translator: Tryggvi Björgvinsson <tryggvib@fsfi.is>\n"
+"Language-Team: Japanese (Japan) (http://www.transifex.com/projects/p/openspending/language/ja_JP/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
+"Language: ja_JP\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: openspending/lib/mailer.py:20
 #, python-format
@@ -51,10 +50,7 @@ msgid ""
 "Please click the following link to confirm this request:\n"
 "\n"
 "   %(reset_link)s\n"
-msgstr ""
-"貴方は %(site_title)s のパスワードリセットをリクエストしました。\n"
-"下記のリンクをクリックしてこのリクエストを確定させてください。\n"
-"%(reset_link)s \n"
+msgstr "貴方は %(site_title)s のパスワードリセットをリクエストしました。\n下記のリンクをクリックしてこのリクエストを確定させてください。\n%(reset_link)s \n"
 
 #: openspending/lib/mailer.py:82
 #: openspending/ui/alttemplates/account/trigger_reset.html:6
@@ -66,7 +62,8 @@ msgid "Part of unique key"
 msgstr "ユニークキーの一部"
 
 #: openspending/ui/alttemplates/base.html:11
-msgid "We're enabling anyone to explore, visualize and track government spending."
+msgid ""
+"We're enabling anyone to explore, visualize and track government spending."
 msgstr "私達は、誰にでも政府の支出を探索し、可視化し、追跡ができるようにしています。"
 
 #: openspending/ui/alttemplates/base.html:15
@@ -84,6 +81,7 @@ msgstr "データセット"
 #: openspending/ui/alttemplates/dimension/_nav.html:42
 #: openspending/ui/alttemplates/entry/search.html:2
 #: openspending/ui/alttemplates/entry/search.html:34
+#: openspending/ui/alttemplates/home/index.html:44
 msgid "Search"
 msgstr "検索"
 
@@ -165,21 +163,11 @@ msgstr "プライバシーポリシー"
 #: openspending/ui/alttemplates/base.html:142
 msgid ""
 "All <a href=\"http://www.gnu.org/licenses/agpl.html\">code</a>,\n"
-"          <a "
-"href=\"http://creativecommons.org/licenses/by/3.0/\">content</a>\n"
-"          and <a "
-"href=\"http://opendatacommons.org/licenses/odbl/\">data</a> is\n"
+"          <a href=\"http://creativecommons.org/licenses/by/3.0/\">content</a>\n"
+"          and <a href=\"http://opendatacommons.org/licenses/odbl/\">data</a> is\n"
 "          openly licensed in accordance with the\n"
 "          <a href=\"http://opendefinition.org/\">open definition</a>"
-msgstr ""
-"全ての <a href=\"http://www.gnu.org/licenses/agpl.html\">コード</a>,\n"
-"          <a "
-"href=\"http://creativecommons.org/licenses/by/3.0/\">コンテンツ</a>\n"
-"          and <a "
-"href=\"http://opendatacommons.org/licenses/odbl/\">データ</a> は\n"
-"オープンライセンスと\n"
-"          <a href=\"http://opendefinition.org/\">open "
-"definition</a>で提供されています。"
+msgstr "全ての <a href=\"http://www.gnu.org/licenses/agpl.html\">コード</a>,\n          <a href=\"http://creativecommons.org/licenses/by/3.0/\">コンテンツ</a>\n          and <a href=\"http://opendatacommons.org/licenses/odbl/\">データ</a> は\nオープンライセンスと\n          <a href=\"http://opendefinition.org/\">open definition</a>で提供されています。"
 
 #: openspending/ui/alttemplates/account/login.html:6
 msgid "Sign in to OpenSpending"
@@ -235,13 +223,9 @@ msgstr "パスワード(確認用)"
 
 #: openspending/ui/alttemplates/account/login.html:73
 msgid ""
-"I agree to the <a href=\"http://okfn.org/terms-of-use/\">Terms of Use</a>"
-"\n"
-"              and <a href=\"http://okfn.org/privacy-policy/\">Privacy "
-"Policy</a>."
-msgstr ""
-"<a href=\"http://okfn.org/terms-of-use/\">利用規約</a>\n"
-"と<a href=\"http://okfn.org/privacy-policy/\">プライバシーポリシー</a>に同意する。"
+"I agree to the <a href=\"http://okfn.org/terms-of-use/\">Terms of Use</a>\n"
+"              and <a href=\"http://okfn.org/privacy-policy/\">Privacy Policy</a>."
+msgstr "<a href=\"http://okfn.org/terms-of-use/\">利用規約</a>\nと<a href=\"http://okfn.org/privacy-policy/\">プライバシーポリシー</a>に同意する。"
 
 #: openspending/ui/alttemplates/account/login.html:79
 msgid "Add me to the OpenSpending community mailing list"
@@ -323,7 +307,8 @@ msgid "Script Location"
 msgstr "スクリプトの場所"
 
 #: openspending/ui/alttemplates/account/settings.html:59
-msgid "Set a different location for JavaScript imports to develop new widgets."
+msgid ""
+"Set a different location for JavaScript imports to develop new widgets."
 msgstr "新しいウィジェットを開発するには、JavaScript インポートの為の別の場所を指定して下さい"
 
 #: openspending/ui/alttemplates/account/settings.html:64
@@ -383,14 +368,10 @@ msgid ""
 "These badges can be awarded to specific datasets by administrators of "
 "OpenSpending. The badges indicate that an official, either from <a "
 "href=\"http://okfn.org\" title=\"Open Knowledge Foundation\">The Open "
-"Knowledge Foundation</a> (OKF) or from another entity approved by the "
-"OKF, has carefully examined the dataset and decided to award it that "
-"particular badge."
-msgstr ""
-"これらのバッヂは、OpenSpendingの管理者によって特定のデータセットに対して授与されます。バッヂは <a "
-"href=\"http://okfn.org\" title=\"Open Knowledge Foundation\">The Open "
-"Knowledge Foundation</a> (OKF) "
-"やその他のOKFにより認証された組織から公式に、そのバッヂを授与されるに値するかを注意深く審査されたデータセットであることを示します。"
+"Knowledge Foundation</a> (OKF) or from another entity approved by the OKF, "
+"has carefully examined the dataset and decided to award it that particular "
+"badge."
+msgstr "これらのバッヂは、OpenSpendingの管理者によって特定のデータセットに対して授与されます。バッヂは <a href=\"http://okfn.org\" title=\"Open Knowledge Foundation\">The Open Knowledge Foundation</a> (OKF) やその他のOKFにより認証された組織から公式に、そのバッヂを授与されるに値するかを注意深く審査されたデータセットであることを示します。"
 
 #: openspending/ui/alttemplates/badge/index.html:32
 msgid "Create a new badge"
@@ -407,7 +388,8 @@ msgid "e.g. 'Cleaned by Shakespeare's typewriter crew'"
 msgstr "例）シェイクスピアのタイプライター班によって綺麗にされています。"
 
 #: openspending/ui/alttemplates/badge/index.html:43
-msgid "e.g. 'Awarded to datasets cleaned by a team of highly skilled monkeys.'"
+msgid ""
+"e.g. 'Awarded to datasets cleaned by a team of highly skilled monkeys.'"
 msgstr "例: 'ハイスキルなメンバーによりクリーニングされたデータセットに授与されます'"
 
 #: openspending/ui/alttemplates/badge/index.html:45
@@ -531,11 +513,8 @@ msgstr "バッジ"
 #: openspending/ui/alttemplates/dataset/about.html:78
 msgid ""
 "Badges can be given by OpenSpending administrators on behalf of\n"
-"\t      entities approved by <a href=\"http://okfn.org/\" "
-"title=\"OKF\">the Open Knowledge Foundation</a>."
-msgstr ""
-"バッヂは、 <a href=\"http://okfn.org/\" title=\"OKF\">the Open Knowledge "
-"Foundation</a>.に認証された団体を代表して、OpenSpending の管理者から授与されます。"
+"\t      entities approved by <a href=\"http://okfn.org/\" title=\"OKF\">the Open Knowledge Foundation</a>."
+msgstr "バッヂは、 <a href=\"http://okfn.org/\" title=\"OKF\">the Open Knowledge Foundation</a>.に認証された団体を代表して、OpenSpending の管理者から授与されます。"
 
 #: openspending/ui/alttemplates/dataset/about.html:87
 msgid "Give badge"
@@ -572,8 +551,8 @@ msgstr "データベースが削除されました。"
 
 #: openspending/ui/alttemplates/dataset/dropdb.html:11
 msgid ""
-"The database should now have been erased. You'll even have to create a "
-"new user to log in again."
+"The database should now have been erased. You'll even have to create a new "
+"user to log in again."
 msgstr "データベースから情報が消去されました。再度ログインするには、新規にユーザー登録していただく必要があります。"
 
 #: openspending/ui/alttemplates/dataset/index.html:3
@@ -608,22 +587,12 @@ msgid ""
 "In the next steps, you'll\n"
 "          <ul>\n"
 "            <li>add references to <strong>data sources</strong>,</li>\n"
-"            <li>create a <strong>data model</strong> to describe the "
-"format,</li>\n"
-"            <li><strong>test</strong> the correctness of your model,</li>"
-"\n"
+"            <li>create a <strong>data model</strong> to describe the format,</li>\n"
+"            <li><strong>test</strong> the correctness of your model,</li>\n"
 "            <li><strong>import</strong> the data,</li>\n"
 "            <li>and generate <strong>visualized views</strong>.</li>\n"
 "          </ul>"
-msgstr ""
-"次のステップであなたは\n"
-"          <ul>\n"
-"            <li><strong>データソース</strong>のリファレンスを追加し、</li>\n"
-"            <li>フォーマットを表現する<strong>データモデル</strong>を作成し、</li>\n"
-"            <li>あなたのモデルの正確性を<strong>テスト</strong>し、</li>\n"
-"            <li>データを<strong>インポート</strong>し、</li>\n"
-"            <li>そして<strong>可視化ビュー</strong>を生成しましょう。</li>\n"
-"          </ul>"
+msgstr "次のステップであなたは\n          <ul>\n            <li><strong>データソース</strong>のリファレンスを追加し、</li>\n            <li>フォーマットを表現する<strong>データモデル</strong>を作成し、</li>\n            <li>あなたのモデルの正確性を<strong>テスト</strong>し、</li>\n            <li>データを<strong>インポート</strong>し、</li>\n            <li>そして<strong>可視化ビュー</strong>を生成しましょう。</li>\n          </ul>"
 
 #: openspending/ui/alttemplates/dataset/new.html:43
 #: openspending/ui/alttemplates/view/new.html:67
@@ -647,9 +616,7 @@ msgid ""
 "The identifier will become part of the\n"
 "                  dataset URL and cannot be changed later. It may only \n"
 "                  contain alphanumeric characters, dashes and underscores."
-msgstr ""
-"識別子はデータセットURLの一部となり、後で変更することはできません。\n"
-"英数字、ハイフンとアンダースコアのみ使用できます。"
+msgstr "識別子はデータセットURLの一部となり、後で変更することはできません。\n英数字、ハイフンとアンダースコアのみ使用できます。"
 
 #: openspending/ui/alttemplates/dataset/new.html:58
 msgid "Category"
@@ -682,8 +649,7 @@ msgid ""
 "        common tools for <strong>analysis, visualization and\n"
 "        comparison</strong>. OpenSpending is an open platform that\n"
 "        aims to facilitate the presentation of financial information so \n"
-"        anyone - whether data geek or concerned citizen - can contribute"
-" \n"
+"        anyone - whether data geek or concerned citizen - can contribute \n"
 "        their local city budget or spending reports."
 msgstr "私たちは世界の支出情報を共通のデータベースに集めようとしています。そうすることで、私たちは分析、可視化、比較のためのツールを提供することができます。OpenSpendingは財政情報の表現の促進を目標としたオープンプラットフォームです。データオタクであっても、関心のある市民であっても、誰でも地域自治体の予算や支出のレポートに貢献できます。"
 
@@ -857,17 +823,15 @@ msgstr "新しいディメンションの追加"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:139
 msgid ""
-"The name you choose should only contain letters, numbers and dashes "
-"(i.e., no spaces)"
+"The name you choose should only contain letters, numbers and dashes (i.e., "
+"no spaces)"
 msgstr "あなたが選んだ名前は英数字とハイフンのみ使用できます(スペースは使用できません)。"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:142
 msgid ""
 "Where the dimension represents the ultimate source or destination of the "
 "funds, call it <code>from</code> or <code>to</code>"
-msgstr ""
-"ディメンションが財源の最終的なソースか行き先を代表する場合、それを<code>from</code> か <code>to</code> "
-"と呼びます。"
+msgstr "ディメンションが財源の最終的なソースか行き先を代表する場合、それを<code>from</code> か <code>to</code> と呼びます。"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:147
 #: openspending/ui/alttemplates/editor/dimensions.html:417
@@ -881,8 +845,8 @@ msgstr "ディメンション"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:153
 msgid ""
-"A defined set, like suppliers or classifications, with multiple "
-"attributes (e.g. supplier name and VAT number)."
+"A defined set, like suppliers or classifications, with multiple attributes "
+"(e.g. supplier name and VAT number)."
 msgstr "データ提供者や分類など、複数の属性を有する規定のデータセット(例: 提供者名称や付加価値税登録番号など)"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:158
@@ -968,12 +932,7 @@ msgid ""
 "                    recipient of a specific transaction\n"
 "                    &mdash; both of those must be\n"
 "                    dimensions if they exist."
-msgstr ""
-"4つの中心的なディメンション、 <code>金額</code>,\n"
-"                    <code>時間</code> &mdash; 必須項目です &mdash; 、同様に\n"
-"                    支払者の項目 <code>from</code> 、\n"
-"                    そして特定の取引の受取者の項目 <code>to</code>  \n"
-"                    &mdash; 存在する場合両方がディメンションである必要があります。"
+msgstr "4つの中心的なディメンション、 <code>金額</code>,\n                    <code>時間</code> &mdash; 必須項目です &mdash; 、同様に\n                    支払者の項目 <code>from</code> 、\n                    そして特定の取引の受取者の項目 <code>to</code>  \n                    &mdash; 存在する場合両方がディメンションである必要があります。"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:251
 msgid ""
@@ -1003,9 +962,7 @@ msgid ""
 "                      <code>time</code> to represent the most \n"
 "                      representative temporal\n"
 "                      dimension."
-msgstr ""
-"データセットのコアな会計単位と<code>金額</code> 、\n"
-"                      <code>時間</code> を、最も代表的な一時的なディメンションとして作成してください。"
+msgstr "データセットのコアな会計単位と<code>金額</code> 、\n                      <code>時間</code> を、最も代表的な一時的なディメンションとして作成してください。"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:270
 msgid ""
@@ -1042,9 +999,7 @@ msgid ""
 "                    dimension, for example if each row \n"
 "                    mentions both a company's name and\n"
 "                    its VAT number."
-msgstr ""
-"これらの基本的な作業が完了したら、ソースデータに存在する切り口をカバーするディメンションを作成してください。\n"
-"あなたは関連するカラムを一つのディメンションに含めることができます。例えば、各行が会社名と取引先番号を持っている場合などです。"
+msgstr "これらの基本的な作業が完了したら、ソースデータに存在する切り口をカバーするディメンションを作成してください。\nあなたは関連するカラムを一つのディメンションに含めることができます。例えば、各行が会社名と取引先番号を持っている場合などです。"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:304
 #: openspending/ui/alttemplates/editor/dimensions.html:382
@@ -1181,8 +1136,7 @@ msgstr "おめでとうございます！データセットが作成されまし
 #: openspending/ui/alttemplates/editor/index.html:17
 msgid ""
 "Next, you'll need to link to a source file that contains the data\n"
-"        (or a sample for testing if your dataset is very large!). The "
-"data\n"
+"        (or a sample for testing if your dataset is very large!). The data\n"
 "        must be in the CSV format."
 msgstr "次は、データを含むソースファイル(またはデータセットが非常に大きい場合はテスト用サンプル)にリンクする必要があります。データはCSVフォーマットである必要があります。"
 
@@ -1396,9 +1350,7 @@ msgstr "インフレ調整"
 msgid ""
 "(from <span title=\"%(reference)s\">%(reference_year)s</span> \n"
 "             to <span title=\"%(target)s\">%(target_year)s</span>)"
-msgstr ""
-"(<span title=\"%(reference)s\">%(reference_year)s</span> \n"
-"             から <span title=\"%(target)s\">%(target_year)s</span>)"
+msgstr "(<span title=\"%(reference)s\">%(reference_year)s</span> \n             から <span title=\"%(target)s\">%(target_year)s</span>)"
 
 #: openspending/ui/alttemplates/entry/view.html:103
 #, python-format
@@ -1461,12 +1413,38 @@ msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:22
 msgid ""
-"By understanding how governments spend money <strong>in our name</strong>"
-" can we have a say in how that money will affect our own lives."
+"By understanding how governments spend money <strong>in our name</strong> "
+"can we have a say in how that money will affect our own lives."
 msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:22
 msgid "The journey starts here."
+msgstr ""
+
+#: openspending/ui/alttemplates/home/index.html:25
+#, python-format
+msgid "%(territory_count)s countries"
+msgstr ""
+
+#: openspending/ui/alttemplates/home/index.html:26
+#, python-format
+msgid "%(dataset_count)s datasets"
+msgstr ""
+
+#: openspending/ui/alttemplates/home/index.html:27
+#, python-format
+msgid "%(entry_count)s entries"
+msgstr ""
+
+#: openspending/ui/alttemplates/home/index.html:38
+msgid "Featured Application"
+msgstr ""
+
+#: openspending/ui/alttemplates/home/index.html:39
+msgid ""
+"How much is that really? &mdash; See the stories behind the numbers in the "
+"news with the <a href=\"http://spendingstories.org\" "
+"target=\"_blank\">Spending Stories application</a>."
 msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:53
@@ -1475,8 +1453,8 @@ msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:55
 msgid ""
-"Upload any kind of financial data to OpenSpending and explore it with our"
-" built-in interactive visualizations."
+"Upload any kind of financial data to OpenSpending and explore it with our "
+"built-in interactive visualizations."
 msgstr "どんな種類の財務データでも、OpenSpendingに登録し、標準装備のインタラクティブな可視化ツールを使って探索できます。"
 
 #: openspending/ui/alttemplates/home/index.html:55
@@ -1484,26 +1462,18 @@ msgid ""
 "Users publish <a "
 "href=\"https://openspending.org/budgetmarocain\">budgets</a>, <a "
 "href=\"https://openspending.org/marches-publics-senegal/views/liste-des-"
-"attributaires\">procurements</a>, <a href=\"https://openspending.org"
-"/ukgov-25k-spending\">spending data</a> and even <a "
+"attributaires\">procurements</a>, <a href=\"https://openspending.org/ukgov-"
+"25k-spending\">spending data</a> and even <a "
 "href=\"https://openspending.org/senadofederal/entries\">public employee "
 "salaries</a>."
-msgstr ""
-"ユーザーは <a href=\"https://openspending.org/budgetmarocain\">予算</a>, <a "
-"href=\"https://openspending.org/marches-publics-senegal/views/liste-des-"
-"attributaires\">調達</a>, <a href=\"https://openspending.org/ukgov-25k-"
-"spending\">支出データ</a> や <a "
-"href=\"https://openspending.org/senadofederal/entries\">公共職員の給与</a>さえも公開します。"
+msgstr "ユーザーは <a href=\"https://openspending.org/budgetmarocain\">予算</a>, <a href=\"https://openspending.org/marches-publics-senegal/views/liste-des-attributaires\">調達</a>, <a href=\"https://openspending.org/ukgov-25k-spending\">支出データ</a> や <a href=\"https://openspending.org/senadofederal/entries\">公共職員の給与</a>さえも公開します。"
 
 #: openspending/ui/alttemplates/home/index.html:57
 msgid ""
 "Use our <a href=\"http://www.pbs.org/idealab/2013/03/how-to-embed-open-"
-"spending-visualizations-in-your-own-website078\">widgets</a> to embed "
-"your visualization on your own website."
-msgstr ""
-"わたしたちの <a href=\"http://www.pbs.org/idealab/2013/03/how-to-embed-open-"
-"spending-visualizations-in-your-own-"
-"website078\">ウィジェット</a>をあなたのビジュアライゼーションをあなたのウェブサイトに埋め込むために使ってください。"
+"spending-visualizations-in-your-own-website078\">widgets</a> to embed your "
+"visualization on your own website."
+msgstr "わたしたちの <a href=\"http://www.pbs.org/idealab/2013/03/how-to-embed-open-spending-visualizations-in-your-own-website078\">ウィジェット</a>をあなたのビジュアライゼーションをあなたのウェブサイトに埋め込むために使ってください。"
 
 #: openspending/ui/alttemplates/home/index.html:59
 msgid "Create a dataset"
@@ -1518,10 +1488,11 @@ msgid "Explore"
 msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:64
+#, python-format
 msgid ""
-"OpenSpending holds nearly 16 mio. transactions from more than 300 "
-"datasets across more than 70 countries."
-msgstr "OpenSpending は70カ国以上から集められた、300を超えるデータセットから、1,600万件近くの取引データを保有しています。"
+"OpenSpending holds more than %(transactions)s mio. transactions from "
+"%(datasets)s datasets across %(territories)s countries."
+msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:66
 #, python-format
@@ -1530,10 +1501,7 @@ msgid ""
 "public finances from around the world, or browse <a "
 "href=\"http://apps.openspending.org/maps/\">our map of cities</a> on "
 "OpenSpending."
-msgstr ""
-"<a "
-"href=\"%(indexurl)s\">データセットのリスト</a>を閲覧し、世界中の公共の会計について学んでください。または、OpenSpendingを利用している都市の<a"
-" href=\"http://apps.openspending.org/maps/\">地図</a>を見てみてください。"
+msgstr "<a href=\"%(indexurl)s\">データセットのリスト</a>を閲覧し、世界中の公共の会計について学んでください。または、OpenSpendingを利用している都市の<a href=\"http://apps.openspending.org/maps/\">地図</a>を見てみてください。"
 
 #: openspending/ui/alttemplates/home/index.html:68
 msgid "Search the datasets"
@@ -1553,20 +1521,16 @@ msgstr "...またはデータセットを見る"
 
 #: openspending/ui/alttemplates/home/index.html:71
 msgid "Visualize"
-msgstr ""
+msgstr "可視化"
 
 #: openspending/ui/alttemplates/home/index.html:73
 msgid ""
 "Create your own visualizations with the <a "
-"href=\"http://community.openspending.org/help/api/aggregate/\">OpenSpending"
-" API</a> using libraries like <a "
-"href=\"http://community.openspending.org/2013/08/20/okfb-"
-"inesc/\">D3.js</a>, jit, and Raphael."
-msgstr ""
-"<a href=\"http://community.openspending.org/2013/08/20/okfb-"
-"inesc/\">D3.js</a>や jit、 Raphaelといったライブラリを使い、<a "
-"href=\"http://community.openspending.org/help/api/aggregate/\">OpenSpending"
-" API</a>であなた独自のビジュアライゼーションを行いましょう。"
+"href=\"http://community.openspending.org/help/api/aggregate/\">OpenSpending "
+"API</a> using libraries like <a "
+"href=\"http://community.openspending.org/2013/08/20/okfb-inesc/\">D3.js</a>,"
+" jit, and Raphael."
+msgstr "<a href=\"http://community.openspending.org/2013/08/20/okfb-inesc/\">D3.js</a>や jit、 Raphaelといったライブラリを使い、<a href=\"http://community.openspending.org/help/api/aggregate/\">OpenSpending API</a>であなた独自のビジュアライゼーションを行いましょう。"
 
 #: openspending/ui/alttemplates/home/index.html:75
 msgid ""
@@ -1594,8 +1558,8 @@ msgstr "OpenSpending はコミュニティ運用のプロジェクトですべ�
 
 #: openspending/ui/alttemplates/home/index.html:84
 msgid ""
-"Get involved in loading data, developing the technology, doing analysis "
-"or writing news stories!"
+"Get involved in loading data, developing the technology, doing analysis or "
+"writing news stories!"
 msgstr "データロード、テクノロジー開発、分析、または新しい物語を書くことに参加しよう！"
 
 #: openspending/ui/alttemplates/home/index.html:86
@@ -1630,12 +1594,9 @@ msgstr "The Store's REST API"
 #: openspending/ui/alttemplates/home/rest.html:9
 msgid ""
 "This API returns JSON versions of the store's domain objects.\n"
-"    The URLs are generally the same as the URLs used by the web interface"
-" for\n"
+"    The URLs are generally the same as the URLs used by the web interface for\n"
 "    the same objects, but with \"/api/rest\" prepended."
-msgstr ""
-"このAPIはJSON形式のstoreドメインオブジェクトを返します。\n"
-"URLは、通常同じオブジェクトを表示する際のウェブインターフェースのURLに \"/api/rest/\" を付与したものになります。"
+msgstr "このAPIはJSON形式のstoreドメインオブジェクトを返します。\nURLは、通常同じオブジェクトを表示する際のウェブインターフェースのURLに \"/api/rest/\" を付与したものになります。"
 
 #: openspending/ui/alttemplates/home/rest.html:15
 msgid "Here are some examples"
@@ -1674,10 +1635,7 @@ msgid ""
 "  successfully. This does not mean the data is stored in a form \n"
 "  which is semantically useful, though, so don't forget to \n"
 "  sanity-check a few entries!"
-msgstr ""
-"ソースのロードに成功しました。\n"
-"しかし、データが意味的に使える形で保存されたということではありません。\n"
-"いくつかのエントリーが正しいかどうかチェックするのをお忘れなく。"
+msgstr "ソースのロードに成功しました。\nしかし、データが意味的に使える形で保存されたということではありません。\nいくつかのエントリーが正しいかどうかチェックするのをお忘れなく。"
 
 #: openspending/ui/alttemplates/run/view.html:28
 msgid "Level"
@@ -1797,15 +1755,11 @@ msgstr "これはCSVファイルを直接指定する必要があります。HTM
 
 #: openspending/ui/alttemplates/source/_new_form.html:10
 msgid ""
-"We recommend using <strong>,</strong> as delimiter and wrapping values in"
-" double quotes (especially amounts). The first line will always be "
-"regarded as a header row. <a "
-"href=\"http://community.openspending.org/help/guide/en/formatting-"
-"data/\">Want to know more?</a>"
-msgstr ""
-"区切り文字には<strong>,</strong>を利用し、値はダブルクォート(特に金額)で囲むことをお勧めします。最初の行は常にヘッダ行とみなされます。<a"
-" href=\"http://community.openspending.org/help/guide/en/formatting-"
-"data/\">詳細</a>"
+"We recommend using <strong>,</strong> as delimiter and wrapping values in "
+"double quotes (especially amounts). The first line will always be regarded "
+"as a header row. <a href=\"http://community.openspending.org/help/guide/en"
+"/formatting-data/\">Want to know more?</a>"
+msgstr "区切り文字には<strong>,</strong>を利用し、値はダブルクォート(特に金額)で囲むことをお勧めします。最初の行は常にヘッダ行とみなされます。<a href=\"http://community.openspending.org/help/guide/en/formatting-data/\">詳細</a>"
 
 #: openspending/ui/alttemplates/view/embed.html:6
 msgid "Embedded Visualisation"
@@ -1834,8 +1788,8 @@ msgstr "ビジュアライゼーションの名前"
 
 #: openspending/ui/alttemplates/view/new.html:63
 msgid ""
-"You can store your visualisation with a name so that you can come back to"
-" it later and it will become visible to others."
+"You can store your visualisation with a name so that you can come back to it"
+" later and it will become visible to others."
 msgstr "あなたはあとで戻ってきた時や他の人が閲覧できるようにするため、名前をつけてビジュアライゼーションを保存することができます。"
 
 #: openspending/ui/alttemplates/view/new.html:82
@@ -1848,9 +1802,9 @@ msgstr "他のサイトに埋め込む"
 
 #: openspending/ui/alttemplates/view/new.html:92
 msgid ""
-"If you don't save this visualisation, you can still copy and paste the "
-"embed code below, to embed the widget in another website, such as a blog "
-"or article."
+"If you don't save this visualisation, you can still copy and paste the embed"
+" code below, to embed the widget in another website, such as a blog or "
+"article."
 msgstr "もしこのビジュアライゼーションを保存しない場合でも、あなたは下記の埋め込みコードをコピーペーストすることで、ウィジェットを他のブログなどのウェブサイトに埋め込むことができます。"
 
 #: openspending/ui/alttemplates/view/new.html:96
@@ -1862,29 +1816,14 @@ msgid "Height"
 msgstr "高さ"
 
 #: openspending/ui/alttemplates/view/view.html:37
-#, fuzzy
-#| msgid "" "Here you can rename your widget and/or update the description.\n"
-#| "    You can also change and modify the the widget itself but keep in\n" "
-#| mind that others might be using and embedding the widget as it is\n" "
-#| now on their sites. <strong>Changing the widget here will change\n" "    it
-#| everywhere.</strong> This might then create a discrepancy\n" "    between
-#| the widget and the context of a page it's embedded in."
 msgid ""
 "Here you can rename your widget and/or update the description.\n"
-"    You can also modify the widget itself, but keep in mind that others "
-"might be \n"
+"    You can also modify the widget itself, but keep in mind that others might be \n"
 "    using and embedding the widget as it is now on their sites. \n"
-"    <strong>Changing the widget here will change it everywhere.</strong>"
-" \n"
-"    This might then create a discrepancy between the widget and the "
-"context of \n"
+"    <strong>Changing the widget here will change it everywhere.</strong> \n"
+"    This might then create a discrepancy between the widget and the context of \n"
 "    a page in which it's embedded."
 msgstr ""
-"あなたはここでウィジェットの名前変更や解説の変更をすることができます。\n"
-"また、ウィジェットそのものを変更することも可能ですが、そのウィジェットは他のサイトに埋め込まれているかもしれないことを念頭に置いておいてください。"
-"\n"
-"<strong>ここでのウィジェットの変更は、それら全てのサイトで利用されているものも変更します。</strong>\n"
-"変更をすることで、ウィジェットと埋め込み元サイト間での不一致を生む可能性があります。"
 
 #: openspending/ui/alttemplates/view/view.html:45
 msgid "Update widget"
@@ -1940,8 +1879,8 @@ msgstr "このアドレスで登録のあるユーザはいません。"
 
 #: openspending/ui/controllers/account.py:342
 msgid ""
-"You've received an email with a link to reset your password. Please check"
-" your inbox."
+"You've received an email with a link to reset your password. Please check "
+"your inbox."
 msgstr "パスワードをリセットするためのリンクが付与されたEメールが送信されました。受信ボックスをチェックしてください。"
 
 #: openspending/ui/controllers/account.py:351
@@ -1998,7 +1937,8 @@ msgid "The dataset has been updated."
 msgstr "データセットが更新されました"
 
 #: openspending/ui/controllers/editor.py:122
-msgid "You cannot edit the dimensions model when data is loaded for the dataset."
+msgid ""
+"You cannot edit the dimensions model when data is loaded for the dataset."
 msgstr "データがデータセットにロード済の場合、ディメンションモデルは変更できません。"
 
 #: openspending/ui/controllers/editor.py:140
@@ -2036,8 +1976,7 @@ msgstr "このデータセットはすでに公開中です。"
 #: openspending/ui/controllers/editor.py:261
 #, python-format
 msgid ""
-"Congratulations, the dataset has been published. It is now available at: "
-"%s"
+"Congratulations, the dataset has been published. It is now available at: %s"
 msgstr "おめでとう、データセットは公開されました。それは今閲覧できる状態です: %s"
 
 #: openspending/ui/controllers/editor.py:270
@@ -2124,7 +2063,3 @@ msgstr "無題"
 #, python-format
 msgid "No widget named '%s' exists."
 msgstr "'%s' という名前のウィジェットはありません"
-
-#~ msgid "E-Mail"
-#~ msgstr "Eメール"
-

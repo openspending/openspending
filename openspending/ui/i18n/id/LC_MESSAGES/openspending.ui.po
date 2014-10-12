@@ -1,25 +1,26 @@
-# Indonesian translations for openspending.
+# Translations template for openspending.
 # Copyright (C) 2014 ORGANIZATION
-# This file is distributed under the same license as the openspending
-# project.
-#
+# This file is distributed under the same license as the openspending project.
+# 
 # Translators:
 # DarisLi <ldinc88@hotmail.com>, 2013
-# demank <sukmabudi@yahoo.com>, 2013
+# Sukma Budi <sukmabudi@yahoo.com>, 2013
+# DarisLi <ldinc88@hotmail.com>, 2013
+# Sukma Budi <sukmabudi@yahoo.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version:  OpenSpending\n"
+"Project-Id-Version: OpenSpending\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-09-26 06:39+0000\n"
-"PO-Revision-Date: 2014-04-03 15:38+0000\n"
-"Last-Translator: tryggvib <tryggvib@fsfi.is>\n"
-"Language-Team: Indonesian "
-"(http://www.transifex.com/projects/p/openspending/language/id/)\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"POT-Creation-Date: 2014-10-06 13:26+0000\n"
+"PO-Revision-Date: 2014-10-06 13:27+0000\n"
+"Last-Translator: Tryggvi Björgvinsson <tryggvib@fsfi.is>\n"
+"Language-Team: Indonesian (http://www.transifex.com/projects/p/openspending/language/id/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
+"Language: id\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: openspending/lib/mailer.py:20
 #, python-format
@@ -43,12 +44,7 @@ msgid ""
 "Please click the following link to confirm this request:\n"
 "\n"
 "   %(reset_link)s\n"
-msgstr ""
-"Anda telah meminta kata sandi Anda pada %(site_title)s dibuat ulang.\n"
-"\n"
-"Mohon klik tautan dibawah untuk konfirmasi permintaan ini:\n"
-"\n"
-"%(reset_link)s\n"
+msgstr "Anda telah meminta kata sandi Anda pada %(site_title)s dibuat ulang.\n\nMohon klik tautan dibawah untuk konfirmasi permintaan ini:\n\n%(reset_link)s\n"
 
 #: openspending/lib/mailer.py:82
 #: openspending/ui/alttemplates/account/trigger_reset.html:6
@@ -60,7 +56,8 @@ msgid "Part of unique key"
 msgstr "Bagian dari kunci unik"
 
 #: openspending/ui/alttemplates/base.html:11
-msgid "We're enabling anyone to explore, visualize and track government spending."
+msgid ""
+"We're enabling anyone to explore, visualize and track government spending."
 msgstr ""
 
 #: openspending/ui/alttemplates/base.html:15
@@ -78,6 +75,7 @@ msgstr "Kumpulan data"
 #: openspending/ui/alttemplates/dimension/_nav.html:42
 #: openspending/ui/alttemplates/entry/search.html:2
 #: openspending/ui/alttemplates/entry/search.html:34
+#: openspending/ui/alttemplates/home/index.html:44
 msgid "Search"
 msgstr "Cari"
 
@@ -159,10 +157,8 @@ msgstr "Privasi"
 #: openspending/ui/alttemplates/base.html:142
 msgid ""
 "All <a href=\"http://www.gnu.org/licenses/agpl.html\">code</a>,\n"
-"          <a "
-"href=\"http://creativecommons.org/licenses/by/3.0/\">content</a>\n"
-"          and <a "
-"href=\"http://opendatacommons.org/licenses/odbl/\">data</a> is\n"
+"          <a href=\"http://creativecommons.org/licenses/by/3.0/\">content</a>\n"
+"          and <a href=\"http://opendatacommons.org/licenses/odbl/\">data</a> is\n"
 "          openly licensed in accordance with the\n"
 "          <a href=\"http://opendefinition.org/\">open definition</a>"
 msgstr ""
@@ -221,10 +217,8 @@ msgstr "Password (ulangi)"
 
 #: openspending/ui/alttemplates/account/login.html:73
 msgid ""
-"I agree to the <a href=\"http://okfn.org/terms-of-use/\">Terms of Use</a>"
-"\n"
-"              and <a href=\"http://okfn.org/privacy-policy/\">Privacy "
-"Policy</a>."
+"I agree to the <a href=\"http://okfn.org/terms-of-use/\">Terms of Use</a>\n"
+"              and <a href=\"http://okfn.org/privacy-policy/\">Privacy Policy</a>."
 msgstr ""
 
 #: openspending/ui/alttemplates/account/login.html:79
@@ -307,7 +301,8 @@ msgid "Script Location"
 msgstr "Lokasi Skrip"
 
 #: openspending/ui/alttemplates/account/settings.html:59
-msgid "Set a different location for JavaScript imports to develop new widgets."
+msgid ""
+"Set a different location for JavaScript imports to develop new widgets."
 msgstr ""
 
 #: openspending/ui/alttemplates/account/settings.html:64
@@ -367,9 +362,9 @@ msgid ""
 "These badges can be awarded to specific datasets by administrators of "
 "OpenSpending. The badges indicate that an official, either from <a "
 "href=\"http://okfn.org\" title=\"Open Knowledge Foundation\">The Open "
-"Knowledge Foundation</a> (OKF) or from another entity approved by the "
-"OKF, has carefully examined the dataset and decided to award it that "
-"particular badge."
+"Knowledge Foundation</a> (OKF) or from another entity approved by the OKF, "
+"has carefully examined the dataset and decided to award it that particular "
+"badge."
 msgstr ""
 
 #: openspending/ui/alttemplates/badge/index.html:32
@@ -387,7 +382,8 @@ msgid "e.g. 'Cleaned by Shakespeare's typewriter crew'"
 msgstr ""
 
 #: openspending/ui/alttemplates/badge/index.html:43
-msgid "e.g. 'Awarded to datasets cleaned by a team of highly skilled monkeys.'"
+msgid ""
+"e.g. 'Awarded to datasets cleaned by a team of highly skilled monkeys.'"
 msgstr ""
 
 #: openspending/ui/alttemplates/badge/index.html:45
@@ -494,10 +490,7 @@ msgid ""
 "These people are the managers of the dataset. They can\n"
 "              make modifications to its schema and are responsible\n"
 "              to make sure the data is accurate."
-msgstr ""
-"Orang-orang ini adalah para pengelola kumpulan data. Mereka dapat\n"
-"              membuat modifikasi sesuai skemanya dan bertanggung jawab\n"
-"              untuk memastikan data tersebut akurat."
+msgstr "Orang-orang ini adalah para pengelola kumpulan data. Mereka dapat\n              membuat modifikasi sesuai skemanya dan bertanggung jawab\n              untuk memastikan data tersebut akurat."
 
 #: openspending/ui/alttemplates/dataset/about.html:76
 msgid "This dataset has been awarded"
@@ -514,8 +507,7 @@ msgstr ""
 #: openspending/ui/alttemplates/dataset/about.html:78
 msgid ""
 "Badges can be given by OpenSpending administrators on behalf of\n"
-"\t      entities approved by <a href=\"http://okfn.org/\" "
-"title=\"OKF\">the Open Knowledge Foundation</a>."
+"\t      entities approved by <a href=\"http://okfn.org/\" title=\"OKF\">the Open Knowledge Foundation</a>."
 msgstr ""
 
 #: openspending/ui/alttemplates/dataset/about.html:87
@@ -545,9 +537,7 @@ msgstr "Dimensi"
 msgid ""
 "Dimensions are different aspects of the dataset, such as the\n"
 "          spender, recipient or classifications that apply."
-msgstr ""
-"Dimensi adalah aspek-aspek yang berbeda dari kumpulan data, seperti\n"
-"          pembelanja, penerima atau klasifikasi yang diterapkan."
+msgstr "Dimensi adalah aspek-aspek yang berbeda dari kumpulan data, seperti\n          pembelanja, penerima atau klasifikasi yang diterapkan."
 
 #: openspending/ui/alttemplates/dataset/dropdb.html:3
 msgid "Database erased"
@@ -555,11 +545,9 @@ msgstr "Basisdata dihapus"
 
 #: openspending/ui/alttemplates/dataset/dropdb.html:11
 msgid ""
-"The database should now have been erased. You'll even have to create a "
-"new user to log in again."
-msgstr ""
-"Basisdata tersebut seharusnya sekarang sudah dihapus. Anda harus membuat "
-"sebuah pengguna baru untuk masuk lagi."
+"The database should now have been erased. You'll even have to create a new "
+"user to log in again."
+msgstr "Basisdata tersebut seharusnya sekarang sudah dihapus. Anda harus membuat sebuah pengguna baru untuk masuk lagi."
 
 #: openspending/ui/alttemplates/dataset/index.html:3
 msgid "All datasets"
@@ -593,10 +581,8 @@ msgid ""
 "In the next steps, you'll\n"
 "          <ul>\n"
 "            <li>add references to <strong>data sources</strong>,</li>\n"
-"            <li>create a <strong>data model</strong> to describe the "
-"format,</li>\n"
-"            <li><strong>test</strong> the correctness of your model,</li>"
-"\n"
+"            <li>create a <strong>data model</strong> to describe the format,</li>\n"
+"            <li><strong>test</strong> the correctness of your model,</li>\n"
 "            <li><strong>import</strong> the data,</li>\n"
 "            <li>and generate <strong>visualized views</strong>.</li>\n"
 "          </ul>"
@@ -624,12 +610,7 @@ msgid ""
 "The identifier will become part of the\n"
 "                  dataset URL and cannot be changed later. It may only \n"
 "                  contain alphanumeric characters, dashes and underscores."
-msgstr ""
-"Identitas menjadi bagian dari\n"
-"                  URL kumpulan data dan tidak dapat diubah nantinya. Ia "
-"mungkin hanya \n"
-"                  mengandung karakter alfanumerik, garis tengah dan garis"
-" bawah."
+msgstr "Identitas menjadi bagian dari\n                  URL kumpulan data dan tidak dapat diubah nantinya. Ia mungkin hanya \n                  mengandung karakter alfanumerik, garis tengah dan garis bawah."
 
 #: openspending/ui/alttemplates/dataset/new.html:58
 msgid "Category"
@@ -662,8 +643,7 @@ msgid ""
 "        common tools for <strong>analysis, visualization and\n"
 "        comparison</strong>. OpenSpending is an open platform that\n"
 "        aims to facilitate the presentation of financial information so \n"
-"        anyone - whether data geek or concerned citizen - can contribute"
-" \n"
+"        anyone - whether data geek or concerned citizen - can contribute \n"
 "        their local city budget or spending reports."
 msgstr ""
 
@@ -825,9 +805,7 @@ msgstr ""
 
 #: openspending/ui/alttemplates/editor/dimensions.html:112
 msgid "Specify which dimensions identify an entry uniquely"
-msgstr ""
-"Spesifikasikan dimensi mana yang mengidentifikasi sebuah masukan secara "
-"unik"
+msgstr "Spesifikasikan dimensi mana yang mengidentifikasi sebuah masukan secara unik"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:120
 msgid "Update"
@@ -839,11 +817,9 @@ msgstr "Tambah dimensi baru"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:139
 msgid ""
-"The name you choose should only contain letters, numbers and dashes "
-"(i.e., no spaces)"
-msgstr ""
-"Nama yang anda pilih seharusnya hanya mengandung huruf, angka dan garis "
-"tengah (misalnya, tanpa spasi)"
+"The name you choose should only contain letters, numbers and dashes (i.e., "
+"no spaces)"
+msgstr "Nama yang anda pilih seharusnya hanya mengandung huruf, angka dan garis tengah (misalnya, tanpa spasi)"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:142
 msgid ""
@@ -863,8 +839,8 @@ msgstr "Dimensi"
 
 #: openspending/ui/alttemplates/editor/dimensions.html:153
 msgid ""
-"A defined set, like suppliers or classifications, with multiple "
-"attributes (e.g. supplier name and VAT number)."
+"A defined set, like suppliers or classifications, with multiple attributes "
+"(e.g. supplier name and VAT number)."
 msgstr ""
 
 #: openspending/ui/alttemplates/editor/dimensions.html:158
@@ -1154,8 +1130,7 @@ msgstr ""
 #: openspending/ui/alttemplates/editor/index.html:17
 msgid ""
 "Next, you'll need to link to a source file that contains the data\n"
-"        (or a sample for testing if your dataset is very large!). The "
-"data\n"
+"        (or a sample for testing if your dataset is very large!). The data\n"
 "        must be in the CSV format."
 msgstr ""
 
@@ -1432,12 +1407,38 @@ msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:22
 msgid ""
-"By understanding how governments spend money <strong>in our name</strong>"
-" can we have a say in how that money will affect our own lives."
+"By understanding how governments spend money <strong>in our name</strong> "
+"can we have a say in how that money will affect our own lives."
 msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:22
 msgid "The journey starts here."
+msgstr ""
+
+#: openspending/ui/alttemplates/home/index.html:25
+#, python-format
+msgid "%(territory_count)s countries"
+msgstr ""
+
+#: openspending/ui/alttemplates/home/index.html:26
+#, python-format
+msgid "%(dataset_count)s datasets"
+msgstr ""
+
+#: openspending/ui/alttemplates/home/index.html:27
+#, python-format
+msgid "%(entry_count)s entries"
+msgstr ""
+
+#: openspending/ui/alttemplates/home/index.html:38
+msgid "Featured Application"
+msgstr ""
+
+#: openspending/ui/alttemplates/home/index.html:39
+msgid ""
+"How much is that really? &mdash; See the stories behind the numbers in the "
+"news with the <a href=\"http://spendingstories.org\" "
+"target=\"_blank\">Spending Stories application</a>."
 msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:53
@@ -1446,8 +1447,8 @@ msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:55
 msgid ""
-"Upload any kind of financial data to OpenSpending and explore it with our"
-" built-in interactive visualizations."
+"Upload any kind of financial data to OpenSpending and explore it with our "
+"built-in interactive visualizations."
 msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:55
@@ -1455,8 +1456,8 @@ msgid ""
 "Users publish <a "
 "href=\"https://openspending.org/budgetmarocain\">budgets</a>, <a "
 "href=\"https://openspending.org/marches-publics-senegal/views/liste-des-"
-"attributaires\">procurements</a>, <a href=\"https://openspending.org"
-"/ukgov-25k-spending\">spending data</a> and even <a "
+"attributaires\">procurements</a>, <a href=\"https://openspending.org/ukgov-"
+"25k-spending\">spending data</a> and even <a "
 "href=\"https://openspending.org/senadofederal/entries\">public employee "
 "salaries</a>."
 msgstr ""
@@ -1464,8 +1465,8 @@ msgstr ""
 #: openspending/ui/alttemplates/home/index.html:57
 msgid ""
 "Use our <a href=\"http://www.pbs.org/idealab/2013/03/how-to-embed-open-"
-"spending-visualizations-in-your-own-website078\">widgets</a> to embed "
-"your visualization on your own website."
+"spending-visualizations-in-your-own-website078\">widgets</a> to embed your "
+"visualization on your own website."
 msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:59
@@ -1481,9 +1482,10 @@ msgid "Explore"
 msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:64
+#, python-format
 msgid ""
-"OpenSpending holds nearly 16 mio. transactions from more than 300 "
-"datasets across more than 70 countries."
+"OpenSpending holds more than %(transactions)s mio. transactions from "
+"%(datasets)s datasets across %(territories)s countries."
 msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:66
@@ -1513,15 +1515,15 @@ msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:71
 msgid "Visualize"
-msgstr ""
+msgstr "Visualisasikan"
 
 #: openspending/ui/alttemplates/home/index.html:73
 msgid ""
 "Create your own visualizations with the <a "
-"href=\"http://community.openspending.org/help/api/aggregate/\">OpenSpending"
-" API</a> using libraries like <a "
-"href=\"http://community.openspending.org/2013/08/20/okfb-"
-"inesc/\">D3.js</a>, jit, and Raphael."
+"href=\"http://community.openspending.org/help/api/aggregate/\">OpenSpending "
+"API</a> using libraries like <a "
+"href=\"http://community.openspending.org/2013/08/20/okfb-inesc/\">D3.js</a>,"
+" jit, and Raphael."
 msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:75
@@ -1550,8 +1552,8 @@ msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:84
 msgid ""
-"Get involved in loading data, developing the technology, doing analysis "
-"or writing news stories!"
+"Get involved in loading data, developing the technology, doing analysis or "
+"writing news stories!"
 msgstr ""
 
 #: openspending/ui/alttemplates/home/index.html:86
@@ -1586,13 +1588,9 @@ msgstr "Penyimpanan REST API"
 #: openspending/ui/alttemplates/home/rest.html:9
 msgid ""
 "This API returns JSON versions of the store's domain objects.\n"
-"    The URLs are generally the same as the URLs used by the web interface"
-" for\n"
+"    The URLs are generally the same as the URLs used by the web interface for\n"
 "    the same objects, but with \"/api/rest\" prepended."
-msgstr ""
-"API ini mengembalikan versi JSON dari objek penyimpanan domain.\n"
-"    URL pada umumnya sama dengan URL yang digunakanpada antarmuka web\n"
-"    untuk objek yang sama, tetapi dengan prepended \"/api/rest\"."
+msgstr "API ini mengembalikan versi JSON dari objek penyimpanan domain.\n    URL pada umumnya sama dengan URL yang digunakanpada antarmuka web\n    untuk objek yang sama, tetapi dengan prepended \"/api/rest\"."
 
 #: openspending/ui/alttemplates/home/rest.html:15
 msgid "Here are some examples"
@@ -1602,9 +1600,7 @@ msgstr ""
 msgid ""
 "The JSON response generally contains the same information as the\n"
 "    corresponding web page, but in more detail."
-msgstr ""
-"Respon JSON secara umum mengandung informasi yang dengan\n"
-"    laman web yang dimaksud, tetapi lebih rinci."
+msgstr "Respon JSON secara umum mengandung informasi yang dengan\n    laman web yang dimaksud, tetapi lebih rinci."
 
 #: openspending/ui/alttemplates/home/rest.html:28
 msgid ""
@@ -1753,11 +1749,10 @@ msgstr ""
 
 #: openspending/ui/alttemplates/source/_new_form.html:10
 msgid ""
-"We recommend using <strong>,</strong> as delimiter and wrapping values in"
-" double quotes (especially amounts). The first line will always be "
-"regarded as a header row. <a "
-"href=\"http://community.openspending.org/help/guide/en/formatting-"
-"data/\">Want to know more?</a>"
+"We recommend using <strong>,</strong> as delimiter and wrapping values in "
+"double quotes (especially amounts). The first line will always be regarded "
+"as a header row. <a href=\"http://community.openspending.org/help/guide/en"
+"/formatting-data/\">Want to know more?</a>"
 msgstr ""
 
 #: openspending/ui/alttemplates/view/embed.html:6
@@ -1787,8 +1782,8 @@ msgstr ""
 
 #: openspending/ui/alttemplates/view/new.html:63
 msgid ""
-"You can store your visualisation with a name so that you can come back to"
-" it later and it will become visible to others."
+"You can store your visualisation with a name so that you can come back to it"
+" later and it will become visible to others."
 msgstr ""
 
 #: openspending/ui/alttemplates/view/new.html:82
@@ -1801,9 +1796,9 @@ msgstr ""
 
 #: openspending/ui/alttemplates/view/new.html:92
 msgid ""
-"If you don't save this visualisation, you can still copy and paste the "
-"embed code below, to embed the widget in another website, such as a blog "
-"or article."
+"If you don't save this visualisation, you can still copy and paste the embed"
+" code below, to embed the widget in another website, such as a blog or "
+"article."
 msgstr ""
 
 #: openspending/ui/alttemplates/view/new.html:96
@@ -1817,13 +1812,10 @@ msgstr ""
 #: openspending/ui/alttemplates/view/view.html:37
 msgid ""
 "Here you can rename your widget and/or update the description.\n"
-"    You can also modify the widget itself, but keep in mind that others "
-"might be \n"
+"    You can also modify the widget itself, but keep in mind that others might be \n"
 "    using and embedding the widget as it is now on their sites. \n"
-"    <strong>Changing the widget here will change it everywhere.</strong>"
-" \n"
-"    This might then create a discrepancy between the widget and the "
-"context of \n"
+"    <strong>Changing the widget here will change it everywhere.</strong> \n"
+"    This might then create a discrepancy between the widget and the context of \n"
 "    a page in which it's embedded."
 msgstr ""
 
@@ -1881,8 +1873,8 @@ msgstr ""
 
 #: openspending/ui/controllers/account.py:342
 msgid ""
-"You've received an email with a link to reset your password. Please check"
-" your inbox."
+"You've received an email with a link to reset your password. Please check "
+"your inbox."
 msgstr ""
 
 #: openspending/ui/controllers/account.py:351
@@ -1939,10 +1931,9 @@ msgid "The dataset has been updated."
 msgstr "Kumpulan data telah diperbarui."
 
 #: openspending/ui/controllers/editor.py:122
-msgid "You cannot edit the dimensions model when data is loaded for the dataset."
-msgstr ""
-"Anda tidak dapat mengedit model dimensi ketika data sedang dimuat untuk "
-"kumpulan data."
+msgid ""
+"You cannot edit the dimensions model when data is loaded for the dataset."
+msgstr "Anda tidak dapat mengedit model dimensi ketika data sedang dimuat untuk kumpulan data."
 
 #: openspending/ui/controllers/editor.py:140
 msgid "The mapping data could not be decoded as JSON!"
@@ -1979,11 +1970,8 @@ msgstr "Kumpulan data ini sudah publik!"
 #: openspending/ui/controllers/editor.py:261
 #, python-format
 msgid ""
-"Congratulations, the dataset has been published. It is now available at: "
-"%s"
-msgstr ""
-"Selamat, kumpulan data tersebut telah dipublikasikan. Sekarang telah "
-"tersedia di: %s"
+"Congratulations, the dataset has been published. It is now available at: %s"
+msgstr "Selamat, kumpulan data tersebut telah dipublikasikan. Sekarang telah tersedia di: %s"
 
 #: openspending/ui/controllers/editor.py:270
 msgid "This dataset is already private!"
@@ -1991,9 +1979,7 @@ msgstr "Kumpulan data ini sudah privat!"
 
 #: openspending/ui/controllers/editor.py:280
 msgid "The dataset has been retracted. It is no longer visible to others."
-msgstr ""
-"Kumpulan data sudah ditarik kemabli. Ia tidak lagi terlihat oleh yang "
-"lain."
+msgstr "Kumpulan data sudah ditarik kemabli. Ia tidak lagi terlihat oleh yang lain."
 
 #: openspending/ui/controllers/editor.py:292
 msgid "The dataset has been deleted."
@@ -2071,16 +2057,3 @@ msgstr "Tak berjudul"
 #, python-format
 msgid "No widget named '%s' exists."
 msgstr "Tidak ada widget '%s'."
-
-#~ msgid "E-Mail"
-#~ msgstr "E-Mail"
-
-#~ msgid ""
-#~ "Here you can rename your widget and/or update the description.\n"
-#~ "    You can also change and modify the the widget itself but keep in\n"
-#~ "    mind that others might be using and embedding the widget as it is\n"
-#~ "    now on their sites. <strong>Changing the widget here will change\n"
-#~ "    it everywhere.</strong> This might then create a discrepancy\n"
-#~ "    between the widget and the context of a page it's embedded in."
-#~ msgstr ""
-

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenSpending\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-04-03 15:36+0000\n"
-"PO-Revision-Date: 2014-08-04 13:21+0000\n"
+"POT-Creation-Date: 2014-10-06 13:26+0000\n"
+"PO-Revision-Date: 2014-10-06 13:50+0000\n"
 "Last-Translator: Tryggvi Björgvinsson <tryggvib@fsfi.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/projects/p/openspending/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -72,6 +72,7 @@ msgstr "Gagnasöfn"
 #: openspending/ui/alttemplates/dimension/_nav.html:42
 #: openspending/ui/alttemplates/entry/search.html:2
 #: openspending/ui/alttemplates/entry/search.html:34
+#: openspending/ui/alttemplates/home/index.html:44
 msgid "Search"
 msgstr "Leit"
 
@@ -194,9 +195,12 @@ msgid "Fullname"
 msgstr "Fullt nafn"
 
 #: openspending/ui/alttemplates/account/login.html:49
+#: openspending/ui/alttemplates/account/profile.html:22
 #: openspending/ui/alttemplates/account/settings.html:18
 #: openspending/ui/alttemplates/account/trigger_reset.html:19
-msgid "E-Mail"
+#: openspending/ui/alttemplates/home/index.html:93
+#: openspending/ui/alttemplates/home/index.html:100
+msgid "Email"
 msgstr "Netfang"
 
 #: openspending/ui/alttemplates/account/login.html:53
@@ -242,12 +246,6 @@ msgstr "Nafn"
 #: openspending/ui/alttemplates/account/profile.html:19
 msgid "Username"
 msgstr "Notandanafn"
-
-#: openspending/ui/alttemplates/account/profile.html:22
-#: openspending/ui/alttemplates/home/index.html:93
-#: openspending/ui/alttemplates/home/index.html:100
-msgid "Email"
-msgstr "Netfang"
 
 #: openspending/ui/alttemplates/account/profile.html:42
 msgid "It looks like you haven't uploaded any datasets."
@@ -1414,6 +1412,32 @@ msgstr "Skilningur á eyðslu stjórnvalda á peningum <strong>í okkar nafni</s
 msgid "The journey starts here."
 msgstr "Ferðalagið hefst hér."
 
+#: openspending/ui/alttemplates/home/index.html:25
+#, python-format
+msgid "%(territory_count)s countries"
+msgstr "%(territory_count)s lönd"
+
+#: openspending/ui/alttemplates/home/index.html:26
+#, python-format
+msgid "%(dataset_count)s datasets"
+msgstr "%(dataset_count)s gagnasöfn"
+
+#: openspending/ui/alttemplates/home/index.html:27
+#, python-format
+msgid "%(entry_count)s entries"
+msgstr "%(entry_count)s færslur"
+
+#: openspending/ui/alttemplates/home/index.html:38
+msgid "Featured Application"
+msgstr "Áhugavert forrit"
+
+#: openspending/ui/alttemplates/home/index.html:39
+msgid ""
+"How much is that really? &mdash; See the stories behind the numbers in the "
+"news with the <a href=\"http://spendingstories.org\" "
+"target=\"_blank\">Spending Stories application</a>."
+msgstr "Hversu mikið er þetta í rauninni? &mdash; Sjáðu sögurnar á bak við tölur í fréttunum með <a href=\"http://spendingstories.org\" target=\"_blank\">Spending Stories</a>."
+
 #: openspending/ui/alttemplates/home/index.html:53
 msgid "Upload"
 msgstr "Hala upp"
@@ -1455,10 +1479,11 @@ msgid "Explore"
 msgstr "Skoða"
 
 #: openspending/ui/alttemplates/home/index.html:64
+#, python-format
 msgid ""
-"OpenSpending holds nearly 16 mio. transactions from more than 300 datasets "
-"across more than 70 countries."
-msgstr "OpenSpending inniheldur næstum 16 mio. færslur í meira en 300 gagnasöfnum frá meira en 70 löndum."
+"OpenSpending holds more than %(transactions)s mio. transactions from "
+"%(datasets)s datasets across %(territories)s countries."
+msgstr "OpenSpending inniheldur meira en %(transactions)s milljón færslur frá %(datasets)s gagnasöfnum úr %(territories)s löndum."
 
 #: openspending/ui/alttemplates/home/index.html:66
 #, python-format
@@ -1784,102 +1809,102 @@ msgstr "Hæð"
 #: openspending/ui/alttemplates/view/view.html:37
 msgid ""
 "Here you can rename your widget and/or update the description.\n"
-"    You can also change and modify the the widget itself but keep in\n"
-"    mind that others might be using and embedding the widget as it is\n"
-"    now on their sites. <strong>Changing the widget here will change\n"
-"    it everywhere.</strong> This might then create a discrepancy\n"
-"    between the widget and the context of a page it's embedded in."
+"    You can also modify the widget itself, but keep in mind that others might be \n"
+"    using and embedding the widget as it is now on their sites. \n"
+"    <strong>Changing the widget here will change it everywhere.</strong> \n"
+"    This might then create a discrepancy between the widget and the context of \n"
+"    a page in which it's embedded."
 msgstr "Hér getur þú endurnefnt framsetninguna þína og/eða uppfært lýsinguna.\nÞú getur líka breytt framsetningunni sjálfri en hafðu í huga að aðrir gætu\nverið að nota hana og vafið hana inn í vefsíðurnar sínar núna.\n<strong>Að breyta framsetningunni hér breytir henni á öllum stöðum.</strong>\nÞetta gæti búið til mismun á milli framsetningarinnar og samhengisins á\nsíðunni sem notar framsetninguna."
 
 #: openspending/ui/alttemplates/view/view.html:45
 msgid "Update widget"
 msgstr "Uppfæra framsetningu"
 
-#: openspending/ui/controllers/account.py:79
+#: openspending/ui/controllers/account.py:80
 msgid "Login name already exists, please choose a different one"
 msgstr "Notandanafn er nú þegar til, vinsamlegast veldu annað"
 
-#: openspending/ui/controllers/account.py:85
-#: openspending/ui/controllers/account.py:162
+#: openspending/ui/controllers/account.py:86
+#: openspending/ui/controllers/account.py:163
 msgid "Passwords don't match!"
 msgstr "Lykilorðin passa ekki!"
 
-#: openspending/ui/controllers/account.py:119
+#: openspending/ui/controllers/account.py:120
 #, python-format
 msgid "Subscription to the following mailing lists probably failed: %s."
 msgstr "Skráning á eftirfarandi tölvupóstlista mistókst líklega: %s"
 
-#: openspending/ui/controllers/account.py:190
+#: openspending/ui/controllers/account.py:191
 msgid "Your settings have been updated."
 msgstr "Stillingarnar þínar hafa verið uppfærðar."
 
-#: openspending/ui/controllers/account.py:241
+#: openspending/ui/controllers/account.py:242
 msgid "You are not authorized to view this page"
 msgstr "Þú hefur ekki leyfi til að skoða þessa síðu"
 
-#: openspending/ui/controllers/account.py:277
+#: openspending/ui/controllers/account.py:278
 msgid "You are not authorized to see that page"
 msgstr "Þú hefur ekki leyfi til að sjá þessa síðu"
 
-#: openspending/ui/controllers/account.py:298
+#: openspending/ui/controllers/account.py:299
 #, python-format
 msgid "Welcome back, %s!"
 msgstr "Hæ aftur, %s!"
 
-#: openspending/ui/controllers/account.py:301
+#: openspending/ui/controllers/account.py:302
 msgid "Incorrect user name or password!"
 msgstr "Rangt notandanafn eða lykilorð!"
 
-#: openspending/ui/controllers/account.py:306
+#: openspending/ui/controllers/account.py:307
 msgid "You have been logged out."
 msgstr "Útskráning tókst."
 
-#: openspending/ui/controllers/account.py:326
+#: openspending/ui/controllers/account.py:327
 msgid "Please enter an email address!"
 msgstr "Vinsamlegast sláðu inn netfang!"
 
-#: openspending/ui/controllers/account.py:334
-#: openspending/ui/controllers/account.py:354
+#: openspending/ui/controllers/account.py:335
+#: openspending/ui/controllers/account.py:355
 msgid "No user is registered under this address!"
 msgstr "Enginn notandi er skráður með þetta netfang!"
 
-#: openspending/ui/controllers/account.py:341
+#: openspending/ui/controllers/account.py:342
 msgid ""
 "You've received an email with a link to reset your password. Please check "
 "your inbox."
 msgstr "Þú ættir að hafa fengið tölvupóst með tengli til að endurstilla lykilorðið þitt. Vinsamlegast kíktu í innhólfið þitt."
 
-#: openspending/ui/controllers/account.py:350
-#: openspending/ui/controllers/account.py:357
+#: openspending/ui/controllers/account.py:351
+#: openspending/ui/controllers/account.py:358
 msgid "The reset link is invalid!"
 msgstr "Endurstillingartengillinn er ógildur!"
 
-#: openspending/ui/controllers/account.py:364
+#: openspending/ui/controllers/account.py:365
 msgid "Thanks! You have now been signed in - please change your password!"
 msgstr "Takk! Innskráningin tókst - vinsamlegast breyttu lykilorðinu þínu!"
 
-#: openspending/ui/controllers/badge.py:83
+#: openspending/ui/controllers/badge.py:84
 msgid "Uploading files not supported at the moment."
 msgstr "Upphal á skrám er ekki stutt í augnablikinu."
 
-#: openspending/ui/controllers/badge.py:111
+#: openspending/ui/controllers/badge.py:112
 msgid "Badge not found."
 msgstr "Verðlaun fundust ekki."
 
-#: openspending/ui/controllers/dataset.py:61
+#: openspending/ui/controllers/dataset.py:63
 #, python-format
 msgid "Parameter values not supported: %s"
 msgstr "Gildi stika ekki stutt: %s"
 
-#: openspending/ui/controllers/dataset.py:148
+#: openspending/ui/controllers/dataset.py:150
 msgid "A dataset with this identifer already exists!"
 msgstr "Gagnasafn með þessu auðkenni er nú þegar til!"
 
-#: openspending/ui/controllers/dataset.py:250
+#: openspending/ui/controllers/dataset.py:252
 msgid "Recently Created Datasets"
 msgstr "Ný gagnasöfn"
 
-#: openspending/ui/controllers/dataset.py:252
+#: openspending/ui/controllers/dataset.py:254
 msgid "Recently created datasets in the OpenSpending Platform"
 msgstr "Gagnasöfn sem hefur nýlega verið bætt við á OpenSpending"
 
@@ -1898,71 +1923,71 @@ msgstr "Því miður er enginn meðlimur með nafnið %r"
 msgid "Sorry, there is no dimension named %r"
 msgstr "Því miður er engin vídd með nafnið %r"
 
-#: openspending/ui/controllers/editor.py:90
+#: openspending/ui/controllers/editor.py:92
 msgid "The dataset has been updated."
 msgstr "Gagnasafnið hefur verið uppfært."
 
-#: openspending/ui/controllers/editor.py:120
+#: openspending/ui/controllers/editor.py:122
 msgid ""
 "You cannot edit the dimensions model when data is loaded for the dataset."
 msgstr "Þú getur ekki breytt víddarlíkani þegar gögnum hefur verið hlaðið í gagnasafnið."
 
-#: openspending/ui/controllers/editor.py:138
+#: openspending/ui/controllers/editor.py:140
 msgid "The mapping data could not be decoded as JSON!"
 msgstr "Ekki tókst að afkóta kortlagningu gagna sem JSON!"
 
-#: openspending/ui/controllers/editor.py:163
+#: openspending/ui/controllers/editor.py:165
 msgid "The templates have been updated."
 msgstr "Sniðin hafa verið uppfærð."
 
-#: openspending/ui/controllers/editor.py:187
+#: openspending/ui/controllers/editor.py:189
 msgid "The views have been updated."
 msgstr "Framsetningarnar hafa verið uppfærðar."
 
-#: openspending/ui/controllers/editor.py:189
+#: openspending/ui/controllers/editor.py:191
 msgid "The views could not be decoded as JSON!"
 msgstr "Ekki tókst að afkóta framsetningarnar sem JSON!"
 
-#: openspending/ui/controllers/editor.py:211
+#: openspending/ui/controllers/editor.py:213
 msgid "User account cannot be found."
 msgstr "Notandaaðgangur fannst ekki."
 
-#: openspending/ui/controllers/editor.py:220
+#: openspending/ui/controllers/editor.py:222
 msgid "The team has been updated."
 msgstr "Teymið hefur verið uppfært."
 
-#: openspending/ui/controllers/editor.py:239
+#: openspending/ui/controllers/editor.py:241
 msgid "The dataset has been cleared."
 msgstr "Gagnasafnið hefur verið hreinsað."
 
-#: openspending/ui/controllers/editor.py:247
+#: openspending/ui/controllers/editor.py:249
 msgid "This dataset is already public!"
 msgstr "Gagnasafnið er nú þegar opinbert!"
 
-#: openspending/ui/controllers/editor.py:259
+#: openspending/ui/controllers/editor.py:261
 #, python-format
 msgid ""
 "Congratulations, the dataset has been published. It is now available at: %s"
 msgstr "Til hamingju! Gagnasafnið er nú opinbert. Það er aðgengilegt á: %s"
 
-#: openspending/ui/controllers/editor.py:268
+#: openspending/ui/controllers/editor.py:270
 msgid "This dataset is already private!"
 msgstr "Gagnasafnið er nú þegar falið!"
 
-#: openspending/ui/controllers/editor.py:278
+#: openspending/ui/controllers/editor.py:280
 msgid "The dataset has been retracted. It is no longer visible to others."
 msgstr "Gagnasafnið hefur verið afturkallað. Það er nú falið öðrum notendum."
 
-#: openspending/ui/controllers/editor.py:290
+#: openspending/ui/controllers/editor.py:292
 msgid "The dataset has been deleted."
 msgstr "Gagnasafninu hefur verið eytt."
 
-#: openspending/ui/controllers/entry.py:101
+#: openspending/ui/controllers/entry.py:102
 #, python-format
 msgid "Sorry, there is no entry %r"
 msgstr "Því miður er engin færsla %r"
 
-#: openspending/ui/controllers/entry.py:141
+#: openspending/ui/controllers/entry.py:142
 msgid "Unable to adjust for inflation"
 msgstr "Ekki tókst að gera ráð fyrir verðbólgu"
 
@@ -1970,53 +1995,53 @@ msgstr "Ekki tókst að gera ráð fyrir verðbólgu"
 msgid "Sent ping!"
 msgstr "Ping sent!"
 
-#: openspending/ui/controllers/run.py:21
-#: openspending/ui/controllers/source.py:57
+#: openspending/ui/controllers/run.py:24
+#: openspending/ui/controllers/source.py:59
 #, python-format
 msgid "There is no source '%s'"
 msgstr "Það eru engin upprunagögn '%s'"
 
-#: openspending/ui/controllers/run.py:24
+#: openspending/ui/controllers/run.py:27
 #, python-format
 msgid "There is no run '%s'"
 msgstr "Það er engin keyrsla '%s'"
 
-#: openspending/ui/controllers/source.py:41
+#: openspending/ui/controllers/source.py:43
 msgid "The source has been created."
 msgstr "Upprunagögnum hefur verið bætt við."
 
-#: openspending/ui/controllers/source.py:79
+#: openspending/ui/controllers/source.py:81
 msgid "Already running!"
 msgstr "Nú þegar í keyrslu!"
 
-#: openspending/ui/controllers/source.py:86
+#: openspending/ui/controllers/source.py:88
 msgid "Now loading..."
 msgstr "Hleð inn..."
 
-#: openspending/ui/controllers/view.py:36
+#: openspending/ui/controllers/view.py:37
 #, python-format
 msgid "Invalid widget type: %r"
 msgstr "Ógild framsetningargerð: %r"
 
-#: openspending/ui/controllers/view.py:67
+#: openspending/ui/controllers/view.py:68
 #, python-format
 msgid "Sorry, there is no view %r"
 msgstr "Því miður er engin framsetning %r"
 
-#: openspending/ui/controllers/view.py:96
+#: openspending/ui/controllers/view.py:97
 msgid "You are not authorized to delete this view."
 msgstr "Þú hefur ekki leyfi til að eyða þessari framsetningu."
 
-#: openspending/ui/controllers/view.py:97
+#: openspending/ui/controllers/view.py:98
 #, python-format
 msgid "'%s' has been deleted."
 msgstr "'%s' hefur verið eytt."
 
-#: openspending/ui/controllers/view.py:167
+#: openspending/ui/controllers/view.py:168
 msgid "No widget type has been specified."
 msgstr "Engin framsetningargerð hefur verið gefin upp."
 
-#: openspending/ui/lib/base.py:130
+#: openspending/ui/lib/base.py:131
 #, python-format
 msgid "Sorry, there is no dataset named %r"
 msgstr "Því miður, það er ekkert gagnasafn með nafnið %r"
