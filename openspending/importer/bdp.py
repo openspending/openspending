@@ -17,7 +17,7 @@ class BudgetDataPackageMap(object):
 
     def __init__(self, schema):
         # We lowercase the field names just in case
-        self.fields = [f['name'].lower() for f in schema['fields']]
+        self.fields = [f['name'] for f in schema['fields']]
 
     def id_label_map(self, name, label):
         """
@@ -138,13 +138,13 @@ class BudgetDataPackageMap(object):
             }
         }
 
-        if 'adminid' in self.fields:
-            attributes['name']['column'] = 'adminid'
+        if 'adminID' in self.fields:
+            attributes['name']['column'] = 'adminID'
 
-        if 'adminorgid' in self.fields:
-            attributes['adminorgid'] = {
+        if 'adminOrgID' in self.fields:
+            attributes['adminOrgID'] = {
                 "datatype": "string",
-                "column": "adminorgid",
+                "column": "adminOrgID",
                 "default_value": ""
             }
 
@@ -195,7 +195,7 @@ class BudgetDataPackageMap(object):
 
     @property
     def economic(self):
-        field_map = self.id_label_map('economicid', 'economic')
+        field_map = self.id_label_map('economicID', 'economic')
         if field_map is None:
             return None
         field_map["description"] = "Economic classification"
@@ -220,7 +220,7 @@ class BudgetDataPackageMap(object):
 
     @property
     def functional(self):
-        field_map = self.id_label_map('funcationalid', 'funcational')
+        field_map = self.id_label_map('funcationalID', 'funcational')
         if field_map is None:
             return None
         field_map["description"] = "Functional classification"
@@ -229,7 +229,7 @@ class BudgetDataPackageMap(object):
 
     @property
     def fund(self):
-        field_map = self.id_label_map('fundid', 'fund')
+        field_map = self.id_label_map('fundID', 'fund')
         if field_map is None:
             return None
         field_map["description"] = "Fund"
@@ -277,7 +277,7 @@ class BudgetDataPackageMap(object):
 
     @property
     def program(self):
-        field_map = self.id_label_map('programid', 'program')
+        field_map = self.id_label_map('programID', 'program')
         if field_map is None:
             return None
         field_map["description"] = "Program"
@@ -286,7 +286,7 @@ class BudgetDataPackageMap(object):
 
     @property
     def project(self):
-        field_map = self.id_label_map('projectid', 'project')
+        field_map = self.id_label_map('projectID', 'project')
         if field_map is None:
             return None
         field_map["description"] = "Project"
@@ -295,7 +295,7 @@ class BudgetDataPackageMap(object):
 
     @property
     def purchaser(self):
-        field_map = self.id_label_map('purchaserid', 'purchaserorgid')
+        field_map = self.id_label_map('purchaserID', 'purchaserOrgID')
         if field_map is None:
             return None
         field_map["description"] = "Purchaser"
@@ -420,12 +420,12 @@ class BudgetDataPackageMap(object):
 
     @property
     def contract(self):
-        if 'contractid' in self.fields:
+        if 'contractID' in self.fields:
             return {
                 "contractid": {
                     "default_value": "",
                     "description": "Contract id",
-                    "column": "contractid",
+                    "column": "contractID",
                     "label": "Contract ID",
                     "datatype": "string",
                     "type": "attribute"
@@ -484,12 +484,12 @@ class BudgetDataPackageMap(object):
 
     @property
     def invoice(self):
-        if 'invoiceid' in self.fields:
+        if 'invoiceID' in self.fields:
             return {
                 "invoiceid": {
                     "default_value": "",
                     "description": "Invoice id",
-                    "column": "invoiceid",
+                    "column": "invoiceID",
                     "label": "Invoiceid",
                     "datatype": "string",
                     "type": "attribute"
