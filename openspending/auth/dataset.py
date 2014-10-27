@@ -13,18 +13,9 @@ def read(dataset):
 
 
 def update(dataset):
-    if logged_in():
-        if tmpl_context.account.admin:
-            return True
-        elif tmpl_context.account in dataset.managers:
-            return True
-    return False
+    return logged_in() and (tmpl_context.account.admin or
+                            tmpl_context.account in dataset.managers)
 
 
 def delete(dataset):
-    if logged_in():
-        if tmpl_context.account.admin:
-            return True
-        elif tmpl_context.account in dataset.managers:
-            return True
-    return False
+    return update(dataset)
