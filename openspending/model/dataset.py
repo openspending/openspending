@@ -189,6 +189,36 @@ class Dataset(TableHandler, db.Model):
         # Cast the badge count as a boolean and return it
         return bool(self.badges.count())
 
+    def can_read(self, user):
+        """
+        Permissions for dataset access (read).
+        Returns a boolean indicating if a user may read the dataset
+        """
+        # If the dataset is not private anybody can read
+        # If the datset is private only users who can update it can read it
+        return not self.private or self.can_update(user)
+
+    def can_update(self, user):
+        """
+        Permissions for dataset updates.
+        Returns a boolean indicating if a user may update the dataset
+        """
+        # User needs to be logged in and either admin or one of the dataset
+        # managers
+        return user is not None and (
+            user.admin or
+            db.session.query(  # Check if the user exists in managers
+                self.managers.filter_by(id=user.id).exists()).first()
+        )
+
+    def can_delete(self, user):
+        """
+        Permissions for dataset removal (delete).
+        Returns a boolean indicating if a user may delete the dataset.
+        """
+        # Users who can update the dataset can also delete it
+        return self.can_update(user)
+
     def commit(self):
         pass
         # self.tx.commit()

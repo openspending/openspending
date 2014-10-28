@@ -512,13 +512,13 @@ def create_budget_data_package(url, user, private):
 
     sources = []
     for (idx, resource) in enumerate(bdpkg.resources):
-        dataset = Dataset.by_name(resource.name)
+        dataset = Dataset.by_name(bdpkg.name)
         if dataset is None:
             # Get information from the descriptior file for the given
             # resource (at index idx)
             info = get_dataset_info_from_descriptor(bdpkg, idx)
             # Set the dataset name based on the previously computed one
-            info['dataset']['name'] = resource.name
+            info['dataset']['name'] = bdpkg.name
             # Create the model from the resource schema
             model = create_model_from_schema(resource.schema)
             # Set the default value for the time to the fiscal year of the
@@ -535,9 +535,11 @@ def create_budget_data_package(url, user, private):
             db.session.add(dataset)
             db.session.commit()
         else:
-            log.error("Dataset by name {0} already exists".format(
-                resource.name))
-            return []
+            if not dataset.can_update(user):
+                log.error(
+                    "User {0} not permitted to update dataset {1}".format(
+                        user.name, bdpkg.name))
+                return []
 
         if 'url' in resource:
             resource_url = resource.url
@@ -550,11 +552,19 @@ def create_budget_data_package(url, user, private):
             log.error('Url not found')
             return []
 
-        source = Source(dataset=dataset, creator=user,
-                        url=resource_url)
-        db.session.add(source)
-        db.session.commit()
-        sources.append(source)
+        # We do not re-add old sources so if we find the same source
+        # we don't do anything, else we create the source and append it
+        # to the source list
+        for dataset_source in dataset.sources:
+            if dataset_source.url == resource_url:
+                break
+        else:
+            source = Source(dataset=dataset, creator=user,
+                            url=resource_url)
+            db.session.add(source)
+            db.session.commit()
+            sources.append(source)
+
     return sources
 
 
