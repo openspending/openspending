@@ -591,3 +591,13 @@ Users can load datasets (or add sources to them) by making a *POST* request to `
 
 Along with these parameters an api key must be provided in the header of the request. For more details see [API Conventions](/help/api/conventions/).
 
+Budget Data Packages
+--------------------
+
+Generating the *metadata* file can be complex. If you have prepared a `budget data package`_ for your data, that can also be loaded into OpenSpending via the same API endpoint (i.e. the Loading API endpoint). Instead of providing *csv_file* and *metadata* url parameters, you use a different parameter:
+
+* *budget_data_package* - A **url** to you budget data package descriptor file, e.g. https://budget.example.com/my-budget-data-package/datapackage.json
+
+The *private* boolean parameter still works in the same way as before.
+
+.. _budget data package: https://github.com/openspending/budget-data-package/blob/master/specification.md
