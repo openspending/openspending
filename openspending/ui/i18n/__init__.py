@@ -16,7 +16,8 @@ def get_available_languages():
     messagefiles = gettext.find(config['pylons.package'], localedir,
                                 languages=babel.Locale('en').languages.keys(),
                                 all=True)
-    return [path.split('/')[-3] for path in messagefiles]
+
+    return [path.split(os.path.sep)[-3] for path in messagefiles]
 
 
 def get_available_locales():
