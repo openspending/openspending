@@ -77,7 +77,7 @@ def postprocess_forms(s, form_errors):
     root = lxml.html.fromstring(s)
     processors = [input_errors, select_errors, textarea_errors]
     [process(root) for process in processors]
-    return lxml.html.tostring(root, doctype=root.getroottree().docinfo.doctype)
+    return lxml.html.tostring(root)
 
 
 def render(path, **kwargs):
