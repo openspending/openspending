@@ -31,26 +31,27 @@
   </div>
   <div class="span6">
     <h3>{% trans %}Create an account{% endtrans %}</h3>
+    {% formfill form_fill with form_errors %}
     <form class="basic register form-horizontal" id="register" action="{{ h.url_for(controller='account', action='register') }}" method="POST">
       <fieldset>
         <div class="control-group">
           <label for="name">{% trans %}Login{% endtrans %}</label>
           <div class="controls">
-            <input name="name"{% if form_fill and 'name' in form_fill %} value="{{form_fill.name}}"{% endif %}>
+            <input name="name">
           </div>
         </div>
         <div class="control-group">
           <label for="fullname">{% trans %}Fullname{% endtrans %}</label>
           <div class="controls">
-            <input name="fullname"{% if form_fill and 'fullname' in form_fill %} value="{{form_fill.fullname}}"{% endif %}>
+            <input name="fullname">
           </div>
         </div>
         <div class="control-group form-inline">
           <label for="email">{% trans %}Email{% endtrans %}</label>
           <div class="controls">
-            <input name="email"{% if form_fill and 'email' in form_fill %} value="{{form_fill.email}}"{% endif %}>	  
+            <input name="email">
 	    <label class="checkbox">
-	      <input name="public_email" type="checkbox"{% if form_fill and 'public_email' in form_fill %} checked="checked"{% endif %}> {% trans %}Visible to other users{% endtrans %}
+	      <input name="public_email" type="checkbox"> {% trans %}Visible to other users{% endtrans %}
 	    </label>
           </div>
         </div>
@@ -81,7 +82,7 @@
             {% endif %}
             {% if c.config.get('openspending.subscribe_developer') %}
             <label class="checkbox">
-              <input type="checkbox" name="subscribe_developer"{% if form_fill and 'subscribe_developer' in form_fill %} checked="checked"{% endif %}>
+              <input type="checkbox" name="subscribe_developer">
               {% trans %}Sign me up for the OpenSpending developer mailing list{% endtrans %}
             </label>
 	    {% endif %}
@@ -93,6 +94,7 @@
         <input value="{% trans %}Create new account{% endtrans %}" class="btn btn-primary" type="submit" />
       </div>
     </form>
+    {% endformfill %}
   </div>
 </div>
 

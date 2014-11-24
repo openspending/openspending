@@ -124,6 +124,7 @@
   <!-- Create source modal -->
   <div id="new-source" class="modal hide fade"
        ckan-uri="{{ c.dataset.ckan_uri }}">
+    {% formfill form_fill with form_errors %}
     <form class="basic" action="{{ h.url_for(controller='source', action='create',
                                 dataset=c.dataset.name) }}" method="POST">
       <div class="modal-header">
@@ -136,6 +137,7 @@
         <input value="{% trans %}Create{% endtrans %}" class="btn btn-success" type="submit" />
       </div>
     </form>
+    {% endformfill %}
   </div>
 </div>    
 {% endblock %}

@@ -149,8 +149,13 @@ a:hover, a:active {
   margin-bottom: 0.5em;
 }
 
-form .error {
+form .error, form .error-message {
   color: #B94A48;
+}
+form .error-message {
+  display: inline-block;
+  padding-top: 5px;
+  margin-bottom: 0px;
 }
 
 .modal.big-modal {

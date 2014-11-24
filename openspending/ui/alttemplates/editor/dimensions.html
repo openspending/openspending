@@ -207,14 +207,14 @@
         </div>
         {% endif %}
         
-        {% if c.errors|length %}
+        {% if form_errors|length %}
         <div class="alert block-message alert-error">
           <p>
             {% trans %}The dimensions mapping could not be saved as it 
             contains some errors{% endtrans %}:
           </p>
           <ul>
-            {% for field, error in c.errors.items() -%}
+            {% for field, error in form_errors.items() -%}
             <li><strong>{{ field }}:</strong> {{ error }}</li>
             {%- endfor %}
           </ul>

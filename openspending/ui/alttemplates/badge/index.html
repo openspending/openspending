@@ -27,6 +27,7 @@
     <p>{% trans %}These badges can be awarded to specific datasets by administrators of OpenSpending. The badges indicate that an official, either from <a href="http://okfn.org" title="Open Knowledge Foundation">The Open Knowledge Foundation</a> (OKF) or from another entity approved by the OKF, has carefully examined the dataset and decided to award it that particular badge.{% endtrans %}</p>
 
     {% if c.account.admin %}
+    {% formfill form_fill with form_errors %}
     <form action="{{h.url_for(controller='badge', action='create')}}" method="post" enctype="multipart/form-data">
       <fieldset>
 	<legend>{% trans %}Create a new badge{% endtrans %}</legend>
@@ -50,6 +51,7 @@
 	</div>
         </fieldset>
     </form>
+    {% endformfill %}
     {% endif %}
   </div>
 </div>

@@ -36,6 +36,7 @@
         </div>
       </div>
       <div class="span8 dataset-info">
+	{% formfill form_fill with form_errors %}
         <form class="basic form-horizontal" id="login" action="/datasets" method="POST">
           <input name="ckan_uri" type="hidden" />
           <fieldset>
@@ -112,6 +113,7 @@
             <input value="{% trans %}Next Step{% endtrans %}" class="btn btn-success" type="submit" />
           </div>
         </form>
+	{% endformfill %}
       </div>
     </div>
   </div>

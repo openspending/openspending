@@ -24,7 +24,7 @@
     </div>
   </div>
   <div class="span8">
-    {% formfill form_fill %}
+    {% formfill form_fill with form_errors %}
     <form class="basic form-horizontal"
           action="{{ h.url_for(controller='editor',
                   action='templates_update', dataset=c.dataset.name) }}"

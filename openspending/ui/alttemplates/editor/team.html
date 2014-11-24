@@ -71,9 +71,9 @@
     manage this dataset.{% endtrans %}
   </div>
   <div class="span8">
-    {% if c.errors %}
+    {% if form_errors %}
     <div class="alert block-message alert-error">
-      <ul>{% for field, error in c.errors.items() %}
+      <ul>{% for field, error in form_errors.items() %}
         <li><strong>{{ field }}:</strong> {{ error }}</li>
       {% endfor %}</ul>
     </div>

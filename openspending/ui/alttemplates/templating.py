@@ -12,8 +12,6 @@ from jinja2 import FileSystemLoader
 from jinja2.environment import Environment
 import formencode_jinja2
 
-import lxml.html
-from lxml.html import builder as E
 
 # Set the directory where this file is as the template root directory
 template_rootdir = os.path.abspath(os.path.dirname(__file__))
@@ -55,31 +53,6 @@ def section_active(section):
                 }[v]) for k, v in tmp.iteritems()])
 
 
-def postprocess_forms(s, form_errors):
-    def tag_errors(tag, root):
-        for i in root.cssselect(tag):
-            name = i.attrib.get('name', None)
-            value = form_errors.get(name, None)
-            if value is not None:
-                p = E.P(value)
-                p.set('class', 'help-block error')
-                i.addnext(p)
-
-    def input_errors(root):
-        return tag_errors('input', root)
-
-    def select_errors(root):
-        return tag_errors('select', root)
-
-    def textarea_errors(root):
-        return tag_errors('textarea', root)
-
-    root = lxml.html.fromstring(s)
-    processors = [input_errors, select_errors, textarea_errors]
-    [process(root) for process in processors]
-    return lxml.html.tostring(root, doctype=root.getroottree().docinfo.doctype)
-
-
 def render(path, **kwargs):
     """Render a template with jinja2
 
@@ -118,8 +91,13 @@ def render(path, **kwargs):
         "c": c,
         "g": app_globals,
         "can": can,
-        "show_rss": hasattr(c, 'show_rss') and c.show_rss or None
+        "show_rss": hasattr(c, 'show_rss') and c.show_rss or None,
     }
     params.update(kwargs)
-    form_errors = params.get('form_errors', {})
-    return postprocess_forms(template.render(params), form_errors)
+    if 'form_fill' in params:
+        if params['form_fill'] is not None and len(params['form_fill']) > 0:
+            params['form_fill'] = dict(params['form_fill'])
+        else:
+            params['form_fill'] = {}
+
+    return template.render(params)
