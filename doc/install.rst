@@ -131,7 +131,7 @@ will be copied to the web applications template directory::
     $ git submodule init && git submodule update
     $ (cd doc && make clean html)
 
-Compile the translations:
+Compile the translations: ::
 
     $ python setup.py compile_catalog
 

@@ -14,11 +14,11 @@ but this is an old version and largely unmaintained. Avoid it;
 performance is likely to be disappointing.
 
 Install tomcat 7, and configure it to run on a suitable port (look for
-a <Connector> element in /etc/tomcat7/server.xml).
+a ``<Connector>`` element in ``/etc/tomcat7/server.xml``).
 
 Download solr and unpack it.
 
-Copy the example/solr directory and the webapp to a suitable location
+Copy the example/solr directory and the webapp to a suitable location::
 
   $ cp apache-solr-3.5.0/example/solr . -a
   $ cp apache-solr-3.5.0/dist/apache-solr-3.5.0.war solr.war
@@ -33,18 +33,18 @@ Create ``/etc/tomcat7/Catalina/localhost/solr.xml`` with the following contents:
 Adjust the paths to point to the files copied above.
 
 Create the directory for storing the solr index, and set permissions
-for tomcat to access it:
+for tomcat to access it: ::
 
   $ mkdir solr/data
   $ chown tomcat7 solr/data
 
-Edit solr/conf/solrconfig.xml in the directory created above, and change:
+Edit ``solr/conf/solrconfig.xml`` in the directory created above, and change:
 
- - <dataDir> from a variable to an explicit path, like:
+ - ``<dataDir>`` from a variable to an explicit path, like: ::
 
      <dataDir>/home/okfn/openspending/solr/data</dataDir>
 
- - Comment out this line:
+ - Comment out this line: ::
 
      <queryResponseWriter name="velocity" class="solr.VelocityResponseWriter" enable="${solr.velocity.enabled:true}"/>
 
@@ -83,16 +83,16 @@ assumed. The key differences in a production install are these:
 
 * Set up related git modules, help, and catalogs in src/openspending, as in :doc:`install`.
 
-* Set up site.ini as in :doc:`install`, with additional attention paid to:
+* Set up ``site.ini`` as in :doc:`install`, with additional attention paid to:
 
-  openspending.migrate_dir must point to src/openspending/miration
-  inside the virtualenv, if site.ini is not in that directory
+  ``openspending.migrate_dir`` must point to ``src/openspending/migration``
+  inside the virtualenv, if ``site.ini`` is not in that directory
 
-* Set up the database:
+* Set up the database: ::
 
   $ ostool site.ini db init
 
-* Create the session storage directory, and set up permissions:
+* Create the session storage directory, and set up permissions: ::
 
   $ mkdir .pylons_data
   $ chown www-data .pylons_data
@@ -101,7 +101,7 @@ assumed. The key differences in a production install are these:
   itself based on an environment variable ``BROKER_URL`` which should point
   to a full uri for the message queue, i.e. ``amqp://backend.server.com:5672/``
   (this needs to be set for both the celery worker process and the web app
-  itself, described in the next step).
+  itself, described in the next step). ::
 
     (env)~/openspending$ export BROKER_URL='amqp://backend.server.com:5672/'
 
@@ -110,7 +110,7 @@ assumed. The key differences in a production install are these:
   instance) while the frontend (web app) machine needs a broker url that points
   to that backend machine.
 
-  Then start up celery by pointing to the site.ini (can be managed by
+  Then start up celery by pointing to the ``site.ini`` (can be managed by
   supervisor)::
 
     (env)~/openspending$ celery -A openspending.tasks -p site.ini -l info worker
@@ -118,7 +118,7 @@ assumed. The key differences in a production install are these:
 * The application is run through ``gunicorn`` (Green Unicorn), a fast, 
   pre-fork based HTTP server for WSGI applications. The application provides
   special support for pastescript so that it can be started via a simple
-  prompt (remember to set the BROKER_URL environment variable to be able to
+  prompt (remember to set the ``BROKER_URL`` environment variable to be able to
   send tasks to the backend workers)::
 
     (env)~/var/srvc/openspending.org$ gunicorn_paster site.ini
