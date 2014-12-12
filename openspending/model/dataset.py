@@ -371,7 +371,7 @@ class Dataset(TableHandler, db.Model):
             cube or the order dimensions are not a subset of the drilldown
             dimensions.
 
-        Returns: A `dict` containing the drilldown and the summary:
+        Returns: A `dict` containing the drilldown and the summary: ::
 
           {"drilldown": [
               {"num_entries": 5545,

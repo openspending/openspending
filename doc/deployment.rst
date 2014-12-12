@@ -23,7 +23,7 @@ Copy the example/solr directory and the webapp to a suitable location
   $ cp apache-solr-3.5.0/example/solr . -a
   $ cp apache-solr-3.5.0/dist/apache-solr-3.5.0.war solr.war
 
-Create /etc/tomcat7/Catalina/localhost/solr.xml with the following contents:
+Create ``/etc/tomcat7/Catalina/localhost/solr.xml`` with the following contents: ::
 
    <?xml version="1.0" encoding="utf-8"?>
    <Context docBase="/home/okfn/openspending/solr.war" debug="0" crossContext="true">

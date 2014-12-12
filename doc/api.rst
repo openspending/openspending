@@ -468,7 +468,7 @@ The following parameters are recognized:
 * ``stats``
   Includes solr statistics on measures, namely the average, mean, and
   standard deviations. This is generated through the indexed data and 
-   can differ marginally from the 
+  can differ marginally from the 
   results of the aggregator due to floating point inaccuracies.
   Note that aggregations
   across datasets with different currencies (or even the same currency
