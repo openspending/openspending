@@ -48,9 +48,9 @@ def configure(config=None):
     if not config:
         config = {}
 
-    url = config.get('openspending.solr.url', url)
-    http_user = config.get('openspending.solr.http_user', http_user)
-    http_pass = config.get('openspending.solr.http_pass', http_pass)
+    url = config.get('SOLR_URL', url)
+    http_user = config.get('SOLR_HTTP_USER', http_user)
+    http_pass = config.get('SOLR_HTTP_PASS', http_pass)
 
 
 def get_connection():

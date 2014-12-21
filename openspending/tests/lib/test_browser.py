@@ -22,8 +22,8 @@ def make_response(ids):
 
 class TestBrowser(TestCase):
 
-    def setup(self):
-        super(TestBrowser, self).setup()
+    def setUp(self):
+        super(TestBrowser, self).setUp()
 
         self.conn = Mock()
         self.dataset = Mock()
@@ -39,7 +39,8 @@ class TestBrowser(TestCase):
         mock_dataset = self.dataset_patcher.start()
         mock_dataset.by_name.return_value = self.dataset
 
-    def teardown(self):
+    def tearDown(self):
+        super(TestBrowser, self).tearDown()
         self.solr_patcher.stop()
         self.dataset_patcher.stop()
 

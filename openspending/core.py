@@ -18,4 +18,9 @@ def create_app(**config):
     app.config.update(config)
     db.init_app(app)
     login_manager.init_app(app)
+
+    # HACKY SHIT IS HACKY
+    from openspending.lib.solr_util import configure as configure_solr
+    configure_solr(app.config)
+
     return app

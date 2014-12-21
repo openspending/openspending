@@ -9,15 +9,15 @@ from mock import Mock, patch
 
 class TestSolrUtil(TestCase):
 
-    def setup(self):
-        super(TestSolrUtil, self).setup()
+    def setUp(self):
+        super(TestSolrUtil, self).setUp()
         reload(solr)
         self.patcher = patch('openspending.lib.solr_util.SolrConnection')
         self.mock_solr = self.patcher.start()
 
-    def teardown(self):
+    def tearDown(self):
         self.patcher.stop()
-        super(TestSolrUtil, self).teardown()
+        super(TestSolrUtil, self).tearDown()
 
     def test_configure_defaults(self):
         solr.configure()

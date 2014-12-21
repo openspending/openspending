@@ -8,8 +8,8 @@ from openspending.ui.lib.views import View
 
 class TestViews(DatabaseTestCase):
 
-    def setup(self):
-        super(TestViews, self).setup()
+    def setUp(self):
+        super(TestViews, self).setUp()
         load_fixture('cra')
         self.dataset = Dataset.by_name('cra')
 
