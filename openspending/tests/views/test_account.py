@@ -1,24 +1,19 @@
-from openspending.tests.base import ControllerTestCase
-from openspending.tests.helpers import make_account, load_fixture
-from nose.tools import raises
-from mock import patch
-
-from openspending.model import meta as db
-from openspending.model.account import Account
-from openspending.lib.mailer import MailerException
-from pylons import config, url
-
 import json
 import urllib2
+
+from mock import patch
+from flask import url_for, current_app
+
+from openspending.core import db
+from openspending.model.account import Account
+from openspending.tests.base import ControllerTestCase
+from openspending.tests.helpers import make_account, load_fixture
 
 
 class TestAccountController(ControllerTestCase):
 
     def test_login(self):
-        self.app.get(url(controller='account', action='login'))
-
-    def test_register(self):
-        self.app.get(url(controller='account', action='register'))
+        self.client.get(url_for('account.login'))
 
     def test_account_create_gives_api_key(self):
         account = make_account()
@@ -58,17 +53,15 @@ class TestAccountController(ControllerTestCase):
                                  params={'email': "foo@bar"})
         assert 'No user is registered' in response.body, response.body
 
-    @raises(MailerException)
     def test_trigger_reset_post_ok(self):
         try:
-            original_smtp_server = config.get('smtp_server')
-            config['smtp_server'] = 'non-existent-smtp-server'
+            original_smtp_server = current_app.config.get('SMTP_SERVER')
+            current_app.config['SMTP_SERVER'] = 'non-existent-smtp-server'
             make_account()
-            self.app.post(url(controller='account',
-                              action='trigger_reset'),
-                          params={'email': "test@example.com"})
+            self.client.post(url_for('account.trigger_reset'),
+                             params={'email': "test@example.com"})
         finally:
-            config['smtp_server'] = original_smtp_server
+            current_app.config['SMTP_SERVER'] = original_smtp_server
 
     def test_reset_get(self):
         response = self.app.get(url(controller='account', action='do_reset',
