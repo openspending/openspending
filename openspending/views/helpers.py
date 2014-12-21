@@ -4,6 +4,7 @@ from werkzeug.exceptions import NotFound
 
 
 def url_for(endpoint, **kwargs):
+    kwargs['_external'] = True
     return flask_url_for(endpoint, **kwargs)
 
 

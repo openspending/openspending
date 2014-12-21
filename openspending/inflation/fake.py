@@ -3,7 +3,7 @@ import collections
 InflationResult = collections.namedtuple('Inflation', 'factor value')
 
 
-class Inflation(object):
+class FakeInflation(object):
 
     def __init__(self, source=None, reference=None, country=None):
         pass
@@ -13,3 +13,4 @@ class Inflation(object):
 
     def inflate(self, amount, target=None, reference=None, country=None):
         return amount
+

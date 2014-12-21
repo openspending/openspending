@@ -1,4 +1,4 @@
-from openspending.ui.lib import helpers
+from openspending.inflation.util import inflate as inflate_func
 
 
 def get_value(key, item):
@@ -82,9 +82,9 @@ def aggregate(dataset, measures=['amount'], drilldowns=None, cuts=None,
                 # Get the inflated amount for this year (returns an inflation
                 # dictionary with values for reference and target dates along
                 # with original and inflated amounts)
-                adjustment = helpers.inflate(item['amount'],
-                                             inflate, item['time'],
-                                             dataset.territories)
+                adjustment = inflate_func(item['amount'],
+                                          inflate, item['time'],
+                                          dataset.territories)
 
                 # We make the reference and target datestrings with ISO format
                 # (ISO format is yyyy-mm-dd).

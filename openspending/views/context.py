@@ -40,6 +40,7 @@ def template_context_processor():
         'current_locale': get_locale(),
         'static_path': static_path,
         'url_for': url_for,
+        'site_url': url_for('home.index').rstrip('/'),
         'number_symbols_group': locale.number_symbols.get('group'),
         'number_symbols_decimal': locale.number_symbols.get('decimal'),
         'site_title': current_app.config.get('SITE_TITLE'),
