@@ -99,8 +99,8 @@ setup(
 
     message_extractors={
         'openspending': [('**.py', 'python', None),
-                         ('ui/alttemplates/**.html', 'jinja2', None),
-                         ('ui/public/**', 'ignore', None),
+                         ('templates/**.html', 'jinja2', None),
+                         ('static/**', 'ignore', None),
                          ]
         },
 )

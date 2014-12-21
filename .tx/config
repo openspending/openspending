@@ -2,7 +2,7 @@
 host = https://www.transifex.com
 
 [openspending.openspendinguipot]
-file_filter = openspending/ui/i18n/<lang>/LC_MESSAGES/openspending.ui.po
-source_file = openspending/ui/i18n/openspending.ui.pot
+file_filter = openspending/i18n/<lang>/LC_MESSAGES/openspending.ui.po
+source_file = openspending/i18n/openspending.ui.pot
 source_lang = en
 
