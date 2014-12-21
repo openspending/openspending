@@ -22,16 +22,7 @@ def make_map():
     map.connect('/_error_test/{action}', controller='error_test')
 
     # CUSTOM ROUTES HERE
-    map.connect('/', controller='home', action='index')
-
-    map.connect(
-        '/set-locale',
-        controller='home',
-        action='set_locale',
-        conditions=dict(
-            method=['POST']))
-    map.connect('/favicon.ico', controller='home', action='favicon')
-
+    
     map.connect('/login', controller='account', action='login')
     map.connect('/register', controller='account', action='register')
     map.connect('/settings', controller='account', action='settings')
@@ -80,7 +71,6 @@ def make_map():
         action='aggregate')
     map.connect('/api/mytax', controller='api/version1', action='mytax')
 
-    map.connect('/api/rest/', controller='rest', action='index')
     map.connect(
         '/api/2/aggregate',
         controller='api/version2',
@@ -98,9 +88,6 @@ def make_map():
         action='permissions')
 
     map.connect('/500', controller='error', action='render', code="500")
-
-    map.connect('/__version__', controller='home', action='version')
-    map.connect('/__ping__', controller='home', action='ping')
 
     map.connect('/{dataset}.{format}', controller='dataset', action='view')
     map.connect('/{dataset}', controller='dataset', action='view')
