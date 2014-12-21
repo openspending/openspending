@@ -74,13 +74,13 @@
               {% trans %}I agree to the <a href="http://okfn.org/terms-of-use/">Terms of Use</a>
               and <a href="http://okfn.org/privacy-policy/">Privacy Policy</a>.{% endtrans %}
             </label>
-	    {% if c.config.get('openspending.subscribe_community') %}
+	          {% if config.get('SUBSCRIBE_COMMUNITY') %}
             <label class="checkbox">
               <input type="checkbox" name="subscribe_community" checked="checked"/>
               {% trans %}Add me to the OpenSpending community mailing list{% endtrans %}
             </label>
             {% endif %}
-            {% if c.config.get('openspending.subscribe_developer') %}
+            {% if config.get('SUBSCRIBE_DEVELOPER') %}
             <label class="checkbox">
               <input type="checkbox" name="subscribe_developer">
               {% trans %}Sign me up for the OpenSpending developer mailing list{% endtrans %}
