@@ -9,8 +9,8 @@ from unicodedata import category
 
 from solr import SolrConnection
 
+from openspending.core import db
 from openspending.model.dataset import Dataset
-from openspending.model import meta as db
 from openspending.lib.util import flatten
 
 log = logging.getLogger(__name__)

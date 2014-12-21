@@ -1,6 +1,3 @@
-from sqlalchemy.orm import sessionmaker, scoped_session
-from openspending.model import meta as db
-
 # We need to import all models to make them discoverable model init
 # (engine creation).
 from openspending.model.account import Account  # NOQA
@@ -17,12 +14,3 @@ import warnings
 warnings.filterwarnings(
     'ignore',
     'Unicode type received non-unicode bind param value.')
-
-
-def init_model(engine):
-    """ Initialize the SQLAlchemy driver and session maker. """
-
-    sm = sessionmaker(autoflush=True, bind=engine)
-    db.engine = engine
-    db.metadata.bind = engine
-    db.session = scoped_session(sm)

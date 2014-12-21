@@ -1,13 +1,13 @@
 from routes.util import URLGenerator
-from pylons import url, config
-from pylons.test import pylonsapp
-from webtest import TestApp
+#from pylons import url, config
+#from pylons.test import pylonsapp
+#from webtest import TestApp
 
-from openspending.model import meta, init_model
-from openspending.tests.helpers import clean_db
+from openspending.core import db
+from openspending.tests.helpers import clean_db, init_db
 
-from sqlalchemy import engine_from_config
-from migrate.versioning.util import construct_engine
+#from sqlalchemy import engine_from_config
+#from migrate.versioning.util import construct_engine
 
 
 class TestCase(object):
@@ -29,24 +29,20 @@ class DatabaseTestCase(TestCase):
         test.ini. Construct the sqlalchemy engine with versioning
         and initialise everything.
         """
-
-        config['openspending.db.url'] = 'sqlite:///:memory:'
-        engine = engine_from_config(config, 'openspending.db.')
-        engine = construct_engine(engine)
-        init_model(engine)
+        init_db()
 
     def setup(self):
         self.setup_database()
-        meta.metadata.create_all(meta.engine)
+        db.create_all()
 
     def teardown(self):
         clean_db()
         super(DatabaseTestCase, self).teardown()
 
 
-class ControllerTestCase(DatabaseTestCase):
-
-    def __init__(self, *args, **kwargs):
-        self.app = TestApp(pylonsapp)
-        url._push_object(URLGenerator(config['routes.map'], {}))
-        super(DatabaseTestCase, self).__init__(*args, **kwargs)
+#class ControllerTestCase(DatabaseTestCase):
+#
+#    def __init__(self, *args, **kwargs):
+#        self.app = TestApp(pylonsapp)
+#        url._push_object(URLGenerator(config['routes.map'], {}))
+#        super(DatabaseTestCase, self).__init__(*args, **kwargs)
