@@ -23,24 +23,6 @@ def make_map():
 
     # CUSTOM ROUTES HERE
     
-    map.connect('/login', controller='account', action='login')
-    map.connect('/register', controller='account', action='register')
-    map.connect('/settings', controller='account', action='settings')
-    map.connect('/dashboard', controller='account', action='dashboard')
-    map.connect(
-        '/accounts/scoreboard',
-        controller='account',
-        action='scoreboard')
-    map.connect('/accounts/_complete', controller='account', action='complete')
-    map.connect('/after_login', controller='account', action='after_login')
-    map.connect('/after_logout', controller='account', action='after_logout')
-    map.connect(
-        '/account/forgotten',
-        controller='account',
-        action='trigger_reset')
-    map.connect('/account/reset', controller='account', action='do_reset')
-    map.connect('/account/{name}', controller='account', action='profile')
-
     map.connect('/badges', controller='badge', action='index')
     map.connect('/badges.{format}', controller='badge', action='index')
     map.connect('/badges/create', controller='badge', action='create',
@@ -62,14 +44,6 @@ def make_map():
     map.connect('/datasets', controller='dataset', action='index')
 
     map.connect('/search', controller='entry', action='search')
-
-    map.connect('/api', controller='api/version1', action='index')
-    map.connect('/api/search', controller='api/version1', action='search')
-    map.connect(
-        '/api/aggregate',
-        controller='api/version1',
-        action='aggregate')
-    map.connect('/api/mytax', controller='api/version1', action='mytax')
 
     map.connect(
         '/api/2/aggregate',
