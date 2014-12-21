@@ -2,12 +2,15 @@ import logging
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
+from flask.ext.babel import Babel
+import formencode_jinja2
 
 from openspending import default_settings
 
 logging.basicConfig(level=logging.DEBUG)
 
 db = SQLAlchemy()
+babel = Babel()
 login_manager = LoginManager()
 
 
@@ -16,7 +19,14 @@ def create_app(**config):
     app.config.from_object(default_settings)
     app.config.from_envvar('OPENSPENDING_SETTINGS', silent=True)
     app.config.update(config)
+
+    app.jinja_options['extensions'].extend([
+        formencode_jinja2.formfill,
+        'jinja2.ext.i18n'
+    ])
+
     db.init_app(app)
+    babel.init_app(app)
     login_manager.init_app(app)
 
     # HACKY SHIT IS HACKY

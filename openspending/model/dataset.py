@@ -596,7 +596,7 @@ class Dataset(TableHandler, db.Model):
     def all_by_account(cls, account):
         """ Query available datasets based on dataset visibility. """
         criteria = [cls.private == false()]
-        if account is not None:
+        if account is not None and account.is_authenticated():
             criteria += ["1=1" if account.admin else "1=2",
                          cls.managers.any(type(account).id == account.id)]
         q = db.session.query(cls).filter(or_(*criteria))
