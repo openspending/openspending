@@ -3,8 +3,7 @@ import logging
 from flask.ext.script import Manager
 
 from openspending.core import app
-from openspending.model import Dataset
-from openspending.command import user, db, archive, solr
+from openspending.command import user, db, archive, solr, importer
 
 log = logging.getLogger(__name__.split('.')[0])
 
@@ -22,12 +21,7 @@ manager.add_command('db', db.manager)
 manager.add_command('archive', archive.manager)
 manager.add_command('solr', solr.manager)
 
-
-@manager.command
-def test():
-    from openspending.core import db
-    q = db.session.query(Dataset)
-    print q.all()
+importer.add_import_commands(manager)
 
 
 def main():
