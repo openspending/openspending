@@ -1,10 +1,9 @@
 from sqlalchemy.sql.expression import select, func
 from sqlalchemy.orm import aliased
-from openspending.model import meta as db
+
+from openspending.core import db
 from openspending.model.dataset import (Dataset, DatasetLanguage,
                                         DatasetTerritory)
-
-from openspending.ui.lib import helpers as h
 from openspending.reference.country import COUNTRIES
 from openspending.reference.category import CATEGORIES
 from openspending.reference.language import LANGUAGES

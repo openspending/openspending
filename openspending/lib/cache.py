@@ -1,8 +1,8 @@
 import hashlib
 import logging
 
-from openspending.ui.lib.aggregation import aggregate
-from openspending.ui.lib.indices import dataset_index, language_index, \
+from openspending.inflation.aggregation import aggregate
+from openspending.lib.indices import dataset_index, language_index, \
     territory_index, category_index
 
 log = logging.getLogger(__name__)

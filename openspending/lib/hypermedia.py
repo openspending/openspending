@@ -1,4 +1,3 @@
-from openspending.ui.lib.helpers import url_for
 
 
 def dataset_apply_links(dataset):

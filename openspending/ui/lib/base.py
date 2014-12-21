@@ -115,13 +115,6 @@ class BaseController(WSGIController):
         if not c._must_revalidate:
             response.cache_control.max_age = 3600 * 6
 
-    def _detect_format(self, format):
-        for mimetype, mimeformat in self.accept_mimetypes.items():
-            if format == mimeformat or mimetype \
-                    in request.headers.get("Accept", ""):
-                return mimeformat
-        return "html"
-
     def _get_dataset(self, dataset):
         c.dataset = Dataset.by_name(dataset)
         if c.dataset is None:
