@@ -1,76 +1,40 @@
-# command.py
-#
-# The leaf classes in this module implement Paste Script commands; they
-# are runnable with "paster thing", where thing is one of the commands
-# listed in the openspending section of "paster help".
-#
-# They are registered in openspending's setup.py.
-#
-# See http://pythonpaste.org/script/developer.html for documentation of
-# Paste Script.
-
-import os
-import sys
-import argparse
+''' Interface to common administrative tasks for OpenSpending. '''
 import logging
-import logging.config
+from flask.ext.script import Manager
 
-from paste.deploy import appconfig
-from openspending.ui.config.environment import load_environment
+from openspending.core import app
+from openspending.model import Dataset
+from openspending.command import user, db
 
 log = logging.getLogger(__name__.split('.')[0])
 
-parser = argparse.ArgumentParser(
-    description='Interface to common administrative tasks for OpenSpending.')
-parser.add_argument('-v', '--verbose',
-                    dest='verbose', action='append_const', const=1,
-                    help='Increase the logging level')
-parser.add_argument('-q', '--quiet',
-                    dest='verbose', action='append_const', const=-1,
-                    help='Decrease the logging level')
-parser.add_argument('config', help='Paste configuration file')
+manager = Manager(app, description=__doc__)
 
-subparsers = parser.add_subparsers(title='subcommands')
+manager.add_option('-v', '--verbose',
+                   dest='verbose', action='append_const', const=1,
+                   help='Increase the logging level')
+manager.add_option('-q', '--quiet',
+                   dest='verbose', action='append_const', const=-1,
+                   help='Decrease the logging level')
 
-from . import db, solr, user, importer, archive
+manager.add_command('user', user.manager)
+manager.add_command('db', db.manager)
 
-for mod in (db, solr, user, importer, archive):
-    mod.configure_parser(subparsers)
 
-try:
-    from openspending.etl import command as etl_command
-except ImportError:
-    pass
-else:
-    etl_command.configure_parsers(subparsers)
+@manager.command
+def test():
+    from openspending.core import db
+    q = db.session.query(Dataset)
+    print q.all()
 
 
 def main():
+    manager.set_defaults()
+    parser = manager.create_parser('ostool')
     args = parser.parse_args()
-
-    config_file = os.path.abspath(args.config)
-    if not os.path.exists(config_file):
-        print "Config file not found: %s" % config_file
-        sys.exit(1)
-    _configure_logging(config_file)
-    _configure_pylons(config_file)
-
     args.verbose = 0 if args.verbose is None else sum(args.verbose)
     log.setLevel(max(10, log.getEffectiveLevel() - 10 * args.verbose))
+    manager.run()
 
-    sys.exit(args.func(args))
-
-
-def _configure_logging(config_file):
-    logging.config.fileConfig(config_file,
-                              dict(__file__=config_file,
-                                   here=os.path.dirname(config_file)))
-
-
-def _configure_pylons(config_file):
-    conf = appconfig('config:%s' % os.path.basename(config_file),
-                     relative_to=os.path.dirname(config_file))
-    load_environment(conf.global_conf, conf.local_conf)
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
