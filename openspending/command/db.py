@@ -1,13 +1,14 @@
 import logging
 import os
 
-from openspending.core import app, db
+from flask import current_app
+import migrate.versioning.api as migrate_api
+from migrate.exceptions import DatabaseNotControlledError
+
+from openspending.core import db
 from openspending.model import Dataset
 from openspending.command.util import create_submanager
 from openspending.command.util import CommandException
-
-import migrate.versioning.api as migrate_api
-from migrate.exceptions import DatabaseNotControlledError
 
 log = logging.getLogger(__name__)
 
@@ -37,7 +38,7 @@ def drop_dataset(name):
 @manager.command
 def migrate():
     """ Run pending data migrations """
-    url = app.config.get('SQLALCHEMY_DATABASE_URI')
+    url = current_app.config.get('SQLALCHEMY_DATABASE_URI')
     repo = os.path.join(os.path.dirname(__file__), '..', 'migration')
 
     try:

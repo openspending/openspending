@@ -1,6 +1,6 @@
 from openspending.validation.data import convert_types
 from openspending.model.dataset import Dataset
-from openspending.core import app, db
+from openspending.core import db
 from openspending.lib import solr_util as solr
 
 from datetime import datetime
@@ -88,20 +88,16 @@ def make_account(name='test', fullname='Test User',
     account.admin = admin
     db.session.add(account)
     db.session.commit()
-
     return account
 
 
-def init_db():
-    app.config['TESTING'] = True
-    #app.config['CELERY_ALWAYS_EAGER'] = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
-    db.create_all()
+def init_db(app):
+    db.create_all(app=app)
 
 
-def clean_db():
+def clean_db(app):
     db.session.rollback()
-    db.drop_all()
+    db.drop_all(app=app)
 
 
 def clean_solr():

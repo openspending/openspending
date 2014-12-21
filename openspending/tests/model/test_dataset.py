@@ -12,8 +12,8 @@ from openspending.model.dimension import (AttributeDimension, Measure,
 
 class TestDataset(DatabaseTestCase):
 
-    def setup(self):
-        super(TestDataset, self).setup()
+    def setUp(self):
+        super(TestDataset, self).setUp()
         self.model = model_fixture('simple')
         self.ds = Dataset(self.model)
 
@@ -73,8 +73,8 @@ class TestDataset(DatabaseTestCase):
 
 class TestDatasetLoad(DatabaseTestCase):
 
-    def setup(self):
-        super(TestDatasetLoad, self).setup()
+    def setUp(self):
+        super(TestDatasetLoad, self).setUp()
         self.ds = Dataset(model_fixture('simple'))
         self.ds.generate()
         self.engine = db.engine

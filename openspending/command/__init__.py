@@ -2,12 +2,12 @@
 import logging
 from flask.ext.script import Manager
 
-from openspending.core import app
+from openspending.core import create_app
 from openspending.command import user, db, archive, solr, importer
 
 log = logging.getLogger(__name__.split('.')[0])
 
-manager = Manager(app, description=__doc__)
+manager = Manager(create_app, description=__doc__)
 
 manager.add_option('-v', '--verbose',
                    dest='verbose', action='append_const', const=1,

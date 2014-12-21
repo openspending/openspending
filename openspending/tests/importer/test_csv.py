@@ -54,7 +54,7 @@ class TestCSVImporter(DatabaseTestCase):
         assert dataset.name == "test-csv"
 
         entries = dataset.entries()
-        assert len(list(entries)) == 4
+        assert len(list(entries)) == 4, len(list(entries))
 
         # TODO: provenance
         entry = list(dataset.entries(limit=1, offset=1)).pop()
@@ -74,7 +74,7 @@ class TestCSVImporter(DatabaseTestCase):
         source = csvimport_fixture('simple')
         importer = CSVImporter(source)
         importer.run()
-        assert importer.errors == 0
+        assert importer.errors == 0, importer.errors
 
         dataset = db.session.query(Dataset).first()
         assert dataset is not None, "Dataset should not be None"

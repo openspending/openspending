@@ -1,43 +1,30 @@
-from routes.util import URLGenerator
-#from pylons import url, config
-#from pylons.test import pylonsapp
-#from webtest import TestApp
+from flask.ext.testing import TestCase as FlaskTestCase
 
-from openspending.core import db
+from openspending.core import create_app
 from openspending.tests.helpers import clean_db, init_db
 
-#from sqlalchemy import engine_from_config
-#from migrate.versioning.util import construct_engine
 
+class TestCase(FlaskTestCase):
 
-class TestCase(object):
+    def create_app(self):
+        app = create_app(**{
+            'DEBUG': True,
+            'TESTING': True,
+            'SQLALCHEMY_DATABASE_URI': 'sqlite:///:memory:',
+            'CELERY_ALWAYS_EAGER': True
+        })
+        #init_db(app)
+        return app
 
-    def setup(self):
-        pass
+    def setUp(self):
+        init_db(self.app)
 
-    def teardown(self):
-        pass
+    def tearDown(self):
+        clean_db(self.app)
 
 
 class DatabaseTestCase(TestCase):
-
-    def setup_database(self):
-        """
-        Configure the database based on the provided configuration
-        file, but be sure to overwrite the url so that it will use
-        sqlite in memory, irrespective of what the user has set in
-        test.ini. Construct the sqlalchemy engine with versioning
-        and initialise everything.
-        """
-        init_db()
-
-    def setup(self):
-        self.setup_database()
-        db.create_all()
-
-    def teardown(self):
-        clean_db()
-        super(DatabaseTestCase, self).teardown()
+    pass
 
 
 #class ControllerTestCase(DatabaseTestCase):

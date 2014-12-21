@@ -151,8 +151,8 @@ class Dataset(TableHandler, db.Model):
         the model physically. """
         self.bind = db.engine
         self.meta = MetaData()
-        self.meta.bind = db.engine
-
+        self.meta.bind = self.bind
+        
         self._init_table(self.meta, self.name, 'entry',
                          id_type=Unicode(42))
         for field in self.fields:
