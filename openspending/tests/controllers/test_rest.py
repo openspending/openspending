@@ -12,11 +12,6 @@ class TestRestController(ControllerTestCase):
         load_fixture('cra')
         self.cra = Dataset.by_name('cra')
 
-    def test_index(self):
-        response = self.app.get(url(controller='rest', action='index'))
-        for word in ['/cra', 'entries']:
-            assert word in response, response
-
     def test_dataset(self):
         response = self.app.get(url(controller='dataset',
                                     action='view',
