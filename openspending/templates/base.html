@@ -95,7 +95,7 @@
     </div>
     <div class="banner">
       <div class="container">
-        {% with messages = get_flashed_messages() %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
             <div class="container">
               <div>
