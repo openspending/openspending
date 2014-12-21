@@ -1,7 +1,7 @@
 import logging
 import os
 
-from openspending.core import db
+from openspending.core import app, db
 from openspending.model import Dataset
 from openspending.command.util import create_submanager
 from openspending.command.util import CommandException
@@ -37,10 +37,8 @@ def drop_dataset(name):
 @manager.command
 def migrate():
     """ Run pending data migrations """
-    url = config.get('openspending.db.url')
-    repo = config.get('openspending.migrate_dir',
-                      os.path.join(os.path.dirname(config['__file__']),
-                                   'migration'))
+    url = app.config.get('SQLALCHEMY_DATABASE_URI')
+    repo = os.path.join(os.path.dirname(__file__), '..', 'migration')
 
     try:
         migrate_api.upgrade(url, repo)
