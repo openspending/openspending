@@ -23,4 +23,7 @@ def create_app(**config):
     from openspending.lib.solr_util import configure as configure_solr
     configure_solr(app.config)
 
+    from openspending.views import register_views
+    register_views(app)
+
     return app
