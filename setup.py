@@ -61,8 +61,8 @@ setup(
     version=get_version(),
     description='OpenSpending',
     author='Open Knowledge Foundation',
-    author_email='okfn-help at lists okfn org',
-    url='http://github.com/okfn/openspending',
+    author_email='openspending-dev at lists okfn org',
+    url='http://github.com/openspending/openspending',
     install_requires=[
     ],
     setup_requires=[
