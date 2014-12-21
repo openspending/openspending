@@ -27,9 +27,5 @@ class DatabaseTestCase(TestCase):
     pass
 
 
-#class ControllerTestCase(DatabaseTestCase):
-#
-#    def __init__(self, *args, **kwargs):
-#        self.app = TestApp(pylonsapp)
-#        url._push_object(URLGenerator(config['routes.map'], {}))
-#        super(DatabaseTestCase, self).__init__(*args, **kwargs)
+class ControllerTestCase(DatabaseTestCase):
+    pass
