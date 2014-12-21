@@ -15,6 +15,7 @@ def before_request():
 
 def languages():
     current_locale = get_locale()
+
     def details(locale):
         return {
             "lang_code": locale.language,
@@ -38,14 +39,9 @@ def template_context_processor():
         'current_locale': get_locale(),
         'static_path': static_path,
         'url_for': url_for,
-        #'script_boot': h.script_tag('prod/boot'),
-        #'bootstrap_css': h.static('style/bootstrap.css'),
-        #'style_css': h.static('style/style.css'),
         'number_symbols_group': locale.number_symbols.get('group'),
         'number_symbols_decimal': locale.number_symbols.get('decimal'),
         'site_title': current_app.config.get('SITE_TITLE'),
-        #'static': config.get('openspending.static_path', '/static/'),
-        'static_cache_version': 'no_version',
         'languages': languages(),
         'section_active': get_active_section(),
         'logged_in': auth.account.logged_in(),

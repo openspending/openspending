@@ -6,10 +6,8 @@
     <title>{% block page_title %}{% endblock %} - {{ site_title }}</title>
     <meta name="description" content="{% block page_desc %}{% trans %}We're enabling anyone to explore, visualize and track government spending.{% endtrans %}{% endblock %}" />
     <meta name="author" content="Open Knowledge Foundation" />
-    <link rel="shortcut icon" href="{{ static }}img/favicon.ico{{ static_cache_version }}" type="image/x-icon" />
-	{% if show_rss %}
+    <link rel="shortcut icon" href="{{ static }}img/favicon.ico" type="image/x-icon" />
     <link rel="alternate" type="application/rss+xml" title="{% trans %}Latest Datasets on OpenSpending{% endtrans %}" href="{{ url_for('dataset.feed_rss') }}" />
-	{% endif %}
 
     <!-- Le styles -->
     <link rel="stylesheet" href="//d8r2br52tx8wq.cloudfront.net/branding/fonts/opensans/stylesheet.css" />
@@ -70,7 +68,7 @@
 		<li><a href="{{ url_for('account.settings') }}">{% trans %}Settings{% endtrans %}</a></li>
                 {% if c.account.admin %}
                 <li class="divider"></li>
-                <li><a href="{{ h.url_for(controller='account', action='scoreboard') }}">{% trans %}User scoreboard{% endtrans %}</li>
+                <li><a href="{{ url_for('account.scoreboard') }}">{% trans %}User scoreboard{% endtrans %}</li>
                 {% endif %}
 		<li class="divider"></li>
 		<li><a href="/logout">{% trans %}Logout{% endtrans %}</a></li>
@@ -84,9 +82,11 @@
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown">{% trans %}Language{% endtrans %}</a>
               <ul class="dropdown-menu locale-dropdown">
-		{% for l in languages %}<li class="locale {{ l.current_locale }}">
-		  <a class="select-locale" data-locale="{{ l.lang_code }}">{{ l.lang_name }}</a>
-                </li>{% endfor %}
+		            {% for l in languages %}
+                  <li class="locale {{ 'current_locale' if l.current_locale else '' }}">
+		                <a class="select-locale" data-locale="{{ l.lang_code }}">{{ l.lang_name }}</a>
+                  </li>
+                {% endfor %}
               </ul>
              </li>
           </ul>

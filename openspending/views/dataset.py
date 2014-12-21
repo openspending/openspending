@@ -11,3 +11,8 @@ def index():
 @blueprint.route('/datasets/new')
 def new():
     return render_template('home/index.html')
+
+
+@blueprint.route('/datasets.rss')
+def feed_rss():
+    return render_template('home/index.html')
