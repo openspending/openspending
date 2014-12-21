@@ -10,3 +10,6 @@ SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/openspending'
 SOLR_URL = 'http://localhost:8983/solr/openspending'
 
 BABEL_DEFAULT_LOCALE = 'en'
+
+SUBSCRIBE_COMMUNITY = 'http://lists.okfn.org/mailman/subscribe/openspending'
+SUBSCRIBE_DEVELOPER = 'http://lists.okfn.org/mailman/subscribe/openspending-dev'

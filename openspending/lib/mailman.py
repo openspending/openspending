@@ -1,4 +1,4 @@
-from pylons import config
+from flask import current_app
 
 import requests
 
@@ -6,8 +6,8 @@ import requests
 def subscribe_lists(listnames, data):
     errors = []
     for listname in listnames:
-        url = config.get('openspending.subscribe_{0}'.format(listname), False)
-        if url and data.get('subscribe_{0}'.format(listname)):
+        url = current_app.config.get('SUBSCRIBE_{0}'.format(listname.upper()))
+        if url is not None and data.get('subscribe_{0}'.format(listname)):
             if not subscribe(url, data):
                 errors.append(listname)
     return errors
