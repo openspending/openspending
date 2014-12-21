@@ -13,12 +13,10 @@ log = logging.getLogger(__name__)
 
 
 def get_available_languages():
-    # Magic paths copied from pylons.i18n.translation._get_translator
     localedir = os.path.dirname(__file__)
-    messagefiles = gettext.find('openspending', localedir,
+    messagefiles = gettext.find('openspending.ui', localedir,
                                 languages=babel.Locale('en').languages.keys(),
                                 all=True)
-
     return [path.split(os.path.sep)[-3] for path in messagefiles]
 
 
@@ -44,7 +42,7 @@ def set_session_locale(locale):
 @flask_babel.localeselector
 def get_locale():
     if 'locale' in session:
-        locale = session.get('locale')
+        return session.get('locale')
 
     requested = request.accept_languages.values()
     requested = [l.replace('-', '_') for l in requested]
