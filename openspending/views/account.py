@@ -26,9 +26,7 @@ blueprint = Blueprint('account', __name__)
 @disable_cache
 @blueprint.route('/login', methods=['GET'])
 def login():
-    """
-    Render the login page (which is also the registration page)
-    """
+    """ Render the login/registration page. """
     return render_template('account/login.html')
 
 
@@ -45,78 +43,52 @@ def login_perform():
 
 
 @disable_cache
-@blueprint.route('/register')
+@blueprint.route('/register', methods=['POST', 'PUT'])
 def register():
-    """
-    Perform registration of a new user
-    """
-
-    # We must allow account creation
+    """ Perform registration of a new user """
     require.account.create()
+    errors, values = {}, dict(request.form.items())
 
-    # Initial values and errors
-    errors, values = {}, None
+    try:
+        # Grab the actual data and validate it
+        data = AccountRegister().deserialize(values)
 
-    # If this is a POST operation somebody is trying to register
-    if request.method == 'POST':
-        try:
-            # Get the account register schema (for validation)
-            schema = AccountRegister()
+        # Check if the username already exists, return an error if so
+        if Account.by_name(data['name']):
+            raise colander.Invalid(
+                AccountRegister.name,
+                gettext("Login name already exists, please choose a "
+                        "different one"))
 
-            # Set values from the request parameters
-            # (for validation and so we can autofill forms)
-            values = request.params
+        # Check if passwords match, return error if not
+        if not data['password1'] == data['password2']:
+            raise colander.Invalid(AccountRegister.password1,
+                                   gettext("Passwords don't match!"))
 
-            # Grab the actual data and validate it
-            data = schema.deserialize(values)
+        # Create the account
+        account = Account()
+        account.name = data['name']
+        account.fullname = data['fullname']
+        account.email = data['email']
+        account.public_email = data['public_email']
+        account.password = generate_password_hash(data['password1'])
 
-            # Check if the username already exists, return an error if so
-            if Account.by_name(data['name']):
-                raise colander.Invalid(
-                    AccountRegister.name,
-                    gettext("Login name already exists, please choose a "
-                            "different one"))
+        db.session.add(account)
+        db.session.commit()
 
-            # Check if passwords match, return error if not
-            if not data['password1'] == data['password2']:
-                raise colander.Invalid(AccountRegister.password1,
-                                       gettext("Passwords don't match!"))
+        # Perform a login for the user
+        login_user(account, remember=True)
 
-            # Create the account
-            account = Account()
+        # Subscribe the user to the mailing lists
+        errors = subscribe_lists(('community', 'developer'), data)
+        if errors:
+            flash_notice(gettext("Subscription to the following mailing " +
+                                 "lists probably failed: %s.") % ', '.join(errors))
 
-            # Set username and full name
-            account.name = data['name']
-            account.fullname = data['fullname']
-
-            # Set email and if email address should be public
-            account.email = data['email']
-            account.public_email = data['public_email']
-
-            # Hash the password and store the hash
-            account.password = generate_password_hash(data['password1'])
-
-            # Commit the new user account to the database
-            db.session.add(account)
-            db.session.commit()
-
-            # Perform a login for the user
-            login_user(account, remember=True)
-
-            # Subscribe the user to the mailing lists
-            errors = subscribe_lists(('community', 'developer'), data)
-            # Notify if the mailing list subscriptions failed
-            if errors:
-                flash_notice(gettext("Subscription to the following mailing " +
-                                     "lists probably failed: %s.") % ', '.join(errors))
-
-            # Registration successful - Redirect to the front page
-            return redirect(url_for('home.index'))
-        except colander.Invalid as i:
-            # Mark colander errors
-            errors = i.asdict()
-
-    # Show the templates (with possible errors and form values)
+        # Registration successful - Redirect to the front page
+        return redirect(url_for('home.index'))
+    except colander.Invalid as i:
+        errors = i.asdict()
     return render_template('account/login.html', form_fill=values,
                            form_errors=errors)
 
