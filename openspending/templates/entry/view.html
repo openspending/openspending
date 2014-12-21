@@ -6,7 +6,7 @@
 	{% if 'to' in c.desc %}
 	  {{c.to.get('label')}} - 
 	{% endif %}
-	{{c.dataset.currency}} {{h.format_number_with_commas(c.amount)}} - {{c.dataset.label}}
+	{{c.dataset.currency}} {{h.format_currenct(c.amount, c.dataset)}} - {{c.dataset.label}}
 {% endblock %}
 
 {% block page_desc %}{{h.entry_description(c.entry)}}{% endblock %}
@@ -32,7 +32,7 @@
         <span class="divider">/</span>
       </li>
       <li class="active">
-        {% trans currency=c.dataset.currency, amount=h.format_number_with_commas(c.amount), time=c.time.get('label') %}{{currency}} {{amount}} on {{time}}{% endtrans %}
+        {% trans currency=c.dataset.currency, amount=h.format_currenct(c.amount, c.dataset), time=c.time.get('label') %}{{currency}} {{amount}} on {{time}}{% endtrans %}
       </li>
       <div class="representations">
         <a href="{{h.url_for(controller='entry', action='view', dataset=c.dataset.name, id=c.id, format='json')}}">
@@ -100,7 +100,7 @@
              {% trans %}Adjusted for inflation{% endtrans %}
              {% trans reference=c.inflation.reference, reference_year=c.inflation.reference.year, target=c.inflation.target, target_year=c.inflation.target.year %}(from <span title="{{reference}}">{{reference_year}}</span> 
              to <span title="{{target}}">{{target_year}}</span>){% endtrans %}
-             - {% trans original=h.format_number_with_commas(c.inflation.original) %}Original amount: {{original}}{% endtrans %}
+             - {% trans original=h.format_currency(c.inflation.original, c.dataset) %}Original amount: {{original}}{% endtrans %}
            </p>
          </div>
          {%- endif %}

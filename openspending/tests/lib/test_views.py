@@ -3,7 +3,7 @@ from openspending.tests.helpers import load_fixture
 from nose.tools import assert_raises
 
 from openspending.model.dataset import Dataset
-from openspending.ui.lib.views import View
+from openspending.lib.views import View
 
 
 class TestViews(DatabaseTestCase):

@@ -4,8 +4,6 @@ from urlparse import urljoin
 from pylons.i18n import _
 from pylons import config
 
-from openspending.ui.lib.helpers import script_root
-
 log = logging.getLogger(__name__)
 
 

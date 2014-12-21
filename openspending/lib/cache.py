@@ -1,7 +1,6 @@
 import hashlib
 import logging
 
-from pylons import cache, app_globals
 from openspending.ui.lib.aggregation import aggregate
 from openspending.ui.lib.indices import dataset_index, language_index, \
     territory_index, category_index

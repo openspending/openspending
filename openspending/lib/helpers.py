@@ -2,12 +2,12 @@
 """ Helper functions """
 
 from lxml import html
+from flask.ext.babel import get_locale
 from webhelpers.html import literal
 from webhelpers.html.tags import link_to
 from webhelpers.markdown import markdown as _markdown
 from webhelpers.text import truncate
 
-import math
 import os
 import uuid
 import babel.numbers
@@ -129,14 +129,19 @@ def get_uuid_filename(filename):
     return ''.join([uuid_name, os.path.splitext(filename)[1]])
 
 
-def format_currency(amount, dataset):
-    """
-    Wrapper around babel's format_currency which fetches the currency
-    from the dataset. Uses the current locale to format the number.
-    """
+def format_currency(amount, dataset, locale=None):
+    """ Wrapper around babel's format_currency which fetches the currency
+    from the dataset. Uses the current locale to format the number. """
     try:
-        return babel.numbers.format_currency(amount, dataset.currency,
-                                             locale=tmpl_context.locale)
+        if amount is None:
+            return "-"
+        if amount == 'NaN':
+            return "-"
+        locale = locale or get_locale()
+        currency = 'USD'
+        if dataset is not None and dataset.currency is not None:
+            currency = dataset.currency
+        return babel.numbers.format_currency(int(amount), currency, locale=locale)
     except:
         return amount
 
@@ -228,31 +233,6 @@ def dimension_link(dataset, dimension, data):
     if isinstance(data, dict) and data['name']:
         text = link_to(text, member_url(dataset, dimension, data))
     return text
-
-
-def format_number_with_commas(number):
-    '''Format a number with commas.
-
-    NB: will convert to integer e.g. 2010.13 -> 2,010
-    '''
-    if number is None:
-        return "-"
-    if number == 'NaN':
-        return "-"
-    try:
-        if math.isnan(number):
-            return "-"
-        s = str(int(number))
-    except TypeError:
-        msg = "Value was not numeric: %s (type: %s)" \
-              % (repr(number), type(number))
-        raise TypeError(msg)
-
-    groups = []
-    while s and s[-1].isdigit():
-        groups.append(s[-3:])
-        s = s[:-3]
-    return s + ','.join(reversed(groups))
 
 
 def has_datatype_attr(c, key):
