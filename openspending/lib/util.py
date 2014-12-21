@@ -21,17 +21,6 @@ def hash_values(iterable):
                         for val in iterable)).hexdigest()
 
 
-def check_rest_suffix(name):
-    '''\
-    Assert that the ``name`` does not end with a string like
-    '.csv', '.json'. Read the source for a list of all recognized
-    extensions.
-    '''
-    for sfx in ['csv', 'json', 'xml', 'rdf', 'html', 'htm', 'n3', 'nt']:
-        assert not name.lower().endswith('.' + sfx), \
-            "Names cannot end in .%s" % sfx
-
-
 SLUG_RE = re.compile(r'[\t !"#$%&\'()*\-/<=>?@\[\\\]^_`{|},.]+')
 
 
