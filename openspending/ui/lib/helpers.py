@@ -19,8 +19,6 @@ from openspending.reference import country
 import math
 import os
 import uuid
-import json
-import hashlib
 import datetime
 import babel.numbers
 
@@ -87,35 +85,6 @@ def url_for(*args, **kwargs):
 def site_url():
     return url_for(
         controller='home', action='index', qualified=True).rstrip('/')
-
-
-def gravatar(email, size=None, default='mm'):
-    """
-    Generate a gravatar url based on a provided email. If email is none we
-    spit out a default gravatar. The default gravatar is the mystery man (mm).
-    """
-
-    # Gravatar url structure
-    gravatar_url = '//www.gravatar.com/avatar/{digest}?d={default}{query}'
-
-    # If email is None we spit out a dummy digest
-    if email is None:
-        digest = '00000000000000000000000000000000'
-    # else we spit out and md5 digest as required by Gravatar
-    else:
-        digest = hashlib.md5(email.strip().lower()).hexdigest()
-
-    # Generate the Gravatar url
-    url = gravatar_url.format(digest=digest,
-                              default=default,
-                              query='&s=' + str(size) if size else '')
-
-    # Return it
-    return url
-
-
-def twitter_uri(handle):
-    return '//twitter.com/{handle}'.format(handle=handle.lstrip('@'))
 
 
 def script_root():
@@ -470,27 +439,7 @@ def inflate(amount, target, reference, territories):
             'original': amount, 'inflated': inflated_amount}
 
 
-def script_tag(name):
-    return '''<script type="text/javascript" src="''' + \
-           '%s/%s.js' % (script_root(), name) + \
-           '''"></script>'''
-
-
-def style_tag(name):
-    return '''<link rel="stylesheet" href="''' + \
-           '%s/%s.css' % (script_root(), name) + \
-           '''" />'''
-
-
 def has_datatype_attr(c, key):
     return c.desc.get(key) and \
         hasattr(c.desc.get(key), 'datatype') and \
         c.desc.get(key).datatype == 'url'
-
-
-def json_to_string(json_object, indent=2):
-    """
-    Wrapper around json.dumps which exposes a helper function
-    to dump a json object as string with default indent of 2.
-    """
-    return json.dumps(json_object, indent=indent)

@@ -122,9 +122,6 @@ class BaseController(WSGIController):
                 return mimeformat
         return "html"
 
-    def _disable_cache(self):
-        c._cache_disabled = True
-
     def _get_dataset(self, dataset):
         c.dataset = Dataset.by_name(dataset)
         if c.dataset is None:
