@@ -95,17 +95,19 @@
     </div>
     <div class="banner">
       <div class="container">
-        {% if messages %}
-        <div class="container">
-          <div>
-	    {% for m in messages %}
-            <div class="alert alert-{{ m.category }}">
-              {{ m.message }}
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="container">
+              <div>
+  	            {% for category, message in messages %}
+                  <div class="alert alert-{{ category }}">
+                    {{ message }}
+                  </div>
+  	            {% endfor %}
+              </div>
             </div>
-	    {% endfor %}
-          </div>
-        </div>
-        {% endif %}
+          {% endif %}
+        {% endwith %}
         {% block banner %}{% endblock %}
       </div>
     </div>
