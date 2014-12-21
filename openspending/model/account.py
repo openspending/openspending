@@ -2,11 +2,12 @@ import colander
 import uuid
 import hmac
 
+from flask.ext.login import AnonymousUserMixin
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.schema import Table, Column, ForeignKey
 from sqlalchemy.types import Integer, Unicode, Boolean
 
-from openspending.core import db
+from openspending.core import db, login_manager
 from openspending.model.dataset import Dataset
 
 REGISTER_NAME_RE = r"^[a-zA-Z0-9_\-]{3,255}$"
@@ -23,6 +24,17 @@ account_dataset_table = Table(
     Column('account_id', Integer, ForeignKey('account.id'),
            primary_key=True)
 )
+
+
+class AnonymousAccount(AnonymousUserMixin):
+    admin = False
+
+login_manager.anonymous_user = AnonymousAccount
+
+
+@login_manager.user_loader
+def load_account(account_id):
+    return Account.by_id(account_id)
 
 
 class Account(db.Model):
@@ -48,6 +60,15 @@ class Account(db.Model):
     def __init__(self):
         pass
 
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def get_id(self):
+        return self.id
+
     @property
     def display_name(self):
         return self.fullname or self.name
@@ -63,6 +84,10 @@ class Account(db.Model):
     @classmethod
     def by_name(cls, name):
         return db.session.query(cls).filter_by(name=name).first()
+
+    @classmethod
+    def by_id(cls, id):
+        return db.session.query(cls).filter_by(id=id).first()
 
     @classmethod
     def by_email(cls, email):

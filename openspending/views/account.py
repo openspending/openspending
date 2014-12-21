@@ -1,10 +1,11 @@
 import colander
 from flask import Blueprint, render_template, request, redirect
-from flask.ext.login import current_user
+from flask.ext.login import current_user, login_user, logout_user
 from flask.ext.babel import gettext
 from sqlalchemy.sql.expression import desc, func, or_
+from werkzeug.security import check_password_hash, generate_password_hash
 
-from openspending.core import db
+from openspending.core import db, login_manager
 from openspending.auth import require
 from openspending.model.dataset import Dataset
 from openspending.model.account import (Account, AccountRegister,
@@ -23,12 +24,24 @@ blueprint = Blueprint('account', __name__)
 
 
 @disable_cache
-@blueprint.route('/login')
+@blueprint.route('/login', methods=['GET'])
 def login():
     """
     Render the login page (which is also the registration page)
     """
     return render_template('account/login.html')
+
+
+@blueprint.route('/login', methods=['POST', 'PUT'])
+def login_perform():
+    account = Account.by_name(request.form.get('login'))
+    if account is not None:
+        if check_password_hash(account.password, request.form.get('password')):
+            login_user(account, remember=True)
+            flash_success(gettext("Welcome back, %(name)s!", name=account.name))
+            return redirect(url_for('account.dashboard'))
+    flash_error(gettext("Incorrect user name or password!"))
+    return login()
 
 
 @disable_cache
@@ -88,13 +101,7 @@ def register():
             db.session.commit()
 
             # Perform a login for the user
-            who_api = get_api(request.environ)
-            authenticated, headers = who_api.login({
-                "login": account.name,
-                "password": data['password1']
-            })
-            # Add the login headers
-            response.headers.extend(headers)
+            login_user(account, remember=True)
 
             # Subscribe the user to the mailing lists
             errors = subscribe_lists(('community', 'developer'), data)
@@ -255,7 +262,7 @@ def complete(format='json'):
     if errors:
         response.status = 400
         return {'errors': errors}
-    if not current_user:
+    if current_user.is_authenticated():
         response.status = 403
         return to_jsonp({'errors': gettext("You are not authorized to see that "
                                      "page")})
@@ -277,24 +284,16 @@ def complete(format='json'):
 
 
 @disable_cache
-def after_login(self):
-    if current_user.is_authenticated():
-        flash_success(gettext("Welcome back, %s!") % current_user.name)
-        return redirect(url_for('account.dashboard'))
-    else:
-        flash_error(gettext("Incorrect user name or password!"))
-        return redirect(url_for('account.login'))
-
-
-@disable_cache
-def after_logout(self):
+@blueprint.route('/logout')
+def logout():
+    logout_user()
     flash_success(gettext("You have been logged out."))
     return redirect(url_for('home.index'))
 
 
 @disable_cache
 @blueprint.route('/account/forgotten')
-def trigger_reset(self):
+def trigger_reset():
     """
     Allow user to trigger a reset of the password in case they forget it
     """
@@ -331,21 +330,21 @@ def trigger_reset(self):
 
 @blueprint.route('/account/reset')
 def do_reset(self):
-    email = request.params.get('email')
+    email = request.args.get('email')
     if email is None or not len(email):
         flash_error(gettext("The reset link is invalid!"))
         return redirect(url_for('account.login'))
+
     account = Account.by_email(email)
     if account is None:
         flash_error(gettext("No user is registered under this address!"))
         return redirect(url_for('account.login'))
-    if request.params.get('token') != account.token:
+
+    if request.args.get('token') != account.token:
         flash_error(gettext("The reset link is invalid!"))
         return redirect(url_for('account.login'))
-    who_api = request.environ['repoze.who.plugins']['auth_tkt']
-    headers = who_api.remember(request.environ,
-                               {'repoze.who.userid': account.name})
-    response.headers.extend(headers)
+
+    login_user(account)
     flash_success(
         gettext("Thanks! You have now been signed in - please change "
                 + "your password!"))
@@ -353,7 +352,7 @@ def do_reset(self):
 
 
 @blueprint.route('/account/<name>')
-def profile(self, name):
+def profile(name):
     """ Generate a profile page for a user (from the provided name) """
 
     # Get the account, if it's none we return a 404
