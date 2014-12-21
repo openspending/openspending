@@ -12,7 +12,7 @@ from openspending.model.account import (Account, AccountRegister,
                                         AccountSettings)
 from openspending.lib.paramparser import DistinctParamParser
 from openspending.lib.mailman import subscribe_lists
-#from openspending.lib.jsonexport import to_jsonp
+from openspending.lib.jsonexport import jsonify
 from openspending.lib.mailer import send_reset_link
 from openspending.views.helpers import url_for, obj_or_404
 from openspending.views.helpers import disable_cache, flash_error
@@ -21,6 +21,24 @@ from openspending.lib.pagination import Page
 
 
 blueprint = Blueprint('account', __name__)
+
+
+@login_manager.request_loader
+def load_user_from_request(request):
+    api_key = request.args.get('api_key')
+    if api_key and len(api_key):
+        account = Account.by_api_key(api_key)
+        if account:
+            return account
+
+    api_key = request.headers.get('Authorization')
+    if api_key and len(api_key) and ' ' in api_key:
+        method, api_key = api_key.split(' ', 1)
+        if method.lower() == 'apikey':
+            account = Account.by_api_key(api_key)
+            if account:
+                return account
+    return None
 
 
 @disable_cache
@@ -96,9 +114,7 @@ def register():
 @disable_cache
 @blueprint.route('/settings')
 def settings():
-    """
-    Change settings for the logged in user
-    """
+    """ Change settings for the logged in user """
     require.account.update(current_user)
     values = current_user.as_dict()
     if current_user.public_email:
@@ -206,15 +222,13 @@ def scoreboard(format='html'):
 @disable_cache
 @blueprint.route('/accounts/_complete')
 def complete(format='json'):
-    parser = DistinctParamParser(request.params)
+    parser = DistinctParamParser(request.args)
     params, errors = parser.parse()
     if errors:
-        response.status = 400
-        return {'errors': errors}
-    if current_user.is_authenticated():
-        response.status = 403
-        return to_jsonp({'errors': gettext("You are not authorized to see that "
-                                     "page")})
+        return jsonify({'errors': errors}, status=400)
+    if not current_user.is_authenticated():
+        msg = gettext("You are not authorized to see that page")
+        return jsonify({'errors': msg}, status=403)
 
     query = db.session.query(Account)
     filter_string = params.get('q') + '%'
@@ -226,7 +240,7 @@ def complete(format='json'):
                              params.get('pagesize')))
     results = [dict(fullname=x.fullname, name=x.name) for x in list(query)]
 
-    return to_jsonp({
+    return jsonify({
         'results': results,
         'count': count
     })
@@ -241,7 +255,7 @@ def logout():
 
 
 @disable_cache
-@blueprint.route('/account/forgotten', methods=['POST'])
+@blueprint.route('/account/forgotten', methods=['POST', 'GET'])
 def trigger_reset():
     """
     Allow user to trigger a reset of the password in case they forget it
@@ -310,7 +324,7 @@ def profile(name):
     # Set a context boo if email/twitter should be shown, it is only shown
     # to administrators and to owner (account is same as context account)
     show_info = (current_user and current_user.admin) or \
-                (current_user.id == profile.id)
+                (current_user == profile)
 
     # ..or if the user has chosen to make it public
     show_email = show_info or profile.public_email

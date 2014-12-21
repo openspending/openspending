@@ -13,6 +13,11 @@ def new():
     return render_template('home/index.html')
 
 
+@blueprint.route('/<dataset>')
+def view(dataset):
+    return render_template('home/index.html')
+
+
 @blueprint.route('/datasets.rss')
 def feed_rss():
     return render_template('home/index.html')

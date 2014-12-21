@@ -1,4 +1,5 @@
 import smtplib
+import socket
 import logging
 from time import time
 from email.mime.text import MIMEText
@@ -6,7 +7,7 @@ from email.header import Header
 from email import Utils
 
 from flask import current_app
-from flask.ext.babel import gettext, lazy_gettext
+from flask.ext.babel import gettext
 
 from openspending.views.helpers import url_for
 
@@ -44,7 +45,7 @@ def mail_recipient(recipient_name, recipient_email,
         server = smtplib.SMTP(current_app.config.get('SMTP_SERVER', 'localhost'), 1025)
         server.sendmail(mail_from, [recipient_email], msg.as_string())
         server.quit()
-    except Exception as e:
+    except (Exception, socket.gaierror) as e:
         msg = '%r' % e
         log.exception(msg)
         raise MailerException(msg)

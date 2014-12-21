@@ -58,7 +58,7 @@ class Account(db.Model):
                             backref=backref('managers', lazy='dynamic'))
 
     def __init__(self):
-        pass
+        self.api_key = make_uuid()
 
     def is_authenticated(self):
         return True
