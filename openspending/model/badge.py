@@ -4,8 +4,8 @@ from sqlalchemy.orm import relationship, backref
 from sqlalchemy.schema import Table, Column, ForeignKey
 from sqlalchemy.types import Integer, Unicode, DateTime
 
+from openspending.core import db
 from openspending.model.account import Account
-from openspending.model import meta as db
 
 # Badges and dataset share a many to many relationship
 # therefore we need to create an associate table

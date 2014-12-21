@@ -6,7 +6,7 @@ from sqlalchemy.orm import relationship, backref
 from sqlalchemy.schema import Table, Column, ForeignKey
 from sqlalchemy.types import Integer, Unicode, Boolean
 
-from openspending.model import meta as db
+from openspending.core import db
 from openspending.model.dataset import Dataset
 
 REGISTER_NAME_RE = r"^[a-zA-Z0-9_\-]{3,255}$"

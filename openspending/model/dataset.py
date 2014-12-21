@@ -18,7 +18,7 @@ from sqlalchemy.types import Integer, Unicode, Boolean, DateTime
 from sqlalchemy.sql.expression import false, and_, or_, select, func
 from sqlalchemy.ext.associationproxy import association_proxy
 
-from openspending.model import meta as db
+from openspending.core import db
 from openspending.lib.util import hash_values
 
 from openspending.model.common import (TableHandler, MutableDict, JSONType,
