@@ -13,7 +13,7 @@ from openspending.model.account import (Account, AccountRegister,
 from openspending.lib.paramparser import DistinctParamParser
 from openspending.lib.mailman import subscribe_lists
 #from openspending.lib.jsonexport import to_jsonp
-#from openspending.lib.mailer import send_reset_link
+from openspending.lib.mailer import send_reset_link
 from openspending.views.helpers import url_for, obj_or_404
 from openspending.views.helpers import disable_cache, flash_error
 from openspending.views.helpers import flash_notice, flash_success
@@ -99,72 +99,52 @@ def settings():
     """
     Change settings for the logged in user
     """
-    # The logged in user must be able to update the account
     require.account.update(current_user)
+    values = current_user.as_dict()
+    if current_user.public_email:
+        values['public_email'] = current_user.public_email
+    if current_user.public_twitter:
+        values['public_twitter'] = current_user.public_twitter
+    return render_template('account/settings.html',
+                           form_fill=values)
 
-    # Initial values and errors
-    errors, values = {}, current_user
 
-    # If POST the user is trying to update the settings
-    if request.method == 'POST':
-        try:
-            # Get the account settings schema (for validation)
-            schema = AccountSettings()
+@blueprint.route('/settings', methods=['POST', 'PUT'])
+def settings_save():
+    """ Change settings for the logged in user """
+    require.account.update(current_user)
+    errors, values = {}, dict(request.form.items())
 
-            # Set values from the request parameters
-            # (for validation and so we can autofill forms)
-            values = request.params
+    try:
+        data = AccountSettings().deserialize(values)
 
-            # Grab the actual data and validate it
-            data = schema.deserialize(values)
+        # If the passwords don't match we notify the user
+        if not data['password1'] == data['password2']:
+            raise colander.Invalid(AccountSettings.password1,
+                                   gettext("Passwords don't match!"))
 
-            # If the passwords don't match we notify the user
-            if not data['password1'] == data['password2']:
-                raise colander.Invalid(AccountSettings.password1,
-                                       gettext("Passwords don't match!"))
+        current_user.fullname = data['fullname']
+        current_user.email = data['email']
+        current_user.public_email = data['public_email']
+        if data['twitter'] is not None:
+            current_user.twitter_handle = data['twitter'].lstrip('@')
+            current_user.public_twitter = data['public_twitter']
 
-            # Update full name
-            current_user.fullname = data['fullname']
+        # If a new password was provided we update it as well
+        if data['password1'] is not None and len(data['password1']):
+            current_user.password = generate_password_hash(
+                data['password1'])
 
-            # Update the script root
-            current_user.script_root = data['script_root']
+        # Do the actual update in the database
+        db.session.add(current_user)
+        db.session.commit()
 
-            # Update email and whether email should be public
-            current_user.email = data['email']
-            current_user.public_email = data['public_email']
+        # Let the user know we've updated successfully
+        flash_success(gettext("Your settings have been updated."))
+    except colander.Invalid as i:
+        # Load errors if we get here
+        errors = i.asdict()
 
-            # If twitter handle is provided we update it
-            # (and if it should be public)
-            if data['twitter'] is not None:
-                current_user.twitter_handle = data['twitter'].lstrip('@')
-                current_user.public_twitter = data['public_twitter']
-
-            # If a new password was provided we update it as well
-            if data['password1'] is not None and len(data['password1']):
-                current_user.password = generate_password_hash(
-                    data['password1'])
-
-            # Do the actual update in the database
-            db.session.add(current_user)
-            db.session.commit()
-
-            # Let the user know we've updated successfully
-            flash_success(gettext("Your settings have been updated."))
-        except colander.Invalid as i:
-            # Load errors if we get here
-            errors = i.asdict()
-    else:
-        # Get the account values to autofill the form
-        values = current_user.as_dict()
-
-        # We need to put public checks separately because they're not
-        # a part of the dictionary representation of the account
-        if current_user.public_email:
-            values['public_email'] = current_user.public_email
-        if current_user.public_twitter:
-            values['public_twitter'] = current_user.public_twitter
-
-    # Return the rendered template
     return render_template('account/settings.html',
                            form_fill=values,
                            form_errors=errors)
@@ -195,10 +175,7 @@ def scoreboard(format='html'):
     to administrators (who may be interested in findin these single points
     of failures).
     """
-
-    # If user is not an administrator we abort
-    if not (current_user and current_user.admin):
-        abort(403, gettext("You are not authorized to view this page"))
+    require.account.is_admin()
 
     # Assign scores to each dataset based on number of maintainers
     score = db.session.query(Dataset.id,
@@ -219,11 +196,11 @@ def scoreboard(format='html'):
     # Fetch all and assign to a context variable score and paginate them
     # We paginate 42 users per page, just because that's an awesome number
     scores = user_score.all()
-    c.page = Page(scores, items_per_page=42,
-                  item_count=len(scores),
-                  **request.params)
+    page = Page(scores, items_per_page=42,
+                item_count=len(scores),
+                **dict(request.args.items()))
 
-    return render_template('account/scoreboard.html')
+    return render_template('account/scoreboard.html', page=page)
 
 
 @disable_cache
@@ -264,7 +241,7 @@ def logout():
 
 
 @disable_cache
-@blueprint.route('/account/forgotten')
+@blueprint.route('/account/forgotten', methods=['POST'])
 def trigger_reset():
     """
     Allow user to trigger a reset of the password in case they forget it
@@ -274,7 +251,7 @@ def trigger_reset():
         return render_template('account/trigger_reset.html')
 
     # Get the email
-    email = request.params.get('email')
+    email = request.form.get('email')
 
     # Simple check to see if the email was provided. Flash error if not
     if email is None or not len(email):
@@ -301,7 +278,7 @@ def trigger_reset():
 
 
 @blueprint.route('/account/reset')
-def do_reset(self):
+def do_reset():
     email = request.args.get('email')
     if email is None or not len(email):
         flash_error(gettext("The reset link is invalid!"))

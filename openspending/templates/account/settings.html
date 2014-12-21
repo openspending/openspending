@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
-{% block page_title %}{% trans %}Settings for:{% endtrans %} {{ c.account.name }}{% endblock %}
+{% block page_title %}{% trans %}Settings for:{% endtrans %} {{ current_user.name }}{% endblock %}
 
 {% block content %}
-<h2 class="page-header">{% trans %}Account Settings{% endtrans %} <small>{{ c.account.fullname }}</small></h2>
+<h2 class="page-header">{% trans %}Account Settings{% endtrans %} <small>{{ current_user.fullname }}</small></h2>
 
 <div class="row">
   <div class="offset2 span10">
     {% formfill form_fill with form_errors %}
-    <form class="basic settings form-horizontal" id="settings" action="/settings" method="POST">
+    <form class="basic settings form-horizontal" id="settings" action="{{ url_for('account.settings_save') }}" method="POST">
       <div class="control-group">
         <label for="fullname">{% trans %}Fullname{% endtrans %}</label>
         <div class="controls">
@@ -49,15 +49,8 @@
       <div class="control-group">
         <label for="api_key">{% trans %}API Key{% endtrans %}</label>
         <div class="controls">
-          <span class="uneditable-input" style="width: 25em;">{{ c.account.api_key }}</span>
+          <span class="uneditable-input" style="width: 25em;">{{ current_user.api_key }}</span>
           <p class="help-block">{% trans %}Use this key to access the OpenSpending API programmatically.{% endtrans %}</p>
-        </div>
-      </div>
-      <div class="control-group">
-        <label for="script_root">{% trans %}Script Location{% endtrans %}</label>
-        <div class="controls">
-          <input name="script_root" />
-          <p class="help-block">{% trans %}Set a different location for JavaScript imports to develop new widgets.{% endtrans %}</p>
         </div>
       </div>
       
