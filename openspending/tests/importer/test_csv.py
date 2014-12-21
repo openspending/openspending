@@ -1,6 +1,6 @@
+from openspending.core import db
 from openspending.model.dataset import Dataset
 from openspending.model.source import Source
-from openspending.model import meta as db
 from openspending.lib import json
 
 from openspending.importer import CSVImporter
