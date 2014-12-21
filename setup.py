@@ -92,7 +92,8 @@ setup(
             'main = pylons.util:PylonsInstaller'
         ],
         'console_scripts': [
-            'ostool = openspending.command:main'
+            'ostool = openspending.command:main',
+            'openspending = openspending.command:main'
         ]
     },
 
