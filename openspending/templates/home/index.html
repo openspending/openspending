@@ -3,13 +3,10 @@
 {% block page_title %}Welcome{% endblock %}
 
 {% block scripts %}
-  <scripts>
-    {{static_path('openspendingjs/lib/vendor/raphael-min')}}
-    {{static_path('openspendingjs/lib/vendor/raphael-min')}}
-    {{static_path('openspendingjs/lib/vendor/kartograph/kartograph.min')}}
-    {{static_path('openspendingjs/lib/vendor/chroma')}}
-    <script type="text/javascript" src="{{static_path('js/choropleth.js')}}"></script>
-  </scripts>
+  <script type="text/javascript" src="{{static_path('openspendingjs/lib/vendor/raphael-min.js')}}"></script>
+  <script type="text/javascript" src="{{static_path('openspendingjs/lib/vendor/kartograph/kartograph.min.js')}}"></script>
+  <script type="text/javascript" src="{{static_path('openspendingjs/lib/vendor/chroma.js')}}"></script>
+  <script type="text/javascript" src="{{static_path('js/choropleth.js')}}"></script>
 {% endblock %}
 
 {% block banner %}
