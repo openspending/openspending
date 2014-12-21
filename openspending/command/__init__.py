@@ -4,7 +4,7 @@ from flask.ext.script import Manager
 
 from openspending.core import app
 from openspending.model import Dataset
-from openspending.command import user, db, archive
+from openspending.command import user, db, archive, solr
 
 log = logging.getLogger(__name__.split('.')[0])
 
@@ -20,6 +20,7 @@ manager.add_option('-q', '--quiet',
 manager.add_command('user', user.manager)
 manager.add_command('db', db.manager)
 manager.add_command('archive', archive.manager)
+manager.add_command('solr', solr.manager)
 
 
 @manager.command
