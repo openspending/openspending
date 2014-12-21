@@ -13,3 +13,5 @@ BABEL_DEFAULT_LOCALE = 'en'
 
 SUBSCRIBE_COMMUNITY = 'http://lists.okfn.org/mailman/subscribe/openspending'
 SUBSCRIBE_DEVELOPER = 'http://lists.okfn.org/mailman/subscribe/openspending-dev'
+
+MAIL_FORM = 'noreply@openspending.org'
