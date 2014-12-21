@@ -3,6 +3,7 @@ from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask.ext.babel import Babel
+from flaskext.gravatar import Gravatar
 import formencode_jinja2
 
 from openspending import default_settings
@@ -35,5 +36,8 @@ def create_app(**config):
 
     from openspending.views import register_views
     register_views(app)
+
+    Gravatar(app, size=200, rating='g',
+             default='retro', use_ssl=True)
 
     return app

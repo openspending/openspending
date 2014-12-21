@@ -14,7 +14,7 @@ from openspending.lib.paramparser import DistinctParamParser
 from openspending.lib.mailman import subscribe_lists
 #from openspending.lib.jsonexport import to_jsonp
 #from openspending.lib.mailer import send_reset_link
-from openspending.views.helpers import url_for
+from openspending.views.helpers import url_for, obj_or_404
 from openspending.views.helpers import disable_cache, flash_error
 from openspending.views.helpers import flash_notice, flash_success
 from openspending.lib.pagination import Page
@@ -356,27 +356,23 @@ def profile(name):
     """ Generate a profile page for a user (from the provided name) """
 
     # Get the account, if it's none we return a 404
-    account = Account.by_name(name)
-    if account is None:
-        response.status = 404
-        return None
-
-    # Set the account we got as the context variable 'profile'
-    # Note this is not the same as the context variable 'account'
-    # which is the account for a logged in user
-    c.profile = account
+    profile = obj_or_404(Account.by_name(name))
 
     # Set a context boo if email/twitter should be shown, it is only shown
     # to administrators and to owner (account is same as context account)
-    show_info = (current_user and current_user.admin) or (current_user == account)
+    show_info = (current_user and current_user.admin) or \
+                (current_user.id == profile.id)
 
     # ..or if the user has chosen to make it public
-    c.show_email = show_info or account.public_email
-    c.show_twitter = show_info or account.public_twitter
+    show_email = show_info or profile.public_email
+    show_twitter = show_info or profile.public_twitter
 
     # Collect and sort the account's datasets and views
-    c.account_datasets = sorted(account.datasets, key=lambda d: d.label)
-    c.account_views = sorted(account.views, key=lambda d: d.label)
+    profile_datasets = sorted(profile.datasets, key=lambda d: d.label)
+    profile_views = sorted(profile.views, key=lambda d: d.label)
 
     # Render the profile
-    return render_template('account/profile.html')
+    return render_template('account/profile.html', profile=profile,
+                           show_email=show_email, show_twitter=show_twitter,
+                           profile_datasets=profile_datasets,
+                           profile_views=profile_views)
