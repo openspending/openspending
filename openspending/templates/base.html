@@ -8,13 +8,13 @@
     <meta name="author" content="Open Knowledge Foundation" />
     <link rel="shortcut icon" href="{{ static }}img/favicon.ico{{ static_cache_version }}" type="image/x-icon" />
 	{% if show_rss %}
-    <link rel="alternate" type="application/rss+xml" title="{% trans %}Latest Datasets on OpenSpending{% endtrans %}" href="{{ h.url_for(controller='dataset', action='feed_rss') }}" />
+    <link rel="alternate" type="application/rss+xml" title="{% trans %}Latest Datasets on OpenSpending{% endtrans %}" href="{{ url_for('dataset.feed_rss') }}" />
 	{% endif %}
 
     <!-- Le styles -->
     <link rel="stylesheet" href="//d8r2br52tx8wq.cloudfront.net/branding/fonts/opensans/stylesheet.css" />
-    <link href="{{ bootstrap_css }}" rel="stylesheet" />
-    <link href="{{ style_css }}" rel="stylesheet" />
+    <link href="{{ static_path('style/bootstrap.css') }}" rel="stylesheet" />
+    <link href="{{ static_path('style/style.css') }}" rel="stylesheet" />
 
 	<!-- TODO: remove the need for this -->
 	{% block optional_head %}
@@ -63,11 +63,11 @@
 	    {% if account %}
 	    <li class="dropdown">
 	      <a class="dropdown-toggle" data-toggle="dropdown">
-		<img src="{{ h.gravatar(c.account.email, 20) }}" alt="{{ c.account.fullname }}" style="vertical-align: middle;"> <strong>{{ c.account.name }}</strong>
+		<img src="{{ gravatar(c.account.email, 20) }}" alt="{{ c.account.fullname }}" style="vertical-align: middle;"> <strong>{{ c.account.name }}</strong>
 	      </a>
 	      <ul class="dropdown-menu account-dropdown">
-		<li><a href="{{ h.url_for(controller='account', action='dashboard') }}">{% trans %}Dashboard{% endtrans %}</a></li>
-		<li><a href="{{ h.url_for(controller='account', action='settings') }}">{% trans %}Settings{% endtrans %}</a></li>
+		<li><a href="{{ url_for('account.dashboard') }}">{% trans %}Dashboard{% endtrans %}</a></li>
+		<li><a href="{{ url_for('account.settings') }}">{% trans %}Settings{% endtrans %}</a></li>
                 {% if c.account.admin %}
                 <li class="divider"></li>
                 <li><a href="{{ h.url_for(controller='account', action='scoreboard') }}">{% trans %}User scoreboard{% endtrans %}</li>
@@ -148,11 +148,11 @@
 
       <!-- script boot section -->
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-      <script src="{{ h.static('js/json2.js') }}"></script>
-      <script src="{{ h.static('js/jquery.cookie.js') }}"></script>
-      {{ script_boot }}
+      <script src="{{ static_path('js/json2.js') }}"></script>
+      <script src="{{ static_path('js/jquery.cookie.js') }}"></script>
+      <script src="{{ static_path('openspendingjs/prod/boot.js') }}"></script>
       <script defer="defer">
-		    OpenSpending.scriptRoot = "{{ script_root }}";
+		    OpenSpending.scriptRoot = "{{ static_path('openspendingjs') }}";
 		    OpenSpending.localeGroupSeparator = "{{ number_symbols_group }}";
 		    OpenSpending.localeDecimalSeparator = "{{ number_symbols_decimal }}";
       </script>

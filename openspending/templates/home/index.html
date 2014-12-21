@@ -4,11 +4,11 @@
 
 {% block scripts %}
   <scripts>
-    {{h.script_tag('lib/vendor/raphael-min')}}
-    {{h.script_tag('lib/vendor/raphael-min')}}
-    {{h.script_tag('lib/vendor/kartograph/kartograph.min')}}
-    {{h.script_tag('lib/vendor/chroma')}}
-    <script type="text/javascript" src="{{h.static('js/choropleth.js')}}"></script>
+    {{static_path('openspendingjs/lib/vendor/raphael-min')}}
+    {{static_path('openspendingjs/lib/vendor/raphael-min')}}
+    {{static_path('openspendingjs/lib/vendor/kartograph/kartograph.min')}}
+    {{static_path('openspendingjs/lib/vendor/chroma')}}
+    <script type="text/javascript" src="{{static_path('js/choropleth.js')}}"></script>
   </scripts>
 {% endblock %}
 
