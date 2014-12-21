@@ -58,15 +58,15 @@
             </ul>
           </div>
           <ul class="nav pull-right">
-	    {% if account %}
+	    {% if logged_in %}
 	    <li class="dropdown">
 	      <a class="dropdown-toggle" data-toggle="dropdown">
-		<img src="{{ gravatar(c.account.email, 20) }}" alt="{{ c.account.fullname }}" style="vertical-align: middle;"> <strong>{{ c.account.name }}</strong>
+		<img src="{{ current_user.email | gravatar(size=20) }}" alt="{{ current_user.fullname }}" style="vertical-align: middle;"> <strong>{{ current_user.name }}</strong>
 	      </a>
 	      <ul class="dropdown-menu account-dropdown">
 		<li><a href="{{ url_for('account.dashboard') }}">{% trans %}Dashboard{% endtrans %}</a></li>
 		<li><a href="{{ url_for('account.settings') }}">{% trans %}Settings{% endtrans %}</a></li>
-                {% if c.account.admin %}
+                {% if current_user.admin %}
                 <li class="divider"></li>
                 <li><a href="{{ url_for('account.scoreboard') }}">{% trans %}User scoreboard{% endtrans %}</li>
                 {% endif %}
