@@ -1,5 +1,6 @@
 from flask import current_app
 from flask.ext.babel import get_locale
+from flask.ext.login import current_user
 
 from openspending import auth
 from openspending.i18n import get_available_locales
@@ -27,7 +28,7 @@ def languages():
 
 def get_active_section():
     # TODO: use request.endpoint
-    return 'home'
+    return {'home': True}
 
 
 @home.app_context_processor
@@ -45,8 +46,7 @@ def template_context_processor():
         'languages': languages(),
         'section_active': get_active_section(),
         'logged_in': auth.account.logged_in(),
-        'can': auth,
-        #'show_rss': hasattr(c, 'show_rss') and c.show_rss or None,
+        'current_user': current_user,
+        'can': auth
     }
-    print data
     return data

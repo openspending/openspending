@@ -5,6 +5,7 @@ from flask.ext.babel import gettext
 from openspending.i18n import set_session_locale
 from openspending.model.dataset import Dataset, DatasetTerritory
 from openspending.lib.solr_util import dataset_entries
+from openspending.views.helpers import disable_cache
 
 
 blueprint = Blueprint('home', __name__)
@@ -19,6 +20,7 @@ def index():
                            territories=territories, num_entries=num_entries)
 
 
+@disable_cache
 @blueprint.route('/set-locale', methods=['POST'])
 def set_locale():
     locale = request.args.get('locale')
@@ -38,6 +40,7 @@ def favicon():
     return redirect('/static/img/favicon.ico', code=301)
 
 
+@disable_cache
 @blueprint.route('/__ping__')
 def ping():
     from openspending.tasks.generic import ping
