@@ -1,9 +1,8 @@
-from pylons import tmpl_context
+from flask.ext.login import current_user
 
 
 def logged_in():
-    return hasattr(
-        tmpl_context, 'account') and tmpl_context.account is not None
+    return current_user.is_authenticated()
 
 
 def create():

@@ -1,5 +1,6 @@
+from flask.ext.login import current_user
+
 from account import logged_in
-from pylons import tmpl_context
 
 
 def create():
@@ -13,8 +14,8 @@ def read(dataset):
 
 
 def update(dataset):
-    return logged_in() and (tmpl_context.account.admin or
-                            tmpl_context.account in dataset.managers)
+    return logged_in() and (current_user.admin or
+                            current_user in dataset.managers)
 
 
 def delete(dataset):
