@@ -1,10 +1,6 @@
 <!DOCTYPE html>
-<html lang="{{ c.language }}">
-
-
-
+<html lang="{{ current_language }}">
   <!-- todo: bring back errors section -->
-
   <head>
     <meta charset="utf-8" />
     <title>{% block page_title %}{% endblock %} - {{ site_title }}</title>
@@ -44,7 +40,7 @@
                 <a class="{{ section_active.dataset }}" href="/datasets">{% trans %}Datasets{% endtrans %}</a>
               </li>
               <li>
-                <a class="{{ section_active.search }}" href="{{ h.url_for(controller='entry', action='search') }}">{% trans %}Search{% endtrans %}</a>
+                <a class="{{ section_active.search }}" href="{{ url_for('entry.search') }}">{% trans %}Search{% endtrans %}</a>
               </li>
               <li>
                 <a href="http://community.openspending.org/" onClick="_gaq.push(['_trackEvent', 'Community', 'Main', 'Navigational bar']);">{% trans %}Community{% endtrans %}</a>
@@ -156,14 +152,14 @@
       <script src="{{ h.static('js/jquery.cookie.js') }}"></script>
       {{ script_boot }}
       <script defer="defer">
-		OpenSpending.scriptRoot = "{{ script_root }}";
-		OpenSpending.localeGroupSeparator = "{{ number_symbols_group }}";
-		OpenSpending.localeDecimalSeparator = "{{ number_symbols_decimal }}";
+		    OpenSpending.scriptRoot = "{{ script_root }}";
+		    OpenSpending.localeGroupSeparator = "{{ number_symbols_group }}";
+		    OpenSpending.localeDecimalSeparator = "{{ number_symbols_decimal }}";
       </script>
       <!-- end script boot section -->
 
 	{% block scripts %}{% endblock %}
-	{% if not g.debug %}
+	{% if not DEBUG %}
     <script type="text/javascript" defer="defer">
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-8271754-17']);
