@@ -5,8 +5,8 @@ from flask.ext.login import current_user
 from openspending import auth
 from openspending.i18n import get_available_locales
 from openspending.views.home import blueprint as home
-from openspending.views.helpers import static_path
-from openspending.views.helpers import url_for
+from openspending.lib.helpers import static_path
+from openspending.lib.helpers import url_for
 
 
 @home.before_app_request

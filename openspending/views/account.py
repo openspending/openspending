@@ -1,7 +1,7 @@
 import colander
 from flask import Blueprint, render_template, request, redirect
 from flask.ext.login import current_user, login_user, logout_user
-from flask.ext.babel import gettext
+from flask.ext.babel import gettext as _
 from sqlalchemy.sql.expression import desc, func, or_
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -14,9 +14,9 @@ from openspending.lib.paramparser import DistinctParamParser
 from openspending.lib.mailman import subscribe_lists
 from openspending.lib.jsonexport import jsonify
 from openspending.lib.mailer import send_reset_link
-from openspending.views.helpers import url_for, obj_or_404
-from openspending.views.helpers import disable_cache, flash_error
-from openspending.views.helpers import flash_notice, flash_success
+from openspending.lib.helpers import url_for, obj_or_404
+from openspending.lib.helpers import disable_cache, flash_error
+from openspending.lib.helpers import flash_notice, flash_success
 from openspending.lib.pagination import Page
 
 
@@ -54,9 +54,9 @@ def login_perform():
     if account is not None:
         if check_password_hash(account.password, request.form.get('password')):
             login_user(account, remember=True)
-            flash_success(gettext("Welcome back, %(name)s!", name=account.name))
+            flash_success(_("Welcome back, %(name)s!", name=account.name))
             return redirect(url_for('account.dashboard'))
-    flash_error(gettext("Incorrect user name or password!"))
+    flash_error(_("Incorrect user name or password!"))
     return login()
 
 
@@ -75,13 +75,13 @@ def register():
         if Account.by_name(data['name']):
             raise colander.Invalid(
                 AccountRegister.name,
-                gettext("Login name already exists, please choose a "
-                        "different one"))
+                _("Login name already exists, please choose a "
+                  "different one"))
 
         # Check if passwords match, return error if not
         if not data['password1'] == data['password2']:
             raise colander.Invalid(AccountRegister.password1,
-                                   gettext("Passwords don't match!"))
+                                   _("Passwords don't match!"))
 
         # Create the account
         account = Account()
@@ -100,8 +100,9 @@ def register():
         # Subscribe the user to the mailing lists
         errors = subscribe_lists(('community', 'developer'), data)
         if errors:
-            flash_notice(gettext("Subscription to the following mailing " +
-                                 "lists probably failed: %s.") % ', '.join(errors))
+            flash_notice(_("Subscription to the following mailing " +
+                           "lists probably failed: %(errors)s.",
+                           errors=', '.join(errors)))
 
         # Registration successful - Redirect to the front page
         return redirect(url_for('home.index'))
@@ -137,7 +138,7 @@ def settings_save():
         # If the passwords don't match we notify the user
         if not data['password1'] == data['password2']:
             raise colander.Invalid(AccountSettings.password1,
-                                   gettext("Passwords don't match!"))
+                                   _("Passwords don't match!"))
 
         current_user.fullname = data['fullname']
         current_user.email = data['email']
@@ -156,7 +157,7 @@ def settings_save():
         db.session.commit()
 
         # Let the user know we've updated successfully
-        flash_success(gettext("Your settings have been updated."))
+        flash_success(_("Your settings have been updated."))
     except colander.Invalid as i:
         # Load errors if we get here
         errors = i.asdict()
@@ -227,7 +228,7 @@ def complete(format='json'):
     if errors:
         return jsonify({'errors': errors}, status=400)
     if not current_user.is_authenticated():
-        msg = gettext("You are not authorized to see that page")
+        msg = _("You are not authorized to see that page")
         return jsonify({'errors': msg}, status=403)
 
     query = db.session.query(Account)
@@ -250,7 +251,7 @@ def complete(format='json'):
 @blueprint.route('/logout')
 def logout():
     logout_user()
-    flash_success(gettext("You have been logged out."))
+    flash_success(_("You have been logged out."))
     return redirect(url_for('home.index'))
 
 
@@ -269,7 +270,7 @@ def trigger_reset():
 
     # Simple check to see if the email was provided. Flash error if not
     if email is None or not len(email):
-        flash_error(gettext("Please enter an email address!"))
+        flash_error(_("Please enter an email address!"))
         return render_template('account/trigger_reset.html')
 
     # Get the account for this email
@@ -277,15 +278,15 @@ def trigger_reset():
 
     # If no account is found we let the user know that it's not registered
     if account is None:
-        flash_error(gettext("No user is registered under this address!"))
+        flash_error(_("No user is registered under this address!"))
         return render_template('account/trigger_reset.html')
 
     # Send the reset link to the email of this account
     send_reset_link(account)
 
     # Let the user know that email with link has been sent
-    flash_success(gettext("You've received an email with a link to reset your "
-                          "password. Please check your inbox."))
+    flash_success(_("You've received an email with a link to reset your "
+                    "password. Please check your inbox."))
 
     # Redirect to the login page
     return redirect(url_for('account.login'))
@@ -295,21 +296,21 @@ def trigger_reset():
 def do_reset():
     email = request.args.get('email')
     if email is None or not len(email):
-        flash_error(gettext("The reset link is invalid!"))
+        flash_error(_("The reset link is invalid!"))
         return redirect(url_for('account.login'))
 
     account = Account.by_email(email)
     if account is None:
-        flash_error(gettext("No user is registered under this address!"))
+        flash_error(_("No user is registered under this address!"))
         return redirect(url_for('account.login'))
 
     if request.args.get('token') != account.token:
-        flash_error(gettext("The reset link is invalid!"))
+        flash_error(_("The reset link is invalid!"))
         return redirect(url_for('account.login'))
 
     login_user(account)
     flash_success(
-        gettext("Thanks! You have now been signed in - please change "
+        _("Thanks! You have now been signed in - please change "
                 + "your password!"))
     return redirect(url_for('account.settings'))
 
