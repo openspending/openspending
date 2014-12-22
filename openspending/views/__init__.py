@@ -5,6 +5,8 @@ from openspending.views.entry import blueprint as entry
 from openspending.views.account import blueprint as account
 from openspending.views.dataset import blueprint as dataset
 from openspending.views.badge import blueprint as badge
+from openspending.views.view import blueprint as view
+from openspending.views.editor import blueprint as editor
 from openspending.views.error import handle_error
 
 
@@ -14,6 +16,8 @@ def register_views(app):
     app.register_blueprint(account)
     app.register_blueprint(dataset)
     app.register_blueprint(badge)
+    app.register_blueprint(view)
+    app.register_blueprint(editor)
 
     app.error_handler_spec[None][400] = handle_error
     app.error_handler_spec[None][401] = handle_error
