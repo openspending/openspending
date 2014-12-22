@@ -1,13 +1,13 @@
-{% macro share_scripts(g) -%}
-  {% if not g.debug %}
+{% macro share_scripts() -%}
+  {% if not config.DEBUG %}
     <script src="https://apis.google.com/js/platform.js" async defer>
       {lang: 'en-GB'}
     </script>
   {% endif %}
 {%- endmacro %}
 
-{% macro share_body(g) -%}
-  {% if not g.debug %}
+{% macro share_body() -%}
+  {% if not config.DEBUG %}
     <div class="row">
       <div class="span12">
         <!-- twitter share -->
