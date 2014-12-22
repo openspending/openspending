@@ -29,8 +29,7 @@ from openspending.reference.category import CATEGORIES
 from openspending.reference.language import LANGUAGES
 from openspending.validation.model.dataset import dataset_schema
 from openspending.validation.model.common import ValidationState
-#from openspending.ui.controllers.entry import EntryController
-#from openspending.ui.alttemplates import templating
+from openspending.views.entry import index as entry_index
 
 log = logging.getLogger(__name__)
 
@@ -183,42 +182,35 @@ def view(dataset, format='html'):
     dataset is returned.
     """
 
-    # Get the dataset (will be placed in c.dataset)
-    self._get_dataset(dataset)
-
-    # Generate the etag for the cache based on updated_at value
-    etag_cache_keygen(c.dataset.updated_at)
-
-    # Compute the number of entries in the dataset
-    c.num_entries = len(c.dataset)
-
-    # Handle the request for the dataset, this will return
-    # a default view in c.view if there is any
-    handle_request(request, c, c.dataset)
-
+    dataset = get_dataset(dataset)
+    etag_cache_keygen(dataset.updated_at)
+    
     if format == 'json':
         # If requested format is json we return the json representation
         return jsonify(dataset_apply_links(dataset.as_dict()))
     else:
-        (earliest_timestamp, latest_timestamp) = c.dataset.timerange()
-        if earliest_timestamp is not None:
-            c.timerange = {'from': earliest_timestamp,
-                           'to': latest_timestamp}
-
-        if c.view is None:
+        request_set_views(dataset, dataset)
+        if request._ds_view is None:
             # If handle request didn't return a view we return the
             # entry index
-            return EntryController().index(dataset, format)
-        if 'embed' in request.params:
+            return entry_index(dataset.name)
+        if 'embed' in request.args:
             # If embed is requested using the url parameters we return
             # a redirect to an embed page for the default view
-            return redirect(
-                h.url_for(controller='view',
-                          action='embed', dataset=c.dataset.name,
-                          widget=c.view.vis_widget.get('name'),
-                          state=json.dumps(c.view.vis_state)))
-            # Return the dataset view (for the default view)
-        return templating.render('dataset/view.html')
+            return redirect(url_for('view.embed', dataset=dataset.name,
+                            widget=request._ds_view.vis_widget.get('name'),
+                            state=json.dumps(request._ds_view.vis_state)))
+
+        # num_entries = len(dataset)
+
+        timerange = None
+        (earliest_timestamp, latest_timestamp) = dataset.timerange()
+        if earliest_timestamp is not None:
+            timerange = {'from': earliest_timestamp,
+                         'to': latest_timestamp}
+
+        return render_template('dataset/view.html', dataset=dataset,
+                               timerange=timerange)
 
 
 @blueprint.route('/<dataset>/meta')
