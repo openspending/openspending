@@ -38,7 +38,7 @@ blueprint = Blueprint('dataset', __name__)
 
 
 @blueprint.route('/datasets')
-@blueprint.route('/datasets.<format>')
+@blueprint.route('/datasets/index.<format>')
 def index(format='html'):
     """ Get a list of all datasets along with territory, language, and
     category counts (amount of datasets for each). """
@@ -225,6 +225,7 @@ def about(dataset, format='html'):
 
     # Get all badges if user is admin because they can then
     # give badges to the dataset on its about page.
+    badges = []
     if auth.account.is_admin():
         badges = list(Badge.all())
 
