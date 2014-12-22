@@ -20,7 +20,7 @@ from openspending import auth
 from openspending.lib.cache import DatasetIndexCache
 from openspending.lib.helpers import etag_cache_keygen, disable_cache
 from openspending.lib.helpers import url_for, get_dataset
-#from openspending.ui.lib.views import handle_request
+from openspending.lib.views import request_set_views
 from openspending.lib.hypermedia import dataset_apply_links
 from openspending.lib.pagination import Page
 from openspending.reference.currency import CURRENCIES
@@ -226,7 +226,7 @@ def about(dataset, format='html'):
     dataset = get_dataset(dataset)
     etag_cache_keygen(dataset.updated_at)
     
-    #handle_request(request, c, c.dataset)
+    request_set_views(dataset, dataset)
 
     sources = list(dataset.sources)
     managers = list(dataset.managers)

@@ -1,4 +1,4 @@
-from flask import current_app
+from flask import current_app, request
 from flask.ext.babel import get_locale
 from flask.ext.login import current_user
 
@@ -11,7 +11,8 @@ from openspending.lib.helpers import url_for
 
 @home.before_app_request
 def before_request():
-    pass
+    request._ds_available_views = []
+    request._ds_view = None
 
 
 def languages():
@@ -48,6 +49,10 @@ def template_context_processor():
         'section_active': get_active_section(),
         'logged_in': auth.account.logged_in(),
         'current_user': current_user,
-        'can': auth
+        'can': auth,
+        'legacy_views': {
+            'available': request._ds_available_views,
+            'active': request._ds_view,
+        }
     }
     return data

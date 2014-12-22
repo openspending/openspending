@@ -16,8 +16,7 @@
 {% block content %}
   <div>
     <!-- templates/dataset/about.html -->
-
-    {{dataset_nav(h, c, can, 'about')}}
+    {{dataset_nav(dataset, can, legacy_views, 'about')}}
 
     <div class="representations">
       <a href="{{url_for('dataset.model', dataset=dataset.name, format='json')}}">

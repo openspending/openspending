@@ -4,7 +4,8 @@ This module implements views on the database.
 import logging
 from datetime import datetime
 
-from pylons.i18n import _
+from flask import request
+from flask.ext.babel import gettext as _
 
 from openspending.model.dataset import Dataset
 from openspending.lib import widgets
@@ -113,12 +114,11 @@ class View(object):
         return widgets.get_widget('aggregate_table')
 
 
-def handle_request(request, c, obj, dimension=None):
-    view_name = request.params.get('_view', 'default')
-    c.available_views = View.available(c.dataset, obj, dimension)
+def request_set_views(dataset, obj, dimension=None):
+    view_name = request.args.get('_view', 'default')
+    request._ds_available_views = View.available(dataset, obj, dimension)
     try:
-        c.view = View.by_name(c.dataset, obj, view_name,
-                              dimension=dimension)
+        request._ds_view = View.by_name(dataset, obj, view_name,
+                                        dimension=dimension)
     except ValueError:
-        c.view = None
-        return
+        pass
