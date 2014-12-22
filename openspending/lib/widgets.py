@@ -1,8 +1,9 @@
 # widgets config
 import logging
 from urlparse import urljoin
-from pylons.i18n import _
-from pylons import config
+
+from flask import current_app
+from flask.ext.babel import gettext as _
 
 log = logging.getLogger(__name__)
 
@@ -11,7 +12,8 @@ def get_widget(name, force=False):
     """ Get a dict to describe various properties of a named widget. """
     if not force and name not in list_widgets():
         raise ValueError(_("No widget named '%s' exists.") % name)
-    base_url = urljoin(script_root() + '/', 'widgets/')
+
+    base_url = current_app.config.get('WIDGETS_BASE')
     prefix = urljoin(base_url, name)
 
     widget_class = ''.join([p.capitalize() for p in name.split('_')])
@@ -27,5 +29,5 @@ def get_widget(name, force=False):
 
 def list_widgets():
     """ List of widgets registered in configuration file. """
-    widgets = config.get('openspending.widgets', '').split()
+    widgets = current_app.config.get('WIDGETS', [])
     return map(lambda w: w.strip(), widgets)

@@ -18,3 +18,6 @@ MAIL_FORM = 'noreply@openspending.org'
 
 CACHE = True
 CACHE_TYPE = 'simple'
+
+WIDGETS_BASE = 'http://assets.openspending.org/widgets'
+WIDGETS = ['treemap', 'bubbletree', 'aggregate_table']
