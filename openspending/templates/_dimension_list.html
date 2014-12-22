@@ -1,8 +1,8 @@
-{% macro dimensions_list(c, dimensions) -%}
+{% macro dimensions_list(dataset, dimensions) -%}
 		<ul>
 		{% for dimension in dimensions %}	
 		  <li>
-			<a class="dimension-name" href="/{{ c.dataset.name }}/{{ dimension.name }}">
+			<a class="dimension-name" href="/{{ dataset.name }}/{{ dimension.name }}">
 			  <strong>{{ dimension.label or dimension.name }}</strong>
 			  {% if dimension.key %}
 				<abbr title="{% trans %}Part of unique key{% endtrans %}"><i class='icon-star'></i></abbr>

@@ -29,7 +29,8 @@ def languages():
 
 def get_active_section():
     # TODO: use request.endpoint
-    return {'home': True}
+    # ["blog", "dataset", "search", "resources", "help", "about"]
+    return {'dataset': True}
 
 
 @home.app_context_processor
