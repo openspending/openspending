@@ -223,18 +223,22 @@ def view(dataset, format='html'):
 
 @blueprint.route('/<dataset>/meta')
 def about(dataset, format='html'):
-    self._get_dataset(dataset)
-    etag_cache_keygen(c.dataset.updated_at)
-    handle_request(request, c, c.dataset)
-    c.sources = list(c.dataset.sources)
-    c.managers = list(c.dataset.managers)
+    dataset = get_dataset(dataset)
+    etag_cache_keygen(dataset.updated_at)
+    
+    #handle_request(request, c, c.dataset)
+
+    sources = list(dataset.sources)
+    managers = list(dataset.managers)
 
     # Get all badges if user is admin because they can then
     # give badges to the dataset on its about page.
-    if c.account and c.account.admin:
-        c.badges = list(Badge.all())
+    if auth.account.is_admin():
+        badges = list(Badge.all())
 
-    return templating.render('dataset/about.html')
+    return render_template('dataset/about.html', dataset=dataset,
+                           sources=sources, managers=managers,
+                           badges=badges)
 
 
 @blueprint.route('/<dataset>/model')
