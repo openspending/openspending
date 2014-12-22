@@ -4,7 +4,9 @@ from StringIO import StringIO
 from urllib import urlencode
 
 from webhelpers.feedgenerator import Rss201rev2Feed
-from flask import Blueprint, render_template
+from werkzeug.exceptions import BadRequest
+from flask import Blueprint, render_template, request
+from flask.ext.babel import gettext as _
 from colander import SchemaNode, String, Invalid
 
 from openspending.core import db
@@ -16,8 +18,10 @@ from openspending import auth as has
 
 from openspending.lib.cache import DatasetIndexCache
 from openspending.auth import require
+from openspending.lib.helpers import etag_cache_keygen
 #from openspending.ui.lib.views import handle_request
 from openspending.lib.hypermedia import dataset_apply_links
+from openspending.lib.pagination import Page
 from openspending.reference.currency import CURRENCIES
 from openspending.reference.country import COUNTRIES
 from openspending.reference.category import CATEGORIES
@@ -36,29 +40,16 @@ blueprint = Blueprint('dataset', __name__)
 @blueprint.route('/datasets')
 @blueprint.route('/datasets.<format>')
 def index(format='html'):
-    """
-    Get a list of all datasets along with territory, language, and
-    category counts (amount of datasets for each).
-    """
-
-    # Create facet filters (so we can look at a single country,
-    # language etc.)
-    c.query = request.params.items()
-    c.add_filter = lambda f, v: \
-        '?' + urlencode(c.query +
-                        [(f, v)] if (f, v) not in c.query else c.query)
-    c.del_filter = lambda f, v: \
-        '?' + urlencode([(k, x) for k, x in
-                         c.query if (k, x) != (f, v)])
+    """ Get a list of all datasets along with territory, language, and
+    category counts (amount of datasets for each). """
 
     # Parse the request parameters to get them into the right format
-    parser = DatasetIndexParamParser(request.params)
+    parser = DatasetIndexParamParser(request.args)
     params, errors = parser.parse()
     if errors:
         concatenated_errors = ', '.join(errors)
-        abort(400,
-              _('Parameter values not supported: %s') %
-              concatenated_errors)
+        raise BadRequest(_('Parameter values not supported: %(errors)s',
+                           errors=concatenated_errors))
 
     # We need to pop the page and pagesize parameters since they're not
     # used for the cache (we have to get all of the datasets to do the
@@ -82,36 +73,49 @@ def index(format='html'):
     # We also don't set c._must_revalidate to True since we don't care
     # if the index needs a hard refresh
     try:
-        etag_cache_keygen(
-            results['datasets'][0]['timestamps']['last_modified'])
+        first = results['datasets'][0]
+        etag_cache_keygen(first['timestamps']['last_modified'])
     except IndexError:
         etag_cache_keygen(None)
 
     # Assign the results to template context variables
-    c.language_options = results['languages']
-    c.territory_options = results['territories']
-    c.category_options = results['categories']
+    language_options = results['languages']
+    territory_options = results['territories']
+    category_options = results['categories']
 
     if format == 'json':
         # Apply links to the dataset lists before returning the json
         results['datasets'] = [dataset_apply_links(r)
                                for r in results['datasets']]
-        return to_jsonp(results)
+        return jsonify(results)
     elif format == 'csv':
         # The CSV response only shows datasets, not languages,
         # territories, etc.
-        return write_csv(results['datasets'], response)
+        return write_csv(results['datasets'])
 
-    # If we're here then it's an html format so we show rss, do the
-    # pagination and render the template
-    c.show_rss = True
+    # Create facet filters (so we can look at a single country,
+    # language etc.)
+    query = request.args.items()
+    add_filter = lambda f, v: \
+        '?' + urlencode(query +
+                        [(f, v)] if (f, v) not in query else query)
+    del_filter = lambda f, v: \
+        '?' + urlencode([(k, x) for k, x in
+                         query if (k, x) != (f, v)])
+
     # The page parameter we popped earlier is part of request.params but
     # we now know it was parsed. We have to send in request.params to
     # retain any parameters already supplied (filters)
-    c.page = templating.Page(results['datasets'], items_per_page=pagesize,
-                             item_count=len(results['datasets']),
-                             **request.params)
-    return templating.render('dataset/index.html')
+    page = Page(results['datasets'], items_per_page=pagesize,
+                item_count=len(results['datasets']),
+                **dict(request.args.items()))
+    return render_template('dataset/index.html', page=page,
+                           query=query,
+                           language_options=language_options,
+                           territory_options=territory_options,
+                           category_options=category_options,
+                           add_filter=add_filter,
+                           del_filter=del_filter)
 
 
 @blueprint.route('/datasets/new', methods=['GET'])

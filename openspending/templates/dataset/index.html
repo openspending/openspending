@@ -9,61 +9,66 @@
   <div class="span8">
     <p>{% trans %}The database contains the following datasets{% endtrans %}:</p>
     
-    {% for dataset in c.page %}
+    {% for dataset in page %}
     <div>
-      <h3><a class="dataset-name" href="{{h.url_for(controller='dataset',
-					action='view', dataset=dataset.name)}}">
+      <h3><a class="dataset-name" href="{{url_for('dataset.view', dataset=dataset.name)}}">
           {{dataset.label}}
         </a>
       </h3>
       {% if dataset.badges %}
       <p>
-	{% for badge in dataset.badges %}
-	<a href="{{ h.url_for(controller='badge', action='information', id=badge.id)}}" title="{{badge.label}}"><img src="{{badge.image}}" alt="{{badge.label}}"></a> 
-	{% endfor %}
+      	{% for badge in dataset.badges %}
+      	  <a href="{{ url_for('badge.information', id=badge.id)}}" title="{{badge.label}}">
+            <img src="{{badge.image}}" alt="{{badge.label}}">
+          </a> 
+      	{% endfor %}
       </p>
       {% endif %}
       {% if dataset.description %}
       <div>
-        {{h.markdown_preview(dataset.description)}}
+        {{dataset.description | markdown_preview}}
       </div>
       {% endif %}
       <br/>
     </div>
     {% endfor %}
-    {{ c.page.pager() }}
+    {{ page.pager() }}
   </div>
   <div class="span4">
-    
     <h3>{% trans %}Import a new dataset{% endtrans %}</h3>
-    <a class="btn btn-success" href="{{h.url_for(controller='dataset', action='new')}}">{% trans %}Import{% endtrans %} &raquo;</a>
+    <a class="btn btn-success" href="{{url_for('dataset.new')}}">{% trans %}Import{% endtrans %} &raquo;</a>
     <hr/>
     
     <h3>{% trans %}Countries{% endtrans %}</h3>
     <ul>
-      {% for territory in c.territory_options %}
+      {% for territory in territory_options %}
       <li>
-	{% if not ('territories', territory.get('code')) in c.query %}
-	<a href="{{c.add_filter('territories', territory.get('code'))}}">{{territory.get('label')}}</a>
-	{% else %}
-	<a class="unfilter" 
-           href="{{c.del_filter('territories', territory.get('code'))}}">{{territory.get('label')}}</a>
-	{% endif %}
-        ({{territory.get('count')}})
+	      {% if not ('territories', territory.get('code')) in query %}
+	        <a href="{{add_filter('territories', territory.get('code'))}}">
+            {{territory.get('label')}}
+          </a>
+	        {% else %}
+	        <a class="unfilter" href="{{del_filter('territories', territory.get('code'))}}">
+            {{territory.get('label')}}
+          </a>
+	        {% endif %}
+          ({{territory.get('count')}})
       </li>
       {% endfor %}
     </ul>
     <h3>{% trans %}Languages{% endtrans %}</h3>
     <ul>
-      {% for language in c.language_options %}
+      {% for language in language_options %}
       <li>
-	{% if not ('languages', language.get('code')) in c.query %}
-        <a href="{{c.add_filter('languages', language.get('code'))}}">{{language.get('label')}}</a>
-        {% else %}
-        <a class="unfilter"
-           href="{{c.del_filter('languages', language.get('code'))}}">{{language.get('label')}}</a>
-	{% endif %}
-        ({{language.get('count')}})
+	      {% if not ('languages', language.get('code')) in query %}
+          <a href="{{add_filter('languages', language.get('code'))}}">
+            {{language.get('label')}}
+          </a>
+          {% else %}
+          <a class="unfilter" href="{{del_filter('languages', language.get('code'))}}">
+            {{language.get('label')}}</a>
+	        {% endif %}
+          ({{language.get('count')}})
       </li>
       {% endfor %}
     </ul>
