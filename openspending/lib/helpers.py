@@ -9,6 +9,9 @@ from flask import url_for as flask_url_for
 from flask import flash
 from werkzeug.exceptions import NotFound
 
+from openspending.auth import require
+from openspending.model import Dataset
+
 
 def url_for(endpoint, **kwargs):
     kwargs['_external'] = True
@@ -23,6 +26,12 @@ def obj_or_404(obj):
     if obj is None:
         raise NotFound()
     return obj
+
+
+def get_dataset(name):
+    dataset = obj_or_404(Dataset.by_name(name))
+    require.dataset.read(dataset)
+    return dataset
 
 
 def disable_cache(func):

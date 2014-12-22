@@ -19,7 +19,7 @@ from openspending.lib.paramparser import DatasetIndexParamParser
 from openspending import auth
 from openspending.lib.cache import DatasetIndexCache
 from openspending.lib.helpers import etag_cache_keygen, disable_cache
-from openspending.lib.helpers import url_for
+from openspending.lib.helpers import url_for, get_dataset
 #from openspending.ui.lib.views import handle_request
 from openspending.lib.hypermedia import dataset_apply_links
 from openspending.lib.pagination import Page
@@ -240,11 +240,11 @@ def about(dataset, format='html'):
 @blueprint.route('/<dataset>/model')
 @blueprint.route('/<dataset>/model.<format>')
 def model(dataset, format='json'):
-    self._get_dataset(dataset)
-    etag_cache_keygen(c.dataset.updated_at)
-    model = c.dataset.model
+    dataset = get_dataset(dataset)
+    etag_cache_keygen(dataset.updated_at)
+    model = dataset.model
     model['dataset'] = dataset_apply_links(model['dataset'])
-    return to_jsonp(model)
+    return jsonify(model)
 
 
 @blueprint.route('/datasets.rss')
