@@ -9,7 +9,7 @@ from email import Utils
 from flask import current_app
 from flask.ext.babel import gettext
 
-from openspending.views.helpers import url_for
+from openspending.lib.helpers import url_for
 
 log = logging.getLogger(__name__)
 

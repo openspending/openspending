@@ -2,6 +2,7 @@ from sqlalchemy.sql.expression import select, func
 from sqlalchemy.orm import aliased
 
 from openspending.core import db
+from openspending.lib.helpers import url_for
 from openspending.model.dataset import (Dataset, DatasetLanguage,
                                         DatasetTerritory)
 from openspending.reference.country import COUNTRIES
@@ -20,8 +21,7 @@ def language_index(datasets):
     languages = DatasetLanguage.dataset_counts(datasets)
     # Return a list of languages as dicts with code, count, url and label
     return [{'code': code, 'count': count,
-             'url': h.url_for(controller='dataset',
-                              action='index', languages=code),
+             'url': url_for('dataset.index', languages=code),
              'label': LANGUAGES.get(code, code)}
             for (code, count) in languages]
 
@@ -34,8 +34,7 @@ def territory_index(datasets):
     territories = DatasetTerritory.dataset_counts(datasets)
     # Return a list of territories as dicts with code, count, url and label
     return [{'code': code, 'count': count,
-             'url': h.url_for(controller='dataset',
-                              action='index', territories=code),
+             'url': url_for('dataset.index', territories=code),
              'label': COUNTRIES.get(code, code)}
             for (code, count) in territories]
 
@@ -57,8 +56,7 @@ def category_index(datasets):
         # Return a list of categories as dicts with category, count, url
         # and label
         return [{'category': category, 'count': count,
-                 'url': h.url_for(controller='dataset',
-                                  action='index', category=category),
+                 'url': url_for('dataset.index', category=category),
                  'label': CATEGORIES.get(category, category)}
                 for (category, count) in categories if category is not None]
 

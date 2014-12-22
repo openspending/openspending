@@ -1,33 +1,49 @@
 # -*- coding: utf-8 -*-
 """ Helper functions """
-
-from lxml import html
-from flask.ext.babel import get_locale
-from webhelpers.html import literal
-from webhelpers.html.tags import link_to
-from webhelpers.markdown import markdown as _markdown
-from webhelpers.text import truncate
-
 import os
 import uuid
+
 import babel.numbers
+from flask.ext.babel import get_locale
+from flask import url_for as flask_url_for
+from flask import flash
+from werkzeug.exceptions import NotFound
 
 
-def markdown(*args, **kwargs):
-    return literal(_markdown(*args, **kwargs))
+def url_for(endpoint, **kwargs):
+    kwargs['_external'] = True
+    return flask_url_for(endpoint, **kwargs)
 
 
-def markdown_preview(text, length=150):
-    if not text:
-        return ''
-    try:
-        md = html.fromstring(unicode(markdown(text)))
-        text = md.text_content()
-    except:
-        pass
-    if length:
-        text = truncate(text, length=length, whole_word=True)
-    return text.replace('\n', ' ')
+def static_path(filename):
+    return url_for('static', filename=filename)
+
+
+def obj_or_404(obj):
+    if obj is None:
+        raise NotFound()
+    return obj
+
+
+def disable_cache(func):
+    # TODO: set request variable
+    return func
+
+
+def etag_cache_keygen(*a):
+    return
+
+
+def flash_notice(message):
+    return flash(message, 'notice')
+
+
+def flash_error(message):
+    return flash(message, 'error')
+
+
+def flash_success(message):
+    return flash(message, 'success')
 
 
 def render_value(value):
@@ -181,61 +197,40 @@ def join_filters(filters, append=None, remove=None):
     return '|'.join(filter_values)
 
 
-def entry_description(entry):
-    fragments = []
-    if 'from' in entry and 'to' in entry:
-        fragments.extend([
-            entry.get('from').get('label'),
-            entry.get('to').get('label')
-        ])
-    if isinstance(entry.get('description'), basestring):
-        fragments.append(entry.get('description'))
-    else:
-        for k, v in entry.items():
-            if k in ['from', 'to', 'taxonomy', 'html_url']:
-                continue
-            if isinstance(v, dict):
-                fragments.append(v.get('label'))
-            elif isinstance(v, basestring):
-                fragments.append(v)
-    description = " - ".join(fragments)
-    return markdown_preview(description)
+# def member_url(dataset, dimension, member, **kwargs):
+#     return url_for(controller='dimension',
+#                    action='member',
+#                    dataset=dataset,
+#                    name=member.get('name'),
+#                    dimension=dimension,
+#                    **kwargs)
 
 
-def member_url(dataset, dimension, member, **kwargs):
-    return url_for(controller='dimension',
-                   action='member',
-                   dataset=dataset,
-                   name=member.get('name'),
-                   dimension=dimension,
-                   **kwargs)
+# def dataset_url(dataset, **kwargs):
+#     return url_for(controller='dataset',
+#                    action='view', dataset=dataset.name, **kwargs)
 
 
-def dataset_url(dataset, **kwargs):
-    return url_for(controller='dataset',
-                   action='view', dataset=dataset.name, **kwargs)
+# def entry_url(dataset, entry, **kwargs):
+#     kwargs.setdefault('action', 'view')
+#     return url_for(controller='entry', id=str(entry['id']),
+#                    dataset=dataset, **kwargs)
 
 
-def entry_url(dataset, entry, **kwargs):
-    kwargs.setdefault('action', 'view')
-    return url_for(controller='entry', id=str(entry['id']),
-                   dataset=dataset, **kwargs)
+# def entry_link(dataset, entry, **kwargs):
+#     kwargs['class'] = 'entry-link'
+#     return link_to(entry.get('label', entry.get('name', "(Unnamed)")),
+#                    entry_url(dataset, entry), **kwargs)
 
 
-def entry_link(dataset, entry, **kwargs):
-    kwargs['class'] = 'entry-link'
-    return link_to(entry.get('label', entry.get('name', "(Unnamed)")),
-                   entry_url(dataset, entry), **kwargs)
+# def dimension_link(dataset, dimension, data):
+#     text = render_value(data)
+#     if isinstance(data, dict) and data['name']:
+#         text = link_to(text, member_url(dataset, dimension, data))
+#     return text
 
 
-def dimension_link(dataset, dimension, data):
-    text = render_value(data)
-    if isinstance(data, dict) and data['name']:
-        text = link_to(text, member_url(dataset, dimension, data))
-    return text
-
-
-def has_datatype_attr(c, key):
-    return c.desc.get(key) and \
-        hasattr(c.desc.get(key), 'datatype') and \
-        c.desc.get(key).datatype == 'url'
+# def has_datatype_attr(c, key):
+#     return c.desc.get(key) and \
+#         hasattr(c.desc.get(key), 'datatype') and \
+#         c.desc.get(key).datatype == 'url'
