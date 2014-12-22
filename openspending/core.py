@@ -4,6 +4,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask.ext.babel import Babel
 from flaskext.gravatar import Gravatar
+from flask.ext.cache import Cache
 import formencode_jinja2
 
 from openspending import default_settings
@@ -13,6 +14,7 @@ logging.basicConfig(level=logging.DEBUG)
 db = SQLAlchemy()
 babel = Babel()
 login_manager = LoginManager()
+cache = Cache()
 
 
 def create_app(**config):
@@ -28,6 +30,7 @@ def create_app(**config):
 
     db.init_app(app)
     babel.init_app(app)
+    cache.init_app(app)
     login_manager.init_app(app)
 
     # HACKY SHIT IS HACKY

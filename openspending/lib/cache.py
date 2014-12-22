@@ -1,6 +1,9 @@
 import hashlib
 import logging
 
+from flask import current_app
+
+from openspending.core import cache
 from openspending.inflation.aggregation import aggregate
 from openspending.lib.indices import dataset_index, language_index, \
     territory_index, category_index
@@ -19,15 +22,13 @@ class DatasetIndexCache(object):
         """
         Initialise a dataset index cache
         """
-        self.cache_enabled = app_globals.cache_enabled
-        self.cache = cache.get_cache('DATASET_INDEX_CACHE',
-                                     type=type)
-
+        self.cache_enabled = current_app.config.get('CACHE')
+        
     def invalidate(self):
         """
         Clear the cache. This should be called whenever the index changes.
         """
-        self.cache.clear()
+        cache.clear()
 
     def index(self, languages=[], territories=[], category=None):
         """
@@ -45,9 +46,9 @@ class DatasetIndexCache(object):
             key = hashlib.sha1(repr(key_parts)).hexdigest()
 
             # If the cache key exists we serve directly from the cache
-            if key in self.cache:
+            if cache.get(key):
                 log.debug("Index cache hit: %s", key)
-                return self.cache.get(key)
+                return cache.get(key)
         else:
             # Debug message to show caching is disabled
             log.debug("Caching is disabled.")
@@ -71,7 +72,7 @@ class DatasetIndexCache(object):
         # Cache the results if we have caching enabled and then return
         # the results
         if self.cache_enabled:
-            self.cache.put(key, results)
+            cache.set(key, results)
 
         return results
 
@@ -86,10 +87,8 @@ class AggregationCache(object):
 
     def __init__(self, dataset, type='dbm'):
         self.dataset = dataset
-        self.cache_enabled = app_globals.cache_enabled and \
+        self.cache_enabled = current_app.config.get('CACHE') and \
             not self.dataset.private
-        self.cache = cache.get_cache('DSCACHE_' + dataset.name,
-                                     type=type)
 
     def aggregate(self, measures=['amount'], drilldowns=None, cuts=None,
                   page=1, pagesize=10000, order=None, inflate=None):
@@ -108,9 +107,9 @@ class AggregationCache(object):
             key = hashlib.sha1(repr(key_parts)).hexdigest()
 
             # If the cache key exists we serve directly from the cache
-            if key in self.cache:
+            if cache.get(key):
                 log.debug("Cache hit: %s", key)
-                return self.cache.get(key)
+                return cache.get(key)
         else:
             # Debug message to show caching is disabled
             log.debug("Caching is disabled.")
@@ -127,10 +126,10 @@ class AggregationCache(object):
             log.debug("Generating key: %s", key)
             result['summary']['cached'] = True
             result['summary']['cache_key'] = key
-            self.cache.put(key, result)
+            cache.set(key, result)
 
         return result
 
     def invalidate(self):
         """ Clear the cache. """
-        self.cache.clear()
+        cache.clear()
