@@ -40,3 +40,9 @@ def entry_description(entry):
                 fragments.append(v)
     description = " - ".join(fragments)
     return markdown_preview(description)
+
+
+def readable_url(url):
+    if len(url) > 55:
+        return url[:15] + " .. " + url[len(url) - 25:]
+    return url

@@ -23,6 +23,8 @@ def register_views(app):
     app.error_handler_spec[None][500] = handle_error
 
     app.jinja_env.filters.update({
-        'markdown_preview': filters.markdown_preview
+        'markdown_preview': filters.markdown_preview,
+        'markdown': filters.markdown,
+        'readable_url': filters.readable_url
     })
 

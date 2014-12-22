@@ -61,12 +61,6 @@ def render_value(value):
     return value
 
 
-def readable_url(url):
-    if len(url) > 55:
-        return url[:15] + " .. " + url[len(url) - 25:]
-    return url
-
-
 def upload(url, obj):
     """
     Get upload uri based on either the upload_uri configurations (set when
