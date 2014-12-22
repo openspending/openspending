@@ -5,7 +5,9 @@ from urllib import urlencode
 
 from webhelpers.feedgenerator import Rss201rev2Feed
 from werkzeug.exceptions import BadRequest
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect
+from flask import Response
+from flask.ext.login import current_user
 from flask.ext.babel import gettext as _
 from colander import SchemaNode, String, Invalid
 
@@ -14,11 +16,10 @@ from openspending.model import Dataset, Badge
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import jsonify
 from openspending.lib.paramparser import DatasetIndexParamParser
-from openspending import auth as has
-
+from openspending import auth
 from openspending.lib.cache import DatasetIndexCache
-from openspending.auth import require
-from openspending.lib.helpers import etag_cache_keygen
+from openspending.lib.helpers import etag_cache_keygen, disable_cache
+from openspending.lib.helpers import url_for
 #from openspending.ui.lib.views import handle_request
 from openspending.lib.hypermedia import dataset_apply_links
 from openspending.lib.pagination import Page
@@ -118,34 +119,39 @@ def index(format='html'):
                            del_filter=del_filter)
 
 
+@disable_cache
 @blueprint.route('/datasets/new', methods=['GET'])
 def new(errors={}):
-    self._disable_cache()
-    if not has.dataset.create():
-        return templating.render('dataset/new_cta.html')
-    require.dataset.create()
-    c.key_currencies = sorted(
+    if not auth.dataset.create():
+        return render_template('dataset/new_cta.html')
+
+    auth.require.dataset.create()
+    key_currencies = sorted(
         [(r, n) for (r, (n, k)) in CURRENCIES.items() if k],
         key=lambda k_v: k_v[1])
-    c.all_currencies = sorted(
+    all_currencies = sorted(
         [(r, n) for (r, (n, k)) in CURRENCIES.items() if not k],
         key=lambda k_v1: k_v1[1])
-    c.languages = sorted(LANGUAGES.items(), key=lambda k_v2: k_v2[1])
-    c.territories = sorted(COUNTRIES.items(), key=lambda k_v3: k_v3[1])
-    c.categories = sorted(CATEGORIES.items(), key=lambda k_v4: k_v4[1])
+
+    languages = sorted(LANGUAGES.items(), key=lambda k_v2: k_v2[1])
+    territories = sorted(COUNTRIES.items(), key=lambda k_v3: k_v3[1])
+    categories = sorted(CATEGORIES.items(), key=lambda k_v4: k_v4[1])
+    
     errors = [(k[len('dataset.'):], v) for k, v in errors.items()]
-    return templating.render(
-        'dataset/new.html', form_errors=dict(errors),
-        form_fill=request.params if errors else {'currency': 'USD'})
+    defaults = request.form if errors else {'currency': 'USD'}
+    return render_template('dataset/new.html', form_errors=dict(errors),
+                           form_fill=defaults, key_currencies=key_currencies,
+                           all_currencies=all_currencies, languages=languages,
+                           territories=territories, categories=categories)
 
 
-@blueprint.route('/datasets/new', methods=['POST'])
+@blueprint.route('/datasets', methods=['POST'])
 def create():
-    require.dataset.create()
+    auth.require.dataset.create()
     try:
-        dataset = dict(request.params)
-        dataset['territories'] = request.params.getall('territories')
-        dataset['languages'] = request.params.getall('languages')
+        dataset = dict(request.form.items())
+        dataset['territories'] = request.form.getlist('territories')
+        dataset['languages'] = request.form.getlist('languages')
         model = {'dataset': dataset}
         schema = dataset_schema(ValidationState(model))
         data = schema.deserialize(dataset)
@@ -155,14 +161,13 @@ def create():
                 _("A dataset with this identifer already exists!"))
         dataset = Dataset({'dataset': data})
         dataset.private = True
-        dataset.managers.append(c.account)
+        dataset.managers.append(current_user)
         db.session.add(dataset)
         db.session.commit()
-        redirect(h.url_for(controller='editor', action='index',
-                           dataset=dataset.name))
+        return redirect(url_for('editor.index', dataset=dataset.name))
     except Invalid as i:
         errors = i.asdict()
-        return self.new(errors)
+        return new(errors=errors)
 
 
 @blueprint.route('/<dataset>')
@@ -193,7 +198,7 @@ def view(dataset, format='html'):
 
     if format == 'json':
         # If requested format is json we return the json representation
-        return to_jsonp(dataset_apply_links(c.dataset.as_dict()))
+        return jsonify(dataset_apply_links(dataset.as_dict()))
     else:
         (earliest_timestamp, latest_timestamp) = c.dataset.timerange()
         if earliest_timestamp is not None:
@@ -245,7 +250,7 @@ def model(dataset, format='json'):
 @blueprint.route('/datasets.rss')
 def feed_rss():
     q = db.session.query(Dataset)
-    if not (c.account and c.account.admin):
+    if not auth.account.is_admin():
         q = q.filter_by(private=False)
     feed_items = q.order_by(Dataset.created_at.desc()).limit(20)
     items = []
@@ -253,20 +258,17 @@ def feed_rss():
         items.append({
             'title': feed_item.label,
             'pubdate': feed_item.updated_at,
-            'link': url(controller='dataset', action='view',
-                        dataset=feed_item.name, qualified=True),
+            'link': url_for('dataset.view', dataset=feed_item.name),
             'description': feed_item.description,
             'author_name': ', '.join([person.fullname for person in
                                       feed_item.managers if
                                       person.fullname]),
         })
-    feed = Rss201rev2Feed(_('Recently Created Datasets'), url(
-        controller='home', action='index', qualified=True),
-        _('Recently created datasets in the OpenSpending Platform'),
-        author_name='Openspending')
+    desc = _('Recently created datasets in the OpenSpending Platform')
+    feed = Rss201rev2Feed(_('Recently Created Datasets'),
+                          url_for('home.index'), desc)
     for item in items:
         feed.add_item(**item)
     sio = StringIO()
     feed.write(sio, 'utf-8')
-    response.content_type = 'application/xml'
-    return sio.getvalue()
+    return Response(sio.getvalue(), mimetype='application/xml')
