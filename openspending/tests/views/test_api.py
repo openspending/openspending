@@ -1,5 +1,7 @@
+from flask import url_for
+
 from openspending.lib import json
-from openspending.model import meta as db
+from openspending.core import db
 from openspending.model.dataset import Dataset
 from openspending.model.account import Account
 
@@ -8,13 +10,11 @@ from openspending.tests.base import ControllerTestCase
 from openspending.tests.helpers import (make_account, load_fixture,
                                         clean_and_reindex_solr)
 
-from pylons import url
 
+class TestApiController(ControllerTestCase):
 
-class TestApi2Controller(ControllerTestCase):
-
-    def setup(self):
-        super(TestApi2Controller, self).setup()
+    def setUp(self):
+        super(TestApiController, self).setUp()
         load_fixture('cra')
         clean_and_reindex_solr()
 
