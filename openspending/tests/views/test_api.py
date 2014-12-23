@@ -19,12 +19,10 @@ class TestApiController(ControllerTestCase):
         clean_and_reindex_solr()
 
     def test_aggregate(self):
-        response = self.app.get(url(controller='api/version2',
-                                    action='aggregate',
-                                    dataset='cra'))
+        response = self.client.get(url_for('api.aggregate', dataset='cra'))
         assert response.status == '200 OK'
         assert response.content_type == 'application/json'
-        result = json.loads(response.body)
+        result = json.loads(response.data)
         assert sorted(result.keys()) == [u'drilldown', u'summary']
 
         expected_result = [(u'amount', -371500000.0),
@@ -37,32 +35,31 @@ class TestApiController(ControllerTestCase):
         assert sorted(result['summary'].items()) == expected_result
 
     def test_aggregate_drilldown(self):
-        response = self.app.get(url(controller='api/version2',
-                                    action='aggregate',
-                                    dataset='cra', drilldown='cofog1|cofog2'))
+        response = self.client.get(url_for('api.aggregate',
+                                           dataset='cra',
+                                           drilldown='cofog1|cofog2'))
         assert response.status == '200 OK'
 
-        result = json.loads(response.body)
+        result = json.loads(response.data)
         assert result['summary']['num_drilldowns'] == 6
         assert result['summary']['amount'] == -371500000.0
 
     def test_aggregate_drilldown_format_csv(self):
-        response = self.app.get(url(controller='api/version2',
-                                    action='aggregate',
-                                    dataset='cra', drilldown='cofog1|cofog2',
-                                    format='csv'))
+        response = self.client.get(url_for('api.aggregate',
+                                           dataset='cra',
+                                           drilldown='cofog1|cofog2',
+                                           format='csv'))
         assert response.status == '200 OK'
-        result = list(DictReader(response.body.split('\n')))
+        result = list(DictReader(response.data.split('\n')))
         assert len(result) == 6
         assert result[0]['cofog2.name'] == '10.1'
 
     def test_aggregate_measures(self):
-        response = self.app.get(url(controller='api/version2',
-                                    action='aggregate',
-                                    dataset='cra', cut='year:2009',
-                                    measure='total'))
+        response = self.client.get(url_for('api.aggregate',
+                                           dataset='cra', cut='year:2009',
+                                           measure='total'))
         assert response.status == '200 OK'
-        result = json.loads(response.body)
+        result = json.loads(response.data)
         assert result['summary']['num_drilldowns'] == 1
         assert result['summary']['total'] == 57300000.0
 
@@ -73,17 +70,16 @@ class TestApiController(ControllerTestCase):
         """
 
         # Get the aggregated amount and total values for year 2009
-        response = self.app.get(url(controller='api/version2',
-                                    action='aggregate',
-                                    dataset='cra', cut='year:2009',
-                                    measure='amount|total'))
+        response = self.client.get(url_for('api.aggregate',
+                                           dataset='cra', cut='year:2009',
+                                           measure='amount|total'))
 
         # This should return a status code 200.
         assert '200' in response.status, \
             'Aggregation for multiple measures did not return successfully'
 
         # Load the json body into a dict
-        result = json.loads(response.body)
+        result = json.loads(response.data)
 
         # Only one drilldown should be made even if there are two measures
         assert result['summary']['num_drilldowns'] == 1, \
@@ -98,11 +94,10 @@ class TestApiController(ControllerTestCase):
             'Multiple measure aggregation of amount measure is not correct'
 
     def test_aggregate_cut(self):
-        response = self.app.get(url(controller='api/version2',
-                                    action='aggregate',
-                                    dataset='cra', cut='year:2009'))
+        response = self.client.get(url_for('api.aggregate',
+                                           dataset='cra', cut='year:2009'))
         assert response.status == '200 OK'
-        result = json.loads(response.body)
+        result = json.loads(response.data)
         assert result['summary']['num_drilldowns'] == 1
         assert result['summary']['amount'] == 57300000.0
 
@@ -113,32 +108,29 @@ class TestApiController(ControllerTestCase):
                 if item not in result:
                     result.append(item)
             return result
-        response = self.app.get(url(controller='api/version2',
-                                    action='aggregate',
-                                    dataset='cra', order='year:asc',
-                                    drilldown='year'))
+        response = self.client.get(url_for('api.aggregate',
+                                           dataset='cra', order='year:asc',
+                                           drilldown='year'))
         assert response.status == '200 OK'
-        result = json.loads(response.body)
+        result = json.loads(response.data)
         order = [cell['year'] for cell in result['drilldown']]
         expected_result = map(unicode, [2003, 2004, 2005, 2006, 2007,
                                         2008, 2009, 2010])
         assert unique(order) == expected_result
 
-        response = self.app.get(url(controller='api/version2',
-                                    action='aggregate',
-                                    dataset='cra', order='year:desc',
-                                    drilldown='year'))
+        response = self.client.get(url_for('api.aggregate',
+                                           dataset='cra', order='year:desc',
+                                           drilldown='year'))
         assert response.status == '200 OK'
-        result = json.loads(response.body)
+        result = json.loads(response.data)
         order = [cell['year'] for cell in result['drilldown']]
         expected_result = map(unicode, [2010, 2009, 2008, 2007, 2006,
                                         2005, 2004, 2003])
         assert unique(order) == expected_result
 
     def test_search(self):
-        response = self.app.get(
-            url(controller='api/version2', action='search'))
-        result = json.loads(response.body)
+        response = self.client.get(url_for('api.search'))
+        result = json.loads(response.data)
 
         assert result['stats']['results_count'] == 36
         assert result['stats']['results_count_query'] == 36
@@ -146,26 +138,24 @@ class TestApiController(ControllerTestCase):
         assert len(result['results']) == 36
 
     def test_search_results_dataset(self):
-        response = self.app.get(
-            url(controller='api/version2', action='search'))
-        result = json.loads(response.body)
+        response = self.client.get(url_for('api.search'))
+        result = json.loads(response.data)
 
         assert result['results'][0]['dataset']['name'] == 'cra'
         expected_label = 'Country Regional Analysis v2009'
         assert result['results'][0]['dataset']['label'] == expected_label
 
     def test_search_page_pagesize(self):
-        response = self.app.get(url(controller='api/version2', action='search',
-                                    page=2, pagesize=10))
-        result = json.loads(response.body)
+        response = self.client.get(url_for('api.search', page=2, pagesize=10))
+        result = json.loads(response.data)
 
         assert result['stats']['results_count'] == 10
         assert result['stats']['results_count_query'] == 36
 
     def test_search_q(self):
-        response = self.app.get(url(controller='api/version2', action='search',
-                                    q="Ministry of Justice"))
-        result = json.loads(response.body)
+        response = self.client.get(url_for('api.search',
+                                           q="Ministry of Justice"))
+        result = json.loads(response.data)
 
         assert result['stats']['results_count'] == 5
         assert result['stats']['results_count_query'] == 5
@@ -174,9 +164,9 @@ class TestApiController(ControllerTestCase):
         assert result['results'][0]['id'] == id_value
 
     def test_search_filter(self):
-        response = self.app.get(url(controller='api/version2', action='search',
-                                    filter="pog:P13 S091105"))
-        result = json.loads(response.body)
+        response = self.client.get(url_for('api.search',
+                                           filter="pog:P13 S091105"))
+        result = json.loads(response.data)
 
         assert result['stats']['results_count'] == 5
         assert result['stats']['results_count_query'] == 5
@@ -185,21 +175,21 @@ class TestApiController(ControllerTestCase):
         assert result['results'][0]['id'] == id_value
 
     def test_search_facet(self):
-        response = self.app.get(url(controller='api/version2', action='search',
-                                    pagesize=0, facet_field="dataset"))
-        result = json.loads(response.body)
+        response = self.client.get(url_for('api.search',
+                                           pagesize=0,
+                                           facet_field="dataset"))
+        result = json.loads(response.data)
 
         assert len(result['facets']['dataset']) == 1
         assert result['facets']['dataset'][0] == ['cra', 36]
 
     def test_search_expand_facet_dimensions(self):
-        response = self.app.get(url(controller='api/version2',
-                                    action='search',
-                                    dataset='cra',
-                                    pagesize=0,
-                                    facet_field="from|to.name",
-                                    expand_facet_dimensions="1"))
-        result = json.loads(response.body)
+        response = self.client.get(url_for('api.search',
+                                           dataset='cra',
+                                           pagesize=0,
+                                           facet_field="from|to.name",
+                                           expand_facet_dimensions="1"))
+        result = json.loads(response.data)
 
         hra = {
             "taxonomy": "from",
@@ -212,28 +202,27 @@ class TestApiController(ControllerTestCase):
         assert result['facets']['to.name'][0][0] == 'society'
 
     def test_search_expand_facet_dimensions_no_dataset(self):
-        response = self.app.get(url(controller='api/version2',
-                                    action='search',
-                                    pagesize=0,
-                                    facet_field="from",
-                                    expand_facet_dimensions="1"))
-        result = json.loads(response.body)
+        response = self.client.get(url_for('api.search',
+                                           pagesize=0,
+                                           facet_field="from",
+                                           expand_facet_dimensions="1"))
+        result = json.loads(response.data)
 
         # facets should *NOT* be expanded unless exactly 1 dataset was
         # specified
         assert result['facets']['from'][0][0] == '999'
 
     def test_search_order(self):
-        response = self.app.get(url(controller='api/version2', action='search',
-                                    order="amount:asc"))
-        result = json.loads(response.body)
+        response = self.client.get(url_for('api.search',
+                                           order="amount:asc"))
+        result = json.loads(response.data)
 
         amounts = [r['amount'] for r in result['results']]
         assert amounts == sorted(amounts)
 
-        response = self.app.get(url(controller='api/version2', action='search',
-                                    order="amount:desc"))
-        result = json.loads(response.body)
+        response = self.client.get(url_for('api.search',
+                                           order="amount:desc"))
+        result = json.loads(response.data)
 
         amounts = [r['amount'] for r in result['results']]
         assert amounts == sorted(amounts)[::-1]
@@ -248,14 +237,13 @@ class TestApiController(ControllerTestCase):
         inflation data become more accurate with better data.
         """
 
-        response = self.app.get(url(controller='api/version2',
-                                    action='aggregate',
-                                    dataset='cra', cut='year:2009',
-                                    inflate='2011'))
+        response = self.client.get(url_for('api.aggregate',
+                                           dataset='cra', cut='year:2009',
+                                           inflate='2011'))
         assert '200' in response.status, \
             "Inflation request didn't return successfully (status isn't 200)"
 
-        result = json.loads(response.body)
+        result = json.loads(response.data)
 
         # Check for inflated amount
         assert 'amount' in result['summary'], \
@@ -276,14 +264,13 @@ class TestApiController(ControllerTestCase):
             "Inflation adjustment is not present in drilldown results"
 
         # Check for what happens when inflation is not possible
-        response = self.app.get(url(controller='api/version2',
-                                    action='aggregate',
-                                    dataset='cra', cut='year:2009',
-                                    inflate='1000'))
+        response = self.client.get(url_for('api.aggregate',
+                                           dataset='cra', cut='year:2009',
+                                           inflate='1000'))
         assert '200' in response.status, \
             "Incorrect inflation did not return sucessfully (status isn't 200)"
 
-        result = json.loads(response.body)
+        result = json.loads(response.data)
 
         assert 'warning' in result, \
             "No warning given when inflation not possible"
@@ -308,13 +295,13 @@ class TestApiController(ControllerTestCase):
         db.session.commit()
 
         # Make the url reusable
-        permission = url(controller='api/version2', action='permissions')
+        permission = url_for('api.permissions')
 
         # First we try to get permissions without dataset parameter
         # This should return a 200 but include an error message and nothing
         # else
-        response = self.app.get(permission)
-        json_response = json.loads(response.body)
+        response = self.client.get(permission)
+        json_response = json.loads(response.data)
         assert len(json_response.keys()) == 1, \
             'Parameterless call response includes more than one properties'
         assert 'error' in json_response, \
@@ -323,8 +310,8 @@ class TestApiController(ControllerTestCase):
         # Dataset is public by default
 
         # Anonymous user
-        response = self.app.get(permission, params={'dataset': 'cra'})
-        anon_response = json.loads(response.body)
+        response = self.client.get(permission, data={'dataset': 'cra'})
+        anon_response = json.loads(response.data)
         assert not anon_response['create'], \
             'Anonymous user can create existing dataset'
         assert anon_response['read'], \
@@ -334,15 +321,15 @@ class TestApiController(ControllerTestCase):
         assert not anon_response['delete'], \
             'Anonymous user can delete existing dataset'
         # Normal user
-        response = self.app.get(permission, params={'dataset': 'cra'},
+        response = self.client.get(permission, data={'dataset': 'cra'},
                                 extra_environ={'REMOTE_USER': 'test_user'})
-        normal_response = json.loads(response.body)
+        normal_response = json.loads(response.data)
         assert anon_response == normal_response, \
             'Normal user has wrong permissions for a public dataset'
         # Maintainer
-        response = self.app.get(permission, params={'dataset': 'cra'},
+        response = self.client.get(permission, data={'dataset': 'cra'},
                                 extra_environ={'REMOTE_USER': 'maintainer'})
-        main_response = json.loads(response.body)
+        main_response = json.loads(response.data)
         assert not main_response['create'], \
             'Maintainer can create a dataset with an existing (public) name'
         assert main_response['read'], \
@@ -352,9 +339,9 @@ class TestApiController(ControllerTestCase):
         assert main_response['delete'], \
             'Maintainer is not able to delete public dataset'
         # Administrator
-        response = self.app.get(permission, params={'dataset': 'cra'},
+        response = self.client.get(permission, data={'dataset': 'cra'},
                                 extra_environ={'REMOTE_USER': 'test_admin'})
-        admin_response = json.loads(response.body)
+        admin_response = json.loads(response.data)
         # Permissions for admins should be the same as for maintainer
         assert main_response == admin_response, \
             'Admin and maintainer permissions differ on public datasets'
@@ -368,20 +355,20 @@ class TestApiController(ControllerTestCase):
         db.session.commit()
 
         # Anonymous user
-        response = self.app.get(permission, params={'dataset': 'cra'})
-        anon_response = json.loads(response.body)
+        response = self.client.get(permission, data={'dataset': 'cra'})
+        anon_response = json.loads(response.data)
         assert True not in anon_response.values(), \
             'Anonymous user has access to a private dataset'
         # Normal user
-        response = self.app.get(permission, params={'dataset': 'cra'},
+        response = self.client.get(permission, data={'dataset': 'cra'},
                                 extra_environ={'REMOTE_USER': 'test_user'})
-        normal_response = json.loads(response.body)
+        normal_response = json.loads(response.data)
         assert anon_response == normal_response, \
             'Normal user has access to a private dataset'
         # Maintainer
-        response = self.app.get(permission, params={'dataset': 'cra'},
+        response = self.client.get(permission, data={'dataset': 'cra'},
                                 extra_environ={'REMOTE_USER': 'maintainer'})
-        main_response = json.loads(response.body)
+        main_response = json.loads(response.data)
         assert not main_response['create'], \
             'Maintainer can create a dataset with an existing (private) name'
         assert main_response['read'], \
@@ -391,9 +378,9 @@ class TestApiController(ControllerTestCase):
         assert main_response['delete'], \
             'Maintainer is not able to delete private dataset'
         # Administrator
-        response = self.app.get(permission, params={'dataset': 'cra'},
+        response = self.client.get(permission, data={'dataset': 'cra'},
                                 extra_environ={'REMOTE_USER': 'test_admin'})
-        admin_response = json.loads(response.body)
+        admin_response = json.loads(response.data)
         # Permissions for admins should be the same as for maintainer
         assert main_response == admin_response, \
             'Admin does not have the same permissions as maintainer'
@@ -402,14 +389,14 @@ class TestApiController(ControllerTestCase):
         # Everyone except anonymous user should have the same permissions
         # We don't need to check with maintainer or admin now since this
         # applies to all logged in users
-        response = self.app.get(permission, params={'dataset': 'nonexistent'})
-        anon_response = json.loads(response.body)
+        response = self.client.get(permission, data={'dataset': 'nonexistent'})
+        anon_response = json.loads(response.data)
         assert True not in anon_response.values(), \
             'Anonymous users has permissions on a nonexistent datasets'
         # Any logged in user (we use normal user)
-        response = self.app.get(permission, params={'dataset': 'nonexistent'},
+        response = self.client.get(permission, data={'dataset': 'nonexistent'},
                                 extra_environ={'REMOTE_USER': 'test_user'})
-        normal_response = json.loads(response.body)
+        normal_response = json.loads(response.data)
         assert normal_response['create'], \
             'User cannot create a nonexistent dataset'
         assert not normal_response['read'], \
@@ -427,27 +414,24 @@ class TestApiNewDataset(ControllerTestCase):
     testing for loading of data via the api
     """
 
-    def setup(self):
-        super(TestApiNewDataset, self).setup()
+    def setUp(self):
+        super(TestApiNewDataset, self).setUp()
         self.user = make_account('test_new')
-        self.user.api_key = 'd0610659-627b-4403-8b7f-6e2820ebc95d'
 
         self.user2 = make_account('test_new2')
-        self.user2.api_key = 'c011c340-8dad-419c-8138-1c6ded86ead5'
 
     def test_new_dataset(self):
         user = Account.by_name('test_new')
-        assert user.api_key == 'd0610659-627b-4403-8b7f-6e2820ebc95d'
 
-        u = url(controller='api/version2', action='create')
+        u = url_for('api.create')
         params = {
             'metadata':
             'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
             'csv_file':
             'http://mk.ucant.org/info/data/sample-openspending-dataset.csv'
         }
-        apikey_header = 'apikey {0}'.format(user.api_key)
-        response = self.app.post(u, params, {'Authorization': apikey_header})
+        response = self.client.post(u, data=params,
+                                    query_string={'api_key': user.api_key})
         assert "200" in response.status
         dataset = Dataset.by_name('openspending-example')
         assert dataset is not None
@@ -455,9 +439,8 @@ class TestApiNewDataset(ControllerTestCase):
 
     def test_private_dataset(self):
         user = Account.by_name('test_new')
-        assert user.api_key == 'd0610659-627b-4403-8b7f-6e2820ebc95d'
 
-        u = url(controller='api/version2', action='create')
+        u = url_for('api.create')
         params = {
             'metadata':
             'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
@@ -465,55 +448,52 @@ class TestApiNewDataset(ControllerTestCase):
             'http://mk.ucant.org/info/data/sample-openspending-dataset.csv',
             'private': 'true'
         }
-        apikey_header = 'apikey {0}'.format(user.api_key)
-        response = self.app.post(u, params, {'Authorization': apikey_header})
+        response = self.client.post(u, data=params,
+                                    query_string={'api_key': user.api_key})
         assert "200" in response.status
         dataset = Dataset.by_name('openspending-example')
         assert dataset is not None
         assert dataset.private is True
 
     def test_new_no_apikey(self):
-        u = url(controller='api/version2', action='create')
+        u = url_for('api.create')
         params = {
             'metadata':
             'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
             'csv_file':
             'http://mk.ucant.org/info/data/sample-openspending-dataset.csv'
         }
-        response = self.app.post(u, params, expect_errors=True)
-        assert "400" in response.status
+        response = self.client.post(u, data=params)
+        assert "403" in response.status
         assert Dataset.by_name('openspending-example') is None
 
     def test_new_wrong_user(self):
         # First we add a Dataset with user 'test_new'
         user = Account.by_name('test_new')
-        assert user.api_key == 'd0610659-627b-4403-8b7f-6e2820ebc95d'
-
-        u = url(controller='api/version2', action='create')
+        
+        u = url_for('api.create')
         params = {
             'metadata':
             'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
             'csv_file':
             'http://mk.ucant.org/info/data/sample-openspending-dataset.csv'
         }
-        apikey_header = 'apikey {0}'.format(user.api_key)
-        response = self.app.post(u, params, {'Authorization': apikey_header})
+        response = self.client.post(u, data=params,
+                                    query_string={'api_key': user.api_key})
 
         assert "200" in response.status
         assert Dataset.by_name('openspending-example') is not None
 
         # After that we try to update the Dataset with user 'test_new2'
         user = Account.by_name('test_new2')
-        assert user.api_key == 'c011c340-8dad-419c-8138-1c6ded86ead5'
-
-        u = url(controller='api/version2', action='create')
+        
+        u = url_for('api.create')
         params = {
             'metadata':
             'https://dl.dropbox.com/u/3250791/sample-openspending-model.json',
             'csv_file':
             'http://mk.ucant.org/info/data/sample-openspending-dataset.csv'
         }
-        apikey_header = 'apikey {0}'.format(user.api_key)
-        response = self.app.post(u, params, {'Authorization': apikey_header},
-                                 expect_errors=True)
+        response = self.client.post(u, data=params,
+                                    query_string={'api_key': user.api_key})
         assert '403' in response.status
