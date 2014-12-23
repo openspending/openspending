@@ -47,9 +47,9 @@ class TestEntryController(ControllerTestCase):
         # Check for inflation adjustments
         assert 'Adjusted for inflation' in response.data, \
             "Entry is not adjusted for inflation"
-        assert 'Original amount: -22,400,000' in response.data, \
+        assert '22,400,000' in response.data, \
             "Original amount not in inflated entry response"
-        assert '-23,404,469' in response.data, \
+        assert '23,404,469' in response.data, \
             "Inflated amount is not in inflated entry response"
 
         # Try a non-working inflation (bad year)
@@ -60,20 +60,3 @@ class TestEntryController(ControllerTestCase):
             "Inflated entry (bad year) unsuccessful (status code isn't 200)"
         assert 'Unable to adjust for inflation' in response.data, \
             "Inflation warning not present in inflated entry response (bad)"
-
-    # TODO: 2013-11-17 reinstate
-    # disabled as we disabled custom html stuff as part of genshi removal
-    def _test_entry_custom_html(self):
-        tpl = '<a href="/custom/path/%s">%s</a>'
-        tpl_c = tpl % ('${entry["id"]}', '${entry["name"]}')
-        self.cra.entry_custom_html = tpl_c
-        db.session.commit()
-
-        t = list(self.cra.entries(limit=1)).pop()
-
-        response = self.client.get(url_for('entry.view',
-                                           dataset=self.cra.name,
-                                           id=t['id']))
-
-        assert tpl % (t['id'], t['name']) in response.data, \
-            'Custom HTML not present in rendered page!'

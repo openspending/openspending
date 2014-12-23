@@ -1,90 +1,100 @@
 {% extends "base.html" %}
-{% from "dataset/_nav.html" import dataset_nav as dataset_nav %}
-{% block page_title %}{{c.dataset.label}}{% endblock %}
+{% from "dataset/_nav.html" import dataset_nav with context %}
+{% block page_title %}{{ dataset.label }}{% endblock %}
 
 {% block optional_head %}
-    {{h.style_tag('lib/vendor/datatables/css/jquery.dataTables')}}
-    {{h.style_tag('lib/vendor/datatables/dataTables.bootstrap')}}
+    <link rel="stylesheet" src="{{ static_path('openspendingjs/lib/vendor/datatables/css/jquery.dataTables.css') }}">
+    <link rel="stylesheet" src="{{ static_path('openspendingjs/lib/vendor/datatables/dataTables.bootstrap.css') }}">
 {% endblock %}
 
 {% block scripts %}
-    {{h.script_tag('lib/vendor/datatables/js/jquery.dataTables')}}
-    {{h.script_tag('lib/vendor/datatables/dataTables.bootstrap')}}
-    {{h.script_tag('app/data_table/openspending.data_table')}}
-    {{h.script_tag('app/faceter/openspending.faceter')}}
-    {{h.script_tag('app/browser/openspending.browser')}}
+    <script type="text/javascript" src="{{ static_path('openspendingjs/lib/vendor/datatables/js/jquery.dataTables.js') }}"></script>
+    <script type="text/javascript" src="{{ static_path('openspendingjs/lib/vendor/datatables/dataTables.bootstrap.js') }}"></script>
+    <script type="text/javascript" src="{{ static_path('openspendingjs/app/data_table/openspending.data_table.js') }}"></script>
+    <script type="text/javascript" src="{{ static_path('openspendingjs/app/faceter/openspending.faceter.js') }}"></script>
+    <script type="text/javascript" src="{{ static_path('openspendingjs/app/browser/openspending.browser.js') }}"></script>
 {% endblock %}
 
 {% block content %}
     <!-- templates/entry/index.html -->
-    {{dataset_nav(h, c, can, 'search')}}
+    {{dataset_nav(dataset, can, legacy_views, 'search')}}
 
     <div class="row">
       <div class="span9">
         <div role="grid">
           <form class="form-horizontal" action="" method="get">
-            <input type="text" name="q" class="span9" placeholder="Search..." value="{{ c.search }}">
+            <input type="text" name="q" class="span9" placeholder="Search..." value="{{ search }}">
           </form>
           <hr/>
           <table class="table table-striped table-condensed" cellspacing="0" cellpadding="0" border="0">
             <thead>
               <tr role="row">
                 <th>{% trans %}Time{% endtrans %}</th>
-                {% if 'from' in c.dimensions %}
-                <th>{% trans %}From{% endtrans %}</th>
-                {% if 'to' in c.dimensions %}
-                <th>{% trans %}To{% endtrans %}</th>
+                {% if 'from' in dimensions %}
+                  <th>{% trans %}From{% endtrans %}</th>
+                {% if 'to' in dimensions %}
+                  <th>{% trans %}To{% endtrans %}</th>
                 {% endif %}
                 {% else %}
-                {% for name,dimension in c.facet_dimensions.iteritems() %}
-                <th>{{ dimension.label }}</th>
+                {% for name, dimension in facet_dimensions.iteritems() %}
+                  <th>{{ dimension.label }}</th>
                 {% endfor %}
                 {% endif %}
                 <th>{% trans %}Amount{% endtrans %}</th>
-                <th> </th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
-              {% for entry in c.entries %}
+              {% for entry in entries %}
               <tr>
                 <td>{{ entry.time.year }}</td>
-                {% if 'from' in c.dimensions %}
-                <td>{{ entry.from.label }}</td>
-                {% if 'to' in c.dimensions %}
-                <td>{{ entry.to.label }}</td>
+                {% if 'from' in dimensions %}
+                  <td>{{ entry.from.label }}</td>
+                {% if 'to' in dimensions %}
+                  <td>{{ entry.to.label }}</td>
                 {% endif %}
                 {% else %}
-                {% for name,dimension in c.facet_dimensions.iteritems() %}
-                <td>{{ entry[dimension.name].label }}</td>
+                {% for name,dimension in facet_dimensions.iteritems() %}
+                  <td>{{ entry[dimension.name].label }}</td>
                 {% endfor %}
                 {% endif %}
-                <td>{{ h.format_currency(entry.amount, c.dataset) }}</td>
-                <td><a href="{{ h.url_for(controller='entry', action='view', dataset=c.dataset.name, id=entry.id) }}">{% trans %}details{% endtrans %}&raquo;</a></td>
+                
+                <td>{{ h.format_currency(entry.amount, dataset) }}</td>
+                
+                <td>
+                  <a href="{{ url_for('entry.view', dataset=dataset.name, id=entry.id) }}">
+                    {% trans %}details{% endtrans %}&raquo;
+                  </a>
+                </td>
               </tr>
               {% endfor %}
             </tbody>
           </table>
-          {{ c.entries.pager() }}
+          {{ entries.pager() }}
         </div>
       </div>
       <div class="span3">
-        {% for facet, values in c.facets.iteritems() %}
-        <h4>{{ c.facet_dimensions[facet].label }}</h4>
+        {% for facet, values in facets.iteritems() %}
+        <h4>{{ facet_dimensions[facet].label }}</h4>
         <table class="table table-condensed facets">
           <tbody>
             {% for item, count in values %}
             <tr>
               <td class="count num" width="5%">{{ count }}</td>
               <td>
-                {% if facet not in c.filters %}
-                {% set filters = h.join_filters(c.filters, append=[(facet,item)]) %}
+                {% if facet not in filters %}
+                  {% set filters = h.join_filters(filters, append=[(facet,item)]) %}
                 {% else %}
-                {% set filters = h.join_filters(c.filters, remove=[facet]) %}
+                  {% set filters = h.join_filters(filters, remove=[facet]) %}
                 {% endif %}
                 {% if filters %}
-                <a href="{{ h.url_for(controller='entry', action='index', dataset=c.dataset.name, filter=filters) }}">{{ item.label }}</a>
+                  <a href="{{ url_for('entry.index', dataset=dataset.name, filter=filters) }}">
+                    {{ item.label }}
+                  </a>
                 {% else %}
-                <a href="{{ h.url_for(controller='entry', action='index', dataset=c.dataset.name) }}">{{ item.label }}</a>
+                  <a href="{{ url_for('entry.index', dataset=dataset.name) }}">
+                    {{ item.label }}
+                  </a>
                 {% endif %}
               </td>
             </tr>
@@ -94,11 +104,18 @@
         {% endfor %}
       </div>
     </div>
-    {% if c.timerange %}
-    <div class="row">
-      <div class="span4">
-	<p><small>{% trans %}Time range for dataset:{% endtrans %} {{ c.timerange.from.strftime('%Y-%m-%d') }} - {{ c.timerange.to.strftime('%Y-%m-%d') }}</small></p>
+    {% if timerange %}
+      <div class="row">
+        <div class="span4">
+  	      <p>
+            <small>
+              {% trans %}Time range for dataset:{% endtrans %}
+              {{ timerange.from.strftime('%Y-%m-%d') }} -
+              {{ timerange.to.strftime('%Y-%m-%d') }}
+            </small>
+          </p>
+        </div>
       </div>
-    </div>
     {% endif %}
+
 {% endblock %}

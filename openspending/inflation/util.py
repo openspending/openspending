@@ -85,9 +85,11 @@ def inflate(amount, target, reference, territories):
     # Inflate the amount from reference date to the target date
 
     # TODO: where do we set this up?
-    inflated_amount = app_globals.inflation.inflate(amount, target_date,
-                                                    reference_date,
-                                                    dataset_country)
+    from economics import Inflation
+    inflation = Inflation()
+    inflated_amount = inflation.inflate(amount, target_date,
+                                        reference_date,
+                                        dataset_country)
 
     # Return an inflation dictionary where we show the reference and target
     # dates along with original and inflated amounts.

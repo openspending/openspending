@@ -1,16 +1,16 @@
 import logging
 
 from flask import Blueprint, render_template, redirect, request
-from flask.ext.login import current_user
 from flask.ext.babel import gettext as _
 from werkzeug.exceptions import BadRequest
 
 from openspending.lib.views import request_set_views
 from openspending.lib.hypermedia import entry_apply_links
 from openspending.lib.browser import Browser
-from openspending.lib.helpers import url_for, get_dataset
+from openspending.lib.helpers import url_for, get_dataset, flash_notice
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import jsonify
+from openspending.inflation import inflate
 from openspending.lib.pagination import Page
 from openspending.lib.paramparser import EntryIndexParamParser
 
@@ -56,11 +56,9 @@ def index(dataset, format='html'):
     except SolrException as e:
         return {'errors': [unicode(e)]}
 
-    # Get the entries, each item is a tuple of (dataset, entry)
-    solr_entries = b.get_entries()
     # We are only interested in the entry in the tuple since  we know
     # the dataset
-    entries = [entry[1] for entry in solr_entries]
+    entries = [entry[1] for entry in b.get_entries()]
 
     tmpl_context = {
         'dataset': dataset,
@@ -74,11 +72,11 @@ def index(dataset, format='html'):
 
     if 'dataset' in tmpl_context['filters']:
         del tmpl_context['filters']['dataset']
-    return render_template('entry/index.html')
+    return render_template('entry/index.html', **tmpl_context)
 
 
-@blueprint.route('/<dataset>/entries')
-@blueprint.route('/<dataset>/entries.<format>')
+@blueprint.route('/<dataset>/entries/<id>')
+@blueprint.route('/<dataset>/entries/<id>.<format>')
 def view(dataset, id, format='html'):
     """
     Get a specific entry in the dataset, identified by the id. Entry
@@ -96,66 +94,64 @@ def view(dataset, id, format='html'):
         raise BadRequest(_('Sorry, there is no entry %(id)s', id=id))
 
     # Add urls to the dataset and assign assign it as a context variable
-    entry = entry_apply_links(dataset, entries.pop())
+    entry = entry_apply_links(dataset.name, entries.pop())
 
-    # Get the amount for the entry
-    amount = entry.get('amount')
+    tmpl_context = {
+        'dataset': dataset,
+        'entry': entry,
+        'amount': entry.get('amount')
+    }
+
     # We adjust for inflation if the user as asked for this to be inflated
-    if 'inflate' in request.params:
+    if 'inflate' in request.args:
         try:
             # Inflate the amount. Target date is provided in request.params
             # as value for inflate and reference date is the date of the
             # entry. We also provide a list of the territories to extract
             # a single country for which to do the inflation
-            c.inflation = h.inflate(amount, request.params['inflate'],
-                                    c.time, c.dataset.territories)
+            inflation = inflate(tmpl_context.get('amount'),
+                                request.args['inflate'],
+                                entry.get('time'),
+                                dataset.territories)
 
             # The amount to show should be the inflated amount
             # and overwrite the entry's amount as well
-            c.amount = c.inflation['inflated']
-            c.entry['amount'] = c.inflation['inflated']
+            tmpl_context['amount'] = inflation['inflated']
+            tmpl_context['entry']['amount'] = inflation['inflated']
 
             # We include the inflation response in the entry's dict
             # HTML description assumes every dict value for the entry
             # includes a label so we include a default "Inflation
             # adjustment" for it to work.
-            c.inflation['label'] = 'Inflation adjustment'
-            c.entry['inflation_adjustment'] = c.inflation
-        except:
+            inflation['label'] = 'Inflation adjustment'
+            tmpl_context['entry']['inflation_adjustment'] = inflation
+            tmpl_context['inflation'] = inflation
+        except Exception, e:
+            print "FUCK", e
             # If anything goes wrong in the try clause (and there's a lot
             # that can go wrong). We just say that we can't adjust for
             # inflation and set the context amount as the original amount
-            h.flash_notice(_('Unable to adjust for inflation'))
-            c.amount = amount
-    else:
-        # If we haven't been asked to inflate then we just use the
-        # original amount
-        c.amount = amount
-
-    # Add custom html for the dataset entry if the dataset has some
-    # custom html
-    # 2013-11-17 disabled this as part of removal of genshi as depended on
-    # a genshi specific helper.
-    # TODO: reinstate if important
-    # c.custom_html = h.render_entry_custom_html(c.dataset, c.entry)
-
+            flash_notice(_('Unable to adjust for inflation'))
+    
     # Add the rest of the dimensions relating to this entry into a
     # extras dictionary. We first need to exclude all dimensions that
     # are already shown and then we can loop through the dimensions
     excluded_keys = ('time', 'amount', 'currency', 'from',
                      'to', 'dataset', 'id', 'name', 'description')
 
-    c.extras = {}
+    extras = {}
     if dataset:
         # Create a dictionary of the dataset dimensions
-        c.desc = dict([(d.name, d) for d in dataset.dimensions])
+        desc = dict([(d.name, d) for d in dataset.dimensions])
+        tmpl_context['desc'] = desc
         # Loop through dimensions of the entry
         for key in entry:
             # Entry dimension must be a dataset dimension and not in
             # the predefined excluded keys
-            if key in c.desc and \
-                    key not in excluded_keys:
-                c.extras[key] = c.entry[key]
+            if key in desc and key not in excluded_keys:
+                extras[key] = entry[key]
+
+    tmpl_context['extras'] = extras
 
     # Return entry based on
     if format == 'json':
@@ -163,7 +159,7 @@ def view(dataset, id, format='html'):
     elif format == 'csv':
         return write_csv([entry])
     else:
-        return render_template('entry/view.html')
+        return render_template('entry/view.html', **tmpl_context)
 
 
 @blueprint.route('/search')

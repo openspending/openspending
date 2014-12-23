@@ -35,6 +35,9 @@ def register_views(app):
     app.jinja_env.filters.update({
         'markdown_preview': filters.markdown_preview,
         'markdown': filters.markdown,
-        'readable_url': filters.readable_url
+        'format_currency': filters.format_currency,
+        'readable_url': filters.readable_url,
+        'entry_description': filters.entry_description,
+        'render_value': filters.render_value
     })
 

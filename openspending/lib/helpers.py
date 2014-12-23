@@ -3,8 +3,6 @@
 import os
 import uuid
 
-import babel.numbers
-from flask.ext.babel import get_locale
 from flask import url_for as flask_url_for
 from flask import flash, request
 from werkzeug.exceptions import NotFound
@@ -60,12 +58,6 @@ def flash_error(message):
 
 def flash_success(message):
     return flash(message, 'success')
-
-
-def render_value(value):
-    if isinstance(value, dict):
-        return value.get('label', value.get('name', value))
-    return value
 
 
 def upload(url, obj):
@@ -155,23 +147,6 @@ def get_uuid_filename(filename):
     return ''.join([uuid_name, os.path.splitext(filename)[1]])
 
 
-def format_currency(amount, dataset, locale=None):
-    """ Wrapper around babel's format_currency which fetches the currency
-    from the dataset. Uses the current locale to format the number. """
-    try:
-        if amount is None:
-            return "-"
-        if amount == 'NaN':
-            return "-"
-        locale = locale or get_locale()
-        currency = 'USD'
-        if dataset is not None and dataset.currency is not None:
-            currency = dataset.currency
-        return babel.numbers.format_currency(int(amount), currency, locale=locale)
-    except:
-        return amount
-
-
 def join_filters(filters, append=None, remove=None):
     """
     Join filters which are used to filter Solr entries according to
@@ -240,7 +215,3 @@ def join_filters(filters, append=None, remove=None):
 #     return text
 
 
-# def has_datatype_attr(c, key):
-#     return c.desc.get(key) and \
-#         hasattr(c.desc.get(key), 'datatype') and \
-#         c.desc.get(key).datatype == 'url'
