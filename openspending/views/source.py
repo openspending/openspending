@@ -14,7 +14,7 @@ from openspending.lib.helpers import disable_cache, flash_success
 from openspending.lib.helpers import flash_error
 from openspending.lib.jsonexport import jsonify
 from openspending.tasks.dataset import analyze_source, load_source
-from openspending.ui.validation.source import source_schema
+from openspending.lib.validation import source_schema
 
 
 log = logging.getLogger(__name__)
