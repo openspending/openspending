@@ -6,7 +6,7 @@
     <title>{% block page_title %}{% endblock %} - {{ site_title }}</title>
     <meta name="description" content="{% block page_desc %}{% trans %}We're enabling anyone to explore, visualize and track government spending.{% endtrans %}{% endblock %}" />
     <meta name="author" content="Open Knowledge Foundation" />
-    <link rel="shortcut icon" href="{{ static }}img/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ static_path('img/favicon.ico') }}" type="image/x-icon" />
     <link rel="alternate" type="application/rss+xml" title="{% trans %}Latest Datasets on OpenSpending{% endtrans %}" href="{{ url_for('dataset.feed_rss') }}" />
 
     <!-- Le styles -->

@@ -114,7 +114,7 @@ class TestDatasetController(ControllerTestCase):
             'No line for "created on" on about page'
         assert 'last modified on' in response.data, \
             'No line for "last modified on" on about page'
-        assert datetime.datetime.now().strftime('%Y-%m-%d') in response.data, \
+        assert datetime.datetime.utcnow().strftime('%Y-%m-%d') in response.data, \
             'Created (and update) timestamp is not on about page'
 
     def test_view_json(self):

@@ -35,8 +35,8 @@ def index(format='html'):
     return render_template('badge/index.html', badges=badges)
 
 
-@blueprint.route('/badge/<id>')
-@blueprint.route('/badge/<id>.<fmt:format>')
+@blueprint.route('/badge/<nodot:id>')
+@blueprint.route('/badge/<nodot:id>.<fmt:format>')
 def information(id, format='html'):
     """
     Show information about the badge. Default is to present the

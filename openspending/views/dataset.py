@@ -169,8 +169,8 @@ def create():
         return new(errors=errors)
 
 
-@blueprint.route('/<dataset>')
-@blueprint.route('/<dataset>.<fmt:format>')
+@blueprint.route('/<nodot:dataset>')
+@blueprint.route('/<nodot:dataset>.<fmt:format>')
 def view(dataset, format='html'):
     """
     Dataset viewer. Default format is html. This will return either
@@ -213,7 +213,7 @@ def view(dataset, format='html'):
                                timerange=timerange)
 
 
-@blueprint.route('/<dataset>/meta')
+@blueprint.route('/<nodot:dataset>/meta')
 def about(dataset, format='html'):
     dataset = get_dataset(dataset)
     etag_cache_keygen(dataset.updated_at)
@@ -234,8 +234,8 @@ def about(dataset, format='html'):
                            badges=badges)
 
 
-@blueprint.route('/<dataset>/model')
-@blueprint.route('/<dataset>/model.<fmt:format>')
+@blueprint.route('/<nodot:dataset>/model')
+@blueprint.route('/<nodot:dataset>/model.<fmt:format>')
 def model(dataset, format='json'):
     dataset = get_dataset(dataset)
     etag_cache_keygen(dataset.updated_at)

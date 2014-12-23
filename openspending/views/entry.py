@@ -75,8 +75,8 @@ def index(dataset, format='html'):
     return render_template('entry/index.html', **tmpl_context)
 
 
-@blueprint.route('/<dataset>/entries/<id>')
-@blueprint.route('/<dataset>/entries/<id>.<fmt:format>')
+@blueprint.route('/<dataset>/entries/<nodot:id>')
+@blueprint.route('/<dataset>/entries/<nodot:id>.<fmt:format>')
 def view(dataset, id, format='html'):
     """
     Get a specific entry in the dataset, identified by the id. Entry

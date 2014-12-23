@@ -101,8 +101,8 @@ def distinct(dataset, dimension, format='json'):
     })
 
 
-@blueprint.route('/<dataset>/<dimension>/<nodot:name>')
-@blueprint.route('/<dataset>/<dimension>/<nodot:name>.<fmt:format>')
+@blueprint.route('/<dataset>/<nodot:dimension>/<nodot:name>')
+@blueprint.route('/<dataset>/<nodot:dimension>/<nodot:name>.<fmt:format>')
 def member(dataset, dimension, name, format="html"):
     dataset, dimension, member, num_entries = \
         get_member(dataset, dimension, name)
@@ -132,8 +132,8 @@ def member(dataset, dimension, name, format="html"):
                            num_entries=num_entries)
 
 
-@blueprint.route('/<dataset>/<dimension>/<name>/entries')
-@blueprint.route('/<dataset>/<dimension>/<name>/entries.<fmt:format>')
+@blueprint.route('/<dataset>/<dimension>/<nodot:name>/entries')
+@blueprint.route('/<dataset>/<dimension>/<nodot:name>/entries.<fmt:format>')
 def entries(dataset, dimension, name, format='html'):
     dataset, dimension, member, num_entries = \
         get_member(dataset, dimension, name)
@@ -141,8 +141,8 @@ def entries(dataset, dimension, name, format='html'):
     if format in ['json', 'csv']:
         return redirect(
             url_for('api.search',
-                    format=format, dataset=dataset,
-                    filter='%s.name:%s' % (dimension, name),
+                    format=format, dataset=dataset.name,
+                    filter='%s.name:%s' % (dimension.name, name),
                     **dict(request.args.items())))
 
     request_set_views(dataset, member, dimension=dimension.name)

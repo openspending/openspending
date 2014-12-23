@@ -104,7 +104,7 @@ class TestDimensionController(ControllerTestCase):
         assert '200' in result.status, result.status
         assert result.content_type == 'application/json'
 
-        json_data = json.loads(result.body).get('results')
+        json_data = json.loads(result.data).get('results')
         assert len(json_data) == 5
 
     def test_view_entries_csv(self):
@@ -114,7 +114,7 @@ class TestDimensionController(ControllerTestCase):
                        name=self.member['name'])
         result = self.client.get(url_, follow_redirects=True)
         assert '200' in result.status, result.status
-        assert result.content_type == 'text/csv'
+        assert 'text/csv' in result.content_type, result.content_type
         assert 'amount,' in result.data  # csv headers
         assert 'id,' in result.data  # csv headers
 
