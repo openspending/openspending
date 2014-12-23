@@ -1,14 +1,14 @@
 {% extends "base.html" %}
-{% from "editor/_nav.html" import editor_nav as editor_nav %}
+{% from "editor/_nav.html" import editor_nav with context %}
 
-{% block page_title %}{{c.dataset.label or c.dataset.name}}{% endblock %}
+{% block page_title %}{{ dataset.label or dataset.name }}{% endblock %}
 
 {% block optional_head %}
-    {{h.style_tag('lib/vendor/chosen/chosen')}}
+  <link rel="stylesheet" href="{{ static_path('openspendingjs/lib/vendor/chosen/chosen.css') }}" type="text/css"/>
 {% endblock %}
 
 {% block scripts %}
-    {{h.script_tag('lib/vendor/chosen/chosen.jquery.min')}}
+    <script src="{{ static_path('openspendingjs/lib/vendor/chosen/chosen.jquery.min.js')}}"></script>
     <script>
       jQuery(function($) {
         $(".chzn-select").chosen();
@@ -19,7 +19,7 @@
 
 {% block content %}
     <!-- templates/editor/core.html -->
-    {{editor_nav(h, c, 'core')}}
+    {{editor_nav(dataset, 'core')}}
     
     <div class="row">
       <div class="offset2 span10">
