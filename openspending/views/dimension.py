@@ -11,6 +11,7 @@ from colander import SchemaNode, String, Invalid
 from openspending.model.dimension import Dimension
 from openspending.lib.helpers import etag_cache_keygen, url_for, get_dataset
 from openspending.lib.widgets import get_widget
+from openspending.lib.views import request_set_views
 from openspending.lib.paramparser import DistinctFieldParamParser
 from openspending.lib.hypermedia import dimension_apply_links, \
     member_apply_links, entry_apply_links
@@ -36,18 +37,17 @@ def get_dimension(dataset, dimension):
 
 def get_member(dataset, dimension_name, name):
     dataset = get_dataset(dataset)
-    c.dimension = dimension_name
-    for dimension in c.dataset.compounds:
+    for dimension in dataset.compounds:
         if dimension.name == dimension_name:
             cond = dimension.alias.c.name == name
             members = list(dimension.members(cond, limit=1))
             if not len(members):
                 raise NotFound(_('Sorry, there is no member named %(name)s',
                                  name=name))
-            c.dimension = dimension
-            c.member = members.pop()
-            c.num_entries = dimension.num_entries(cond)
-            return
+            dimension = dimension
+            member = members.pop()
+            num_entries = dimension.num_entries(cond)
+            return dataset, dimension, member, num_entries
     raise NotFound(_('Sorry, there is no dimension named %(name)',
                      name=dimension_name))
 
@@ -83,22 +83,20 @@ def view(dataset, dimension, format='html'):
 
 
 @blueprint.route('/<dataset>/dimensions/<dimension>.distinct')
+@blueprint.route('/<dataset>/dimensions/<dimension>.distinct.<format>')
 def distinct(dataset, dimension, format='json'):
     dataset, dimension = get_dimension(dataset, dimension)
     parser = DistinctFieldParamParser(dimension, request.args)
     params, errors = parser.parse()
 
-    etag_cache_keygen(dataset.updated_at, format, parser.key())
-
     if errors:
         return jsonify({'errors': errors}, status=400)
 
+    etag_cache_keygen(dataset.updated_at, format, parser.key())
+
     q = params.get('attribute').column_alias.ilike(params.get('q') + '%')
     offset = int((params.get('page') - 1) * params.get('pagesize'))
-    members = dimension.members(
-        q,
-        offset=offset,
-        limit=params.get('pagesize'))
+    members = dimension.members(q, offset=offset, limit=params.get('pagesize'))
 
     return jsonify({
         'results': list(members),
@@ -108,32 +106,37 @@ def distinct(dataset, dimension, format='json'):
 
 @blueprint.route('/<dataset>/dimensions/<dimension>/<name>')
 def member(dataset, dimension, name, format="html"):
-    self._get_member(dataset, dimension, name)
-    handle_request(request, c, c.member, c.dimension.name)
-    member = [member_apply_links(dataset, dimension, c.member)]
+    dataset, dimension, member, num_entries = \
+        get_member(dataset, dimension, name)
+    member = [member_apply_links(dataset, dimension, member)]
+
     if format == 'json':
         return write_json(member)
     elif format == 'csv':
         return write_csv(member)
 
-    else:
-        # If there are no views set up, then go direct to the entries
-        # search page
-        if view is None:
-            return redirect(
-                url_for(controller='dimension', action='entries',
-                        dataset=c.dataset.name, dimension=dimension,
-                        name=name))
-        if 'embed' in request.params:
-            return redirect(
-                url_for('view.embed', dataset=dataset.name,
-                        widget=view.vis_widget.get('name'),
-                        state=json.dumps(view.vis_state)))
-        return templating.render('dimension/member.html')
+    request_set_views(dataset, member, dimension=dimension.name)
+    
+    # If there are no views set up, then go direct to the entries
+    # search page
+    if view is None:
+        return redirect(url_for('dimension.entries',
+                                dataset=dataset.name,
+                                dimension=dimension,
+                                name=name))
+    if 'embed' in request.args:
+        return redirect(url_for('view.embed', dataset=dataset.name,
+                                widget=view.vis_widget.get('name'),
+                                state=json.dumps(view.vis_state)))
+
+    return render_template('dimension/member.html')
 
 
+@blueprint.route('/<dataset>/dimensions/<dimension>/<name>/entries')
 def entries(dataset, dimension, name, format='html'):
-    self._get_member(dataset, dimension, name)
+    dataset, dimension, member, num_entries = \
+        get_member(dataset, dimension, name)
+    
     if format in ['json', 'csv']:
         return redirect(
             url_for(controller='api/version2', action='search',
@@ -141,8 +144,9 @@ def entries(dataset, dimension, name, format='html'):
                     filter='%s.name:%s' % (dimension, name),
                     **request.params))
 
-    handle_request(request, c, c.member, c.dimension.name)
-    entries = c.dataset.entries(
-        c.dimension.alias.c.name == c.member['name'])
+    request_set_views(dataset, member, dimension=dimension.name)
+    
+    entries = dataset.entries(
+        dimension.alias.c.name == member['name'])
     entries = (entry_apply_links(dataset, e) for e in entries)
-    return templating.render('dimension/entries.html')
+    return render_template('dimension/entries.html')
