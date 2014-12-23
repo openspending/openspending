@@ -24,8 +24,8 @@
     <div class="row">
       <div class="offset2 span10">
         {% formfill form_fill with form_errors -%}
-        <form class="basic form-horizontal" action="{{ h.url_for(controller='editor', action='core_update', dataset=c.dataset.name) }}" method="POST">
-          <input name="name" value="{{ c.dataset.name }}" type="hidden" />
+        <form class="basic form-horizontal" action="{{ url_for('editor.core_update', dataset=dataset.name) }}" method="POST">
+          <input name="name" value="{{ dataset.name }}" type="hidden" />
           <fieldset>
             <div class="control-group">
               <label class="control-label" for="label">{% trans %}Title{% endtrans %}</label>
@@ -37,7 +37,7 @@
               <label class="control-label" for="territories">{% trans %}Category{% endtrans %}</label>
               <div class="controls">
                 <select name="category" class="chzn-select span4">
-                  {% for code,name in c.categories %}
+                  {% for code,name in categories %}
                   <option value="{{ code }}">{{ name }}</option>
                   {% endfor %}
                 </select>
@@ -48,12 +48,12 @@
               <div class="controls">
                 <select name="currency" class="chzn-select span4">
                   <optgroup label="{% trans %}Commonly used currencies{% endtrans %}">
-                    {% for code,name in c.key_currencies %}
+                    {% for code,name in key_currencies %}
                     <option value="{{ code }}">{{ name }} ({{ code }})</option>
                     {% endfor %}
                   </optgroup>
                   <optgroup label="{% trans %}All currencies{% endtrans %}">
-                    {% for code,name in c.all_currencies -%}
+                    {% for code,name in all_currencies -%}
                     <option value="{{ code }}">{{ name }} ({{ code }})</option>
                     {% endfor %}
                   </optgroup>
@@ -64,7 +64,7 @@
               <label class="control-label" for="default_time">{% trans %}Default year{% endtrans %}</label>
               <div class="controls">
                 <select name="default_time" class="chzn-select span4">
-                  {% for time in c.available_times %}
+                  {% for time in available_times %}
                   <option value="{{ time }}">{{ time }}</option>
                   {% else %}
                   <option value="">{% trans %}(No data is loaded){% endtrans %}</option>
@@ -76,7 +76,7 @@
               <label class="control-label" for="territories">{% trans %}Countries{% endtrans %}</label>
               <div class="controls">
                 <select name="territories" multiple="multiple" class="chzn-select span4">
-                  {% for code,name in c.territories -%}
+                  {% for code,name in territories -%}
                   <option value="{{ code }}">{{ name }} ({{ code }})</option>
                   {% endfor %}
                 </select>
@@ -86,7 +86,7 @@
               <label class="control-label" for="languages">{% trans %}Languages{% endtrans %}</label>
               <div class="controls">
                 <select name="languages" multiple="multiple" class="chzn-select span4">
-                  {% for code,name in c.languages -%}
+                  {% for code,name in languages -%}
                   <option value="{{ code }}">{{ name }} ({{ code }})</option>
                   {% endfor %}
                 </select>

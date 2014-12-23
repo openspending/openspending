@@ -90,8 +90,8 @@ def core_update(dataset):
     try:
         schema = dataset_schema(ValidationState(dataset.model))
         data = dict(request.form.items())
-        data['territories'] = request.form.getall('territories')
-        data['languages'] = request.form.getall('languages')
+        data['territories'] = request.form.getlist('territories')
+        data['languages'] = request.form.getlist('languages')
         data = schema.deserialize(data)
         dataset.label = data['label']
         dataset.currency = data['currency']
