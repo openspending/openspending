@@ -115,7 +115,7 @@ def delete(dataset, id):
     return redirect(url_for('editor.index', dataset=dataset.name))
 
 
-@blueprint.route('/<dataset>/sources/<id>/analysis.json', methods=['POST'])
-def analysis(dataset, source, format='json'):
+@blueprint.route('/<dataset>/sources/<id>/analysis.json', methods=['GET'])
+def analysis(dataset, id):
     datset, source = get_source(dataset, id)
     return jsonify(source.analysis)

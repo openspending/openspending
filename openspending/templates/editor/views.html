@@ -99,7 +99,7 @@
           <textarea id="fallback" class="xxlarge" rows="20"
                 name="views">{{ form_fill['views'] }}</textarea>
           <div id="frame">
-            <div id="views" style="height: 300px; width: 620px">{{ form_fill['views']}}</div>
+            <div id="views" style="height: 300px; width: 620px">{{ form_fill.views | tojson }}</div>
           </div>
         </fieldset>
         <div class="form-actions">

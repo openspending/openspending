@@ -124,7 +124,7 @@ def dimensions_edit(dataset, errors={}, mapping=None,
     if not len(mapping) and source and 'mapping' in source.analysis:
         mapping = source.analysis['mapping']
 
-    fill = {'mapping': json.dumps(mapping, indent=2)}
+    fill = {'mapping': mapping}
     if len(dataset):
         return render_template('editor/dimensions_errors.html',
                                dataset=dataset, source=source)
@@ -201,7 +201,7 @@ def views_edit(dataset, errors={}, views=None,
     require.dataset.update(dataset)
 
     views = views or dataset.data.get('views', [])
-    fill = {'views': json.dumps(views, indent=2)}
+    fill = {'views': views}
     return render_template('editor/views.html', dataset=dataset,
                            errors=errors, form_fill=fill)
 

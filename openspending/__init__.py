@@ -15,3 +15,6 @@ import warnings
 warnings.filterwarnings(
     'ignore',
     'Unicode type received non-unicode bind param value.')
+warnings.filterwarnings(
+    'ignore',
+    'Unicode type received non-unicodebind param value.')
