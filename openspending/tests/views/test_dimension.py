@@ -76,16 +76,17 @@ class TestDimensionController(ControllerTestCase):
         assert result.status == '200 OK'
 
         # Links to entries json and csv and entries listing
-        assert '<a href="/cra/cofog1/3.json">' in result
-        assert '<a href="/cra/cofog1/3/entries">Search</a>' in result
+        assert '/cra/cofog1/3.json">' in result.data
+        assert '/cra/cofog1/3/entries">Search</a>' in result.data
 
     def test_view_member_json(self):
-        url_ = url_for('dimension.member', dataset=self.cra.name, dimension='cofog1',
-                       name=self.member['name'], format='json')
+        url_ = url_for('dimension.member', dataset=self.cra.name,
+                       dimension='cofog1', name=self.member['name'],
+                       format='json')
         result = self.client.get(url_)
 
         assert result.status == '200 OK'
-        assert result.content_type == 'application/json'
+        assert result.content_type == 'application/json', result.content_type
 
         json_data = json.loads(result.data)
         assert json_data['name'] == u'3'

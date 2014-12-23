@@ -1,4 +1,4 @@
-{% macro member_nav(dataset, dimension, member, section) -%}
+{% macro member_nav(dataset, dimension, member, legacy_views, section) -%}
     <ul class="breadcrumb">
       <li>
         <i class="icon-home"></i>
@@ -19,6 +19,7 @@
         <a href="{{url_for('dimension.member', dataset=dataset.name,
           name=member['name'], dimension=dimension.name, format='json')}}">
           <img src="{{ static_path('img/icons/json.png') }}" alt="JSON"/>
+        </a>
       </li>
     </ul>
     <h2 class="page-header">
@@ -27,7 +28,7 @@
     
     <div class="tabbable">
       <ul class="nav nav-tabs">
-		    {% for view in c.available_views %}
+		    {% for view in legacy_views.available %}
 		      {% if view.name == section %}
 		        <li class="active">
               <a>{{ view.label }}</a>
@@ -48,7 +49,7 @@
           </a>
         </li>
         
-        {% if 'opencorporates_uri' in c.member and c.member.opencorporates_uri %}
+        {% if 'opencorporates_uri' in member and member.opencorporates_uri %}
           <li class="">
             <a href="{{ member.opencorporates_uri }}">
               <img src="/static/img/icons/external_link.gif" /> OpenCorporates

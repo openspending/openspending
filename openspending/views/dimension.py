@@ -1,12 +1,9 @@
 import logging
 import json
 
-from werkzeug.exceptions import BadRequest, NotFound
+from werkzeug.exceptions import NotFound
 from flask import Blueprint, render_template, request, redirect
-from flask import Response
-from flask.ext.login import current_user
 from flask.ext.babel import gettext as _
-from colander import SchemaNode, String, Invalid
 
 from openspending.model.dimension import Dimension
 from openspending.lib.helpers import etag_cache_keygen, url_for, get_dataset
@@ -16,7 +13,7 @@ from openspending.lib.paramparser import DistinctFieldParamParser
 from openspending.lib.hypermedia import dimension_apply_links, \
     member_apply_links, entry_apply_links
 from openspending.lib.csvexport import write_csv
-from openspending.lib.jsonexport import write_json, jsonify
+from openspending.lib.jsonexport import jsonify
 
 PAGE_SIZE = 100
 
@@ -53,7 +50,7 @@ def get_member(dataset, dimension_name, name):
 
 
 @blueprint.route('/<dataset>/dimensions')
-@blueprint.route('/<dataset>/dimensions.<format>')
+@blueprint.route('/<dataset>/dimensions.<fmt:format>')
 def index(dataset, format='html'):
     dataset = get_dataset(dataset)
     etag_cache_keygen(dataset.updated_at, format)
@@ -65,8 +62,8 @@ def index(dataset, format='html'):
     return render_template('dimension/index.html', dataset=dataset)
 
 
-@blueprint.route('/<dataset>/dimensions/<dimension>')
-@blueprint.route('/<dataset>/dimensions/<dimension>.<format>')
+@blueprint.route('/<dataset>/<nodot:dimension>')
+@blueprint.route('/<dataset>/<nodot:dimension>.<fmt:format>')
 def view(dataset, dimension, format='html'):
     dataset, dimension = get_dimension(dataset, dimension)
     etag_cache_keygen(dataset.updated_at, format)
@@ -82,8 +79,8 @@ def view(dataset, dimension, format='html'):
                            widget_state=widget_state)
 
 
-@blueprint.route('/<dataset>/dimensions/<dimension>.distinct')
-@blueprint.route('/<dataset>/dimensions/<dimension>.distinct.<format>')
+@blueprint.route('/<dataset>/<nodot:dimension>.distinct')
+@blueprint.route('/<dataset>/<nodot:dimension>.distinct.<fmt:format>')
 def distinct(dataset, dimension, format='json'):
     dataset, dimension = get_dimension(dataset, dimension)
     parser = DistinctFieldParamParser(dimension, request.args)
@@ -104,14 +101,15 @@ def distinct(dataset, dimension, format='json'):
     })
 
 
-@blueprint.route('/<dataset>/dimensions/<dimension>/<name>')
+@blueprint.route('/<dataset>/<dimension>/<nodot:name>')
+@blueprint.route('/<dataset>/<dimension>/<nodot:name>.<fmt:format>')
 def member(dataset, dimension, name, format="html"):
     dataset, dimension, member, num_entries = \
         get_member(dataset, dimension, name)
-    member = [member_apply_links(dataset, dimension, member)]
+    member = member_apply_links(dataset, dimension, member)
 
     if format == 'json':
-        return write_json(member)
+        return jsonify(member)
     elif format == 'csv':
         return write_csv(member)
 
@@ -119,20 +117,23 @@ def member(dataset, dimension, name, format="html"):
     
     # If there are no views set up, then go direct to the entries
     # search page
-    if view is None:
+    if request._ds_view is None:
         return redirect(url_for('dimension.entries',
                                 dataset=dataset.name,
-                                dimension=dimension,
-                                name=name))
+                                dimension=dimension.name,
+                                name=member.get('name')))
     if 'embed' in request.args:
         return redirect(url_for('view.embed', dataset=dataset.name,
                                 widget=view.vis_widget.get('name'),
                                 state=json.dumps(view.vis_state)))
 
-    return render_template('dimension/member.html')
+    return render_template('dimension/member.html', dataset=dataset,
+                           dimension=dimension, member=member,
+                           num_entries=num_entries)
 
 
-@blueprint.route('/<dataset>/dimensions/<dimension>/<name>/entries')
+@blueprint.route('/<dataset>/<dimension>/<name>/entries')
+@blueprint.route('/<dataset>/<dimension>/<name>/entries.<fmt:format>')
 def entries(dataset, dimension, name, format='html'):
     dataset, dimension, member, num_entries = \
         get_member(dataset, dimension, name)
@@ -149,4 +150,7 @@ def entries(dataset, dimension, name, format='html'):
     entries = dataset.entries(
         dimension.alias.c.name == member['name'])
     entries = (entry_apply_links(dataset, e) for e in entries)
-    return render_template('dimension/entries.html')
+    return render_template('dimension/entries.html', dataset=dataset,
+                           dimension=dimension, member=member,
+                           num_entries=num_entries)
+

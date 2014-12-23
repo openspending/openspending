@@ -1,42 +1,45 @@
 {% extends "base.html" %}
 
-{% block page_title %}{{ c.member['label'] }} - {% trans %}Entries{% endtrans %}{% endblock %}
+{% from "dimension/_nav.html" import member_nav with context %}
 
-{% block page_description %}{{ h.entry_description(c.member) }}{% endblock %}
+{% block page_title %}{{ member['label'] }} - {% trans %}Entries{% endtrans %}{% endblock %}
+
+{% block page_description %}{{ member | entry_description }}{% endblock %}
 
 {% block optional_head %}
-    {{h.style_tag('lib/vendor/datatables/css/jquery.dataTables')}}
-    {{h.style_tag('lib/vendor/datatables/dataTables.bootstrap')}}
+  <link rel="stylesheet" href="{{static_path('openspendingjs/lib/vendor/datatables/css/jquery.dataTables.css')}}">
+  <link rel="stylesheet" href="{{static_path('openspendingjs/lib/vendor/datatables/dataTables.bootstrap.css')}}">
 {% endblock %}
 
 {% block scripts %}
-    {{h.script_tag('lib/vendor/datatables/js/jquery.dataTables')}}
-    {{h.script_tag('lib/vendor/datatables/dataTables.bootstrap')}}
-    {{h.script_tag('app/data_table/openspending.data_table')}}
-    {{h.script_tag('app/faceter/openspending.faceter')}}
-    {{h.script_tag('app/browser/openspending.browser')}}
-	{{h.script_tag('lib/utils/entries')}}
-    <script>
-      //<![CDATA[
-      (function () {
-        "use strict";
+  <script src="{{static_path('openspendingjs/lib/vendor/datatables/js/jquery.dataTables.js')}}"></script>
+  <script src="{{static_path('openspendingjs/lib/vendor/datatables/dataTables.bootstrap.js')}}"></script>
+  <script src="{{static_path('openspendingjs/app/data_table/openspending.data_table.js')}}"></script>
+  <script src="{{static_path('openspendingjs/app/faceter/openspending.faceter.js')}}"></script>
+  <script src="{{static_path('openspendingjs/app/browser/openspending.browser.js')}}"></script>
+	<script src="{{static_path('openspendingjs/lib/utils/entries.js')}}"></script>
+  <script>
+    //<![CDATA[
+    (function () {
+      "use strict";
 
-        OpenSpending.Utils.entries(
-          "{{c.dataset.name}}",
-          "{{c.dimension.name}}", 
-          "{{c.member.name}}"
-        );
-      }());
-      //]]>
-    </script>
+      OpenSpending.Utils.entries(
+        "{{dataset.name}}",
+        "{{dimension.name}}", 
+        "{{member.name}}"
+      );
+    }());
+    //]]>
+  </script>
 {% endblock %}
 
-{% from "dimension/_nav.html" import member_nav as member_nav %}
+
 
 {% block content %}
   <div>
 
-    {{ member_nav(h, c, 'search') }}
+    {{ member_nav(dataset, dimension, member, legacy_views, legacy_views.active.name if legacy_views.active else 'search') }}
+
     <div id="openspending_browser" class="row">
       <div class="span9 browser_datatable">
       </div>
@@ -45,26 +48,26 @@
         </div>
         <div class="download-links">
           <p>
-            <a class="input-large btn btn-small" href="{{ h.url_for(controller='dimension', action='entries', dataset=c.dataset.name, pagesize=100,
-          name=c.member['name'], dimension=c.dimension.name, format='json')}}" data-pagesize="100">
+            <a class="input-large btn btn-small" href="{{ url_for('dimension.entries', dataset=dataset.name, pagesize=100,
+          name=member['name'], dimension=dimension.name, format='json')}}" data-pagesize="100">
               <i class="icon-download"></i> {% trans %}Download first 100 entries as JSON{% endtrans %}
             </a>
           </p>
           <p>
-            <a class="input-large btn btn-small" href="{{ h.url_for(controller='dimension', action='entries', dataset=c.dataset.name, pagesize=100,
-          name=c.member['name'], dimension=c.dimension.name, format='csv')}}" data-pagesize="100">
+            <a class="input-large btn btn-small" href="{{ url_for('dimension.entries', dataset=dataset.name, pagesize=100,
+          name=member['name'], dimension=dimension.name, format='csv')}}" data-pagesize="100">
               <i class="icon-download"></i> {% trans %}Download first 100 entries as CSV{% endtrans %}
             </a>
           </p>
           <p>
-            <a class="input-large btn btn-small" href="{{ h.url_for(controller='dimension', action='entries', dataset=c.dataset.name,
-          name=c.member['name'], dimension=c.dimension.name, format='json')}}">
+            <a class="input-large btn btn-small" href="{{ url_for('dimension.entries', dataset=dataset.name,
+          name=member['name'], dimension=dimension.name, format='json')}}">
               <i class="icon-download"></i> {% trans %}Download all entries as JSON{% endtrans %}
             </a>
           </p>
           <p>
-            <a class="input-large btn btn-small" href="{{ h.url_for(controller='dimension', action='entries', dataset=c.dataset.name,
-          name=c.member['name'], dimension=c.dimension.name, format='csv')}}">
+            <a class="input-large btn btn-small" href="{{ url_for('dimension.entries', dataset=dataset.name,
+          name=member['name'], dimension=dimension.name, format='csv')}}">
               <i class="icon-download"></i> {% trans %}Download all entries as CSV{% endtrans %}
             </a>
           </p>
@@ -75,7 +78,7 @@
     <div class="row">
       <div class="span9">
         <div class="well">
-          <h3>{% trans member=c.member['label'] %}Total of {{member}} by year{% endtrans %}</h3>
+          <h3>{% trans member=member['label'] %}Total of {{member}} by year{% endtrans %}</h3>
           <table class="table">
             <thead>
               <tr>
