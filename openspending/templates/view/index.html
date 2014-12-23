@@ -1,31 +1,36 @@
 {% extends "base.html" %}
-{% from "dataset/_nav.html" import dataset_nav as dataset_nav %}
+{% from "dataset/_nav.html" import dataset_nav with context %}
   
 {% block page_title %}
-{% trans %}Library of visualisations{% endtrans %} - {{c.dataset.label or c.dataset.name}}
+  {% trans %}Library of visualisations{% endtrans %} - {{ dataset.label or dataset.name }}
 {% endblock %}
 
-{% block page_desc %}
-{{h.markdown_preview(c.dataset.description)}}
-{% endblock %}
+{% block page_desc %}{{ dataset.description | markdown_preview }}{% endblock %}
 
 {% block content %}
-  {{dataset_nav(h, c, can, 'views')}}
+  {{ dataset_nav(dataset, can, legacy_views, 'views') }}
 
   <!-- templates/view/index.html content -->
   <div class="row">
     <div class="span8">
-      {% for view in c.views %}
+      {% for view in views %}
       <ul class="unstyled">
         <li>
-          <h3><a href="{{h.url_for(controller='view', action='view', dataset=c.dataset.name, name=view.name)}}">
-            {{view.label}}</a></h3>
-          <span class="label label-info">{{view.widget}}</span> {% trans user=view.account.display_name %}by {{user}}{% endtrans %}
+          <h3>
+            <a href="{{url_for('view.view', dataset=dataset.name, name=view.name)}}">
+              {{view.label}}
+            </a>
+          </h3>
+          <span class="label label-info">
+            {{view.widget}}
+          </span>
+          {% trans user=view.account.display_name %}by {{user}}{% endtrans %}
         </li>
       </ul>
       {% endfor %}
     </div>  
   </div>
+
 {% endblock %}
 
 

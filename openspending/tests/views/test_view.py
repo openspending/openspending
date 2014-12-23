@@ -18,7 +18,7 @@ class TestViewController(ControllerTestCase):
     def test_index(self):
         response = self.client.get(url_for('view.index', dataset='cra'),
                                    query_string={'api_key': self.user.api_key})
-        assert 'Library of visualisations' in response.body
+        assert 'Library of visualisations' in response.data
 
     def test_delete(self):
         # TODO: Create the view using a fixture
@@ -34,7 +34,7 @@ class TestViewController(ControllerTestCase):
         dataset = Dataset.by_name('cra')
         view = View.by_name(dataset, 'i-am-a-banana')
         assert view is None
-        assert '302' in r.status
+        assert '302' in r.status, r.status
 
     def test_delete_by_unauthorized_user(self):
         # TODO: Create the view using a fixture
@@ -55,7 +55,7 @@ class TestViewController(ControllerTestCase):
     def test_new(self):
         response = self.client.get(url_for('view.new', dataset='cra'),
                                    query_string={'api_key': self.user.api_key})
-        assert 'widgets.js' in response.body
+        assert 'widgets.js' in response.data
 
     def test_create_noauth(self):
         response = self.client.post(url_for('view.create', dataset='cra'),
@@ -77,12 +77,12 @@ class TestViewController(ControllerTestCase):
         response = self.client.get(url_for('view.view', dataset='cra',
                                            name='i-am-a-banana',
                                            format='json'))
-        data = json.loads(response.body)
+        data = json.loads(response.data)
         assert data['widget'] == 'treemap', data
 
         response = self.client.get(url_for('view.view', dataset='cra',
                                            name='i-am-a-banana'))
-        assert 'title>I am a banana!' in response.body, response
+        assert 'title>I am a banana!' in response.data, response
 
     def test_update(self):
         """
@@ -90,7 +90,7 @@ class TestViewController(ControllerTestCase):
         """
         # Create the view (we do it via a controller but it would be
         # better to create it manually (or via a fixture)
-        self.client.post(url_for('view.create', dataset='cra'),
+        res = self.client.post(url_for('view.create', dataset='cra'),
                          data={'widget': 'treemap',
                                'label': 'I am a banana!',
                                'state': '{"foo":"banana"}'},
@@ -104,10 +104,11 @@ class TestViewController(ControllerTestCase):
                                           'description': 'An apple!'})
         # The user should receive a 403 Forbidden (actually should get 401)
         assert '403' in response.status, \
-            "A non-user was able to update a view"
+            "A non-user was able to update a view: %s" % response.status
 
         dataset = Dataset.by_name('cra')
         view = View.by_name(dataset, 'i-am-a-banana')
+
         assert view.label == 'I am a banana!', \
             "View's label was changed by a non-user"
         assert view.state['foo'] == 'banana', \
@@ -159,17 +160,17 @@ class TestViewController(ControllerTestCase):
 
     def test_embed(self):
         response = self.client.get(url_for('view.embed', dataset='cra'),
-                                   data={'widget': 'treemap'})
-        assert u"Embedded" in response.body, response.body
+                                   query_string={'widget': 'treemap'})
+        assert u"Embedded" in response.data.decode('utf-8'), response.data
         response = self.client.get(url_for('view.embed', dataset='cra'))
         assert "400" in response.status, response.status
 
     def test_embed_state(self):
         response = self.client.get(url_for('view.embed', dataset='cra'),
-                                   data={'widget': 'treemap',
-                                         'state': '{"foo":"banana"}'})
-        assert u"banana" in response.body, response.body
+                                   query_string={'widget': 'treemap',
+                                                 'state': '{"foo":"banana"}'})
+        assert u"banana" in response.data.decode('utf-8'), response.data
         response = self.client.get(url_for('view.embed', dataset='cra'),
-                                   data={'widget': 'treemap',
-                                         'state': '{"foo:"banana"}'})
+                                   query_string={'widget': 'treemap',
+                                                 'state': '{"foo:"banana"}'})
         assert "400" in response.status, response.status

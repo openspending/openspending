@@ -1,80 +1,107 @@
 {% extends "base.html" %}
-{% from "dataset/_nav.html" import dataset_nav as dataset_nav %}
-{% from "_util.html" import share_scripts as share_scripts %}
-{% from "_util.html" import share_body as share_body %}
-{% from "view/_widgets.html" import widget_js as widget_js %}
+{% from "dataset/_nav.html" import dataset_nav with context %}
+{% from "_util.html" import share_scripts with context %}
+{% from "_util.html" import share_body with context %}
+{% from "view/_widgets.html" import widget_js with context %}
   
-{% block page_title %}{{c.named_view.label}} - {{c.dataset.label or c.dataset.name}}{% endblock %}
+{% block page_title %}{{ named_view.label }} - {{ dataset.label or dataset.name }}{% endblock %}
 
-{% block page_desc %}{{h.markdown_preview(c.named_view.description or c.dataset.description)}}{% endblock %}
+{% block page_desc %}{{ named_view.description or dataset.description | markdown_preview }}{% endblock %}
 
 {% block scripts%}
-<!-- templates/dataset/view.html scripts -->
-{{widget_js(h, c, 'widget', c.widget, c.named_view.state, handles=True)}}
-{{share_scripts(g)}}
-<script type="text/javascript">
-  $("#view-delete-link").click(function(e) {
-    $("#delete-view").submit();
-  });
-</script>
+  
+  <!-- templates/dataset/view.html scripts -->
+  {{widget_js('widget', widget, named_view.state, handles=True)}}
+  {{share_scripts()}}
+  <script type="text/javascript">
+    $("#view-delete-link").click(function(e) {
+      $("#delete-view").submit();
+    });
+  </script>
+
 {% endblock %}
 
 {% block content %}
-{{dataset_nav(h, c, can, 'views')}}
+  {{ dataset_nav(dataset, can, legacy_views, 'views') }}
 
-<!-- templates/view/view.html content -->
-<div class="row">
-  {% if can.view.update(c.dataset, c.named_view) %}
-  <form id="widget-save-form" action="{{h.url_for(controller='view', action='update', dataset=c.dataset.name, name=c.named_view.name)}}" style="display:none;" method="post">
-<div class="span7">
-<input type="text" class="span6" name="label" value="{{c.named_view.label}}"/>
-<textarea class="span6" rows="6" name="description">{{c.named_view.description}}</textarea>
-<input type="hidden" id="widget-save-state" name="state" value="{{c.named_view.state}}"/>
-</div>
-<div class="span5">
-<p>
-  <div class="help-block">
-    {% trans %}Here you can rename your widget and/or update the description.
-    You can also modify the widget itself, but keep in mind that others might be 
-    using and embedding the widget as it is now on their sites. 
-    <strong>Changing the widget here will change it everywhere.</strong> 
-    This might then create a discrepancy between the widget and the context of 
-    a page in which it's embedded.{% endtrans %}
+  <!-- templates/view/view.html content -->
+  <div class="row">
+    {% if can.view.update(dataset, named_view) %}
+      <form id="widget-save-form" action="{{url_for('view.update', dataset=dataset.name, name=named_view.name)}}"
+        style="display:none;" method="post">
+        <div class="span7">
+          <input type="text" class="span6" name="label" value="{{named_view.label}}"/>
+          <textarea class="span6" rows="6" name="description">{{named_view.description}}</textarea>
+          <input type="hidden" id="widget-save-state" name="state" value="{{named_view.state}}"/>
+        </div>
+        
+        <div class="span5">
+          <p>
+            <div class="help-block">
+              {% trans %}Here you can rename your widget and/or update the description.
+              You can also modify the widget itself, but keep in mind that others might be 
+              using and embedding the widget as it is now on their sites. 
+              <strong>Changing the widget here will change it everywhere.</strong> 
+              This might then create a discrepancy between the widget and the context of 
+              a page in which it's embedded.{% endtrans %}
+            </div>
+          </p>
+          <p>
+            <button class="btn btn-large btn-success">
+              {% trans %}Update widget{% endtrans %}
+            </button>
+          </p>
+        </div>
+      </form>
+    {% endif %}
   </div>
-</p>
-<p><button class="btn btn-large btn-success">{% trans %}Update widget{% endtrans %}</button></p>
-</div>
-  </form>
-  {% endif %}
-</div>
-<div class="row">
-  <div class="span12">
-<div id="widget" style="width: auto; min-height: 400px"/>
-  </div>
-</div>
-<div class="row">
-  <div class="span12">
-    <div class="well widget-context">
-      <div class="pull-right">
-        {% if can.view.delete(c.dataset, c.named_view) %}
-          <a href="#" class="btn btn-mini btn-danger"
-            id="view-delete-link"><i class="icon-trash icon-white"></i> {% trans %}Delete{% endtrans %}</a>
-        {% endif %}
-        <a href="#" class="btn btn-mini" id="widget-embed-link"><i class="icon-share"></i> {% trans %}Embed{% endtrans %}</a>
-        <a href="#" class="btn btn-mini hidden" id="widget-edit-link"><i class="icon-cog"></i> {% trans %}Change{% endtrans %}</a>
-        <a href="#" class="btn btn-mini hidden" id="widget-download-link"><i class="icon-download"></i> {% trans %}Data{% endtrans %}</a>
-      </div>
-       <p>{{c.named_view.description}}</p>
+
+  <div class="row">
+    <div class="span12">
+      <div id="widget" style="width: auto; min-height: 400px"/>
     </div>
   </div>
-</div>
 
-<form action="{{h.url_for(controller='view', action='delete', dataset=c.dataset.name, name=c.named_view.name)}}"
-  method="POST" id="delete-view">
-  <input type="hidden" name="_method" value="DELETE" />
-</form>
+  <div class="row">
+    <div class="span12">
+      <div class="well widget-context">
+        <div class="pull-right">
+          {% if can.view.delete(dataset, named_view) %}
+            <a href="#" class="btn btn-mini btn-danger" id="view-delete-link">
+              <i class="icon-trash icon-white"></i>
+              {% trans %}Delete{% endtrans %}
+            </a>
+          {% endif %}
+          
+          <a href="#" class="btn btn-mini" id="widget-embed-link">
+            <i class="icon-share"></i>
+            {% trans %}Embed{% endtrans %}
+          </a>
+          
+          <a href="#" class="btn btn-mini hidden" id="widget-edit-link">
+            <i class="icon-cog"></i>
+            {% trans %}Change{% endtrans %}
+          </a>
+          
+          <a href="#" class="btn btn-mini hidden" id="widget-download-link">
+            <i class="icon-download"></i>
+            {% trans %}Data{% endtrans %}
+          </a>
+        </div>
+        
+        <p>
+          {{ named_view.description | markdown }}
+        </p>
+      </div>
+    </div>
+  </div>
 
-{{share_body(g)}}
+  <form action="{{url_for('view.delete', dataset=dataset.name, name=named_view.name)}}"
+    method="POST" id="delete-view">
+    <input type="hidden" name="_method" value="DELETE" />
+  </form>
+
+  {{share_body()}}
 
 {% endblock %}
 
