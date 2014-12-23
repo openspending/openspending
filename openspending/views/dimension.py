@@ -9,13 +9,13 @@ from flask.ext.babel import gettext as _
 from colander import SchemaNode, String, Invalid
 
 from openspending.model.dimension import Dimension
-from openspending.lib.helpers import etag_cache_keygen, url_for
+from openspending.lib.helpers import etag_cache_keygen, url_for, get_dataset
 from openspending.lib.widgets import get_widget
 from openspending.lib.paramparser import DistinctFieldParamParser
 from openspending.lib.hypermedia import dimension_apply_links, \
     member_apply_links, entry_apply_links
 from openspending.lib.csvexport import write_csv
-from openspending.lib.jsonexport import write_json, to_jsonp
+from openspending.lib.jsonexport import write_json, jsonify
 
 PAGE_SIZE = 100
 
@@ -23,15 +23,16 @@ log = logging.getLogger(__name__)
 blueprint = Blueprint('dimension', __name__)
 
 
-def get_dimension(self, dataset, dimension):
+def get_dimension(dataset, dimension):
     dataset = get_dataset(dataset)
     try:
-        c.dimension = c.dataset[dimension]
+        dimension = dataset[dimension]
+        if not isinstance(dimension, Dimension):
+            raise NotFound(_('This is not a dimension'))
+        return dataset, dimension
     except KeyError:
         raise NotFound(_('This is not a dimension'))
-    if not isinstance(c.dimension, Dimension):
-        raise NotFound(_('This is not a dimension'))
-
+    
 
 def get_member(dataset, dimension_name, name):
     dataset = get_dataset(dataset)
@@ -42,7 +43,7 @@ def get_member(dataset, dimension_name, name):
             members = list(dimension.members(cond, limit=1))
             if not len(members):
                 raise NotFound(_('Sorry, there is no member named %(name)s',
-                                 name=name)
+                                 name=name))
             c.dimension = dimension
             c.member = members.pop()
             c.num_entries = dimension.num_entries(cond)
@@ -54,49 +55,54 @@ def get_member(dataset, dimension_name, name):
 @blueprint.route('/<dataset>/dimensions')
 @blueprint.route('/<dataset>/dimensions.<format>')
 def index(dataset, format='html'):
-    self._get_dataset(dataset)
-    etag_cache_keygen(c.dataset.updated_at, format)
+    dataset = get_dataset(dataset)
+    etag_cache_keygen(dataset.updated_at, format)
     if format == 'json':
         dimensions = [dimension_apply_links(dataset, d.as_dict())
-                      for d in c.dataset.dimensions]
-        return to_jsonp(dimensions)
-    else:
-        return templating.render('dimension/index.html')
+                      for d in dataset.dimensions]
+        return jsonify(dimensions)
+    
+    return render_template('dimension/index.html', dataset=dataset)
 
 
 @blueprint.route('/<dataset>/dimensions/<dimension>')
 @blueprint.route('/<dataset>/dimensions/<dimension>.<format>')
 def view(dataset, dimension, format='html'):
-    self._get_dimension(dataset, dimension)
-    etag_cache_keygen(c.dataset.updated_at, format)
+    dataset, dimension = get_dimension(dataset, dimension)
+    etag_cache_keygen(dataset.updated_at, format)
+
     if format == 'json':
-        dimension = dimension_apply_links(dataset, c.dimension.as_dict())
-        return to_jsonp(dimension)
-    c.widget = get_widget('aggregate_table')
-    c.widget_state = {'drilldowns': [c.dimension.name]}
-    return templating.render('dimension/view.html')
+        dimension = dimension_apply_links(dataset.name, dimension.as_dict())
+        return jsonify(dimension)
+
+    widget = get_widget('aggregate_table')
+    widget_state = {'drilldowns': [dimension.name]}
+    return render_template('dimension/view.html', dataset=dataset,
+                           dimension=dimension, widget=widget,
+                           widget_state=widget_state)
 
 
 @blueprint.route('/<dataset>/dimensions/<dimension>.distinct')
 def distinct(dataset, dimension, format='json'):
-    self._get_dimension(dataset, dimension)
-    parser = DistinctFieldParamParser(c.dimension, request.params)
+    dataset, dimension = get_dimension(dataset, dimension)
+    parser = DistinctFieldParamParser(dimension, request.args)
     params, errors = parser.parse()
-    etag_cache_keygen(c.dataset.updated_at, format, parser.key())
+
+    etag_cache_keygen(dataset.updated_at, format, parser.key())
 
     if errors:
-        response.status = 400
-        return {'errors': errors}
+        return jsonify({'errors': errors}, status=400)
 
     q = params.get('attribute').column_alias.ilike(params.get('q') + '%')
     offset = int((params.get('page') - 1) * params.get('pagesize'))
-    members = c.dimension.members(
+    members = dimension.members(
         q,
         offset=offset,
         limit=params.get('pagesize'))
-    return to_jsonp({
+
+    return jsonify({
         'results': list(members),
-        'count': c.dimension.num_entries(q)
+        'count': dimension.num_entries(q)
     })
 
 

@@ -1,39 +1,37 @@
 {% extends "base.html" %}
 
-{% block page_title %}{{c.dimension.label or c.dimension.name}}{% endblock %}
-{% block page_desc %}{{h.markdown_preview(c.dimension.description or c.dataset.description)}}{% endblock %}
+{% block page_title %}{{dimension.label or dimension.name}}{% endblock %}
+{% block page_desc %}{{dimension.description or dataset.description | markdown_preview }}{% endblock %}
 
-{% from "dimension/_widgets.html" import widget_js as widget_js %}
+{% from "dimension/_widgets.html" import widget_js with context %}
 {% from "_util.html" import share_scripts as share_scripts %}
+{% from "_util.html" import share_body as share_body %}
 
 {% block scripts %}
-    {{widget_js(h, c, 'widget', c.widget, c.widget_state, handles=True)}}
-    {{share_scripts(g)}}
+    {{widget_js(dataset, 'widget', widget, widget_state, handles=True)}}
+    {{share_scripts()}}
 {% endblock %}
-
-{% from "dimension/_nav.html" import member_nav as member_nav %}
-{% from "_util.html" import share_body as share_body %}
 
 {% block content %}
   <div py:def="content">
     <ul class="breadcrumb">
       <div class="representations">
-        <a href="{{h.url_for(controller='dimension', action='view', dataset=c.dataset.name,
-          dimension=c.dimension.name, format='json')}}">
-          <img src="{{h.static('img/icons/json.png')}}" alt="JSON" xml:lang="en" /></a>
+        <a href="{{url_for('dimension.view', dataset=dataset.name,
+          dimension=dimension.name, format='json')}}">
+          <img src="{{ static_path('img/icons/json.png') }}" alt="JSON"/>
       </div>
       <li>
         <i class="icon-home"></i>
-        <a href="{{h.url_for(controller='dataset', action='view', dataset=c.dataset.name)}}">
-          {{c.dataset.label}}</a>
+        <a href="{{url_for('dataset.view', dataset=dataset.name)}}">
+          {{dataset.label}}</a>
         <span class="divider">/</span>
       </li>
       <li class="active">
-        {{c.dimension.label}}
+        {{dimension.label}}
       </li>
     </ul>
     <h2 class="page-header">
-      {{c.dimension.label or c.dimension.name}}
+      {{dimension.label or dimension.name}}
     </h2>
 
     <div class="row">
@@ -44,14 +42,14 @@
             <a href="#" class="btn btn-mini hidden" id="widget-edit-link"><i class="icon-cog"></i> {% trans %}Change{% endtrans %}</a>
             <a href="#" class="btn btn-mini hidden" id="widget-download-link"><i class="icon-download"></i> {% trans %}Data{% endtrans %}</a>
           </div>
-          <p>{{c.dimension.description}} &nbsp;</p>
+          <p>{{dimension.description}} &nbsp;</p>
         </div>
       </div>
       <div class='span12'>
         <div id="widget" style="width: auto; height: auto"/>
       </div>
     </div>
-    {{share_body(g)}}
+    {{share_body()}}
   </div>
 
 {% endblock %}
