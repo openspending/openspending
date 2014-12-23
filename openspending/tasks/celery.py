@@ -4,8 +4,6 @@ import os
 from celery import Celery, signals
 from celery.bin import Option
 
-from openspending.command import _configure_pylons
-
 # Get celery broker and backend from the environment with localhost
 # RabbitMQ (or other AMQP message queue on 5672) as default
 BROKER = os.environ.get('BROKER_URL', 'amqp://guest:guest@localhost:5672//')
