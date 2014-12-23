@@ -1,9 +1,10 @@
+from openspending.core import badge_images
 from openspending.lib.helpers import url_for
 
 
 def dataset_apply_links(dataset):
     dataset['html_url'] = url_for('dataset.view', dataset=dataset['name'])
-    dataset['badges'] = badges_apply_links(dataset['badges'])
+    dataset['badges'] = [badge_apply_links(b) for b in dataset['badges']]
     return dataset
 
 
@@ -39,18 +40,6 @@ def drilldowns_apply_links(dataset_name, drilldowns):
     return linked_data
 
 
-def badges_apply_links(badges):
-    """
-    From a list of badges, generate a linked representation of each badge
-    in the list.
-    """
-    linked_badges = []
-    # Generate links for each badge and append to linked_badges and return it
-    for badge in badges:
-        linked_badges.append(badge_apply_links(badge))
-    return linked_badges
-
-
 def badge_apply_links(badge):
     """
     Add links or to badge dictionary representation or modify a dictionary
@@ -59,6 +48,5 @@ def badge_apply_links(badge):
     # Add an html_url to represent the html representation of the badge
     badge['html_url'] = url_for('badge.information', id=badge['id'])
     # Change the image url to be a fully qualified url if it isn't already
-    needs_qualified = not str(badge['image']).startswith('http://')
-    badge['image'] = url_for(str(badge['image']), qualified=needs_qualified)
+    badge['image'] = badge_images.url(badge['image'])
     return badge

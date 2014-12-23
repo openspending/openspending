@@ -1,3 +1,5 @@
+import tempfile
+
 from flask.ext.testing import TestCase as FlaskTestCase
 
 from openspending.core import create_app
@@ -11,7 +13,8 @@ class TestCase(FlaskTestCase):
             'DEBUG': True,
             'TESTING': True,
             'SQLALCHEMY_DATABASE_URI': 'sqlite:///:memory:',
-            'CELERY_ALWAYS_EAGER': True
+            'CELERY_ALWAYS_EAGER': True,
+            'UPLOADS_DEFAULT_DEST': tempfile.mkdtemp()
         })
         #init_db(app)
         return app

@@ -5,6 +5,7 @@ from flask.ext.login import LoginManager
 from flask.ext.babel import Babel
 from flaskext.gravatar import Gravatar
 from flask.ext.cache import Cache
+from flaskext.uploads import UploadSet, IMAGES, configure_uploads
 import formencode_jinja2
 
 from openspending import default_settings
@@ -15,6 +16,8 @@ db = SQLAlchemy()
 babel = Babel()
 login_manager = LoginManager()
 cache = Cache()
+
+badge_images = UploadSet('badgeimages', IMAGES)
 
 
 def create_app(**config):
@@ -32,6 +35,7 @@ def create_app(**config):
     babel.init_app(app)
     cache.init_app(app)
     login_manager.init_app(app)
+    configure_uploads(app, (badge_images,))
 
     # HACKY SHIT IS HACKY
     from openspending.lib.solr_util import configure as configure_solr

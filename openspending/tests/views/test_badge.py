@@ -64,37 +64,21 @@ class TestBadgeController(ControllerTestCase):
         """
 
         # Get all existing badges (should be zero but we never know)
-        badge_json = self.client.get(url_for('badge.index',
-                                             format='json'))
+        badge_json = self.client.get(url_for('badge.index', format='json'))
         badge_index = json.loads(badge_json.data)
         existing_badges = len(badge_index['badges'])
 
-        # The dummy files we'll upload
-        file_ = (StringIO("badge-image"), "badge.png")
-
-        # Create upload directory if it doesn't exist
-        object_upload_dir = os.path.join(
-            config['pylons.paths']['static_files'],
-            config.get('openspending.upload_directory', 'test_uploads'))
-
-        if os.path.isdir(object_upload_dir):
-            # Upload dir exists (so we won't change a thing)
-            upload_dir_created = False
-        else:
-            # Doesn't exist (so we'll remove it afterwards
-            os.mkdir(object_upload_dir, 0o744)
-            upload_dir_created = True
-
         # Create a new badge (should return unauthorized)
-        response = self.client.post(
-            url_for('badge.create'),
-            data={'badge-label': 'testbadge',
-                  'badge-image': file_,
-                  'badge-description': 'testdescription'})
+        file_ = (StringIO("badge-image"), "badge-foo.png")
+        response = self.client.post(url_for('badge.create'),
+                                    data={'label': 'testbadge',
+                                          'image': file_,
+                                          'description': 'testdescription'})
 
         # Check if it returned Forbidden (which is http status code 403)
         # This should actually return 401 Unauthorized but that's an
         # authentication implementation failure (which should be fixed)
+
         assert '403' in response.status, \
             "Non-user should get an error when trying to create a badge"
 
@@ -104,11 +88,12 @@ class TestBadgeController(ControllerTestCase):
             "A non-user was able to change the existing badges"
 
         # Create a new badge (should return forbidden)
+        file_ = (StringIO("badge-image"), "badge-foo.png")
         response = self.client.post(
             url_for('badge.create'),
-            data={'badge-label': 'testbadge',
-                    'badge-image': file_,
-                    'badge-description': 'testdescription'},
+            data={'label': 'testbadge',
+                  'image': file_,
+                  'description': 'testdescription'},
             query_string={'api_key': self.user.api_key})
 
         # Check if it returned Forbidden (which is http status code 403)
@@ -120,11 +105,12 @@ class TestBadgeController(ControllerTestCase):
         assert badge_index == json.loads(badge_json.data), \
             "A non-admin user was able to change the existing badges"
 
+        file_ = (StringIO("badge-image"), "badge-foo.png")
         response = self.client.post(url_for('badge.create'),
-            data={'badge-label': 'testbadge',
-                  'badge-image': file_,
-                  'badge-description': 'testdescription'},
-            query_string={'api_key': self.admin.api_key})
+                                    data={'label': 'testbadge',
+                                          'image': file_,
+                                          'description': 'testdescription'},
+                                    query_string={'api_key': self.admin.api_key})
 
         # Check to see there is now badge more in the list than to begin with
         badge_json = self.client.get(url_for('badge.index', format='json'))
@@ -134,20 +120,9 @@ class TestBadgeController(ControllerTestCase):
 
         # Check image exists
         # Get image filename from url
-        image = badge_index['badges'][0]['image'].split('/')[-1]
-        # Get the uploaded file on the system
-        upload_dir = helpers.get_object_upload_dir(Badge)
-        uploaded_file = os.path.join(upload_dir, image)
-        # Check if file exists
-        assert os.path.exists(uploaded_file), \
-            "Uploaded badge image isn't present on the file system"
-        # Remove the file or we'll have a lot of random files after test runs
-        os.remove(uploaded_file)
-
-        # If we have created the upload directory we should remove upload_dir
-        if upload_dir_created:
-            os.rmdir(upload_dir)
-            os.rmdir(object_upload_dir)
+        image_url = badge_index['badges'][0]['image']
+        image = self.client.get(image_url)
+        assert image.data == 'badge-image', image.data
 
         # Check to be certain both label and description are present
         assert badge_index['badges'][0]['label'] == 'testbadge', \

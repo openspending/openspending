@@ -21,3 +21,6 @@ CACHE_TYPE = 'simple'
 
 WIDGETS_BASE = '/static/openspendingjs/widgets/'
 WIDGETS = ['treemap', 'bubbletree', 'aggregate_table']
+
+#UPLOADED_FILES_DEST = '/tmp/openspending-uploads'
+UPLOADS_DEFAULT_DEST = '/tmp/openspending-uploads'

@@ -82,15 +82,3 @@ def jsonify(obj, status=200, headers=None, index=False, encoder=AppEncoder):
     return Response(data, headers=headers,
                     status=status,
                     mimetype='application/json')
-
-
-@decorator
-def jsonpify(func, *args, **kwargs):
-    """\
-    A decorator that reformats the output as JSON; or, if the
-    *callback* parameter is specified (in the HTTP request), as JSONP.
-
-    Modelled after pylons.decorators.jsonify.
-    """
-    data = func(*args, **kwargs)
-    return jsonify(data)

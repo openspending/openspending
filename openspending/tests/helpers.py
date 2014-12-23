@@ -4,7 +4,8 @@ from openspending.core import db
 from openspending.lib import solr_util as solr
 
 from datetime import datetime
-import os.path
+import os
+import shutil
 import json
 import csv
 
@@ -98,6 +99,7 @@ def init_db(app):
 def clean_db(app):
     db.session.rollback()
     db.drop_all(app=app)
+    shutil.rmtree(app.config.get('UPLOADS_DEFAULT_DEST'))
 
 
 def clean_solr():

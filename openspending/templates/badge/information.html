@@ -1,36 +1,49 @@
 {% extends "base.html" %}
 
-{% block page_title %}{% trans %}Badge{% endtrans %}: {{ c.badge.label }}{% endblock %}
+{% block page_title %}{% trans %}Badge{% endtrans %}: {{ badge.label }}{% endblock %}
 
 {% block content %}
-<h2 class="page-header">{% trans %}Badge{% endtrans %}: <em>{{ c.badge.label }}</em></h2>
+  <h2 class="page-header">{% trans %}Badge{% endtrans %}: <em>{{ badge.label }}</em></h2>
 
-<div class="row">
-  <div class="span8">
-    <h3>{% trans %}Representative image{% endtrans %}</h3>
-    
-    <img src="{{ c.badge.image }}" alt="{{ c.badge.label }}">
+  <div class="row">
+    <div class="span8">
+      <h3>{% trans %}Representative image{% endtrans %}</h3>
+      
+      <img src="{{ badge.image }}" alt="{{ badge.label }}">
 
-    <h3>{% trans %}Description{% endtrans %}</h3>
-    
-    {{ h.markdown(c.badge.description) }}
+      <h3>{% trans %}Description{% endtrans %}</h3>
+      
+      {{ badge.description | markdown }}
 
-    <hr>
+      <hr>
 
-    <p><small><a href="{{ h.url_for(controller='badge', action='index') }}">&laquo; {% trans %}Look at more OpenSpending badges{% endtrans %}</a></small></p>
-  </div>
-  <div class="span4">
-    <h3>{% trans %}Datasets{% endtrans %}</h3>
-    {% if c.badge.datasets %}
-    <p>{% trans %}The following datasets have been awarded this badge{% endtrans %}</p>
-    <ul>{% for dataset in c.badge.datasets %}
-      <li><a href="{{ h.url_for(controller='dataset', action='view', dataset=dataset.name)}} }}">{{dataset.label}}</a></li>
-    {% endfor %}</ul>
-    {% else %}
-    <div class="alert alert-warning">
-      <p><{% trans %}<strong>No</strong> datasets have been awarded this badge{% endtrans %}</p>
+      <p>
+        <small>
+          <a href="{{ url_for('badge.index') }}">
+            &laquo; {% trans %}Look at more OpenSpending badges{% endtrans %}
+          </a>
+        </small>
+      </p>
     </div>
-    {% endif %}
+    <div class="span4">
+      <h3>{% trans %}Datasets{% endtrans %}</h3>
+      {% if badge.datasets %}
+      <p>{% trans %}The following datasets have been awarded this badge{% endtrans %}</p>
+      <ul>
+        {% for dataset in badge.datasets %}
+        <li>
+          <a href="{{ url_for('dataset.view', dataset=dataset.name)}} }}">
+            {{dataset.label}}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+        <div class="alert alert-warning">
+          <p><{% trans %}<strong>No</strong> datasets have been awarded this badge{% endtrans %}</p>
+        </div>
+      {% endif %}
+    </div>
   </div>
-</div>
+
 {% endblock %}
