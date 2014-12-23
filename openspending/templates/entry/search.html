@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+
 {% block page_title %}{% trans %}Search{% endtrans %}{% endblock %}
 
 {% block content %}
@@ -31,7 +32,7 @@
               {% trans %}All data{% endtrans %}
             </label>
             <br/>
-          <input type="submit" class="btn" value="{% trans %}Search{% endtrans %}"  onClick="_gaq.push(['_trackEvent', 'Search', 'Request', 'Search page']);"/>
+          <input type="submit" class="btn" value="{% trans %}Search{% endtrans %}" onClick="_gaq.push(['_trackEvent', 'Search', 'Request', 'Search page']);"/>
           
           <div id="pagination-info"></div>
         </form>
@@ -67,7 +68,7 @@
     {{to.label}}
   </script>
   {% endraw %}
-  {{h.script_tag('lib/vendor/jquery.highlight-3.min')}}
-  {{h.script_tag('lib/entries-search')}}
+  <script type="text/javascript" src="{{ static_path('openspendingjs/lib/vendor/jquery.highlight-3.min.js') }}"></script>
+  <script type="text/javascript" src="{{ static_path('openspendingjs/lib/entries-search.js') }}"></script>
 {% endblock %}
 
