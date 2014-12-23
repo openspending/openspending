@@ -9,6 +9,8 @@ from flaskext.uploads import UploadSet, IMAGES, configure_uploads
 import formencode_jinja2
 
 from openspending import default_settings
+from openspending.lib.routing import NamespaceRouteRule
+from openspending.lib.routing import FormatConverter, NoDotConverter
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -22,6 +24,10 @@ badge_images = UploadSet('badgeimages', IMAGES)
 
 def create_app(**config):
     app = Flask(__name__)
+    app.url_rule_class = NamespaceRouteRule
+    app.url_map.converters['fmt'] = FormatConverter
+    app.url_map.converters['nodot'] = NoDotConverter
+
     app.config.from_object(default_settings)
     app.config.from_envvar('OPENSPENDING_SETTINGS', silent=True)
     app.config.update(config)
