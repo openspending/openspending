@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 
-{% block page_title %}{% trans dataset=c.dataset.label %}Dimensions in {{ dataset }}{% endtrans %}{% endblock %}
+{% block page_title %}{% trans dataset=dataset.label %}Dimensions in {{ dataset }}{% endtrans %}{% endblock %}
 
 {% from "_dimension_list.html" import dimensions_list as dimensions_list %}
 
 {% block content %}
   <div>
-    <h2 class="page-header">{{ c.dataset.label }}: {% trans %}Dimensions{% endtrans %}
+    <h2 class="page-header">{{ dataset.label }}: {% trans %}Dimensions{% endtrans %}
       <small>{% trans %}Facets of the dataset.{% endtrans %}</small></h2>
     <div class="row">
       <div class="span12">
-        <p>{% trans dataset=c.dataset.label %}{{dataset}} has the following dimensions{% endtrans %}:</p>
-        {{ dimensions_list(c, c.dataset.dimensions) }}
+        <p>{% trans dataset=dataset.label %}{{dataset}} has the following dimensions{% endtrans %}:</p>
+        {{ dimensions_list(dataset) }}
       </div>
     </div>
   </div>
