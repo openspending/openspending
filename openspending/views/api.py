@@ -48,14 +48,13 @@ def aggregate():
     """
 
     # Parse the aggregation parameters to get them into the right format
-    parser = AggregateParamParser(request.params)
+    parser = AggregateParamParser(request.args)
     params, errors = parser.parse()
 
     # If there were parsing errors we return them with status code 400
     # as jsonp, irrespective of what format was asked for.
     if errors:
-        response.status = 400
-        return to_jsonp({'errors': errors})
+        return jsonify({'errors': errors}, status=400)
 
     # URL parameters are always singular nouns but we work with some
     # as plural nouns so we pop them into the plural version
@@ -86,32 +85,29 @@ def aggregate():
         # Do the ETag caching based on the cache_key in the summary
         # this is a weird place to do it since the heavy lifting has
         # already been performed above. TODO: Needs rethinking.
-        response.last_modified = dataset.updated_at
-        if cache.cache_enabled and 'cache_key' in result['summary']:
-            etag_cache(result['summary']['cache_key'])
+        #response.last_modified = dataset.updated_at
+        #if cache.cache_enabled and 'cache_key' in result['summary']:
+        #    etag_cache(result['summary']['cache_key'])
 
     except (KeyError, ValueError) as ve:
         # We log possible errors and return them with status code 400
         log.exception(ve)
-        response.status = 400
-        return to_jsonp({'errors': [unicode(ve)]})
+        return jsonify({'errors': [unicode(ve)]}, status=400)
 
     # If the requested format is csv we write the drilldown results into
     # a csv file and return it, if not we return a jsonp result (default)
     if format == 'csv':
-        return write_csv(result['drilldown'], response,
-                         filename=dataset.name + '.csv')
-    return to_jsonp(result)
+        return write_csv(result['drilldown'], filename=dataset.name + '.csv')
+    return jsonify(result)
 
 
 @blueprint.route('/api/2/search')
 def search():
-    parser = SearchParamParser(request.params)
+    parser = SearchParamParser(request.args)
     params, errors = parser.parse()
 
     if errors:
-        response.status = 400
-        return to_jsonp({'errors': errors})
+        return jsonify({'errors': errors}, status=400)
 
     expand_facets = params.pop('expand_facet_dimensions')
 
@@ -122,7 +118,7 @@ def search():
 
     datasets = params.pop('dataset', None)
     if datasets is None or not datasets:
-        q = Dataset.all_by_account(c.account)
+        q = Dataset.all_by_account(current_user)
         if params.get('category'):
             q = q.filter_by(category=params.pop('category'))
         datasets = q.all()
@@ -136,13 +132,13 @@ def search():
         require.dataset.read(dataset)
         params['filter']['dataset'].append(dataset.name)
 
-    response.last_modified = max([d.updated_at for d in datasets])
-    etag_cache_keygen(parser.key(), response.last_modified)
+    #response.last_modified = max([d.updated_at for d in datasets])
+    #etag_cache_keygen(parser.key(), response.last_modified)
 
     if params['pagesize'] > parser.defaults['pagesize']:
 
         # http://wiki.nginx.org/X-accel#X-Accel-Buffering
-        response.headers['X-Accel-Buffering'] = 'no'
+        #response.headers['X-Accel-Buffering'] = 'no'
 
         if format == 'csv':
             streamer = CSVStreamingResponse(
@@ -197,8 +193,6 @@ def create():
     # Parse the loading api parameters to get them into the right format
     parser = LoadingAPIParamParser(request.form)
     params, errors = parser.parse()
-
-    print params
 
     if errors:
         return jsonify({'errors': errors}, status=400)
