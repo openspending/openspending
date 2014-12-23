@@ -49,10 +49,10 @@
       </form>
       {%- endif %}
       {%- endif %}
-      <form method="POST" action="{{ h.url_for(controller='source',
-		                  action='delete', dataset=dataset.name,
-                                  id=source.id) }}">
-        <button class="btn btn-danger btn-small" title="{% trans %}Delete source{% endtrans %}"><i class="icon-remove icon-white"></i> {% trans %}Delete{% endtrans %}</button>
+      <form method="POST" action="{{ url_for('source.delete', dataset=dataset.name, id=source.id) }}">
+        <button class="btn btn-danger btn-small" title="{% trans %}Delete source{% endtrans %}">
+          <i class="icon-remove icon-white"></i>
+          {% trans %}Delete{% endtrans %}</button>
       </form>
       {%- endif %}
     </td>

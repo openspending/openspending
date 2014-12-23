@@ -6,7 +6,7 @@ import uuid
 import babel.numbers
 from flask.ext.babel import get_locale
 from flask import url_for as flask_url_for
-from flask import flash
+from flask import flash, request
 from werkzeug.exceptions import NotFound
 
 from openspending.auth import require
@@ -37,6 +37,13 @@ def get_dataset(name):
 def disable_cache(func):
     # TODO: set request variable
     return func
+
+
+def get_page(param='page'):
+    try:
+        return int(request.args.get(param))
+    except:
+        return 1
 
 
 def etag_cache_keygen(*a):
