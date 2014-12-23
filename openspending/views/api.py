@@ -13,6 +13,7 @@ from solr import SolrException
 
 from openspending import auth as can
 from openspending.core import db
+from openspending.auth import require
 from openspending.model.dataset import Dataset
 from openspending.model.source import Source
 from openspending.lib import util
@@ -20,7 +21,7 @@ from openspending.lib.browser import Browser
 from openspending.lib.streaming import JSONStreamingResponse
 from openspending.lib.streaming import CSVStreamingResponse
 from openspending.lib.jsonexport import jsonify
-from openspending.lib.csvexport import write_csv, csv_headers
+from openspending.lib.csvexport import write_csv
 from openspending.lib.paramparser import AggregateParamParser
 from openspending.lib.paramparser import SearchParamParser
 from openspending.lib.paramparser import LoadingAPIParamParser
@@ -144,7 +145,6 @@ def search():
         response.headers['X-Accel-Buffering'] = 'no'
 
         if format == 'csv':
-            csv_headers(response, 'entries.csv')
             streamer = CSVStreamingResponse(
                 datasets,
                 params,
@@ -152,7 +152,6 @@ def search():
             )
             return streamer.response()
         else:
-            json_headers(filename='entries.json')
             streamer = JSONStreamingResponse(
                 datasets,
                 params,
@@ -176,15 +175,14 @@ def search():
         entries.append(entry)
 
     if format == 'csv':
-        return write_csv(entries, response,
-                         filename='entries.csv')
+        return write_csv(entries, filename='entries.csv')
 
     if expand_facets and len(datasets) == 1:
         facets = solr_browser.get_expanded_facets(datasets[0])
     else:
         facets = solr_browser.get_facets()
 
-    return to_jsonp({
+    return jsonify({
         'stats': solr_browser.get_stats(),
         'facets': facets,
         'results': entries
@@ -192,59 +190,49 @@ def search():
 
 
 @blueprint.route('/api/2/new', methods=['POST'])
-def create(self):
+def create():
     """ Adds a new dataset dynamically through a POST request. """
-
-    # User must be authenticated so we should have a user object in
-    # c.account, if not abort with error message
-    if not c.account:
-        abort(status_code=400, detail='user not authenticated')
+    require.account.logged_in()
 
     # Parse the loading api parameters to get them into the right format
-    parser = LoadingAPIParamParser(request.params)
+    parser = LoadingAPIParamParser(request.form)
     params, errors = parser.parse()
 
+    print params
+
     if errors:
-        response.status = 400
-        return to_jsonp({'errors': errors})
+        return jsonify({'errors': errors}, status=400)
 
     # Precedence of budget data package over other methods
     if 'budget_data_package' in params:
-        output = self.load_with_budget_data_package(
+        output = load_with_budget_data_package(
             params['budget_data_package'], params['private'])
     else:
-        output = self.load_with_model_and_csv(
+        output = load_with_model_and_csv(
             params['metadata'], params['csv_file'], params['private'])
 
     return output
 
 
-def load_with_budget_data_package(self, bdp_url, private):
-    """
-    Analyze and load data using a budget data package
-    """
-    analyze_budget_data_package.delay(bdp_url, c.account, private)
+def load_with_budget_data_package(bdp_url, private):
+    """ Analyze and load data using a budget data package """
+    analyze_budget_data_package.delay(bdp_url, current_user, private)
 
 
-def load_with_model_and_csv(self, metadata, csv_file, private):
-    """
-    Load a dataset using a metadata model file and a csv file
-    """
+def load_with_model_and_csv(metadata, csv_file, private):
+    """ Load a dataset using a metadata model file and a csv file """
 
     if metadata is None:
-        response.status = 400
-        return to_jsonp({'errors': 'metadata is missing'})
+        return jsonify({'errors': 'metadata is missing'}, status=400)
 
     if csv_file is None:
-        response.status = 400
-        return to_jsonp({'errors': 'csv_file is missing'})
-
+        return jsonify({'errors': 'csv_file is missing'}, status=400)
+        
     # We proceed with the dataset
     try:
         model = json.load(urllib2.urlopen(metadata))
     except:
-        response.status = 400
-        return to_jsonp({'errors': 'JSON model could not be parsed'})
+        return jsonify({'errors': 'JSON model could not be parsed'}, status=400)
     try:
         log.info("Validating model")
         model = validate_model(model)
@@ -252,20 +240,19 @@ def load_with_model_and_csv(self, metadata, csv_file, private):
         log.error("Errors occured during model validation:")
         for field, error in i.asdict().items():
             log.error("%s: %s", field, error)
-        response.status = 400
-        return to_jsonp({'errors': 'Model is not well formed'})
+        return jsonify({'errors': 'Model is not well formed'}, status=400)
     dataset = Dataset.by_name(model['dataset']['name'])
     if dataset is None:
         dataset = Dataset(model)
         require.dataset.create()
-        dataset.managers.append(c.account)
+        dataset.managers.append(current_user)
         dataset.private = private
         db.session.add(dataset)
     else:
         require.dataset.update(dataset)
 
     log.info("Dataset: %s", dataset.name)
-    source = Source(dataset=dataset, creator=c.account,
+    source = Source(dataset=dataset, creator=current_user,
                     url=csv_file)
 
     log.info(source)
@@ -278,7 +265,7 @@ def load_with_model_and_csv(self, metadata, csv_file, private):
 
     # Send loading of source into celery queue
     load_source.delay(source.id)
-    return to_jsonp(dataset_apply_links(dataset.as_dict()))
+    return jsonify(dataset_apply_links(dataset.as_dict()))
 
 
 @blueprint.route('/api/2/permissions')

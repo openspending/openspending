@@ -30,11 +30,11 @@ def to_json(obj, encoder=None):
     return encoder().encode(obj)
 
 
-def write_json(entries, response, filename=None):
-    response.content_type = 'application/json'
+def write_json(entries, filename=None):
+    headers = {'Content-Type': 'application/json'}
     if filename:
-        response.content_disposition = 'attachment; filename=%s' % filename
-    return generate_json(entries)
+        headers['Content-Disposition'] = 'attachment; filename=%s' % filename
+    return Response(generate_json(entries), headers=headers)
 
 
 def generate_json(entries):
@@ -42,7 +42,7 @@ def generate_json(entries):
         yield to_json(e) + '\n'
 
 
-def write_browser_json(entries, stats, facets, response):
+def write_browser_json(entries, stats, facets):
     """ Streaming support for large result sets, specific to the browser as
     the data is enveloped. """
     mime_type = 'application/json'
