@@ -77,7 +77,7 @@ class TestDimensionController(ControllerTestCase):
 
         # Links to entries json and csv and entries listing
         assert '/cra/cofog1/3.json">' in result.data
-        assert '/cra/cofog1/3/entries">Search</a>' in result.data
+        assert '/cra/cofog1/3/entries">' in result.data, result.data
 
     def test_view_member_json(self):
         url_ = url_for('dimension.member', dataset=self.cra.name,
@@ -85,7 +85,7 @@ class TestDimensionController(ControllerTestCase):
                        format='json')
         result = self.client.get(url_)
 
-        assert result.status == '200 OK'
+        assert '200' in result.status, result.status
         assert result.content_type == 'application/json', result.content_type
 
         json_data = json.loads(result.data)
@@ -98,9 +98,10 @@ class TestDimensionController(ControllerTestCase):
                        dataset=self.cra.name,
                        dimension='cofog1',
                        name=self.member['name'])
-        result = self.client.get(url_)
-        result = result.follow()
-        assert result.status == '200 OK'
+        result = self.client.get(url_, follow_redirects=True)
+
+        #print dir(result)
+        assert '200' in result.status, result.status
         assert result.content_type == 'application/json'
 
         json_data = json.loads(result.body).get('results')
@@ -111,8 +112,8 @@ class TestDimensionController(ControllerTestCase):
                        dataset=self.cra.name,
                        dimension='cofog1',
                        name=self.member['name'])
-        result = self.client.get(url_)
-        assert result.status == '200 OK'
+        result = self.client.get(url_, follow_redirects=True)
+        assert '200' in result.status, result.status
         assert result.content_type == 'text/csv'
         assert 'amount,' in result.data  # csv headers
         assert 'id,' in result.data  # csv headers
@@ -123,6 +124,6 @@ class TestDimensionController(ControllerTestCase):
                        dimension='cofog1',
                        name=self.member['name'])
         result = self.client.get(url_)
-        assert result.status == '200 OK'
-        assert result.content_type == 'text/html'
+        assert '200' in result.status, result.status
+        assert 'text/html' in result.content_type, result.content_type
         # Content is filled in by client-side code.

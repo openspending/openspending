@@ -9,6 +9,7 @@ from openspending.views.view import blueprint as view
 from openspending.views.editor import blueprint as editor
 from openspending.views.source import blueprint as source
 from openspending.views.run import blueprint as run
+from openspending.views.api import blueprint as api
 from openspending.views.dimension import blueprint as dimension
 from openspending.views.error import handle_error
 
@@ -23,6 +24,7 @@ def register_views(app):
     app.register_blueprint(editor)
     app.register_blueprint(source)
     app.register_blueprint(run)
+    app.register_blueprint(api)
     app.register_blueprint(dimension)
 
     app.error_handler_spec[None][400] = handle_error

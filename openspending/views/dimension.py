@@ -140,10 +140,10 @@ def entries(dataset, dimension, name, format='html'):
     
     if format in ['json', 'csv']:
         return redirect(
-            url_for(controller='api/version2', action='search',
+            url_for('api.search',
                     format=format, dataset=dataset,
                     filter='%s.name:%s' % (dimension, name),
-                    **request.params))
+                    **dict(request.args.items())))
 
     request_set_views(dataset, member, dimension=dimension.name)
     
