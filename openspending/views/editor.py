@@ -117,7 +117,8 @@ def dimensions_edit(dataset, errors={}, mapping=None,
     # TODO: really split up dimensions and mapping editor.
     source = dataset.sources.first()
     if source is None:
-        return render_template('editor/dimensions_errors.html')
+        return render_template('editor/dimensions_errors.html',
+                               dataset=dataset, source=None)
 
     mapping = mapping or dataset.data.get('mapping', {})
     if not len(mapping) and source and 'mapping' in source.analysis:
@@ -125,7 +126,8 @@ def dimensions_edit(dataset, errors={}, mapping=None,
 
     fill = {'mapping': json.dumps(mapping, indent=2)}
     if len(dataset):
-        return render_template('editor/dimensions_errors.html')
+        return render_template('editor/dimensions_errors.html',
+                               dataset=dataset, source=source)
 
     return render_template('editor/dimensions.html', dataset=dataset,
                            form_fill=fill, errors=errors, saved=saved,
@@ -297,7 +299,7 @@ def publish(dataset):
     public_url = url_for('dataset.view', dataset=dataset.name)
     flash_success(
         _("Congratulations, the dataset has been "
-          "published. It is now available at: %s") % public_url)
+          "published. It is now available at: %(url)s", url=public_url))
     return redirect(url_for('editor.index', dataset=dataset.name))
 
 

@@ -31,20 +31,20 @@ def get_source(dataset, id):
 
 @disable_cache
 @blueprint.route('/<dataset>/sources/new', methods=['GET'])
-def new(dataset, errors={}):
+def new(dataset, fill={}, errors={}):
     dataset = get_dataset(dataset)
     require.dataset.update(dataset)
-    params_dict = dict(request.form.items()) if errors else {}
     return render_template('source/new.html', dataset=dataset,
-                           form_errors=errors, form_fill=params_dict)
+                           form_errors=errors, form_fill=fill)
 
 
 @blueprint.route('/<dataset>/sources', methods=['POST'])
 def create(dataset):
     dataset = get_dataset(dataset)
     require.dataset.update(dataset)
+    values = dict(request.form.items())
     try:
-        data = source_schema().deserialize(request.form)
+        data = source_schema().deserialize(values)
         source = Source(dataset, current_user, data['url'])
         db.session.add(source)
         db.session.commit()
@@ -54,7 +54,7 @@ def create(dataset):
     except Invalid as i:
         errors = i.asdict()
         errors = [(k[len('source.'):], v) for k, v in errors.items()]
-        return new(dataset, dict(errors))
+        return new(dataset.name, fill=values, errors=dict(errors))
 
 
 @disable_cache
@@ -66,7 +66,7 @@ def index(dataset, format='json'):
 
 @blueprint.route('/<dataset>/sources/<id>', methods=['GET'])
 def view(dataset, id):
-    datset, source = get_source(dataset, id)
+    dataset, source = get_source(dataset, id)
     return redirect(source.url)
 
 
@@ -77,7 +77,7 @@ def load(dataset, id):
     is provided then its value is converted into a boolean. If the value
     equals true we only perform a sample run, else we do a full load.
     """
-    datset, source = get_source(dataset, id)
+    dataset, source = get_source(dataset, id)
     require.dataset.update(dataset)
 
     # If the source is already running we flash an error declaring that
@@ -101,7 +101,7 @@ def load(dataset, id):
 
 @blueprint.route('/<dataset>/sources/<id>/delete', methods=['POST'])
 def delete(dataset, id):
-    datset, source = get_source(dataset, id)
+    dataset, source = get_source(dataset, id)
     require.dataset.update(dataset)
 
     # Delete the source if hasn't been sucessfully loaded

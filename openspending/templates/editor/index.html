@@ -117,8 +117,7 @@
 
 
     <!-- Create source modal -->
-    <div id="new-source" class="modal hide fade"
-         ckan-uri="{{ dataset.ckan_uri }}">
+    <div id="new-source" class="modal hide fade">
       {% formfill form_fill with form_errors %}
       <form class="basic" action="{{ url_for('source.create', dataset=dataset.name) }}" method="POST">
         <div class="modal-header">

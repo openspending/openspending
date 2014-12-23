@@ -1,17 +1,17 @@
 {% extends "base.html" %}
-{% from "editor/_nav.html" import editor_nav as editor_nav %}
+{% from "editor/_nav.html" import editor_nav with context %}
 
-{% block page_title %}{% trans %}Report{% endtrans %}: {{ h.readable_url(c.source.url) }}{% endblock %}
+{% block page_title %}{% trans %}Report{% endtrans %}: {{ source.url | readable_url }}{% endblock %}
 
 {% block content %}
 <!-- templates/run/view.html -->
-{{editor_nav(h, c, 'index')}}
+{{editor_nav(dataset, 'index')}}
 <h3>
   {% trans %}Report{% endtrans %}:
-  {{ h.readable_url(c.source.url) }}
-  ({{ c.run.records.count() }} {% trans %}errors{% endtrans %}, {{ c.run.status }})
+  {{ source.url | readable_url }}
+  ({{ run.records.count() }} {% trans %}errors{% endtrans %}, {{ run.status }})
 </h3>
-{% if not (c.num_data or c.num_system) %}
+{% if not (num_data or num_system) %}
 <div class="alert block-message alert-success">
   <strong>{% trans %}Nothing to report!{% endtrans %}</strong> {% trans %}The source has been loaded
   successfully. This does not mean the data is stored in a form 
@@ -20,7 +20,7 @@
 </div>
 {% endif %}
 
-{% if c.num_system %}
+{% if num_system %}
 <div class="row">
   <div class="span12">
     <table class="table table-condensed table-striped">
@@ -29,7 +29,7 @@
         <th>{% trans %}Message{% endtrans %}</th>
         <th>{% trans %}Error{% endtrans %}</th>
       </tr>
-      {% for record in c.system_page %}
+      {% for record in system_page %}
       <tr>
         <td>{{ record.level }}</td>
         <td>{{ record.message }}</td>
@@ -37,12 +37,12 @@
       </tr>
       {% endfor %}
     </table>
-    {{ c.system_page.pager(page_param='system_page') }}
+    {{ system_page.pager(page_param='system_page') }}
   </div>
 </div>
 {% endif %}
 
-{% if c.num_data %}
+{% if num_data %}
 <div class="row">
   <div class="span12">
     <table class="table table-condensed table-striped">
@@ -53,7 +53,7 @@
         <th>{% trans %}Value{% endtrans %}</th>
         <th>{% trans %}Error{% endtrans %}</th>
       </tr>
-      {% for record in c.data_page %}
+      {% for record in data_page %}
       <tr>
         <td>{{ record.row }}</td>
         <td><code>{{ record.column }}</code></td>
@@ -63,7 +63,7 @@
       </tr>
       {% endfor %}
     </table>
-    {{ c.data_page.pager(page_param='data_page') }}
+    {{ data_page.pager(page_param='data_page') }}
   </div>
 </div>
 {% endif %}
