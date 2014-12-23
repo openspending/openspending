@@ -21,7 +21,7 @@ blueprint = Blueprint('entry', __name__)
 
 
 @blueprint.route('/<dataset>/entries')
-@blueprint.route('/<dataset>/entries.<format>')
+@blueprint.route('/<dataset>/entries.<fmt:format>')
 def index(dataset, format='html'):
     dataset = get_dataset(dataset)
 
@@ -76,7 +76,7 @@ def index(dataset, format='html'):
 
 
 @blueprint.route('/<dataset>/entries/<id>')
-@blueprint.route('/<dataset>/entries/<id>.<format>')
+@blueprint.route('/<dataset>/entries/<id>.<fmt:format>')
 def view(dataset, id, format='html'):
     """
     Get a specific entry in the dataset, identified by the id. Entry

@@ -17,7 +17,7 @@ log = logging.getLogger(__name__)
 blueprint = Blueprint('badge', __name__)
 
 
-@blueprint.route('/badges/index.<format>')
+@blueprint.route('/badges.<fmt:format>')
 @blueprint.route('/badges')
 def index(format='html'):
     """
@@ -36,7 +36,7 @@ def index(format='html'):
 
 
 @blueprint.route('/badge/<id>')
-@blueprint.route('/badge/<id>.<format>')
+@blueprint.route('/badge/<id>.<fmt:format>')
 def information(id, format='html'):
     """
     Show information about the badge. Default is to present the

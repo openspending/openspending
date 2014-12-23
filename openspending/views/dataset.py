@@ -38,7 +38,7 @@ blueprint = Blueprint('dataset', __name__)
 
 
 @blueprint.route('/datasets')
-@blueprint.route('/datasets/index.<format>')
+@blueprint.route('/datasets.<fmt:format>')
 def index(format='html'):
     """ Get a list of all datasets along with territory, language, and
     category counts (amount of datasets for each). """
@@ -170,7 +170,7 @@ def create():
 
 
 @blueprint.route('/<dataset>')
-@blueprint.route('/<dataset>.<format>')
+@blueprint.route('/<dataset>.<fmt:format>')
 def view(dataset, format='html'):
     """
     Dataset viewer. Default format is html. This will return either
@@ -235,7 +235,7 @@ def about(dataset, format='html'):
 
 
 @blueprint.route('/<dataset>/model')
-@blueprint.route('/<dataset>/model.<format>')
+@blueprint.route('/<dataset>/model.<fmt:format>')
 def model(dataset, format='json'):
     dataset = get_dataset(dataset)
     etag_cache_keygen(dataset.updated_at)
