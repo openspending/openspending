@@ -195,13 +195,11 @@
       </div>
       
       <div class="span9">
-        {% if c.saved %}
+        {% if saved %}
         <div class="alert block-message alert-success">
           <strong>{% trans %}Your model was saved.{% endtrans %}</strong> {% trans %}You can now try to load a sample of the data by returning back to the dashboard.{% endtrans %}
           <div class="alert-actions">
-            <a class="btn btn-small" href="{{ h.url_for(controller='editor',
-                                           action='index',
-                                           dataset=c.dataset.name) }}">
+            <a class="btn btn-small" href="{{ url_for('editor.index', dataset=dataset.name) }}">
               {% trans %}Visit dashboard{% endtrans %}</a>
           </div>
         </div>
@@ -438,7 +436,7 @@
     </div>
     <form  class="basic" id="form" method="POST"
            action="{{ url_for('editor.dimensions_update', dataset=dataset.name) }}">
-      <textarea id="mapping" name="mapping" style="display: none">{{fill.mapping }}</textarea>
+      <textarea id="mapping" name="mapping" style="display: none">{{form_fill.mapping }}</textarea>
       <div class="form-actions">
         <input id="save" value="{% trans %}Save Dimensions{% endtrans %}" class="btn btn-success" type="submit" />
         <input type="button" class='btn btn-danger rm_all_dimensions' value="{% trans %}Delete All Dimensions{% endtrans %}" />

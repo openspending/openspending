@@ -211,8 +211,9 @@ def views_update(dataset):
     dataset = get_dataset(dataset)
     require.dataset.update(dataset)
 
-    errors, views = {}, json.loads(request.form.get('views'))
+    errors, views = {}, {}
     try:
+        views = json.loads(request.form.get('views'))
         schema = views_schema(ValidationState(dataset.model))
         dataset.data['views'] = schema.deserialize(views)
         db.session.commit()
