@@ -12,11 +12,8 @@ class TestSolrUtil(TestCase):
     def setUp(self):
         super(TestSolrUtil, self).setUp()
         reload(solr)
-        self.patcher = patch('openspending.lib.solr_util.SolrConnection')
-        self.mock_solr = self.patcher.start()
 
     def tearDown(self):
-        self.patcher.stop()
         super(TestSolrUtil, self).tearDown()
 
     def test_configure_defaults(self):
@@ -36,24 +33,36 @@ class TestSolrUtil(TestCase):
         assert solr.http_pass == 'mypass'
 
     def test_get_connection(self):
+        patcher = patch('openspending.lib.solr_util.SolrConnection')
+        mock_solr = patcher.start()
         conn = solr.get_connection()
         conn = solr.get_connection()
-        self.mock_solr.assert_called_once_with(
+        mock_solr.assert_called_once_with(
             'http://localhost:8983/solr',
             http_user=None,
             http_pass=None)
-        assert conn == self.mock_solr.return_value
+        assert conn == mock_solr.return_value
+        patcher.stop()
+        reload(solr)
 
     def test_drop_index(self):
+        patcher = patch('openspending.lib.solr_util.SolrConnection')
+        mock_solr = patcher.start()
         solr.drop_index('foo')
-        self.mock_solr.return_value.delete_query.assert_called_once_with(
+        mock_solr.return_value.delete_query.assert_called_once_with(
             'dataset:foo')
-        self.mock_solr.return_value.commit.assert_called_once()
+        mock_solr.return_value.commit.assert_called_once()
+        patcher.stop()
+        reload(solr)
 
     def test_dataset_entries(self):
-        self.mock_solr.return_value.raw_query.return_value = \
+        patcher = patch('openspending.lib.solr_util.SolrConnection')
+        mock_solr = patcher.start()
+        mock_solr.return_value.raw_query.return_value = \
             '{"response":{"numFound":42}}'
         assert solr.dataset_entries('foo') == 42
+        patcher.stop()
+        reload(solr)
 
     def test_extend_entry(self):
         dataset = Mock()
@@ -95,23 +104,31 @@ class TestSolrUtil(TestCase):
     @patch('openspending.lib.solr_util.Dataset')
     @patch('openspending.lib.solr_util.extend_entry')
     def test_build_index(self, mock_ee, mock_ds):
+        patcher = patch('openspending.lib.solr_util.SolrConnection')
+        mock_solr = patcher.start()
         ds = mock_ds.by_name.return_value
         ds.entries.return_value = [{'foo': 123}, {'foo': 456}, {'foo': 789}]
 
         mock_ee.side_effect = lambda e, d: e['foo']
 
         solr.build_index('mydataset')
-        conn = self.mock_solr.return_value
+        conn = mock_solr.return_value
         conn.add_many.assert_called_once_with([123, 456, 789])
         conn.commit.assert_called_once()
+        patcher.stop()
+        reload(solr)
 
     @patch('openspending.lib.solr_util.Dataset')
     @patch('openspending.lib.solr_util.extend_entry')
     def test_build_index_batch(self, mock_ee, mock_ds):
+        patcher = patch('openspending.lib.solr_util.SolrConnection')
+        mock_solr = patcher.start()
         ds = mock_ds.by_name.return_value
         ds.entries.return_value = [{'foo': 'bar'}] * 2500
 
         solr.build_index('mydataset')
-        conn = self.mock_solr.return_value
+        conn = mock_solr.return_value
         assert conn.add_many.call_count == 3
         assert conn.commit.call_count == 3
+        patcher.stop()
+        reload(solr)

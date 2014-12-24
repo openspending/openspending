@@ -77,8 +77,11 @@ def dataset_entries(dataset_name):
     solr = get_connection()
     f = 'dataset:"%s"' % dataset_name if dataset_name else ''
     res = solr.raw_query(q='*:*', fq=f, rows=0, wt='json')
-    res = json.loads(res)
-    return res.get('response', {}).get('numFound')
+    try:
+        res = json.loads(res)
+        return res.get('response', {}).get('numFound')
+    except TypeError:
+        return -1
 
 
 def extend_entry(entry, dataset):

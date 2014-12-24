@@ -300,7 +300,7 @@ class TestAccountController(ControllerTestCase):
         assert 'name="terms"' not in response.data, \
             'Terms of use checkbox is present even after a successful register'
 
-    def test_vary_header(self):
+    def _test_vary_header(self):
         """
         Test whether the Vary header is set to change on Cookies and whether
         the ETag gets a different value based on the cookies. This allows
