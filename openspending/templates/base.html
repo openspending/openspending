@@ -83,7 +83,7 @@
               <a class="dropdown-toggle" data-toggle="dropdown">{% trans %}Language{% endtrans %}</a>
               <ul class="dropdown-menu locale-dropdown">
 		            {% for l in languages %}
-                  <li class="locale {{ 'current_locale' if l.current_locale else '' }}">
+                  <li class="locale {{ 'current_locale' if l.lang_code == current_locale else '' }}">
 		                <a class="select-locale" data-locale="{{ l.lang_code }}">{{ l.lang_name }}</a>
                   </li>
                 {% endfor %}

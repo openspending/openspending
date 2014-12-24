@@ -1,4 +1,5 @@
 from openspending.lib import filters
+from openspending.i18n import get_locale
 
 from openspending.views.context import home
 from openspending.views.cache import NotModified, handle_not_modified
@@ -16,7 +17,9 @@ from openspending.views.dimension import blueprint as dimension
 from openspending.views.error import handle_error
 
 
-def register_views(app):
+def register_views(app, babel):
+    babel.locale_selector_func = get_locale
+
     app.register_blueprint(home)
     app.register_blueprint(entry)
     app.register_blueprint(account)

@@ -55,7 +55,7 @@ def create_web_app(**config):
     app = create_app(**config)
 
     from openspending.views import register_views
-    register_views(app)
+    register_views(app, babel)
 
     Gravatar(app, size=200, rating='g',
              default='retro', use_ssl=True)

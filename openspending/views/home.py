@@ -23,7 +23,8 @@ def index():
 @blueprint.route('/set-locale', methods=['POST'])
 def set_locale():
     disable_cache()
-    locale = request.args.get('locale')
+    locale = request.form.get('locale')
+
     if locale is not None:
         set_session_locale(locale)
     return ''
