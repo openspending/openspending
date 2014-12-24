@@ -2,7 +2,7 @@ from flask import current_app, request
 from flask.ext.babel import get_locale
 from flask.ext.login import current_user
 
-from openspending import auth
+from openspending import auth, _version
 from openspending.views.i18n import get_available_locales
 from openspending.views.cache import setup_caching, cache_response
 from openspending.views.home import blueprint as home
@@ -19,6 +19,7 @@ def before_request():
 
 @home.after_app_request
 def after_request(resp):
+    resp.headers['Server'] = 'OpenSpending/%s' % _version.__version__
     return cache_response(resp)
 
 
