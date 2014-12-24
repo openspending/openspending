@@ -10,10 +10,8 @@
 /solr/data
 /.noseids
 /linesman-enabled
-/sessions.db
-openspending/test/fixtures/.DS_Store
+*.DS_Store
 openspending.db
-openspending/ui/templates/layout_orig.html
 /db
 .*.swp
 openspending/ui/templates/help/*

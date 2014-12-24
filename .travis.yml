@@ -14,8 +14,7 @@ install:
 before_script:
   - curl -sSL https://raw.githubusercontent.com/moliware/travis-solr/797595342d3b597d373c635329fad6bcf0378e3f/travis-solr.sh | SOLR_VERSION=4.7.2 SOLR_CONFS="solr/schema.xml" SOLR_PORT=8983 bash
   - psql -c 'create database openspending;' -U postgres
-  - cp development.ini_tmpl development.ini
-  - cp test.ini_tmpl test.ini
+  - cp settings.py_tmpl settings.py
   - git submodule init && git submodule update
   - nosetests --version
 script:
