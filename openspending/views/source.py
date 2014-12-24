@@ -10,11 +10,11 @@ from openspending.core import db
 from openspending.model.source import Source
 from openspending.auth import require
 from openspending.lib.helpers import url_for, get_dataset, obj_or_404
-from openspending.lib.helpers import disable_cache, flash_success
-from openspending.lib.helpers import flash_error
+from openspending.lib.helpers import flash_success, flash_error
 from openspending.lib.jsonexport import jsonify
 from openspending.tasks import analyze_source, load_source
 from openspending.lib.validation import source_schema
+from openspending.views.cache import disable_cache
 
 
 log = logging.getLogger(__name__)
@@ -29,9 +29,9 @@ def get_source(dataset, id):
     return dataset, source
 
 
-@disable_cache
 @blueprint.route('/<dataset>/sources/new', methods=['GET'])
 def new(dataset, fill={}, errors={}):
+    disable_cache()
     dataset = get_dataset(dataset)
     require.dataset.update(dataset)
     return render_template('source/new.html', dataset=dataset,
@@ -57,9 +57,9 @@ def create(dataset):
         return new(dataset.name, fill=values, errors=dict(errors))
 
 
-@disable_cache
 @blueprint.route('/<dataset>/sources', methods=['GET'])
 def index(dataset, format='json'):
+    disable_cache()
     dataset = get_dataset(dataset)
     return jsonify([src.as_dict() for src in dataset.sources])
 

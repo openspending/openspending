@@ -1,6 +1,8 @@
 from openspending.lib import filters
 
 from openspending.views.context import home
+from openspending.views.cache import NotModified, handle_not_modified
+
 from openspending.views.entry import blueprint as entry
 from openspending.views.account import blueprint as account
 from openspending.views.dataset import blueprint as dataset
@@ -33,6 +35,8 @@ def register_views(app):
     app.error_handler_spec[None][403] = handle_error
     app.error_handler_spec[None][404] = handle_error
     app.error_handler_spec[None][500] = handle_error
+
+    app.error_handler_spec[None][NotModified] = handle_not_modified
 
     app.jinja_env.filters.update({
         'markdown_preview': filters.markdown_preview,

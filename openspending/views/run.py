@@ -8,10 +8,9 @@ from openspending.model.source import Source
 from openspending.model.run import Run
 from openspending.model.log_record import LogRecord
 from openspending.auth import require
-from openspending.lib.helpers import get_dataset, obj_or_404
-from openspending.lib.helpers import get_page, disable_cache
+from openspending.lib.helpers import get_dataset, obj_or_404, get_page
 from openspending.lib.pagination import Page
-
+from openspending.views.cache import disable_cache
 
 log = logging.getLogger(__name__)
 blueprint = Blueprint('run', __name__)
@@ -29,9 +28,9 @@ def get_run(dataset, source, id):
     return dataset, source, run
 
 
-@disable_cache
 @blueprint.route('/<dataset>/sources/<source>/runs/<id>', methods=['GET'])
 def view(dataset, source, id, format='html'):
+    disable_cache()
     dataset, source, run = get_run(dataset, source, id)
     system = run.records.filter_by(category=LogRecord.CATEGORY_SYSTEM)
     num_system = system.count()

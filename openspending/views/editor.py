@@ -13,7 +13,7 @@ from openspending.model import Account, Run
 from openspending.auth import require
 from openspending.lib import solr_util as solr
 from openspending.lib.helpers import url_for, get_dataset
-from openspending.lib.helpers import disable_cache, flash_success
+from openspending.lib.helpers import flash_success
 from openspending.lib.cache import AggregationCache, DatasetIndexCache
 from openspending.reference.currency import CURRENCIES
 from openspending.reference.country import COUNTRIES
@@ -23,14 +23,15 @@ from openspending.validation.model.dataset import dataset_schema
 from openspending.validation.model.mapping import mapping_schema
 from openspending.validation.model.views import views_schema
 from openspending.validation.model.common import ValidationState
+from openspending.views.cache import disable_cache
 
 log = logging.getLogger(__name__)
 blueprint = Blueprint('editor', __name__)
 
 
-@disable_cache
 @blueprint.route('/<dataset>/editor', methods=['GET'])
 def index(dataset):
+    disable_cache()
     dataset = get_dataset(dataset)
     require.dataset.update(dataset)
 
@@ -47,9 +48,9 @@ def index(dataset):
                            index_percentage=index_percentage)
 
 
-@disable_cache
 @blueprint.route('/<dataset>/editor/core', methods=['GET'])
 def core_edit(dataset, errors={}):
+    disable_cache()
     dataset = get_dataset(dataset)
     require.dataset.update(dataset)
 
@@ -107,10 +108,10 @@ def core_update(dataset):
     return core_edit(dataset.name, errors=errors)
 
 
-@disable_cache
 @blueprint.route('/<dataset>/editor/dimensions', methods=['GET'])
 def dimensions_edit(dataset, errors={}, mapping=None,
                     saved=False):
+    disable_cache()
     dataset = get_dataset(dataset)
     require.dataset.update(dataset)
 
@@ -165,9 +166,9 @@ def dimensions_update(dataset):
                            mapping=mapping, saved=saved)
 
 
-@disable_cache
 @blueprint.route('/<dataset>/editor/templates', methods=['GET'])
 def templates_edit(dataset, errors={}, values=None):
+    disable_cache()
     dataset = get_dataset(dataset)
     require.dataset.update(dataset)
 
@@ -193,10 +194,10 @@ def templates_update(dataset):
     return templates_edit(dataset.name, errors=errors, values=values)
 
 
-@disable_cache
 @blueprint.route('/<dataset>/editor/views', methods=['GET'])
 def views_edit(dataset, errors={}, views=None,
                format='html'):
+    disable_cache()
     dataset = get_dataset(dataset)
     require.dataset.update(dataset)
 
@@ -225,9 +226,9 @@ def views_update(dataset):
     return views_edit(dataset.name, errors=errors, views=views)
 
 
-@disable_cache
 @blueprint.route('/<dataset>/editor/team', methods=['GET'])
 def team_edit(dataset, errors={}, accounts=None):
+    disable_cache()
     dataset = get_dataset(dataset)
     require.dataset.update(dataset)
 

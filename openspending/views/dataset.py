@@ -18,7 +18,6 @@ from openspending.lib.jsonexport import jsonify
 from openspending.lib.paramparser import DatasetIndexParamParser
 from openspending import auth
 from openspending.lib.cache import DatasetIndexCache
-from openspending.lib.helpers import etag_cache_keygen, disable_cache
 from openspending.lib.helpers import url_for, get_dataset
 from openspending.lib.views import request_set_views
 from openspending.lib.hypermedia import dataset_apply_links
@@ -30,6 +29,7 @@ from openspending.reference.language import LANGUAGES
 from openspending.validation.model.dataset import dataset_schema
 from openspending.validation.model.common import ValidationState
 from openspending.views.entry import index as entry_index
+from openspending.views.cache import etag_cache_keygen, disable_cache
 
 log = logging.getLogger(__name__)
 
@@ -118,9 +118,9 @@ def index(format='html'):
                            del_filter=del_filter)
 
 
-@disable_cache
 @blueprint.route('/datasets/new', methods=['GET'])
 def new(errors={}):
+    disable_cache()
     if not auth.dataset.create():
         return render_template('dataset/new_cta.html')
 

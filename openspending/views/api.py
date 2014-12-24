@@ -22,13 +22,13 @@ from openspending.lib.csvexport import write_csv
 from openspending.lib.paramparser import AggregateParamParser
 from openspending.lib.paramparser import SearchParamParser
 from openspending.lib.paramparser import LoadingAPIParamParser
-# from openspending.lib.helpers import etag_cache_keygen
 from openspending.lib.cache import AggregationCache
 from openspending.lib.hypermedia import entry_apply_links
 from openspending.lib.hypermedia import drilldowns_apply_links
 from openspending.lib.hypermedia import dataset_apply_links
 from openspending.tasks import load_source, analyze_budget_data_package
 from openspending.validation.model import validate_model
+from openspending.views.cache import etag_cache_keygen
 
 
 log = logging.getLogger(__name__)
@@ -82,8 +82,8 @@ def aggregate():
         # this is a weird place to do it since the heavy lifting has
         # already been performed above. TODO: Needs rethinking.
         #response.last_modified = dataset.updated_at
-        #if cache.cache_enabled and 'cache_key' in result['summary']:
-        #    etag_cache(result['summary']['cache_key'])
+        if 'cache_key' in result['summary']:
+            etag_cache_keygen(result['summary']['cache_key'])
 
     except (KeyError, ValueError) as ve:
         # We log possible errors and return them with status code 400
@@ -128,8 +128,7 @@ def search():
         require.dataset.read(dataset)
         params['filter']['dataset'].append(dataset.name)
 
-    #response.last_modified = max([d.updated_at for d in datasets])
-    #etag_cache_keygen(parser.key(), response.last_modified)
+    etag_cache_keygen(parser.key(), max([d.updated_at for d in datasets]))
 
     if params['pagesize'] > parser.defaults['pagesize']:
 

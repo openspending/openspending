@@ -2,6 +2,7 @@
 """ Helper functions """
 import os
 import uuid
+from functools import update_wrapper
 
 from flask import url_for as flask_url_for
 from flask import flash, request
@@ -32,20 +33,11 @@ def get_dataset(name):
     return dataset
 
 
-def disable_cache(func):
-    # TODO: set request variable
-    return func
-
-
 def get_page(param='page'):
     try:
         return int(request.args.get(param))
     except:
         return 1
-
-
-def etag_cache_keygen(*a):
-    return
 
 
 def flash_notice(message):

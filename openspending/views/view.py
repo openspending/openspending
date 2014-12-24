@@ -12,11 +12,11 @@ from openspending import auth as can
 from openspending.auth import require
 from openspending.lib import json
 from openspending.lib import widgets
-from openspending.lib.helpers import get_dataset, obj_or_404
-from openspending.lib.helpers import disable_cache, url_for
+from openspending.lib.helpers import get_dataset, obj_or_404, url_for
 from openspending.lib.helpers import flash_success
 from openspending.lib.views import request_set_views
 from openspending.lib.jsonexport import jsonify
+from openspending.views.cache import disable_cache
 
 log = logging.getLogger(__name__)
 blueprint = Blueprint('view', __name__)
@@ -83,9 +83,9 @@ def index(dataset, format='html'):
                            views=views)
 
 
-@disable_cache
 @blueprint.route('/<dataset>/views/new', methods=['GET'])
 def new(dataset, errors={}):
+    disable_cache()
     dataset = get_dataset(dataset)
     
     request_set_views(dataset, dataset)
@@ -182,7 +182,6 @@ def delete(dataset, name):
 def embed(dataset):
     dataset = get_dataset(dataset)
     
-    print request.args
     widget = request.args.get('widget')
     if widget is None:
         raise BadRequest(_("No widget type has been specified."))

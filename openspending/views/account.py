@@ -15,9 +15,10 @@ from openspending.lib.mailman import subscribe_lists
 from openspending.lib.jsonexport import jsonify
 from openspending.lib.mailer import send_reset_link
 from openspending.lib.helpers import url_for, obj_or_404
-from openspending.lib.helpers import disable_cache, flash_error
+from openspending.lib.helpers import flash_error
 from openspending.lib.helpers import flash_notice, flash_success
 from openspending.lib.pagination import Page
+from openspending.views.cache import disable_cache
 
 
 blueprint = Blueprint('account', __name__)
@@ -41,10 +42,10 @@ def load_user_from_request(request):
     return None
 
 
-@disable_cache
 @blueprint.route('/login', methods=['GET'])
 def login():
     """ Render the login/registration page. """
+    disable_cache()
     return render_template('account/login.html')
 
 
@@ -60,10 +61,10 @@ def login_perform():
     return login()
 
 
-@disable_cache
 @blueprint.route('/register', methods=['POST', 'PUT'])
 def register():
     """ Perform registration of a new user """
+    disable_cache()
     require.account.create()
     errors, values = {}, dict(request.form.items())
 
@@ -112,10 +113,10 @@ def register():
                            form_errors=errors)
 
 
-@disable_cache
 @blueprint.route('/settings')
 def settings():
     """ Change settings for the logged in user """
+    disable_cache()
     require.account.update(current_user)
     values = current_user.as_dict()
     if current_user.public_email:
@@ -167,12 +168,12 @@ def settings_save():
                            form_errors=errors)
 
 
-@disable_cache
 @blueprint.route('/dashboard')
 def dashboard(format='html'):
     """
     Show the user profile for the logged in user
     """
+    disable_cache()
     require.account.logged_in()
     return profile(current_user.name)
 
@@ -220,9 +221,9 @@ def scoreboard(format='html'):
     return render_template('account/scoreboard.html', page=page)
 
 
-@disable_cache
 @blueprint.route('/accounts/_complete')
 def complete(format='json'):
+    disable_cache()
     parser = DistinctParamParser(request.args)
     params, errors = parser.parse()
     if errors:
@@ -247,20 +248,20 @@ def complete(format='json'):
     })
 
 
-@disable_cache
 @blueprint.route('/logout')
 def logout():
+    disable_cache()
     logout_user()
     flash_success(_("You have been logged out."))
     return redirect(url_for('home.index'))
 
 
-@disable_cache
 @blueprint.route('/account/forgotten', methods=['POST', 'GET'])
 def trigger_reset():
     """
     Allow user to trigger a reset of the password in case they forget it
     """
+    disable_cache()
     # If it's a simple GET method we return the form
     if request.method == 'GET':
         return render_template('account/trigger_reset.html')

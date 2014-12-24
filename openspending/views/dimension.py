@@ -6,7 +6,7 @@ from flask import Blueprint, render_template, request, redirect
 from flask.ext.babel import gettext as _
 
 from openspending.model.dimension import Dimension
-from openspending.lib.helpers import etag_cache_keygen, url_for, get_dataset
+from openspending.lib.helpers import url_for, get_dataset
 from openspending.lib.widgets import get_widget
 from openspending.lib.views import request_set_views
 from openspending.lib.paramparser import DistinctFieldParamParser
@@ -14,6 +14,7 @@ from openspending.lib.hypermedia import dimension_apply_links, \
     member_apply_links, entry_apply_links
 from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import jsonify
+from openspending.views.cache import etag_cache_keygen
 
 PAGE_SIZE = 100
 
