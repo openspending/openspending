@@ -1,8 +1,8 @@
 from openspending.lib import filters
-from openspending.i18n import get_locale
 
 from openspending.views.context import home
 from openspending.views.cache import NotModified, handle_not_modified
+from openspending.views.i18n import get_locale
 
 from openspending.views.entry import blueprint as entry
 from openspending.views.account import blueprint as account

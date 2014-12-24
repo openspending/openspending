@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, flash
 from flask.ext.login import current_user
 from flask.ext.babel import gettext
 
-from openspending.i18n import set_session_locale
+from openspending.views.i18n import set_session_locale
 from openspending.model.dataset import Dataset, DatasetTerritory
 from openspending.lib.solr_util import dataset_entries
 from openspending.views.cache import disable_cache

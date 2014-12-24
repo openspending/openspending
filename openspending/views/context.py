@@ -3,7 +3,7 @@ from flask.ext.babel import get_locale
 from flask.ext.login import current_user
 
 from openspending import auth
-from openspending.i18n import get_available_locales
+from openspending.views.i18n import get_available_locales
 from openspending.views.cache import setup_caching, cache_response
 from openspending.views.home import blueprint as home
 from openspending.lib.helpers import static_path
