@@ -1,6 +1,6 @@
 from hashlib import sha1
 
-from flask import current_app, request, Response
+from flask import current_app, request, Response, get_flashed_messages
 from flask.ext.babel import get_locale
 from flask.ext.login import current_user
 
@@ -59,6 +59,7 @@ def etag_cache_keygen(*keys):
     args = [k + ':' + repr(v) for k, v in args]
 
     keys = {
+        'flash': repr(sorted(get_flashed_messages())),
         'args': args,
         'user': current_user.id if current_user.is_authenticated() else None,
         'keys': sorted(map(lambda k: repr(k), keys)),
