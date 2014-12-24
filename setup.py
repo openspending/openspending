@@ -65,10 +65,7 @@ setup(
     url='http://github.com/openspending/openspending',
     install_requires=[
     ],
-    setup_requires=[
-        "PasteScript==1.7.5",
-        "nose==1.1.2"
-    ],
+    setup_requires=[],
 
     packages=filter(package_filter, find_packages()),
     namespace_packages=['openspending'],
@@ -82,15 +79,7 @@ setup(
 
     zip_safe=False,
 
-    paster_plugins=['PasteScript', 'Pylons'],
-
     entry_points={
-        'paste.app_factory': [
-            'main = openspending.ui.config.middleware:make_app'
-        ],
-        'paste.app_install': [
-            'main = pylons.util:PylonsInstaller'
-        ],
         'console_scripts': [
             'ostool = openspending.command:main',
             'openspending = openspending.command:main'
