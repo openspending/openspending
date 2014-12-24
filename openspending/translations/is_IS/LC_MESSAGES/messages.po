@@ -1,0 +1,2196 @@
+# Icelandic (Iceland) translations for openspending.
+# Copyright (C) 2014 ORGANIZATION
+# This file is distributed under the same license as the openspending
+# project.
+#
+# Translators:
+# Tryggvi Björgvinsson <tryggvib@fsfi.is>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version:  OpenSpending\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2014-12-24 15:23+0100\n"
+"PO-Revision-Date: 2014-10-06 13:50+0000\n"
+"Last-Translator: Tryggvi Björgvinsson <tryggvib@fsfi.is>\n"
+"Language-Team: Icelandic (Iceland) "
+"(http://www.transifex.com/projects/p/openspending/language/is_IS/)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.3\n"
+
+#: openspending/lib/mailer.py:22
+#, fuzzy, python-format
+msgid "Dear %(name)s,"
+msgstr "Halló %s."
+
+#: openspending/lib/mailer.py:70
+#, python-format
+msgid ""
+"You have requested your password on %(site_title)s to be reset.\n"
+"\n"
+"Please click the following link to confirm this request:\n"
+"\n"
+"   %(reset_link)s\n"
+msgstr ""
+"Þú hefur óskað eftir því að lykilorðið þitt á %(site_title)s sé "
+"endurstillt.\n"
+"\n"
+"Vinsamlegast smelltu á tengilinn hér fyrir neðan til að samþykkja "
+"beiðnina:\n"
+"\n"
+"%(reset_link)s\n"
+
+#: openspending/lib/mailer.py:80
+msgid "Reset your password"
+msgstr "Endurstilla lykilorðið þitt"
+
+#: openspending/lib/views.py:37
+msgid "Untitled"
+msgstr "Ónefnt"
+
+#: openspending/lib/widgets.py:14
+#, python-format
+msgid "No widget named '%s' exists."
+msgstr "Framsetning með nafnið '%s' er ekki til."
+
+#: openspending/templates/_dimension_list.html:9
+msgid "Part of unique key"
+msgstr "Hluti af einræðum lykli"
+
+#: openspending/templates/base.html:7
+msgid "We're enabling anyone to explore, visualize and track government spending."
+msgstr ""
+"Við virkjum alla til að skoða, teikna upp og fylgjast með útgjöldum "
+"stjórnvalda."
+
+#: openspending/templates/base.html:10
+msgid "Latest Datasets on OpenSpending"
+msgstr "Síðustu gagnasöfnin á OpenSpending"
+
+#: openspending/templates/base.html:38
+#: openspending/templates/account/profile.html:32
+#: openspending/templates/badge/information.html:29
+msgid "Datasets"
+msgstr "Gagnasöfn"
+
+#: openspending/templates/base.html:41
+#: openspending/templates/dataset/_nav.html:56
+#: openspending/templates/dimension/_nav.html:48
+#: openspending/templates/entry/search.html:3
+#: openspending/templates/entry/search.html:35
+#: openspending/templates/home/index.html:41
+msgid "Search"
+msgstr "Leit"
+
+#: openspending/templates/base.html:44
+msgid "Community"
+msgstr "Samfélag"
+
+#: openspending/templates/base.html:47 openspending/templates/base.html:135
+msgid "Help"
+msgstr "Hjálp"
+
+#: openspending/templates/base.html:50
+#: openspending/templates/dataset/_nav.html:61
+msgid "About"
+msgstr "Um"
+
+#: openspending/templates/base.html:53 openspending/templates/base.html:136
+msgid "Contact"
+msgstr "Hafa samband"
+
+#: openspending/templates/base.html:56
+msgid "Blog"
+msgstr "Blogg"
+
+#: openspending/templates/base.html:67
+#: openspending/templates/editor/_nav.html:26
+msgid "Dashboard"
+msgstr "Lesborð"
+
+#: openspending/templates/base.html:68
+msgid "Settings"
+msgstr "Stillingar"
+
+#: openspending/templates/base.html:71
+#: openspending/templates/account/scoreboard.html:3
+msgid "User scoreboard"
+msgstr "Stigaborð notenda"
+
+#: openspending/templates/base.html:74
+msgid "Logout"
+msgstr "Útskráning"
+
+#: openspending/templates/base.html:79
+msgid "Login/Register"
+msgstr "Innskrá/Nýskrá"
+
+#: openspending/templates/base.html:83
+msgid "Language"
+msgstr "Tungumál"
+
+#: openspending/templates/base.html:118
+msgid "This site uses cookies"
+msgstr "Þessi síða notar smygildi"
+
+#: openspending/templates/base.html:118
+msgid "Okay, thanks"
+msgstr "Ókei, takk"
+
+#: openspending/templates/base.html:118
+msgid "Find out more"
+msgstr "Skoða betur"
+
+#: openspending/templates/base.html:122
+msgid ""
+"This is an <a href=\"http://okfn.org\">Open Knowledge Foundation</a>\n"
+"            project"
+msgstr ""
+"Þetta er verkefni á vegum <a href=\"http://okfn.org\">Open Knowledge "
+"Foundation</a>"
+
+#: openspending/templates/base.html:137
+msgid "API"
+msgstr "Forritaskil"
+
+#: openspending/templates/base.html:138
+msgid "Privacy"
+msgstr "Friðhelgi"
+
+#: openspending/templates/base.html:140
+msgid ""
+"All <a href=\"http://www.gnu.org/licenses/agpl.html\">code</a>,\n"
+"          <a "
+"href=\"http://creativecommons.org/licenses/by/3.0/\">content</a>\n"
+"          and <a "
+"href=\"http://opendatacommons.org/licenses/odbl/\">data</a> is\n"
+"          openly licensed in accordance with the\n"
+"          <a href=\"http://opendefinition.org/\">open definition</a>"
+msgstr ""
+"Allur <a href=\"http://www.gnu.org/licenses/agpl.html\">kóði</a>,\n"
+"<a href=\"http://creativecommons.org/licenses/by/3.0/\">efni</a>\n"
+"og <a href=\"http://opendatacommons.org/licenses/odbl/\">gögn</a> eru\n"
+"gefin út undir opnu leyfi í samræmi við\n"
+"<a href=\"http://opendefinition.org/\">Opnu skilgreininguna</a>"
+
+#: openspending/templates/error.html:7 openspending/templates/run/view.html:30
+#: openspending/templates/run/view.html:54
+#: openspending/templates/source/_list.html:13
+msgid "Error"
+msgstr "Villa"
+
+#: openspending/templates/account/profile.html:13
+msgid "Information"
+msgstr "Upplýsingar"
+
+#: openspending/templates/account/profile.html:13
+msgid "(change)"
+msgstr "(breyta)"
+
+#: openspending/templates/account/profile.html:16
+#: openspending/templates/editor/dimensions.html:135
+msgid "Name"
+msgstr "Nafn"
+
+#: openspending/templates/account/profile.html:19
+msgid "Username"
+msgstr "Notandanafn"
+
+#: openspending/templates/account/profile.html:22
+#: openspending/templates/home/index.html:90
+#: openspending/templates/home/index.html:97
+msgid "Email"
+msgstr "Netfang"
+
+#: openspending/templates/account/profile.html:42
+msgid "It looks like you haven't uploaded any datasets."
+msgstr "Það lítur út fyrir að þú hafir ekki halað upp neinum gagnasöfnum."
+
+#: openspending/templates/account/profile.html:47
+#: openspending/templates/dataset/_select.html:96
+#: openspending/templates/dataset/new_cta.html:3
+msgid "Import a dataset"
+msgstr "Hlaða inn gagnasafni"
+
+#: openspending/templates/account/profile.html:52
+#: openspending/templates/editor/_nav.html:36
+msgid "Views"
+msgstr "Sýn"
+
+#: openspending/templates/account/scoreboard.html:6
+msgid "OpenSpending Dataset Maintainers"
+msgstr "Gagnasafnsumsjónarfólk OpenSpending"
+
+#: openspending/templates/badge/information.html:3
+#: openspending/templates/badge/information.html:6
+msgid "Badge"
+msgstr "Verðlaun"
+
+#: openspending/templates/badge/information.html:10
+msgid "Representative image"
+msgstr "Lýsandi mynd"
+
+#: openspending/templates/badge/information.html:14
+#: openspending/templates/dataset/about.html:29
+#: openspending/templates/editor/dimensions.html:391
+#: openspending/templates/view/new.html:72
+msgid "Description"
+msgstr "Lýsing"
+
+#: openspending/templates/badge/information.html:23
+msgid "Look at more OpenSpending badges"
+msgstr "Skoða fleiri OpenSpending verðlaun"
+
+#: openspending/templates/badge/information.html:31
+msgid "The following datasets have been awarded this badge"
+msgstr "Eftirfarandi gagnasöfn hafa hlotið þessi verðlaun"
+
+#: openspending/templates/badge/information.html:43
+msgid "<strong>No</strong> datasets have been awarded this badge"
+msgstr "<strong>Engin</strong> gagnasöfn hafa hlotið þessi verðlaun"
+
+#: openspending/templates/dataset/_nav.html:15
+#: openspending/templates/dataset/about.html:80
+msgid "Badges"
+msgstr "Verðlaun"
+
+#: openspending/templates/dataset/_nav.html:25
+msgid "What are badges?"
+msgstr "Hvað eru verðlaun?"
+
+#: openspending/templates/dataset/_nav.html:66
+msgid "Visualisations"
+msgstr "Myndrænar framsetningar"
+
+#: openspending/templates/dataset/_nav.html:84
+msgid "Create a visualisation..."
+msgstr "Búa til myndræna framsetningu..."
+
+#: openspending/templates/dataset/_nav.html:93
+msgid "Manage"
+msgstr "Stýra"
+
+#: openspending/templates/dataset/_select.html:6
+msgid "Filter..."
+msgstr "Sía..."
+
+#: openspending/templates/dataset/_select.html:8
+#: openspending/templates/dataset/index.html:42
+msgid "Countries"
+msgstr "Lönd"
+
+#: openspending/templates/dataset/_select.html:10
+msgid "Filter by country"
+msgstr "Sía eftir landi"
+
+#: openspending/templates/dataset/_select.html:24
+#: openspending/templates/dataset/index.html:59
+msgid "Languages"
+msgstr "Tungumál"
+
+#: openspending/templates/dataset/_select.html:26
+msgid "Filter by language"
+msgstr "Sía eftir tungumáli"
+
+#: openspending/templates/dataset/_select.html:40
+msgid "Types of data"
+msgstr "Gerðir af gögnum"
+
+#: openspending/templates/dataset/_select.html:89
+#: openspending/templates/dataset/dropdb.html:9
+msgid "mapping the money"
+msgstr "elta peningana"
+
+#: openspending/templates/dataset/_select.html:97
+msgid "Close"
+msgstr "Loka"
+
+#: openspending/templates/dataset/about.html:32
+#, python-format
+msgid "No description is available for %(dataset)s"
+msgstr "Engin lýsing til fyrir %(dataset)s"
+
+#: openspending/templates/dataset/about.html:39
+msgid "Sources"
+msgstr "Upprunar"
+
+#: openspending/templates/dataset/about.html:41
+msgid ""
+"This is a listing of all source data that was registered\n"
+"              for this dataset."
+msgstr ""
+"Þetta er listi af öllum upprunagögnum sem eru skráð\n"
+"fyrir þetta gagnasafn."
+
+#: openspending/templates/dataset/about.html:56
+#: openspending/templates/editor/_nav.html:41
+msgid "Team"
+msgstr "Teymi"
+
+#: openspending/templates/dataset/about.html:58
+msgid ""
+"These people are the managers of the dataset. They can\n"
+"              make modifications to its schema and are responsible\n"
+"              to make sure the data is accurate."
+msgstr ""
+"Þetta fólk eru stjórnendur gagnasafnsins. Þau geta\n"
+"gert breytingar á gerðarlýsingu og eru ábyrg\n"
+"fyrir því að gögnin séu nákvæm."
+
+#: openspending/templates/dataset/about.html:82
+msgid "This dataset has been awarded"
+msgstr "Gagnasafnið hefur hlotið verðlaunin"
+
+#: openspending/templates/dataset/about.html:83
+msgid "List of badges"
+msgstr "Listi af verðlaunum"
+
+#: openspending/templates/dataset/about.html:83
+msgid "badges"
+msgstr "verðlaun"
+
+#: openspending/templates/dataset/about.html:85
+msgid ""
+"Badges can be given by OpenSpending administrators on behalf of\n"
+"\t      entities approved by <a href=\"http://okfn.org/\" "
+"title=\"OKF\">the Open Knowledge Foundation</a>."
+msgstr ""
+"Verðlaun geta verið úthlutuð af OpenSpending stjórnendum fyrir hönd\n"
+"\t      aðila sem eru samþykktir af <a href=\"http://okfn.org/\" "
+"title=\"OKF\">Open Knowledge Foundation</a>."
+
+#: openspending/templates/dataset/about.html:94
+msgid "Give badge"
+msgstr "Úthluta verðlaunum"
+
+#: openspending/templates/dataset/about.html:101
+msgid "Give"
+msgstr "Úthluta"
+
+#: openspending/templates/dataset/about.html:114
+msgid "Measures"
+msgstr "Mælingar"
+
+#: openspending/templates/dataset/about.html:116
+msgid ""
+"Measures are the numeric properties of each entry in this\n"
+"          dataset."
+msgstr ""
+"Mælingar eru töluleg eigindi fyrir hverja færslu í þessu\n"
+"gagnasafni."
+
+#: openspending/templates/dataset/about.html:131
+#: openspending/templates/dimension/index.html:9
+msgid "Dimensions"
+msgstr "Víddir"
+
+#: openspending/templates/dataset/about.html:133
+msgid ""
+"Dimensions are different aspects of the dataset, such as the\n"
+"          spender, recipient or classifications that apply."
+msgstr ""
+"Víddir eru mismunandi sjónarhorn á gagnasafninu, eins og\n"
+"greiðandi, móttakandi og flokkanir sem eiga við."
+
+#: openspending/templates/dataset/dropdb.html:3
+msgid "Database erased"
+msgstr "Gagnagrunni eytt"
+
+#: openspending/templates/dataset/dropdb.html:10
+msgid ""
+"The database should now have been erased. You'll even have to create a "
+"new user to log in again."
+msgstr ""
+"Gagnagrunninum ætti að hafa verið eytt. Þú þarft meira að segja að búa "
+"til nýja notanda til að skrá þig inn aftur."
+
+#: openspending/templates/dataset/index.html:3
+msgid "All datasets"
+msgstr "Öll gagnasöfn"
+
+#: openspending/templates/dataset/index.html:6
+msgid "Available data sets"
+msgstr "Aðgengileg gagnasöfn"
+
+#: openspending/templates/dataset/index.html:10
+msgid "The database contains the following datasets"
+msgstr "Gagnagrunnurinn inniheldur eftirfarandi gagnasöfn"
+
+#: openspending/templates/dataset/index.html:38
+msgid "Import a new dataset"
+msgstr "Flytja inn nýtt gagnasafn"
+
+#: openspending/templates/dataset/index.html:39
+msgid "Import"
+msgstr "Flytja inn"
+
+#: openspending/templates/dataset/new_cta.html:8
+msgid "Contribute your local data!"
+msgstr "Sendu inn þín staðargögn!"
+
+#: openspending/templates/dataset/new_cta.html:11
+msgid ""
+"We're trying to gather <strong>the world's spending\n"
+"        information</strong> in a common database so that we can provide\n"
+"        common tools for <strong>analysis, visualization and\n"
+"        comparison</strong>. OpenSpending is an open platform that\n"
+"        aims to facilitate the presentation of financial information so \n"
+"        anyone - whether data geek or concerned citizen - can contribute"
+" \n"
+"        their local city budget or spending reports."
+msgstr ""
+"Við erum að reyna að safna saman <strong>útgjaldaupplýsingum\n"
+"        heimsins</strong> í sameiginlegan gagnagrunn sem búið til\n"
+"        almenn tól fyrir <strong>greiningu, myndræna framsetningu og\n"
+"        samanburð</strong>. OpenSpending er opinn vettvangur sem\n"
+"        aðstoðar við framsetningu á fjárhagsupplýsingum þannig að\n"
+"        allir- hvort sem það eru gagnanördar eða almennir borgarar - geti"
+"\n"
+"        sent inn gögn þeirra eigin sveitarfélaga eða útgjaldaskýrslu."
+
+#: openspending/templates/dataset/new_cta.html:20
+msgid "Why should you contribute?"
+msgstr "Af hverju ættir þú að taka þátt?"
+
+#: openspending/templates/dataset/new_cta.html:23
+msgid ""
+"There are many projects that aim to track financial information. All\n"
+"        require these basic services, which we aim to provide"
+msgstr ""
+"Það eru mörg verkefni sem reyna að fylgjast með fjárhagsupplýsingum.\n"
+"Öll verkefnin krefjast þessarar grunnþjónustu sem við bjóðum upp á"
+
+#: openspending/templates/dataset/new_cta.html:27
+msgid "Data loading and validation facilities."
+msgstr "Upphali gagna og sannprófunarþjónustu."
+
+#: openspending/templates/dataset/new_cta.html:28
+msgid ""
+"Common visualization types (treemaps, charts, and the bubble\n"
+"          tree)."
+msgstr "Almennum myndrænum framsetningum (trjákort, stöplarit og kúlutré)."
+
+#: openspending/templates/dataset/new_cta.html:30
+msgid "Full-text search for all entries."
+msgstr "Leit í öllum færslum."
+
+#: openspending/templates/dataset/new_cta.html:31
+msgid ""
+"Means to track provenance and provide access to the raw\n"
+"          data."
+msgstr "Leiðir til að skoða sannvottanir og aðgang að grunngögnum."
+
+#: openspending/templates/dataset/new_cta.html:36
+msgid "Sign up to contribute"
+msgstr "Nýskráðu þig til taka þátt"
+
+#: openspending/templates/dataset/new_cta.html:38
+msgid "Learn more"
+msgstr "Læra meira"
+
+#: openspending/templates/dataset/view.html:36
+#: openspending/templates/dimension/member.html:40
+#: openspending/templates/dimension/view.html:41
+#: openspending/templates/view/view.html:78
+msgid "Embed"
+msgstr "Ívafningur"
+
+#: openspending/templates/dataset/view.html:37
+#: openspending/templates/dimension/entries.html:87
+#: openspending/templates/dimension/member.html:44
+#: openspending/templates/dimension/view.html:42
+#: openspending/templates/view/view.html:83
+msgid "Change"
+msgstr "Breyta"
+
+#: openspending/templates/dataset/view.html:38
+#: openspending/templates/dimension/member.html:48
+#: openspending/templates/dimension/view.html:43
+#: openspending/templates/view/view.html:88
+msgid "Data"
+msgstr "Gögn"
+
+#: openspending/templates/dimension/entries.html:5
+#: openspending/templates/entry/view.html:31
+msgid "Entries"
+msgstr "Færslur"
+
+#: openspending/templates/dimension/entries.html:53
+msgid "Download first 100 entries as JSON"
+msgstr "Hlaða niður fyrstu 100 færslunum sem JSON"
+
+#: openspending/templates/dimension/entries.html:59
+msgid "Download first 100 entries as CSV"
+msgstr "Hlaða niður fyrstu 100 færslunum sem CSV"
+
+#: openspending/templates/dimension/entries.html:65
+msgid "Download all entries as JSON"
+msgstr "Hlaða niður öllum færslum sem JSON"
+
+#: openspending/templates/dimension/entries.html:71
+msgid "Download all entries as CSV"
+msgstr "Hlaða niður öllum færslum sem CSV"
+
+#: openspending/templates/dimension/entries.html:81
+#, python-format
+msgid "Total of %(member)s by year"
+msgstr "Fjöldi %(member)s eftir ári"
+
+#: openspending/templates/dimension/entries.html:85
+msgid "Year"
+msgstr "Ár"
+
+#: openspending/templates/dimension/entries.html:86
+#: openspending/templates/entry/index.html:43
+msgid "Amount"
+msgstr "Upphæð"
+
+#: openspending/templates/dimension/index.html:3
+#, python-format
+msgid "Dimensions in %(dataset)s"
+msgstr "Víddir í %(dataset)s"
+
+#: openspending/templates/dimension/index.html:10
+msgid "Facets of the dataset."
+msgstr "Fletir gagnasafnsins."
+
+#: openspending/templates/dimension/index.html:13
+#, python-format
+msgid "%(dataset)s has the following dimensions"
+msgstr "%(dataset)s hefur eftirfarandi víddir"
+
+#: openspending/templates/editor/_nav.html:16
+msgid "Manage the dataset"
+msgstr "Stjórna gagnasafninu"
+
+#: openspending/templates/editor/_nav.html:31
+msgid "Dimensions &amp; Measures"
+msgstr "Víddir &amp; mælingar"
+
+#: openspending/templates/editor/_nav.html:46
+msgid "Meta"
+msgstr "Lýsigögn"
+
+#: openspending/templates/editor/_nav.html:51
+msgid "Templates"
+msgstr "Snið"
+
+#: openspending/templates/editor/dimensions.html:89
+msgid "Add Dimension"
+msgstr "Bæta við vídd"
+
+#: openspending/templates/editor/dimensions.html:92
+msgid "Make sure your dimensions import all source data columns."
+msgstr "Vertu viss um að víddirnar þínar flytji inn alla dálka grunngagnanna."
+
+#: openspending/templates/editor/dimensions.html:97
+msgid "Set Unique Dimensions"
+msgstr "Stilla einræðar víddir"
+
+#: openspending/templates/editor/dimensions.html:100
+msgid "Identify the dimensions that help to identify each entry."
+msgstr "Skilgreindu víddirnar sem hjálpa þér að auðkenna hverja færslu."
+
+#: openspending/templates/editor/dimensions.html:103
+msgid "Existing Dimensions"
+msgstr "Skilgreindar víddir"
+
+#: openspending/templates/editor/dimensions.html:112
+msgid "Specify which dimensions identify an entry uniquely"
+msgstr "Skilgreindu hvaða víddir samanlagt benda á einstakar færslur"
+
+#: openspending/templates/editor/dimensions.html:120
+msgid "Update"
+msgstr "Uppfæra"
+
+#: openspending/templates/editor/dimensions.html:128
+msgid "Add new dimension"
+msgstr "Bæta við nýrri vídd"
+
+#: openspending/templates/editor/dimensions.html:139
+msgid ""
+"The name you choose should only contain letters, numbers and dashes "
+"(i.e., no spaces)"
+msgstr ""
+"Nafnið sem þú velur getur aðeins innihaldið enska bókstafi, tölustafi og "
+"bandstrik (þ.e. ekki bil)"
+
+#: openspending/templates/editor/dimensions.html:142
+msgid ""
+"Where the dimension represents the ultimate source or destination of the "
+"funds, call it <code>from</code> or <code>to</code>"
+msgstr ""
+"Þar sem víddin segir til um greiðanda eða móttakanda fjármagns, kallaðu "
+"það <code>from</code> eða <code>to</code>"
+
+#: openspending/templates/editor/dimensions.html:147
+#: openspending/templates/editor/dimensions.html:415
+msgid "Type"
+msgstr "Gerð"
+
+#: openspending/templates/editor/dimensions.html:151
+#: openspending/templates/entry/view.html:118
+msgid "Dimension"
+msgstr "Vídd"
+
+#: openspending/templates/editor/dimensions.html:153
+msgid ""
+"A defined set, like suppliers or classifications, with multiple "
+"attributes (e.g. supplier name and VAT number)."
+msgstr ""
+"Skilgreint mengi, eins og birgjar eða flokkanir, með mörgum gildum (t.d. "
+"nafn birgja og virðisaukaskattssnúmer)."
+
+#: openspending/templates/editor/dimensions.html:158
+#: openspending/templates/run/view.html:52
+msgid "Attribute"
+msgstr "Gildi"
+
+#: openspending/templates/editor/dimensions.html:160
+msgid "A simple value, e.g. descriptions or transaction IDs."
+msgstr "Einfalt gildi, t.d. lýsing eða færsluauðkenni."
+
+#: openspending/templates/editor/dimensions.html:165
+msgid "Date"
+msgstr "Dagsetning"
+
+#: openspending/templates/editor/dimensions.html:167
+msgid "Temporal value, e.g. start of project, date of disbursement."
+msgstr "Tímagildi, t.d. upphafsdagur verkefnis, dagsetning greiðslu."
+
+#: openspending/templates/editor/dimensions.html:172
+msgid "Measure"
+msgstr "Mæling"
+
+#: openspending/templates/editor/dimensions.html:174
+msgid "Monetary information, e.g. amount disbursed or allocated."
+msgstr "Fjármálaupplýsingar, t.d. greidd upphæð eða áætluð upphæð."
+
+#: openspending/templates/editor/dimensions.html:181
+msgid "Unmapped source data columns"
+msgstr "Ónotaðir dálkar í grunngögnum"
+
+#: openspending/templates/editor/dimensions.html:189
+msgid "Cancel"
+msgstr "Hætta við"
+
+#: openspending/templates/editor/dimensions.html:190
+#: openspending/templates/editor/team.html:91
+msgid "Add"
+msgstr "Bæta við"
+
+#: openspending/templates/editor/dimensions.html:200
+msgid "Your model was saved."
+msgstr "Líkanið þitt var vistað."
+
+#: openspending/templates/editor/dimensions.html:200
+msgid ""
+"You can now try to load a sample of the data by returning back to the "
+"dashboard."
+msgstr ""
+"Þú getur núna reynt að hlaða inn gagnadæmi með því að fara aftur á "
+"lesborðið."
+
+#: openspending/templates/editor/dimensions.html:203
+msgid "Visit dashboard"
+msgstr "Heimsækja lesborð"
+
+#: openspending/templates/editor/dimensions.html:211
+msgid ""
+"The dimensions mapping could not be saved as it \n"
+"            contains some errors"
+msgstr ""
+"Það tókst ekki að vista kortlagningu vídda því hún \n"
+"inniheldur villur"
+
+#: openspending/templates/editor/dimensions.html:228
+msgid "Dimension mapping"
+msgstr "Kortlagning vídda"
+
+#: openspending/templates/editor/dimensions.html:230
+msgid ""
+"To create a model for your dataset,\n"
+"                    you need to translate the columns in \n"
+"                    the data file to \"dimensions\", the logical\n"
+"                    divisions of the dataset. A dimension\n"
+"                    can be any property of a line item or \n"
+"                    transaction that should be presented\n"
+"                    within OpenSpending."
+msgstr ""
+"Til að búa til líkan fyrir gagnsafanið þitt, þarftu\n"
+"að segja hvaða dálkar í í grunnskránni śeu\n"
+"hvaða \"víddir\", skiljanlega uppskipting\n"
+"gagnasafnsins. Vídd getur verið hvaða eigindi\n"
+"línu eða færslu sem OpenSpending getur\n"
+"táknað."
+
+#: openspending/templates/editor/dimensions.html:239
+msgid ""
+"There are four core dimensions, <code>amount</code>,\n"
+"                    <code>time</code> &mdash; which are\n"
+"                    mandatory &mdash; as well as\n"
+"                    <code>from</code> for the spender,\n"
+"                    and <code>to</code> for the\n"
+"                    recipient of a specific transaction\n"
+"                    &mdash; both of those must be\n"
+"                    dimensions if they exist."
+msgstr ""
+"Það eru fjórar grunnvíddir, <code>amount</code>,\n"
+"<code>time</code> &mdash; sem eru\n"
+"nauðsynlegar &mdash; ásamt <code>from</code>\n"
+"sem táknar greiðanda og <code>to</code> fyrir\n"
+"móttakanda greiðslunnar &mdash; sem báðar þurfa\n"
+"að vera víddir ef þær eru skráðar."
+
+#: openspending/templates/editor/dimensions.html:249
+msgid ""
+"Beyond that, you can add your own\n"
+"                    dimensions to describe aspects such\n"
+"                    as classification schemes,\n"
+"                    descriptions, transaction IDs and any\n"
+"                    other details present in the source\n"
+"                    data."
+msgstr ""
+"Fyrir utan það getur þú bætt við þínum\n"
+"eigin víddum til að lýsa sjónarhornum eins\n"
+"og flokkunarkerfum, lýsingum, auðkenni\n"
+"færslu eða aðrar upplýsingar í\n"
+"grunngögnunum."
+
+#: openspending/templates/editor/dimensions.html:256
+msgid "What do I do here?"
+msgstr "Hvað geri ég hér?"
+
+#: openspending/templates/editor/dimensions.html:258
+msgid ""
+"First off, make sure to set up the\n"
+"                    model to conform to these basic\n"
+"                    requirements:"
+msgstr ""
+"Í fyrsta lagi, vertu viss um að setja\n"
+"upp líkan til að passa við þessar\n"
+"grunnkröfur:"
+
+#: openspending/templates/editor/dimensions.html:263
+msgid ""
+"Create <code>amount</code> with the core \n"
+"                      financial measure of the dataset and \n"
+"                      <code>time</code> to represent the most \n"
+"                      representative temporal\n"
+"                      dimension."
+msgstr ""
+"Búa til <code>amount</code> með aðalmælingu\n"
+"fjármagnsins í gagnasafninu og <code>time</code>\n"
+"til að tákna mest lýsandi dagsetningu færslunnar."
+
+#: openspending/templates/editor/dimensions.html:268
+msgid ""
+"If your data is transactional and \n"
+"                      contains the name of a department or \n"
+"                      body spending the funds, make sure to \n"
+"                      include a <code>from</code> dimension."
+msgstr ""
+"Ef gögnin þín eru færslugögn og\n"
+"innihalda nöfnin á deild eða stofnun sem\n"
+"eyðir fjármagninu, vertu þá viss um að\n"
+"nota <code>from</code> víddina."
+
+#: openspending/templates/editor/dimensions.html:272
+msgid ""
+"If the data mentions a recipient,\n"
+"                      such as a supplier, set\n"
+"                      <code>to</code> as another dimension."
+msgstr ""
+"Ef gögnin minnast á viðtakanda,\n"
+"eins og birgja, skráðu þá\n"
+"<code>to</code> sem aðra vídd."
+
+#: openspending/templates/editor/dimensions.html:275
+msgid ""
+"Set a unique key combination so\n"
+"                      that the values within that\n"
+"                      combination are different between all \n"
+"                      entries in the dataset. This can\n"
+"                      later be used for updating the\n"
+"                      dataset."
+msgstr ""
+"Skrá einræða lyklasamsetningu\n"
+"þannig að gildin í henni séu\n"
+"mismunandi í öllum færslum\n"
+"gagnasafnsins. Þetta getur síðar\n"
+"verið notað til að uppfæra\n"
+"gagnasafnið."
+
+#: openspending/templates/editor/dimensions.html:283
+msgid ""
+"After you've done these basic things,\n"
+"                    make sure to also create dimensions\n"
+"                    to cover any other aspects present in \n"
+"                    the source data. You can group\n"
+"                    related columns into a single\n"
+"                    dimension, for example if each row \n"
+"                    mentions both a company's name and\n"
+"                    its VAT number."
+msgstr ""
+"Eftir að þú hefur gert þessa grunnhluti,\n"
+"vertu þá viss um að búa til víddir til að\n"
+"fanga önnur sjónarhorn í grunngögnunum.\n"
+"Þú getur hópað saman tengda dálka í eina\n"
+"vídd, til dæmis ef hver lína inniheldur bæði\n"
+"nafn fyrirtækis og virðisaukaskattsnúmer\n"
+"fyrirtækisins."
+
+#: openspending/templates/editor/dimensions.html:302
+#: openspending/templates/editor/dimensions.html:380
+msgid "string"
+msgstr "strengur"
+
+#: openspending/templates/editor/dimensions.html:303
+#: openspending/templates/editor/dimensions.html:381
+msgid "float"
+msgstr "rauntala"
+
+#: openspending/templates/editor/dimensions.html:304
+#: openspending/templates/editor/dimensions.html:382
+msgid "id"
+msgstr "auðkenni"
+
+#: openspending/templates/editor/dimensions.html:305
+#: openspending/templates/editor/dimensions.html:383
+msgid "date"
+msgstr "dagsetning"
+
+#: openspending/templates/editor/dimensions.html:306
+#: openspending/templates/editor/dimensions.html:384
+msgid "url"
+msgstr "vefslóð"
+
+#: openspending/templates/editor/dimensions.html:310
+msgid "Default Value"
+msgstr "Sjálfgefið gildi"
+
+#: openspending/templates/editor/dimensions.html:331
+msgid "Label"
+msgstr "Merki"
+
+#: openspending/templates/editor/dimensions.html:335
+msgid ""
+"A human-readable title for this\n"
+"                          dimension."
+msgstr ""
+"Mannlæsilegur titill fyrir þessa\n"
+"vídd."
+
+#: openspending/templates/editor/dimensions.html:344
+msgid "Include in unique key"
+msgstr "Nota í einræðum lykli"
+
+#: openspending/templates/editor/dimensions.html:347
+msgid ""
+"Make this dimension part of the set of\n"
+"                          uniquely identifying values for each\n"
+"                          column."
+msgstr ""
+"Gera þessa vídd að hluta af menginu\n"
+"sem finna einstök gildi í hverjum\n"
+"dálki."
+
+#: openspending/templates/editor/dimensions.html:356
+#: openspending/templates/editor/dimensions.html:414
+#: openspending/templates/run/view.html:51
+msgid "Column"
+msgstr "Dálkur"
+
+#: openspending/templates/editor/dimensions.html:360
+msgid "Source column in the source CSV file."
+msgstr "Upprunadálkur í CSV grunnskránni."
+
+#: openspending/templates/editor/dimensions.html:366
+msgid "Default value"
+msgstr "Sjálfgefið gildi"
+
+#: openspending/templates/editor/dimensions.html:370
+msgid ""
+"Empty cells will be padded with this\n"
+"                          value."
+msgstr ""
+"Tómum reitum verðum úthlutað\n"
+"þessu gildi."
+
+#: openspending/templates/editor/dimensions.html:377
+msgid "Data type"
+msgstr "Gagnagerð"
+
+#: openspending/templates/editor/dimensions.html:400
+msgid "Use as facet in entries browser"
+msgstr "Nota sem flöt í færsluvafra"
+
+#: openspending/templates/editor/dimensions.html:403
+msgid ""
+"Select a few dimensions which are useful\n"
+"                          to slice the dataset by."
+msgstr ""
+"Veldu nokkrar víddir sem nýtast til að\n"
+"skoða gagnasafnið."
+
+#: openspending/templates/editor/dimensions.html:413
+msgid "Field"
+msgstr "Reitur"
+
+#: openspending/templates/editor/dimensions.html:416
+msgid "Default"
+msgstr "Sjálfgefið"
+
+#: openspending/templates/editor/dimensions.html:426
+msgid "Add a field"
+msgstr "Bæta við reit"
+
+#: openspending/templates/editor/dimensions.html:442
+msgid "Save Dimensions"
+msgstr "Vista víddir"
+
+#: openspending/templates/editor/dimensions.html:444
+msgid "Delete All Dimensions"
+msgstr "Eyða öllum víddum"
+
+#: openspending/templates/editor/dimensions_errors.html:15
+msgid "You cannot edit dimensions while data is loaded."
+msgstr "Þú getur ekki breytt víddum þegar gögnunum hefur verið hlaðið."
+
+#: openspending/templates/editor/dimensions_errors.html:16
+msgid ""
+"In order to modify the dimensions model, you'll have to \n"
+"        delete all the data that is currently loaded from the database."
+msgstr ""
+"Til þess að breyta víddarlíkani verður þú að eyða öllum\n"
+"gögnum sem hefur verið hlaðið inn í gagnagrunninn."
+
+#: openspending/templates/editor/dimensions_errors.html:20
+msgid "Go to dashboard"
+msgstr "Fara í lesborð"
+
+#: openspending/templates/editor/dimensions_errors.html:23
+msgid "See dimensions"
+msgstr "Sjá víddir"
+
+#: openspending/templates/editor/dimensions_errors.html:31
+msgid "You need to define at least one data source."
+msgstr "Þú verður að skilgreina að minnsta kosti einn gagnauppruna."
+
+#: openspending/templates/editor/dimensions_errors.html:32
+msgid ""
+"In order to create a dimensions model, at least on data source\n"
+"        needs to be available."
+msgstr ""
+"Til þess að búa til víddalíkan verður að minnsta kosti einn\n"
+"gagnauppruni að vera til reiðu."
+
+#: openspending/templates/editor/team.html:70
+#, fuzzy
+msgid ""
+"Here, you can select the users who will be authorized to \n"
+"      manage this dataset."
+msgstr ""
+"Hér getur þú valið hvaða notendur hafa leyfi til að\n"
+"stjórna þessu gagnasafni."
+
+#: openspending/templates/editor/team.html:84
+msgid "Current team"
+msgstr "Núverandi teymi"
+
+#: openspending/templates/editor/team.html:88
+msgid "Add someone"
+msgstr "Bæta manneskju við"
+
+#: openspending/templates/editor/team.html:98
+#: openspending/templates/view/new.html:76
+msgid "Save"
+msgstr "Vista"
+
+#: openspending/templates/entry/index.html:32
+msgid "Time"
+msgstr "Tímasetning"
+
+#: openspending/templates/entry/index.html:34
+msgid "From"
+msgstr "Frá"
+
+#: openspending/templates/entry/index.html:36
+msgid "To"
+msgstr "Til"
+
+#: openspending/templates/entry/index.html:66
+msgid "details"
+msgstr "upplýsingar"
+
+#: openspending/templates/entry/index.html:112
+msgid "Time range for dataset:"
+msgstr "Tímabil fyrir gagnasafnið:"
+
+#: openspending/templates/entry/search.html:11
+msgid "Search OpenSpending"
+msgstr "Leita í OpenSpending"
+
+#: openspending/templates/entry/search.html:19
+msgid "e.g."
+msgstr "t.d."
+
+#: openspending/templates/entry/search.html:21
+msgid ""
+"Transactional data is often more detailed than\n"
+"            information from budgets."
+msgstr ""
+"Færslugögn eru oft mun nákvæmari heldur en\n"
+"upplýsingar úr fjárhagsáætlunum eða fjárlögum."
+
+#: openspending/templates/entry/search.html:27
+msgid "Transactions"
+msgstr "Færslur"
+
+#: openspending/templates/entry/search.html:32
+msgid "All data"
+msgstr "Öll gögn"
+
+#: openspending/templates/entry/search.html:43
+msgid ""
+"Type a search term to find government expenditure transactions\n"
+"            from across the globe."
+msgstr ""
+"Sláðu inn leitarorð til að finna útgjaldafærslu stjórnvalda\n"
+"um allan heim."
+
+#: openspending/templates/entry/view.html:35
+#, python-format
+msgid "%(currency)s %(amount)s on %(time)s"
+msgstr "%(amount)s %(currency)s - %(time)s"
+
+#: openspending/templates/entry/view.html:45
+#, python-format
+msgid "Entry in %(dataset)s"
+msgstr "Færsla í %(dataset)s"
+
+#: openspending/templates/entry/view.html:46
+msgid "Detailed View of Transaction"
+msgstr "Nánari sýn á færslu"
+
+#: openspending/templates/entry/view.html:100
+msgid "Adjusted for inflation"
+msgstr "Með tilliti til verðbólgu"
+
+#: openspending/templates/entry/view.html:101
+#, python-format
+msgid ""
+"(from <span title=\"%(reference)s\">%(reference_year)s</span> \n"
+"             to <span title=\"%(target)s\">%(target_year)s</span>)"
+msgstr ""
+"(frá <span title=\"%(reference)s\">%(reference_year)s</span> \n"
+"             til <span title=\"%(target)s\">%(target_year)s</span>)"
+
+#: openspending/templates/entry/view.html:103
+#, python-format
+msgid "Original amount: %(original)s"
+msgstr "Upprunaleg fjárhæð: %(original)s"
+
+#: openspending/templates/entry/view.html:119
+#: openspending/templates/run/view.html:53
+msgid "Value"
+msgstr "Gildi"
+
+#: openspending/templates/entry/view.html:156
+msgid "Notes"
+msgstr "Glósur"
+
+#: openspending/templates/home/index.html:18
+msgid "It's our money!"
+msgstr "Þetta eru okkar peningar!"
+
+#: openspending/templates/home/index.html:19
+msgid ""
+"By understanding how governments spend money <strong>in our name</strong>"
+" can we have a say in how that money will affect our own lives."
+msgstr ""
+"Skilningur á eyðslu stjórnvalda á peningum <strong>í okkar nafni</strong>"
+" gerir okkur kleift að ákveða hver áhrif peninganna á okkar líf verður."
+
+#: openspending/templates/home/index.html:19
+msgid "The journey starts here."
+msgstr "Ferðalagið hefst hér."
+
+#: openspending/templates/home/index.html:22
+#, python-format
+msgid "%(territory_count)s countries"
+msgstr "%(territory_count)s lönd"
+
+#: openspending/templates/home/index.html:23
+#, python-format
+msgid "%(dataset_count)s datasets"
+msgstr "%(dataset_count)s gagnasöfn"
+
+#: openspending/templates/home/index.html:24
+#, python-format
+msgid "%(entry_count)s entries"
+msgstr "%(entry_count)s færslur"
+
+#: openspending/templates/home/index.html:35
+msgid "Featured Application"
+msgstr "Áhugavert forrit"
+
+#: openspending/templates/home/index.html:36
+msgid ""
+"How much is that really? &mdash; See the stories behind the numbers in "
+"the news with the <a href=\"http://spendingstories.org\" "
+"target=\"_blank\">Spending Stories application</a>."
+msgstr ""
+"Hversu mikið er þetta í rauninni? &mdash; Sjáðu sögurnar á bak við tölur "
+"í fréttunum með <a href=\"http://spendingstories.org\" "
+"target=\"_blank\">Spending Stories</a>."
+
+#: openspending/templates/home/index.html:50
+msgid "Upload"
+msgstr "Hala upp"
+
+#: openspending/templates/home/index.html:52
+msgid ""
+"Upload any kind of financial data to OpenSpending and explore it with our"
+" built-in interactive visualizations."
+msgstr ""
+"Þú getur halað upp fjármálagögnum til OpenSpending og skoðað þau með "
+"innbyggðum gagnvirkum framsetningum."
+
+#: openspending/templates/home/index.html:52
+msgid ""
+"Users publish <a "
+"href=\"https://openspending.org/budgetmarocain\">budgets</a>, <a "
+"href=\"https://openspending.org/marches-publics-senegal/views/liste-des-"
+"attributaires\">procurements</a>, <a href=\"https://openspending.org"
+"/ukgov-25k-spending\">spending data</a> and even <a "
+"href=\"https://openspending.org/senadofederal/entries\">public employee "
+"salaries</a>."
+msgstr ""
+"Notendur birta <a "
+"href=\"https://openspending.org/budgetmarocain\">fjárhagsáætlanir/fjárlög</a>,"
+" <a href=\"https://openspending.org/marches-publics-senegal/views/liste-"
+"des-attributaires\">útboð</a>, <a href=\"https://openspending.org/ukgov-"
+"25k-spending\">útgjaldagögn</a> og jafnvel <a "
+"href=\"https://openspending.org/senadofederal/entries\">laun opinberra "
+"starfsmanna</a>."
+
+#: openspending/templates/home/index.html:54
+msgid ""
+"Use our <a href=\"http://www.pbs.org/idealab/2013/03/how-to-embed-open-"
+"spending-visualizations-in-your-own-website078\">widgets</a> to embed "
+"your visualization on your own website."
+msgstr ""
+"Notaðu <a href=\"http://www.pbs.org/idealab/2013/03/how-to-embed-open-"
+"spending-visualizations-in-your-own-website078\">framsetningarnar</a> "
+"okkar til að bæta við myndrænum framsetningum á þína eigin vefsíðu."
+
+#: openspending/templates/home/index.html:56
+msgid "Create a dataset"
+msgstr "Búa til gagnasafn"
+
+#: openspending/templates/home/index.html:56
+msgid "Upload a dataset"
+msgstr "Hala upp gagnasafni"
+
+#: openspending/templates/home/index.html:59
+msgid "Explore"
+msgstr "Skoða"
+
+#: openspending/templates/home/index.html:61
+#, python-format
+msgid ""
+"OpenSpending holds more than %(transactions)s mio. transactions from "
+"%(datasets)s datasets across %(territories)s countries."
+msgstr ""
+"OpenSpending inniheldur meira en %(transactions)s milljón færslur frá "
+"%(datasets)s gagnasöfnum úr %(territories)s löndum."
+
+#: openspending/templates/home/index.html:63
+#, python-format
+msgid ""
+"Browse the <a href=\"%(indexurl)s\">list of datasets</a> and learn about "
+"public finances from around the world, or browse <a "
+"href=\"http://apps.openspending.org/maps/\">our map of cities</a> on "
+"OpenSpending."
+msgstr ""
+"Skoðaðu <a href=\"%(indexurl)s\">listann af gagnasöfnum</a> og lærðu um "
+"opinber útgjöld um allan heim eða skoðaðu <a "
+"href=\"http://apps.openspending.org/maps/\">kort af borgum</a> í "
+"OpenSpending."
+
+#: openspending/templates/home/index.html:65
+msgid "Search the datasets"
+msgstr "Leitaðu í gagnasöfnunum"
+
+#: openspending/templates/home/index.html:65
+msgid "Search transactions"
+msgstr "Leitaðu í færslum"
+
+#: openspending/templates/home/index.html:65
+msgid "List of datasets"
+msgstr "Listi af gagnasöfnum"
+
+#: openspending/templates/home/index.html:65
+msgid "...or look at the datasets"
+msgstr "...eða skoðaðu gagnasöfnin"
+
+#: openspending/templates/home/index.html:68
+msgid "Visualize"
+msgstr "Teiknaðu up"
+
+#: openspending/templates/home/index.html:70
+msgid ""
+"Create your own visualizations with the <a "
+"href=\"http://community.openspending.org/help/api/aggregate/\">OpenSpending"
+" API</a> using libraries like <a "
+"href=\"http://community.openspending.org/2013/08/20/okfb-"
+"inesc/\">D3.js</a>, jit, and Raphael."
+msgstr ""
+"Búðu til þínar eigin myndrænar framsetningar með<a "
+"href=\"http://community.openspending.org/help/api/aggregate/\">OpenSpending"
+" forritaskilunum</a> með forritunarsöfnum eins og <a "
+"href=\"http://community.openspending.org/2013/08/20/okfb-"
+"inesc/\">D3.js</a>, jit, eða Raphael."
+
+#: openspending/templates/home/index.html:72
+msgid ""
+"You can even create a satellite site while still using OpenSpending as a "
+"backend."
+msgstr "Þú getur jafnvel búið til fjármálasíðu sem notar OpenSpending sem bakenda."
+
+#: openspending/templates/home/index.html:74
+msgid "API documentation"
+msgstr "Skjölun forritaskila"
+
+#: openspending/templates/home/index.html:74
+msgid "Look at the API"
+msgstr "Skoða forritaskilin"
+
+#: openspending/templates/home/index.html:77
+msgid "Contribute"
+msgstr "Taka þátt"
+
+#: openspending/templates/home/index.html:79
+msgid ""
+"OpenSpending is a community run project and all material is open - open-"
+"source code and open data."
+msgstr ""
+"OpenSpending er samfélagslega þróað verkefni og allt efni er opið - opinn"
+" hugbúnaður og opin gögn."
+
+#: openspending/templates/home/index.html:81
+msgid ""
+"Get involved in loading data, developing the technology, doing analysis "
+"or writing news stories!"
+msgstr ""
+"Taktu þátt í upphleðslu á gögnum, þróun á tækninni, greiningu eða skrifum"
+" á fréttasögum!"
+
+#: openspending/templates/home/index.html:83
+msgid "Community introduction"
+msgstr "Samfélagskynning"
+
+#: openspending/templates/home/index.html:83
+msgid "Join the spending community"
+msgstr "Taka þátt í fjármálasamfélaginu"
+
+#: openspending/templates/home/index.html:88
+msgid "Join our discussion list!"
+msgstr "Skráðu þig á spjalllistann okkar!"
+
+#: openspending/templates/home/index.html:91
+#: openspending/templates/home/index.html:98
+msgid "Sign up"
+msgstr "Nýskráning"
+
+#: openspending/templates/home/index.html:95
+msgid "Join our developer list!"
+msgstr "Skráðu þig á forritaralistann okkar!"
+
+#: openspending/templates/run/view.html:4
+#: openspending/templates/run/view.html:10
+msgid "Report"
+msgstr "Skýrsla"
+
+#: openspending/templates/run/view.html:12
+#: openspending/templates/source/_list.html:82
+msgid "errors"
+msgstr "villur"
+
+#: openspending/templates/run/view.html:16
+msgid "Nothing to report!"
+msgstr "Ekkert kom upp!"
+
+#: openspending/templates/run/view.html:16
+msgid ""
+"The source has been loaded\n"
+"  successfully. This does not mean the data is stored in a form \n"
+"  which is semantically useful, though, so don't forget to \n"
+"  sanity-check a few entries!"
+msgstr ""
+"Gögnunum hefur verið hlaðið inn.\n"
+"Þetta þýðir ekki að gögnin séu geymd á sniði sem er\n"
+"skiljanlegt þannig að ekki gleyma að kíkja á nokkrar\n"
+"færslur af gögnum!"
+
+#: openspending/templates/run/view.html:28
+msgid "Level"
+msgstr "Stig"
+
+#: openspending/templates/run/view.html:29
+msgid "Message"
+msgstr "Skilaboð"
+
+#: openspending/templates/run/view.html:50
+msgid "Row"
+msgstr "Lína"
+
+#: openspending/templates/source/_list.html:6
+msgid "Link"
+msgstr "Tengill"
+
+#: openspending/templates/source/_list.html:7
+msgid "Operations"
+msgstr "Aðgerðir"
+
+#: openspending/templates/source/_list.html:15
+msgid "OK"
+msgstr "Í lagi"
+
+#: openspending/templates/source/_list.html:24
+msgid "columns"
+msgstr "dálkar"
+
+#: openspending/templates/source/_list.html:30
+msgid "Successfully loaded"
+msgstr "Tókst að hlaða inn"
+
+#: openspending/templates/source/_list.html:34
+msgid "Running..."
+msgstr "Í keyrslu..."
+
+#: openspending/templates/source/_list.html:37
+msgid "Load source into OpenSpending"
+msgstr "Hlaða inn í OpenSpending"
+
+#: openspending/templates/source/_list.html:39
+msgid "Load"
+msgstr "Hlaða"
+
+#: openspending/templates/source/_list.html:45
+msgid "Test a sample"
+msgstr "Prófa gagnadæmi"
+
+#: openspending/templates/source/_list.html:47
+msgid "Test"
+msgstr "Prófa"
+
+#: openspending/templates/source/_list.html:53
+msgid "Delete source"
+msgstr "Eyða gagnauppruna"
+
+#: openspending/templates/source/_list.html:55
+#: openspending/templates/view/view.html:72
+msgid "Delete"
+msgstr "Eyða"
+
+#: openspending/templates/source/_list.html:62
+msgid "Reports"
+msgstr "Skýrslur"
+
+#: openspending/templates/source/_list.html:71
+msgid "Running"
+msgstr "Í keyrslu"
+
+#: openspending/templates/source/_list.html:73
+msgid "Complete"
+msgstr "Lokið"
+
+#: openspending/templates/source/_list.html:75
+msgid "Errors"
+msgstr "Villur"
+
+#: openspending/templates/source/_list.html:77
+msgid "Removed"
+msgstr "Fjarlægt"
+
+#: openspending/templates/source/_list.html:88
+msgid "Analysis"
+msgstr "Greining"
+
+#: openspending/templates/source/_list.html:91
+msgid "We found these columns in the CSV file:"
+msgstr "Við fundum þessa dálka í CSV skránni:"
+
+#: openspending/templates/source/_list.html:98
+msgid "Warning"
+msgstr "Viðvörun"
+
+#: openspending/templates/source/_list.html:98
+msgid "No columns found."
+msgstr "Engir dálkar fundust."
+
+#: openspending/templates/source/_list.html:100
+msgid "Still analysing"
+msgstr "Enn að framkvæma greiningu"
+
+#: openspending/templates/source/_list.html:100
+msgid "Try refreshing in a moment."
+msgstr "Prófaðu að endurhlaða eftir smá stund."
+
+#: openspending/templates/source/_new_form.html:4
+msgid "URL"
+msgstr "Vefslóð"
+
+#: openspending/templates/source/_new_form.html:7
+msgid ""
+"This must point directly at a\n"
+"        valid CSV file. HTML landing pages or other formats, such as\n"
+"        Excel, will not work."
+msgstr ""
+"Þetta þarf að benda beint á\n"
+"gilda CSV skrá. HTML vefsíður eða önnur snið eins og\n"
+"Excel munu ekki virka."
+
+#: openspending/templates/source/_new_form.html:10
+msgid ""
+"We recommend using <strong>,</strong> as delimiter and wrapping values in"
+" double quotes (especially amounts). The first line will always be "
+"regarded as a header row. <a "
+"href=\"http://community.openspending.org/help/guide/en/formatting-"
+"data/\">Want to know more?</a>"
+msgstr ""
+"Við mælum með <strong>,</strong> til að skipta í dálka og að setja "
+"gæsalappir utan um gildin (sérstaklega upphæðir). Fyrsta línan verður "
+"alltaf lesin sem fyrirsagnalína fyrir dálkana. <a "
+"href=\"http://community.openspending.org/help/guide/en/formatting-"
+"data/\">Viltu vita meira?</a>"
+
+#: openspending/templates/view/embed.html:6
+msgid "Embedded Visualisation"
+msgstr "Ívöfð framsetning"
+
+#: openspending/templates/view/embed.html:68
+msgid "Visualised with OpenSpending"
+msgstr "Myndræn framsetning OpenSpending"
+
+#: openspending/templates/view/index.html:5
+msgid "Library of visualisations"
+msgstr "Safn af myndrænum framsetningum"
+
+#: openspending/templates/view/index.html:27
+#, python-format
+msgid "by %(user)s"
+msgstr "eftir %(user)s"
+
+#: openspending/templates/view/new.html:5
+msgid "Create a visualisation"
+msgstr "Búa til myndræna framsetningu"
+
+#: openspending/templates/view/new.html:62
+msgid "Name your visualisation"
+msgstr "Gefðu framsetningunni nafn"
+
+#: openspending/templates/view/new.html:64
+msgid ""
+"You can store your visualisation with a name so that you can come back to"
+" it later and it will become visible to others."
+msgstr ""
+"Þú getur vistað framsetningarnar þínar með nafni svo þú getur skoðað hana"
+" aftur seinna og leyft öðrum að sjá þær."
+
+#: openspending/templates/view/new.html:68
+msgid "Title"
+msgstr "Titill"
+
+#: openspending/templates/view/new.html:83
+msgid "You need to be signed in to save a view."
+msgstr "Innskráning er nauðsynleg til að vista sýn."
+
+#: openspending/templates/view/new.html:91
+msgid "Embed in another website"
+msgstr "Vefja inn í aðra vefsíðu"
+
+#: openspending/templates/view/new.html:93
+msgid ""
+"If you don't save this visualisation, you can still copy and paste the "
+"embed code below, to embed the widget in another website, such as a blog "
+"or article."
+msgstr ""
+"Ef þú vistar ekki þessa framsetningu getur þú samt afritað og límt "
+"ívafskóðann hér fyrir neðan til að bæta framsetningunni inn á aðra "
+"vefsíðu eins og blogg eða grein."
+
+#: openspending/templates/view/new.html:97
+msgid "Width"
+msgstr "Breidd"
+
+#: openspending/templates/view/new.html:101
+msgid "Height"
+msgstr "Hæð"
+
+#: openspending/templates/view/view.html:41
+#, fuzzy
+msgid ""
+"Here you can rename your widget and/or update the description.\n"
+"              You can also modify the widget itself, but keep in mind "
+"that others might be \n"
+"              using and embedding the widget as it is now on their sites."
+" \n"
+"              <strong>Changing the widget here will change it "
+"everywhere.</strong> \n"
+"              This might then create a discrepancy between the widget and"
+" the context of \n"
+"              a page in which it's embedded."
+msgstr ""
+"Hér getur þú endurnefnt framsetninguna þína og/eða uppfært lýsinguna.\n"
+"Þú getur líka breytt framsetningunni sjálfri en hafðu í huga að aðrir "
+"gætu\n"
+"verið að nota hana og vafið hana inn í vefsíðurnar sínar núna.\n"
+"<strong>Að breyta framsetningunni hér breytir henni á öllum "
+"stöðum.</strong>\n"
+"Þetta gæti búið til mismun á milli framsetningarinnar og samhengisins á\n"
+"síðunni sem notar framsetninguna."
+
+#: openspending/templates/view/view.html:51
+msgid "Update widget"
+msgstr "Uppfæra framsetningu"
+
+#: openspending/views/account.py:58
+#, fuzzy, python-format
+msgid "Welcome back, %(name)s!"
+msgstr "Hæ aftur, %s!"
+
+#: openspending/views/account.py:60
+msgid "Incorrect user name or password!"
+msgstr "Rangt notandanafn eða lykilorð!"
+
+#: openspending/views/account.py:79
+msgid "Login name already exists, please choose a different one"
+msgstr "Notandanafn er nú þegar til, vinsamlegast veldu annað"
+
+#: openspending/views/account.py:85 openspending/views/account.py:142
+msgid "Passwords don't match!"
+msgstr "Lykilorðin passa ekki!"
+
+#: openspending/views/account.py:106
+#, fuzzy, python-format
+msgid "Subscription to the following mailing lists probably failed: %(errors)s."
+msgstr "Skráning á eftirfarandi tölvupóstlista mistókst líklega: %s"
+
+#: openspending/views/account.py:161
+msgid "Your settings have been updated."
+msgstr "Stillingarnar þínar hafa verið uppfærðar."
+
+#: openspending/views/account.py:232
+msgid "You are not authorized to see that page"
+msgstr "Þú hefur ekki leyfi til að sjá þessa síðu"
+
+#: openspending/views/account.py:255
+msgid "You have been logged out."
+msgstr "Útskráning tókst."
+
+#: openspending/views/account.py:274
+msgid "Please enter an email address!"
+msgstr "Vinsamlegast sláðu inn netfang!"
+
+#: openspending/views/account.py:282 openspending/views/account.py:305
+msgid "No user is registered under this address!"
+msgstr "Enginn notandi er skráður með þetta netfang!"
+
+#: openspending/views/account.py:289
+msgid ""
+"You've received an email with a link to reset your password. Please check"
+" your inbox."
+msgstr ""
+"Þú ættir að hafa fengið tölvupóst með tengli til að endurstilla "
+"lykilorðið þitt. Vinsamlegast kíktu í innhólfið þitt."
+
+#: openspending/views/account.py:300 openspending/views/account.py:309
+msgid "The reset link is invalid!"
+msgstr "Endurstillingartengillinn er ógildur!"
+
+#: openspending/views/account.py:314
+msgid "Thanks! You have now been signed in - please change your password!"
+msgstr "Takk! Innskráningin tókst - vinsamlegast breyttu lykilorðinu þínu!"
+
+#: openspending/views/badge.py:91
+msgid "Badge not found."
+msgstr "Verðlaun fundust ekki."
+
+#: openspending/views/dataset.py:51
+#, fuzzy, python-format
+msgid "Parameter values not supported: %(errors)s"
+msgstr "Gildi stika ekki stutt: %s"
+
+#: openspending/views/dataset.py:160
+msgid "A dataset with this identifer already exists!"
+msgstr "Gagnasafn með þessu auðkenni er nú þegar til!"
+
+#: openspending/views/dataset.py:264
+msgid "Recently created datasets in the OpenSpending Platform"
+msgstr "Gagnasöfn sem hefur nýlega verið bætt við á OpenSpending"
+
+#: openspending/views/dataset.py:265
+msgid "Recently Created Datasets"
+msgstr "Ný gagnasöfn"
+
+#: openspending/views/dimension.py:30 openspending/views/dimension.py:33
+msgid "This is not a dimension"
+msgstr "Þetta er ekki vídd"
+
+#: openspending/views/dimension.py:43
+#, fuzzy, python-format
+msgid "Sorry, there is no member named %(name)s"
+msgstr "Því miður er enginn meðlimur með nafnið %r"
+
+#: openspending/views/dimension.py:49
+#, fuzzy, python-format
+msgid "Sorry, there is no dimension named %(name)"
+msgstr "Því miður er engin vídd með nafnið %r"
+
+#: openspending/views/editor.py:105
+msgid "The dataset has been updated."
+msgstr "Gagnasafnið hefur verið uppfært."
+
+#: openspending/views/editor.py:144
+msgid "You cannot edit the dimensions model when data is loaded for the dataset."
+msgstr ""
+"Þú getur ekki breytt víddarlíkani þegar gögnum hefur verið hlaðið í "
+"gagnasafnið."
+
+#: openspending/views/editor.py:162
+msgid "The mapping data could not be decoded as JSON!"
+msgstr "Ekki tókst að afkóta kortlagningu gagna sem JSON!"
+
+#: openspending/views/editor.py:191
+msgid "The templates have been updated."
+msgstr "Sniðin hafa verið uppfærð."
+
+#: openspending/views/editor.py:221
+msgid "The views have been updated."
+msgstr "Framsetningarnar hafa verið uppfærðar."
+
+#: openspending/views/editor.py:223
+msgid "The views could not be decoded as JSON!"
+msgstr "Ekki tókst að afkóta framsetningarnar sem JSON!"
+
+#: openspending/views/editor.py:251
+msgid "User account cannot be found."
+msgstr "Notandaaðgangur fannst ekki."
+
+#: openspending/views/editor.py:261
+msgid "The team has been updated."
+msgstr "Teymið hefur verið uppfært."
+
+#: openspending/views/editor.py:283
+msgid "The dataset has been cleared."
+msgstr "Gagnasafnið hefur verið hreinsað."
+
+#: openspending/views/editor.py:292
+msgid "This dataset is already public!"
+msgstr "Gagnasafnið er nú þegar opinbert!"
+
+#: openspending/views/editor.py:303
+#, fuzzy, python-format
+msgid ""
+"Congratulations, the dataset has been published. It is now available at: "
+"%(url)s"
+msgstr "Til hamingju! Gagnasafnið er nú opinbert. Það er aðgengilegt á: %s"
+
+#: openspending/views/editor.py:313
+msgid "This dataset is already private!"
+msgstr "Gagnasafnið er nú þegar falið!"
+
+#: openspending/views/editor.py:324
+msgid "The dataset has been retracted. It is no longer visible to others."
+msgstr "Gagnasafnið hefur verið afturkallað. Það er nú falið öðrum notendum."
+
+#: openspending/views/editor.py:338
+msgid "The dataset has been deleted."
+msgstr "Gagnasafninu hefur verið eytt."
+
+#: openspending/views/entry.py:94
+#, fuzzy, python-format
+msgid "Sorry, there is no entry %(id)s"
+msgstr "Því miður er engin færsla %r"
+
+#: openspending/views/entry.py:134
+msgid "Unable to adjust for inflation"
+msgstr "Ekki tókst að gera ráð fyrir verðbólgu"
+
+#: openspending/views/home.py:49
+msgid "Sent ping!"
+msgstr "Ping sent!"
+
+#: openspending/views/run.py:24
+#, fuzzy, python-format
+msgid "There is no source '%(source)s'"
+msgstr "Það eru engin upprunagögn '%s'"
+
+#: openspending/views/run.py:27
+#, fuzzy, python-format
+msgid "There is no run '%(run)s'"
+msgstr "Það er engin keyrsla '%s'"
+
+#: openspending/views/source.py:28
+#, fuzzy, python-format
+msgid "There is no source '%(id)s'"
+msgstr "Það eru engin upprunagögn '%s'"
+
+#: openspending/views/source.py:52
+msgid "The source has been created."
+msgstr "Upprunagögnum hefur verið bætt við."
+
+#: openspending/views/source.py:86
+msgid "Already running!"
+msgstr "Nú þegar í keyrslu!"
+
+#: openspending/views/source.py:94
+msgid "Now loading..."
+msgstr "Hleð inn..."
+
+#: openspending/views/view.py:40
+#, fuzzy, python-format
+msgid "Invalid widget type: %(widget)s"
+msgstr "Ógild framsetningargerð: %r"
+
+#: openspending/views/view.py:175
+#, fuzzy, python-format
+msgid "'%(name)s' has been deleted."
+msgstr "'%s' hefur verið eytt."
+
+#: openspending/views/view.py:187
+msgid "No widget type has been specified."
+msgstr "Engin framsetningargerð hefur verið gefin upp."
+
+#~ msgid "%s <%s>"
+#~ msgstr "%s <%s>"
+
+#~ msgid "No recipient email address available!"
+#~ msgstr "Tölvupóstur viðtakanda ekki skráður!"
+
+#~ msgid "Sign in to OpenSpending"
+#~ msgstr "Skráðu þig inn á OpenSpending"
+
+#~ msgid "Login"
+#~ msgstr "Innskrá"
+
+#~ msgid "Password"
+#~ msgstr "Lykilorð"
+
+#~ msgid "Forgot your password?"
+#~ msgstr "Gleymdirðu lykilorðinu þínu?"
+
+#~ msgid "Request a password reset."
+#~ msgstr "Biðja um að endursetja lykilorð."
+
+#~ msgid "Create an account"
+#~ msgstr "Búa til aðgang"
+
+#~ msgid "Fullname"
+#~ msgstr "Fullt nafn"
+
+#~ msgid "Visible to other users"
+#~ msgstr "Aðgengilegt öðrum notendum"
+
+#~ msgid "Password (repeat)"
+#~ msgstr "Lykilorð (endurtaka)"
+
+#~ msgid ""
+#~ "I agree to the <a href=\"http://okfn.org"
+#~ "/terms-of-use/\">Terms of Use</a>\n"
+#~ "              and <a href=\"http://okfn.org"
+#~ "/privacy-policy/\">Privacy Policy</a>."
+#~ msgstr ""
+#~ "Ég samþykki <a href=\"http://okfn.org/terms-"
+#~ "of-use/\">notkunarskilmálana</a>\n"
+#~ "og <a href=\"http://okfn.org/privacy-policy/\">friðhelgisstefnuna</a>."
+
+#~ msgid "Add me to the OpenSpending community mailing list"
+#~ msgstr "Bæta mér á samfélagstölvupóstslista OpenSpending"
+
+#~ msgid "Sign me up for the OpenSpending developer mailing list"
+#~ msgstr "Bæta mér á þróunarteymistölvupóstslista OpenSpending"
+
+#~ msgid "Create new account"
+#~ msgstr "Búa til nýja aðgang"
+
+#~ msgid "Settings for:"
+#~ msgstr "Stillingar fyrir:"
+
+#~ msgid "Account Settings"
+#~ msgstr "Aðgangsstillingar"
+
+#~ msgid "Visible to users"
+#~ msgstr "Sýnilegt notendum"
+
+#~ msgid "Leave both fields blank to keep your current password."
+#~ msgstr "Skildu báða reiti eftir auða til að ekki breyta lykilorðinu þínu."
+
+#~ msgid "API Key"
+#~ msgstr "Lykill fyrir forritsskil"
+
+#~ msgid "Use this key to access the OpenSpending API programmatically."
+#~ msgstr ""
+#~ "Notaðu þennan lykil til að fá "
+#~ "aðgang að forritsskilum OpenSpending í "
+#~ "forritunum þínum."
+
+#~ msgid "Script Location"
+#~ msgstr "Staðsetning skriftu"
+
+#~ msgid "Set a different location for JavaScript imports to develop new widgets."
+#~ msgstr ""
+#~ "Nota annan stað fyrir JavaScript "
+#~ "innflutning til að þróa nýjar "
+#~ "framsetningar."
+
+#~ msgid "Password reset"
+#~ msgstr "Endurstilla lykilorð"
+
+#~ msgid ""
+#~ "If you have forgotten the password for your account, you can\n"
+#~ "      request an email with a link that will allow you to reset your\n"
+#~ "      account password."
+#~ msgstr ""
+#~ "Ef þú hefur gleymt lykilorðinu fyrir aðganginn þinn getur þú\n"
+#~ "beðið um tölvupóst með tengli sem leyfir þér að endurstilla\n"
+#~ "lykilorðið þitt."
+
+#~ msgid "Please enter the email address you used to register your account"
+#~ msgstr "Vinsamlegast sláðu inn netfangið sem er tengt aðganginum þínum"
+
+#~ msgid "Request a reset"
+#~ msgstr "Óska eftir endurstillingu"
+
+#~ msgid "Badges in OpenSpending"
+#~ msgstr "Verðlaun í OpenSpending"
+
+#~ msgid ""
+#~ "These badges can be awarded to "
+#~ "specific datasets by administrators of "
+#~ "OpenSpending. The badges indicate that "
+#~ "an official, either from <a "
+#~ "href=\"http://okfn.org\" title=\"Open Knowledge "
+#~ "Foundation\">The Open Knowledge Foundation</a> "
+#~ "(OKF) or from another entity approved"
+#~ " by the OKF, has carefully examined"
+#~ " the dataset and decided to award "
+#~ "it that particular badge."
+#~ msgstr ""
+#~ "Þessum verðlaunum getur verið úthlutað "
+#~ "til sérstakra gagnasafna af stjórnendum "
+#~ "OpenSpending. Verðlaunin sýna það að "
+#~ "aðili, annaðhvort frá <a "
+#~ "href=\"http://okfn.org\" title=\"Open Knowledge "
+#~ "Foundation\">The Open Knowledge Foundation</a> "
+#~ "(OKF) eða frá verkefni/stofnun samþykktri "
+#~ "af OKF, hefur ítarlega skoðað "
+#~ "gagnasafnið og ákveðið að veita því "
+#~ "þessi verðlaun."
+
+#~ msgid "Create a new badge"
+#~ msgstr "Búa til ný verðlaun"
+
+#~ msgid ""
+#~ "Keep in mind that badges <strong>lose their value</strong> if there\n"
+#~ "\t  are <strong>too many</strong> of them."
+#~ msgstr ""
+#~ "Hafðu í huga að verðlaun <strong>tapa gildi sínu</strong> ef það\n"
+#~ "\t  er <strong>of mikið</strong> af þeim."
+
+#~ msgid "e.g. 'Cleaned by Shakespeare's typewriter crew'"
+#~ msgstr "t.d. 'Hreinsað af vélritunarteymi Shakespeare'"
+
+#~ msgid "e.g. 'Awarded to datasets cleaned by a team of highly skilled monkeys.'"
+#~ msgstr ""
+#~ "t.d. 'Gagnasafn verðlaunað fyrir að vera"
+#~ " hreinsuð af teymi af mjög hæfum "
+#~ "öpum.'"
+
+#~ msgid "Create badge"
+#~ msgstr "Búa til verðlaun"
+
+#~ msgid ""
+#~ "If you have a spending or budget dataset that \n"
+#~ "          you can contribute, please give some basic information \n"
+#~ "          here."
+#~ msgstr ""
+#~ "Ef þú hefur útgjalda- eða fjárhagsáætlanagagnasafn sem\n"
+#~ "þú getur sent inn, vinsamlegast skráðu grunnupplýsingar\n"
+#~ "hér."
+
+#~ msgid ""
+#~ "In the next steps, you'll\n"
+#~ "          <ul>\n"
+#~ "            <li>add references to <strong>data sources</strong>,</li>\n"
+#~ "            <li>create a <strong>data "
+#~ "model</strong> to describe the format,</li>"
+#~ "\n"
+#~ "            <li><strong>test</strong> the "
+#~ "correctness of your model,</li>\n"
+#~ "            <li><strong>import</strong> the data,</li>\n"
+#~ "            <li>and generate <strong>visualized views</strong>.</li>\n"
+#~ "          </ul>"
+#~ msgstr ""
+#~ "Í næstu skrefum, munt þú\n"
+#~ "          <ul>\n"
+#~ "            <li>bæta við tilvitnunum í "
+#~ "<strong>upprunagögn</strong>,</li>\n"
+#~ "            <li>búa til <strong>gagnalíkan</strong>"
+#~ " til að lýsa sniðinu,</li>\n"
+#~ "            <li><strong>prófa</strong> réttmæti líkansins þíns,</li>\n"
+#~ "            <li><strong>flytja inn</strong> gögnin,</li>\n"
+#~ "            <li>og setja upp <strong>myndrænar"
+#~ " framsetningar</strong>.</li>\n"
+#~ "          </ul>"
+
+#~ msgid "My Dataset"
+#~ msgstr "Gagnasafnið mitt"
+
+#~ msgid "Identifier"
+#~ msgstr "Auðkenni"
+
+#~ msgid "my_dataset"
+#~ msgstr "mitt_gagnasafn"
+
+#~ msgid ""
+#~ "The identifier will become part of the\n"
+#~ "                  dataset URL and cannot "
+#~ "be changed later. It may only \n"
+#~ "                  contain alphanumeric characters,"
+#~ " dashes and underscores."
+#~ msgstr ""
+#~ "Auðkennið verður hluti af vefslóð gagnasafnsins\n"
+#~ "og getur ekki verið breytt síðar. Það getur aðeins\n"
+#~ "innihaldið enska bók- og tölustafi, band- og undirstrik."
+
+#~ msgid "Category"
+#~ msgstr "Flokkur"
+
+#~ msgid "Currency"
+#~ msgstr "Gjaldmiðill"
+
+#~ msgid "Commonly used currencies"
+#~ msgstr "Mikið notaðir gjaldmiðlar"
+
+#~ msgid "All currencies"
+#~ msgstr "Allir gjaldmiðlar"
+
+#~ msgid "Next Step"
+#~ msgstr "Næsta skref"
+
+#~ msgid "%(member)s on OpenCorporates"
+#~ msgstr "%(member)s á OpenCorporates"
+
+#~ msgid "%(member)s on PublicBodies.org"
+#~ msgstr "%(member)s á PublicBodies.org"
+
+#~ msgid "Congratulations, your dataset is now created."
+#~ msgstr "Til hamingju! Það tókst að búa til gagnasafnið þitt."
+
+#~ msgid ""
+#~ "Next, you'll need to link to a source file that contains the data\n"
+#~ "        (or a sample for testing "
+#~ "if your dataset is very large!). "
+#~ "The data\n"
+#~ "        must be in the CSV format."
+#~ msgstr ""
+#~ "Næst verður þú að tengja grunnskrá sem inniheldur gögnin\n"
+#~ "(eða dæmi til að prófa ef gagnasafnið þitt er mjög stórt). Gögnin\n"
+#~ "verða að vera á CSV-sniði."
+
+#~ msgid ""
+#~ "Learn about <a href=\"#\">how to export CSV</a>\n"
+#~ "          from various common applications."
+#~ msgstr ""
+#~ "Læra um <a href=\"#\">útflutning CSV</a>\n"
+#~ "úr nokkrum þekktum forritum."
+
+#~ msgid ""
+#~ "Help on <a href=\"#\">common data wrangling tasks</a> needed to clean\n"
+#~ "          source data."
+#~ msgstr ""
+#~ "Hjálp með <a href=\"#\">almenn gagnaúrvinnsluverk</a> sem þarf til að\n"
+#~ "hreinsa grunngögnin."
+
+#~ msgid "Add a source"
+#~ msgstr "Bæta við grunngögnum"
+
+#~ msgid "Let me see..."
+#~ msgstr "Látum okkur sjá..."
+
+#~ msgid ""
+#~ "The data is now being checked to\n"
+#~ "      see if it can be imported. This should not take very long."
+#~ msgstr ""
+#~ "Það er núna verið að athuga hvort hægt\n"
+#~ "sé að flyja gögnin inn. Þetta ætti ekki að taka langan tíma."
+
+#~ msgid "Refresh"
+#~ msgstr "Endurhlaða"
+
+#~ msgid "Good stuff!"
+#~ msgstr "Frábært!"
+
+#~ msgid ""
+#~ "Your data is now ready. Next,\n"
+#~ "      create a <strong>data model</strong> to structure the dataset."
+#~ msgstr ""
+#~ "Gögnin þín eru núna tilbúin. Næst,\n"
+#~ "býrðu til <strong>gagnalíkan</strong> til að skipuleggja gagnasafnið."
+
+#~ msgid "Create a model"
+#~ msgstr "Búa til líkan"
+
+#~ msgid "Source files"
+#~ msgstr "Upprunaskrár"
+
+#~ msgid "Summary"
+#~ msgstr "Samantekt"
+
+#~ msgid "Entries loaded:"
+#~ msgstr "Innfluttar færslur:"
+
+#~ msgid "Searchable:"
+#~ msgstr "Hægt að leita í:"
+
+#~ msgid "Dataset Actions"
+#~ msgstr "Aðgerðir gagnasafns"
+
+#~ msgid "Delete loaded data"
+#~ msgstr "Eyða innfluttum gögnum"
+
+#~ msgid ""
+#~ "Delete all loaded data to fix \n"
+#~ "        errors and re-edit the data dimensions."
+#~ msgstr ""
+#~ "Eyða innfluttum gögnum til að\n"
+#~ "laga villur og breyta gagnavíddum."
+
+#~ msgid ""
+#~ "You can remove the loaded data\n"
+#~ "      at any time and start over."
+#~ msgstr ""
+#~ "Þú getur fjarlægt innflutt gögn\n"
+#~ "hvenær sem er og byrjað upp á nýtt."
+
+#~ msgid "Make public"
+#~ msgstr "Gefa út"
+
+#~ msgid ""
+#~ "After you've performed some QA,\n"
+#~ "        let the world see this dataset."
+#~ msgstr ""
+#~ "Eftir að hafa framkvæmt gæðaprófanir\n"
+#~ "láttu þá heiminn sjá þetta gagnasafn."
+
+#~ msgid ""
+#~ "After you've performed some QA,\n"
+#~ "      let the world see this dataset."
+#~ msgstr ""
+#~ "Eftir að hafa framkvæmt gæðaprófanir\n"
+#~ "láttu þá heiminn sjá þetta gagnasafn."
+
+#~ msgid "Retract"
+#~ msgstr "Afturkalla"
+
+#~ msgid ""
+#~ "If you have noted serious quality\n"
+#~ "        issues or legal issues, you can un-publish this dataset."
+#~ msgstr ""
+#~ "Ef þú hefur tekið eftir stórvægilegum gæða- eða\n"
+#~ "lagavandamálum getur þú afturkallað útgáfu gagnasafnsins."
+
+#~ msgid "Delete entire dataset"
+#~ msgstr "Eyða heildargagnasafninu"
+
+#~ msgid "This action cannot be undone."
+#~ msgstr "Það er ekki hægt að afturkalla þessa aðgerð."
+
+#~ msgid "Create a new data source"
+#~ msgstr "Skrá nýjan gagnauppruna"
+
+#~ msgid "Create"
+#~ msgstr "Búa til"
+
+#~ msgid "Invalid request."
+#~ msgstr "Ótæk beiðni."
+
+#~ msgid "Access denied."
+#~ msgstr "Aðgangur bannaður."
+
+#~ msgid "You may not have the relevant rights."
+#~ msgstr "Þú hefur ekki tilskilin réttindi."
+
+#~ msgid "You may need to login."
+#~ msgstr "Þú gætir þurft að skrá þig inn."
+
+#~ msgid "Resource not found"
+#~ msgstr "Eining fannst ekki"
+
+#~ msgid "Maybe the URL is misspelled or the data has been deleted."
+#~ msgstr "Kannski er vefslóðin röng eða gögnunum hefur verið eytt."
+
+#~ msgid "Something went wrong."
+#~ msgstr "Eitthvað fór úrskeiðis."
+
+#~ msgid "Internal Server Error"
+#~ msgstr "Innri vefþjónsvilla"
+
+#~ msgid "REST API"
+#~ msgstr "REST forritaskil"
+
+#~ msgid "The Store's REST API"
+#~ msgstr "REST forritaskil gagnageymslunnar"
+
+#~ msgid ""
+#~ "This API returns JSON versions of the store's domain objects.\n"
+#~ "    The URLs are generally the "
+#~ "same as the URLs used by the "
+#~ "web interface for\n"
+#~ "    the same objects, but with \"/api/rest\" prepended."
+#~ msgstr ""
+#~ "Forritaskilin skila JSON útgáfum af hlutum gagnageymslunnar.\n"
+#~ "Vefslóðirnar eru vanalega þær sömu og"
+#~ " vefslóðirnar fyrir vafrann fyrir\n"
+#~ "sömu hluti, nema með \"/api/rest\" bætt við fyrir framan."
+
+#~ msgid "Here are some examples"
+#~ msgstr "Hér eru nokkur dæmi"
+
+#~ msgid ""
+#~ "The JSON response generally contains the same information as the\n"
+#~ "    corresponding web page, but in more detail."
+#~ msgstr ""
+#~ "JSON svarið inniheldur vanalega sömu upplýsingar og samsvarandi\n"
+#~ "vefsíða, nema mun nákvæmari."
+
+#~ msgid ""
+#~ "A JSONP object is returned if a <var>callback</var> parameter is\n"
+#~ "    supplied (usually by appending \"?callback=myfun\" or\n"
+#~ "    similar)."
+#~ msgstr ""
+#~ "JSONP hlut er skilað ef <var>callback</var> stikinn er\n"
+#~ "notaður (vanalega með því að bæta við \"?callback=myfun\"\n"
+#~ "eða eitthvað álíka)."
+
+#~ msgid "You are not authorized to view this page"
+#~ msgstr "Þú hefur ekki leyfi til að skoða þessa síðu"
+
+#~ msgid "Uploading files not supported at the moment."
+#~ msgstr "Upphal á skrám er ekki stutt í augnablikinu."
+
+#~ msgid "Sorry, there is no view %r"
+#~ msgstr "Því miður er engin framsetning %r"
+
+#~ msgid "You are not authorized to delete this view."
+#~ msgstr "Þú hefur ekki leyfi til að eyða þessari framsetningu."
+
+#~ msgid "Sorry, there is no dataset named %r"
+#~ msgstr "Því miður, það er ekkert gagnasafn með nafnið %r"
+
