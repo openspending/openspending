@@ -26,7 +26,8 @@ def cache_response(resp):
     if not request._http_cache \
             or request.method not in ['GET', 'HEAD', 'OPTIONS'] \
             or resp.status_code > 399 \
-            or resp.is_streamed:
+            or resp.is_streamed \
+            or len(get_flashed_messages()):
         resp.cache_control.no_cache = True
         return resp
 
@@ -59,7 +60,6 @@ def etag_cache_keygen(*keys):
     args = [k + ':' + repr(v) for k, v in args]
 
     keys = {
-        'flash': repr(sorted(get_flashed_messages())),
         'args': args,
         'user': current_user.id if current_user.is_authenticated() else None,
         'keys': sorted(map(lambda k: repr(k), keys)),
