@@ -14,8 +14,7 @@ Creating a DB Migration
     <https://sqlalchemy-migrate.readthedocs.org/en/latest/versioning.html#making-schema-changes>`_
     or other migrations in ``migration/versions`` for help on how to write
     a migration.
-4. Once you're done writing the migration, run it with ``ostool development.ini
-   db migrate``.
+4. Once you're done writing the migration, run it with ``ostool db migrate``.
 
 
 Creating and running tests
