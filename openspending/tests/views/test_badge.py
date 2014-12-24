@@ -1,5 +1,4 @@
 import json
-import os
 from StringIO import StringIO
 
 from flask import url_for
@@ -8,7 +7,6 @@ from openspending.core import db
 from openspending.model.badge import Badge
 from openspending.tests.base import ControllerTestCase
 from openspending.tests.helpers import make_account, load_fixture
-#from openspending.ui.lib import helpers
 
 
 class TestBadgeController(ControllerTestCase):

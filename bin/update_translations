@@ -2,7 +2,7 @@
 
 set -eu
 
-for lang in $(cat openspending/ui/i18n/supported_langs.txt)
+for lang in $(cat openspending/i18n/supported_langs.txt)
 do
 	python setup.py compile_catalog -l "$lang"
 done

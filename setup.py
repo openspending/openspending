@@ -70,9 +70,9 @@ setup(
     packages=filter(package_filter, find_packages()),
     namespace_packages=['openspending'],
     package_data={
-        'openspending.ui': (
-            files_in_pkgdir('openspending.ui', 'public') +
-            files_in_pkgdir('openspending.ui', 'templates')
+        'openspending': (
+            files_in_pkgdir('openspending', 'static') +
+            files_in_pkgdir('openspending', 'templates')
         )
     },
     test_suite='nose.collector',

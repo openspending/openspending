@@ -6,8 +6,6 @@ DEBUG = True
 SITE_TITLE = 'OpenSpending'
 
 SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/openspending'
-#SQLALCHEMY_ECHO = True
-
 SOLR_URL = 'http://localhost:8983/solr/openspending'
 
 BABEL_DEFAULT_LOCALE = 'en'
@@ -23,10 +21,13 @@ CACHE_TYPE = 'simple'
 WIDGETS_BASE = '/static/openspendingjs/widgets/'
 WIDGETS = ['treemap', 'bubbletree', 'aggregate_table']
 
+## Image uploads directory, needs to be read/writeable by frontend.
 UPLOADS_DEFAULT_DEST = '/tmp/openspending-uploads'
 
+## Worker queue configuration.
 CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'
 
+# If you set ``EAGER``, processing will happen inline.
 CELERY_ALWAYS_EAGER = False
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_ACCEPT_CONTENT = ['json']

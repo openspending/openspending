@@ -175,11 +175,9 @@ assumed. The key differences in a production install are these:
 
         access_log /var/log/nginx/openspending.org-access.log;
         error_log /var/log/nginx/openspending.org-error.log notice;
-
-        root /home/okfn/var/srvc/openspending.org/src/openspending/openspending/ui/public;
-
+        
         location /static {
-          alias /home/okfn/var/srvc/openspending.org/src/openspending/openspending/ui/public/static;
+          alias /home/okfn/var/srvc/openspending.org/src/openspending/openspending/static;
         }
 
         location / {

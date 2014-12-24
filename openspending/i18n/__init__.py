@@ -39,7 +39,7 @@ def set_session_locale(locale):
     session.modified = True
 
 
-@flask_babel.localeselector
+#@flask_babel.localeselector
 def get_locale():
     if 'locale' in session:
         return session.get('locale')

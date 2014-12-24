@@ -14,9 +14,9 @@
 openspending.db
 /db
 .*.swp
-openspending/ui/templates/help/*
+openspending/templates/help/*
 doc/_build/*
-openspending/ui/public/static/openspendingjs
+openspending/static/openspendingjs
 openspendingjs
 solr
 *~

@@ -33,16 +33,16 @@ what part of openspending they test:
 
 - ``command``: Tests for ``ostool`` functionality (code in 
   ``openspending.command``)
-- ``controllers``: Tests for user facing functionality (access points via URLs)
+- ``views``: Tests for user facing functionality (access points via URLs)
    as OpenSpending follows an MVC (model, view, controller) architecture (code
-   in ``openspending.ui.controllers`` with views in ``alttemplates``).
+   in ``openspending.views`` with templates in ``templates``).
 - ``importer``: Tests for the CSV importer in OpenSpending, the important bit
   handled by ``Celery`` to get data into OpenSpending (code in
   ``openspending.importer`` which is called from ``openspending.tasks`` which
   calls ``openspending.command``).
 - ``lib``: Tests generic openspending functions and classes made designed to
   be reusable all over the code base. These include solr wrappers, parameter
-  parsers and views (code in ``openspending.lib`` and  ``openspending.ui.lib``).
+  parsers and views (code in ``openspending.lib``).
 - ``model``: Tests for the database model functionality (the database
   interface) as OpenSpending follows an MVC architecture (code in
   ``openspending.model``).

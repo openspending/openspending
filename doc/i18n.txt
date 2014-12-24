@@ -15,8 +15,8 @@ $ python setup.py update_catalog
 
 Ship .po files off for translation
 
-edit openspending/ui/i18n/supported_langs.txt ; there is a template
-for this file in openspending/ui/i18n/supported_langs.txt_tmpl ; you must
+edit openspending/i18n/supported_langs.txt ; there is a template
+for this file in openspending/i18n/supported_langs.txt_tmpl ; you must
 list each language code on a separate line.
 
 Once you have configured the supported languages, run

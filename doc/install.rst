@@ -93,7 +93,7 @@ JavaScript components and the help system content for the site. The following
 instructions will download and link in the JS files::
 
     $ git clone http://github.com/openspending/openspendingjs.git
-    $ ln -s <full path to openspendingjs> openspending/ui/public/static/openspendingjs
+    $ ln -s <full path to openspendingjs> openspending/static/openspendingjs
 
 You will also need to install python bindings for your database. For example,
 for Postgresql you will want to install the psycopg2 library::
