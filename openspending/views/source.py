@@ -13,7 +13,7 @@ from openspending.lib.helpers import url_for, get_dataset, obj_or_404
 from openspending.lib.helpers import disable_cache, flash_success
 from openspending.lib.helpers import flash_error
 from openspending.lib.jsonexport import jsonify
-from openspending.tasks.dataset import analyze_source, load_source
+from openspending.tasks import analyze_source, load_source
 from openspending.lib.validation import source_schema
 
 

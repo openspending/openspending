@@ -2,13 +2,10 @@ import logging
 import urllib2
 import json
 
-from webhelpers.feedgenerator import Rss201rev2Feed
-from werkzeug.exceptions import BadRequest
-from flask import Blueprint, render_template, request, redirect
-from flask import Response
+from flask import Blueprint, request
 from flask.ext.login import current_user
-from flask.ext.babel import gettext as _
-from colander import SchemaNode, String, Invalid
+# from flask.ext.babel import gettext as _
+from colander import Invalid
 from solr import SolrException
 
 from openspending import auth as can
@@ -25,14 +22,13 @@ from openspending.lib.csvexport import write_csv
 from openspending.lib.paramparser import AggregateParamParser
 from openspending.lib.paramparser import SearchParamParser
 from openspending.lib.paramparser import LoadingAPIParamParser
-from openspending.lib.helpers import etag_cache_keygen, obj_or_404
+# from openspending.lib.helpers import etag_cache_keygen
 from openspending.lib.cache import AggregationCache
 from openspending.lib.hypermedia import entry_apply_links
 from openspending.lib.hypermedia import drilldowns_apply_links
 from openspending.lib.hypermedia import dataset_apply_links
-from openspending.tasks.dataset import load_source, analyze_budget_data_package
+from openspending.tasks import load_source, analyze_budget_data_package
 from openspending.validation.model import validate_model
-from colander import Invalid
 
 
 log = logging.getLogger(__name__)

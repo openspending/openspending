@@ -7,6 +7,7 @@ from flaskext.gravatar import Gravatar
 from flask.ext.cache import Cache
 from flaskext.uploads import UploadSet, IMAGES, configure_uploads
 import formencode_jinja2
+from celery import Celery
 
 from openspending import default_settings
 from openspending.lib.routing import NamespaceRouteRule
@@ -47,6 +48,12 @@ def create_app(**config):
     from openspending.lib.solr_util import configure as configure_solr
     configure_solr(app.config)
 
+    return app
+
+
+def create_web_app(**config):
+    app = create_app(**config)
+
     from openspending.views import register_views
     register_views(app)
 
@@ -54,3 +61,19 @@ def create_app(**config):
              default='retro', use_ssl=True)
 
     return app
+
+
+def create_celery(app):
+    celery = Celery(app.import_name, broker=app.config['CELERY_BROKER_URL'])
+    celery.conf.update(app.config)
+    TaskBase = celery.Task
+
+    class ContextTask(TaskBase):
+        abstract = True
+        
+        def __call__(self, *args, **kwargs):
+            with app.app_context():
+                return TaskBase.__call__(self, *args, **kwargs)
+    
+    celery.Task = ContextTask
+    return celery

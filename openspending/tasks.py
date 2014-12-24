@@ -1,27 +1,31 @@
-from __future__ import absolute_import
-from openspending.tasks.celery import celery
-
 from celery.utils.log import get_task_logger
+
+from openspending.core import create_app, create_celery
+from openspending.core import db
+from openspending.model.source import Source
+from openspending.importer.analysis import analyze_csv
+from openspending.lib.solr_util import build_index
+from openspending.importer import CSVImporter, BudgetDataPackageImporter
+from openspending.importer.bdp import create_budget_data_package
+
+
 log = get_task_logger(__name__)
+
+flask_app = create_app()
+celery = create_celery(flask_app)
 
 
 @celery.task(ignore_result=True)
 def analyze_all_sources():
-    from openspending.model import meta as db
-    from openspending.model.source import Source
     for source in db.session.query(Source):
         analyze_source.delay(source.id)
 
 
 @celery.task(ignore_result=True)
 def analyze_source(source_id):
-    from openspending.model import meta as db
-    from openspending.model.source import Source
-    from openspending.importer.analysis import analyze_csv
     source = Source.by_id(source_id)
     if not source:
-        log.error("No such source: %s", source_id)
-        return
+        return log.error("No such source: %s", source_id)
     log.info("Analyzing: %s", source.url)
     source.analysis = analyze_csv(source.url)
     if 'error' in source.analysis:
@@ -36,7 +40,6 @@ def analyze_budget_data_package(url, user, private):
     """
     Analyze and automatically load a budget data package
     """
-    from openspending.importer.bdp import create_budget_data_package
     log.info("Analyzing: {0}".format(url))
     sources = create_budget_data_package(url, user, private)
     for source in sources:
@@ -46,15 +49,12 @@ def analyze_budget_data_package(url, user, private):
 
 @celery.task(ignore_result=True)
 def load_source(source_id, sample=False):
-    from openspending.model.source import Source
-    from openspending.importer import CSVImporter
     source = Source.by_id(source_id)
     if not source:
-        log.error("No such source: %s", source_id)
+        return log.error("No such source: %s", source_id)
 
     if not source.loadable:
-        log.error("Dataset has no mapping.")
-        return
+        return log.error("Dataset has no mapping.")
 
     source.dataset.generate()
     importer = CSVImporter(source)
@@ -71,9 +71,6 @@ def load_budgetdatapackage(source_id, sample=False):
     Same as the CSV importer except that it uses the BudgetDataPackage
     importer instead of the CSVImporter
     """
-    from openspending.model.source import Source
-    from openspending.importer import BudgetDataPackageImporter
-
     source = Source.by_id(source_id)
     if not source:
         log.error("No such source: %s", source_id)
@@ -93,5 +90,9 @@ def load_budgetdatapackage(source_id, sample=False):
 
 @celery.task(ignore_result=True)
 def index_dataset(dataset_name):
-    from openspending.lib.solr_util import build_index
     build_index(dataset_name)
+
+
+@celery.task(ignore_result=True)
+def ping():
+    log.info("Pong.")

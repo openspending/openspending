@@ -43,7 +43,7 @@ def favicon():
 @disable_cache
 @blueprint.route('/__ping__')
 def ping():
-    from openspending.tasks.generic import ping
+    from openspending.tasks import ping
     ping.delay()
     flash(gettext("Sent ping!"), 'success')
     return redirect('/')
