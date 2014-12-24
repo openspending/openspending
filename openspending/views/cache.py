@@ -61,7 +61,7 @@ def etag_cache_keygen(*keys):
     keys = {
         'args': args,
         'user': current_user.id if current_user.is_authenticated() else None,
-        'keys': sorted(keys),
+        'keys': sorted(map(lambda k: repr(k), keys)),
         'lang': get_locale().language
     }
 

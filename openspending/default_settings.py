@@ -15,7 +15,7 @@ SUBSCRIBE_DEVELOPER = 'http://lists.okfn.org/mailman/subscribe/openspending-dev'
 
 MAIL_FORM = 'noreply@openspending.org'
 
-CACHE = True
+CACHE = False
 CACHE_TYPE = 'simple'
 
 WIDGETS_BASE = '/static/openspendingjs/widgets/'
