@@ -1,6 +1,5 @@
-import re
 from hashlib import sha1
-from unidecode import unidecode
+from slugify import slugify # noqa
 
 
 def flatten(data, sep='.'):
@@ -19,20 +18,6 @@ def hash_values(iterable):
     """Return a cryptographic hash of an iterable."""
     return sha1(''.join(sha1(unicode(val).encode('utf-8')).hexdigest()
                         for val in iterable)).hexdigest()
-
-
-SLUG_RE = re.compile(r'[\t !"#$%&\'()*\-/<=>?@\[\\\]^_`{|},.]+')
-
-
-def slugify(text, delimiter='-'):
-    '''\
-    Generate an ascii only slug from the text that can be
-    used in urls or as a name.
-    '''
-    result = []
-    for word in SLUG_RE.split(unicode(text).lower()):
-        result.extend(unidecode(word).split())
-    return unicode(delimiter.join(result))
 
 
 def sort_by_reference(ref, sort, sort_fn=None):
