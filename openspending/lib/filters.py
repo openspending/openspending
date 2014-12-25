@@ -1,6 +1,8 @@
+from datetime import datetime, date
+
 from lxml import html
 import babel.numbers
-from flask.ext.babel import get_locale
+from flask.ext.babel import get_locale, format_date as _format_date
 from webhelpers.html import literal
 from webhelpers.markdown import markdown as _markdown
 from webhelpers.text import truncate
@@ -38,6 +40,16 @@ def format_currency(amount, dataset, locale=None):
         return babel.numbers.format_currency(int(amount), currency, locale=locale)
     except:
         return amount
+
+
+def format_date(dt, format='short'):
+    try:
+        if isinstance(dt, datetime):
+            dt = dt.date()
+        assert isinstance(dt, (date, datetime))
+        return _format_date(dt, format=format)
+    except:
+        return dt
 
 
 def entry_description(entry):

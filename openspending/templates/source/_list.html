@@ -65,7 +65,7 @@
         {% for run in source.runs[:5] %}
         <li>
           <a href="{{ url_for('run.view', dataset=dataset.name, source=source.id, id=run.id) }}">
-            {{ run.time_start.strftime("%d.%m.%Y, %H:%M") }}</a>
+            {{ run.time_start | format_date }}</a>
 
           {% if run.status == 'running'%}
           <span class="label label-info">{% trans %}Running{% endtrans %}</span>

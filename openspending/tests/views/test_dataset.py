@@ -4,6 +4,7 @@ import datetime
 from StringIO import StringIO
 
 from flask import url_for
+from flask.ext.babel import format_date
 
 from openspending.core import db
 from openspending.model.dataset import Dataset
@@ -63,10 +64,10 @@ class TestDatasetController(ControllerTestCase):
         assert 'Time range' in response.data, \
             'Time range is not present on view page for dataset'
         # Start date comes from looking at the test fixture for cra
-        assert '2003-01-01' in response.data, \
+        assert '1/1/03' in response.data, \
             'Starting date of time range not on view page for dataset'
         # End date comes from looking at the test fixture for cra
-        assert '2010-01-01' in response.data, \
+        assert '1/1/10' in response.data, \
             'End date of time range not on view page for dataset'
 
     def test_view_private(self):
@@ -114,7 +115,8 @@ class TestDatasetController(ControllerTestCase):
             'No line for "created on" on about page'
         assert 'last modified on' in response.data, \
             'No line for "last modified on" on about page'
-        assert datetime.datetime.utcnow().strftime('%Y-%m-%d') in response.data, \
+        da = format_date(datetime.datetime.utcnow(), format='short')
+        assert da in response.data.decode('utf-8'), \
             'Created (and update) timestamp is not on about page'
 
     def test_view_json(self):

@@ -105,8 +105,12 @@
 	{% endif %}
 	  <div class="span4">
 	    <h3>Timestamps</h3>
-      <p class="help-block">This dataset was created on <strong>{{ dataset.created_at.strftime('%Y-%m-%d') }}</strong>.</p>
-      <p class="help-block">This dataset was last modified on <strong>{{ dataset.updated_at.strftime('%Y-%m-%d') }}</strong>.</p>
+      <p class="help-block">
+        This dataset was created on <strong>{{ dataset.created_at | format_date }}</strong>.
+      </p>
+      <p class="help-block">
+        This dataset was last modified on <strong>{{ dataset.updated_at | format_date }}</strong>.
+      </p>
     </div>
 	</div>
       </div>

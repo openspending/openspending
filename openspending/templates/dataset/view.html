@@ -52,7 +52,7 @@
       <div class="span4">
 	      <p>
           <small>
-            Time range for dataset: {{ timerange.from.strftime('%Y-%m-%d') }} - {{ timerange.to.strftime('%Y-%m-%d') }}
+            Time range for dataset: {{ timerange.from | format_date }} - {{ timerange.to | format_date }}
           </small>
         </p>
       </div>

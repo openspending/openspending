@@ -45,6 +45,7 @@ def register_views(app, babel):
         'markdown_preview': filters.markdown_preview,
         'markdown': filters.markdown,
         'format_currency': filters.format_currency,
+        'format_date': filters.format_date,
         'readable_url': filters.readable_url,
         'entry_description': filters.entry_description,
         'render_value': filters.render_value

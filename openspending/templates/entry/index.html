@@ -110,8 +110,8 @@
   	      <p>
             <small>
               {% trans %}Time range for dataset:{% endtrans %}
-              {{ timerange.from.strftime('%Y-%m-%d') }} -
-              {{ timerange.to.strftime('%Y-%m-%d') }}
+              {{ timerange.from | format_date }} -
+              {{ timerange.to | format_date }}
             </small>
           </p>
         </div>
