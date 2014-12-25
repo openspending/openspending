@@ -131,10 +131,6 @@ def search():
     etag_cache_keygen(parser.key(), max([d.updated_at for d in datasets]))
 
     if params['pagesize'] > parser.defaults['pagesize']:
-
-        # http://wiki.nginx.org/X-accel#X-Accel-Buffering
-        #response.headers['X-Accel-Buffering'] = 'no'
-
         if format == 'csv':
             streamer = CSVStreamingResponse(
                 datasets,

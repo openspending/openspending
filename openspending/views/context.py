@@ -20,6 +20,11 @@ def before_request():
 @home.after_app_request
 def after_request(resp):
     resp.headers['Server'] = 'OpenSpending/%s' % _version.__version__
+    
+    if resp.is_streamed:
+        # http://wiki.nginx.org/X-accel#X-Accel-Buffering
+        resp.headers['X-Accel-Buffering'] = 'no'
+    
     return cache_response(resp)
 
 
