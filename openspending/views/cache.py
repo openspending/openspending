@@ -1,8 +1,8 @@
-from hashlib import sha1
-
 from flask import current_app, request, Response, get_flashed_messages
 from flask.ext.babel import get_locale
 from flask.ext.login import current_user
+
+from openspending.lib.util import cache_hash
 
 
 class NotModified(Exception):
@@ -32,8 +32,7 @@ def cache_response(resp):
         return resp
 
     resp.cache_control.max_age = 3600 * 6
-    # TODO: Vary
-
+    
     # resp.cache_control.must_revalidate = True
     if current_user.is_authenticated():
         resp.cache_control.private = True
@@ -41,13 +40,8 @@ def cache_response(resp):
         resp.cache_control.public = True
     if request._http_etag is None:
         etag_cache_keygen()
-    resp.add_etag(request._http_etag)
+    resp.set_etag(request._http_etag)
     return resp
-
-
-def generate_etag(keys):
-    keys = [k + ':' + repr(v) for k, v in keys.items()]
-    return sha1('|'.join(keys)).hexdigest()
 
 
 def etag_cache_keygen(*keys):
@@ -57,15 +51,8 @@ def etag_cache_keygen(*keys):
     args = sorted(set(request.args.items()))
     # jquery where is your god now?!?
     args = filter(lambda (k, v): k != '_', args)
-    args = [k + ':' + repr(v) for k, v in args]
 
-    keys = {
-        'args': args,
-        'user': current_user.id if current_user.is_authenticated() else None,
-        'keys': sorted(map(lambda k: repr(k), keys)),
-        'lang': get_locale().language
-    }
-
-    request._http_etag = generate_etag(keys)
+    request._http_etag = cache_hash(args, current_user,
+                                    keys, get_locale())
     if request.if_none_match == request._http_etag:
         raise NotModified()
