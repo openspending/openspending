@@ -181,6 +181,12 @@ class Dataset(TableHandler, db.Model):
             self._is_generated = self.table.exists()
         return self._is_generated
 
+    def touch(self):
+        """ Update the dataset timestamp. This is used for cache
+        invalidation. """
+        self.updated_at = datetime.utcnow()
+        db.session.add(self)
+
     @property
     def has_badges(self):
         """
@@ -563,8 +569,7 @@ class Dataset(TableHandler, db.Model):
             return (None, None)
 
     def __repr__(self):
-        return "<Dataset(%s:%s:%s)>" % (self.name, self.dimensions,
-                                        self.measures)
+        return "<Dataset(%r,%r)>" % (self.id, self.name)
 
     def __len__(self):
         if not self.is_generated:

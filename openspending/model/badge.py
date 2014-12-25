@@ -69,7 +69,7 @@ class Badge(db.Model):
         self.creator = creator
 
     def __repr__(self):
-        return "<Badge(%s)>" % self.label
+        return "<Badge(%r, %r)>" % (self.id, self.label)
 
     @classmethod
     def by_id(cls, id):

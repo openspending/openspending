@@ -29,6 +29,9 @@ account_dataset_table = Table(
 class AnonymousAccount(AnonymousUserMixin):
     admin = False
 
+    def __repr__(self):
+        return '<AnonymousAccount()>'
+
 login_manager.anonymous_user = AnonymousAccount
 
 
@@ -116,6 +119,9 @@ class Account(db.Model):
 
         # Return the dictionary representation
         return account_dict
+
+    def __repr__(self):
+        return '<Account(%r,%r)>' % (self.id, self.name)
 
 
 class AccountRegister(colander.MappingSchema):

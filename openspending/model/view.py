@@ -70,4 +70,4 @@ class View(db.Model):
         }
 
     def __repr__(self):
-        return "<View(%s,%s)>" % (self.dataset.name, self.name)
+        return "<View(%r,%r)>" % (self.id, self.name)
