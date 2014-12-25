@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
 """ Helper functions """
-import os
-import uuid
-from functools import update_wrapper
-
 from flask import url_for as flask_url_for
 from flask import flash, request
 from werkzeug.exceptions import NotFound
@@ -85,38 +81,3 @@ def join_filters(filters, append=None, remove=None):
 
     # Return the joined filters
     return '|'.join(filter_values)
-
-
-# def member_url(dataset, dimension, member, **kwargs):
-#     return url_for(controller='dimension',
-#                    action='member',
-#                    dataset=dataset,
-#                    name=member.get('name'),
-#                    dimension=dimension,
-#                    **kwargs)
-
-
-# def dataset_url(dataset, **kwargs):
-#     return url_for(controller='dataset',
-#                    action='view', dataset=dataset.name, **kwargs)
-
-
-# def entry_url(dataset, entry, **kwargs):
-#     kwargs.setdefault('action', 'view')
-#     return url_for(controller='entry', id=str(entry['id']),
-#                    dataset=dataset, **kwargs)
-
-
-# def entry_link(dataset, entry, **kwargs):
-#     kwargs['class'] = 'entry-link'
-#     return link_to(entry.get('label', entry.get('name', "(Unnamed)")),
-#                    entry_url(dataset, entry), **kwargs)
-
-
-# def dimension_link(dataset, dimension, data):
-#     text = render_value(data)
-#     if isinstance(data, dict) and data['name']:
-#         text = link_to(text, member_url(dataset, dimension, data))
-#     return text
-
-

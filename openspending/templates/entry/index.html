@@ -54,12 +54,12 @@
                   <td>{{ entry.to.label }}</td>
                 {% endif %}
                 {% else %}
-                {% for name,dimension in facet_dimensions.iteritems() %}
+                {% for name, dimension in facet_dimensions.iteritems() %}
                   <td>{{ entry[dimension.name].label }}</td>
                 {% endfor %}
                 {% endif %}
                 
-                <td>{{ h.format_currency(entry.amount, dataset) }}</td>
+                <td>{{ entry.amount | format_currency(dataset) }}</td>
                 
                 <td>
                   <a href="{{ url_for('entry.view', dataset=dataset.name, id=entry.id) }}">
@@ -83,7 +83,7 @@
               <td class="count num" width="5%">{{ count }}</td>
               <td>
                 {% if facet not in filters %}
-                  {% set filters = h.join_filters(filters, append=[(facet,item)]) %}
+                  {% set filters = h.join_filters(filters, append=[(facet, item)]) %}
                 {% else %}
                   {% set filters = h.join_filters(filters, remove=[facet]) %}
                 {% endif %}
