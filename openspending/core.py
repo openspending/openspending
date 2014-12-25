@@ -5,6 +5,7 @@ from flask.ext.login import LoginManager
 from flask.ext.babel import Babel
 from flaskext.gravatar import Gravatar
 from flask.ext.cache import Cache
+from flask.ext.mail import Mail
 from flaskext.uploads import UploadSet, IMAGES, configure_uploads
 import formencode_jinja2
 from celery import Celery
@@ -19,6 +20,7 @@ db = SQLAlchemy()
 babel = Babel()
 login_manager = LoginManager()
 cache = Cache()
+mail = Mail()
 
 badge_images = UploadSet('badgeimages', IMAGES)
 
@@ -41,6 +43,7 @@ def create_app(**config):
     db.init_app(app)
     babel.init_app(app)
     cache.init_app(app)
+    mail.init_app(app)
     login_manager.init_app(app)
     configure_uploads(app, (badge_images,))
 

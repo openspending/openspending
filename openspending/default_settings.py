@@ -13,7 +13,13 @@ BABEL_DEFAULT_LOCALE = 'en'
 SUBSCRIBE_COMMUNITY = 'http://lists.okfn.org/mailman/subscribe/openspending'
 SUBSCRIBE_DEVELOPER = 'http://lists.okfn.org/mailman/subscribe/openspending-dev'
 
-MAIL_FORM = 'noreply@openspending.org'
+MAIL_SERVER = 'localhost'
+# MAIL_PORT = 25
+# MAIL_USE_TLS = False
+# MAIL_USE_SSL = False
+# MAIL_USERNAME = None
+# MAIL_PASSWORD = None
+MAIL_DEFAULT_SENDER = 'noreply@openspending.org'
 
 CACHE = False
 CACHE_TYPE = 'simple'
