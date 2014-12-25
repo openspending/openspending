@@ -1,3 +1,5 @@
+import logging
+
 from sqlalchemy.sql.expression import select, func
 from sqlalchemy.orm import aliased
 
@@ -9,14 +11,12 @@ from openspending.reference.country import COUNTRIES
 from openspending.reference.category import CATEGORIES
 from openspending.reference.language import LANGUAGES
 
-import logging
+
 log = logging.getLogger(__name__)
 
 
 def language_index(datasets):
-    """
-    Get a list of languages by count of datasets
-    """
+    """ Get a list of languages by count of datasets """
     # Get a list of languages in the current list of datasets
     languages = DatasetLanguage.dataset_counts(datasets)
     # Return a list of languages as dicts with code, count, url and label
@@ -27,9 +27,7 @@ def language_index(datasets):
 
 
 def territory_index(datasets):
-    """
-    Get a list of territories by count of datasets
-    """
+    """ Get a list of territories by count of datasets """
     # Get a list of territories in the current list of datasets
     territories = DatasetTerritory.dataset_counts(datasets)
     # Return a list of territories as dicts with code, count, url and label
@@ -40,9 +38,7 @@ def territory_index(datasets):
 
 
 def category_index(datasets):
-    """
-    Get a list of categories by count of datasets
-    """
+    """ Get a list of categories by count of datasets """
     # Get the dataset ids in the current list of datasets
     ds_ids = [d.id for d in datasets]
     if len(ds_ids):
@@ -65,7 +61,6 @@ def category_index(datasets):
 
 
 def dataset_index(languages=[], territories=[], category=None):
-
     # Get all of the public datasets ordered by when they were last updated
     results = db.session.query(Dataset)
     results = results.filter_by(private=False)

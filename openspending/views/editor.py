@@ -14,7 +14,7 @@ from openspending.auth import require
 from openspending.lib import solr_util as solr
 from openspending.lib.helpers import url_for, get_dataset
 from openspending.lib.helpers import flash_success
-from openspending.lib.cache import AggregationCache, DatasetIndexCache
+from openspending.lib.cache import clear_index_cache
 from openspending.reference.currency import CURRENCIES
 from openspending.reference.country import COUNTRIES
 from openspending.reference.category import CATEGORIES
@@ -272,7 +272,7 @@ def drop(dataset):
     solr.drop_index(dataset.name)
     dataset.init()
     dataset.generate()
-    AggregationCache(dataset).invalidate()
+    dataset.touch()
 
     # For every source in the dataset we set the status to removed
     for source in dataset.sources:
@@ -295,8 +295,7 @@ def publish(dataset):
     db.session.commit()
 
     # Need to invalidate the cache of the dataset index
-    cache = DatasetIndexCache()
-    cache.invalidate()
+    clear_index_cache()
 
     public_url = url_for('dataset.view', dataset=dataset.name)
     flash_success(
@@ -313,13 +312,9 @@ def retract(dataset):
         raise BadRequest(_("This dataset is already private!"))
 
     dataset.private = True
-    dataset.updated_at = datetime.utcnow()
-    AggregationCache(dataset).invalidate()
+    dataset.touch()
+    clear_index_cache()
     db.session.commit()
-
-    # Need to invalidate the cache of the dataset index
-    cache = DatasetIndexCache()
-    cache.invalidate()
 
     flash_success(_("The dataset has been retracted. "
                     "It is no longer visible to others."))

@@ -17,7 +17,7 @@ from openspending.lib.csvexport import write_csv
 from openspending.lib.jsonexport import jsonify
 from openspending.lib.paramparser import DatasetIndexParamParser
 from openspending import auth
-from openspending.lib.cache import DatasetIndexCache
+from openspending.lib.cache import cached_index
 from openspending.lib.helpers import url_for, get_dataset
 from openspending.lib.views import request_set_views
 from openspending.lib.hypermedia import dataset_apply_links
@@ -61,8 +61,7 @@ def index(format='html'):
     # Get cached indices (this will also generate them if there are no
     # cached results (the cache is invalidated when a dataset is published
     # or retracted
-    cache = DatasetIndexCache()
-    results = cache.index(**params)
+    results = cached_index(**params)
 
     # Generate the ETag from the last modified timestamp of the first
     # dataset (since they are ordered in descending order by last

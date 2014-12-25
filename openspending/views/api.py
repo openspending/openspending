@@ -22,7 +22,7 @@ from openspending.lib.csvexport import write_csv
 from openspending.lib.paramparser import AggregateParamParser
 from openspending.lib.paramparser import SearchParamParser
 from openspending.lib.paramparser import LoadingAPIParamParser
-from openspending.lib.cache import AggregationCache
+from openspending.lib.cache import cached_aggregate
 from openspending.lib.hypermedia import entry_apply_links
 from openspending.lib.hypermedia import drilldowns_apply_links
 from openspending.lib.hypermedia import dataset_apply_links
@@ -68,9 +68,8 @@ def aggregate():
     try:
         # Create an aggregation cache for the dataset and aggregate its
         # results. The cache will perform the aggreagation if it doesn't
-        # have a cached result
-        cache = AggregationCache(dataset)
-        result = cache.aggregate(**params)
+        # have a cached result.
+        result = cached_aggregate(dataset, **params)
 
         # If the result has drilldown we create html_url values for its
         # dimensions (linked data).
@@ -81,9 +80,7 @@ def aggregate():
         # Do the ETag caching based on the cache_key in the summary
         # this is a weird place to do it since the heavy lifting has
         # already been performed above. TODO: Needs rethinking.
-        #response.last_modified = dataset.updated_at
-        if 'cache_key' in result['summary']:
-            etag_cache_keygen(result['summary']['cache_key'])
+        etag_cache_keygen(dataset)
 
     except (KeyError, ValueError) as ve:
         # We log possible errors and return them with status code 400
