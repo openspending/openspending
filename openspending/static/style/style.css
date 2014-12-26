@@ -61,7 +61,7 @@ a:hover, a:active {
 }
 
 .navbar-inner .nav li a {
-  font-family: "OpenSansRegular", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
   font-size: 12px;
 }
 
@@ -76,13 +76,14 @@ a:hover, a:active {
 }
 
 .brand, .topbar, h1, h2, h3 {
-  font-family: 'OpenSansRegular', Helvetica, Arial, sans-serif;;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   font-weight: normal;
   letter-spacing: -0.06em;
 }
 
 .brand {
-  font-family: 'OpenSansSemibold', Helvetica, Arial, sans-serif;;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-weight: 600;
 }
 
 .brand:hover {
@@ -174,7 +175,8 @@ form .error-message {
 
 footer,
 footer p {
-  font-family: "OpenSansLight", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
   font-size: 13px;
   line-height: 18px;
 }
@@ -222,7 +224,8 @@ footer a.twitter {
 
 .banner h1 {
     margin-top: 20px;
-    font-family: "OpenSansSemibold", Helvetica, Arial, sans-serif;
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    font-weight: 600;
     font-size: 32px;
     line-height: 1.3em;
 }
@@ -239,7 +242,8 @@ footer a.twitter {
 }
 .statistics p {
     text-align: center;
-    font-family: "OpenSansSemibold", Helvetica, Arial, sans-serif;
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    font-weight: 600;
     font-size: 32px;
     line-height: 1.3em;
 }
@@ -265,7 +269,8 @@ footer a.twitter {
 }
 
 #fp-blurb p {
-  font-family: "OpenSansSemibold", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-weight: 600;
   margin-top: 1em;
   font-size: 14px;
 	line-height: 1.6em;
