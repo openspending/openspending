@@ -8,6 +8,14 @@ from openspending.core import assets
 js_base = Bundle('vendor/jquery/dist/jquery.js',
                  'vendor/jquery.cookie/jquery.cookie.js',
                  'vendor/bootstrap/dist/js/bootstrap.js',
+                 'vendor/yepnope/dist/yepnope-2.0.0.js',
+                 'vendor/base64/base64.js',
+                 'vendor/accounting/accounting.js',
+                 'vendor/underscore/underscore.js',
+                 'vendor/handlebars/handlebars.js',
+                 'openspendingjs/lib/boot.js',
+                 'openspendingjs/lib/utils/utils.js',
+                 'openspendingjs/lib/aggregator.js',
                  filters='jsmin', output='prod/base.js')
 assets.register('js_base', js_base)
 
@@ -15,7 +23,6 @@ assets.register('js_base', js_base)
 # CSS / Stylesheet bundles
 
 css_main = Bundle('style/base.less',
-                  'style/home.less',
                   'style/pygments.css',
                   'style/bs2_style.less',
                   'style/views.less',
