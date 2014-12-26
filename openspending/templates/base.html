@@ -29,7 +29,7 @@
   </head>
 
   <!-- templates/layout.html body -->
-  <body>
+  <body class="bp-{{request.endpoint.split('.')[0]}} view-{{request.endpoint.split('.')[1]}}">
     {% include '_nav.html' %}
 
     <div class="banner">
@@ -70,7 +70,6 @@
     {% include '_footer.html' %}
 
     <!-- script boot section -->
-    <script src="{{ static_path('openspendingjs/prod/boot.js') }}"></script>
     <script defer="defer">
 	    OpenSpending.scriptRoot = "{{ static_path('openspendingjs') }}";
 	    OpenSpending.localeGroupSeparator = "{{ number_symbols_group }}";

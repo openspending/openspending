@@ -36,20 +36,20 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-      <div class="col-md-7">
-        <h3>
-          {% trans %}Featured Application{% endtrans %}
-        </h3>
-        <p>
-          {% trans %}How much is that really? &mdash; See the stories behind the numbers in the news with the <a href="http://spendingstories.org" target="_blank">Spending Stories application</a>.{% endtrans %}
-        </p>
-      </div>
-      <div class="col-md-5">
-        <form action="{{ url_for('entry.search') }}">
-          <input class="span5" type="text" placeholder="{% trans %}Search{% endtrans %}..." name="q">
-        </form>
-      </div>
+  <div class="row">
+    <div class="col-md-7">
+      <h3>
+        {% trans %}Featured Application{% endtrans %}
+      </h3>
+      <p>
+        {% trans %}How much is that really? &mdash; See the stories behind the numbers in the news with the <a href="http://spendingstories.org" target="_blank">Spending Stories application</a>.{% endtrans %}
+      </p>
+    </div>
+    <div class="col-md-5">
+      <form action="{{ url_for('entry.search') }}">
+        <input class="span5" type="text"
+          placeholder="{% trans %}Search{% endtrans %}..." name="q">
+      </form>
     </div>
   </div>
 

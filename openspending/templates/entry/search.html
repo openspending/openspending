@@ -14,30 +14,38 @@
 
     
     <div class="row">
-      <div class="span4 search-sidebar">
-        <form class="basic well" id="search" method="GET">
-          <input name="q" placeholder="{% trans %}e.g.{% endtrans %} 'g4s', 'health'" class="search" />
-          <p class="help-text">
-            {% trans %}Transactional data is often more detailed than
-            information from budgets.{% endtrans %}
-          </p>
-          <label class="radio">
-            <input type="radio" class="select-category" value="spending"
-              name='norbert' checked="selected" /> 
-              {% trans %}Transactions{% endtrans %}
-          </label>
-          <label class="radio">
-            <input type="radio" class="select-category" value="any"
-              name='norbert' />
-              {% trans %}All data{% endtrans %}
-            </label>
-            <br/>
-          <input type="submit" class="btn" value="{% trans %}Search{% endtrans %}" onClick="_gaq.push(['_trackEvent', 'Search', 'Request', 'Search page']);"/>
-          
-          <div id="pagination-info"></div>
-        </form>
+      <div class="col-md-4 search-sidebar">
+        <div class="well">
+          <form class="basic" id="search" method="GET">
+            <input name="q" placeholder="{% trans %}e.g.{% endtrans %} 'g4s', 'health'"
+              class="search" />
+            <p class="help-text">
+              {% trans %}Transactional data is often more detailed than
+              information from budgets.{% endtrans %}
+            </p>
+            <div class="radio">
+              <label>
+                <input type="radio" class="select-category" value="spending"
+                  name='norbert' checked="selected" /> 
+                  {% trans %}Transactions{% endtrans %}
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" class="select-category" value="any"
+                  name='norbert' />
+                  {% trans %}All data{% endtrans %}
+              </label>
+            </div>
+
+            <input type="submit" class="btn btn-default"
+              value="{% trans %}Search{% endtrans %}"/>
+            
+            <div id="pagination-info"></div>
+          </form>
+        </div>
       </div>
-      <div class="span8">
+      <div class="col-md-8">
         <div id="search-results">
           <div class="alert alert-block alert-info">
             {% trans %}Type a search term to find government expenditure transactions

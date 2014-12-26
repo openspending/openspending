@@ -6,11 +6,21 @@
 <h2 class="page-header">{{ profile.fullname }}</h2>
 
 <div class="row">
-  <div class="span2">
-  <img src="{{ profile.email | gravatar(size=200) }}" alt="Gravatar for {{profile.name}}">
+
+  <div class="col-md-2">
+    <img src="{{ profile.email | gravatar(size=200) }}" alt="Gravatar for {{profile.name}}">
   </div>
-  <div class="span4">
-    <h3>{% trans %}Information{% endtrans %}{% if current_user == profile %} <small><a href="{{ url_for('account.settings') }}">{% trans %}(change){% endtrans %}</a></small>{% endif %}</h3>
+  <div class="col-md-4">
+    <h3>
+      {% trans %}Information{% endtrans %}
+      {% if current_user == profile %}
+        <small>
+          <a href="{{ url_for('account.settings') }}">
+            {% trans %}(change){% endtrans %}
+          </a>
+        </small>
+      {% endif %}
+    </h3>
     <dl class="dl-horizontal">
       {% if profile.fullname %}
       <dt>{% trans %}Name{% endtrans %}</dt>
@@ -28,38 +38,57 @@
       {% endif %}
     </dl>
   </div>
-  <div class="span6">
+  <div class="col-md-6">
     <h3>{% trans %}Datasets{% endtrans %}</h3>
     <div class="row">
-      <div class="span3">
-	{% if profile_datasets|length %}
-	<ul>{% for dataset in profile_datasets %}
-	  <li>
-            <a href="{{ url_for('dataset.view', dataset=dataset.name) }}">{{ dataset.label }}</a>
-	  </li>
-	  {% endfor %}</ul>
-	{% else %}
-	<p>{% trans %}It looks like you haven't uploaded any datasets.{% endtrans %}</p>
-	{% endif %}
+      <div class="col-md-3">
+	      {% if profile_datasets|length %}
+	        <ul>
+            {% for dataset in profile_datasets %}
+	          <li>
+              <a href="{{ url_for('dataset.view', dataset=dataset.name) }}">
+                {{ dataset.label }}
+              </a>
+	          </li>
+	          {% endfor %}
+          </ul>
+	      {% else %}
+	        <p>
+            {% trans %}It looks like you haven't uploaded any datasets.{% endtrans %}
+          </p>
+	      {% endif %}
       </div>
       
-      {% if current_user == profile %}<div class="span3">
-	<a href="{{url_for('dataset.new') }}" class="btn btn-primary">{% trans %}Import a dataset{% endtrans %}</a>
-      </div>{% endif %}
+      {% if current_user == profile %}
+        <div class="col-md-3">
+	        <a href="{{url_for('dataset.new') }}" class="btn btn-primary">
+            {% trans %}Import a dataset{% endtrans %}
+          </a>
+        </div>
+      {% endif %}
     </div>
 
     {% if profile_views|length %}
-    <h3>{% trans %}Views{% endtrans %}</h3>
-    <ul>{% for view in profile_views %}
-      <li>
-        <a href="{{ url_for('view.view', dataset=view.dataset.name, name=view.name) }}">{{view.label}}</a> 
-        on
-	<a href="{{ url_for('dataset.view', dataset=view.dataset.name) }}">{{ view.dataset.label }}</a>
-      </li>
-      {% endfor %}</ul>
+      <h3>
+        {% trans %}Views{% endtrans %}
+      </h3>
+      <ul>
+        {% for view in profile_views %}
+          <li>
+            <a href="{{ url_for('view.view', dataset=view.dataset.name, name=view.name) }}">
+              {{view.label}}
+            </a> 
+            on
+	          <a href="{{ url_for('dataset.view', dataset=view.dataset.name) }}">
+              {{ view.dataset.label }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
     {% endif %}
   </div>
 </div>
+
 {% endblock %}
 
 

@@ -3,12 +3,10 @@
 @import "../vendor/bootstrap/less/mixins.less";
 
 // Local variables
-@theme-color: #559dc0;
-@theme-darker: darken(@theme-color, 10%);
+@theme-color: #99c862;
+@theme-darker: darken(@theme-color, 20%);
 
 @brand-primary: @theme-color;
-@loader-color: #d62323;
-@default-radius: 3px;
 
 // Style tiles, Colours
 // @white: #ffffff;
@@ -65,10 +63,6 @@
 @import "../vendor/bootstrap/less/responsive-utilities.less";
 
 
-
-
-
-
 // Footer styles based on OKFN brand design.
 
 footer {
@@ -81,7 +75,7 @@ footer {
     }
 
     a, a:hover {
-        color: #AEEBDF;
+        color: @theme-color;
     }
 
     a.twitter {
@@ -110,15 +104,19 @@ footer {
     }
 
     button#catapultCookie {
-        margin:0 20px;
-        line-height:20px;
-        background:#45AE52;
-        border:none;
-        color: #fff;;
-        padding:4px 12px;
+        margin: 0 20px;
+        line-height: 20px;
+        background: @theme-color;
+        border: none;
+        color: #464646;
+        padding: 4px 12px;
         border-radius: 3px;
         cursor: pointer;
         font-size: 13px;
         font-weight: bold;
     }
 }
+
+
+@import "home.less";
+

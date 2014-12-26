@@ -11,7 +11,11 @@
     {% assets "css_embed" %}
       <link href="{{ ASSET_URL }}" rel="stylesheet" />
     {% endassets %}
-
+    
+    {% assets "js_base" %}
+      <script src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+    
     {% if optional_head %}
       {{optional_head}}
     {% endif %}
@@ -22,10 +26,6 @@
     {% if widget %}
       <div id="widget"></div>
     {% endif %}
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="{{ static_path('js/json2.js') }}"></script>
-    <script src="{{ static_path('openspendingjs/prod/boot.js') }}"></script>
 
     <script defer="defer">
 		  OpenSpending.scriptRoot = "{{ static_path('openspendingjs') }}";

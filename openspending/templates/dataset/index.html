@@ -6,12 +6,13 @@
 <h2 class="page-header">{% trans %}Available data sets{% endtrans %}</h2>
 
 <div class="row">
-  <div class="span8">
+  <div class="col-md-8">
     <p>{% trans %}The database contains the following datasets{% endtrans %}:</p>
     
     {% for dataset in page %}
     <div>
-      <h3><a class="dataset-name" href="{{url_for('dataset.view', dataset=dataset.name)}}">
+      <h3>
+        <a class="dataset-name" href="{{url_for('dataset.view', dataset=dataset.name)}}">
           {{dataset.label}}
         </a>
       </h3>
@@ -34,9 +35,13 @@
     {% endfor %}
     {{ page.pager() }}
   </div>
-  <div class="span4">
-    <h3>{% trans %}Import a new dataset{% endtrans %}</h3>
-    <a class="btn btn-success" href="{{url_for('dataset.new')}}">{% trans %}Import{% endtrans %} &raquo;</a>
+  <div class="col-md-4">
+    <h3>
+      {% trans %}Import a new dataset{% endtrans %}
+    </h3>
+    <a class="btn btn-success" href="{{url_for('dataset.new')}}">
+      {% trans %}Import{% endtrans %} &raquo;
+    </a>
     <hr/>
     
     <h3>{% trans %}Countries{% endtrans %}</h3>
