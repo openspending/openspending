@@ -3,16 +3,6 @@
 
 {% block page_title %}{{ dataset.label or dataset.name }}{% endblock %}
 
-{% block optional_head %}
-  <style>
-    #frame {
-      display: none;
-      position: relative;
-      height: 305px;
-    }
-  </style>
-{% endblock %}
-
 {% block scripts %}
   <script type="text/javascript" src="{{ static_path('openspendingjs/lib/vendor/ace/ace.js') }}"></script>
   <script type="text/javascript" src="{{ static_path('openspendingjs/lib/vendor/ace/mode-json.js') }}"></script>
@@ -33,9 +23,7 @@
     });
   </script>
   <style>
-    .ace-monokai .ace_gutter {
-      background-color: whiteSmoke;
-    }
+
   </style>
 {% endblock %}
 
@@ -43,7 +31,7 @@
   <!-- templates/editor/views.html -->
   {{editor_nav(dataset, 'views')}}
 
-  <div class="row">
+  <div class="row views-editor">
     <div class="span4">
       <div class="alert alert-block">
         <strong>{% trans %}Here be dragons.{% endtrans %}</strong> {% trans %}The visualizations editor does 

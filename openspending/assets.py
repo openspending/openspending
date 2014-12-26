@@ -16,6 +16,7 @@ css_main = Bundle('style/bootstrap.css',
                   'style/pygments.css',
                   'style/style.css',
                   'style/views.less',
+                  'style/dimensions.less',
                   filters='less,cssmin',
                   output='prod/main.css')
 
