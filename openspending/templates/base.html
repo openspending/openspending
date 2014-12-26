@@ -1,10 +1,11 @@
-{% from "_util.html" import google_analytics with context %}
-
 <!DOCTYPE html>
+{% from "_util.html" import google_analytics with context %}
 <html lang="{{ current_language }}">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block page_title %}{% endblock %} - {{ site_title }}</title>
+
     <meta name="description" content="{% block page_desc %}{% trans %}We're enabling anyone to explore, visualize and track government spending.{% endtrans %}{% endblock %}" />
     <meta name="author" content="Open Knowledge Foundation" />
     <link rel="shortcut icon" href="{{ static_path('img/favicon.ico') }}"
@@ -13,7 +14,6 @@
       title="{% trans %}Latest Datasets on OpenSpending{% endtrans %}"
       href="{{ url_for('dataset.feed_rss') }}" />
 
-    <!-- Le styles -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600'
       rel='stylesheet' type='text/css'>
     {% assets "css_main" %}
@@ -21,125 +21,12 @@
     {% endassets %}
     
   	<!-- TODO: remove the need for this -->
-  	{% block optional_head %}
-  	{% endblock %}
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-    <!--[if lt IE 9]>
-      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+  	{% block optional_head %}{% endblock %}
   </head>
 
   <!-- templates/layout.html body -->
   <body>
-    <div class="navbar navbar-fixed-top" data-dropdown="dropdown">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="brand" href="{{ url_for('home.index') }}">
-            <span class="green">Open</span>Spending
-          </a>
-          <div class="nav-collapse">
-            <ul class="nav">
-              <li>
-                <a class="{{ section_active.dataset }}" href="/datasets">
-                  {% trans %}Datasets{% endtrans %}
-                </a>
-              </li>
-              <li>
-                <a class="{{ section_active.search }}" href="{{ url_for('entry.search') }}">
-                  {% trans %}Search{% endtrans %}
-                </a>
-              </li>
-              <li>
-                <a href="http://community.openspending.org/">
-                  {% trans %}Community{% endtrans %}
-                </a>
-              </li>
-              <li>
-                <a href="http://community.openspending.org/help/">
-                  {% trans %}Help{% endtrans %}
-                </a>
-              </li>
-              <li>
-                <a href="http://community.openspending.org/about/">
-                  {% trans %}About{% endtrans %}
-                </a>
-              </li>
-              <li>
-                <a href="http://community.openspending.org/contact/">
-                  {% trans %}Contact{% endtrans %}
-                </a>
-              </li>
-              <li>
-                <a class="{{ section_active.blog }}" href="http://community.openspending.org/blog/">
-                  {% trans %}Blog{% endtrans %}
-                </a>
-              </li>
-            </ul>
-          </div>
-          <ul class="nav pull-right">
-	          {% if logged_in %}
-	            <li class="dropdown">
-	              <a class="dropdown-toggle" data-toggle="dropdown">
-		              <img src="{{ current_user.email | gravatar(size=20) }}"
-                    alt="{{ current_user.fullname }}">
-                  <strong>{{ current_user.name }}</strong>
-	              </a>
-
-	              <ul class="dropdown-menu account-dropdown">
-		              <li>
-                    <a href="{{ url_for('account.dashboard') }}">
-                      {% trans %}Dashboard{% endtrans %}
-                    </a>
-                  </li>
-		              <li>
-                    <a href="{{ url_for('account.settings') }}">
-                      {% trans %}Settings{% endtrans %}
-                    </a>
-                  </li>
-                  {% if current_user.admin %}
-                    <li class="divider"></li>
-                    <li>
-                      <a href="{{ url_for('account.scoreboard') }}">
-                        {% trans %}User scoreboard{% endtrans %}
-                      </a>
-                    </li>
-                  {% endif %}
-		              <li class="divider"></li>
-		              <li>
-                    <a href="{{url_for('account.logout')}}">
-                      {% trans %}Logout{% endtrans %}
-                    </a>
-                  </li>
-	              </ul>
-	            </li>
-	          {% else %}
-              <li>
-                <a href="{{url_for('account.login')}}">
-                  {% trans %}Login/Register{% endtrans %}
-                </a>
-              </li>
-	          {% endif %}
-            
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown">
-                {% trans %}Language{% endtrans %}
-              </a>
-              <ul class="dropdown-menu locale-dropdown">
-		            {% for l in languages %}
-                  {% set current = l.lang_code == current_locale %}
-                  <li class="locale {{ 'current_locale' if current else '' }}">
-		                <a class="select-locale" data-locale="{{ l.lang_code }}">
-                      {{ l.lang_name }}
-                    </a>
-                  </li>
-                {% endfor %}
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    {% include '_nav.html' %}
 
     <div class="banner">
       <div class="container">
@@ -176,80 +63,7 @@
       </a>
     </div>
 
-    <footer>
-      <div class="inner">
-        <div class="container">
-          <p>
-            {% trans %}This is an <a href="http://okfn.org">Open Knowledge Foundation</a>
-            project{% endtrans %}.
-          </p>
-
-          <ul class="footer-links span4 pull-left">
-            <li>
-              <a href="http://wheredoesmymoneygo.org">
-                Where Does My Money Go (UK)
-              </a>
-            </li>
-            <li>
-              <a href="http://offenerhaushalt.de">
-                OffenerHaushalt (DE)
-              </a>
-            </li>
-            <li>
-              <a href="http://opencorporates.com" title="The Open Database Of The Corporate World">
-                OpenCorporates.com
-              </a>
-            </li>
-            <li>
-              <a href="http://okfnlabs.org">
-                OKFN Labs
-              </a>
-            </li>
-            <li>
-              <a href="http://spendingstories.org">
-                Spending Stories
-              </a>
-            </li>
-          </ul>
-
-          <ul class="footer-links span4 pull-left">
-            <li>
-              <a href="http://twitter.com/openspending">
-                Twitter
-              </a>
-            </li>
-            <li>
-              <a href="http://community.openspending.org/help/">
-                {% trans %}Help{% endtrans %}
-              </a>
-            </li>
-            <li>
-              <a href="http://community.openspending.org/contact/">
-                {% trans %}Contact{% endtrans %}
-              </a>
-            </li>
-            <li>
-              <a href="http://community.openspending.org/help/api/">
-                {% trans %}API{% endtrans %}
-              </a>
-            </li>
-            
-            <li>
-              <a href="http://okfn.org/privacy-policy/">
-                {% trans %}Privacy{% endtrans %}
-              </a>
-            </li>
-          </ul>
-
-          <p>
-            {% trans %}All <a href="http://www.gnu.org/licenses/agpl.html">code</a>,
-            <a href="http://creativecommons.org/licenses/by/3.0/">content</a>
-            and <a href="http://opendatacommons.org/licenses/odbl/">data</a> is
-            openly licensed.{% endtrans %}
-          </p>
-        </div>
-      </div>
-    </footer>
+    {% include '_footer.html' %}
 
     <!-- script boot section -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
