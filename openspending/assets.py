@@ -15,7 +15,15 @@ assets.register('js_all', js)
 css_main = Bundle('style/bootstrap.css',
                   'style/pygments.css',
                   'style/style.css',
-                  filters='cssmin',
+                  'style/views.less',
+                  filters='less,cssmin',
                   output='prod/main.css')
 
 assets.register('css_main', css_main)
+
+css_embed = Bundle(css_main,
+                   'style/embed.less',
+                   filters='less,cssmin',
+                   output='prod/embed.css')
+
+assets.register('css_embed', css_embed)

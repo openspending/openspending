@@ -5,25 +5,6 @@
 {% trans %}Create a visualisation{% endtrans %}
 {% endblock %}
 
-{% block optional_head %}
-<!-- templates/dataset/explorer.html optional_head -->
-<style>
-  .inactive a {
-    color: #ddd;
-    cursor: default;
-  }
-
-  #editor {
-    position: relative;
-  }
-
-  #editor-inner {
-    height: 40em;
-  }
-
-</style>
-{% endblock %}
-
 {% block scripts%}
   <!-- templates/dataset/explorer.html scripts -->
   <script type="text/javascript" src="{{ static_path('openspendingjs/lib/vendor/backbone.js') }}"></script>
@@ -50,7 +31,7 @@
   <!-- templates/dataset/explorer.html content -->
   {{ dataset_nav(dataset, can, legacy_views, 'views') }}
 
-  <div id="editor">
+  <div id="editor" class="new-view">
   </div>
 
   <script id="widget-finalize" type="text/x-handlebars-template">
