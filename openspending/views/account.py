@@ -123,6 +123,7 @@ def settings():
         values['public_email'] = current_user.public_email
     if current_user.public_twitter:
         values['public_twitter'] = current_user.public_twitter
+    values['api_key'] = current_user.api_key
     return render_template('account/settings.html',
                            form_fill=values)
 

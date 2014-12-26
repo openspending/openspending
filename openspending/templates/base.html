@@ -30,32 +30,33 @@
 
   <!-- templates/layout.html body -->
   <body class="bp-{{request.endpoint.split('.')[0]}} view-{{request.endpoint.split('.')[1]}}">
-    {% include '_nav.html' %}
+    <div id="page">
+      {% include '_nav.html' %}
 
-    <div class="banner">
-      <div class="container">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
-            <div class="container">
-              <div>
-  	            {% for category, message in messages %}
-                  <div class="alert alert-{{ category }}">
-                    {{ message }}
-                  </div>
-  	            {% endfor %}
+      <div class="banner">
+        <div class="container">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              <div class="container">
+                <div>
+    	            {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                      {{ message }}
+                    </div>
+    	            {% endfor %}
+                </div>
               </div>
-            </div>
-          {% endif %}
-        {% endwith %}
-        {% block banner %}{% endblock %}
+            {% endif %}
+          {% endwith %}
+          {% block banner %}{% endblock %}
+        </div>
+      </div>
+
+      <div class="container">
+        {% block content %}{% endblock %}
       </div>
     </div>
 
-    <div class="container">
-      {% block content %}{% endblock %}
-    </div>
-
-  </div>
     <div id="catapult-cookie-bar">
       {% trans %}This site uses cookies{% endtrans %}
       <button id="catapultCookie" tabindex="1">

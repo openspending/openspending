@@ -16,7 +16,7 @@ js_base = Bundle('vendor/jquery/dist/jquery.js',
                  'openspendingjs/lib/boot.js',
                  'openspendingjs/lib/utils/utils.js',
                  'openspendingjs/lib/aggregator.js',
-                 filters='jsmin', output='prod/base.js')
+                 filters='uglifyjs', output='prod/base.js')
 assets.register('js_base', js_base)
 
 

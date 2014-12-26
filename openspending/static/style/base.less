@@ -63,15 +63,27 @@
 @import "../vendor/bootstrap/less/responsive-utilities.less";
 
 
-// Footer styles based on OKFN brand design.
+// Base style
+body {
+    background: #222222;
+}
 
+#page {
+    background-color: #fff;
+    padding-bottom: 2em;
+}
+
+
+// Footer styles based on OKFN brand design.
 footer {
     background: #222222 url('../img/okfn-watermark.png') top right no-repeat;
-    margin-top: 2em;
+    margin-top: 0em;
     color: #fff;
     padding: 2em 0 3em;
 
     ul {
+        list-style-type: none;
+        padding-left: 0;
     }
 
     a, a:hover {
