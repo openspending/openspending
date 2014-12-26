@@ -3,7 +3,9 @@
 {% block page_title %}{% trans %}User scoreboard{% endtrans %}{% endblock %}
 
 {% block content %}
-  <h2 class="page-header">{% trans %}OpenSpending Dataset Maintainers{% endtrans %}</h2>
+  <h2 class="page-header">
+    {% trans %}OpenSpending Dataset Maintainers{% endtrans %}
+  </h2>
 
   {% for row in page|batch(6) %}
     <div class="row" style="text-align:center">
@@ -20,6 +22,7 @@
       {% endfor %}
     </div>
   {% endfor %}
+  
   {{ page.pager() }}
 
 {% endblock %}

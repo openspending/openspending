@@ -13,8 +13,7 @@
 <div class="row">
   <div class="col-sm-offset-2 col-sm-10">
     {% formfill form_fill with form_errors %}
-    <form class="basic settings form-horizontal" id="settings" action="{{ url_for('account.settings_save') }}" method="POST">
-
+    <form class="form-horizontal" id="settings" action="{{ url_for('account.settings_save') }}" method="POST">
       <div class="form-group">
         <label for="fullname" class="col-sm-2 control-label">
           {% trans %}Fullname{% endtrans %}
