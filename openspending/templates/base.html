@@ -2,17 +2,20 @@
 
 <!DOCTYPE html>
 <html lang="{{ current_language }}">
-  <!-- todo: bring back errors section -->
   <head>
     <meta charset="utf-8" />
     <title>{% block page_title %}{% endblock %} - {{ site_title }}</title>
     <meta name="description" content="{% block page_desc %}{% trans %}We're enabling anyone to explore, visualize and track government spending.{% endtrans %}{% endblock %}" />
     <meta name="author" content="Open Knowledge Foundation" />
-    <link rel="shortcut icon" href="{{ static_path('img/favicon.ico') }}" type="image/x-icon" />
-    <link rel="alternate" type="application/rss+xml" title="{% trans %}Latest Datasets on OpenSpending{% endtrans %}" href="{{ url_for('dataset.feed_rss') }}" />
+    <link rel="shortcut icon" href="{{ static_path('img/favicon.ico') }}"
+      type="image/x-icon" />
+    <link rel="alternate" type="application/rss+xml"
+      title="{% trans %}Latest Datasets on OpenSpending{% endtrans %}"
+      href="{{ url_for('dataset.feed_rss') }}" />
 
     <!-- Le styles -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600'
+      rel='stylesheet' type='text/css'>
     {% assets "css_main" %}
       <link href="{{ ASSET_URL }}" rel="stylesheet" />
     {% endassets %}
@@ -32,68 +35,112 @@
     <div class="navbar navbar-fixed-top" data-dropdown="dropdown">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="/" xml:lang="en"><span class="green">Open</span>Spending</a>
+          <a class="brand" href="{{ url_for('home.index') }}">
+            <span class="green">Open</span>Spending
+          </a>
           <div class="nav-collapse">
             <ul class="nav">
               <li>
-                <a class="{{ section_active.dataset }}" href="/datasets">{% trans %}Datasets{% endtrans %}</a>
+                <a class="{{ section_active.dataset }}" href="/datasets">
+                  {% trans %}Datasets{% endtrans %}
+                </a>
               </li>
               <li>
-                <a class="{{ section_active.search }}" href="{{ url_for('entry.search') }}">{% trans %}Search{% endtrans %}</a>
+                <a class="{{ section_active.search }}" href="{{ url_for('entry.search') }}">
+                  {% trans %}Search{% endtrans %}
+                </a>
               </li>
               <li>
-                <a href="http://community.openspending.org/" onClick="_gaq.push(['_trackEvent', 'Community', 'Main', 'Navigational bar']);">{% trans %}Community{% endtrans %}</a>
+                <a href="http://community.openspending.org/">
+                  {% trans %}Community{% endtrans %}
+                </a>
               </li>
               <li>
-                <a href="http://community.openspending.org/help/" onClick="_gaq.push(['_trackEvent', 'Community', 'Help', 'Navigational bar']);">{% trans %}Help{% endtrans %}</a>
+                <a href="http://community.openspending.org/help/">
+                  {% trans %}Help{% endtrans %}
+                </a>
               </li>
               <li>
-                <a href="http://community.openspending.org/about/" onClick="_gaq.push(['_trackEvent', 'Community', 'About', 'Navigational bar']);">{% trans %}About{% endtrans %}</a>
+                <a href="http://community.openspending.org/about/">
+                  {% trans %}About{% endtrans %}
+                </a>
               </li>
               <li>
-                <a href="http://community.openspending.org/contact/" onClick="_gaq.push(['_trackEvent', 'Community', 'Contact', 'Navigational bar']);">{% trans %}Contact{% endtrans %}</a>
+                <a href="http://community.openspending.org/contact/">
+                  {% trans %}Contact{% endtrans %}
+                </a>
               </li>
               <li>
-                <a class="{{ section_active.blog }}" href="http://community.openspending.org/blog/" onClick="_gaq.push(['_trackEvent', 'Community', 'Blog', 'Navigational bar']);">{% trans %}Blog{% endtrans %}</a>
+                <a class="{{ section_active.blog }}" href="http://community.openspending.org/blog/">
+                  {% trans %}Blog{% endtrans %}
+                </a>
               </li>
             </ul>
           </div>
           <ul class="nav pull-right">
-	    {% if logged_in %}
-	    <li class="dropdown">
-	      <a class="dropdown-toggle" data-toggle="dropdown">
-		<img src="{{ current_user.email | gravatar(size=20) }}" alt="{{ current_user.fullname }}" style="vertical-align: middle;"> <strong>{{ current_user.name }}</strong>
-	      </a>
-	      <ul class="dropdown-menu account-dropdown">
-		<li><a href="{{ url_for('account.dashboard') }}">{% trans %}Dashboard{% endtrans %}</a></li>
-		<li><a href="{{ url_for('account.settings') }}">{% trans %}Settings{% endtrans %}</a></li>
-                {% if current_user.admin %}
-                <li class="divider"></li>
-                <li><a href="{{ url_for('account.scoreboard') }}">{% trans %}User scoreboard{% endtrans %}</li>
-                {% endif %}
-		<li class="divider"></li>
-		<li><a href="/logout">{% trans %}Logout{% endtrans %}</a></li>
-	      </ul>
-	    </li>
-	    {% else %}
-            <li>
-              <a href="/login">{% trans %}Login/Register{% endtrans %}</a>
-            </li>
-	    {% endif %}
+	          {% if logged_in %}
+	            <li class="dropdown">
+	              <a class="dropdown-toggle" data-toggle="dropdown">
+		              <img src="{{ current_user.email | gravatar(size=20) }}"
+                    alt="{{ current_user.fullname }}">
+                  <strong>{{ current_user.name }}</strong>
+	              </a>
+
+	              <ul class="dropdown-menu account-dropdown">
+		              <li>
+                    <a href="{{ url_for('account.dashboard') }}">
+                      {% trans %}Dashboard{% endtrans %}
+                    </a>
+                  </li>
+		              <li>
+                    <a href="{{ url_for('account.settings') }}">
+                      {% trans %}Settings{% endtrans %}
+                    </a>
+                  </li>
+                  {% if current_user.admin %}
+                    <li class="divider"></li>
+                    <li>
+                      <a href="{{ url_for('account.scoreboard') }}">
+                        {% trans %}User scoreboard{% endtrans %}
+                      </a>
+                    </li>
+                  {% endif %}
+		              <li class="divider"></li>
+		              <li>
+                    <a href="{{url_for('account.logout')}}">
+                      {% trans %}Logout{% endtrans %}
+                    </a>
+                  </li>
+	              </ul>
+	            </li>
+	          {% else %}
+              <li>
+                <a href="{{url_for('account.login')}}">
+                  {% trans %}Login/Register{% endtrans %}
+                </a>
+              </li>
+	          {% endif %}
+            
             <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown">{% trans %}Language{% endtrans %}</a>
+              <a class="dropdown-toggle" data-toggle="dropdown">
+                {% trans %}Language{% endtrans %}
+              </a>
               <ul class="dropdown-menu locale-dropdown">
 		            {% for l in languages %}
-                  <li class="locale {{ 'current_locale' if l.lang_code == current_locale else '' }}">
-		                <a class="select-locale" data-locale="{{ l.lang_code }}">{{ l.lang_name }}</a>
+                  {% set current = l.lang_code == current_locale %}
+                  <li class="locale {{ 'current_locale' if current else '' }}">
+		                <a class="select-locale" data-locale="{{ l.lang_code }}">
+                      {{ l.lang_name }}
+                    </a>
                   </li>
                 {% endfor %}
               </ul>
-             </li>
+            </li>
           </ul>
         </div>
       </div>
     </div>
+
     <div class="banner">
       <div class="container">
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -112,71 +159,126 @@
         {% block banner %}{% endblock %}
       </div>
     </div>
+
     <div class="container">
-    {% block content %}{% endblock %}
+      {% block content %}{% endblock %}
     </div>
+
   </div>
-    <div id="catapult-cookie-bar">{% trans %}This site uses cookies{% endtrans %}<button id="catapultCookie" tabindex="1">{% trans %}Okay, thanks{% endtrans %}</button><a tabindex="1" href="http://okfn.org/cookie-policy">{% trans %}Find out more{% endtrans %}</a></div>
+    <div id="catapult-cookie-bar">
+      {% trans %}This site uses cookies{% endtrans %}
+      <button id="catapultCookie" tabindex="1">
+        {% trans %}Okay, thanks{% endtrans %}
+      </button>
+
+      <a tabindex="1" href="http://okfn.org/cookie-policy">
+        {% trans %}Find out more{% endtrans %}
+      </a>
+    </div>
+
     <footer>
       <div class="inner">
         <div class="container">
-          <p>{% trans %}This is an <a href="http://okfn.org">Open Knowledge Foundation</a>
-            project{% endtrans %}.</p>
+          <p>
+            {% trans %}This is an <a href="http://okfn.org">Open Knowledge Foundation</a>
+            project{% endtrans %}.
+          </p>
 
           <ul class="footer-links span4 pull-left">
-            <li><a href="http://wheredoesmymoneygo.org">Where Does My Money Go
-              (UK)</a></li>
-            <li><a href="http://offenerhaushalt.de">OffenerHaushalt (DE)</a></li>
-            <li><a href="http://opencorporates.com" title="The Open Database Of The Corporate World">OpenCorporates.com</a></li>
-            <li><a href="http://okfnlabs.org">OKFN Labs</a></li>
-            <li><a href="http://spendingstories.org">Spending Stories</a></li>
+            <li>
+              <a href="http://wheredoesmymoneygo.org">
+                Where Does My Money Go (UK)
+              </a>
+            </li>
+            <li>
+              <a href="http://offenerhaushalt.de">
+                OffenerHaushalt (DE)
+              </a>
+            </li>
+            <li>
+              <a href="http://opencorporates.com" title="The Open Database Of The Corporate World">
+                OpenCorporates.com
+              </a>
+            </li>
+            <li>
+              <a href="http://okfnlabs.org">
+                OKFN Labs
+              </a>
+            </li>
+            <li>
+              <a href="http://spendingstories.org">
+                Spending Stories
+              </a>
+            </li>
           </ul>
+
           <ul class="footer-links span4 pull-left">
-            <li><a href="http://twitter.com/openspending" onClick="_gaq.push(['_trackEvent', 'Social media', 'Follow', 'Twitter']);">Twitter</a></li>
-            <li><a href="http://community.openspending.org/help/" onClick="_gaq.push(['_trackEvent', 'Community', 'Help', 'Footer']);">{% trans %}Help{% endtrans %}</a></li>
-            <li><a href="http://community.openspending.org/contact/" onClick="_gaq.push(['_trackEvent', 'Community', 'Contact', 'Footer']);">{% trans %}Contact{% endtrans %}</a></li>
-            <li><a href="http://community.openspending.org/help/api/" onClick="_gaq.push(['_trackEvent', 'Community', 'API', 'Footer']);">{% trans %}API{% endtrans %}</a></li>
-            <li><a href="http://okfn.org/privacy-policy/">{% trans %}Privacy{% endtrans %}</a></li>
+            <li>
+              <a href="http://twitter.com/openspending">
+                Twitter
+              </a>
+            </li>
+            <li>
+              <a href="http://community.openspending.org/help/">
+                {% trans %}Help{% endtrans %}
+              </a>
+            </li>
+            <li>
+              <a href="http://community.openspending.org/contact/">
+                {% trans %}Contact{% endtrans %}
+              </a>
+            </li>
+            <li>
+              <a href="http://community.openspending.org/help/api/">
+                {% trans %}API{% endtrans %}
+              </a>
+            </li>
+            
+            <li>
+              <a href="http://okfn.org/privacy-policy/">
+                {% trans %}Privacy{% endtrans %}
+              </a>
+            </li>
           </ul>
-          <p>{% trans %}All <a href="http://www.gnu.org/licenses/agpl.html">code</a>,
-          <a href="http://creativecommons.org/licenses/by/3.0/">content</a>
-          and <a href="http://opendatacommons.org/licenses/odbl/">data</a> is
-          openly licensed in accordance with the
-          <a href="http://opendefinition.org/">open definition</a>{% endtrans %}.
-          <br/><br/>
-          <a href="http://opendefinition.org"><img src="//assets.okfn.org/images/ok_buttons/od_80x15_blue.png" alt="Open Content" /></a></p>
+
+          <p>
+            {% trans %}All <a href="http://www.gnu.org/licenses/agpl.html">code</a>,
+            <a href="http://creativecommons.org/licenses/by/3.0/">content</a>
+            and <a href="http://opendatacommons.org/licenses/odbl/">data</a> is
+            openly licensed.{% endtrans %}
+          </p>
         </div>
       </div>
     </footer>
 
-      <!-- script boot section -->
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-      <script src="{{ static_path('js/json2.js') }}"></script>
-      <script src="{{ static_path('js/jquery.cookie.js') }}"></script>
-      <script src="{{ static_path('openspendingjs/prod/boot.js') }}"></script>
-      <script defer="defer">
-		    OpenSpending.scriptRoot = "{{ static_path('openspendingjs') }}";
-		    OpenSpending.localeGroupSeparator = "{{ number_symbols_group }}";
-		    OpenSpending.localeDecimalSeparator = "{{ number_symbols_decimal }}";
-      </script>
-      <!-- end script boot section -->
+    <!-- script boot section -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="{{ static_path('js/json2.js') }}"></script>
+    <script src="{{ static_path('js/jquery.cookie.js') }}"></script>
+    <script src="{{ static_path('openspendingjs/prod/boot.js') }}"></script>
+    <script defer="defer">
+	    OpenSpending.scriptRoot = "{{ static_path('openspendingjs') }}";
+	    OpenSpending.localeGroupSeparator = "{{ number_symbols_group }}";
+	    OpenSpending.localeDecimalSeparator = "{{ number_symbols_decimal }}";
+    </script>
+    <!-- end script boot section -->
 
-	{% block scripts %}{% endblock %}
-  {{ google_analytics() }}
+  	{% block scripts %}{% endblock %}
+    {{ google_analytics() }}
 
-	<script type="text/javascript">
-    jQuery(document).ready(function() {
-      if($.cookie("cookiecheck")) {
-        //If the cookie has been set
-        jQuery("#catapult-cookie-bar").hide();
-        jQuery("html").css("margin-top","0");
-      }
-      $('#catapultCookie').click(function() {
-        $.cookie('cookiecheck', 'True', { path: '/' });
-        jQuery("#catapult-cookie-bar").hide();
-        jQuery("html").css("margin-top","0");
+  	<script type="text/javascript">
+      jQuery(document).ready(function() {
+        if($.cookie("cookiecheck")) {
+          //If the cookie has been set
+          jQuery("#catapult-cookie-bar").hide();
+          jQuery("html").css("margin-top","0");
+        }
+        $('#catapultCookie').click(function() {
+          $.cookie('cookiecheck', 'True', { path: '/' });
+          jQuery("#catapult-cookie-bar").hide();
+          jQuery("html").css("margin-top","0");
+        });
       });
-     });
     </script>
   </body>
 </html>
