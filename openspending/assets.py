@@ -12,7 +12,7 @@ assets.register('js_all', js)
 
 # CSS / Stylesheet bundles
 
-css_main = Bundle('style/bootstrap.css',
+css_main = Bundle('style/base.less',
                   'style/pygments.css',
                   'style/style.css',
                   'style/views.less',
