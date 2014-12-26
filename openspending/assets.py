@@ -7,6 +7,7 @@ from openspending.core import assets
 
 js_base = Bundle('vendor/jquery/dist/jquery.js',
                  'vendor/jquery.cookie/jquery.cookie.js',
+                 'vendor/chosen_v1.3.0/chosen.jquery.js',
                  'vendor/bootstrap/dist/js/bootstrap.js',
                  'vendor/yepnope/dist/yepnope-2.0.0.js',
                  'vendor/base64/base64.js',

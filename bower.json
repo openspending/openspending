@@ -20,6 +20,8 @@
     "base64": "~0.3.0",
     "accounting": "~0.3.2",
     "underscore": "~1.7.0",
-    "handlebars": "~2.0.0"
+    "handlebars": "~2.0.0",
+    "bootstrap-chosen": "~1.0.0",
+    "chosen_v1.3.0": "https://github.com/harvesthq/chosen/releases/download/v1.3.0/chosen_v1.3.0.zip"
   }
 }

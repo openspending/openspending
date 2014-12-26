@@ -3,12 +3,7 @@
 
 {% block page_title %}{{ dataset.label or dataset.name }}{% endblock %}
 
-{% block optional_head %}
-  <link rel="stylesheet" href="{{ static_path('openspendingjs/lib/vendor/chosen/chosen.css') }}" type="text/css"/>
-{% endblock %}
-
 {% block scripts %}
-    <script src="{{ static_path('openspendingjs/lib/vendor/chosen/chosen.jquery.min.js')}}"></script>
     <script>
       jQuery(function($) {
         $(".chzn-select").chosen();
