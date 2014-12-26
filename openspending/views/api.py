@@ -118,7 +118,7 @@ def search():
         expand_facets = False
 
     if not datasets:
-        return {'errors': ["No dataset available."]}
+        return jsonify({'errors': ["No dataset available."]}, status=400)
 
     params['filter']['dataset'] = []
     for dataset in datasets:
