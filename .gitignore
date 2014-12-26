@@ -19,6 +19,7 @@ doc/_build/*
 openspending/static/openspendingjs
 openspending/static/.webassets-cache/*
 openspending/static/prod/*
+openspending/static/vendor/*
 openspendingjs
 solr
 *~
