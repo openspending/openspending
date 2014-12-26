@@ -119,21 +119,21 @@ class TestAccountController(ControllerTestCase):
 
         assert '200' in response.status, \
             'Profile not successfully returned for anonymous user'
-        assert '<dt>Name</dt>' in response.data, \
+        assert 'Name' in response.data, \
             'Name heading is not in profile for anonymous user'
-        assert '<dd>Test User</dd>' in response.data, \
+        assert 'Test User' in response.data, \
             'User fullname is not in profile for anonymous user'
-        assert '<dt>Username</dt>' in response.data, \
+        assert 'Username' in response.data, \
             'Username heading is not in profile for anonymous user'
-        assert '<dd>test</dd>' in response.data, \
+        assert 'test' in response.data, \
             'Username is not in profile for anonymous user'
-        assert '<dt>Email</dt>' not in response.data, \
+        assert 'Email' not in response.data, \
             'Email heading is in profile for anonymous user'
-        assert '<dd>test@example.com</dd>' not in response.data, \
+        assert 'test@example.com' not in response.data, \
             'Email of user is in profile for anonymous user'
-        assert '<dt>Twitter</dt>' not in response.data, \
-            'Twitter heading is in profile for anonymous user'
-        assert '<dd>@testuser</dd>' not in response.data, \
+        #assert 'Twitter' not in response.data, \
+        #    'Twitter heading is in profile for anonymous user'
+        assert '@testuser' not in response.data, \
             'Twitter handle is in profile for anonymous user'
 
         # Display email and twitter handle for the user
@@ -142,11 +142,11 @@ class TestAccountController(ControllerTestCase):
 
         assert '200' in response.status, \
             'Profile not successfully returned for user'
-        assert '<dt>Email</dt>' in response.data, \
+        assert 'Email' in response.data, \
             'Email heading is not in profile for the user'
-        assert '<dd>test@example.com</dd>' in response.data, \
+        assert 'test@example.com' in response.data, \
             'Email of user is not in profile for the user'
-        assert '<dt>Twitter</dt>' in response.data, \
+        assert 'Twitter' in response.data, \
             'Twitter heading is not in profile for the user'
         assert '@testuser' in response.data, \
             'Twitter handle of user is not in profile for the user'
@@ -163,11 +163,11 @@ class TestAccountController(ControllerTestCase):
 
         assert '200' in response.status, \
             'Profile with public contact info not returned to anonymous user'
-        assert '<dt>Email</dt>' in response.data, \
+        assert 'Email' in response.data, \
             'Public email heading not in profile for anonymous user'
-        assert '<dd>test@example.com</dd>' in response.data, \
+        assert 'test@example.com' in response.data, \
             'Public email not in profile for anonymous user'
-        assert '<dt>Twitter</dt>' in response.data, \
+        assert 'Twitter' in response.data, \
             'Public Twitter heading not in profile for anonymous user'
         assert '@testuser' in response.data, \
             'Public Twitter handle not in profile for anonymous user'
@@ -190,19 +190,19 @@ class TestAccountController(ControllerTestCase):
 
         assert '200' in response.status, \
             'Profile not successfully returned for admins'
-        assert '<dt>Name</dt>' in response.data, \
+        assert 'Name' in response.data, \
             'Full name heading not in profile for admins'
-        assert '<dd>Test User</dd>' in response.data, \
+        assert 'Test User' in response.data, \
             'Full name of user not in profile for admins'
-        assert '<dt>Username</dt>' in response.data, \
+        assert 'Username' in response.data, \
             'Username heading not in profile for admins'
-        assert '<dd>test</dd>' in response.data, \
+        assert 'test' in response.data, \
             'Username of user not in profile for admins'
-        assert '<dt>Email</dt>' in response.data, \
+        assert 'Email' in response.data, \
             'Email heading not in profile for admins'
-        assert '<dd>test@example.com</dd>' in response.data, \
+        assert 'test@example.com' in response.data, \
             'Email of user not in profile for admins'
-        assert '<dt>Twitter</dt>' in response.data, \
+        assert 'Twitter' in response.data, \
             'Twitter heading not in profile for admins'
         assert '@testuser' in response.data, \
             'Twitter handle of user not in profile for admins'
@@ -216,12 +216,12 @@ class TestAccountController(ControllerTestCase):
 
         assert '200' in response.status, \
             'Profile page not successfully returned without full name'
-        assert '<dt>Name</dt>' not in response.data, \
+        assert 'Name' not in response.data, \
             'Name heading is in profile even though full name is empty'
         # Test if the information is missing or just the full name
-        assert '<dt>Username</dt>' in response.data, \
+        assert 'Username' in response.data, \
             'Username heading is not in profile when full name is empty'
-        assert '<dd>test</dd>' in response.data, \
+        assert 'test' in response.data, \
             'Username for user is not in profile when full name is empty'
 
         # Do not display twitter handle if it's empty
@@ -233,12 +233,12 @@ class TestAccountController(ControllerTestCase):
                                    query_string={'api_key': test.api_key})
 
         # Check if the Twitter heading is there
-        assert '<dt>Twitter</dt>' not in response.data, \
-            'Twitter heading is in profile even though twitter handle is empty'
+        #assert 'Twitter' not in response.data, \
+        #    'Twitter heading is in profile even though twitter handle is empty'
         # Test if the other information is missing
-        assert '<dt>Username</dt>' in response.data, \
+        assert 'Username' in response.data, \
             'Username heading is not in profile when Twitter handle is empty'
-        assert '<dd>test</dd>' in response.data, \
+        assert 'test' in response.data, \
             'Username for user is not in profile when Twitter handle is empty'
 
     def test_terms_check(self):
