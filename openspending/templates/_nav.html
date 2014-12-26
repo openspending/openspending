@@ -1,11 +1,24 @@
-<div class="navbar navbar-fixed-top" data-dropdown="dropdown">
+<div class="navbar navbar-default navbar-fixed-top" data-dropdown="dropdown">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="{{ url_for('home.index') }}">
-        <span class="green">Open</span>Spending
-      </a>
-      <div class="nav-collapse">
-        <ul class="nav">
+      <div class="navbar-header">
+        
+        <button type="button" class="navbar-toggle collapsed"
+          data-toggle="collapse" data-target="#main-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        
+        <a class="navbar-brand" href="{{ url_for('home.index') }}">
+          <span class="green">Open</span>Spending
+        </a>
+
+      </div>
+
+      <div class="collapse navbar-collapse" id="main-collapse">
+        <ul class="nav navbar-nav">
           <li>
             <a class="{{ section_active.dataset }}" href="/datasets">
               {% trans %}Datasets{% endtrans %}
@@ -42,67 +55,68 @@
             </a>
           </li>
         </ul>
-      </div>
-      <ul class="nav pull-right">
-        {% if logged_in %}
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{ current_user.email | gravatar(size=20) }}"
-                alt="{{ current_user.fullname }}">
-              <strong>{{ current_user.name }}</strong>
-            </a>
+        
+        <ul class="nav navbar-nav navbar-right">
+          {% if logged_in %}
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown">
+                <img src="{{ current_user.email | gravatar(size=20) }}"
+                  alt="{{ current_user.fullname }}">
+                <strong>{{ current_user.name }}</strong>
+              </a>
 
-            <ul class="dropdown-menu account-dropdown">
-              <li>
-                <a href="{{ url_for('account.dashboard') }}">
-                  {% trans %}Dashboard{% endtrans %}
-                </a>
-              </li>
-              <li>
-                <a href="{{ url_for('account.settings') }}">
-                  {% trans %}Settings{% endtrans %}
-                </a>
-              </li>
-              {% if current_user.admin %}
-                <li class="divider"></li>
+              <ul class="dropdown-menu account-dropdown" role="menu">
                 <li>
-                  <a href="{{ url_for('account.scoreboard') }}">
-                    {% trans %}User scoreboard{% endtrans %}
+                  <a href="{{ url_for('account.dashboard') }}">
+                    {% trans %}Dashboard{% endtrans %}
                   </a>
                 </li>
-              {% endif %}
-              <li class="divider"></li>
-              <li>
-                <a href="{{url_for('account.logout')}}">
-                  {% trans %}Logout{% endtrans %}
-                </a>
-              </li>
+                <li>
+                  <a href="{{ url_for('account.settings') }}">
+                    {% trans %}Settings{% endtrans %}
+                  </a>
+                </li>
+                {% if current_user.admin %}
+                  <li class="divider"></li>
+                  <li>
+                    <a href="{{ url_for('account.scoreboard') }}">
+                      {% trans %}User scoreboard{% endtrans %}
+                    </a>
+                  </li>
+                {% endif %}
+                <li class="divider"></li>
+                <li>
+                  <a href="{{url_for('account.logout')}}">
+                    {% trans %}Logout{% endtrans %}
+                  </a>
+                </li>
+              </ul>
+            </li>
+          {% else %}
+            <li>
+              <a href="{{url_for('account.login')}}">
+                {% trans %}Login/Register{% endtrans %}
+              </a>
+            </li>
+          {% endif %}
+          
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+              {% trans %}Language{% endtrans %}
+            </a>
+            <ul class="dropdown-menu locale-dropdown">
+              {% for l in languages %}
+                {% set current = l.lang_code == current_locale %}
+                <li class="locale {{ 'current_locale' if current else '' }}">
+                  <a class="select-locale" data-locale="{{ l.lang_code }}">
+                    {{ l.lang_name }}
+                  </a>
+                </li>
+              {% endfor %}
             </ul>
           </li>
-        {% else %}
-          <li>
-            <a href="{{url_for('account.login')}}">
-              {% trans %}Login/Register{% endtrans %}
-            </a>
-          </li>
-        {% endif %}
-        
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown">
-            {% trans %}Language{% endtrans %}
-          </a>
-          <ul class="dropdown-menu locale-dropdown">
-            {% for l in languages %}
-              {% set current = l.lang_code == current_locale %}
-              <li class="locale {{ 'current_locale' if current else '' }}">
-                <a class="select-locale" data-locale="{{ l.lang_code }}">
-                  {{ l.lang_name }}
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
-        </li>
-      </ul>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

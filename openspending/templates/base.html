@@ -19,6 +19,10 @@
     {% assets "css_main" %}
       <link href="{{ ASSET_URL }}" rel="stylesheet" />
     {% endassets %}
+
+    {% assets "js_base" %}
+      <script src="{{ ASSET_URL }}"></script>
+    {% endassets %}
     
   	<!-- TODO: remove the need for this -->
   	{% block optional_head %}{% endblock %}
@@ -66,9 +70,6 @@
     {% include '_footer.html' %}
 
     <!-- script boot section -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="{{ static_path('js/json2.js') }}"></script>
-    <script src="{{ static_path('js/jquery.cookie.js') }}"></script>
     <script src="{{ static_path('openspendingjs/prod/boot.js') }}"></script>
     <script defer="defer">
 	    OpenSpending.scriptRoot = "{{ static_path('openspendingjs') }}";

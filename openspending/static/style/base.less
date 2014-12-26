@@ -64,3 +64,61 @@
 @import "../vendor/bootstrap/less/utilities.less";
 @import "../vendor/bootstrap/less/responsive-utilities.less";
 
+
+
+
+
+
+// Footer styles based on OKFN brand design.
+
+footer {
+    background: #222222 url('../img/okfn-watermark.png') top right no-repeat;
+    margin-top: 2em;
+    color: #fff;
+    padding: 2em 0 3em;
+
+    ul {
+    }
+
+    a, a:hover {
+        color: #AEEBDF;
+    }
+
+    a.twitter {
+        background: url(../img/icons/twitter.png) no-repeat;
+        padding-left: 20px;
+    }
+}
+
+
+// Weird-ass cookie notification bar
+#catapult-cookie-bar {
+    direction: ltr;
+    color: #dddddd;
+    min-height: 30px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 99999;
+    padding:6px 20px 4px;
+    background-color: #464646;
+    text-align: left;
+
+    a {
+        color: #fff;;
+    }
+
+    button#catapultCookie {
+        margin:0 20px;
+        line-height:20px;
+        background:#45AE52;
+        border:none;
+        color: #fff;;
+        padding:4px 12px;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: bold;
+    }
+}
