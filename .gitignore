@@ -17,6 +17,8 @@ openspending.db
 openspending/templates/help/*
 doc/_build/*
 openspending/static/openspendingjs
+openspending/static/.webassets-cache/*
+openspending/static/prod/*
 openspendingjs
 solr
 *~

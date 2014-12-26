@@ -1,8 +1,10 @@
 ''' Interface to common administrative tasks for OpenSpending. '''
 import logging
 from flask.ext.script import Manager
+from flask.ext.assets import ManageAssets
 
 from openspending.core import create_web_app
+from openspending.assets import assets
 from openspending.command import user, db, archive, solr, importer
 
 log = logging.getLogger(__name__.split('.')[0])
@@ -20,6 +22,7 @@ manager.add_command('user', user.manager)
 manager.add_command('db', db.manager)
 manager.add_command('archive', archive.manager)
 manager.add_command('solr', solr.manager)
+manager.add_command('assets', ManageAssets(assets))
 
 importer.add_import_commands(manager)
 

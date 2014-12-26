@@ -31,3 +31,5 @@ requests==2.5.1
 solrpy==0.9.6
 sqlalchemy-migrate==0.9.2
 python-slugify==0.1.0
+Flask-Assets==0.10
+cssmin==0.2.0

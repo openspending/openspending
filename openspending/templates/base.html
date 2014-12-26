@@ -11,12 +11,13 @@
 
     <!-- Le styles -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600' rel='stylesheet' type='text/css'>
-    <link href="{{ static_path('style/bootstrap.css') }}" rel="stylesheet" />
-    <link href="{{ static_path('style/style.css') }}" rel="stylesheet" />
-
-	<!-- TODO: remove the need for this -->
-	{% block optional_head %}
-	{% endblock %}
+    {% assets "css_main" %}
+      <link href="{{ ASSET_URL }}" rel="stylesheet" />
+    {% endassets %}
+    
+  	<!-- TODO: remove the need for this -->
+  	{% block optional_head %}
+  	{% endblock %}
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
