@@ -233,7 +233,7 @@ def team_edit(dataset, errors={}, accounts=None):
     require.dataset.update(dataset)
 
     accounts = accounts or dataset.managers
-    accounts = json.dumps([a.as_dict() for a in accounts], indent=2)
+    accounts = [a.as_dict() for a in accounts]
     errors = errors
     return render_template('editor/team.html', dataset=dataset,
                            accounts=accounts, errors=errors)

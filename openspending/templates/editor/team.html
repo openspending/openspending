@@ -7,7 +7,7 @@
   <script type="text/javascript" src="{{ static_path('openspendingjs/lib/vendor/jquery-ui/jquery-ui.min.js') }}"></script>
   <script>
     jQuery(document).ready(function($) {
-      var accounts = {{ accounts }};
+      var accounts = {{ accounts | tojson }};
       var editingAccount = "{{ current_user.name }}";
       item_template = Handlebars.compile($('#account-item').html());
       var makeItem = function(account) {
