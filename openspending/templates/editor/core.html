@@ -19,7 +19,7 @@
     <div class="row">
       <div class="offset2 span10">
         {% formfill form_fill with form_errors -%}
-        <form class="basic form-horizontal" action="{{ url_for('editor.core_update', dataset=dataset.name) }}" method="POST">
+        <form class="form-horizontal" action="{{ url_for('editor.core_update', dataset=dataset.name) }}" method="POST">
           <input name="name" value="{{ dataset.name }}" type="hidden" />
           <fieldset>
             <div class="control-group">

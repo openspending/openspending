@@ -9,7 +9,7 @@
 <!-- templates/editor/index.html -->
 {{editor_nav(dataset, 'index')}}
   <div class="row">
-    <div class="span8">
+    <div class="col-md-8">
       {% if not has_sources %}
       <div class="alert block-message alert-info">
         <p>
@@ -26,7 +26,7 @@
         </ul>
 
         <div class="alert-actions">
-          <a class="btn small" data-toggle="modal"  href="#new-source">
+          <a class="btn btn-default" data-toggle="modal"  href="#new-source">
             {% trans %}Add a source{% endtrans %}
           </a>
         </div>
@@ -65,7 +65,7 @@
       {% endif %}
     </div>
 
-    <div class="span4">
+    <div class="col-md-4">
       <h3>{% trans %}Summary{% endtrans %}</h3>
       <ul>
         <li>{% trans %}Entries loaded:{% endtrans %} {{ entries_count }}</li>
@@ -111,8 +111,6 @@
         <input type="submit" class="btn btn-danger" value="{% trans %}Delete entire dataset{% endtrans %}" />
         <p class="help-block">{% trans %}This action cannot be undone.{% endtrans %}</p>
       </form>
-
-      <br/>
     </div>
 
 

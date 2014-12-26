@@ -47,7 +47,7 @@
     </div>
     <div class="col-md-5">
       <form action="{{ url_for('entry.search') }}">
-        <input class="span5" type="text"
+        <input class="form-control" type="text"
           placeholder="{% trans %}Search{% endtrans %}..." name="q">
       </form>
     </div>
@@ -161,9 +161,9 @@
       
       <form action="http://lists.okfn.org/mailman/subscribe/openspending" method="POST"
         class="form-inline">
-        <input type="text" class="input-xlarge" name="email"
+        <input type="text" class="form-control" name="email"
           placeholder="{% trans %}Email{% endtrans %}" />
-        <button type="submit" class="btn">
+        <button type="submit" class="btn btn-default">
           {% trans %}Sign up{% endtrans %}
         </button>
       </form>
@@ -173,9 +173,9 @@
         {% trans %}Join our developer list!{% endtrans %}
       </h3>
       <form action="http://lists.okfn.org/mailman/subscribe/openspending-dev" method="POST" class="form-inline">
-        <input type="text" class="input-xlarge" name="email"
+        <input type="text" class="form-control" name="email"
           placeholder="{% trans %}Email{% endtrans %}" />
-        <button type="submit" class="btn">
+        <button type="submit" class="btn btn-default">
           {% trans %}Sign up{% endtrans %}
         </button>
       </form>
