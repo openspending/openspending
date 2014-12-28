@@ -6,23 +6,52 @@
 {% block page_title %}{{ dataset.label or dataset.name }}{% endblock %}
 
 {% block content %}
-<!-- templates/editor/index.html -->
-{{editor_nav(dataset, 'index')}}
+  <!-- Create source modal -->
+  <div id="new-source" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        {% formfill form_fill with form_errors %}
+        <form class="basic" action="{{ url_for('source.create', dataset=dataset.name) }}" method="POST">
+          <div class="modal-header">
+            <h3>{% trans %}Create a new data source{% endtrans %}</h3>
+          </div>
+          <div class="modal-body">
+            {{ new_form() }}
+          </div>
+          <div class="modal-footer">
+            <input value="{% trans %}Create{% endtrans %}" class="btn btn-success" type="submit" />
+          </div>
+        </form>
+        {% endformfill %}
+      </div>
+    </div>
+  </div>
+
+
+  <!-- templates/editor/index.html -->
+  {{editor_nav(dataset, 'index')}}
+
   <div class="row">
     <div class="col-md-8">
       {% if not has_sources %}
       <div class="alert block-message alert-info">
         <p>
-          <strong>{% trans %}Congratulations, your dataset is now created.{% endtrans %}</strong>
+          <strong>
+            {% trans %}Congratulations, your dataset is now created.{% endtrans %}
+          </strong>
           {% trans %}Next, you'll need to link to a source file that contains the data
           (or a sample for testing if your dataset is very large!). The data
           must be in the CSV format.{% endtrans %}
         </p>
         <ul>
-          <li>{% trans %}Learn about <a href="#">how to export CSV</a>
-            from various common applications.{% endtrans %}</li>
-          <li>{% trans %}Help on <a href="#">common data wrangling tasks</a> needed to clean
-            source data.{% endtrans %}</li>
+          <li>
+            {% trans %}Learn about <a href="#">how to export CSV</a>
+            from various common applications.{% endtrans %}
+          </li>
+          <li>
+            {% trans %}Help on <a href="#">common data wrangling tasks</a> needed to clean
+            source data.{% endtrans %}
+          </li>
         </ul>
 
         <div class="alert-actions">
@@ -34,33 +63,39 @@
       {% endif %}
       
       {% if source and not source.analysis %}
-      <div class="alert block-message alert-info">
-        <strong>{% trans %}Let me see...{% endtrans %}</strong> {% trans %}The data is now being checked to
-        see if it can be imported. This should not take very long.{% endtrans %}
-        <div class="alert-actions">
-          <a class="btn small" href="?">{% trans %}Refresh{% endtrans %}</a>
+        <div class="alert alert-info">
+          <strong>
+            {% trans %}Let me see...{% endtrans %}
+          </strong>
+          {% trans %}The data is now being checked to
+          see if it can be imported. This should not take very long.{% endtrans %}
+          <div class="alert-actions">
+            <a class="btn btn-default" href="?">{% trans %}Refresh{% endtrans %}</a>
+          </div>
         </div>
-      </div>
       {% endif %}
 
       {% if source and 'columns' in source.analysis and not dataset.mapping %}
-      <div class="alert block-message alert-success">
-        <strong>{% trans %}Good stuff!{% endtrans %}</strong> {% trans %}Your data is now ready. Next,
-        create a <strong>data model</strong> to structure the dataset.{% endtrans %}
-        <div class="alert-actions">
-          <a class="btn btn-small" 
-             href="{{ url_for('editor.dimensions_edit', dataset=dataset.name) }}">
-            {% trans %}Create a model{% endtrans %}
-          </a>
+        <div class="alert alert-success">
+          <strong>
+            {% trans %}Good stuff!{% endtrans %}
+          </strong>
+          {% trans %}Your data is now ready. Next,
+          create a <strong>data model</strong> to structure the dataset.{% endtrans %}
+          <div class="alert-actions">
+            <a class="btn btn-default" 
+               href="{{ url_for('editor.dimensions_edit', dataset=dataset.name) }}">
+              {% trans %}Create a model{% endtrans %}
+            </a>
+          </div>
         </div>
-      </div>
       {% endif %}
 
       {% if has_sources %}
       <div>
         <h3>{% trans %}Source files{% endtrans %}</h3>
         {{ sources_list(dataset) }}
-        <a class="btn btn-success small" data-toggle="modal" data-target="#new-source">
+        <a class="btn btn-default" data-toggle="modal" data-target="#new-source">
           {% trans %}Add a source{% endtrans %}
         </a>
       </div>
@@ -113,24 +148,6 @@
         <input type="submit" class="btn btn-danger" value="{% trans %}Delete entire dataset{% endtrans %}" />
         <p class="help-block">{% trans %}This action cannot be undone.{% endtrans %}</p>
       </form>
-    </div>
-
-
-    <!-- Create source modal -->
-    <div id="new-source" class="modal hide fade" role="dialog">
-      {% formfill form_fill with form_errors %}
-      <form class="basic" action="{{ url_for('source.create', dataset=dataset.name) }}" method="POST">
-        <div class="modal-header">
-          <h3>{% trans %}Create a new data source{% endtrans %}</h3>
-        </div>
-        <div class="modal-body">
-              {{ new_form() }}
-        </div>
-        <div class="modal-footer">
-          <input value="{% trans %}Create{% endtrans %}" class="btn btn-success" type="submit" />
-        </div>
-      </form>
-      {% endformfill %}
     </div>
   </div>    
 {% endblock %}
