@@ -60,7 +60,9 @@
       <div>
         <h3>{% trans %}Source files{% endtrans %}</h3>
         {{ sources_list(dataset) }}
-        <a class="btn btn-success small" data-toggle="modal" href="#new-source">{% trans %}Add a source{% endtrans %}</a>
+        <a class="btn btn-success small" data-toggle="modal" data-target="#new-source">
+          {% trans %}Add a source{% endtrans %}
+        </a>
       </div>
       {% endif %}
     </div>
@@ -115,7 +117,7 @@
 
 
     <!-- Create source modal -->
-    <div id="new-source" class="modal hide fade">
+    <div id="new-source" class="modal hide fade" role="dialog">
       {% formfill form_fill with form_errors %}
       <form class="basic" action="{{ url_for('source.create', dataset=dataset.name) }}" method="POST">
         <div class="modal-header">
