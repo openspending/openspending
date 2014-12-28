@@ -35,7 +35,7 @@ You will also need to start the backend workers which take care of the analysis 
 
     $ vagrant ssh
     vagrant@openspending$ cd /vagrant
-    vagrant@openspending$ celery -A openspending.tasks -Q celery,analysis,loading -p vagrant.ini worker -l info
+    vagrant@openspending$ celery -A openspending.tasks worker -l info
 
 The virtual machine includes OpenSpending, Postgres, RabbitMQ and Solr.
 
@@ -93,7 +93,7 @@ JavaScript components and the help system content for the site. The following
 instructions will download and link in the JS files::
 
     $ git clone http://github.com/openspending/openspendingjs.git
-    $ ln -s <full path to openspendingjs> openspending/ui/public/static/openspendingjs
+    $ ln -s <full path to openspendingjs> openspending/static/openspendingjs
 
 You will also need to install python bindings for your database. For example,
 for Postgresql you will want to install the psycopg2 library::
@@ -107,22 +107,26 @@ but you can use anything compatible with SQLAlchemy. For postgres you would do::
 
 Having done that, you can copy configuration templates::
 
-    $ cp development.ini_tmpl development.ini
+    $ cp settings.py_tmpl settings.py
+    $ export OPENSPENDING_SETTINGS=`pwd`/settings.py
+
+Ensure that the ``OPENSPENDING_SETTINGS`` environment variable is set whenever
+you work with the application.
 
 Edit the configuration files to make sure you're pointing to a valid database 
 URL is set::
 
     # TCP
-    openspending.db.url = postgresql://{user}:{pass}@localhost/openspending
+    SQLALCHEMY_DATABASE_URI = 'postgresql://{user}:{pass}@localhost/openspending'
 
     or
 
     # Local socket
-    openspending.db.url = postgresql:///openspending
+    SQLALCHEMY_DATABASE_URI = 'postgresql:///openspending'
 
 Initialize the database::
 
-    $ ostool development.ini db init
+    $ ostool db init
 
 Generate the help system documentation (this is used by the front-end
 and must be available, developer documents are separate). The output 
@@ -137,13 +141,13 @@ Compile the translations: ::
 
 Run the application::
 
-    $ paster serve --reload development.ini
+    $ ostool runserver
 
 In order to use web-based importing and loading, you will also need to set up
 the celery-based background daemon. When running this, make sure to have an
 instance of RabbitMQ installed and running and then execute::
 
-    $ celery -A openspending.tasks -Q celery,analysis,loading -p development.ini worker -l info
+    $ celery -A openspending.tasks worker -l info
 
 You can validate the functioning of the communication between the backend and
 frontend components using the ping action::
@@ -173,10 +177,11 @@ Test the install
 
 Create test configuration (which inherits, by default, from `development.ini`): ::
 
-    $ cp test.ini_tmpl test.ini
+    $ cp settings.py_tmpl test.py
+    $ export OPENSPENDING_SETTINGS=`pwd`/test.py
 
 You will need to either set up a second instance of solr, or comment
-out the solr url in test.ini so that the tests use the same instance
+out the solr url in settings file so that the tests use the same instance
 of solr. Regrettably, the tests delete all data from solr when they
 run, so having them share the development instance may be
 inconvenient.
@@ -187,8 +192,8 @@ Run the tests.::
 
 Import a sample dataset: ::
 
-    $ ostool development.ini csvimport --model https://dl.dropbox.com/u/3250791/sample-openspending-model.json http://mk.ucant.org/info/data/sample-openspending-dataset.csv
-    $ ostool development.ini solr load openspending-example
+    $ ostool csvimport --model https://dl.dropbox.com/u/3250791/sample-openspending-model.json http://mk.ucant.org/info/data/sample-openspending-dataset.csv
+    $ ostool solr load openspending-example
 
 Verify that the data is visible at http://127.0.0.1:5000/openspending-example/entries
 

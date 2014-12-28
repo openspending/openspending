@@ -2,7 +2,13 @@
 
 set -eu
 
-for lang in $(cat openspending/ui/i18n/supported_langs.txt)
-do
-	python setup.py compile_catalog -l "$lang"
-done
+LOCALES=(de ar is_IS)
+
+#pybabel init -i messages.pot -d openspending/translations -l de 
+
+pybabel extract -F babel.cfg -k lazy_gettext -o openspending/translations/messages.pot openspending
+pybabel update -i messages.pot -d openspending/translations
+
+for LOCALE in ${LOCALES[*]}; do
+    pybabel compile -f -i messages.pot -D messages -l $LOCALE -d openspending/translations;
+done;

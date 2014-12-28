@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% from "dataset/_nav.html" import dataset_nav with context %}
+  
+{% block page_title %}
+  {% trans %}Library of visualisations{% endtrans %} - {{ dataset.label or dataset.name }}
+{% endblock %}
+
+{% block page_desc %}{{ dataset.description | markdown_preview }}{% endblock %}
+
+{% block content %}
+  {{ dataset_nav(dataset, can, legacy_views, 'views') }}
+
+  <!-- templates/view/index.html content -->
+  <div class="row">
+    <div class="span8">
+      {% for view in views %}
+      <ul class="unstyled">
+        <li>
+          <h3>
+            <a href="{{url_for('view.view', dataset=dataset.name, name=view.name)}}">
+              {{view.label}}
+            </a>
+          </h3>
+          <span class="label label-info">
+            {{view.widget}}
+          </span>
+          {% trans user=view.account.display_name %}by {{user}}{% endtrans %}
+        </li>
+      </ul>
+      {% endfor %}
+    </div>  
+  </div>
+
+{% endblock %}
+
+

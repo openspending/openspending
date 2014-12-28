@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block page_title %}{% trans %}Search{% endtrans %}{% endblock %}
+
+{% block content %}
+  <div>
+    <!-- templates/entry/search.html -->
+    <ul class='breadcrumb'>
+      <li>
+        <i class="icon-search"></i>
+        <a href="?">{% trans %}Search OpenSpending{% endtrans %}</a>
+      </li>
+    </ul>
+
+    
+    <div class="row">
+      <div class="col-md-4 search-sidebar">
+        <div class="well">
+          <form class="basic" id="search" method="GET">
+            <input name="q" placeholder="{% trans %}e.g.{% endtrans %} 'g4s', 'health'"
+              class="search" />
+            <p class="help-text">
+              {% trans %}Transactional data is often more detailed than
+              information from budgets.{% endtrans %}
+            </p>
+            <div class="radio">
+              <label>
+                <input type="radio" class="select-category" value="spending"
+                  name='norbert' checked="selected" /> 
+                  {% trans %}Transactions{% endtrans %}
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" class="select-category" value="any"
+                  name='norbert' />
+                  {% trans %}All data{% endtrans %}
+              </label>
+            </div>
+
+            <input type="submit" class="btn btn-default"
+              value="{% trans %}Search{% endtrans %}"/>
+            
+            <div id="pagination-info"></div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div id="search-results">
+          <div class="alert alert-block alert-info">
+            {% trans %}Type a search term to find government expenditure transactions
+            from across the globe.{% endtrans %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  {% raw %}
+  <script id="search-result-template" type="text/x-handlebars-template">
+    <div id='r-{{id}}' class='result'>
+      <div class='title'><a href="{{html_url}}">{{_title}}</a></div>
+      <div class='dataset'>
+        <a href='{{dataset.html_url}}'>{{dataset.label}}</a>
+        &middot; {{amount}} &middot; {{time.label}}
+      </div>
+      <div class='teaser'>{{_teaser}}</div>
+    </div>
+  </script>
+  <script id="search-result-teaser-template" type="text/x-handlebars-template">
+    {{description}}
+  </script>
+  <script id="search-result-title-template" type="text/x-handlebars-template">
+    {{to.label}}
+  </script>
+  {% endraw %}
+  <script type="text/javascript" src="{{ static_path('openspendingjs/lib/vendor/jquery.highlight-3.min.js') }}"></script>
+  <script type="text/javascript" src="{{ static_path('openspendingjs/lib/entries-search.js') }}"></script>
+{% endblock %}
+

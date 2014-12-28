@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% from "editor/_nav.html" import editor_nav with context %}
+
+{% block page_title %}{{ dataset.label or dataset.name }}{% endblock %}
+
+{% block scripts %}
+    <script>
+      jQuery(function($) {
+        $(".chzn-select").chosen();
+      });
+    </script>
+{% endblock %}
+
+
+{% block content %}
+    <!-- templates/editor/core.html -->
+    {{editor_nav(dataset, 'core')}}
+    
+    <div class="row">
+      <div class="col-md-offset-4 col-md-8">
+        {% formfill form_fill with form_errors -%}
+        <form class="form-horizontal" action="{{ url_for('editor.core_update', dataset=dataset.name) }}" method="POST">
+          <input name="name" value="{{ dataset.name }}" type="hidden" />
+          <div class="form-group">
+            <label for="label" class="col-sm-2 control-label">
+              {% trans %}Title{% endtrans %}
+            </label>
+            <div class="col-sm-10">
+              <input name="label" class="form-control" placeholder="{% trans %}My Dataset{% endtrans %}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="category" class="col-sm-2 control-label">
+              {% trans %}Category{% endtrans %}
+            </label>
+            <div class="col-sm-10">
+              <select name="category" class="chzn-select form-control">
+                {% for code, name in categories %}
+                  <option value="{{code}}">{{name}}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="currency" class="col-sm-2 control-label">
+              {% trans %}Currency{% endtrans %}
+            </label>
+            <div class="col-sm-10">
+              <select name="currency" class="chzn-select form-control">
+                <optgroup label="{% trans %}Commonly used currencies{% endtrans %}">
+                  {% for code, name in key_currencies %}
+                    <option value="{{code}}">{{name}} ({{code}})</option>
+                  {% endfor %}
+                </optgroup>
+                <optgroup label="{% trans %}All currencies{% endtrans %}">
+                  {% for code, name in all_currencies %}
+                    <option value="{{code}}">{{name}} ({{code}})</option>
+                  {% endfor %}
+                </optgroup>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="territories" class="col-sm-2 control-label">
+              {% trans %}Countries{% endtrans %}
+            </label>
+            <div class="col-sm-10">
+              <select name="territories" multiple="multiple" class="chzn-select form-control">
+                {% for code, name in territories %}
+                  <option value="{{code}}">{{name}} ({{code}})</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="default_time" class="col-sm-2 control-label">
+              {% trans %}Default year{% endtrans %}
+            </label>
+            <div class="col-sm-10">
+              <select name="default_time" class="chzn-select form-control">
+                {% for time in available_times %}
+                  <option value="{{ time }}">{{ time }}</option>
+                {% else %}
+                  <option value="">{% trans %}(No data is loaded){% endtrans %}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="languages" class="col-sm-2 control-label">
+              {% trans %}Languages{% endtrans %}
+            </label>
+            <div class="col-sm-10">
+              <select name="languages" multiple="multiple" class="chzn-select form-control">
+                {% for code, name in languages %}
+                  <option value="{{code}}">{{name}} ({{code}})</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="description" class="col-sm-2 control-label">
+              {% trans %}Description{% endtrans %}
+            </label>
+            <div class="col-sm-10">
+              <textarea class="xxlarge form-control" rows="4" name="description"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-success">
+                {% trans %}Update{% endtrans %}
+              </button>
+            </div>
+          </div>
+        </form>
+        {%- endformfill %}
+      </div>
+    </div>
+
+{% endblock %}

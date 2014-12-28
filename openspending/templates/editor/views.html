@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% from "editor/_nav.html" import editor_nav with context %}
+
+{% block page_title %}{{ dataset.label or dataset.name }}{% endblock %}
+
+{% block scripts %}
+  <script type="text/javascript" src="{{ static_path('openspendingjs/lib/vendor/ace/ace.js') }}"></script>
+  <script type="text/javascript" src="{{ static_path('openspendingjs/lib/vendor/ace/mode-json.js') }}"></script>
+  <script type="text/javascript" src="{{ static_path('openspendingjs/lib/vendor/ace/theme-monokai.js') }}"></script>
+  <script>
+    jQuery(document).ready(function($) {
+      $("#fallback").hide();
+      $("#frame").show();
+      var editor = ace.edit("views");
+      var JSONMode = require("ace/mode/json").Mode;
+      editor.getSession().setMode(new JSONMode());
+      editor.setTheme("ace/theme/monokai");
+      editor.renderer.setShowPrintMargin(false);
+      $("#form").submit(function(e) {
+        var value = editor.getSession().getValue();
+        $("#fallback").val(value);
+      });
+    });
+  </script>
+  <style>
+
+  </style>
+{% endblock %}
+
+{% block content %}
+  <!-- templates/editor/views.html -->
+  {{editor_nav(dataset, 'views')}}
+
+  <div class="row views-editor">
+    <div class="col-md-4">
+      <div class="alert alert-warning">
+        <strong>{% trans %}Here be dragons.{% endtrans %}</strong>
+
+        {% trans %}The visualizations editor does 
+        not have a graphical interface yet. If you still want to use it, 
+        please check out the 
+        <a href="http://openspending.readthedocs.org/en/latest/model/design.html#views-and-pre-defined-visualizations">documentation</a>
+        for the 'views' system.{% endtrans %}
+      </div>
+      
+      <h3>{% trans %}Available Dimensions{% endtrans %}</h3>
+      <ul>
+        {% for dimension in dataset.dimensions %}
+          <li>
+            <strong>{{ dimension.name }}</strong>:
+            {{ dimension.label }}
+            {% if dimension.has_attribute('attributes') %}
+              <ul>
+                {% for attribute in dimension.attributes %}
+                  <li>
+                    <strong>
+                      {{ attribute.name }}
+                    </strong>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="col-md-8">
+      {% formfill form_fill %}
+      <form class="basic" id="form"
+            action="{{ url_for('editor.views_update', dataset=dataset.name) }}"
+            method="POST">
+        <fieldset>
+          {% if form_errors|length %}
+          <div class="alert alert-danger">
+            <p>
+              {% trans %}The views could not be saved as they contain some 
+              errors{% endtrans %}:
+            </p>
+            <ul>
+              {% for field, error in form_errors.items() %}
+                <li>
+                  <strong>{{ field }}:</strong> {{ error }}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+          
+          <textarea id="fallback" class="form-control" rows="20"
+                name="views">{{ form_fill['views'] }}</textarea>
+          <div id="frame">
+            <div id="views" style="height: 300px; width: 100%">{{ form_fill.views | tojson }}</div>
+          </div>
+        </fieldset>
+        <div class="form-actions">
+          <input id="save" value="{% trans %}Update{% endtrans %}" class="btn btn-success" type="submit" />
+        </div>
+      </form>
+      {% endformfill %}
+    </div>
+  </div>
+{% endblock %}

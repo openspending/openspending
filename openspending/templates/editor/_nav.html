@@ -1,0 +1,57 @@
+{% macro editor_nav(dataset, section) -%}
+
+<!-- templates/editor/_nav.html -->
+<ul class="breadcrumb">
+  <div class="representations">
+    <a href="{{ url_for('dataset.model', dataset=dataset.name, format='json') }}">
+      <img src="{{ static_path('img/icons/json.png') }}" alt="JSON"/>
+    </a>
+  </div>
+  <li>
+    <i class="icon-home"></i>
+    <a href="{{ url_for('dataset.view', dataset=dataset.name) }}">
+      {{ dataset.label }}</a>
+      <span class="divider"></span>
+  </li>
+  <li class="active">{% trans %}Manage the dataset{% endtrans %}</li>
+</ul>
+<h2 class="page-header">
+  {{ dataset.label }} 
+</h2>
+
+<div class="tabbable">
+  <ul class="nav nav-tabs">
+    <li class="{{ 'active' if section == 'index' else '' }}">
+      <a href="{{ url_for('editor.index', dataset=dataset.name) }}">
+        {% trans %}Dashboard{% endtrans %}
+      </a>
+    </li>
+    <li class="{{ 'active' if section == 'dimensions' else '' }}">
+      <a href="{{ url_for('editor.dimensions_edit', dataset=dataset.name) }}">
+        {% trans %}Dimensions &amp; Measures{% endtrans %}
+      </a>
+    </li>
+    <li class="{{ 'active' if section == 'views' else '' }}">
+      <a href="{{ url_for('editor.views_edit', dataset=dataset.name) }}">
+        {% trans %}Views{% endtrans %}
+      </a>
+    </li>
+    <li class="{{ 'active' if section == 'team' else '' }}">
+      <a href="{{ url_for('editor.team_edit', dataset=dataset.name) }}">
+        {% trans %}Team{% endtrans %}
+      </a>
+    </li>
+    <li class="{{ 'active' if section == 'core' else '' }}">
+      <a href="{{ url_for('editor.core_edit', dataset=dataset.name) }}">
+        {% trans %}Meta{% endtrans %}
+      </a>
+    </li>
+    <li class="{{ 'active' if section == 'templates' else '' }}">
+      <a href="{{ url_for('editor.templates_edit', dataset=dataset.name) }}">
+        {% trans %}Templates{% endtrans %}
+      </a>
+    </li>
+  </ul>
+</div>
+
+{%- endmacro %}

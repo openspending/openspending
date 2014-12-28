@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block page_title %}{{ profile.fullname }}{% endblock %}
+
+{% block content %}
+<h2 class="page-header">{{ profile.fullname }}</h2>
+
+<div class="row">
+  <div class="col-md-3">
+    <img src="{{ profile.email | gravatar(size=200) }}" alt="Gravatar for {{profile.name}}">
+  </div>
+  <div class="col-md-9">
+    <h3>
+      {% trans %}Information{% endtrans %}
+      {% if current_user == profile %}
+        <small>
+          <a href="{{ url_for('account.settings') }}">
+            {% trans %}(change){% endtrans %}
+          </a>
+        </small>
+      {% endif %}
+    </h3>
+
+    <table class="table table-condensed">
+      {% if profile.fullname %}
+        <tr>
+          <th>
+            {% trans %}Name{% endtrans %}
+          </th>
+          <td>
+            {{profile.fullname}}
+          </td>
+        </tr>
+      {% endif %}
+      <tr>
+        <th>
+          {% trans %}Username{% endtrans %}
+        </th>
+        <td>
+          {{profile.name}}
+        </td>
+      </tr>
+      {% if show_email %}
+        <tr>
+          <th>
+            {% trans %}Email{% endtrans %}
+          </th>
+          <td>
+            {{profile.email}}
+          </td>
+        </tr>
+      {% endif %}
+      {% if profile.twitter_handle and show_twitter %}
+        <tr>
+          <th>
+            Twitter
+          </th>
+          <td>
+            <a href="https://twitter.com/{{ profile.twitter_handle }}">
+              @{{ profile.twitter_handle }}
+            </a>
+          </td>
+        </tr>
+      {% endif %}
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-offset-3 col-md-4">
+    <h3>
+      {% trans %}Datasets{% endtrans %}
+      <small>
+        {% if current_user == profile %}
+          <a href="{{url_for('dataset.new') }}">
+            {% trans %}Import a dataset{% endtrans %}
+          </a>
+        {% endif %}
+      </small>
+    </h3>
+    
+    {% if profile_datasets|length %}
+      <ul>
+        {% for dataset in profile_datasets %}
+        <li>
+          <a href="{{ url_for('dataset.view', dataset=dataset.name) }}">
+            {{ dataset.label }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>
+        {% trans %}It looks like you haven't uploaded any datasets.{% endtrans %}
+      </p>
+    {% endif %}
+  </div>
+  <div class="col-md-4">
+    {% if profile_views|length %}
+      <h3>
+        {% trans %}Views{% endtrans %}
+      </h3>
+      <ul>
+        {% for view in profile_views %}
+          <li>
+            <a href="{{ url_for('view.view', dataset=view.dataset.name, name=view.name) }}">
+              {{view.label}}
+            </a> 
+            on
+	          <a href="{{ url_for('dataset.view', dataset=view.dataset.name) }}">
+              {{ view.dataset.label }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}
+
+

@@ -1,0 +1,147 @@
+// Core variables and mixins
+@import "../vendor/bootstrap/less/variables.less";
+@import "../vendor/bootstrap/less/mixins.less";
+
+// Local variables
+@theme-color: #99c862;
+@theme-darker: darken(@theme-color, 20%);
+
+@brand-primary: @theme-color;
+
+@brand-success: @theme-color;
+@btn-success-bg: @brand-success;
+@btn-success-border: darken(@btn-success-bg, 5%);
+@label-success-bg: @brand-success;
+@progress-bar-success-bg: @brand-success;
+
+
+// Style tiles, Colours
+// @white: #ffffff;
+// @border-color: #d7d7d7;
+// @boxed-color: #fafafa;
+
+// Style tiles, Fonts
+@font-default: 'Open Sans', sans-serif;
+
+// Reset
+@import "../vendor/bootstrap/less/normalize.less";
+@import "../vendor/bootstrap/less/print.less";
+
+// Core CSS
+@import "../vendor/bootstrap/less/scaffolding.less";
+@import "../vendor/bootstrap/less/type.less";
+@import "../vendor/bootstrap/less/code.less";
+@import "../vendor/bootstrap/less/grid.less";
+@import "../vendor/bootstrap/less/tables.less";
+@import "../vendor/bootstrap/less/forms.less";
+@import "../vendor/bootstrap/less/buttons.less";
+
+// Components
+@import "../vendor/bootstrap/less/component-animations.less";
+@import "../vendor/bootstrap/less/glyphicons.less";
+@import "../vendor/bootstrap/less/dropdowns.less";
+@import "../vendor/bootstrap/less/button-groups.less";
+@import "../vendor/bootstrap/less/input-groups.less";
+@import "../vendor/bootstrap/less/navs.less";
+@import "../vendor/bootstrap/less/navbar.less";
+@import "../vendor/bootstrap/less/breadcrumbs.less";
+@import "../vendor/bootstrap/less/pagination.less";
+@import "../vendor/bootstrap/less/pager.less";
+@import "../vendor/bootstrap/less/labels.less";
+@import "../vendor/bootstrap/less/badges.less";
+@import "../vendor/bootstrap/less/jumbotron.less";
+@import "../vendor/bootstrap/less/thumbnails.less";
+@import "../vendor/bootstrap/less/alerts.less";
+@import "../vendor/bootstrap/less/progress-bars.less";
+@import "../vendor/bootstrap/less/media.less";
+@import "../vendor/bootstrap/less/list-group.less";
+@import "../vendor/bootstrap/less/panels.less";
+@import "../vendor/bootstrap/less/wells.less";
+@import "../vendor/bootstrap/less/close.less";
+
+// Components w/ JavaScript
+@import "../vendor/bootstrap/less/modals.less";
+@import "../vendor/bootstrap/less/tooltip.less";
+@import "../vendor/bootstrap/less/popovers.less";
+@import "../vendor/bootstrap/less/carousel.less";
+
+// Utility classes
+@import "../vendor/bootstrap/less/utilities.less";
+@import "../vendor/bootstrap/less/responsive-utilities.less";
+
+// External vendor libs.
+@import "../vendor/bootstrap-chosen/bootstrap-chosen-variables.less";
+@chosen-sprite-path: "../img/icons/chosen-sprite.png";
+@chosen-sprite-retina-path: "../img/icons/chosen-sprite@2x.png";
+@import "../vendor/bootstrap-chosen/bootstrap-chosen.less";
+@import "typeahead.less";
+
+// Base style
+body {
+    background: #222222;
+}
+
+#page {
+    background-color: #fff;
+    padding-bottom: 2em;
+}
+
+
+// Footer styles based on OKFN brand design.
+footer {
+    background: #222222 url('../img/okfn-watermark.png') top right no-repeat;
+    margin-top: 0em;
+    color: #fff;
+    padding: 2em 0 3em;
+
+    ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    a, a:hover {
+        color: @theme-color;
+    }
+
+    a.twitter {
+        background: url(../img/icons/twitter.png) no-repeat;
+        padding-left: 20px;
+    }
+}
+
+
+// Weird-ass cookie notification bar
+#catapult-cookie-bar {
+    direction: ltr;
+    color: #dddddd;
+    min-height: 30px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 99999;
+    padding:6px 20px 4px;
+    background-color: #464646;
+    text-align: left;
+
+    a {
+        color: #fff;;
+    }
+
+    button#catapultCookie {
+        margin: 0 20px;
+        line-height: 20px;
+        background: @theme-color;
+        border: none;
+        color: #464646;
+        padding: 4px 12px;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: bold;
+    }
+}
+
+
+@import "home.less";
+

@@ -18,7 +18,7 @@ from sqlalchemy.types import Integer, Unicode, Boolean, DateTime
 from sqlalchemy.sql.expression import false, and_, or_, select, func
 from sqlalchemy.ext.associationproxy import association_proxy
 
-from openspending.model import meta as db
+from openspending.core import db
 from openspending.lib.util import hash_values
 
 from openspending.model.common import (TableHandler, MutableDict, JSONType,
@@ -151,8 +151,8 @@ class Dataset(TableHandler, db.Model):
         the model physically. """
         self.bind = db.engine
         self.meta = MetaData()
-        self.meta.bind = db.engine
-
+        self.meta.bind = self.bind
+        
         self._init_table(self.meta, self.name, 'entry',
                          id_type=Unicode(42))
         for field in self.fields:
@@ -180,6 +180,12 @@ class Dataset(TableHandler, db.Model):
         if self._is_generated is None:
             self._is_generated = self.table.exists()
         return self._is_generated
+
+    def touch(self):
+        """ Update the dataset timestamp. This is used for cache
+        invalidation. """
+        self.updated_at = datetime.utcnow()
+        db.session.add(self)
 
     @property
     def has_badges(self):
@@ -563,8 +569,7 @@ class Dataset(TableHandler, db.Model):
             return (None, None)
 
     def __repr__(self):
-        return "<Dataset(%s:%s:%s)>" % (self.name, self.dimensions,
-                                        self.measures)
+        return "<Dataset(%r,%r)>" % (self.id, self.name)
 
     def __len__(self):
         if not self.is_generated:
@@ -595,10 +600,11 @@ class Dataset(TableHandler, db.Model):
     @classmethod
     def all_by_account(cls, account):
         """ Query available datasets based on dataset visibility. """
+        from openspending.model.account import Account
         criteria = [cls.private == false()]
-        if account is not None:
+        if account is not None and account.is_authenticated():
             criteria += ["1=1" if account.admin else "1=2",
-                         cls.managers.any(type(account).id == account.id)]
+                         cls.managers.any(Account.id == account.id)]
         q = db.session.query(cls).filter(or_(*criteria))
         q = q.order_by(cls.label.asc())
         return q

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% from "_util.html" import share_scripts as share_scripts %}
+{% from "dimension/_widgets.html" import widget_js with context %}
+{% from "dataset/_nav.html" import dataset_nav as dataset_nav %}
+{% from "_util.html" import share_body, share_scripts %}
+
+{% block page_title %}{{ dataset.label or  dataset.name }}{% endblock %}
+{% block page_desc %}{{ dataset.description | markdown_preview }}{% endblock %}
+
+{% block scripts %}
+  {% if legacy_views.active %}
+      {{widget_js(dataset, 'vis_widget', legacy_views.active.vis_widget, legacy_views.active.vis_state, handles=True)}}
+      {{widget_js(dataset, 'table_widget', legacy_views.active.table_widget, legacy_views.active.table_state, handles=False)}}
+	{% endif %}
+  {{share_scripts()}}
+{% endblock %}
+
+{% block content %}
+  <div>
+    {% if legacy_views.active %}
+      {{ dataset_nav(dataset, can, legacy_views, legacy_views.active.name) }}
+	  {% else %}
+      {{ dataset_nav(dataset, can, legacy_views, 'search') }}
+	  {% endif %}
+    
+  	{% if legacy_views.active %}
+      <div class="row">
+        <div class="span12"><div id="vis_widget" style="width: auto; height: 400px"></div></div>
+      </div>
+  	{% endif %}
+
+  	{% if legacy_views.active %}
+      <div class="well widget-context">
+        <div class="pull-right">
+          <a href="#" class="btn btn-mini" id="widget-embed-link"><i class="icon-share"></i> {% trans %}Embed{% endtrans %}</a>
+          <a href="#" class="btn btn-mini hidden" id="widget-edit-link"><i class="icon-cog"></i> {% trans %}Change{% endtrans %}</a>
+          <a href="#" class="btn btn-mini hidden" id="widget-download-link"><i class="icon-download"></i> {% trans %}Data{% endtrans %}</a>
+        </div>
+        <h3>{{ legacy_views.active.label }}</h3>
+      </div>
+  	{% endif %}
+
+  	{% if legacy_views.active %}
+      <div class="row">
+        <div class="span12"><div id="table_widget"/></div>
+      </div>
+  	{% endif %}
+
+    {% if timerange %}
+    <div class="row">
+      <div class="span4">
+	      <p>
+          <small>
+            Time range for dataset: {{ timerange.from | format_date }} - {{ timerange.to | format_date }}
+          </small>
+        </p>
+      </div>
+    </div>
+    {% endif %}
+
+    {{share_body()}}
+  </div>
+  
+{% endblock %}

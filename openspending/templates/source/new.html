@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% from "editor/_nav.html" import editor_nav with context %}
+{% from "source/_new_form.html" import new_form %}
+
+{% block page_title %}{% trans %}Create a data source{% endtrans %}{% endblock %}
+
+{% block content %}  
+{{ editor_nav(dataset, 'index') }}
+<div class="row">
+  <div class="col-md-4">&nbsp;</div>
+  <div class="col-md-8">
+    <h3>{% trans %}Create a data source{% endtrans %}</h3>
+    {% formfill form_fill with form_errors -%}
+    <form class="basic" action="{{ url_for('source.create',
+                                dataset=dataset.name) }}" method="POST">
+      {{ new_form() }}
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-success">
+            {% trans %}Create{% endtrans %}
+          </button>
+        </div>
+      </div>
+    </form>
+    {%- endformfill %}
+  </div>
+</div>
+{% endblock %}

@@ -4,7 +4,8 @@ from sqlalchemy.types import Text, TypeDecorator, Integer
 from sqlalchemy.schema import Table, Column
 from sqlalchemy.sql.expression import and_, select, func
 from sqlalchemy.ext.mutable import Mutable
-from openspending.model import meta as db
+
+from openspending.core import db
 
 ALIAS_PLACEHOLDER = u'‽'
 

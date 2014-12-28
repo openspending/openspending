@@ -1,0 +1,19 @@
+{% macro new_form() -%}
+  <div class="form-group">
+    <label for="url" class="col-sm-2 control-label">
+      {% trans %}URL{% endtrans %}
+    </label>
+    <div class="col-sm-10">
+      <input name="url" class="form-control" placeholder="http://thedatahub.org/.../myfile.csv" />
+      <p class="help-block">
+        {% trans %}This must point directly at a
+        valid CSV file. HTML landing pages or other formats, such as
+        Excel, will not work.{% endtrans %}
+      </p>
+      <p class="help-block">
+        {% trans %}We recommend using <strong>,</strong> as delimiter and wrapping values in double quotes (especially amounts). The first line will always be regarded as a header row. <a href="http://community.openspending.org/help/guide/en/formatting-data/">Want to know more?</a>{% endtrans %}
+      </p>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+{%- endmacro %}

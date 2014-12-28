@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship, backref
 from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.types import Integer, Unicode, DateTime
 
-from openspending.model import meta as db
+from openspending.core import db
 from openspending.model.run import Run
 
 

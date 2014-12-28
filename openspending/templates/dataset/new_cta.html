@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block page_title %}{% trans %}Import a dataset{% endtrans %}{% endblock %}
+
+{% block content %}
+  <div>
+    <!-- templates/dataset/new_cta.html content -->
+    <h2 class="page-header">
+      {% trans %}Contribute your local data!{% endtrans %}
+    </h2>
+    <div class="row">
+      <div class="col-md-6">
+        {% trans %}We're trying to gather <strong>the world's spending
+        information</strong> in a common database so that we can provide
+        common tools for <strong>analysis, visualization and
+        comparison</strong>. OpenSpending is an open platform that
+        aims to facilitate the presentation of financial information so 
+        anyone - whether data geek or concerned citizen - can contribute 
+        their local city budget or spending reports.{% endtrans %}
+      </div>
+      <div class="col-md-6">
+        <p>
+          {% trans %}There are many projects that aim to track financial information. All
+          require these basic services, which we aim to provide{% endtrans %}:
+        </p>
+        <ul>
+          <li>{% trans %}Data loading and validation facilities.{% endtrans %}</li>
+          <li>{% trans %}Common visualization types (treemaps, charts, and the bubble
+          tree).{% endtrans %}</li>
+          <li>{% trans %}Full-text search for all entries.{% endtrans %}</li>
+          <li>{% trans %}Means to track provenance and provide access to the raw
+          data.{% endtrans %}</li>
+        </ul>
+        
+      </div>
+    </div>
+    <div class="form-actions">
+      <a href="{{url_for('account.login')}}"
+        class="btn btn-lg btn-success">{% trans %}Sign up to contribute{% endtrans %}</a>
+      <a href="http://community.openspending.org/help/"
+        class="btn btn-lg btn-default">{% trans %}Learn more{% endtrans %}</a>
+    </div>
+  </div>
+  
+{% endblock %}

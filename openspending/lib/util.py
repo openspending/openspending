@@ -1,6 +1,5 @@
-import re
 from hashlib import sha1
-from unidecode import unidecode
+from slugify import slugify # noqa
 
 
 def flatten(data, sep='.'):
@@ -21,29 +20,23 @@ def hash_values(iterable):
                         for val in iterable)).hexdigest()
 
 
-def check_rest_suffix(name):
-    '''\
-    Assert that the ``name`` does not end with a string like
-    '.csv', '.json'. Read the source for a list of all recognized
-    extensions.
-    '''
-    for sfx in ['csv', 'json', 'xml', 'rdf', 'html', 'htm', 'n3', 'nt']:
-        assert not name.lower().endswith('.' + sfx), \
-            "Names cannot end in .%s" % sfx
+def cache_hash(*a, **kw):
+    """ Try to hash an arbitrary object for caching. """
 
+    def cache_str(o):
+        if isinstance(o, dict):
+            o = [k + ':' + cache_str(v) for k, v in o.items()]
+        if isinstance(o, (list, tuple, set)):
+            o = sorted(map(cache_str, o))
+            o = '|'.join(o)
+        if isinstance(o, basestring):
+            return o
+        if hasattr(o, 'updated_at'):
+            return cache_str((repr(o), o.updated_at))
+        return repr(o)
 
-SLUG_RE = re.compile(r'[\t !"#$%&\'()*\-/<=>?@\[\\\]^_`{|},.]+')
-
-
-def slugify(text, delimiter='-'):
-    '''\
-    Generate an ascii only slug from the text that can be
-    used in urls or as a name.
-    '''
-    result = []
-    for word in SLUG_RE.split(unicode(text).lower()):
-        result.extend(unidecode(word).split())
-    return unicode(delimiter.join(result))
+    hash = cache_str((a, kw)).encode('utf-8')
+    return sha1(hash).hexdigest()
 
 
 def sort_by_reference(ref, sort, sort_fn=None):

@@ -9,8 +9,8 @@ from unicodedata import category
 
 from solr import SolrConnection
 
+from openspending.core import db
 from openspending.model.dataset import Dataset
-from openspending.model import meta as db
 from openspending.lib.util import flatten
 
 log = logging.getLogger(__name__)
@@ -48,9 +48,9 @@ def configure(config=None):
     if not config:
         config = {}
 
-    url = config.get('openspending.solr.url', url)
-    http_user = config.get('openspending.solr.http_user', http_user)
-    http_pass = config.get('openspending.solr.http_pass', http_pass)
+    url = config.get('SOLR_URL', url)
+    http_user = config.get('SOLR_HTTP_USER', http_user)
+    http_pass = config.get('SOLR_HTTP_PASS', http_pass)
 
 
 def get_connection():
@@ -77,8 +77,11 @@ def dataset_entries(dataset_name):
     solr = get_connection()
     f = 'dataset:"%s"' % dataset_name if dataset_name else ''
     res = solr.raw_query(q='*:*', fq=f, rows=0, wt='json')
-    res = json.loads(res)
-    return res.get('response', {}).get('numFound')
+    try:
+        res = json.loads(res)
+        return res.get('response', {}).get('numFound')
+    except TypeError:
+        return -1
 
 
 def extend_entry(entry, dataset):

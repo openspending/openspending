@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% from "editor/_nav.html" import editor_nav with context %}
+
+{% block page_title %}{{ dataset.label or dataset.name }}{% endblock %}
+
+{% block scripts %}
+  <script>
+    jQuery(document).ready(function($) {
+      var accounts = {{ accounts | tojson }};
+      var editingAccount = "{{ current_user.name }}";
+      item_template = Handlebars.compile($('#account-item').html());
+
+      var makeItem = function(account) {
+        account.fullname = account.fullname || account.name;
+        account.canRemove = account.name != editingAccount;
+        $('#accounts').append(item_template(account));
+      };
+
+      _.map(accounts, makeItem);
+      $('#accounts').on('click', '.remove', function(e) {
+        $(e.target).parents('li').remove();
+      });
+      
+      $('#select-account').typeahead(null, {
+        //highlight: true,
+        displayKey: 'fullname',
+        source: function(query, response) {
+          $.get('/accounts/_complete', {'q': query}, function(data) {
+            response(_.map(data.results, function(a) {
+              accounts.push(a);
+              a.fullname = a.fullname ? a.fullname + ' (' + a.name + ')' : a.name;
+              return a;
+            }));
+          });
+        }
+      });
+
+      $('#select-account').on('typeahead:selected', function(e, o) {
+        _.each(accounts, function(a) {
+          var names = _.map($('#accounts li'), function(e) {
+            return $(e).data('name');
+          });
+          if (a.name == o.name) { if (names.indexOf(o.name) == -1) {
+            makeItem(a);
+          }}
+        });
+        $('#select-account').val('');
+        return false;
+      });
+
+      $('#save').submit(function(e) {
+        var v = $('#values');
+        v.empty();
+        $('#accounts li').each(function(i, e) {
+          v.append('<option value="' + $(e).data('name') + '" selected="selected"></option>');
+        });
+      });
+    });
+  </script>
+
+  {% raw %}
+  <script id='account-item' type='text/handlebars'>
+    <li data-name='{{name}}'>
+      <strong>{{fullname}}</strong>
+      {{#canRemove}}
+      <a class='remove' href='#'><i class='icon-remove'></i></a>
+      {{/canRemove}}
+    </li>
+  </script>
+  {% endraw %}
+{% endblock %}
+
+{% block content %}
+  <!-- templates/editor/team.html -->
+  {{editor_nav(dataset, 'team')}}
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="alert alert-info">
+        {% trans %}Here, you can select the users who will be authorized to 
+        manage this dataset.{% endtrans %}
+      </div>
+    </div>
+    <div class="col-md-8">
+      {% if form_errors %}
+      <div class="alert alert-danger">
+        <ul>{% for field, error in form_errors.items() %}
+          <li><strong>{{ field }}:</strong> {{ error }}</li>
+        {% endfor %}</ul>
+      </div>
+      {% endif %}
+
+      <div class='row'>
+        <div class="col-md-6">
+          <h3>{% trans %}Current team{% endtrans %}</h3>
+          <ul id='accounts'></ul>
+        </div>
+        <div class="col-md-6">
+          <h3>{% trans %}Add someone{% endtrans %}</h3>
+          <form id='add-account'>
+            <input id='select-account' class="form-control" />
+          </form>
+        </div>
+      </div>
+
+      <form id='save' method="POST">
+        <div class="form-actions">
+          <select multiple='true' style='display: none' name='accounts' id='values' />
+          <input value="{% trans %}Save{% endtrans %}" class="btn btn-success" type="submit" />
+        </div>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

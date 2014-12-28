@@ -1,51 +1,57 @@
-from datetime import datetime
 import logging
-
+from datetime import datetime, date
+from json import JSONEncoder
 from decorator import decorator
 
-from pylons import request, response
-
-from openspending.lib import json
+from flask import request, Response
 
 log = logging.getLogger(__name__)
 
 
-def default_json(obj):
-    '''\
-    Return a json representations for some custom objects.
-    Used for the *default* parameter to json.dump[s](),
-    see http://docs.python.org/library/json.html#json.dump
+class AppEncoder(JSONEncoder):
+    """ This encoder will serialize all entities that have a to_dict
+    method by calling that method and serializing the result. """
 
-    Raises :exc:`TypeError` if it can't handle the object.
-    '''
-    if isinstance(obj, datetime):
-        return obj.isoformat()
-    if hasattr(obj, 'as_dict'):
-        return obj.as_dict()
-    raise TypeError("%r is not JSON serializable" % obj)
+    def default(self, obj):
+        if hasattr(obj, 'as_dict'):
+            return obj.as_dict()
+        elif isinstance(obj, datetime):
+            return obj.isoformat() + 'Z'
+        elif isinstance(obj, date):
+            return obj.isoformat()
+        elif isinstance(obj, set):
+            return [o for o in obj]
+        return super(AppEncoder, self).default(obj)
 
 
-def write_json(entries, response, filename=None):
-    response.content_type = 'application/json'
+def to_json(obj, encoder=None):
+    if encoder is None:
+        encoder = AppEncoder
+    return encoder().encode(obj)
+
+
+def write_json(entries, filename=None):
+    headers = {'Content-Type': 'application/json'}
     if filename:
-        response.content_disposition = 'attachment; filename=%s' % filename
-    return generate_json(entries)
+        headers['Content-Disposition'] = 'attachment; filename=%s' % filename
+    return Response(generate_json(entries), headers=headers)
 
 
 def generate_json(entries):
     for e in entries:
-        yield to_json(e, indent=None) + '\n'
+        yield to_json(e) + '\n'
 
 
-def write_browser_json(entries, stats, facets, response):
+def write_browser_json(entries, stats, facets):
     """ Streaming support for large result sets, specific to the browser as
     the data is enveloped. """
-    response.content_type = 'application/json'
+    mime_type = 'application/json'
     callback = None
-    if 'callback' in request.params:
-        response.content_type = 'text/javascript'
-        callback = str(request.params['callback'])
-    return generate_browser_json(entries, stats, facets, callback)
+    if 'callback' in request.args:
+        mime_type = 'text/javascript'
+        callback = str(request.args['callback'])
+    gen = generate_browser_json(entries, stats, facets, callback)
+    return Response(gen, mime_type=mime_type)
 
 
 def generate_browser_json(entries, stats, facets, callback):
@@ -67,48 +73,12 @@ def generate_browser_json(entries, stats, facets, callback):
     yield ']})' if callback else ']}'
 
 
-def to_json(data, indent=2):
-    return json.dumps(data, default=default_json, indent=indent)
-
-
-def json_headers(filename=None):
-    if 'callback' in request.params:
-        response.headers['Content-Type'] = 'text/javascript'
-    else:
-        response.headers['Content-Type'] = 'application/json'
-    if filename:
-        response.content_disposition = 'attachment; filename=%s' % filename
-
-
-def generate_jsonp(data, indent=2, callback=None):
-    result = to_json(data, indent=indent)
-    if callback:
-        # The parameter is a unicode object, which we don't want (as it
-        # causes Pylons to complain when we return a unicode object from
-        # this function).  All reasonable values of this parameter will
-        # "str" with no problem (ASCII clean).  So we do that then.
-        cbname = str(request.params['callback'])
-        result = '%s(%s);' % (cbname, result)
-    return result
-
-
-def to_jsonp(data):
-    is_xhr = request.headers.get(
-        'x-requested-with',
-        '').lower() == 'xmlhttprequest'
-    indent = None if is_xhr else 2
-    json_headers()
-    return generate_jsonp(
-        data, indent=indent, callback=request.params.get('callback'))
-
-
-@decorator
-def jsonpify(func, *args, **kwargs):
-    """\
-    A decorator that reformats the output as JSON; or, if the
-    *callback* parameter is specified (in the HTTP request), as JSONP.
-
-    Modelled after pylons.decorators.jsonify.
-    """
-    data = func(*args, **kwargs)
-    return to_jsonp(data)
+def jsonify(obj, status=200, headers=None, index=False, encoder=AppEncoder):
+    """ Custom JSONificaton to support obj.as_dict protocol. """
+    data = to_json(obj, encoder=encoder)
+    if 'callback' in request.args:
+        cb = request.args.get('callback')
+        data = '%s && %s(%s)' % (cb, cb, data)
+    return Response(data, headers=headers,
+                    status=status,
+                    mimetype='application/json')

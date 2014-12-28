@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% from "editor/_nav.html" import editor_nav with context %}
+
+{% block page_title %}{{ dataset.label or dataset.name }}{% endblock %}
+
+{% block content %}
+<!-- templates/editor/dimensions_errors.html -->
+{{editor_nav(dataset, 'dimensions')}}
+
+<div class="row">
+  <div class="col-md-offset-4 col-md-8">
+    {% if dataset|length %}
+    <div class="alert alert-warning">
+      <p>
+        <strong>{% trans %}You cannot edit dimensions while data is loaded.{% endtrans %}</strong>
+        
+        {% trans %}In order to modify the dimensions model, you'll have to 
+        delete all the data that is currently loaded from the database.{% endtrans %}
+      </p>
+      <p>
+        <a href="{{ url_for('editor.index', dataset=dataset.name) }}" class="btn btn-default">
+          {% trans %}Go to dashboard{% endtrans %}
+        </a>
+        <a href="{{ url_for('dimension.index', dataset=dataset.name) }}" class="btn btn-default">
+          {% trans %}See dimensions{% endtrans %}
+        </a>
+      </p>
+    </div>
+    {% endif %}
+        
+    {% if not source %}
+    <div class="alert block-message alert-warning">
+      <p>
+        <strong>{% trans %}You need to define at least one data source.{% endtrans %}</strong>
+        {% trans %}In order to create a dimensions model, at least on data source
+        needs to be available.{% endtrans %}
+      </p>
+      <p>
+        <a href="{{ url_for('editor.index', dataset=dataset.name) }}" class="btn btn-default">
+          {% trans %}Go to dashboard{% endtrans %}
+        </a>
+      </p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

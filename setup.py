@@ -1,34 +1,6 @@
 import os
-import re
 from setuptools import setup, find_packages
 
-
-def get_version():
-    """
-    Parse the version from the openspending version file.
-    This is Zooko's method for getting the version into
-    setup.py without having to execute the file or import
-    an pacakge that hasn't been set up (since it is being
-    set up as part of running setup.py)
-    """
-
-    # Define version file, we define our version in
-    # openspending._version and read the file
-    VERSIONFILE = "openspending/_version.py"
-    verstrline = open(VERSIONFILE, "rt").read()
-
-    # Parse the file to find the line that defines the version
-    # using a regular expression
-    VSRE = r"^__version__ = ['\"]([^'\"]*)['\"]"
-    mo = re.search(VSRE, verstrline, re.M)
-
-    # If we find a match we can return the version (group 1)
-    # if not we raise an error
-    if mo:
-        return mo.group(1)
-    else:
-        raise RuntimeError(
-            "Unable to find version string in %s." % (VERSIONFILE,))
 
 PKG_ROOT = '.'
 
@@ -58,48 +30,38 @@ def package_filter(pkg):
 
 setup(
     name='openspending',
-    version=get_version(),
+    version='0.17',
     description='OpenSpending',
     author='Open Knowledge Foundation',
-    author_email='okfn-help at lists okfn org',
-    url='http://github.com/okfn/openspending',
+    author_email='openspending-dev at lists okfn org',
+    url='http://github.com/openspending/openspending',
     install_requires=[
     ],
-    setup_requires=[
-        "PasteScript==1.7.5",
-        "nose==1.1.2"
-    ],
+    setup_requires=[],
 
     packages=filter(package_filter, find_packages()),
     namespace_packages=['openspending'],
     package_data={
-        'openspending.ui': (
-            files_in_pkgdir('openspending.ui', 'public') +
-            files_in_pkgdir('openspending.ui', 'templates')
+        'openspending': (
+            files_in_pkgdir('openspending', 'static') +
+            files_in_pkgdir('openspending', 'templates')
         )
     },
     test_suite='nose.collector',
 
     zip_safe=False,
 
-    paster_plugins=['PasteScript', 'Pylons'],
-
     entry_points={
-        'paste.app_factory': [
-            'main = openspending.ui.config.middleware:make_app'
-        ],
-        'paste.app_install': [
-            'main = pylons.util:PylonsInstaller'
-        ],
         'console_scripts': [
-            'ostool = openspending.command:main'
+            'ostool = openspending.command:main',
+            'openspending = openspending.command:main'
         ]
     },
 
     message_extractors={
         'openspending': [('**.py', 'python', None),
-                         ('ui/alttemplates/**.html', 'jinja2', None),
-                         ('ui/public/**', 'ignore', None),
+                         ('templates/**.html', 'jinja2', None),
+                         ('static/**', 'ignore', None),
                          ]
         },
 )

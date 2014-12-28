@@ -1,46 +1,45 @@
 import logging
 import os
 
-from pylons import config
-
-from openspending.model import meta as db
-from openspending.model.dataset import Dataset
-
+from flask import current_app
 import migrate.versioning.api as migrate_api
 from migrate.exceptions import DatabaseNotControlledError
 
+from openspending.core import db
+from openspending.model import Dataset
+from openspending.command.util import create_submanager
+from openspending.command.util import CommandException
+
 log = logging.getLogger(__name__)
 
+manager = create_submanager(description='Database operations')
 
+
+@manager.command
 def drop():
+    """ Drop database """
     log.warn("Dropping database")
     db.metadata.reflect()
     db.metadata.drop_all()
-    return 0
 
 
-def drop_collections():
-    # Kept for backwards compatibility
-    return drop()
-
-
+@manager.command
 def drop_dataset(name):
+    """ Drop a dataset from the database """
     log.warn("Dropping dataset '%s'", name)
     dataset = db.session.query(Dataset).filter_by(name=name).first()
     if dataset is None:
-        log.warn("Dataset does not exist: '%s'", name)
-        return 1
+        raise CommandException("Dataset does not exist: '%s'" % name)
     dataset.drop()
     db.session.delete(dataset)
     db.session.commit()
-    return 0
 
 
+@manager.command
 def migrate():
-    url = config.get('openspending.db.url')
-    repo = config.get('openspending.migrate_dir',
-                      os.path.join(os.path.dirname(config['__file__']),
-                                   'migration'))
+    """ Run pending data migrations """
+    url = current_app.config.get('SQLALCHEMY_DATABASE_URI')
+    repo = os.path.join(os.path.dirname(__file__), '..', 'migration')
 
     try:
         migrate_api.upgrade(url, repo)
@@ -51,14 +50,13 @@ def migrate():
 
     diff = migrate_api.compare_model_to_db(url, repo, db.metadata)
     if diff:
-        # Oh dear! The database we migrated to doesn't match openspending.model
         print diff
-        return 1
-
-    return 0
+        raise CommandException("The database doesn't match the current model")
 
 
+@manager.command
 def modelmigrate():
+    """ Run pending data model migrations """
     from openspending.validation.model.migration import migrate_model
     dataset = db.Table('dataset', db.metadata, autoload=True)
     rp = db.engine.execute(dataset.select())
@@ -66,7 +64,7 @@ def modelmigrate():
         ds = rp.fetchone()
         if ds is None:
             break
-        print ds['name'], '...'
+        log.info('Migrating %s...', ds['name'])
         model = migrate_model(ds['data'])
         version = model.get('dataset').get('schema_version')
         if 'dataset' in model:
@@ -74,61 +72,9 @@ def modelmigrate():
         q = dataset.update().where(dataset.c.id == ds['id'])
         q = q.values({'data': model, 'schema_version': version})
         db.engine.execute(q)
-    return 0
 
 
+@manager.command
 def init():
+    """ Initialize the database """
     migrate()
-
-
-def _init(args):
-    return init()
-
-
-def _drop(args):
-    return drop()
-
-
-def _drop_collections(args):
-    return drop_collections()
-
-
-def _drop_dataset(args):
-    return drop_dataset(args.name)
-
-
-def _migrate(args):
-    return migrate()
-
-
-def _modelmigrate(args):
-    return modelmigrate()
-
-
-def configure_parser(subparsers):
-    parser = subparsers.add_parser('db', help='Database operations')
-    sp = parser.add_subparsers(title='subcommands')
-
-    p = sp.add_parser('drop', help='Drop database')
-    p.set_defaults(func=_drop)
-
-    p = sp.add_parser('dropcollections',
-                      help='Drop collections within database')
-    p.set_defaults(func=_drop_collections)
-
-    p = sp.add_parser('dropdataset',
-                      help='Drop a dataset from the database')
-    p.add_argument('name')
-    p.set_defaults(func=_drop_dataset)
-
-    p = sp.add_parser('migrate',
-                      help='Run pending data migrations')
-    p.set_defaults(func=_migrate)
-
-    p = sp.add_parser('modelmigrate',
-                      help='Run pending data model migrations')
-    p.set_defaults(func=_modelmigrate)
-
-    p = sp.add_parser('init',
-                      help='Initialize the database')
-    p.set_defaults(func=_init)

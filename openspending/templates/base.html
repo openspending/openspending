@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+{% from "_util.html" import google_analytics with context %}
+<html lang="{{ current_language }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block page_title %}{% endblock %} - {{ site_title }}</title>
+
+    <meta name="description" content="{% block page_desc %}{% trans %}We're enabling anyone to explore, visualize and track government spending.{% endtrans %}{% endblock %}" />
+    <meta name="author" content="Open Knowledge Foundation" />
+    <link rel="shortcut icon" href="{{ static_path('img/favicon.ico') }}"
+      type="image/x-icon" />
+    <link rel="alternate" type="application/rss+xml"
+      title="{% trans %}Latest Datasets on OpenSpending{% endtrans %}"
+      href="{{ url_for('dataset.feed_rss') }}" />
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600'
+      rel='stylesheet' type='text/css'>
+    {% assets "css_main" %}
+      <link href="{{ ASSET_URL }}" rel="stylesheet" />
+    {% endassets %}
+
+    {% assets "js_base" %}
+      <script src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+    
+  	<!-- TODO: remove the need for this -->
+  	{% block optional_head %}{% endblock %}
+  </head>
+
+  <!-- templates/layout.html body -->
+  <body class="bp-{{request.endpoint.split('.')[0]}} view-{{request.endpoint.split('.')[1]}}">
+    <div id="page">
+      {% include '_nav.html' %}
+
+      <div class="banner">
+        <div class="container">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              <div class="row">
+                <div class="col-xs-12">
+    	            {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                      {{ message }}
+                    </div>
+    	            {% endfor %}
+                </div>
+              </div>
+            {% endif %}
+          {% endwith %}
+          {% block banner %}{% endblock %}
+        </div>
+      </div>
+
+      <div class="container">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+
+    <div id="catapult-cookie-bar">
+      {% trans %}This site uses cookies{% endtrans %}
+      <button id="catapultCookie" tabindex="1">
+        {% trans %}Okay, thanks{% endtrans %}
+      </button>
+
+      <a tabindex="1" href="http://okfn.org/cookie-policy">
+        {% trans %}Find out more{% endtrans %}
+      </a>
+    </div>
+
+    {% include '_footer.html' %}
+
+    <!-- script boot section -->
+    <script defer="defer">
+	    OpenSpending.scriptRoot = "{{ static_path('openspendingjs') }}";
+	    OpenSpending.localeGroupSeparator = "{{ number_symbols_group }}";
+	    OpenSpending.localeDecimalSeparator = "{{ number_symbols_decimal }}";
+    </script>
+    <!-- end script boot section -->
+
+  	{% block scripts %}{% endblock %}
+    {{ google_analytics() }}
+
+  	<script type="text/javascript">
+      jQuery(document).ready(function() {
+        if($.cookie("cookiecheck")) {
+          //If the cookie has been set
+          jQuery("#catapult-cookie-bar").hide();
+          jQuery("html").css("margin-top","0");
+        }
+        $('#catapultCookie').click(function() {
+          $.cookie('cookiecheck', 'True', { path: '/' });
+          jQuery("#catapult-cookie-bar").hide();
+          jQuery("html").css("margin-top","0");
+        });
+      });
+    </script>
+  </body>
+</html>

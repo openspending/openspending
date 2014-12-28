@@ -3,14 +3,14 @@ from nose.tools import assert_raises
 from openspending.tests.helpers import model_fixture, load_fixture
 from openspending.tests.base import DatabaseTestCase
 
-from openspending.model import meta as db
+from openspending.core import db
 from openspending.model.dataset import Dataset
 
 
 class TestAttributeDimension(DatabaseTestCase):
 
-    def setup(self):
-        super(TestAttributeDimension, self).setup()
+    def setUp(self):
+        super(TestAttributeDimension, self).setUp()
         self.engine = db.engine
         self.meta = db.metadata
         self.meta.bind = self.engine
@@ -23,8 +23,8 @@ class TestAttributeDimension(DatabaseTestCase):
 
 class TestCompoundDimension(DatabaseTestCase):
 
-    def setup(self):
-        super(TestCompoundDimension, self).setup()
+    def setUp(self):
+        super(TestCompoundDimension, self).setUp()
         self.engine = db.engine
         self.meta = db.metadata
         self.meta.bind = self.engine

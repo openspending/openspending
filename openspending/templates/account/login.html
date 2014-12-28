@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block page_title %}{% trans %}Login{% endtrans %}{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="page-header">
+        {% trans %}Login{% endtrans %}
+      </h2>
+      <form class="form-horizontal" action="{{ url_for('account.login') }}" method="POST">
+        <div class="form-group">
+          <label for="login" class="col-sm-3 control-label">
+            {% trans %}Login{% endtrans %}
+          </label>
+          <div class="col-sm-9">
+            <input name="login" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password" class="col-sm-3 control-label">
+            {% trans %}Password{% endtrans %}
+          </label>
+          <div class="col-sm-9">
+            <input name="password" class="form-control" type="password">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-3 col-sm-9">
+            <button type="submit" class="btn btn-default">
+              {% trans %}Login{% endtrans %}
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <p class="help-block">
+        {% trans %}Forgot your password?{% endtrans %}
+        <a href="{{ url_for('account.trigger_reset') }}">
+          {% trans %}Request a password reset.{% endtrans %}
+        </a>
+      </p>
+    </div>
+
+    <div class="col-md-6">
+      <h2 class="page-header">
+        {% trans %}Create an account{% endtrans %}
+      </h2>
+
+      {% formfill form_fill with form_errors %}
+      <form class="form-horizontal" action="{{ url_for('account.register') }}" method="POST">
+        <div class="form-group">
+          <label for="name" class="col-sm-3 control-label">
+            {% trans %}Login{% endtrans %}
+          </label>
+          <div class="col-sm-9">
+            <input name="name" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="fullname" class="col-sm-3 control-label">
+            {% trans %}Fullname{% endtrans %}
+          </label>
+          <div class="col-sm-9">
+            <input name="fullname" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email" class="col-sm-3 control-label">
+            {% trans %}Email{% endtrans %}
+          </label>
+          <div class="col-sm-9">
+            <input name="email" class="form-control" type="email">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-3 col-sm-9">
+            <div class="checkbox">
+              <label>
+                <input name="public_email" type="checkbox">
+                {% trans %}Visible to users{% endtrans %}
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password1" class="col-sm-3 control-label">
+            {% trans %}Password{% endtrans %}
+          </label>
+          <div class="col-sm-9">
+            <input name="password1" class="form-control" type="password" autocomplete="off">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password2" class="col-sm-3 control-label">
+            {% trans %}Password (repeat){% endtrans %}
+          </label>
+          <div class="col-sm-9">
+            <input name="password2" class="form-control" type="password" autocomplete="off">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-3 col-sm-9">
+            <div class="checkbox">
+              <label>
+                <input name="terms" type="checkbox">
+                {% trans %}I agree to the <a href="http://okfn.org/terms-of-use/">Terms of Use</a>
+                and <a href="http://okfn.org/privacy-policy/">Privacy Policy</a>.{% endtrans %}
+              </label>
+            </div>
+          </div>
+        </div>
+        {% if config.get('SUBSCRIBE_COMMUNITY') %}
+        <div class="form-group">
+          <div class="col-sm-offset-3 col-sm-9">
+            <div class="checkbox">
+              <label>
+                <input name="subscribe_community" type="checkbox">
+                {% trans %}Add me to the OpenSpending community mailing list{% endtrans %}
+              </label>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        {% if config.get('SUBSCRIBE_DEVELOPER') %}
+        <div class="form-group">
+          <div class="col-sm-offset-3 col-sm-9">
+            <div class="checkbox">
+              <label>
+                <input name="subscribe_developer" type="checkbox">
+                {% trans %}Sign me up for the OpenSpending developer mailing list{% endtrans %}
+              </label>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        <div class="form-group">
+          <div class="col-sm-offset-3 col-sm-9">
+            <button type="submit" class="btn btn-default">
+              {% trans %}Create new account{% endtrans %}
+            </button>
+          </div>
+        </div>
+      </form>
+      {% endformfill %}
+    </div>
+  </div>
+{% endblock %}
+
+
+
+

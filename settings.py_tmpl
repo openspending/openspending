@@ -1,0 +1,24 @@
+SECRET_KEY = 'foo'
+DEBUG = True
+
+SITE_TITLE = 'OpenSpending'
+
+SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/openspending'
+SOLR_URL = 'http://localhost:8983/solr/openspending'
+
+MAIL_SERVER = 'localhost'
+# MAIL_PORT = 25
+# MAIL_USE_TLS = False
+# MAIL_USE_SSL = False
+# MAIL_USERNAME = None
+# MAIL_PASSWORD = None
+MAIL_DEFAULT_SENDER = 'noreply@openspending.org'
+
+CACHE = True
+CACHE_TYPE = 'simple'
+
+UPLOADS_DEFAULT_DEST = '/tmp/openspending-uploads'
+
+CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'
+
+CELERY_ALWAYS_EAGER = False
