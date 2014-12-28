@@ -38,7 +38,7 @@
 <div id="m1">
   <div class="dimensions_widget">
     <div class="row">
-      <div class="span3">
+      <div class="col-md-3">
         <p>
           <a class='btn btn-primary' data-backdrop="true"
              data-toggle="modal"
@@ -152,9 +152,9 @@
         
       </div>
       
-      <div class="span9">
+      <div class="col-md-9">
         {% if saved %}
-        <div class="alert block-message alert-success">
+        <div class="alert alert-success">
           <strong>{% trans %}Your model was saved.{% endtrans %}</strong> {% trans %}You can now try to load a sample of the data by returning back to the dashboard.{% endtrans %}
           <div class="alert-actions">
             <a class="btn btn-small" href="{{ url_for('editor.index', dataset=dataset.name) }}">
