@@ -22,6 +22,7 @@
     "underscore": "~1.7.0",
     "handlebars": "~2.0.0",
     "bootstrap-chosen": "~1.0.0",
-    "chosen_v1.3.0": "https://github.com/harvesthq/chosen/releases/download/v1.3.0/chosen_v1.3.0.zip"
+    "chosen_v1.3.0": "https://github.com/harvesthq/chosen/releases/download/v1.3.0/chosen_v1.3.0.zip",
+    "typeahead.js": "~0.10.5"
   }
 }
