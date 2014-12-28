@@ -32,9 +32,11 @@
   {{editor_nav(dataset, 'views')}}
 
   <div class="row views-editor">
-    <div class="span4">
-      <div class="alert alert-block">
-        <strong>{% trans %}Here be dragons.{% endtrans %}</strong> {% trans %}The visualizations editor does 
+    <div class="col-md-4">
+      <div class="alert alert-warning">
+        <strong>{% trans %}Here be dragons.{% endtrans %}</strong>
+
+        {% trans %}The visualizations editor does 
         not have a graphical interface yet. If you still want to use it, 
         please check out the 
         <a href="http://openspending.readthedocs.org/en/latest/model/design.html#views-and-pre-defined-visualizations">documentation</a>
@@ -42,7 +44,7 @@
       </div>
       
       <h3>{% trans %}Available Dimensions{% endtrans %}</h3>
-      <ul class="">
+      <ul>
         {% for dimension in dataset.dimensions %}
           <li>
             <strong>{{ dimension.name }}</strong>:
@@ -62,14 +64,14 @@
         {% endfor %}
       </ul>
     </div>
-    <div class="span8">
+    <div class="col-md-8">
       {% formfill form_fill %}
       <form class="basic" id="form"
             action="{{ url_for('editor.views_update', dataset=dataset.name) }}"
             method="POST">
         <fieldset>
           {% if form_errors|length %}
-          <div class="alert block-message alert-error">
+          <div class="alert alert-danger">
             <p>
               {% trans %}The views could not be saved as they contain some 
               errors{% endtrans %}:
@@ -84,10 +86,10 @@
           </div>
           {% endif %}
           
-          <textarea id="fallback" class="xxlarge" rows="20"
+          <textarea id="fallback" class="form-control" rows="20"
                 name="views">{{ form_fill['views'] }}</textarea>
           <div id="frame">
-            <div id="views" style="height: 300px; width: 620px">{{ form_fill.views | tojson }}</div>
+            <div id="views" style="height: 300px; width: 100%">{{ form_fill.views | tojson }}</div>
           </div>
         </fieldset>
         <div class="form-actions">
