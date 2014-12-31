@@ -2,7 +2,7 @@ import os
 from setuptools import setup, find_packages
 
 
-PKG_ROOT = '.'
+PKG_ROOT = os.path.abspath(os.__file__)
 
 
 def files_in_pkgdir(pkg, dirname):
