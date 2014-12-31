@@ -475,7 +475,7 @@ class TestApiNewDataset(ControllerTestCase):
             'http://mk.ucant.org/info/data/sample-openspending-dataset.csv'
         }
         response = self.client.post(u, data=params)
-        assert "403" in response.status
+        assert "403" in response.status, response.status
         assert Dataset.by_name('openspending-example') is None
 
     def test_new_wrong_user(self):
@@ -492,7 +492,7 @@ class TestApiNewDataset(ControllerTestCase):
         response = self.client.post(u, data=params,
                                     query_string={'api_key': user.api_key})
 
-        assert "200" in response.status
+        assert "200" in response.status, (response.status, response.data)
         assert Dataset.by_name('openspending-example') is not None
 
         # After that we try to update the Dataset with user 'test_new2'
@@ -507,4 +507,4 @@ class TestApiNewDataset(ControllerTestCase):
         }
         response = self.client.post(u, data=params,
                                     query_string={'api_key': user.api_key})
-        assert '403' in response.status
+        assert '403' in response.status, response.status

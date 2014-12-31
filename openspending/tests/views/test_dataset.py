@@ -1,3 +1,4 @@
+import re
 import csv
 import json
 import datetime
@@ -225,6 +226,8 @@ class TestDatasetController(ControllerTestCase):
         assert 'application/xml' in response.content_type
 
         response = self.client.get(url_for('dataset.index'))
+        norm = re.sub('\s+', ' ', response.data)
+        print norm
         assert ('<link rel="alternate" type="application/rss+xml" title="'
                 'Latest Datasets on OpenSpending"' in
-                response.data)
+                norm)

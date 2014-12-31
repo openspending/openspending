@@ -187,13 +187,11 @@ def create():
 
     # Precedence of budget data package over other methods
     if 'budget_data_package' in params:
-        output = load_with_budget_data_package(
+        return load_with_budget_data_package(
             params['budget_data_package'], params['private'])
     else:
-        output = load_with_model_and_csv(
+        return load_with_model_and_csv(
             params['metadata'], params['csv_file'], params['private'])
-
-    return output
 
 
 def load_with_budget_data_package(bdp_url, private):
