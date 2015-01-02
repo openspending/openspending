@@ -87,6 +87,11 @@ This should be pretty painless. Just run::
 
     $ pip install -r requirements.txt -e .
 
+> For Windows users, run::
+```
+    $pip install -r windows_reqs.txt
+```
+
 Additionally to the core repository, you will need to check out two auxilliary
 repositories and symlink them into OpenSpending. The repos contain the 
 JavaScript components and the help system content for the site. The following 

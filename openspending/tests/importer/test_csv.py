@@ -1,4 +1,4 @@
-from urllib import urlopen
+import urllib, urlparse
 
 from openspending.core import db
 from openspending.model.dataset import Dataset
@@ -12,12 +12,12 @@ from openspending.tests.helpers import fixture_path, make_account
 
 
 def csvimport_fixture_path(name, path):
-    return 'file://' + fixture_path('csv_import/%s/%s' % (name, path))
+    return urlparse.urljoin('file:', urllib.pathname2url(fixture_path('csv_import/%s/%s' % (name, path))))
 
 
 def csvimport_fixture_file(name, path):
     try:
-        fp = urlopen(csvimport_fixture_path(name, path))
+        fp = urllib.urlopen(csvimport_fixture_path(name, path))
     except IOError:
         if name == 'default':
             fp = None

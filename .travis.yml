@@ -7,6 +7,28 @@ before_install:
   - virtualenv ./pyenv --distribute
   - source ./pyenv/bin/activate
 install:
+  # To install external filter binaries, we first need to install
+  # RubyGems and Node/NPM. I'm not sure why, since it seems clear
+  # that NVM and RVM are pre-installed (see below).
+  - sudo apt-get install python-software-properties
+  - sudo apt-add-repository -y ppa:chris-lea/node.js
+  - sudo apt-get update
+  - sudo apt-get install nodejs rubygems
+  # These are useful for debugging this mess.
+  #- env
+  #- gem env
+  #- rvm info
+  # Use non-http registry? https://github.com/n1k0/casperjs/issues/876
+  # Without this, installing doesn't work.
+  - sudo npm config set registry http://registry.npmjs.org/
+
+  # Now install the external filter binaries, finally.
+  # If we use sudo for this, ruby gems will not work: it seems they are
+  # then installed globally, but are then searched for in a RVM location.
+  # (Clearing GEM_HOME might be a way to fix this, if sudo where necessary).
+  - sh requirements-dev.sh
+
+
   - pip install -r requirements.txt -e .
   - git clone http://github.com/openspending/openspendingjs.git
   - ln -s openspendingjs openspending/static/openspendingjs
