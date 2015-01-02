@@ -4,6 +4,7 @@ python:
 services:
   - rabbitmq
 before_install:
+  - sudo apt-get -y install node-less
   - virtualenv ./pyenv --distribute
   - source ./pyenv/bin/activate
 install:
