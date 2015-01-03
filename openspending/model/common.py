@@ -133,7 +133,7 @@ class TableHandler(object):
             row = bind.execute(q).fetchone()
             return row['id']
 
-    def _flush(self, bind):
+    def _truncate(self, bind):
         """ Delete all rows in the table. """
         q = self.table.delete()
         bind.execute(q)

@@ -252,13 +252,13 @@ class Dataset(TableHandler, db.Model):
         entry['id'] = self._make_key(data)
         self._upsert(self.bind, entry, ['id'])
 
-    def flush(self):
+    def truncate(self):
         """ Delete all data from the dataset tables but leave the table
         structure intact.
         """
         for dimension in self.dimensions:
-            dimension.flush(self.bind)
-        self._flush(self.bind)
+            dimension.truncate(self.bind)
+        self._truncate(self.bind)
 
     def drop(self):
         """ Drop all tables created as part of this dataset, i.e. by calling

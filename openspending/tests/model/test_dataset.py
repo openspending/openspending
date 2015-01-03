@@ -87,11 +87,11 @@ class TestDatasetLoad(DatabaseTestCase):
         assert row0['amount'] == 200, row0.items()
         assert row0['field'] == 'foo', row0.items()
 
-    def test_flush(self):
+    def test_truncate(self):
         load_dataset(self.ds)
         resn = self.engine.execute(self.ds.table.select()).fetchall()
         assert len(resn) == 6, resn
-        self.ds.flush()
+        self.ds.truncate()
         resn = self.engine.execute(self.ds.table.select()).fetchall()
         assert len(resn) == 0, resn
 
