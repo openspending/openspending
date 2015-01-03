@@ -48,8 +48,6 @@ class Dataset(TableHandler, db.Model):
     currency = Column(Unicode())
     default_time = Column(Unicode())
     schema_version = Column(Unicode())
-    entry_custom_html = Column(Unicode())
-    ckan_uri = Column(Unicode())
     category = Column(Unicode())
     serp_title = Column(Unicode(), nullable=True)
     serp_teaser = Column(Unicode(), nullable=True)
@@ -74,10 +72,8 @@ class Dataset(TableHandler, db.Model):
         self.serp_title = dataset.get('serp_title')
         self.serp_teaser = dataset.get('serp_teaser')
         self.default_time = dataset.get('default_time')
-        self.entry_custom_html = dataset.get('entry_custom_html')
         self.languages = dataset.get('languages', [])
         self.territories = dataset.get('territories', [])
-        self.ckan_uri = dataset.get('ckan_uri')
         self._load_model()
 
     @property
