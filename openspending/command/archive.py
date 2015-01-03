@@ -93,7 +93,7 @@ def archive_model(dataset, archive_dir):
     """
 
     # Create the dataset model (returns a dict with keys: mapping and dataset)
-    model = dataset.model
+    model = dataset.model_data
     # Add sources to the dataset metadata
     model['dataset']['sources'] = [s.url for s in dataset.sources]
 

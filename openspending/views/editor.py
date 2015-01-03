@@ -89,7 +89,7 @@ def core_update(dataset):
     require.dataset.update(dataset)
     errors = {}
     try:
-        schema = dataset_schema(ValidationState(dataset.model))
+        schema = dataset_schema(ValidationState(dataset.model_data))
         data = dict(request.form.items())
         data['territories'] = request.form.getlist('territories')
         data['languages'] = request.form.getlist('languages')
@@ -147,7 +147,7 @@ def dimensions_update(dataset):
     errors, mapping, saved = {}, None, False
     try:
         mapping = json.loads(request.params.get('mapping'))
-        model = dataset.model
+        model = dataset.model_data
         model['mapping'] = mapping
         schema = mapping_schema(ValidationState(model))
         new_mapping = schema.deserialize(mapping)
@@ -215,7 +215,7 @@ def views_update(dataset):
     errors, views = {}, {}
     try:
         views = json.loads(request.form.get('views'))
-        schema = views_schema(ValidationState(dataset.model))
+        schema = views_schema(ValidationState(dataset.model_data))
         dataset.data['views'] = schema.deserialize(views)
         db.session.commit()
         flash_success(_("The views have been updated."))

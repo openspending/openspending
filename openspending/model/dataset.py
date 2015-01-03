@@ -77,7 +77,7 @@ class Dataset(TableHandler, db.Model):
         self._load_model()
 
     @property
-    def model(self):
+    def model_data(self):
         model = self.data.copy()
         model['dataset'] = self.as_dict()
         return model
