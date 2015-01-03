@@ -1,25 +1,23 @@
 import csv
-
 from datetime import datetime
 from StringIO import StringIO
+
+from flask import Response
 
 from openspending.lib.util import flatten
 
 
-def write_csv(entries, response, filename=None):
-    csv_headers(response, filename)
-    return generate_csv(entries)
-
-
-def csv_headers(response, filename='download.csv'):
-    response.content_type = 'text/csv'
+def write_csv(entries, filename=None):
+    gen = generate_csv(entries)
+    res = Response(gen, mimetype='text/csv')
     if filename:
-        response.content_disposition = 'attachment; filename=%s' % filename
+        res.content_disposition = 'attachment; filename=%s' % filename
+    return res
 
 
 def generate_csv(entries, generate_headers=True):
     for entry in entries:
-        yield generate_csv_row(entry, generate_headers)
+        yield generate_csv_row(entry, generate_headers=generate_headers)
         generate_headers = False
 
 

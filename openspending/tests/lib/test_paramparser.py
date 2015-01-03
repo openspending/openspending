@@ -52,7 +52,8 @@ class TestAggregateParamParser(TestCase):
     @patch('openspending.lib.paramparser.Dataset')
     def test_dataset(self, model_mock):
         ds = Mock()
-        ds.measures = []
+        ds.model = Mock()
+        ds.model.measures = []
         model_mock.by_name.return_value = ds
 
         out, err = AggregateParamParser({'dataset': 'foo'}).parse()
@@ -75,7 +76,8 @@ class TestAggregateParamParser(TestCase):
     @patch('openspending.lib.paramparser.Dataset')
     def test_cut(self, model_mock):
         ds = Mock()
-        ds.measures = []
+        ds.model = Mock()
+        ds.model.measures = []
         model_mock.by_name.return_value = ds
 
         out, err = AggregateParamParser(
@@ -89,11 +91,12 @@ class TestAggregateParamParser(TestCase):
     @patch('openspending.lib.paramparser.Dataset')
     def test_measure(self, model_mock):
         ds = Mock()
+        ds.model = Mock()
         amt = Mock()
         amt.name = 'amount'
         bar = Mock()
         bar.name = 'bar'
-        ds.measures = [amt, bar]
+        ds.model.measures = [amt, bar]
         model_mock.by_name.return_value = ds
 
         out, err = AggregateParamParser({'dataset': 'foo'}).parse()

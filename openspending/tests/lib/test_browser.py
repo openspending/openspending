@@ -22,11 +22,12 @@ def make_response(ids):
 
 class TestBrowser(TestCase):
 
-    def setup(self):
-        super(TestBrowser, self).setup()
+    def setUp(self):
+        super(TestBrowser, self).setUp()
 
         self.conn = Mock()
         self.dataset = Mock()
+        self.dataset.model = Mock()
         self.dataset.name = 'mock_dataset'
 
         self.solr_patcher = patch('openspending.lib.browser.solr')
@@ -39,7 +40,8 @@ class TestBrowser(TestCase):
         mock_dataset = self.dataset_patcher.start()
         mock_dataset.by_name.return_value = self.dataset
 
-    def teardown(self):
+    def tearDown(self):
+        super(TestBrowser, self).tearDown()
         self.solr_patcher.stop()
         self.dataset_patcher.stop()
 
@@ -67,7 +69,7 @@ class TestBrowser(TestCase):
 
     def test_entries_order(self):
         self.conn.raw_query.return_value = make_response([1, 2, 3])
-        self.dataset.entries.return_value = make_entries([3, 1, 2])
+        self.dataset.model.entries.return_value = make_entries([3, 1, 2])
 
         b = Browser()
         b.execute()

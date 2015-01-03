@@ -2,7 +2,7 @@ Translation workflow:
 
 Update .pot file from source:
 
-$ python setup.py extract_messages
+$ pybabel extract -F babel.cfg -k lazy_gettext -o openspending/translations/messages.pot openspending
 
 Examine the .pot (or at least its diff) for bogus messages, and fix up any
 errors in the source. Pay particular attention to templates.
@@ -11,12 +11,11 @@ Commit the updated .pot
 
 Update .po files from .pot:
 
-$ python setup.py update_catalog
+$ pybabel update -i messages.pot -d openspending/translations
 
 Ship .po files off for translation
 
-edit openspending/ui/i18n/supported_langs.txt ; there is a template
-for this file in openspending/ui/i18n/supported_langs.txt_tmpl ; you must
+edit bin/update_translations ; you must
 list each language code on a separate line.
 
 Once you have configured the supported languages, run

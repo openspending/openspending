@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 import argparse
 import logging
 import sys
@@ -9,11 +7,8 @@ import urlparse
 
 from openspending.lib import json
 
-from openspending.model.source import Source
-from openspending.model.dataset import Dataset
-from openspending.model.account import Account
-from openspending.model.view import View
-from openspending.model import meta as db
+from openspending.model import Source, Dataset, Account, View
+from openspending.core import db
 
 from openspending.importer import CSVImporter
 from openspending.importer.analysis import analyze_csv
@@ -26,24 +21,6 @@ from openspending.validation.model import Invalid
 log = logging.getLogger(__name__)
 
 SHELL_USER = 'system'
-
-import_parser = argparse.ArgumentParser(add_help=False)
-
-import_parser.add_argument('-n', '--dry-run',
-                           action="store_true", dest='dry_run', default=False,
-                           help="Perform a dry run, don't load any data.")
-
-import_parser.add_argument('--no-index', action="store_false",
-                           dest='build_indices', default=True,
-                           help='Suppress Solr index build.')
-
-import_parser.add_argument('--max-lines', action="store", dest='max_lines',
-                           type=int, default=None, metavar='N',
-                           help="Number of lines to import.")
-
-import_parser.add_argument('--raise-on-error', action="store_true",
-                           dest='raise_errors', default=False,
-                           help='Get full traceback on first error.')
 
 
 def shell_account():
@@ -175,7 +152,7 @@ def import_csv(dataset, url, args):
 
     dataset.generate()
     importer = CSVImporter(source)
-    importer.run(**vars(args))
+    importer.run(**args)
 
     # Check if imported from the file system (source and data url differ)
     if csv_data_url != source_url:
@@ -213,42 +190,42 @@ def map_source_urls(model, urls):
     return {u: source_files.get(os.path.basename(u), u) for u in urls}
 
 
-def _csvimport(args):
-    """
-    Parse the arguments and pass them to the processing functions
-    """
-    # Get the model
-    model = get_model(args.model)
+def add_import_commands(manager):
 
-    # Get the source map (data urls to models)
-    source_map = map_source_urls(model, args.dataset_urls)
+    @manager.option('-n', '--dry-run', dest='dry_run', action='store_true',
+                    help="Perform a dry run, don't load any data.")
+    @manager.option('-i', '--index', dest='build_indices', action='store_true',
+                    help="Suppress Solr index build.")
+    @manager.option('--max-lines', action="store", dest='max_lines', type=int,
+                    default=None, metavar='N',
+                    help="Number of lines to import.")
+    @manager.option('--raise-on-error', action="store_true",
+                    dest='raise_errors', default=False,
+                    help='Get full traceback on first error.')
+    @manager.option('--model', action="store", dest='model',
+                    default=None, metavar='url', required=True,
+                    help="URL of JSON format model (metadata and mapping).")
+    @manager.option('--visualisations', action="store", dest="views",
+                    default=None, metavar='url/file',
+                    help="URL/file of JSON format visualisations.")
+    @manager.option('dataset_urls', nargs=argparse.REMAINDER,
+                    help="Dataset file URLs")
+    @manager.command
+    def csvimport(**args):
+        """ Load a CSV dataset """
+        # Get the model
+        model = get_model(args['model'])
 
-    # Get the dataset for the model
-    dataset = get_or_create_dataset(model)
+        # Get the source map (data urls to models)
+        source_map = map_source_urls(model, args['dataset_urls'])
 
-    # For every url in mapped dataset_urls (arguments) we import it
-    for urlmap in source_map.iteritems():
-        import_csv(dataset, urlmap, args)
+        # Get the dataset for the model
+        dataset = get_or_create_dataset(model)
 
-    # Import visualisations if there are any
-    if args.views:
-        import_views(dataset, args.views)
+        # For every url in mapped dataset_urls (arguments) we import it
+        for urlmap in source_map.iteritems():
+            import_csv(dataset, urlmap, args)
 
-
-def configure_parser(subparser):
-    p = subparser.add_parser('csvimport',
-                             help='Load a CSV dataset',
-                             description='You must specify --model.',
-                             parents=[import_parser])
-    # Add the model argument which is required
-    p.add_argument('--model', action="store", dest='model',
-                   default=None, metavar='url', required=True,
-                   help="URL of JSON format model (metadata and mapping).")
-    # Allow user to define url or file with visualisations
-    p.add_argument('--visualisations', action="store", dest="views",
-                   default=None, metavar='url/file',
-                   help="URL/file of JSON format visualisations.")
-    # Load multiple sources via the dataset_urls (all remaining arguments)
-    p.add_argument('dataset_urls', nargs=argparse.REMAINDER,
-                   help="Dataset file URL")
-    p.set_defaults(func=_csvimport)
+        # Import visualisations if there are any
+        if args['views']:
+            import_views(dataset, args['views'])

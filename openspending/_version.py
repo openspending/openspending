@@ -1,1 +1,2 @@
-__version__ = '0.16.3'
+import pkg_resources
+__version__ = pkg_resources.require("openspending")[0].version
