@@ -15,7 +15,7 @@ class TestAttributeDimension(DatabaseTestCase):
         self.meta = db.metadata
         self.meta.bind = self.engine
         self.ds = Dataset(model_fixture('simple'))
-        self.field = self.ds['field']
+        self.field = self.ds.model['field']
 
     def test_is_compound(self):
         assert not self.field.is_compound
@@ -29,8 +29,8 @@ class TestCompoundDimension(DatabaseTestCase):
         self.meta = db.metadata
         self.meta.bind = self.engine
         self.ds = load_fixture('cra')
-        self.entity = self.ds['from']
-        self.classifier = self.ds['cofog1']
+        self.entity = self.ds.model['from']
+        self.classifier = self.ds.model['cofog1']
 
     def test_is_compound(self):
         assert self.entity.is_compound

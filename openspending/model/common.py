@@ -95,8 +95,7 @@ class JSONType(TypeDecorator):
 
 
 class TableHandler(object):
-
-    """ Used by automatically generated objects such as datasets
+    """ Used by automatically generated objects such as models
     and dimensions to generate, write and clear the table under
     its management. """
 

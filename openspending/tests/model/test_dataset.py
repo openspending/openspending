@@ -22,18 +22,21 @@ class TestDataset(DatabaseTestCase):
         assert self.ds.label == self.model['dataset']['label'], self.ds.label
 
     def test_load_model_dimensions(self):
-        assert len(self.ds.dimensions) == 4, self.ds.dimensions
-        assert isinstance(self.ds['time'], DateDimension), self.ds['time']
+        assert len(self.ds.model.dimensions) == 4, self.ds.model.dimensions
+        assert isinstance(self.ds.model['time'], DateDimension), \
+            self.ds.model['time']
         assert isinstance(
-            self.ds['field'], AttributeDimension), self.ds['field']
-        assert isinstance(self.ds['to'], CompoundDimension), self.ds['to']
-        assert isinstance(self.ds['function'], CompoundDimension), \
-            self.ds['function']
-        assert len(self.ds.measures) == 1, self.ds.measures
-        assert isinstance(self.ds['amount'], Measure), self.ds['amount']
+            self.ds.model['field'], AttributeDimension), self.ds.model['field']
+        assert isinstance(self.ds.model['to'], CompoundDimension), \
+            self.ds.model['to']
+        assert isinstance(self.ds.model['function'], CompoundDimension), \
+            self.ds.model['function']
+        assert len(self.ds.model.measures) == 1, self.ds.model.measures
+        assert isinstance(self.ds.model['amount'], Measure), \
+            self.ds.model['amount']
 
     def test_value_dimensions_as_attributes(self):
-        dim = self.ds['field']
+        dim = self.ds.model['field']
         assert isinstance(dim.column.type, UnicodeText), dim.column
         assert 'field' == dim.column.name, dim.column
         assert dim.name == 'field', dim.name
@@ -44,14 +47,15 @@ class TestDataset(DatabaseTestCase):
         assert dim.constant is None, dim.constant
         assert dim.default_value is None, dim.default_value
         assert dim.constant is None, dim.constant
-        assert dim.dataset == self.ds, dim.dataset
+        assert dim.model == self.ds.model, dim.model
         assert dim.datatype == 'string', dim.datatype
         assert not hasattr(dim, 'table')
         assert not hasattr(dim, 'alias')
 
     def test_generate_db_entry_table(self):
-        assert self.ds.table.name == 'test__entry', self.ds.table.name
-        cols = self.ds.table.c
+        assert self.ds.model.table.name == 'test__entry', \
+            self.ds.model.table.name
+        cols = self.ds.model.table.c
         assert 'id' in cols
         assert isinstance(cols['id'].type, Unicode)
 
@@ -68,7 +72,7 @@ class TestDataset(DatabaseTestCase):
         assert_raises(KeyError, cols.__getitem__, 'foo')
 
     def test_facet_dimensions(self):
-        assert [d.name for d in self.ds.facet_dimensions] == ['to']
+        assert [d.name for d in self.ds.model.facet_dimensions] == ['to']
 
 
 class TestDatasetLoad(DatabaseTestCase):
@@ -76,12 +80,12 @@ class TestDatasetLoad(DatabaseTestCase):
     def setUp(self):
         super(TestDatasetLoad, self).setUp()
         self.ds = Dataset(model_fixture('simple'))
-        self.ds.generate()
+        self.ds.model.generate()
         self.engine = db.engine
 
     def test_load_all(self):
         load_dataset(self.ds)
-        resn = self.engine.execute(self.ds.table.select()).fetchall()
+        resn = self.engine.execute(self.ds.model.table.select()).fetchall()
         assert len(resn) == 6, resn
         row0 = resn[0]
         assert row0['amount'] == 200, row0.items()
@@ -89,10 +93,10 @@ class TestDatasetLoad(DatabaseTestCase):
 
     def test_truncate(self):
         load_dataset(self.ds)
-        resn = self.engine.execute(self.ds.table.select()).fetchall()
+        resn = self.engine.execute(self.ds.model.table.select()).fetchall()
         assert len(resn) == 6, resn
-        self.ds.truncate()
-        resn = self.engine.execute(self.ds.table.select()).fetchall()
+        self.ds.model.truncate()
+        resn = self.engine.execute(self.ds.model.table.select()).fetchall()
         assert len(resn) == 0, resn
 
     def test_drop(self):
@@ -101,7 +105,7 @@ class TestDatasetLoad(DatabaseTestCase):
         assert 'test__to' in tn, tn
         assert 'test__function' in tn, tn
 
-        self.ds.drop()
+        self.ds.model.drop()
         tn = self.engine.table_names()
         assert 'test__entry' not in tn, tn
         assert 'test__to' not in tn, tn
@@ -109,54 +113,55 @@ class TestDatasetLoad(DatabaseTestCase):
 
     def test_dataset_count(self):
         load_dataset(self.ds)
-        assert len(self.ds) == 6, len(self.ds)
+        assert len(self.ds.model) == 6, len(self.ds.model)
 
     def test_aggregate_simple(self):
         load_dataset(self.ds)
-        res = self.ds.aggregate()
+        res = self.ds.model.aggregate()
         assert res['summary']['num_entries'] == 6, res
         assert res['summary']['amount'] == 2690.0, res
 
     def test_aggregate_basic_cut(self):
         load_dataset(self.ds)
-        res = self.ds.aggregate(cuts=[('field', u'foo')])
+        res = self.ds.model.aggregate(cuts=[('field', u'foo')])
         assert res['summary']['num_entries'] == 3, res
         assert res['summary']['amount'] == 1000, res
 
     def test_aggregate_or_cut(self):
         load_dataset(self.ds)
-        res = self.ds.aggregate(cuts=[('field', u'foo'),
-                                      ('field', u'bar')])
+        res = self.ds.model.aggregate(cuts=[('field', u'foo'),
+                                            ('field', u'bar')])
         assert res['summary']['num_entries'] == 4, res
         assert res['summary']['amount'] == 1190, res
 
     def test_aggregate_dimensions_drilldown(self):
         load_dataset(self.ds)
-        res = self.ds.aggregate(drilldowns=['function'])
+        res = self.ds.model.aggregate(drilldowns=['function'])
         assert res['summary']['num_entries'] == 6, res
         assert res['summary']['amount'] == 2690, res
         assert len(res['drilldown']) == 2, res['drilldown']
 
     def test_aggregate_two_dimensions_drilldown(self):
         load_dataset(self.ds)
-        res = self.ds.aggregate(drilldowns=['function', 'field'])
+        res = self.ds.model.aggregate(drilldowns=['function', 'field'])
         assert res['summary']['num_entries'] == 6, res
         assert res['summary']['amount'] == 2690, res
         assert len(res['drilldown']) == 5, res['drilldown']
 
     def test_aggregate_by_attribute(self):
         load_dataset(self.ds)
-        res = self.ds.aggregate(drilldowns=['function.label'])
+        res = self.ds.model.aggregate(drilldowns=['function.label'])
         assert len(res['drilldown']) == 2, res['drilldown']
 
     def test_aggregate_two_attributes_same_dimension(self):
         load_dataset(self.ds)
-        res = self.ds.aggregate(drilldowns=['function.name', 'function.label'])
+        res = self.ds.model.aggregate(drilldowns=['function.name',
+                                                  'function.label'])
         assert len(res['drilldown']) == 2, res['drilldown']
 
     def test_materialize_table(self):
         load_dataset(self.ds)
-        itr = self.ds.entries()
+        itr = self.ds.model.entries()
         tbl = list(itr)
         assert len(tbl) == 6, len(tbl)
         row = tbl[0]
