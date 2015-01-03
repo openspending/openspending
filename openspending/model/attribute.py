@@ -40,9 +40,9 @@ class Attribute(object):
             'float': Float,
         }
         type_ = types.get(self.datatype, UnicodeText)
-        column = Column(self.name, type_)
-        table.append_column(column)
-        return column
+        self.column = Column(self.name, type_)
+        table.append_column(self.column)
+        return self.column
 
     def generate(self, meta, table):
         """ Create the column on a given table. """

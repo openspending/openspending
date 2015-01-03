@@ -145,7 +145,7 @@ class Dataset(db.Model):
         """ Query available datasets based on dataset visibility. """
         from openspending.model.account import Account
         criteria = [cls.private == false()]
-        if account is not None and account.is_authenticated():
+        if isinstance(account, Account) and account.is_authenticated():
             criteria += ["1=1" if account.admin else "1=2",
                          cls.managers.any(Account.id == account.id)]
         q = db.session.query(cls).filter(or_(*criteria))

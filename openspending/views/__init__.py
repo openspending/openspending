@@ -1,3 +1,5 @@
+from cubes.server import slicer
+
 from openspending.lib import filters
 
 from openspending.views.context import home
@@ -31,6 +33,9 @@ def register_views(app, babel):
     app.register_blueprint(run)
     app.register_blueprint(api)
     app.register_blueprint(dimension)
+
+    # expose ``cubes``:
+    app.register_blueprint(slicer, url_prefix='/api/slicer', config={})
 
     app.error_handler_spec[None][400] = handle_error
     app.error_handler_spec[None][401] = handle_error

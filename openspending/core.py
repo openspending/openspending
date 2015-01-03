@@ -10,6 +10,8 @@ from flask.ext.assets import Environment
 from flaskext.uploads import UploadSet, IMAGES, configure_uploads
 import formencode_jinja2
 from celery import Celery
+from cubes import Workspace
+from cubes.extensions import extensions
 
 from openspending import default_settings
 from openspending.lib.routing import NamespaceRouteRule
@@ -53,6 +55,13 @@ def create_app(**config):
     # HACKY SHIT IS HACKY
     from openspending.lib.solr_util import configure as configure_solr
     configure_solr(app.config)
+
+    from openspending.model.provider import OpenSpendingStore
+    extensions.store.extensions['openspending'] = OpenSpendingStore
+    app.cubes_workspace = Workspace()
+    db_url = app.config.get('SQLALCHEMY_DATABASE_URI')
+    app.cubes_workspace.register_default_store('openspending',
+                                               url=db_url)
 
     return app
 

@@ -4,6 +4,7 @@ from sqlalchemy.sql.expression import select, func
 
 from openspending.model.attribute import Attribute
 from openspending.model.common import TableHandler, ALIAS_PLACEHOLDER
+from openspending.model.constants import DATE_CUBES_TEMPLATE
 
 
 class Dimension(object):
@@ -93,6 +94,18 @@ class AttributeDimension(Dimension, Attribute):
                        conditions)
         rp = self.model.bind.execute(query)
         return rp.fetchone()[0]
+
+    def to_cubes(self, mappings, joins):
+        """ Convert this dimension to a ``cubes`` dimension. """
+        mappings['%s.%s' % (self.name, self.name)] = unicode(self.column)
+        return {
+            'levels': [{
+                'name': self.name,
+                'label': self.label,
+                'key': self.name,
+                'attributes': [self.name]
+            }]
+        }
 
 
 class Measure(Attribute):
@@ -229,6 +242,26 @@ class CompoundDimension(Dimension, TableHandler):
         rp = self.model.bind.execute(query)
         return rp.fetchone()[0]
 
+    def to_cubes(self, mappings, joins):
+        """ Convert this dimension to a ``cubes`` dimension. """
+        attributes = ['id'] + [a.name for a in self.attributes]
+        fact_table = self.model.table.name
+        joins.append({
+            'master': '%s.%s' % (fact_table, self.name + '_id'),
+            'detail': '%s.id' % self.table.name
+        })
+        for a in attributes:
+            mappings['%s.%s' % (self.name, a)] = '%s.%s' % (self.table.name, a)
+
+        return {
+            'levels': [{
+                'name': self.name,
+                'label': self.label,
+                'key': 'id',
+                'attributes': attributes
+            }]
+        }
+
     def __len__(self):
         rp = self.model.bind.execute(self.alias.count())
         return rp.fetchone()[0]
@@ -289,6 +322,17 @@ class DateDimension(CompoundDimension):
             'yearmonth': value.strftime('%Y%m')
         }
         return super(DateDimension, self).load(bind, data)
+
+    def to_cubes(self, mappings, joins):
+        """ Convert this dimension to a ``cubes`` dimension. """
+        fact_table = self.model.table.name
+        joins.append({
+            'master': '%s.%s' % (fact_table, self.name + '_id'),
+            'detail': '%s.id' % self.table.name
+        })
+        for a in ['name', 'year', 'quarter', 'month', 'week', 'day']:
+            mappings['%s.%s' % (self.name, a)] = '%s.%s' % (self.table.name, a)
+        return DATE_CUBES_TEMPLATE.copy()
 
     def __repr__(self):
         return "<DateDimension(%s:%s)>" % (self.name, self.attributes)
