@@ -56,7 +56,6 @@ def load_fixture(name, manager=None):
         entry = convert_types(model['mapping'], row)
         dataset.load(entry)
     data.close()
-    dataset.commit()
     return dataset
 
 
