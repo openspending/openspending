@@ -38,7 +38,7 @@ class BaseImporter(object):
         if dry_run:
             self.unique_check = {}
 
-        before_count = len(self.dataset)
+        before_count = len(self.dataset.model)
 
         self.row_number = 0
 
@@ -69,7 +69,7 @@ class BaseImporter(object):
             self.log_exception(ValueError("Didn't read any lines of data"),
                                error='')
 
-        num_loaded = len(self.dataset) - before_count
+        num_loaded = len(self.dataset.model) - before_count
         if not dry_run and not self.errors and \
                 num_loaded < (self.row_number - 1):
             self.log_exception(
@@ -106,7 +106,7 @@ class BaseImporter(object):
         try:
             data = convert_types(self.dataset.mapping, line)
             if not self.dry_run:
-                self.dataset.load(data)
+                self.dataset.model.load(data)
             else:
                 # Check uniqueness
                 unique_value = ', '.join([unicode(data[k]) for k in self.key])
