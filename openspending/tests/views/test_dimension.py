@@ -16,7 +16,7 @@ class TestDimensionController(ControllerTestCase):
         clean_and_reindex_solr()
         self.cra = Dataset.by_name('cra')
 
-        for dimension in self.cra.dimensions:
+        for dimension in self.cra.model.dimensions:
             if isinstance(dimension, CompoundDimension) and \
                     dimension.name == 'cofog1':
                 members = list(dimension.members(

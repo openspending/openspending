@@ -25,7 +25,7 @@ blueprint = Blueprint('dimension', __name__)
 def get_dimension(dataset, dimension):
     dataset = get_dataset(dataset)
     try:
-        dimension = dataset[dimension]
+        dimension = dataset.model[dimension]
         if not isinstance(dimension, Dimension):
             raise NotFound(_('This is not a dimension'))
         return dataset, dimension
@@ -35,7 +35,7 @@ def get_dimension(dataset, dimension):
 
 def get_member(dataset, dimension_name, name):
     dataset = get_dataset(dataset)
-    for dimension in dataset.compounds:
+    for dimension in dataset.model.compounds:
         if dimension.name == dimension_name:
             cond = dimension.alias.c.name == name
             members = list(dimension.members(cond, limit=1))
@@ -57,7 +57,7 @@ def index(dataset, format='html'):
     etag_cache_keygen(dataset.updated_at, format)
     if format == 'json':
         dimensions = [dimension_apply_links(dataset, d.as_dict())
-                      for d in dataset.dimensions]
+                      for d in dataset.model.dimensions]
         return jsonify(dimensions)
     
     return render_template('dimension/index.html', dataset=dataset)
@@ -148,7 +148,7 @@ def entries(dataset, dimension, name, format='html'):
 
     request_set_views(dataset, member, dimension=dimension.name)
     
-    entries = dataset.entries(
+    entries = dataset.model.entries(
         dimension.alias.c.name == member['name'])
     entries = (entry_apply_links(dataset, e) for e in entries)
     return render_template('dimension/entries.html', dataset=dataset,

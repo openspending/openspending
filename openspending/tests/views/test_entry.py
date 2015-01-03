@@ -21,8 +21,8 @@ class TestRestController(ControllerTestCase):
         assert '"name": "cra"' in response.data, response.data
 
     def test_entry(self):
-        q = self.cra['from'].alias.c.name == 'Dept047'
-        example = list(self.cra.entries(q, limit=1)).pop()
+        q = self.cra.model['from'].alias.c.name == 'Dept047'
+        example = list(self.cra.model.entries(q, limit=1)).pop()
 
         response = self.client.get(url_for('entry.view',
                                     dataset=self.cra.name,
@@ -43,7 +43,7 @@ class TestEntryController(ControllerTestCase):
         self.cra = Dataset.by_name('cra')
 
     def test_view(self):
-        t = list(self.cra.entries(limit=1)).pop()
+        t = list(self.cra.model.entries(limit=1)).pop()
         response = self.client.get(url_for('entry.view', dataset='cra',
                                            id=t['id']))
         assert 'cra' in response.data
@@ -62,7 +62,7 @@ class TestEntryController(ControllerTestCase):
         # There is only a single entry with this amount so we can safely
         # pop it and know that it is for the year 2010 but we assert it
         # to be absolutely sure
-        t = list(self.cra.entries('amount=-22400000')).pop()
+        t = list(self.cra.model.entries('amount=-22400000')).pop()
         assert t['time']['year'] == '2010', \
             "Test entry isn't from the year 2010"
 

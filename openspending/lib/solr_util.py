@@ -114,7 +114,7 @@ def build_index(dataset_name):
     if dataset_ is None:
         raise ValueError("No such dataset: %s" % dataset_name)
     buf = []
-    for i, entry in enumerate(dataset_.entries()):
+    for i, entry in enumerate(dataset_.model.entries()):
         ourdata = extend_entry(entry, dataset_)
         # from pprint import pprint
         # pprint(ourdata)

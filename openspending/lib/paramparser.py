@@ -246,7 +246,7 @@ class AggregateParamParser(ParamParser):
             return
 
         # Get a list of all measurement names for the given dataset
-        measure_names = [m.name for m in self._output['dataset'].measures]
+        measure_names = [m.name for m in self._output['dataset'].model.measures]
 
         result = []
 

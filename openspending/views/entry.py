@@ -45,7 +45,7 @@ def index(dataset, format='html'):
     # We limit ourselve to only our dataset
     params['filter']['dataset'] = [dataset.name]
     facet_dimensions = {field.name: field
-                        for field in dataset.dimensions
+                        for field in dataset.model.dimensions
                         if field.facet}
     params['facet_field'] = facet_dimensions.keys()
 
@@ -67,7 +67,7 @@ def index(dataset, format='html'):
         'search': params.get('q', ''),
         'filters': params['filter'],
         'facet_dimensions': facet_dimensions,
-        'dimensions': [dimension.name for dimension in dataset.dimensions]
+        'dimensions': [dimension.name for dimension in dataset.model.dimensions]
     }
 
     if 'dataset' in tmpl_context['filters']:
@@ -87,7 +87,7 @@ def view(dataset, id, format='html'):
     # Get the entry that matches the given id. dataset.entries is
     # a generator so we create a list from it's responses based on the
     # given constraint
-    entries = list(dataset.entries(dataset.alias.c.id == id))
+    entries = list(dataset.model.entries(dataset.model.alias.c.id == id))
     # Since we're trying to get a single entry the list should only
     # contain one entry, if not then we return an error
     if not len(entries) == 1:
@@ -142,7 +142,7 @@ def view(dataset, id, format='html'):
     extras = {}
     if dataset:
         # Create a dictionary of the dataset dimensions
-        desc = dict([(d.name, d) for d in dataset.dimensions])
+        desc = dict([(d.name, d) for d in dataset.model.dimensions])
         tmpl_context['desc'] = desc
         # Loop through dimensions of the entry
         for key in entry:

@@ -83,14 +83,14 @@ def expand_facets(facets, dataset):
     expanded_facets = {}
 
     # Find dimension names in the dataset
-    dimension_names = [d.name for d in dataset.dimensions]
+    dimension_names = [d.name for d in dataset.model.dimensions]
 
     # Loop over all facets (their names)
     for (facet_name, facet_members) in facets.iteritems():
         # We only act on facets which are compound dimensions
-        if facet_name in dimension_names and dataset[facet_name].is_compound:
+        if facet_name in dimension_names and dataset.model[facet_name].is_compound:
             # Get the dimension from the dataset
-            dimension = dataset[facet_name]
+            dimension = dataset.model[facet_name]
             # We get the member names and their facet values into
             # their own variables because we need to work more with
             # the member names

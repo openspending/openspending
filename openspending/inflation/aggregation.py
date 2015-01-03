@@ -60,9 +60,9 @@ def aggregate(dataset, measures=['amount'], drilldowns=None, cuts=None,
         drilldowns.append('time.year')
 
     # Aggregate the dataset via its own aggregate function
-    result = dataset.aggregate(measures=measures, drilldowns=drilldowns,
-                               cuts=cuts, page=page, pagesize=pagesize,
-                               order=order)
+    result = dataset.model.aggregate(measures=measures, drilldowns=drilldowns,
+                                     cuts=cuts, page=page, pagesize=pagesize,
+                                     order=order)
 
     # If we have to inflate we do some inflation calculations
     if inflate:
