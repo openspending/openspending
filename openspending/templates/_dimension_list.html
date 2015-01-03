@@ -1,6 +1,6 @@
 {% macro dimensions_list(dataset) -%}
 		<ul>
-		{% for dimension in dataset.dimensions %}	
+		{% for dimension in dataset.model.dimensions %}	
 		  <li>
 			<a class="dimension-name" href="{{url_for('dimension.view', dataset=dataset.name, dimension=dimension.name)}}">
 			  <strong>{{ dimension.label or dimension.name }}</strong>

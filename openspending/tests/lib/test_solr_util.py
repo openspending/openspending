@@ -107,7 +107,8 @@ class TestSolrUtil(TestCase):
         patcher = patch('openspending.lib.solr_util.SolrConnection')
         mock_solr = patcher.start()
         ds = mock_ds.by_name.return_value
-        ds.entries.return_value = [{'foo': 123}, {'foo': 456}, {'foo': 789}]
+        ds.model = Mock()
+        ds.model.entries.return_value = [{'foo': 123}, {'foo': 456}, {'foo': 789}]
 
         mock_ee.side_effect = lambda e, d: e['foo']
 
@@ -124,7 +125,8 @@ class TestSolrUtil(TestCase):
         patcher = patch('openspending.lib.solr_util.SolrConnection')
         mock_solr = patcher.start()
         ds = mock_ds.by_name.return_value
-        ds.entries.return_value = [{'foo': 'bar'}] * 2500
+        ds.model = Mock()
+        ds.model.entries.return_value = [{'foo': 'bar'}] * 2500
 
         solr.build_index('mydataset')
         conn = mock_solr.return_value
