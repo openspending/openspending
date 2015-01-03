@@ -27,9 +27,9 @@ class Model(TableHandler):
 
     def __init__(self, dataset):
         self.dataset = dataset
-        self._load_model()
+        self.reload()
 
-    def _load_model(self):
+    def reload(self):
         """ Construct the in-memory object representation of this
         dataset's dimension and measures model.
 

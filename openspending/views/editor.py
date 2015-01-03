@@ -35,7 +35,7 @@ def index(dataset):
     dataset = get_dataset(dataset)
     require.dataset.update(dataset)
 
-    entries_count = len(dataset)
+    entries_count = len(dataset.model)
     has_sources = dataset.sources.count() > 0
     source = dataset.sources.first()
     index_count = solr.dataset_entries(dataset.name)
@@ -64,8 +64,8 @@ def core_edit(dataset, errors={}):
     territories = sorted(COUNTRIES.items(), key=lambda k_v3: k_v3[1])
     categories = sorted(CATEGORIES.items(), key=lambda k_v4: k_v4[1])
 
-    if 'time' in dataset:
-        available_times = [m['year'] for m in dataset['time'].members()]
+    if 'time' in dataset.model:
+        available_times = [m['year'] for m in dataset.model['time'].members()]
         available_times = sorted(set(available_times), reverse=True)
     else:
         available_times = []
@@ -126,7 +126,7 @@ def dimensions_edit(dataset, errors={}, mapping=None,
         mapping = source.analysis['mapping']
 
     fill = {'mapping': mapping}
-    if len(dataset):
+    if len(dataset.model):
         return render_template('editor/dimensions_errors.html',
                                dataset=dataset, source=source)
 
@@ -140,7 +140,7 @@ def dimensions_update(dataset):
     dataset = get_dataset(dataset)
     require.dataset.update(dataset)
 
-    if len(dataset):
+    if len(dataset.model):
         raise BadRequest(_("You cannot edit the dimensions model when "
                            "data is loaded for the dataset."))
 
@@ -152,9 +152,9 @@ def dimensions_update(dataset):
         schema = mapping_schema(ValidationState(model))
         new_mapping = schema.deserialize(mapping)
         dataset.data['mapping'] = new_mapping
-        dataset.drop()
+        dataset.model.drop()
         dataset._load_model()
-        dataset.generate()
+        dataset.model.generate()
         db.session.commit()
         # h.flash_success(_("The mapping has been updated."))
         saved = True
@@ -268,10 +268,10 @@ def drop(dataset):
     require.dataset.update(dataset)
 
     dataset.updated_at = datetime.utcnow()
-    dataset.drop()
+    dataset.model.drop()
     solr.drop_index(dataset.name)
-    dataset.init()
-    dataset.generate()
+    dataset.model.init()
+    dataset.model.generate()
     dataset.touch()
 
     # For every source in the dataset we set the status to removed
@@ -326,7 +326,7 @@ def delete(dataset):
     dataset = get_dataset(dataset)
     require.dataset.update(dataset)
 
-    dataset.drop()
+    dataset.model.drop()
     solr.drop_index(dataset.name)
     db.session.delete(dataset)
     db.session.commit()

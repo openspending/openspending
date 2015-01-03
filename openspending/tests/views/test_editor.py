@@ -101,9 +101,9 @@ class TestEditorController(ControllerTestCase):
 
     def test_dimensions_edit_mask(self):
         cra = Dataset.by_name('cra')
-        cra.drop()
-        cra.init()
-        cra.generate()
+        cra.model.drop()
+        cra.model.init()
+        cra.model.generate()
         src = Source(cra, self.user, 'file:///dev/null')
         src.analysis = {'columns': ['amount', 'etc']}
         db.session.add(src)
@@ -127,9 +127,9 @@ class TestEditorController(ControllerTestCase):
 
     def test_dimensions_update_invalid_json(self):
         cra = Dataset.by_name('cra')
-        cra.drop()
-        cra.init()
-        cra.generate()
+        cra.model.drop()
+        cra.model.init()
+        cra.model.generate()
         response = self.client.post(url_for('editor.dimensions_update', dataset='cra'),
                                     data={'mapping': 'banana'},
                                     query_string={'api_key': self.user.api_key})
@@ -187,26 +187,26 @@ class TestEditorController(ControllerTestCase):
 
     def test_drop(self):
         cra = Dataset.by_name('cra')
-        assert len(cra) == 36, len(cra)
+        assert len(cra.model) == 36, len(cra.model)
         # double-check authz
         response = self.client.post(url_for('editor.drop', dataset='cra'))
         assert '403' in response.status
         cra = Dataset.by_name('cra')
-        assert len(cra) == 36, len(cra)
+        assert len(cra.model) == 36, len(cra.model)
 
         response = self.client.post(url_for('editor.drop', dataset='cra'),
                                     query_string={'api_key': self.user.api_key})
         cra = Dataset.by_name('cra')
-        assert len(cra) == 0, len(cra)
+        assert len(cra.model) == 0, len(cra.model)
 
     def test_delete(self):
         cra = Dataset.by_name('cra')
-        assert len(cra) == 36, len(cra)
+        assert len(cra.model) == 36, len(cra.model)
         # double-check authz
         response = self.client.post(url_for('editor.delete', dataset='cra'))
         assert '403' in response.status
         cra = Dataset.by_name('cra')
-        assert len(cra) == 36, len(cra)
+        assert len(cra.model) == 36, len(cra.model)
 
         response = self.client.post(url_for('editor.delete', dataset='cra'),
                                     query_string={'api_key': self.user.api_key})

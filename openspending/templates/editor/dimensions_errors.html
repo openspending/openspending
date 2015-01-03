@@ -9,7 +9,7 @@
 
 <div class="row">
   <div class="span8 offset4">
-    {% if dataset|length %}
+    {% if dataset.model|length %}
     <div class="alert block-message alert-warning">
       <p>
         <strong>{% trans %}You cannot edit dimensions while data is loaded.{% endtrans %}</strong>
