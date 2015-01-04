@@ -25,9 +25,6 @@ class Dimension(object):
     def join(self, from_clause):
         return from_clause
 
-    def truncate(self, bind):
-        pass
-
     def drop(self, bind):
         del self.column
 
@@ -154,11 +151,6 @@ class CompoundDimension(Dimension, TableHandler):
         """
         return from_clause.join(
             self.alias, self.alias.c.id == self.column_alias)
-
-    def truncate(self, bind):
-        """ Clear all data in the dimension table but keep the table structure
-        intact. """
-        self._truncate(bind)
 
     def drop(self, bind):
         """ Drop the dimension table and all data within it. """

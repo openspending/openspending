@@ -15,14 +15,8 @@ class OpenSpendingModelProvider(ModelProvider):
     def __init__(self, *args, **kwargs):
         super(OpenSpendingModelProvider, self).__init__(*args, **kwargs)
 
-    def default_metadata(self, metadata=None):
-        return {}
-
     def requires_store(self):
         return True
-
-    def public_dimensions(self):
-        return []
 
     def cube(self, name, locale=None):
         dataset = Dataset.by_name(name)
@@ -101,4 +95,3 @@ class OpenSpendingStore(SQLStore):
         if self._metadata is None:
             self._metadata = db.MetaData(bind=self.connectable)
         return self._metadata
-        # self.metadata = sqlalchemy.MetaData(bind=self.connectable)

@@ -132,11 +132,6 @@ class TableHandler(object):
             row = bind.execute(q).fetchone()
             return row['id']
 
-    def _truncate(self, bind):
-        """ Delete all rows in the table. """
-        q = self.table.delete()
-        bind.execute(q)
-
     def _drop(self, bind):
         """ Drop the table and the local reference to it. """
         if db.engine.has_table(self.table.name):

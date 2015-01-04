@@ -94,14 +94,6 @@ class TestDatasetLoad(DatabaseTestCase):
         assert row0['amount'] == 200, row0.items()
         assert row0['field'] == 'foo', row0.items()
 
-    def test_truncate(self):
-        load_dataset(self.ds)
-        resn = self.engine.execute(self.ds.model.table.select()).fetchall()
-        assert len(resn) == 6, resn
-        self.ds.model.truncate()
-        resn = self.engine.execute(self.ds.model.table.select()).fetchall()
-        assert len(resn) == 0, resn
-
     def test_drop(self):
         tn = self.engine.table_names()
         assert 'test__entry' in tn, tn

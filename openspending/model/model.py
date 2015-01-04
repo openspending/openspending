@@ -143,14 +143,6 @@ class Model(TableHandler):
         entry['id'] = self._make_key(data)
         self._upsert(self.bind, entry, ['id'])
 
-    def truncate(self):
-        """ Delete all data from the dataset tables but leave the table
-        structure intact.
-        """
-        for dimension in self.dimensions:
-            dimension.truncate(self.bind)
-        self._truncate(self.bind)
-
     def drop(self):
         """ Drop all tables created as part of this dataset, i.e. by calling
         ``generate()``. This will of course also delete the data itself.

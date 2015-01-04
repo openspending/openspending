@@ -227,7 +227,7 @@ class TestDatasetController(ControllerTestCase):
 
         response = self.client.get(url_for('dataset.index'))
         norm = re.sub('\s+', ' ', response.data)
-        print norm
+        #print norm
         assert ('<link rel="alternate" type="application/rss+xml" title="'
                 'Latest Datasets on OpenSpending"' in
                 norm)
