@@ -1,4 +1,3 @@
-from flask.ext.login import current_user
 from cubes.providers import ModelProvider
 from cubes.model import Cube, Measure, MeasureAggregate, create_dimension
 from cubes.backends.sql.store import SQLStore
@@ -66,15 +65,13 @@ class OpenSpendingModelProvider(ModelProvider):
 
     def list_cubes(self):
         cubes = []
-        for dataset in Dataset.all_by_account(current_user):
+        for dataset in Dataset.all_by_account(None):
             if not len(dataset.mapping):
                 continue
-            # TODO: current_user, check if it has a model.
-            cube = {
+            cubes.append({
                 'name': dataset.name,
                 'label': dataset.label
-            }
-            cubes.append(cube)
+            })
         return cubes
 
 
