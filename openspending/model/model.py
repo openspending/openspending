@@ -4,14 +4,12 @@ data model which it represents, handling the creation, filling and migration of
 the table schema associated with the dataset. As such, it holds the key set
 of logic functions upon which all other queries and loading functions rely.
 """
-import math
 import logging
-from collections import defaultdict
 from datetime import datetime
 from itertools import count
 from sqlalchemy import ForeignKeyConstraint, MetaData
 from sqlalchemy.types import Unicode
-from sqlalchemy.sql.expression import and_, or_, select, func
+from sqlalchemy.sql.expression import select, func
 
 from openspending.core import db
 from openspending.lib.util import hash_values
