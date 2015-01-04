@@ -19,6 +19,11 @@ from openspending.lib.routing import FormatConverter, NoDotConverter
 
 logging.basicConfig(level=logging.DEBUG)
 
+# specific loggers
+logging.getLogger('cubes').setLevel(logging.WARNING)
+logging.getLogger('markdown').setLevel(logging.WARNING)
+
+
 db = SQLAlchemy()
 babel = Babel()
 login_manager = LoginManager()
@@ -59,9 +64,8 @@ def create_app(**config):
     from openspending.model.provider import OpenSpendingStore
     extensions.store.extensions['openspending'] = OpenSpendingStore
     app.cubes_workspace = Workspace()
-    db_url = app.config.get('SQLALCHEMY_DATABASE_URI')
-    app.cubes_workspace.register_default_store('openspending',
-                                               url=db_url)
+    #db_url = app.config.get('SQLALCHEMY_DATABASE_URI')
+    app.cubes_workspace.register_default_store('openspending')
 
     return app
 

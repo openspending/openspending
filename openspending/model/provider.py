@@ -1,8 +1,11 @@
 from cubes.providers import ModelProvider
 from cubes.model import Cube, Measure, MeasureAggregate, create_dimension
-from cubes.backends.sql.store import SQLStore
+from cubes.backends.sql.store import SQLStore, OPTION_TYPES
 from cubes.errors import NoSuchCubeError, NoSuchDimensionError
+from cubes.common import coalesce_options
+from cubes.logging import get_logger
 
+from openspending.core import db
 from openspending.model import Dataset
 
 
@@ -82,4 +85,20 @@ class OpenSpendingStore(SQLStore):
         return self.related_model_provider
 
     def __init__(self, **options):
-        super(OpenSpendingStore, self).__init__(**options)
+        super(SQLStore, self).__init__(**options)
+        options = dict(options)
+        self.options = coalesce_options(options, OPTION_TYPES)
+        self.logger = get_logger()
+        self.schema = None
+        self._metadata = None
+
+    @property
+    def connectable(self):
+        return db.engine
+        
+    @property
+    def metadata(self):
+        if self._metadata is None:
+            self._metadata = db.MetaData(bind=self.connectable)
+        return self._metadata
+        # self.metadata = sqlalchemy.MetaData(bind=self.connectable)
