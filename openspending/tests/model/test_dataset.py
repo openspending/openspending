@@ -122,14 +122,6 @@ class TestDatasetLoad(DatabaseTestCase):
         assert res['summary']['num_entries'] == 3, res
         assert res['summary']['amount'] == 1000, res
 
-    # TODO: Does cubes have an "OR" syntax at all?
-    #def test_aggregate_or_cut(self):
-    #    load_dataset(self.ds)
-    #    res = analytics.aggregate(self.ds, cuts=[('field', u'foo'),
-    #                                             ('field', u'bar')])
-    #    assert res['summary']['num_entries'] == 4, res
-    #    assert res['summary']['amount'] == 1190, res
-
     def test_aggregate_dimensions_drilldown(self):
         load_dataset(self.ds)
         res = analytics.aggregate(self.ds, drilldowns=['function'])
