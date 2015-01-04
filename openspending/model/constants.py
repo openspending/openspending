@@ -21,6 +21,7 @@ DATE_CUBES_TEMPLATE = {
         {
             "name": "day",
             "label": "Day",
+            "key": "name",
             "attributes": ['day', 'name']
         }
     ],

@@ -14,6 +14,23 @@ def flatten(data, sep='.'):
     return out
 
 
+def nestify(data):
+    """ Cubes returns entries and aggregation results in a non-nested way
+    with a dotted notation for key names. This function turns that format
+    into a set of nested dictionaries. """
+    nested = {}
+    for key, value in data.items():
+        path = key.split('.')
+        out = nested
+        for i, level in enumerate(path):
+            if i == len(path) - 1:
+                out[level] = value
+            elif level not in out:
+                out[level] = {}
+            out = out[level]
+    return nested
+
+
 def hash_values(iterable):
     """Return a cryptographic hash of an iterable."""
     return sha1(''.join(sha1(unicode(val).encode('utf-8')).hexdigest()

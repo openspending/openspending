@@ -257,7 +257,7 @@ class CompoundDimension(Dimension, TableHandler):
             'levels': [{
                 'name': self.name,
                 'label': self.label,
-                'key': 'id',
+                'key': 'name',
                 'attributes': attributes
             }]
         }
