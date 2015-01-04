@@ -1,3 +1,4 @@
+from openspending.model import analytics
 from openspending.inflation.util import inflate as inflate_func
 
 
@@ -60,9 +61,10 @@ def aggregate(dataset, measures=['amount'], drilldowns=None, cuts=None,
         drilldowns.append('time.year')
 
     # Aggregate the dataset via its own aggregate function
-    result = dataset.model.aggregate(measures=measures, drilldowns=drilldowns,
-                                     cuts=cuts, page=page, pagesize=pagesize,
-                                     order=order)
+    result = analytics.aggregate(dataset, measures=measures,
+                                 drilldowns=drilldowns,
+                                 cuts=cuts, page=page, pagesize=pagesize,
+                                 order=order)
 
     # If we have to inflate we do some inflation calculations
     if inflate:

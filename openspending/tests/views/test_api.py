@@ -54,7 +54,7 @@ class TestApiController(ControllerTestCase):
         assert '200' in response.status
         result = list(DictReader(response.data.split('\n')))
         assert len(result) == 6
-        assert result[0]['cofog2.name'] == '10.1'
+        assert result[0]['cofog2.name'] == '10.1', result[0]
 
     def test_aggregate_measures(self):
         response = self.client.get(url_for('api.aggregate',
@@ -62,8 +62,8 @@ class TestApiController(ControllerTestCase):
                                            measure='total'))
         assert response.status == '200 OK'
         result = json.loads(response.data)
-        assert result['summary']['num_drilldowns'] == 1
-        assert result['summary']['total'] == 57300000.0
+        assert result['summary']['num_drilldowns'] == 1, result['summary']
+        assert result['summary']['total'] == 57300000.0, result['summary']
 
     def test_aggregate_multiple_measures(self):
         """
@@ -100,8 +100,8 @@ class TestApiController(ControllerTestCase):
                                            dataset='cra', cut='year:2009'))
         assert response.status == '200 OK'
         result = json.loads(response.data)
-        assert result['summary']['num_drilldowns'] == 1
-        assert result['summary']['amount'] == 57300000.0
+        assert result['summary']['num_drilldowns'] == 1, result['summary']
+        assert result['summary']['amount'] == 57300000.0, result['summary']
 
     def test_aggregate_order(self):
         def unique(seq):
@@ -115,7 +115,7 @@ class TestApiController(ControllerTestCase):
                                            drilldown='year'))
         assert response.status == '200 OK'
         result = json.loads(response.data)
-        order = [cell['year'] for cell in result['drilldown']]
+        order = [cell['time']['year'] for cell in result['drilldown']]
         expected_result = map(unicode, [2003, 2004, 2005, 2006, 2007,
                                         2008, 2009, 2010])
         assert unique(order) == expected_result
@@ -125,7 +125,7 @@ class TestApiController(ControllerTestCase):
                                            drilldown='year'))
         assert response.status == '200 OK'
         result = json.loads(response.data)
-        order = [cell['year'] for cell in result['drilldown']]
+        order = [cell['time']['year'] for cell in result['drilldown']]
         expected_result = map(unicode, [2010, 2009, 2008, 2007, 2006,
                                         2005, 2004, 2003])
         assert unique(order) == expected_result

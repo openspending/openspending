@@ -11,6 +11,13 @@ def legacy_name(name):
     return name
 
 
+def escape(val):
+    for char in '_-"\'':
+        if char in val:
+            return '"%s"' % val
+    return val
+
+
 def get_browser(dataset):
     """ Get a cubes browser for the given dataset. """
     # TODO: Don't require request context
@@ -24,14 +31,18 @@ def aggregate(dataset, measures=['amount'], drilldowns=[], cuts=[],
     cubes browser equivalent call. """
     browser = get_browser(dataset)
     aggregates = ['num_entries'] + measures
-    print "AGGREGATES", aggregates
-    cuts = '|'.join(['%s:"%s"' % (legacy_name(c[0]), c[1]) for c in cuts])
+    
+    if order is None or not len(order):
+        order = [(m, True) for m in measures]
+    order = [(legacy_name(f), 'desc' if d else 'asc') for f, d in order]
+    cuts = '|'.join(['%s:%s' % (legacy_name(c[0]), escape(c[1])) for c in cuts])
 
     aggregate = browser.aggregate(cell=cuts,
                                   aggregates=aggregates,
                                   drilldown=map(legacy_name, drilldowns),
                                   page=page - 1,
-                                  page_size=pagesize)
+                                  page_size=pagesize,
+                                  order=order)
 
     # total_cell_count is ``None`` if there is no drilldowns, not 0.
     num_drilldowns = max(1, aggregate.total_cell_count)
