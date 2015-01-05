@@ -74,7 +74,7 @@ assumed. The key differences in a production install are these:
 
     psycopg2
     gunicorn
-    -e git+http://github.com/okfn/openspending#egg=openspending
+    -e git+http://github.com/openspending/openspending#egg=openspending
 
   This means that updates can be installed easily and quickly by running
   the same command used for the initial setup::
@@ -83,49 +83,42 @@ assumed. The key differences in a production install are these:
 
 * Set up related git modules, help, and catalogs in src/openspending, as in :doc:`install`.
 
-* Set up ``site.ini`` as in :doc:`install`, with additional attention paid to:
-
-  ``openspending.migrate_dir`` must point to ``src/openspending/migration``
-  inside the virtualenv, if ``site.ini`` is not in that directory
+* Set up ``settings.py`` as in :doc:`install`, and make sure the environment
+  variable ``OPENSPENDING_SETTINGS`` is set correctly.
 
 * Set up the database: ::
 
-  $ ostool site.ini db init
+  $ ostool db init
 
-* Create the session storage directory, and set up permissions: ::
+* Create the uploads storage directory, and set up permissions: ::
 
-  $ mkdir .pylons_data
-  $ chown www-data .pylons_data
+  $ mkdir ~/var/srvc/<site>/uploads
+  $ chown www-data  ~/var/srvc/<site>/uploads
 
 * Start celery workers (e.g. on a backend machine). Celery will configure
-  itself based on an environment variable ``BROKER_URL`` which should point
-  to a full uri for the message queue, i.e. ``amqp://backend.server.com:5672/``
-  (this needs to be set for both the celery worker process and the web app
-  itself, described in the next step). ::
+  itself based on the relevant settings in the configuration script::
 
-    (env)~/openspending$ export BROKER_URL='amqp://backend.server.com:5672/'
+    CELERY_BROKER_URL = 'amqp://backend.server.com:5672/'
 
   It is likely that you set this up so that the celery workers use a localhost
   broker url (rabbitmq installed on the same machine as the celery worker
   instance) while the frontend (web app) machine needs a broker url that points
   to that backend machine.
 
-  Then start up celery by pointing to the ``site.ini`` (can be managed by
+  Then start up celery by setting ``OPENSPENDING_SETTINGS`` (can be managed by
   supervisor)::
 
-    (env)~/openspending$ celery -A openspending.tasks -p site.ini -l info worker
+    (env)~/openspending$ celery -A openspending.tasks -l info worker
 
 * The application is run through ``gunicorn`` (Green Unicorn), a fast, 
-  pre-fork based HTTP server for WSGI applications. The application provides
-  special support for pastescript so that it can be started via a simple
-  prompt (remember to set the ``BROKER_URL`` environment variable to be able to
-  send tasks to the backend workers)::
+  pre-fork based HTTP server for WSGI applications (remember to set the
+  ``OPENSPENDING_SETTINGS`` environment variable)::
 
-    (env)~/var/srvc/openspending.org$ gunicorn_paster site.ini
+    (env)~/var/srvc/openspending.org$ gunicorn openspending.core:create_web_app
 
-  (Where site.ini is your primary configuration file.) To determine the 
-  number of workers and the port to listen on, a configuration file called
-  ``gunicorn-config.py`` is created with basic settings::
+  To determine the number of workers and the port to listen on, a
+  configuration file called ``gunicorn-config.py`` is created with
+  basic settings::
 
     import multiprocessing
     bind = "127.0.0.1:18000"
@@ -133,7 +126,7 @@ assumed. The key differences in a production install are these:
 
   This can be passed using the ``-c`` argument::
 
-    (env)~/var/srvc/openspending.org$ gunicorn_paster -c gunicorn-config.py site.ini
+    (env)~/var/srvc/openspending.org$ gunicorn -c gunicorn-config.py openspending.core:create_web_app
 
 * In order to make sure gunicorn is automatically started, monitored, and run
   with the right arguments, ``supervisord`` is installed::
@@ -145,8 +138,9 @@ assumed. The key differences in a production install are these:
   contents::
 
     [program:openspending.org]
-    command=/home/okfn/var/srvc/openspending.org/bin/gunicorn_paster /home/okfn/var/www/openspending.org/site.ini -c /home/okfn/var/srvc/openspending.org/gunicorn-config.py
+    command=/home/okfn/var/srvc/openspending.org/bin/gunicorn openspending.core:create_web_app -c /home/okfn/var/srvc/openspending.org/gunicorn-config.py
     directory=/home/okfn/var/srvc/openspending.org/
+    environment=OPENSPENDING_SETTINGS='/home/okfn/var/srvc/openspending.org/settings.py'
     user=www-data
     autostart=true
     autorestart=true
@@ -181,11 +175,9 @@ assumed. The key differences in a production install are these:
 
         access_log /var/log/nginx/openspending.org-access.log;
         error_log /var/log/nginx/openspending.org-error.log notice;
-
-        root /home/okfn/var/srvc/openspending.org/src/openspending/openspending/ui/public;
-
+        
         location /static {
-          alias /home/okfn/var/srvc/openspending.org/src/openspending/openspending/ui/public/static;
+          alias /home/okfn/var/srvc/openspending.org/src/openspending/openspending/static;
         }
 
         location / {

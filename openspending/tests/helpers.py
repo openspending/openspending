@@ -1,10 +1,11 @@
 from openspending.validation.data import convert_types
 from openspending.model.dataset import Dataset
-from openspending.model import meta as db
+from openspending.core import db
 from openspending.lib import solr_util as solr
 
 from datetime import datetime
-import os.path
+import os
+import shutil
 import json
 import csv
 
@@ -88,13 +89,17 @@ def make_account(name='test', fullname='Test User',
     account.admin = admin
     db.session.add(account)
     db.session.commit()
-
     return account
 
 
-def clean_db():
+def init_db(app):
+    db.create_all(app=app)
+
+
+def clean_db(app):
     db.session.rollback()
-    db.metadata.drop_all()
+    db.drop_all(app=app)
+    shutil.rmtree(app.config.get('UPLOADS_DEFAULT_DEST'))
 
 
 def clean_solr():

@@ -1,52 +1,33 @@
-from routes.util import URLGenerator
-from pylons import url, config
-from pylons.test import pylonsapp
-from webtest import TestApp
+import tempfile
 
-from openspending.model import meta, init_model
-from openspending.tests.helpers import clean_db
+from flask.ext.testing import TestCase as FlaskTestCase
 
-from sqlalchemy import engine_from_config
-from migrate.versioning.util import construct_engine
+from openspending.core import create_web_app
+from openspending.tests.helpers import clean_db, init_db
 
 
-class TestCase(object):
+class TestCase(FlaskTestCase):
 
-    def setup(self):
-        pass
+    def create_app(self):
+        app = create_web_app(**{
+            'DEBUG': True,
+            'TESTING': True,
+            'SQLALCHEMY_DATABASE_URI': 'sqlite:///:memory:',
+            'CELERY_ALWAYS_EAGER': True,
+            'UPLOADS_DEFAULT_DEST': tempfile.mkdtemp()
+        })
+        return app
 
-    def teardown(self):
-        pass
+    def setUp(self):
+        init_db(self.app)
+
+    def tearDown(self):
+        clean_db(self.app)
 
 
 class DatabaseTestCase(TestCase):
-
-    def setup_database(self):
-        """
-        Configure the database based on the provided configuration
-        file, but be sure to overwrite the url so that it will use
-        sqlite in memory, irrespective of what the user has set in
-        test.ini. Construct the sqlalchemy engine with versioning
-        and initialise everything.
-        """
-
-        config['openspending.db.url'] = 'sqlite:///:memory:'
-        engine = engine_from_config(config, 'openspending.db.')
-        engine = construct_engine(engine)
-        init_model(engine)
-
-    def setup(self):
-        self.setup_database()
-        meta.metadata.create_all(meta.engine)
-
-    def teardown(self):
-        clean_db()
-        super(DatabaseTestCase, self).teardown()
+    pass
 
 
 class ControllerTestCase(DatabaseTestCase):
-
-    def __init__(self, *args, **kwargs):
-        self.app = TestApp(pylonsapp)
-        url._push_object(URLGenerator(config['routes.map'], {}))
-        super(DatabaseTestCase, self).__init__(*args, **kwargs)
+    pass

@@ -1,0 +1,16 @@
+{% macro dimensions_list(dataset) -%}
+		<ul>
+		{% for dimension in dataset.dimensions %}	
+		  <li>
+			<a class="dimension-name" href="{{url_for('dimension.view', dataset=dataset.name, dimension=dimension.name)}}">
+			  <strong>{{ dimension.label or dimension.name }}</strong>
+			  
+			  {% if dimension.key %}
+					<abbr title="{% trans %}Part of unique key{% endtrans %}"><i class='icon-star'></i></abbr>
+			  {% endif %}
+			</a>
+		  </li>
+		
+		{% endfor %}
+		</ul>
+{%- endmacro %}

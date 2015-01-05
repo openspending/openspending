@@ -1,0 +1,61 @@
+{% macro member_nav(dataset, dimension, member, legacy_views, section) -%}
+    <ul class="breadcrumb">
+      <li>
+        <i class="icon-home"></i>
+        <a href="{{ url_for('dataset.view', dataset=dataset.name) }}">
+          {{ dataset.label }}</a>
+        <span class="divider">/</span>
+      </li>
+      <li>
+        <a href="{{url_for('dimension.view', dataset=dataset.name,
+                             dimension=dimension.name)}}">
+          {{ dimension.label }}</a>
+        <span class="divider">/</span>
+      </li>
+      <li class="active">
+        {{ member.label }}
+      </li>
+      <li class="representations">
+        <a href="{{url_for('dimension.member', dataset=dataset.name,
+          name=member['name'], dimension=dimension.name, format='json')}}">
+          <img src="{{ static_path('img/icons/json.png') }}" alt="JSON"/>
+        </a>
+      </li>
+    </ul>
+    <h2 class="page-header">
+      {{ member.label }}
+    </h2>
+    
+    <div class="tabbable">
+      <ul class="nav nav-tabs">
+		    {% for view in legacy_views.available %}
+		      {% if view.name == section %}
+		        <li class="active">
+              <a>{{ view.label }}</a>
+            </li>
+          {% else %}
+			      <li>
+              <a href="{{url_for('dimension.member', dataset=dataset.name, dimension=dimension.name,
+                                 name=member.name, _view=view.name)}}">
+                {{ view.label }}
+              </a>
+            </li>
+          {% endif %}
+		    {% endfor %}
+        
+        <li class="{% if section == 'search' %}active{% endif %}">
+          <a href="{{url_for('dimension.entries', dataset=dataset.name, dimension=dimension.name, name=member.name)}}">
+            {% trans %}Search{% endtrans %}
+          </a>
+        </li>
+        
+        {% if 'opencorporates_uri' in member and member.opencorporates_uri %}
+          <li class="">
+            <a href="{{ member.opencorporates_uri }}">
+              <img src="/static/img/icons/external_link.gif" /> OpenCorporates
+            </a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+{%- endmacro %}

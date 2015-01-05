@@ -1,0 +1,1874 @@
+# Japanese (Japan) translations for openspending.
+# Copyright (C) 2014 ORGANIZATION
+# This file is distributed under the same license as the openspending
+# project.
+#
+# Translators:
+# Hal Seki <hal@plants-web.jp>, 2013
+# kawando <kawando@gmail.com>, 2013
+# nyampire <nyampire@gmail.com>, 2013
+# rigg <rinacult@gmail.com>, 2013
+# Tajima Itsuro <niryuu@gmail.com>, 2013
+# TAKANO Mitsuhiro <takano32@gmail.com>, 2013
+# Takashi Nishibayashi <hagino.3000@gmail.com>, 2013
+# Toshihide Sato <to.sato3@gmail.com>, 2013
+# tosseto <tosseto@gmail.com>, 2013
+# Yoshihide Jimbo <yjimbo@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version:  OpenSpending\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2014-12-24 15:38+0100\n"
+"PO-Revision-Date: 2014-10-06 13:27+0000\n"
+"Last-Translator: Tryggvi Björgvinsson <tryggvib@fsfi.is>\n"
+"Language-Team: Japanese (Japan) "
+"(http://www.transifex.com/projects/p/openspending/language/ja_JP/)\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.3\n"
+
+#: openspending/lib/mailer.py:22
+#, fuzzy, python-format
+msgid "Dear %(name)s,"
+msgstr "%s さん"
+
+#: openspending/lib/mailer.py:70
+#, python-format
+msgid ""
+"You have requested your password on %(site_title)s to be reset.\n"
+"\n"
+"Please click the following link to confirm this request:\n"
+"\n"
+"   %(reset_link)s\n"
+msgstr ""
+"貴方は %(site_title)s のパスワードリセットをリクエストしました。\n"
+"下記のリンクをクリックしてこのリクエストを確定させてください。\n"
+"%(reset_link)s \n"
+
+#: openspending/lib/mailer.py:80
+msgid "Reset your password"
+msgstr "パスワードをリセットする"
+
+#: openspending/lib/views.py:37
+msgid "Untitled"
+msgstr "無題"
+
+#: openspending/lib/widgets.py:14
+#, python-format
+msgid "No widget named '%s' exists."
+msgstr "'%s' という名前のウィジェットはありません"
+
+#: openspending/templates/_dimension_list.html:9
+msgid "Part of unique key"
+msgstr "ユニークキーの一部"
+
+#: openspending/templates/base.html:7
+msgid "We're enabling anyone to explore, visualize and track government spending."
+msgstr "私達は、誰にでも政府の支出を探索し、可視化し、追跡ができるようにしています。"
+
+#: openspending/templates/base.html:10
+msgid "Latest Datasets on OpenSpending"
+msgstr "OpenSpending の最新のデータセット"
+
+#: openspending/templates/base.html:38
+#: openspending/templates/account/profile.html:32
+#: openspending/templates/badge/information.html:29
+msgid "Datasets"
+msgstr "データセット"
+
+#: openspending/templates/base.html:41
+#: openspending/templates/dataset/_nav.html:56
+#: openspending/templates/dimension/_nav.html:48
+#: openspending/templates/entry/search.html:3
+#: openspending/templates/entry/search.html:35
+#: openspending/templates/home/index.html:41
+msgid "Search"
+msgstr "検索"
+
+#: openspending/templates/base.html:44
+msgid "Community"
+msgstr "コミュニティ"
+
+#: openspending/templates/base.html:47 openspending/templates/base.html:135
+msgid "Help"
+msgstr "ヘルプ"
+
+#: openspending/templates/base.html:50
+#: openspending/templates/dataset/_nav.html:61
+msgid "About"
+msgstr "OpenSpendingについて"
+
+#: openspending/templates/base.html:53 openspending/templates/base.html:136
+msgid "Contact"
+msgstr "お問い合わせ"
+
+#: openspending/templates/base.html:56
+msgid "Blog"
+msgstr "ブログ"
+
+#: openspending/templates/base.html:67
+#: openspending/templates/editor/_nav.html:26
+msgid "Dashboard"
+msgstr "ダッシュボード"
+
+#: openspending/templates/base.html:68
+msgid "Settings"
+msgstr "設定"
+
+#: openspending/templates/base.html:71
+#: openspending/templates/account/scoreboard.html:3
+msgid "User scoreboard"
+msgstr ""
+
+#: openspending/templates/base.html:74
+msgid "Logout"
+msgstr "ログアウト"
+
+#: openspending/templates/base.html:79
+msgid "Login/Register"
+msgstr "ログイン/登録"
+
+#: openspending/templates/base.html:83
+msgid "Language"
+msgstr "言語"
+
+#: openspending/templates/base.html:118
+msgid "This site uses cookies"
+msgstr "このサイトではcookieが利用されています。"
+
+#: openspending/templates/base.html:118
+msgid "Okay, thanks"
+msgstr "了解です"
+
+#: openspending/templates/base.html:118
+msgid "Find out more"
+msgstr "詳しく見る"
+
+#: openspending/templates/base.html:122
+msgid ""
+"This is an <a href=\"http://okfn.org\">Open Knowledge Foundation</a>\n"
+"            project"
+msgstr "これは <a href=\"http://okfn.org\">Open Knowledge Foundation</a> のプロジェクトです。"
+
+#: openspending/templates/base.html:137
+msgid "API"
+msgstr "API"
+
+#: openspending/templates/base.html:138
+msgid "Privacy"
+msgstr "プライバシーポリシー"
+
+#: openspending/templates/base.html:140
+msgid ""
+"All <a href=\"http://www.gnu.org/licenses/agpl.html\">code</a>,\n"
+"          <a "
+"href=\"http://creativecommons.org/licenses/by/3.0/\">content</a>\n"
+"          and <a "
+"href=\"http://opendatacommons.org/licenses/odbl/\">data</a> is\n"
+"          openly licensed in accordance with the\n"
+"          <a href=\"http://opendefinition.org/\">open definition</a>"
+msgstr ""
+"全ての <a href=\"http://www.gnu.org/licenses/agpl.html\">コード</a>,\n"
+"          <a "
+"href=\"http://creativecommons.org/licenses/by/3.0/\">コンテンツ</a>\n"
+"          and <a "
+"href=\"http://opendatacommons.org/licenses/odbl/\">データ</a> は\n"
+"オープンライセンスと\n"
+"          <a href=\"http://opendefinition.org/\">open "
+"definition</a>で提供されています。"
+
+#: openspending/templates/error.html:7 openspending/templates/run/view.html:30
+#: openspending/templates/run/view.html:54
+#: openspending/templates/source/_list.html:13
+msgid "Error"
+msgstr "エラー"
+
+#: openspending/templates/account/profile.html:13
+msgid "Information"
+msgstr "アカウント情報"
+
+#: openspending/templates/account/profile.html:13
+msgid "(change)"
+msgstr "(変更する)"
+
+#: openspending/templates/account/profile.html:16
+#: openspending/templates/editor/dimensions.html:135
+msgid "Name"
+msgstr "名前"
+
+#: openspending/templates/account/profile.html:19
+msgid "Username"
+msgstr "ユーザー名"
+
+#: openspending/templates/account/profile.html:22
+#: openspending/templates/home/index.html:90
+#: openspending/templates/home/index.html:97
+msgid "Email"
+msgstr "メールアドレス"
+
+#: openspending/templates/account/profile.html:42
+msgid "It looks like you haven't uploaded any datasets."
+msgstr "データセットはまだアップロードされていないようです。"
+
+#: openspending/templates/account/profile.html:47
+#: openspending/templates/dataset/_select.html:96
+#: openspending/templates/dataset/new_cta.html:3
+msgid "Import a dataset"
+msgstr "データセットをインポート"
+
+#: openspending/templates/account/profile.html:52
+#: openspending/templates/editor/_nav.html:36
+msgid "Views"
+msgstr "ビュー"
+
+#: openspending/templates/account/scoreboard.html:6
+msgid "OpenSpending Dataset Maintainers"
+msgstr ""
+
+#: openspending/templates/badge/information.html:3
+#: openspending/templates/badge/information.html:6
+msgid "Badge"
+msgstr "バッジ"
+
+#: openspending/templates/badge/information.html:10
+msgid "Representative image"
+msgstr "代表する画像"
+
+#: openspending/templates/badge/information.html:14
+#: openspending/templates/dataset/about.html:29
+#: openspending/templates/editor/dimensions.html:391
+#: openspending/templates/view/new.html:72
+msgid "Description"
+msgstr "詳細"
+
+#: openspending/templates/badge/information.html:23
+msgid "Look at more OpenSpending badges"
+msgstr "OpenSpendingバッヂを更に見る"
+
+#: openspending/templates/badge/information.html:31
+msgid "The following datasets have been awarded this badge"
+msgstr "下記のデータセットはこのバッヂを授与されています。"
+
+#: openspending/templates/badge/information.html:43
+msgid "<strong>No</strong> datasets have been awarded this badge"
+msgstr "このバッヂが授与されているデータセットはありません"
+
+#: openspending/templates/dataset/_nav.html:15
+#: openspending/templates/dataset/about.html:80
+msgid "Badges"
+msgstr "バッジ"
+
+#: openspending/templates/dataset/_nav.html:25
+msgid "What are badges?"
+msgstr "バッジは何ですか？"
+
+#: openspending/templates/dataset/_nav.html:66
+msgid "Visualisations"
+msgstr "ビジュアライゼーション"
+
+#: openspending/templates/dataset/_nav.html:84
+msgid "Create a visualisation..."
+msgstr "ビジュアライゼーションの作成..."
+
+#: openspending/templates/dataset/_nav.html:93
+msgid "Manage"
+msgstr "管理"
+
+#: openspending/templates/dataset/_select.html:6
+msgid "Filter..."
+msgstr "絞り込み"
+
+#: openspending/templates/dataset/_select.html:8
+#: openspending/templates/dataset/index.html:42
+msgid "Countries"
+msgstr "国"
+
+#: openspending/templates/dataset/_select.html:10
+msgid "Filter by country"
+msgstr "国で絞り込む"
+
+#: openspending/templates/dataset/_select.html:24
+#: openspending/templates/dataset/index.html:59
+msgid "Languages"
+msgstr "言語"
+
+#: openspending/templates/dataset/_select.html:26
+msgid "Filter by language"
+msgstr "言語で絞り込む"
+
+#: openspending/templates/dataset/_select.html:40
+msgid "Types of data"
+msgstr "データのタイプ"
+
+#: openspending/templates/dataset/_select.html:89
+#: openspending/templates/dataset/dropdb.html:9
+msgid "mapping the money"
+msgstr "Mapping the money"
+
+#: openspending/templates/dataset/_select.html:97
+msgid "Close"
+msgstr "閉じる"
+
+#: openspending/templates/dataset/about.html:32
+#, python-format
+msgid "No description is available for %(dataset)s"
+msgstr "%(dataset)s に関する解説はありません"
+
+#: openspending/templates/dataset/about.html:39
+msgid "Sources"
+msgstr "ソース"
+
+#: openspending/templates/dataset/about.html:41
+msgid ""
+"This is a listing of all source data that was registered\n"
+"              for this dataset."
+msgstr "これはこのデータセットに登録されている全てのソースデータの一覧です。"
+
+#: openspending/templates/dataset/about.html:56
+#: openspending/templates/editor/_nav.html:41
+msgid "Team"
+msgstr "チーム"
+
+#: openspending/templates/dataset/about.html:58
+msgid ""
+"These people are the managers of the dataset. They can\n"
+"              make modifications to its schema and are responsible\n"
+"              to make sure the data is accurate."
+msgstr "こららの人々は、データセットの管理者です。彼らはそのスキーマへの変更を加えることができ、そのデータの正確性に対して責任を持ちます。"
+
+#: openspending/templates/dataset/about.html:82
+msgid "This dataset has been awarded"
+msgstr "データセットに賞が与えられました。"
+
+#: openspending/templates/dataset/about.html:83
+msgid "List of badges"
+msgstr "バッヂのリスト"
+
+#: openspending/templates/dataset/about.html:83
+msgid "badges"
+msgstr "バッジ"
+
+#: openspending/templates/dataset/about.html:85
+msgid ""
+"Badges can be given by OpenSpending administrators on behalf of\n"
+"\t      entities approved by <a href=\"http://okfn.org/\" "
+"title=\"OKF\">the Open Knowledge Foundation</a>."
+msgstr ""
+"バッヂは、 <a href=\"http://okfn.org/\" title=\"OKF\">the Open Knowledge "
+"Foundation</a>.に認証された団体を代表して、OpenSpending の管理者から授与されます。"
+
+#: openspending/templates/dataset/about.html:94
+msgid "Give badge"
+msgstr "バッヂを与える"
+
+#: openspending/templates/dataset/about.html:101
+msgid "Give"
+msgstr "与える"
+
+#: openspending/templates/dataset/about.html:114
+msgid "Measures"
+msgstr "計測"
+
+#: openspending/templates/dataset/about.html:116
+msgid ""
+"Measures are the numeric properties of each entry in this\n"
+"          dataset."
+msgstr "Measures はこのデータセットにおけるそれぞれのエントリーの数値のプロパティーにあたります。"
+
+#: openspending/templates/dataset/about.html:131
+#: openspending/templates/dimension/index.html:9
+msgid "Dimensions"
+msgstr "ディメンション"
+
+#: openspending/templates/dataset/about.html:133
+msgid ""
+"Dimensions are different aspects of the dataset, such as the\n"
+"          spender, recipient or classifications that apply."
+msgstr "ディメンションは、データセットの切り口であり、例えば支払者や受領者、適用分類などがあります。"
+
+#: openspending/templates/dataset/dropdb.html:3
+msgid "Database erased"
+msgstr "データベースが削除されました。"
+
+#: openspending/templates/dataset/dropdb.html:10
+msgid ""
+"The database should now have been erased. You'll even have to create a "
+"new user to log in again."
+msgstr "データベースから情報が消去されました。再度ログインするには、新規にユーザー登録していただく必要があります。"
+
+#: openspending/templates/dataset/index.html:3
+msgid "All datasets"
+msgstr "全てのデータセット"
+
+#: openspending/templates/dataset/index.html:6
+msgid "Available data sets"
+msgstr "利用可能なデータセット"
+
+#: openspending/templates/dataset/index.html:10
+msgid "The database contains the following datasets"
+msgstr "データベースは以下のデータセットを含みます。"
+
+#: openspending/templates/dataset/index.html:38
+msgid "Import a new dataset"
+msgstr "新しいデータセットをインポート"
+
+#: openspending/templates/dataset/index.html:39
+msgid "Import"
+msgstr "インポート"
+
+#: openspending/templates/dataset/new_cta.html:8
+msgid "Contribute your local data!"
+msgstr "あなたのローカルなデータを貢献しよう！"
+
+#: openspending/templates/dataset/new_cta.html:11
+msgid ""
+"We're trying to gather <strong>the world's spending\n"
+"        information</strong> in a common database so that we can provide\n"
+"        common tools for <strong>analysis, visualization and\n"
+"        comparison</strong>. OpenSpending is an open platform that\n"
+"        aims to facilitate the presentation of financial information so \n"
+"        anyone - whether data geek or concerned citizen - can contribute"
+" \n"
+"        their local city budget or spending reports."
+msgstr "私たちは世界の支出情報を共通のデータベースに集めようとしています。そうすることで、私たちは分析、可視化、比較のためのツールを提供することができます。OpenSpendingは財政情報の表現の促進を目標としたオープンプラットフォームです。データオタクであっても、関心のある市民であっても、誰でも地域自治体の予算や支出のレポートに貢献できます。"
+
+#: openspending/templates/dataset/new_cta.html:20
+msgid "Why should you contribute?"
+msgstr "あなたに貢献して欲しい理由"
+
+#: openspending/templates/dataset/new_cta.html:23
+msgid ""
+"There are many projects that aim to track financial information. All\n"
+"        require these basic services, which we aim to provide"
+msgstr "財政情報を追跡する目的のプロジェクトは沢山あります。皆、私たちが提供しようと志するこのような基本的なサービスを要求しています。"
+
+#: openspending/templates/dataset/new_cta.html:27
+msgid "Data loading and validation facilities."
+msgstr "データをロードし、設備を確認中。"
+
+#: openspending/templates/dataset/new_cta.html:28
+msgid ""
+"Common visualization types (treemaps, charts, and the bubble\n"
+"          tree)."
+msgstr "標準的な可視化タイプ（ツリーマップ、チャート、バブルツリー）"
+
+#: openspending/templates/dataset/new_cta.html:30
+msgid "Full-text search for all entries."
+msgstr "すべてのエントリーから全文検索"
+
+#: openspending/templates/dataset/new_cta.html:31
+msgid ""
+"Means to track provenance and provide access to the raw\n"
+"          data."
+msgstr "由来を追跡し、ローデータへのアクセスを提供することを意味します。"
+
+#: openspending/templates/dataset/new_cta.html:36
+msgid "Sign up to contribute"
+msgstr "貢献する為にサインアップ"
+
+#: openspending/templates/dataset/new_cta.html:38
+msgid "Learn more"
+msgstr "詳細はこちら"
+
+#: openspending/templates/dataset/view.html:36
+#: openspending/templates/dimension/member.html:40
+#: openspending/templates/dimension/view.html:41
+#: openspending/templates/view/view.html:78
+msgid "Embed"
+msgstr "埋め込み"
+
+#: openspending/templates/dataset/view.html:37
+#: openspending/templates/dimension/entries.html:87
+#: openspending/templates/dimension/member.html:44
+#: openspending/templates/dimension/view.html:42
+#: openspending/templates/view/view.html:83
+msgid "Change"
+msgstr "変更"
+
+#: openspending/templates/dataset/view.html:38
+#: openspending/templates/dimension/member.html:48
+#: openspending/templates/dimension/view.html:43
+#: openspending/templates/view/view.html:88
+msgid "Data"
+msgstr "データ"
+
+#: openspending/templates/dimension/entries.html:5
+#: openspending/templates/entry/view.html:31
+msgid "Entries"
+msgstr "エントリー"
+
+#: openspending/templates/dimension/entries.html:53
+msgid "Download first 100 entries as JSON"
+msgstr "最初の100件をJSONでダウンロード"
+
+#: openspending/templates/dimension/entries.html:59
+msgid "Download first 100 entries as CSV"
+msgstr "最初の100件をCSVでダウンロード"
+
+#: openspending/templates/dimension/entries.html:65
+msgid "Download all entries as JSON"
+msgstr "すべてのエントリーをJSONでダウンロード"
+
+#: openspending/templates/dimension/entries.html:71
+msgid "Download all entries as CSV"
+msgstr "すべてのエントリーをCSVでダウンロード"
+
+#: openspending/templates/dimension/entries.html:81
+#, python-format
+msgid "Total of %(member)s by year"
+msgstr "年間の合計 %(member)s "
+
+#: openspending/templates/dimension/entries.html:85
+msgid "Year"
+msgstr "年"
+
+#: openspending/templates/dimension/entries.html:86
+#: openspending/templates/entry/index.html:43
+msgid "Amount"
+msgstr "額"
+
+#: openspending/templates/dimension/index.html:3
+#, python-format
+msgid "Dimensions in %(dataset)s"
+msgstr "%(dataset)s のディメンション"
+
+#: openspending/templates/dimension/index.html:10
+msgid "Facets of the dataset."
+msgstr "データセットの断面"
+
+#: openspending/templates/dimension/index.html:13
+#, python-format
+msgid "%(dataset)s has the following dimensions"
+msgstr "%(dataset)s には下記のディメンションがあります"
+
+#: openspending/templates/editor/_nav.html:16
+msgid "Manage the dataset"
+msgstr "データセットを管理"
+
+#: openspending/templates/editor/_nav.html:31
+msgid "Dimensions &amp; Measures"
+msgstr "ディメンションと単位"
+
+#: openspending/templates/editor/_nav.html:46
+msgid "Meta"
+msgstr "メタ"
+
+#: openspending/templates/editor/_nav.html:51
+msgid "Templates"
+msgstr "テンプレート"
+
+#: openspending/templates/editor/dimensions.html:89
+msgid "Add Dimension"
+msgstr "ディメンションの追加"
+
+#: openspending/templates/editor/dimensions.html:92
+msgid "Make sure your dimensions import all source data columns."
+msgstr "あなたのディメンジョンが全てのデータ列をインポートする事を確認してください。"
+
+#: openspending/templates/editor/dimensions.html:97
+msgid "Set Unique Dimensions"
+msgstr "唯一のディメンションをセットしてください"
+
+#: openspending/templates/editor/dimensions.html:100
+msgid "Identify the dimensions that help to identify each entry."
+msgstr "それぞれのエントリを特定するのに有効なディメンジョンを指定してください。"
+
+#: openspending/templates/editor/dimensions.html:103
+msgid "Existing Dimensions"
+msgstr ""
+
+#: openspending/templates/editor/dimensions.html:112
+msgid "Specify which dimensions identify an entry uniquely"
+msgstr "エントリをユニークに識別できるディメンションを指定してください"
+
+#: openspending/templates/editor/dimensions.html:120
+msgid "Update"
+msgstr "更新"
+
+#: openspending/templates/editor/dimensions.html:128
+msgid "Add new dimension"
+msgstr "新しいディメンションの追加"
+
+#: openspending/templates/editor/dimensions.html:139
+msgid ""
+"The name you choose should only contain letters, numbers and dashes "
+"(i.e., no spaces)"
+msgstr "あなたが選んだ名前は英数字とハイフンのみ使用できます(スペースは使用できません)。"
+
+#: openspending/templates/editor/dimensions.html:142
+msgid ""
+"Where the dimension represents the ultimate source or destination of the "
+"funds, call it <code>from</code> or <code>to</code>"
+msgstr ""
+"ディメンションが財源の最終的なソースか行き先を代表する場合、それを<code>from</code> か <code>to</code> "
+"と呼びます。"
+
+#: openspending/templates/editor/dimensions.html:147
+#: openspending/templates/editor/dimensions.html:415
+msgid "Type"
+msgstr "タイプ"
+
+#: openspending/templates/editor/dimensions.html:151
+#: openspending/templates/entry/view.html:118
+msgid "Dimension"
+msgstr "ディメンション"
+
+#: openspending/templates/editor/dimensions.html:153
+msgid ""
+"A defined set, like suppliers or classifications, with multiple "
+"attributes (e.g. supplier name and VAT number)."
+msgstr "データ提供者や分類など、複数の属性を有する規定のデータセット(例: 提供者名称や付加価値税登録番号など)"
+
+#: openspending/templates/editor/dimensions.html:158
+#: openspending/templates/run/view.html:52
+msgid "Attribute"
+msgstr "属性"
+
+#: openspending/templates/editor/dimensions.html:160
+msgid "A simple value, e.g. descriptions or transaction IDs."
+msgstr "シンプルな値。例えば説明やトランザクションID"
+
+#: openspending/templates/editor/dimensions.html:165
+msgid "Date"
+msgstr "日付"
+
+#: openspending/templates/editor/dimensions.html:167
+msgid "Temporal value, e.g. start of project, date of disbursement."
+msgstr "時間的な値。例えばプロジェクトの開始日や支出の日。"
+
+#: openspending/templates/editor/dimensions.html:172
+msgid "Measure"
+msgstr "計測"
+
+#: openspending/templates/editor/dimensions.html:174
+msgid "Monetary information, e.g. amount disbursed or allocated."
+msgstr "金銭的な情報。例えば支出額や割り当て額。"
+
+#: openspending/templates/editor/dimensions.html:181
+msgid "Unmapped source data columns"
+msgstr "未マップのソースデータ列"
+
+#: openspending/templates/editor/dimensions.html:189
+msgid "Cancel"
+msgstr "中止"
+
+#: openspending/templates/editor/dimensions.html:190
+#: openspending/templates/editor/team.html:91
+msgid "Add"
+msgstr "追加"
+
+#: openspending/templates/editor/dimensions.html:200
+msgid "Your model was saved."
+msgstr "保存されました。"
+
+#: openspending/templates/editor/dimensions.html:200
+msgid ""
+"You can now try to load a sample of the data by returning back to the "
+"dashboard."
+msgstr "ダッシュボードに戻ることによって、データサンプルをロードすることを試みることが出来ます。"
+
+#: openspending/templates/editor/dimensions.html:203
+msgid "Visit dashboard"
+msgstr "ダッシュボードを見る"
+
+#: openspending/templates/editor/dimensions.html:211
+msgid ""
+"The dimensions mapping could not be saved as it \n"
+"            contains some errors"
+msgstr "エラーが含まれているため、ディメンションの対応付けは保存されませんでした。"
+
+#: openspending/templates/editor/dimensions.html:228
+msgid "Dimension mapping"
+msgstr "ディメンションの対応付け"
+
+#: openspending/templates/editor/dimensions.html:230
+msgid ""
+"To create a model for your dataset,\n"
+"                    you need to translate the columns in \n"
+"                    the data file to \"dimensions\", the logical\n"
+"                    divisions of the dataset. A dimension\n"
+"                    can be any property of a line item or \n"
+"                    transaction that should be presented\n"
+"                    within OpenSpending."
+msgstr "データセットのモデルを作成する際には、データファイルの列を「ディメンション」という、データセットの論理的な仕切りに結びつける必要があります。ディメンションは、OpenSpendingで表示できるどんな項目や取引の属性でも設定出来ます。"
+
+#: openspending/templates/editor/dimensions.html:239
+msgid ""
+"There are four core dimensions, <code>amount</code>,\n"
+"                    <code>time</code> &mdash; which are\n"
+"                    mandatory &mdash; as well as\n"
+"                    <code>from</code> for the spender,\n"
+"                    and <code>to</code> for the\n"
+"                    recipient of a specific transaction\n"
+"                    &mdash; both of those must be\n"
+"                    dimensions if they exist."
+msgstr ""
+"4つの中心的なディメンション、 <code>金額</code>,\n"
+"                    <code>時間</code> &mdash; 必須項目です &mdash; 、同様に\n"
+"                    支払者の項目 <code>from</code> 、\n"
+"                    そして特定の取引の受取者の項目 <code>to</code>  \n"
+"                    &mdash; 存在する場合両方がディメンションである必要があります。"
+
+#: openspending/templates/editor/dimensions.html:249
+msgid ""
+"Beyond that, you can add your own\n"
+"                    dimensions to describe aspects such\n"
+"                    as classification schemes,\n"
+"                    descriptions, transaction IDs and any\n"
+"                    other details present in the source\n"
+"                    data."
+msgstr "それだけではなく、あなたは分類スキームや解説、トランザクションIDやその他ののソース内に存在するデータから独自の切り口を表現するディメンションを追加することができます。"
+
+#: openspending/templates/editor/dimensions.html:256
+msgid "What do I do here?"
+msgstr "ここでできること"
+
+#: openspending/templates/editor/dimensions.html:258
+msgid ""
+"First off, make sure to set up the\n"
+"                    model to conform to these basic\n"
+"                    requirements:"
+msgstr "まず、これらの基本的な要件に合うようにモデルを設定してください"
+
+#: openspending/templates/editor/dimensions.html:263
+msgid ""
+"Create <code>amount</code> with the core \n"
+"                      financial measure of the dataset and \n"
+"                      <code>time</code> to represent the most \n"
+"                      representative temporal\n"
+"                      dimension."
+msgstr ""
+"データセットのコアな会計単位と<code>金額</code> 、\n"
+"                      <code>時間</code> を、最も代表的な一時的なディメンションとして作成してください。"
+
+#: openspending/templates/editor/dimensions.html:268
+msgid ""
+"If your data is transactional and \n"
+"                      contains the name of a department or \n"
+"                      body spending the funds, make sure to \n"
+"                      include a <code>from</code> dimension."
+msgstr "もしあなたのデータが取引単位であり、部門名や使い道を含んでいる場合、<code>from</code>ディメンションを必ず追加してください。"
+
+#: openspending/templates/editor/dimensions.html:272
+msgid ""
+"If the data mentions a recipient,\n"
+"                      such as a supplier, set\n"
+"                      <code>to</code> as another dimension."
+msgstr "もしデータが受領者や支払者を含む場合、<code>to</code>ディメンションを設定してください。"
+
+#: openspending/templates/editor/dimensions.html:275
+msgid ""
+"Set a unique key combination so\n"
+"                      that the values within that\n"
+"                      combination are different between all \n"
+"                      entries in the dataset. This can\n"
+"                      later be used for updating the\n"
+"                      dataset."
+msgstr "組み合わせで生まれる値がデータセット内のエントリー全てで異なるように、一意のキーの組み合わせを設定してください。これはあとでデータセットを更新する時に利用されます。"
+
+#: openspending/templates/editor/dimensions.html:283
+msgid ""
+"After you've done these basic things,\n"
+"                    make sure to also create dimensions\n"
+"                    to cover any other aspects present in \n"
+"                    the source data. You can group\n"
+"                    related columns into a single\n"
+"                    dimension, for example if each row \n"
+"                    mentions both a company's name and\n"
+"                    its VAT number."
+msgstr ""
+"これらの基本的な作業が完了したら、ソースデータに存在する切り口をカバーするディメンションを作成してください。\n"
+"あなたは関連するカラムを一つのディメンションに含めることができます。例えば、各行が会社名と取引先番号を持っている場合などです。"
+
+#: openspending/templates/editor/dimensions.html:302
+#: openspending/templates/editor/dimensions.html:380
+msgid "string"
+msgstr "string"
+
+#: openspending/templates/editor/dimensions.html:303
+#: openspending/templates/editor/dimensions.html:381
+msgid "float"
+msgstr "float"
+
+#: openspending/templates/editor/dimensions.html:304
+#: openspending/templates/editor/dimensions.html:382
+msgid "id"
+msgstr "id"
+
+#: openspending/templates/editor/dimensions.html:305
+#: openspending/templates/editor/dimensions.html:383
+msgid "date"
+msgstr "date"
+
+#: openspending/templates/editor/dimensions.html:306
+#: openspending/templates/editor/dimensions.html:384
+msgid "url"
+msgstr "url"
+
+#: openspending/templates/editor/dimensions.html:310
+msgid "Default Value"
+msgstr "初期値"
+
+#: openspending/templates/editor/dimensions.html:331
+msgid "Label"
+msgstr "ラベル"
+
+#: openspending/templates/editor/dimensions.html:335
+msgid ""
+"A human-readable title for this\n"
+"                          dimension."
+msgstr "このディメンションに対する、人が読みやすいタイトルです。"
+
+#: openspending/templates/editor/dimensions.html:344
+msgid "Include in unique key"
+msgstr "ユニークキーを含む"
+
+#: openspending/templates/editor/dimensions.html:347
+msgid ""
+"Make this dimension part of the set of\n"
+"                          uniquely identifying values for each\n"
+"                          column."
+msgstr "このディメンションを、書くカラムの値を一意に認識するためのユニークな組み合わせの一部とする"
+
+#: openspending/templates/editor/dimensions.html:356
+#: openspending/templates/editor/dimensions.html:414
+#: openspending/templates/run/view.html:51
+msgid "Column"
+msgstr "列"
+
+#: openspending/templates/editor/dimensions.html:360
+msgid "Source column in the source CSV file."
+msgstr "ソースCSVファイルにあるソース項目"
+
+#: openspending/templates/editor/dimensions.html:366
+msgid "Default value"
+msgstr "初期値"
+
+#: openspending/templates/editor/dimensions.html:370
+msgid ""
+"Empty cells will be padded with this\n"
+"                          value."
+msgstr "この値には空セルが適用されるでしょう"
+
+#: openspending/templates/editor/dimensions.html:377
+msgid "Data type"
+msgstr "データタイプ"
+
+#: openspending/templates/editor/dimensions.html:400
+msgid "Use as facet in entries browser"
+msgstr "エントリーブラウザ内で断面として使う"
+
+#: openspending/templates/editor/dimensions.html:403
+msgid ""
+"Select a few dimensions which are useful\n"
+"                          to slice the dataset by."
+msgstr "データセットでスライスするのに便利なディメンションをいくつか選択してください。"
+
+#: openspending/templates/editor/dimensions.html:413
+msgid "Field"
+msgstr "フィールド"
+
+#: openspending/templates/editor/dimensions.html:416
+msgid "Default"
+msgstr "初期値"
+
+#: openspending/templates/editor/dimensions.html:426
+msgid "Add a field"
+msgstr "フィールドを追加"
+
+#: openspending/templates/editor/dimensions.html:442
+msgid "Save Dimensions"
+msgstr "ディメンションを保存"
+
+#: openspending/templates/editor/dimensions.html:444
+msgid "Delete All Dimensions"
+msgstr "すべてのディメンションを削除する"
+
+#: openspending/templates/editor/dimensions_errors.html:15
+msgid "You cannot edit dimensions while data is loaded."
+msgstr "データが読み込まれている間は、ディメンションを編集することができません。"
+
+#: openspending/templates/editor/dimensions_errors.html:16
+msgid ""
+"In order to modify the dimensions model, you'll have to \n"
+"        delete all the data that is currently loaded from the database."
+msgstr "ディメンションのモデルを変更するためには、データベースに読み込まれている全てのデータを削除する必要があります。"
+
+#: openspending/templates/editor/dimensions_errors.html:20
+msgid "Go to dashboard"
+msgstr "ダッシュボードを見る"
+
+#: openspending/templates/editor/dimensions_errors.html:23
+msgid "See dimensions"
+msgstr "ディメンションを見る"
+
+#: openspending/templates/editor/dimensions_errors.html:31
+msgid "You need to define at least one data source."
+msgstr "少なくとも１つのデータソースを定義する必要があります。"
+
+#: openspending/templates/editor/dimensions_errors.html:32
+msgid ""
+"In order to create a dimensions model, at least on data source\n"
+"        needs to be available."
+msgstr "ディメンションモデルを作るために、少なくともデータソースが利用可能である必要があります。"
+
+#: openspending/templates/editor/team.html:70
+#, fuzzy
+msgid ""
+"Here, you can select the users who will be authorized to \n"
+"      manage this dataset."
+msgstr "ここでは、このデータセットを管理できるユーザを選ぶことができます。"
+
+#: openspending/templates/editor/team.html:84
+msgid "Current team"
+msgstr "Current team"
+
+#: openspending/templates/editor/team.html:88
+msgid "Add someone"
+msgstr "メンバーを追加"
+
+#: openspending/templates/editor/team.html:98
+#: openspending/templates/view/new.html:76
+msgid "Save"
+msgstr "保存する"
+
+#: openspending/templates/entry/index.html:32
+msgid "Time"
+msgstr ""
+
+#: openspending/templates/entry/index.html:34
+msgid "From"
+msgstr ""
+
+#: openspending/templates/entry/index.html:36
+msgid "To"
+msgstr ""
+
+#: openspending/templates/entry/index.html:66
+msgid "details"
+msgstr ""
+
+#: openspending/templates/entry/index.html:112
+msgid "Time range for dataset:"
+msgstr "データセットの時間幅"
+
+#: openspending/templates/entry/search.html:11
+msgid "Search OpenSpending"
+msgstr "OpenSpendingを検索"
+
+#: openspending/templates/entry/search.html:19
+msgid "e.g."
+msgstr "例："
+
+#: openspending/templates/entry/search.html:21
+msgid ""
+"Transactional data is often more detailed than\n"
+"            information from budgets."
+msgstr "取引単位のデータは、多くのケースで予算情報よりも詳しいです。"
+
+#: openspending/templates/entry/search.html:27
+msgid "Transactions"
+msgstr "取引"
+
+#: openspending/templates/entry/search.html:32
+msgid "All data"
+msgstr "すべてのデータ"
+
+#: openspending/templates/entry/search.html:43
+msgid ""
+"Type a search term to find government expenditure transactions\n"
+"            from across the globe."
+msgstr "世界中の政府の支出取引を見つける為の検索ワードを入力してください。"
+
+#: openspending/templates/entry/view.html:35
+#, python-format
+msgid "%(currency)s %(amount)s on %(time)s"
+msgstr "%(currency)s %(amount)s on %(time)s"
+
+#: openspending/templates/entry/view.html:45
+#, python-format
+msgid "Entry in %(dataset)s"
+msgstr "%(dataset)s のエントリー"
+
+#: openspending/templates/entry/view.html:46
+msgid "Detailed View of Transaction"
+msgstr "取引単位データの詳細ビュー"
+
+#: openspending/templates/entry/view.html:100
+msgid "Adjusted for inflation"
+msgstr "インフレ調整"
+
+#: openspending/templates/entry/view.html:101
+#, python-format
+msgid ""
+"(from <span title=\"%(reference)s\">%(reference_year)s</span> \n"
+"             to <span title=\"%(target)s\">%(target_year)s</span>)"
+msgstr ""
+"(<span title=\"%(reference)s\">%(reference_year)s</span> \n"
+"             から <span title=\"%(target)s\">%(target_year)s</span>)"
+
+#: openspending/templates/entry/view.html:103
+#, python-format
+msgid "Original amount: %(original)s"
+msgstr "元の金額:  %(original)s"
+
+#: openspending/templates/entry/view.html:119
+#: openspending/templates/run/view.html:53
+msgid "Value"
+msgstr "価値"
+
+#: openspending/templates/entry/view.html:156
+msgid "Notes"
+msgstr "ノート"
+
+#: openspending/templates/home/index.html:18
+msgid "It's our money!"
+msgstr ""
+
+#: openspending/templates/home/index.html:19
+msgid ""
+"By understanding how governments spend money <strong>in our name</strong>"
+" can we have a say in how that money will affect our own lives."
+msgstr ""
+
+#: openspending/templates/home/index.html:19
+msgid "The journey starts here."
+msgstr ""
+
+#: openspending/templates/home/index.html:22
+#, python-format
+msgid "%(territory_count)s countries"
+msgstr ""
+
+#: openspending/templates/home/index.html:23
+#, python-format
+msgid "%(dataset_count)s datasets"
+msgstr ""
+
+#: openspending/templates/home/index.html:24
+#, python-format
+msgid "%(entry_count)s entries"
+msgstr ""
+
+#: openspending/templates/home/index.html:35
+msgid "Featured Application"
+msgstr ""
+
+#: openspending/templates/home/index.html:36
+msgid ""
+"How much is that really? &mdash; See the stories behind the numbers in "
+"the news with the <a href=\"http://spendingstories.org\" "
+"target=\"_blank\">Spending Stories application</a>."
+msgstr ""
+
+#: openspending/templates/home/index.html:50
+msgid "Upload"
+msgstr ""
+
+#: openspending/templates/home/index.html:52
+msgid ""
+"Upload any kind of financial data to OpenSpending and explore it with our"
+" built-in interactive visualizations."
+msgstr "どんな種類の財務データでも、OpenSpendingに登録し、標準装備のインタラクティブな可視化ツールを使って探索できます。"
+
+#: openspending/templates/home/index.html:52
+msgid ""
+"Users publish <a "
+"href=\"https://openspending.org/budgetmarocain\">budgets</a>, <a "
+"href=\"https://openspending.org/marches-publics-senegal/views/liste-des-"
+"attributaires\">procurements</a>, <a href=\"https://openspending.org"
+"/ukgov-25k-spending\">spending data</a> and even <a "
+"href=\"https://openspending.org/senadofederal/entries\">public employee "
+"salaries</a>."
+msgstr ""
+"ユーザーは <a href=\"https://openspending.org/budgetmarocain\">予算</a>, <a "
+"href=\"https://openspending.org/marches-publics-senegal/views/liste-des-"
+"attributaires\">調達</a>, <a href=\"https://openspending.org/ukgov-25k-"
+"spending\">支出データ</a> や <a "
+"href=\"https://openspending.org/senadofederal/entries\">公共職員の給与</a>さえも公開します。"
+
+#: openspending/templates/home/index.html:54
+msgid ""
+"Use our <a href=\"http://www.pbs.org/idealab/2013/03/how-to-embed-open-"
+"spending-visualizations-in-your-own-website078\">widgets</a> to embed "
+"your visualization on your own website."
+msgstr ""
+"わたしたちの <a href=\"http://www.pbs.org/idealab/2013/03/how-to-embed-open-"
+"spending-visualizations-in-your-own-"
+"website078\">ウィジェット</a>をあなたのビジュアライゼーションをあなたのウェブサイトに埋め込むために使ってください。"
+
+#: openspending/templates/home/index.html:56
+msgid "Create a dataset"
+msgstr "データセットを作成"
+
+#: openspending/templates/home/index.html:56
+msgid "Upload a dataset"
+msgstr "データセットをアップロード"
+
+#: openspending/templates/home/index.html:59
+msgid "Explore"
+msgstr ""
+
+#: openspending/templates/home/index.html:61
+#, python-format
+msgid ""
+"OpenSpending holds more than %(transactions)s mio. transactions from "
+"%(datasets)s datasets across %(territories)s countries."
+msgstr ""
+
+#: openspending/templates/home/index.html:63
+#, python-format
+msgid ""
+"Browse the <a href=\"%(indexurl)s\">list of datasets</a> and learn about "
+"public finances from around the world, or browse <a "
+"href=\"http://apps.openspending.org/maps/\">our map of cities</a> on "
+"OpenSpending."
+msgstr ""
+"<a "
+"href=\"%(indexurl)s\">データセットのリスト</a>を閲覧し、世界中の公共の会計について学んでください。または、OpenSpendingを利用している都市の<a"
+" href=\"http://apps.openspending.org/maps/\">地図</a>を見てみてください。"
+
+#: openspending/templates/home/index.html:65
+msgid "Search the datasets"
+msgstr "データセットを検索"
+
+#: openspending/templates/home/index.html:65
+msgid "Search transactions"
+msgstr "取引情報を検索"
+
+#: openspending/templates/home/index.html:65
+msgid "List of datasets"
+msgstr "データセットのリスト"
+
+#: openspending/templates/home/index.html:65
+msgid "...or look at the datasets"
+msgstr "...またはデータセットを見る"
+
+#: openspending/templates/home/index.html:68
+msgid "Visualize"
+msgstr "可視化"
+
+#: openspending/templates/home/index.html:70
+msgid ""
+"Create your own visualizations with the <a "
+"href=\"http://community.openspending.org/help/api/aggregate/\">OpenSpending"
+" API</a> using libraries like <a "
+"href=\"http://community.openspending.org/2013/08/20/okfb-"
+"inesc/\">D3.js</a>, jit, and Raphael."
+msgstr ""
+"<a href=\"http://community.openspending.org/2013/08/20/okfb-"
+"inesc/\">D3.js</a>や jit、 Raphaelといったライブラリを使い、<a "
+"href=\"http://community.openspending.org/help/api/aggregate/\">OpenSpending"
+" API</a>であなた独自のビジュアライゼーションを行いましょう。"
+
+#: openspending/templates/home/index.html:72
+msgid ""
+"You can even create a satellite site while still using OpenSpending as a "
+"backend."
+msgstr " OpenSpending を背景に使用して衛星サイトを作成することだって可能です。"
+
+#: openspending/templates/home/index.html:74
+msgid "API documentation"
+msgstr "APIドキュメント"
+
+#: openspending/templates/home/index.html:74
+msgid "Look at the API"
+msgstr "APIを見てください"
+
+#: openspending/templates/home/index.html:77
+msgid "Contribute"
+msgstr "貢献"
+
+#: openspending/templates/home/index.html:79
+msgid ""
+"OpenSpending is a community run project and all material is open - open-"
+"source code and open data."
+msgstr "OpenSpending はコミュニティ運用のプロジェクトですべてのデータはオープンです。オープンソースコード、オープンデータです。"
+
+#: openspending/templates/home/index.html:81
+msgid ""
+"Get involved in loading data, developing the technology, doing analysis "
+"or writing news stories!"
+msgstr "データロード、テクノロジー開発、分析、または新しい物語を書くことに参加しよう！"
+
+#: openspending/templates/home/index.html:83
+msgid "Community introduction"
+msgstr "コミュニティ紹介"
+
+#: openspending/templates/home/index.html:83
+msgid "Join the spending community"
+msgstr "Spendingコミュニティに参加"
+
+#: openspending/templates/home/index.html:88
+msgid "Join our discussion list!"
+msgstr "ディスカッションリストに参加しよう！"
+
+#: openspending/templates/home/index.html:91
+#: openspending/templates/home/index.html:98
+msgid "Sign up"
+msgstr "サインアップ"
+
+#: openspending/templates/home/index.html:95
+msgid "Join our developer list!"
+msgstr "開発者リストに参加しよう！"
+
+#: openspending/templates/run/view.html:4
+#: openspending/templates/run/view.html:10
+msgid "Report"
+msgstr "報告"
+
+#: openspending/templates/run/view.html:12
+#: openspending/templates/source/_list.html:82
+msgid "errors"
+msgstr "エラー"
+
+#: openspending/templates/run/view.html:16
+msgid "Nothing to report!"
+msgstr "報告はありません。"
+
+#: openspending/templates/run/view.html:16
+msgid ""
+"The source has been loaded\n"
+"  successfully. This does not mean the data is stored in a form \n"
+"  which is semantically useful, though, so don't forget to \n"
+"  sanity-check a few entries!"
+msgstr ""
+"ソースのロードに成功しました。\n"
+"しかし、データが意味的に使える形で保存されたということではありません。\n"
+"いくつかのエントリーが正しいかどうかチェックするのをお忘れなく。"
+
+#: openspending/templates/run/view.html:28
+msgid "Level"
+msgstr "階層"
+
+#: openspending/templates/run/view.html:29
+msgid "Message"
+msgstr "メッセージ"
+
+#: openspending/templates/run/view.html:50
+msgid "Row"
+msgstr "行"
+
+#: openspending/templates/source/_list.html:6
+msgid "Link"
+msgstr "リンク"
+
+#: openspending/templates/source/_list.html:7
+msgid "Operations"
+msgstr "操作"
+
+#: openspending/templates/source/_list.html:15
+msgid "OK"
+msgstr "OK"
+
+#: openspending/templates/source/_list.html:24
+msgid "columns"
+msgstr "列"
+
+#: openspending/templates/source/_list.html:30
+msgid "Successfully loaded"
+msgstr "読み込み完了"
+
+#: openspending/templates/source/_list.html:34
+msgid "Running..."
+msgstr "実行中..."
+
+#: openspending/templates/source/_list.html:37
+msgid "Load source into OpenSpending"
+msgstr "OpenSpending にソースをロードする"
+
+#: openspending/templates/source/_list.html:39
+msgid "Load"
+msgstr "読み込む"
+
+#: openspending/templates/source/_list.html:45
+msgid "Test a sample"
+msgstr "サンプルを試す"
+
+#: openspending/templates/source/_list.html:47
+msgid "Test"
+msgstr "テスト"
+
+#: openspending/templates/source/_list.html:53
+msgid "Delete source"
+msgstr "ソースを削除"
+
+#: openspending/templates/source/_list.html:55
+#: openspending/templates/view/view.html:72
+msgid "Delete"
+msgstr "削除する"
+
+#: openspending/templates/source/_list.html:62
+msgid "Reports"
+msgstr "レポート"
+
+#: openspending/templates/source/_list.html:71
+msgid "Running"
+msgstr "実行中"
+
+#: openspending/templates/source/_list.html:73
+msgid "Complete"
+msgstr "完了"
+
+#: openspending/templates/source/_list.html:75
+msgid "Errors"
+msgstr "エラー"
+
+#: openspending/templates/source/_list.html:77
+msgid "Removed"
+msgstr "削除されました"
+
+#: openspending/templates/source/_list.html:88
+msgid "Analysis"
+msgstr "分析"
+
+#: openspending/templates/source/_list.html:91
+msgid "We found these columns in the CSV file:"
+msgstr "私達はCSVファイルにこれらの項目を発見しました:"
+
+#: openspending/templates/source/_list.html:98
+msgid "Warning"
+msgstr "警告"
+
+#: openspending/templates/source/_list.html:98
+msgid "No columns found."
+msgstr "項目が見つかりませんでした。"
+
+#: openspending/templates/source/_list.html:100
+msgid "Still analysing"
+msgstr "処理中"
+
+#: openspending/templates/source/_list.html:100
+msgid "Try refreshing in a moment."
+msgstr "金額をリフレッシュしてみてください。"
+
+#: openspending/templates/source/_new_form.html:4
+msgid "URL"
+msgstr "URL"
+
+#: openspending/templates/source/_new_form.html:7
+msgid ""
+"This must point directly at a\n"
+"        valid CSV file. HTML landing pages or other formats, such as\n"
+"        Excel, will not work."
+msgstr "これはCSVファイルを直接指定する必要があります。HTMLのランディングページやExcelファイルは動作しません。"
+
+#: openspending/templates/source/_new_form.html:10
+msgid ""
+"We recommend using <strong>,</strong> as delimiter and wrapping values in"
+" double quotes (especially amounts). The first line will always be "
+"regarded as a header row. <a "
+"href=\"http://community.openspending.org/help/guide/en/formatting-"
+"data/\">Want to know more?</a>"
+msgstr ""
+"区切り文字には<strong>,</strong>を利用し、値はダブルクォート(特に金額)で囲むことをお勧めします。最初の行は常にヘッダ行とみなされます。<a"
+" href=\"http://community.openspending.org/help/guide/en/formatting-"
+"data/\">詳細</a>"
+
+#: openspending/templates/view/embed.html:6
+msgid "Embedded Visualisation"
+msgstr "埋め込み済のビジュアライゼーション"
+
+#: openspending/templates/view/embed.html:68
+msgid "Visualised with OpenSpending"
+msgstr "OpenSpendingでビジュアライズされました"
+
+#: openspending/templates/view/index.html:5
+msgid "Library of visualisations"
+msgstr "ビジュアライゼーションライブラリー"
+
+#: openspending/templates/view/index.html:27
+#, python-format
+msgid "by %(user)s"
+msgstr "by %(user)s"
+
+#: openspending/templates/view/new.html:5
+msgid "Create a visualisation"
+msgstr "ビジュアライゼーションの作成"
+
+#: openspending/templates/view/new.html:62
+msgid "Name your visualisation"
+msgstr "ビジュアライゼーションの名前"
+
+#: openspending/templates/view/new.html:64
+msgid ""
+"You can store your visualisation with a name so that you can come back to"
+" it later and it will become visible to others."
+msgstr "あなたはあとで戻ってきた時や他の人が閲覧できるようにするため、名前をつけてビジュアライゼーションを保存することができます。"
+
+#: openspending/templates/view/new.html:68
+msgid "Title"
+msgstr "タイトル"
+
+#: openspending/templates/view/new.html:83
+msgid "You need to be signed in to save a view."
+msgstr "ビューをセーブするにはサインインが必要です"
+
+#: openspending/templates/view/new.html:91
+msgid "Embed in another website"
+msgstr "他のサイトに埋め込む"
+
+#: openspending/templates/view/new.html:93
+msgid ""
+"If you don't save this visualisation, you can still copy and paste the "
+"embed code below, to embed the widget in another website, such as a blog "
+"or article."
+msgstr "もしこのビジュアライゼーションを保存しない場合でも、あなたは下記の埋め込みコードをコピーペーストすることで、ウィジェットを他のブログなどのウェブサイトに埋め込むことができます。"
+
+#: openspending/templates/view/new.html:97
+msgid "Width"
+msgstr "幅"
+
+#: openspending/templates/view/new.html:101
+msgid "Height"
+msgstr "高さ"
+
+#: openspending/templates/view/view.html:41
+msgid ""
+"Here you can rename your widget and/or update the description.\n"
+"              You can also modify the widget itself, but keep in mind "
+"that others might be \n"
+"              using and embedding the widget as it is now on their sites."
+" \n"
+"              <strong>Changing the widget here will change it "
+"everywhere.</strong> \n"
+"              This might then create a discrepancy between the widget and"
+" the context of \n"
+"              a page in which it's embedded."
+msgstr ""
+
+#: openspending/templates/view/view.html:51
+msgid "Update widget"
+msgstr "ウィジェットを削除"
+
+#: openspending/views/account.py:58
+#, fuzzy, python-format
+msgid "Welcome back, %(name)s!"
+msgstr "おかえりなさい、%s!"
+
+#: openspending/views/account.py:60
+msgid "Incorrect user name or password!"
+msgstr "ユーザー名かパスワードが違います！"
+
+#: openspending/views/account.py:79
+msgid "Login name already exists, please choose a different one"
+msgstr "ログイン名は既に存在しています。違うログイン名を利用してください。"
+
+#: openspending/views/account.py:85 openspending/views/account.py:142
+msgid "Passwords don't match!"
+msgstr "パスワードが違います"
+
+#: openspending/views/account.py:106
+#, fuzzy, python-format
+msgid "Subscription to the following mailing lists probably failed: %(errors)s."
+msgstr "おそらく次のメーリングリストの購読に失敗しました。:%s"
+
+#: openspending/views/account.py:161
+msgid "Your settings have been updated."
+msgstr "あなたの設定は更新されました"
+
+#: openspending/views/account.py:232
+msgid "You are not authorized to see that page"
+msgstr "あなたはそのページを閲覧する認証がありません。"
+
+#: openspending/views/account.py:255
+msgid "You have been logged out."
+msgstr "ログアウトしました。"
+
+#: openspending/views/account.py:274
+msgid "Please enter an email address!"
+msgstr "Eメールアドレスを入力してください。"
+
+#: openspending/views/account.py:282 openspending/views/account.py:305
+msgid "No user is registered under this address!"
+msgstr "このアドレスで登録のあるユーザはいません。"
+
+#: openspending/views/account.py:289
+msgid ""
+"You've received an email with a link to reset your password. Please check"
+" your inbox."
+msgstr "パスワードをリセットするためのリンクが付与されたEメールが送信されました。受信ボックスをチェックしてください。"
+
+#: openspending/views/account.py:300 openspending/views/account.py:309
+msgid "The reset link is invalid!"
+msgstr "このリセットリンクは有効ではありません。"
+
+#: openspending/views/account.py:314
+msgid "Thanks! You have now been signed in - please change your password!"
+msgstr "ありがとうございます！あなたはサインインしました。パスワードを変更してください。"
+
+#: openspending/views/badge.py:91
+msgid "Badge not found."
+msgstr "バッジが見つかりません。"
+
+#: openspending/views/dataset.py:51
+#, fuzzy, python-format
+msgid "Parameter values not supported: %(errors)s"
+msgstr "パラメータ値がサポートされていません；%s"
+
+#: openspending/views/dataset.py:160
+msgid "A dataset with this identifer already exists!"
+msgstr "この識別子のデータセットはすでに存在しています。"
+
+#: openspending/views/dataset.py:264
+msgid "Recently created datasets in the OpenSpending Platform"
+msgstr "最近OpenSpendingプラットフォームで作成されたデータセット"
+
+#: openspending/views/dataset.py:265
+msgid "Recently Created Datasets"
+msgstr "最近作成されたデータセット"
+
+#: openspending/views/dimension.py:30 openspending/views/dimension.py:33
+msgid "This is not a dimension"
+msgstr "ディメンションがありません。"
+
+#: openspending/views/dimension.py:43
+#, fuzzy, python-format
+msgid "Sorry, there is no member named %(name)s"
+msgstr "申し訳ありません。%r というユーザーは存在しません。"
+
+#: openspending/views/dimension.py:49
+#, fuzzy
+msgid "Sorry, there is no dimension named %(name)"
+msgstr "申し訳ありません。%r という名前のディメンションはありません。"
+
+#: openspending/views/editor.py:105
+msgid "The dataset has been updated."
+msgstr "データセットが更新されました"
+
+#: openspending/views/editor.py:144
+msgid "You cannot edit the dimensions model when data is loaded for the dataset."
+msgstr "データがデータセットにロード済の場合、ディメンションモデルは変更できません。"
+
+#: openspending/views/editor.py:162
+msgid "The mapping data could not be decoded as JSON!"
+msgstr "マッピングデータはJSONとしてデコードできませんでした。"
+
+#: openspending/views/editor.py:191
+msgid "The templates have been updated."
+msgstr "テンプレートが更新されました。"
+
+#: openspending/views/editor.py:221
+msgid "The views have been updated."
+msgstr "ビューが更新されました。"
+
+#: openspending/views/editor.py:223
+msgid "The views could not be decoded as JSON!"
+msgstr "ビューはJSONとしてデコードできませんでした。"
+
+#: openspending/views/editor.py:251
+msgid "User account cannot be found."
+msgstr "ユーザーアカウントが見つかりませんでした。"
+
+#: openspending/views/editor.py:261
+msgid "The team has been updated."
+msgstr "チーム情報が更新されました"
+
+#: openspending/views/editor.py:283
+msgid "The dataset has been cleared."
+msgstr "データセットがクリアされました。"
+
+#: openspending/views/editor.py:292
+msgid "This dataset is already public!"
+msgstr "このデータセットはすでに公開中です。"
+
+#: openspending/views/editor.py:303
+#, fuzzy, python-format
+msgid ""
+"Congratulations, the dataset has been published. It is now available at: "
+"%(url)s"
+msgstr "おめでとう、データセットは公開されました。それは今閲覧できる状態です: %s"
+
+#: openspending/views/editor.py:313
+msgid "This dataset is already private!"
+msgstr "このデータセットはすでに非公開です。"
+
+#: openspending/views/editor.py:324
+msgid "The dataset has been retracted. It is no longer visible to others."
+msgstr "データセットが取り消されました。他の人からは見えなくなっています。"
+
+#: openspending/views/editor.py:338
+msgid "The dataset has been deleted."
+msgstr "データセットは削除されました。"
+
+#: openspending/views/entry.py:94
+#, fuzzy, python-format
+msgid "Sorry, there is no entry %(id)s"
+msgstr "すみません。%r というエントリーはありません"
+
+#: openspending/views/entry.py:134
+msgid "Unable to adjust for inflation"
+msgstr "インフレに順応できません。"
+
+#: openspending/views/home.py:49
+msgid "Sent ping!"
+msgstr "pingを送ります！"
+
+#: openspending/views/run.py:24
+#, fuzzy, python-format
+msgid "There is no source '%(source)s'"
+msgstr "'%s' というソースはありません"
+
+#: openspending/views/run.py:27
+#, fuzzy, python-format
+msgid "There is no run '%(run)s'"
+msgstr "'%s' は実行されていません"
+
+#: openspending/views/source.py:28
+#, fuzzy, python-format
+msgid "There is no source '%(id)s'"
+msgstr "'%s' というソースはありません"
+
+#: openspending/views/source.py:52
+msgid "The source has been created."
+msgstr "ソースが作成されました。"
+
+#: openspending/views/source.py:86
+msgid "Already running!"
+msgstr "すでに実行中！"
+
+#: openspending/views/source.py:94
+msgid "Now loading..."
+msgstr "読込中..."
+
+#: openspending/views/view.py:40
+#, fuzzy, python-format
+msgid "Invalid widget type: %(widget)s"
+msgstr "不正なウィジェットタイプ: %r "
+
+#: openspending/views/view.py:175
+#, fuzzy, python-format
+msgid "'%(name)s' has been deleted."
+msgstr "'%s' は削除されました。"
+
+#: openspending/views/view.py:187
+msgid "No widget type has been specified."
+msgstr "ウィジェットタイプが指定されていません"
+
+#~ msgid "%s <%s>"
+#~ msgstr "%s <%s>"
+
+#~ msgid "No recipient email address available!"
+#~ msgstr "Eメールアドレスの受信者が存在しません"
+
+#~ msgid "Sign in to OpenSpending"
+#~ msgstr "OpenSpending にサインイン"
+
+#~ msgid "Login"
+#~ msgstr "ログイン"
+
+#~ msgid "Password"
+#~ msgstr "パスワード"
+
+#~ msgid "Forgot your password?"
+#~ msgstr "パスワードをお忘れですか？"
+
+#~ msgid "Request a password reset."
+#~ msgstr "パスワードをリセットする。"
+
+#~ msgid "Create an account"
+#~ msgstr "アカウント作成"
+
+#~ msgid "Fullname"
+#~ msgstr "氏名"
+
+#~ msgid "Visible to other users"
+#~ msgstr "他のユーザーに公開する"
+
+#~ msgid "Password (repeat)"
+#~ msgstr "パスワード(確認用)"
+
+#~ msgid ""
+#~ msgstr ""
+
+#~ msgid "Add me to the OpenSpending community mailing list"
+#~ msgstr "OpenSpendingのコミュニティー向けメーリングリストに参加する"
+
+#~ msgid "Sign me up for the OpenSpending developer mailing list"
+#~ msgstr "OpenSpendingの開発者向けメーリングリストに参加する"
+
+#~ msgid "Create new account"
+#~ msgstr "新しいアカウントを作成する"
+
+#~ msgid "Settings for:"
+#~ msgstr "設定内容："
+
+#~ msgid "Account Settings"
+#~ msgstr "アカウント設定"
+
+#~ msgid "Visible to users"
+#~ msgstr "他のユーザーに公開する"
+
+#~ msgid "Leave both fields blank to keep your current password."
+#~ msgstr "現在のパスワードをそのまま利用する場合は、どちらの入力欄も空白にしてください。"
+
+#~ msgid "API Key"
+#~ msgstr "APIキー"
+
+#~ msgid "Use this key to access the OpenSpending API programmatically."
+#~ msgstr "このキーはプログラムでOpenSpending APIにアクセスする際に利用します。"
+
+#~ msgid "Script Location"
+#~ msgstr "スクリプトの場所"
+
+#~ msgid "Set a different location for JavaScript imports to develop new widgets."
+#~ msgstr "新しいウィジェットを開発するには、JavaScript インポートの為の別の場所を指定して下さい"
+
+#~ msgid "Password reset"
+#~ msgstr "パスワードのリセット"
+
+#~ msgid "Please enter the email address you used to register your account"
+#~ msgstr "アカウントを登録した際のメールアドレスを入力してください。"
+
+#~ msgid "Request a reset"
+#~ msgstr "メールを受け取る"
+
+#~ msgid "Badges in OpenSpending"
+#~ msgstr "OpenSpending のバッヂ"
+
+#~ msgid "Create a new badge"
+#~ msgstr "新しいバッジを作成する"
+
+#~ msgid "e.g. 'Cleaned by Shakespeare's typewriter crew'"
+#~ msgstr "例）シェイクスピアのタイプライター班によって綺麗にされています。"
+
+#~ msgid "e.g. 'Awarded to datasets cleaned by a team of highly skilled monkeys.'"
+#~ msgstr "例: 'ハイスキルなメンバーによりクリーニングされたデータセットに授与されます'"
+
+#~ msgid "Create badge"
+#~ msgstr "バッヂを作成する"
+
+#~ msgid "My Dataset"
+#~ msgstr "私のデータセット"
+
+#~ msgid "Identifier"
+#~ msgstr "識別子"
+
+#~ msgid "my_dataset"
+#~ msgstr "my_dataset"
+
+#~ msgid "Category"
+#~ msgstr "カテゴリー"
+
+#~ msgid "Currency"
+#~ msgstr "通貨"
+
+#~ msgid "Commonly used currencies"
+#~ msgstr "よく使われる通貨"
+
+#~ msgid "All currencies"
+#~ msgstr "全ての通貨"
+
+#~ msgid "Next Step"
+#~ msgstr "次のステップ"
+
+#~ msgid "%(member)s on OpenCorporates"
+#~ msgstr "%(member)s on OpenCorporates"
+
+#~ msgid "%(member)s on PublicBodies.org"
+#~ msgstr "%(member)s on PublicBodies.org"
+
+#~ msgid "Congratulations, your dataset is now created."
+#~ msgstr "おめでとうございます！データセットが作成されました。"
+
+#~ msgid "Add a source"
+#~ msgstr "ソースを追加"
+
+#~ msgid "Let me see..."
+#~ msgstr "確かめます..."
+
+#~ msgid "Refresh"
+#~ msgstr "更新"
+
+#~ msgid "Good stuff!"
+#~ msgstr "いいデータです！"
+
+#~ msgid "Create a model"
+#~ msgstr "モデルを作成"
+
+#~ msgid "Source files"
+#~ msgstr "ソースファイル"
+
+#~ msgid "Summary"
+#~ msgstr "要約"
+
+#~ msgid "Entries loaded:"
+#~ msgstr "読み込まれたエントリー"
+
+#~ msgid "Searchable:"
+#~ msgstr "検索できるもの"
+
+#~ msgid "Dataset Actions"
+#~ msgstr "データセットの操作"
+
+#~ msgid "Delete loaded data"
+#~ msgstr "読み込みデータを消去"
+
+#~ msgid "Make public"
+#~ msgstr "公開する"
+
+#~ msgid "Retract"
+#~ msgstr "取り消す"
+
+#~ msgid "Delete entire dataset"
+#~ msgstr "データセット全体を削除する"
+
+#~ msgid "This action cannot be undone."
+#~ msgstr "この操作は元に戻すことはできません。"
+
+#~ msgid "Create a new data source"
+#~ msgstr "新しいデータソースを作成"
+
+#~ msgid "Create"
+#~ msgstr "作成"
+
+#~ msgid "Invalid request."
+#~ msgstr "不正なリクエストです。"
+
+#~ msgid "Access denied."
+#~ msgstr "アクセスが拒否されました。"
+
+#~ msgid "You may not have the relevant rights."
+#~ msgstr "適切な権限がありません"
+
+#~ msgid "You may need to login."
+#~ msgstr "ログインが必要です"
+
+#~ msgid "Resource not found"
+#~ msgstr "リソースが見つかりません。"
+
+#~ msgid "Maybe the URL is misspelled or the data has been deleted."
+#~ msgstr "URLの打ち間違いか、データが削除された可能性があります。"
+
+#~ msgid "Something went wrong."
+#~ msgstr "不具合が発生しました"
+
+#~ msgid "Internal Server Error"
+#~ msgstr "Internal Server Error"
+
+#~ msgid "REST API"
+#~ msgstr "REST API"
+
+#~ msgid "The Store's REST API"
+#~ msgstr "The Store's REST API"
+
+#~ msgid "Here are some examples"
+#~ msgstr "ここにいくつかの例を示します"
+
+#~ msgid "You are not authorized to view this page"
+#~ msgstr ""
+
+#~ msgid "Uploading files not supported at the moment."
+#~ msgstr "現在、ファイルのアップロードはサポートされていません。"
+
+#~ msgid "Sorry, there is no view %r"
+#~ msgstr "すみません。%r というビューはありません"
+
+#~ msgid "You are not authorized to delete this view."
+#~ msgstr "このビューを削除する権限がありません。"
+
+#~ msgid "Sorry, there is no dataset named %r"
+#~ msgstr "すみません。%r というデータセットはありません。"
+

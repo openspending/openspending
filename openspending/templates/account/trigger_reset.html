@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block page_title %}{% trans %}Password reset{% endtrans %}{% endblock %}
+
+{% block content %}
+<h2 class="page-header">{% trans %}Reset your password{% endtrans %}</h2>
+
+<div class="row">
+  <div class="span4">
+    <p>{% trans %}If you have forgotten the password for your account, you can
+      request an email with a link that will allow you to reset your
+      account password.{% endtrans %}</p>
+  </div>
+  <div class="span8">
+    <p>
+      {% trans %}Please enter the email address you used to register your account{% endtrans %}:
+    </p>
+    {% formfill form_fill with form_errors %}
+    <form action="{{ url_for('account.trigger_reset') }}" method="POST" class="form-inline">
+      <input type="text" class="input-large span5" name="email" placeholder="{% trans %}Email{% endtrans %}" />
+      <button type="submit" class="btn">{% trans %}Request a reset{% endtrans %}</button>
+    </form>
+    {% endformfill %}
+  </div>
+</div>
+
+{% endblock %}

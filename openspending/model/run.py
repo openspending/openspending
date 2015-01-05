@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship, backref
 from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.types import Integer, Unicode, DateTime
 
-from openspending.model import meta as db
+from openspending.core import db
 from openspending.model.dataset import Dataset
 from openspending.model.source import Source
 
@@ -79,4 +79,4 @@ class Run(db.Model):
         return db.session.query(cls).filter_by(id=id).first()
 
     def __repr__(self):
-        return "<Run(%s,%s)>" % (self.source.id, self.id)
+        return "<Run(%r, %r)>" % (self.source.id, self.id)

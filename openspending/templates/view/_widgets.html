@@ -1,0 +1,46 @@
+
+{% macro widget_js(name, widget, state, handles=False, embed=False) -%}
+  <!-- templates/view/_widgets.html widget_js -->
+  <script type="text/javascript" src="{{ static_path('openspendingjs/lib/widgets.js') }}"></script>
+  <script type="text/javascript" src="{{ static_path('openspendingjs/app/bob/bob.js') }}"></script>
+  <script type="text/javascript" src="{{widget.js}}"></script>
+  <script defer="defer">
+      $(function() {
+          var state = {{state | tojson }};
+          var context = {
+            dataset: "{{ dataset.name }}",
+            siteUrl: "{{ site_url }}",
+            embed: {{"true" if embed else "false"}}
+            };
+          window.wdg_{{name}} = new {{widget.class_name}}($('#{{name}}'), context, state);
+          {{handles_js(name, widget) if handles else ''}}
+      });
+  </script>
+{%- endmacro %}
+
+{% macro handles_js(name, widget) -%}
+  window.wdg_{{name}}.then(function(w) {
+    var embedder = new OpenSpending.Widgets.Embedder(w, context, '{{widget.name}}');  
+    $("#widget-embed-link").click(function(e) {
+      embedder.render();
+      return false;
+    });
+    if (w.configure !== undefined) {
+      $("#widget-edit-link").show();
+      $("#widget-edit-link").click(function(e) {
+        w.configure(null);
+        $('#widget-save-form').show();
+        return false;
+      });
+      $('#widget-save-form').submit(function(e) {
+        // Save the current state
+        $('#widget-save-state').val(JSON.stringify(w.serialize()));
+      });
+    }
+    if (w.getDownloadURL !== undefined) {
+      $("#widget-download-link").show();
+      $("#widget-download-link").attr("href", w.getDownloadURL());
+    }
+  });
+{%- endmacro %}
+

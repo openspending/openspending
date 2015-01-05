@@ -1,6 +1,8 @@
+import urllib, urlparse
+
+from openspending.core import db
 from openspending.model.dataset import Dataset
 from openspending.model.source import Source
-from openspending.model import meta as db
 from openspending.lib import json
 
 from openspending.importer import CSVImporter
@@ -10,12 +12,12 @@ from openspending.tests.helpers import fixture_path, make_account
 
 
 def csvimport_fixture_path(name, path):
-    return fixture_path('csv_import/%s/%s' % (name, path))
+    return urlparse.urljoin('file:', urllib.pathname2url(fixture_path('csv_import/%s/%s' % (name, path))))
 
 
 def csvimport_fixture_file(name, path):
     try:
-        fp = open(csvimport_fixture_path(name, path))
+        fp = urllib.urlopen(csvimport_fixture_path(name, path))
     except IOError:
         if name == 'default':
             fp = None
@@ -54,7 +56,7 @@ class TestCSVImporter(DatabaseTestCase):
         assert dataset.name == "test-csv"
 
         entries = dataset.entries()
-        assert len(list(entries)) == 4
+        assert len(list(entries)) == 4, len(list(entries))
 
         # TODO: provenance
         entry = list(dataset.entries(limit=1, offset=1)).pop()
@@ -74,7 +76,7 @@ class TestCSVImporter(DatabaseTestCase):
         source = csvimport_fixture('simple')
         importer = CSVImporter(source)
         importer.run()
-        assert importer.errors == 0
+        assert importer.errors == 0, importer.errors
 
         dataset = db.session.query(Dataset).first()
         assert dataset is not None, "Dataset should not be None"

@@ -1,5 +1,5 @@
+from openspending.core import db
 from openspending.model.account import Account
-from openspending.model import meta as db
 from openspending.command.importer import shell_account
 
 from openspending.tests.base import TestCase

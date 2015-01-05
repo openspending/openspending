@@ -26,5 +26,5 @@ DISABLE_JSLINT=1
 # will override MANAGE_COMMAND.
 # Example: "./runmytests.py"
 # (Will attempt to auto-detect if blank)
-TEST_COMMAND="$ENV_DIR/bin/pip uninstall -y openspending && $ENV_DIR/bin/python ./setup.py nosetests --with-pylons=test_continuous.ini --with-xunit --xunit-file=results.xml"
+TEST_COMMAND="$ENV_DIR/bin/pip uninstall -y openspending && $ENV_DIR/bin/python ./setup.py nosetests --with-xunit --xunit-file=results.xml"
 

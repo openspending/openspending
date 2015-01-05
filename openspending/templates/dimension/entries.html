@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% from "dimension/_nav.html" import member_nav with context %}
+
+{% block page_title %}{{ member['label'] }} - {% trans %}Entries{% endtrans %}{% endblock %}
+
+{% block page_description %}{{ member | entry_description }}{% endblock %}
+
+{% block optional_head %}
+  <link rel="stylesheet" href="{{static_path('openspendingjs/lib/vendor/datatables/css/jquery.dataTables.css')}}">
+  <link rel="stylesheet" href="{{static_path('openspendingjs/lib/vendor/datatables/dataTables.bootstrap.css')}}">
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{static_path('openspendingjs/lib/vendor/datatables/js/jquery.dataTables.js')}}"></script>
+  <script src="{{static_path('openspendingjs/lib/vendor/datatables/dataTables.bootstrap.js')}}"></script>
+  <script src="{{static_path('openspendingjs/app/data_table/openspending.data_table.js')}}"></script>
+  <script src="{{static_path('openspendingjs/app/faceter/openspending.faceter.js')}}"></script>
+  <script src="{{static_path('openspendingjs/app/browser/openspending.browser.js')}}"></script>
+	<script src="{{static_path('openspendingjs/lib/utils/entries.js')}}"></script>
+  <script>
+    //<![CDATA[
+    (function () {
+      "use strict";
+
+      OpenSpending.Utils.entries(
+        "{{dataset.name}}",
+        "{{dimension.name}}", 
+        "{{member.name}}"
+      );
+    }());
+    //]]>
+  </script>
+{% endblock %}
+
+
+
+{% block content %}
+  <div>
+
+    {{ member_nav(dataset, dimension, member, legacy_views, legacy_views.active.name if legacy_views.active else 'search') }}
+
+    <div id="openspending_browser" class="row">
+      <div class="span9 browser_datatable">
+      </div>
+      <div class="span3 ">
+        <div class="browser_faceter">
+        </div>
+        <div class="download-links">
+          <p>
+            <a class="input-large btn btn-small" href="{{ url_for('dimension.entries', dataset=dataset.name, pagesize=100,
+          name=member['name'], dimension=dimension.name, format='json')}}" data-pagesize="100">
+              <i class="icon-download"></i> {% trans %}Download first 100 entries as JSON{% endtrans %}
+            </a>
+          </p>
+          <p>
+            <a class="input-large btn btn-small" href="{{ url_for('dimension.entries', dataset=dataset.name, pagesize=100,
+          name=member['name'], dimension=dimension.name, format='csv')}}" data-pagesize="100">
+              <i class="icon-download"></i> {% trans %}Download first 100 entries as CSV{% endtrans %}
+            </a>
+          </p>
+          <p>
+            <a class="input-large btn btn-small" href="{{ url_for('dimension.entries', dataset=dataset.name,
+          name=member['name'], dimension=dimension.name, format='json')}}">
+              <i class="icon-download"></i> {% trans %}Download all entries as JSON{% endtrans %}
+            </a>
+          </p>
+          <p>
+            <a class="input-large btn btn-small" href="{{ url_for('dimension.entries', dataset=dataset.name,
+          name=member['name'], dimension=dimension.name, format='csv')}}">
+              <i class="icon-download"></i> {% trans %}Download all entries as CSV{% endtrans %}
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <hr/>
+    <div class="row">
+      <div class="span9">
+        <div class="well">
+          <h3>{% trans member=member['label'] %}Total of {{member}} by year{% endtrans %}</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>{% trans %}Year{% endtrans %}</th>
+                <th>{% trans %}Amount{% endtrans %}</th>
+                <th>{% trans %}Change{% endtrans %}</th>
+              </tr>
+            </thead>
+            <tbody id="dimension-aggregate">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
