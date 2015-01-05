@@ -137,9 +137,9 @@ class TestEditorController(ControllerTestCase):
 
     def test_dimensions_update_valid_json(self):
         cra = Dataset.by_name('cra')
-        cra.drop()
-        cra.init()
-        cra.generate()
+        cra.model.drop()
+        cra.model.init()
+        cra.model.generate()
         response = self.client.post(url_for('editor.dimensions_update', dataset='cra'),
                                     data={'mapping': """{
                                                           "amount": {
