@@ -146,7 +146,7 @@ def dimensions_update(dataset):
 
     errors, mapping, saved = {}, None, False
     try:
-        mapping = json.loads(request.params.get('mapping'))
+        mapping = json.loads(request.form.get('mapping'))
         model = dataset.model_data
         model['mapping'] = mapping
         schema = mapping_schema(ValidationState(model))
