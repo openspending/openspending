@@ -142,7 +142,7 @@ def search():
                 pagesize=parser.defaults['pagesize'],
                 expand_facets=util.expand_facets
                 if expand_facets else None,
-                callback=request.params.get('callback')
+                callback=request.form.get('callback')
             )
             return streamer.response()
 
