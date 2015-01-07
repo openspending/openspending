@@ -135,6 +135,52 @@ class TestEditorController(ControllerTestCase):
                                     query_string={'api_key': self.user.api_key})
         assert '400' in response.status, response.status
 
+    def test_dimensions_update_valid_json(self):
+        cra = Dataset.by_name('cra')
+        cra.model.drop()
+        cra.model.init()
+        cra.model.generate()
+        response = self.client.post(url_for('editor.dimensions_update', dataset='cra'),
+                                    data={'mapping': """{
+                                                          "amount": {
+                                                            "column": "IMPORTE PEF",
+                                                            "datatype": "float",
+                                                            "default_value": "",
+                                                            "description": null,
+                                                            "label": "Amount",
+                                                            "type": "measure"
+                                                          },
+                                                          "theid": {
+                                                            "attributes": {
+                                                              "label": {
+                                                                "column": "FF",
+                                                                "datatype": "string",
+                                                                "default_value": ""
+                                                              },
+                                                              "name": {
+                                                                "column": "id",
+                                                                "datatype": "id",
+                                                                "default_value": ""
+                                                              }
+                                                            },
+                                                            "description": null,
+                                                            "key": true,
+                                                            "label": "Theid",
+                                                            "type": "compound"
+                                                          },
+                                                          "time": {
+                                                            "column": "DATE",
+                                                            "datatype": "date",
+                                                            "default_value": "",
+                                                            "description": null,
+                                                            "format": null,
+                                                            "label": "Time",
+                                                            "type": "date"
+                                                          }
+                                                        }"""},
+                                    query_string={'api_key': self.user.api_key})
+        assert '200' in response.status, response.status
+
     def test_views_edit_mask(self):
         response = self.client.get(url_for('editor.views_edit', dataset='cra'),
                                    query_string={'api_key': self.user.api_key})

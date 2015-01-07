@@ -60,7 +60,7 @@ def load_source(source_id, sample=False):
         if not source.loadable:
             return log.error("Dataset has no mapping.")
 
-        source.dataset.generate()
+        source.dataset.model.generate()
         importer = CSVImporter(source)
         if sample:
             importer.run(dry_run=True, max_lines=1000, max_errors=1000)
@@ -84,7 +84,7 @@ def load_budgetdatapackage(source_id, sample=False):
             log.error("Dataset has no mapping.")
             return
 
-        source.dataset.generate()
+        source.dataset.model.generate()
         importer = BudgetDataPackageImporter(source)
         if sample:
             importer.run(dry_run=True, max_lines=1000, max_errors=1000)
