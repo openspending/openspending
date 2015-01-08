@@ -10,10 +10,10 @@ def memo_hash(f, *a, **kw):
 
 
 @cache.memoize()
-def cached_index(languages=[], territories=[], category=None):
+def cached_index(account, languages=[], territories=[], category=None):
     """ A proxy function to run cached calls against the dataset
     index (dataset index page and dataset.json). """
-    datasets = dataset_index(languages, territories, category)
+    datasets = dataset_index(account, languages, territories, category)
     return {
         'datasets': map(lambda d: d.as_dict(), datasets),
         'languages': language_index(datasets),

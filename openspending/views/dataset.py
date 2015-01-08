@@ -61,7 +61,8 @@ def index(format='html'):
     # Get cached indices (this will also generate them if there are no
     # cached results (the cache is invalidated when a dataset is published
     # or retracted
-    results = cached_index(**params)
+    account = current_user if current_user.is_authenticated() else None
+    results = cached_index(account, **params)
 
     # Generate the ETag from the last modified timestamp of the first
     # dataset (since they are ordered in descending order by last

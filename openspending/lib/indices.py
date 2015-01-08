@@ -60,10 +60,9 @@ def category_index(datasets):
     return []
 
 
-def dataset_index(languages=[], territories=[], category=None):
+def dataset_index(account, languages=[], territories=[], category=None):
     # Get all of the public datasets ordered by when they were last updated
-    results = db.session.query(Dataset)
-    results = results.filter_by(private=False)
+    results = Dataset.all_by_account(account, order=False)
     results = results.order_by(Dataset.updated_at.desc())
 
     # Filter by languages if they have been provided
