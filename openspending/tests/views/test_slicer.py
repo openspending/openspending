@@ -2,8 +2,7 @@
 from flask import url_for
 
 from openspending.tests.base import ControllerTestCase
-from openspending.tests.helpers import (make_account, load_fixture,
-                                        clean_and_reindex_solr)
+from openspending.tests.helpers import make_account, load_fixture
 
 
 class TestSlicerController(ControllerTestCase):
@@ -12,7 +11,6 @@ class TestSlicerController(ControllerTestCase):
         super(TestSlicerController, self).setUp()
         self.dataset = load_fixture('cra')
         self.user = make_account('test')
-        clean_and_reindex_solr()
 
     def test_index(self):
         response = self.client.get(url_for('slicer.show_index'))
