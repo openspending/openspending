@@ -141,7 +141,7 @@ def entries(dataset, dimension, name, format='html'):
     
     if format in ['json', 'csv']:
         return redirect(
-            url_for('api.search',
+            url_for('api_v2.search',
                     format=format, dataset=dataset.name,
                     filter='%s.name:%s' % (dimension.name, name),
                     **dict(request.args.items())))

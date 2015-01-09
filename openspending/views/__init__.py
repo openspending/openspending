@@ -14,7 +14,7 @@ from openspending.views.view import blueprint as view
 from openspending.views.editor import blueprint as editor
 from openspending.views.source import blueprint as source
 from openspending.views.run import blueprint as run
-from openspending.views.api import blueprint as api
+from openspending.views.api_v2 import blueprint as api_v2
 from openspending.views.dimension import blueprint as dimension
 from openspending.views.error import handle_error
 
@@ -31,7 +31,7 @@ def register_views(app, babel):
     app.register_blueprint(editor)
     app.register_blueprint(source)
     app.register_blueprint(run)
-    app.register_blueprint(api)
+    app.register_blueprint(api_v2)
     app.register_blueprint(dimension)
 
     # expose ``cubes``:

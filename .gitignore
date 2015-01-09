@@ -30,3 +30,4 @@ build/*
 .pydevproject
 settings.py
 .env
+tmp/*
