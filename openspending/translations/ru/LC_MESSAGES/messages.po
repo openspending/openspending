@@ -1,0 +1,1988 @@
+# Russian translations for openspending.
+# Copyright (C) 2014 ORGANIZATION
+# This file is distributed under the same license as the openspending
+# project.
+#
+# Translators:
+# alexey medvetsky <ushchent@gmail.com>, 2012
+# inxaoc <inxaoc@gmail.com>, 2013-2014
+# Olga Parkhimovich <olya.parkhimovich@gmail.com>, 2013-2014
+# Olga Parkhimovich <olya.parkhimovich@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version:  OpenSpending\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2014-12-24 15:38+0100\n"
+"PO-Revision-Date: 2014-10-06 13:27+0000\n"
+"Last-Translator: Tryggvi Björgvinsson <tryggvib@fsfi.is>\n"
+"Language-Team: Russian "
+"(http://www.transifex.com/projects/p/openspending/language/ru/)\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.3\n"
+
+#: openspending/lib/mailer.py:22
+#, fuzzy, python-format
+msgid "Dear %(name)s,"
+msgstr "Уважаемый(-ая) %s,"
+
+#: openspending/lib/mailer.py:70
+#, python-format
+msgid ""
+"You have requested your password on %(site_title)s to be reset.\n"
+"\n"
+"Please click the following link to confirm this request:\n"
+"\n"
+"   %(reset_link)s\n"
+msgstr ""
+"Вы запросили изменение пароля на сайте %(site_title)s.\n"
+"Пожалуйста, нажмите на ссылку, чтобы подтвердить этот запрос:\n"
+"%(reset_link)s\n"
+
+#: openspending/lib/mailer.py:80
+msgid "Reset your password"
+msgstr "Сбросить ваш пароль"
+
+#: openspending/lib/views.py:37
+msgid "Untitled"
+msgstr "Без названия"
+
+#: openspending/lib/widgets.py:14
+#, python-format
+msgid "No widget named '%s' exists."
+msgstr "Виджет с именем '%s' не существует."
+
+#: openspending/templates/_dimension_list.html:9
+msgid "Part of unique key"
+msgstr "Часть уникального ключа"
+
+#: openspending/templates/base.html:7
+msgid "We're enabling anyone to explore, visualize and track government spending."
+msgstr ""
+"Мы даем возможность каждому исследовать, визуализировать и отслеживать "
+"государственные расходы."
+
+#: openspending/templates/base.html:10
+msgid "Latest Datasets on OpenSpending"
+msgstr "Новые наборы данных на сайте"
+
+#: openspending/templates/base.html:38
+#: openspending/templates/account/profile.html:32
+#: openspending/templates/badge/information.html:29
+msgid "Datasets"
+msgstr "Наборы данных"
+
+#: openspending/templates/base.html:41
+#: openspending/templates/dataset/_nav.html:56
+#: openspending/templates/dimension/_nav.html:48
+#: openspending/templates/entry/search.html:3
+#: openspending/templates/entry/search.html:35
+#: openspending/templates/home/index.html:41
+msgid "Search"
+msgstr "Поиск"
+
+#: openspending/templates/base.html:44
+msgid "Community"
+msgstr "Сообщество"
+
+#: openspending/templates/base.html:47 openspending/templates/base.html:135
+msgid "Help"
+msgstr "Помощь"
+
+#: openspending/templates/base.html:50
+#: openspending/templates/dataset/_nav.html:61
+msgid "About"
+msgstr "О проекте"
+
+#: openspending/templates/base.html:53 openspending/templates/base.html:136
+msgid "Contact"
+msgstr "Контакт"
+
+#: openspending/templates/base.html:56
+msgid "Blog"
+msgstr "Блог"
+
+#: openspending/templates/base.html:67
+#: openspending/templates/editor/_nav.html:26
+msgid "Dashboard"
+msgstr "Панель управления"
+
+#: openspending/templates/base.html:68
+msgid "Settings"
+msgstr "Настройки"
+
+#: openspending/templates/base.html:71
+#: openspending/templates/account/scoreboard.html:3
+msgid "User scoreboard"
+msgstr ""
+
+#: openspending/templates/base.html:74
+msgid "Logout"
+msgstr "Выход"
+
+#: openspending/templates/base.html:79
+msgid "Login/Register"
+msgstr "Вход/ Регистрация"
+
+#: openspending/templates/base.html:83
+msgid "Language"
+msgstr "Язык"
+
+#: openspending/templates/base.html:118
+msgid "This site uses cookies"
+msgstr "Этот сайт использует cookies"
+
+#: openspending/templates/base.html:118
+msgid "Okay, thanks"
+msgstr "Хорошо, спасибо"
+
+#: openspending/templates/base.html:118
+msgid "Find out more"
+msgstr "Узнать больше"
+
+#: openspending/templates/base.html:122
+msgid ""
+"This is an <a href=\"http://okfn.org\">Open Knowledge Foundation</a>\n"
+"            project"
+msgstr ""
+"Это проект организации <a href=\"http://okfn.org\">Open Knowledge "
+"Foundation</a>\n"
+"."
+
+#: openspending/templates/base.html:137
+msgid "API"
+msgstr "API"
+
+#: openspending/templates/base.html:138
+msgid "Privacy"
+msgstr "Конфиденциальность"
+
+#: openspending/templates/base.html:140
+msgid ""
+"All <a href=\"http://www.gnu.org/licenses/agpl.html\">code</a>,\n"
+"          <a "
+"href=\"http://creativecommons.org/licenses/by/3.0/\">content</a>\n"
+"          and <a "
+"href=\"http://opendatacommons.org/licenses/odbl/\">data</a> is\n"
+"          openly licensed in accordance with the\n"
+"          <a href=\"http://opendefinition.org/\">open definition</a>"
+msgstr ""
+"Весь <a href=\"http://www.gnu.org/licenses/agpl.html\">код</a>,\n"
+"<a href=\"http://creativecommons.org/licenses/by/3.0/\">контент</a>\n"
+"и <a href=\"http://opendatacommons.org/licenses/odbl/\">данные</a> is\n"
+"распространяются в соответствии с открытой лицензией\n"
+"<a href=\"http://opendefinition.org/\">open definition</a>"
+
+#: openspending/templates/error.html:7 openspending/templates/run/view.html:30
+#: openspending/templates/run/view.html:54
+#: openspending/templates/source/_list.html:13
+msgid "Error"
+msgstr "Ошибка"
+
+#: openspending/templates/account/profile.html:13
+msgid "Information"
+msgstr "Информация"
+
+#: openspending/templates/account/profile.html:13
+msgid "(change)"
+msgstr "(изменить)"
+
+#: openspending/templates/account/profile.html:16
+#: openspending/templates/editor/dimensions.html:135
+msgid "Name"
+msgstr "Имя"
+
+#: openspending/templates/account/profile.html:19
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: openspending/templates/account/profile.html:22
+#: openspending/templates/home/index.html:90
+#: openspending/templates/home/index.html:97
+msgid "Email"
+msgstr "Адрес электронной почты"
+
+#: openspending/templates/account/profile.html:42
+msgid "It looks like you haven't uploaded any datasets."
+msgstr "Похоже, вы еще не загрузили ни одного набора данных."
+
+#: openspending/templates/account/profile.html:47
+#: openspending/templates/dataset/_select.html:96
+#: openspending/templates/dataset/new_cta.html:3
+msgid "Import a dataset"
+msgstr "Загрузить набор данных"
+
+#: openspending/templates/account/profile.html:52
+#: openspending/templates/editor/_nav.html:36
+msgid "Views"
+msgstr "Представления"
+
+#: openspending/templates/account/scoreboard.html:6
+msgid "OpenSpending Dataset Maintainers"
+msgstr ""
+
+#: openspending/templates/badge/information.html:3
+#: openspending/templates/badge/information.html:6
+msgid "Badge"
+msgstr "Бейдж"
+
+#: openspending/templates/badge/information.html:10
+msgid "Representative image"
+msgstr "Характерное изображение"
+
+#: openspending/templates/badge/information.html:14
+#: openspending/templates/dataset/about.html:29
+#: openspending/templates/editor/dimensions.html:391
+#: openspending/templates/view/new.html:72
+msgid "Description"
+msgstr "Описание"
+
+#: openspending/templates/badge/information.html:23
+msgid "Look at more OpenSpending badges"
+msgstr "Просмотреть другие бейджи"
+
+#: openspending/templates/badge/information.html:31
+msgid "The following datasets have been awarded this badge"
+msgstr "Следующие наборы данных были награждены данным значком"
+
+#: openspending/templates/badge/information.html:43
+msgid "<strong>No</strong> datasets have been awarded this badge"
+msgstr "<strong>Нет</strong> наборов данных, награжденных этим бейджем"
+
+#: openspending/templates/dataset/_nav.html:15
+#: openspending/templates/dataset/about.html:80
+msgid "Badges"
+msgstr "Бейджи"
+
+#: openspending/templates/dataset/_nav.html:25
+msgid "What are badges?"
+msgstr "Что такое бейджи?"
+
+#: openspending/templates/dataset/_nav.html:66
+msgid "Visualisations"
+msgstr "Визуализации"
+
+#: openspending/templates/dataset/_nav.html:84
+msgid "Create a visualisation..."
+msgstr "Создать визуализацию..."
+
+#: openspending/templates/dataset/_nav.html:93
+msgid "Manage"
+msgstr "Править"
+
+#: openspending/templates/dataset/_select.html:6
+msgid "Filter..."
+msgstr "Фильтровать..."
+
+#: openspending/templates/dataset/_select.html:8
+#: openspending/templates/dataset/index.html:42
+msgid "Countries"
+msgstr "Страны"
+
+#: openspending/templates/dataset/_select.html:10
+msgid "Filter by country"
+msgstr "Фильтровать по стране"
+
+#: openspending/templates/dataset/_select.html:24
+#: openspending/templates/dataset/index.html:59
+msgid "Languages"
+msgstr "Языки"
+
+#: openspending/templates/dataset/_select.html:26
+msgid "Filter by language"
+msgstr "Фильтровать по языку"
+
+#: openspending/templates/dataset/_select.html:40
+msgid "Types of data"
+msgstr "Типы данных"
+
+#: openspending/templates/dataset/_select.html:89
+#: openspending/templates/dataset/dropdb.html:9
+msgid "mapping the money"
+msgstr "карта расходов"
+
+#: openspending/templates/dataset/_select.html:97
+msgid "Close"
+msgstr "Закрыть"
+
+#: openspending/templates/dataset/about.html:32
+#, python-format
+msgid "No description is available for %(dataset)s"
+msgstr "Описание для %(dataset)s недоступно"
+
+#: openspending/templates/dataset/about.html:39
+msgid "Sources"
+msgstr "Источники"
+
+#: openspending/templates/dataset/about.html:41
+msgid ""
+"This is a listing of all source data that was registered\n"
+"              for this dataset."
+msgstr ""
+"Список всех источников данных, которые были зарегистрированы\n"
+"для этого набора данных"
+
+#: openspending/templates/dataset/about.html:56
+#: openspending/templates/editor/_nav.html:41
+msgid "Team"
+msgstr "Команда"
+
+#: openspending/templates/dataset/about.html:58
+msgid ""
+"These people are the managers of the dataset. They can\n"
+"              make modifications to its schema and are responsible\n"
+"              to make sure the data is accurate."
+msgstr ""
+"Эти пользователи имеют права управления набором данных. Они могут вносить"
+" изменения в его структуру и ответственны за точность предоставленных "
+"данных."
+
+#: openspending/templates/dataset/about.html:82
+msgid "This dataset has been awarded"
+msgstr "Этот набор данных был награжден"
+
+#: openspending/templates/dataset/about.html:83
+msgid "List of badges"
+msgstr "Список бейджей"
+
+#: openspending/templates/dataset/about.html:83
+msgid "badges"
+msgstr "бейджи"
+
+#: openspending/templates/dataset/about.html:85
+msgid ""
+"Badges can be given by OpenSpending administrators on behalf of\n"
+"\t      entities approved by <a href=\"http://okfn.org/\" "
+"title=\"OKF\">the Open Knowledge Foundation</a>."
+msgstr ""
+"Бейджи могут быть выданы от имени администраторов OpenSpending,\n"
+"                 одобренных организацией <a href=\"http://okfn.org/\" "
+"title=\"OKF\">the Open Knowledge Foundation</a>."
+
+#: openspending/templates/dataset/about.html:94
+msgid "Give badge"
+msgstr "Отметить бейджем"
+
+#: openspending/templates/dataset/about.html:101
+msgid "Give"
+msgstr "Отметить"
+
+#: openspending/templates/dataset/about.html:114
+msgid "Measures"
+msgstr "Суммы"
+
+#: openspending/templates/dataset/about.html:116
+msgid ""
+"Measures are the numeric properties of each entry in this\n"
+"          dataset."
+msgstr ""
+"Суммы являются числовым свойством каждой записи в этом\n"
+"наборе данных."
+
+#: openspending/templates/dataset/about.html:131
+#: openspending/templates/dimension/index.html:9
+msgid "Dimensions"
+msgstr "Измерения"
+
+#: openspending/templates/dataset/about.html:133
+msgid ""
+"Dimensions are different aspects of the dataset, such as the\n"
+"          spender, recipient or classifications that apply."
+msgstr ""
+"Измерения указываются для разных параметров набора \n"
+"данных, таких как плательщик, получатель или \n"
+"применяемые классификации."
+
+#: openspending/templates/dataset/dropdb.html:3
+msgid "Database erased"
+msgstr "База данных удалена"
+
+#: openspending/templates/dataset/dropdb.html:10
+msgid ""
+"The database should now have been erased. You'll even have to create a "
+"new user to log in again."
+msgstr ""
+"База данных стерта. Для повторного входа в систему вам необходимо создать"
+" нового пользователя."
+
+#: openspending/templates/dataset/index.html:3
+msgid "All datasets"
+msgstr "Все наборы данных"
+
+#: openspending/templates/dataset/index.html:6
+msgid "Available data sets"
+msgstr "Доступные наборы данных"
+
+#: openspending/templates/dataset/index.html:10
+msgid "The database contains the following datasets"
+msgstr "База данных содержит следующие наборы данных"
+
+#: openspending/templates/dataset/index.html:38
+msgid "Import a new dataset"
+msgstr "Импортировать новый набор данных"
+
+#: openspending/templates/dataset/index.html:39
+msgid "Import"
+msgstr "Импорт"
+
+#: openspending/templates/dataset/new_cta.html:8
+msgid "Contribute your local data!"
+msgstr "Предложить свои данные."
+
+#: openspending/templates/dataset/new_cta.html:11
+msgid ""
+"We're trying to gather <strong>the world's spending\n"
+"        information</strong> in a common database so that we can provide\n"
+"        common tools for <strong>analysis, visualization and\n"
+"        comparison</strong>. OpenSpending is an open platform that\n"
+"        aims to facilitate the presentation of financial information so \n"
+"        anyone - whether data geek or concerned citizen - can contribute"
+" \n"
+"        their local city budget or spending reports."
+msgstr ""
+"Мы собираем <strong>информацию о расходах по всему \n"
+"миру</strong> в общую базу данных и предлагаем простые \n"
+"инструменты для <strong>анализа, визуализации и сравнения \n"
+"данных</strong>. OpenSpending - это открытая платформа, целью \n"
+"которой является представление финансовой информации таким образом, \n"
+"чтобы любой - специалист по работе с данными или обычный гражданин - смог"
+" легко\n"
+"поделиться бюджетом своего города или отчетом о расходах."
+
+#: openspending/templates/dataset/new_cta.html:20
+msgid "Why should you contribute?"
+msgstr "Зачем нужно делиться данными?"
+
+#: openspending/templates/dataset/new_cta.html:23
+msgid ""
+"There are many projects that aim to track financial information. All\n"
+"        require these basic services, which we aim to provide"
+msgstr ""
+"Есть много проектов, направленных на отслеживание финансовых данных. Все\n"
+"необходимое есть в базовом сервисе, который мы стремимся предоставить"
+
+#: openspending/templates/dataset/new_cta.html:27
+msgid "Data loading and validation facilities."
+msgstr "Загрузка данных и средства проверки."
+
+#: openspending/templates/dataset/new_cta.html:28
+msgid ""
+"Common visualization types (treemaps, charts, and the bubble\n"
+"          tree)."
+msgstr ""
+"Общие типы визуализации (treemaps, диаграммы и bubble\n"
+"tree)."
+
+#: openspending/templates/dataset/new_cta.html:30
+msgid "Full-text search for all entries."
+msgstr "Полнотекстовый поиск по всем записям."
+
+#: openspending/templates/dataset/new_cta.html:31
+msgid ""
+"Means to track provenance and provide access to the raw\n"
+"          data."
+msgstr ""
+"Средства для отслеживания происхождения и обеспечения доступа к исходным\n"
+"данным."
+
+#: openspending/templates/dataset/new_cta.html:36
+msgid "Sign up to contribute"
+msgstr "Зарегистрируйтесь, чтобы внести свой вклад"
+
+#: openspending/templates/dataset/new_cta.html:38
+msgid "Learn more"
+msgstr "Узнать подробнее"
+
+#: openspending/templates/dataset/view.html:36
+#: openspending/templates/dimension/member.html:40
+#: openspending/templates/dimension/view.html:41
+#: openspending/templates/view/view.html:78
+msgid "Embed"
+msgstr "Встроить"
+
+#: openspending/templates/dataset/view.html:37
+#: openspending/templates/dimension/entries.html:87
+#: openspending/templates/dimension/member.html:44
+#: openspending/templates/dimension/view.html:42
+#: openspending/templates/view/view.html:83
+msgid "Change"
+msgstr "Изменить"
+
+#: openspending/templates/dataset/view.html:38
+#: openspending/templates/dimension/member.html:48
+#: openspending/templates/dimension/view.html:43
+#: openspending/templates/view/view.html:88
+msgid "Data"
+msgstr "Данные"
+
+#: openspending/templates/dimension/entries.html:5
+#: openspending/templates/entry/view.html:31
+msgid "Entries"
+msgstr "Записи"
+
+#: openspending/templates/dimension/entries.html:53
+msgid "Download first 100 entries as JSON"
+msgstr "Загрузить первые 100 записей как JSON"
+
+#: openspending/templates/dimension/entries.html:59
+msgid "Download first 100 entries as CSV"
+msgstr "Загрузить первые 100 записей как CSV"
+
+#: openspending/templates/dimension/entries.html:65
+msgid "Download all entries as JSON"
+msgstr "Загрузить все записи как JSON"
+
+#: openspending/templates/dimension/entries.html:71
+msgid "Download all entries as CSV"
+msgstr "Загрузить все записи как CSV"
+
+#: openspending/templates/dimension/entries.html:81
+#, python-format
+msgid "Total of %(member)s by year"
+msgstr "Общее количество %(member)s за год"
+
+#: openspending/templates/dimension/entries.html:85
+msgid "Year"
+msgstr "Год"
+
+#: openspending/templates/dimension/entries.html:86
+#: openspending/templates/entry/index.html:43
+msgid "Amount"
+msgstr "Сумма"
+
+#: openspending/templates/dimension/index.html:3
+#, python-format
+msgid "Dimensions in %(dataset)s"
+msgstr "Измерения в %(dataset)s"
+
+#: openspending/templates/dimension/index.html:10
+msgid "Facets of the dataset."
+msgstr "Фасеты набора данных"
+
+#: openspending/templates/dimension/index.html:13
+#, python-format
+msgid "%(dataset)s has the following dimensions"
+msgstr "У набора данных %(dataset)s есть следующие измерения"
+
+#: openspending/templates/editor/_nav.html:16
+msgid "Manage the dataset"
+msgstr "Управление набором данных"
+
+#: openspending/templates/editor/_nav.html:31
+msgid "Dimensions &amp; Measures"
+msgstr "Измерения &amp; Суммы"
+
+#: openspending/templates/editor/_nav.html:46
+msgid "Meta"
+msgstr "Мета-информация"
+
+#: openspending/templates/editor/_nav.html:51
+msgid "Templates"
+msgstr "Шаблоны"
+
+#: openspending/templates/editor/dimensions.html:89
+msgid "Add Dimension"
+msgstr "Добавить Измерение"
+
+#: openspending/templates/editor/dimensions.html:92
+msgid "Make sure your dimensions import all source data columns."
+msgstr "Убедитесь, что измерения импортированы для всех столбцов данных."
+
+#: openspending/templates/editor/dimensions.html:97
+msgid "Set Unique Dimensions"
+msgstr "Установить уникальные измерения"
+
+#: openspending/templates/editor/dimensions.html:100
+msgid "Identify the dimensions that help to identify each entry."
+msgstr "Определите измерения, которые помогут идентифицировать каждую запись."
+
+#: openspending/templates/editor/dimensions.html:103
+msgid "Existing Dimensions"
+msgstr ""
+
+#: openspending/templates/editor/dimensions.html:112
+msgid "Specify which dimensions identify an entry uniquely"
+msgstr "Укажите, какие измерения идентифицируют запись уникальным способом."
+
+#: openspending/templates/editor/dimensions.html:120
+msgid "Update"
+msgstr "Обновить"
+
+#: openspending/templates/editor/dimensions.html:128
+msgid "Add new dimension"
+msgstr "Добавить новое измерение"
+
+#: openspending/templates/editor/dimensions.html:139
+msgid ""
+"The name you choose should only contain letters, numbers and dashes "
+"(i.e., no spaces)"
+msgstr ""
+"Выбранное имя должно состоять только из букв, цифр, тире и не должно "
+"содержать пробелов."
+
+#: openspending/templates/editor/dimensions.html:142
+msgid ""
+"Where the dimension represents the ultimate source or destination of the "
+"funds, call it <code>from</code> or <code>to</code>"
+msgstr ""
+"Если измерения представляют собой источник или назначение средств, то их "
+"необходимо назвать <code>from</code> или <code>to</code> соответственно."
+
+#: openspending/templates/editor/dimensions.html:147
+#: openspending/templates/editor/dimensions.html:415
+msgid "Type"
+msgstr "Тип"
+
+#: openspending/templates/editor/dimensions.html:151
+#: openspending/templates/entry/view.html:118
+msgid "Dimension"
+msgstr "Измерение"
+
+#: openspending/templates/editor/dimensions.html:153
+msgid ""
+"A defined set, like suppliers or classifications, with multiple "
+"attributes (e.g. supplier name and VAT number)."
+msgstr ""
+"Определенный набор, такой как поставщики или классификации, с несколькими"
+" атрибутами (например, имя поставщика и ИНН)."
+
+#: openspending/templates/editor/dimensions.html:158
+#: openspending/templates/run/view.html:52
+msgid "Attribute"
+msgstr "Атрибут"
+
+#: openspending/templates/editor/dimensions.html:160
+msgid "A simple value, e.g. descriptions or transaction IDs."
+msgstr "Простое значение, например, описание или номер транзакции."
+
+#: openspending/templates/editor/dimensions.html:165
+msgid "Date"
+msgstr "Дата"
+
+#: openspending/templates/editor/dimensions.html:167
+msgid "Temporal value, e.g. start of project, date of disbursement."
+msgstr "Дата, например, начала проекта или оплаты."
+
+#: openspending/templates/editor/dimensions.html:172
+msgid "Measure"
+msgstr "Сумма"
+
+#: openspending/templates/editor/dimensions.html:174
+msgid "Monetary information, e.g. amount disbursed or allocated."
+msgstr "Финансовая информация, например, сумма выделенных или выплаченных средств."
+
+#: openspending/templates/editor/dimensions.html:181
+msgid "Unmapped source data columns"
+msgstr "Несопоставленные колонки из источника данных"
+
+#: openspending/templates/editor/dimensions.html:189
+msgid "Cancel"
+msgstr "Отмена"
+
+#: openspending/templates/editor/dimensions.html:190
+#: openspending/templates/editor/team.html:91
+msgid "Add"
+msgstr "Добавить"
+
+#: openspending/templates/editor/dimensions.html:200
+msgid "Your model was saved."
+msgstr "Ваша модель была сохранена."
+
+#: openspending/templates/editor/dimensions.html:200
+msgid ""
+"You can now try to load a sample of the data by returning back to the "
+"dashboard."
+msgstr ""
+"Теперь вы можете попробовать загрузить образец данных, вернувшись в "
+"панель управления."
+
+#: openspending/templates/editor/dimensions.html:203
+msgid "Visit dashboard"
+msgstr "Открыть панель управления"
+
+#: openspending/templates/editor/dimensions.html:211
+msgid ""
+"The dimensions mapping could not be saved as it \n"
+"            contains some errors"
+msgstr ""
+"Модель данных не может быть сохранена, так как\n"
+"содержит некоторые ошибки"
+
+#: openspending/templates/editor/dimensions.html:228
+msgid "Dimension mapping"
+msgstr "Разработка модели данных"
+
+#: openspending/templates/editor/dimensions.html:230
+msgid ""
+"To create a model for your dataset,\n"
+"                    you need to translate the columns in \n"
+"                    the data file to \"dimensions\", the logical\n"
+"                    divisions of the dataset. A dimension\n"
+"                    can be any property of a line item or \n"
+"                    transaction that should be presented\n"
+"                    within OpenSpending."
+msgstr ""
+"Чтобы создать модель для вашего набора данных,\n"
+"вам необходимо перевести столбцы в\n"
+"файле с данными в так называемые \"измерения\" - логические\n"
+"составляющие набора данных. Измерением\n"
+"может быть любой параметр транзакции, которая должна быть представлена в "
+"OpenSpending."
+
+#: openspending/templates/editor/dimensions.html:239
+msgid ""
+"There are four core dimensions, <code>amount</code>,\n"
+"                    <code>time</code> &mdash; which are\n"
+"                    mandatory &mdash; as well as\n"
+"                    <code>from</code> for the spender,\n"
+"                    and <code>to</code> for the\n"
+"                    recipient of a specific transaction\n"
+"                    &mdash; both of those must be\n"
+"                    dimensions if they exist."
+msgstr ""
+"Есть четыре основных измерения: <code>amount</code>\n"
+"и <code>time</code> &mdash; которые\n"
+"обязательны, &mdash; а также\n"
+"<code>from</code> для источника средств\n"
+"и <code>to</code> для получателя конкретных средств\n"
+"&mdash; оба из них, если они указаны,\n"
+"должны быть сохранены как измерения с указанными выше именами."
+
+#: openspending/templates/editor/dimensions.html:249
+msgid ""
+"Beyond that, you can add your own\n"
+"                    dimensions to describe aspects such\n"
+"                    as classification schemes,\n"
+"                    descriptions, transaction IDs and any\n"
+"                    other details present in the source\n"
+"                    data."
+msgstr ""
+"Помимо этого, вы можете добавить свои \n"
+"собственные измерения для описания таких аспектов, \n"
+"как классификации, описания, идентификаторы \n"
+"транзакций и любые другие детали, \n"
+"представленные в источнике данных."
+
+#: openspending/templates/editor/dimensions.html:256
+msgid "What do I do here?"
+msgstr "Что можно здесь делать?"
+
+#: openspending/templates/editor/dimensions.html:258
+msgid ""
+"First off, make sure to set up the\n"
+"                    model to conform to these basic\n"
+"                    requirements:"
+msgstr ""
+"Прежде всего, убедитесь, что вы настроили\n"
+"модель, соответствующую этим основным\n"
+"требованиям:"
+
+#: openspending/templates/editor/dimensions.html:263
+msgid ""
+"Create <code>amount</code> with the core \n"
+"                      financial measure of the dataset and \n"
+"                      <code>time</code> to represent the most \n"
+"                      representative temporal\n"
+"                      dimension."
+msgstr ""
+"Создайте поле <code>amount</code>, которое содержит \n"
+"финансовую информацию, и поле\n"
+"<code>time</code> для даты транзакции."
+
+#: openspending/templates/editor/dimensions.html:268
+msgid ""
+"If your data is transactional and \n"
+"                      contains the name of a department or \n"
+"                      body spending the funds, make sure to \n"
+"                      include a <code>from</code> dimension."
+msgstr ""
+"Если данные о ваших транзакциях\n"
+"содержат наименования департаментов или\n"
+"органов, отвечающих за расходование средств, добавьте измерение с именем "
+"<code>from</code>."
+
+#: openspending/templates/editor/dimensions.html:272
+msgid ""
+"If the data mentions a recipient,\n"
+"                      such as a supplier, set\n"
+"                      <code>to</code> as another dimension."
+msgstr ""
+"Если в данных упоминается получатель средств,\n"
+"такой как поставщик, создайте измерение с именем \n"
+"<code>to</code>."
+
+#: openspending/templates/editor/dimensions.html:275
+msgid ""
+"Set a unique key combination so\n"
+"                      that the values within that\n"
+"                      combination are different between all \n"
+"                      entries in the dataset. This can\n"
+"                      later be used for updating the\n"
+"                      dataset."
+msgstr ""
+"Установите комбинацию уникального ключа так,\n"
+"чтобы значения этих\n"
+"комбинаций были различны для\n"
+"всех записей в наборе данных. Это может быть\n"
+"использовано позднее для обновления\n"
+"набора данных."
+
+#: openspending/templates/editor/dimensions.html:283
+msgid ""
+"After you've done these basic things,\n"
+"                    make sure to also create dimensions\n"
+"                    to cover any other aspects present in \n"
+"                    the source data. You can group\n"
+"                    related columns into a single\n"
+"                    dimension, for example if each row \n"
+"                    mentions both a company's name and\n"
+"                    its VAT number."
+msgstr ""
+"После того как вы выполните эти основные вещи,\n"
+"не забудьте создать измерения\n"
+"для покрытия любых других аспектов, представленных\n"
+"в источнике данных. Вы можете сгруппировать\n"
+"связанные столбцы в единое\n"
+"измерение, например, если в каждой строке\n"
+"содержится упоминание и названия компании и\n"
+"ее ИНН."
+
+#: openspending/templates/editor/dimensions.html:302
+#: openspending/templates/editor/dimensions.html:380
+msgid "string"
+msgstr "строка"
+
+#: openspending/templates/editor/dimensions.html:303
+#: openspending/templates/editor/dimensions.html:381
+msgid "float"
+msgstr "вещественный"
+
+#: openspending/templates/editor/dimensions.html:304
+#: openspending/templates/editor/dimensions.html:382
+msgid "id"
+msgstr "id"
+
+#: openspending/templates/editor/dimensions.html:305
+#: openspending/templates/editor/dimensions.html:383
+msgid "date"
+msgstr "дата"
+
+#: openspending/templates/editor/dimensions.html:306
+#: openspending/templates/editor/dimensions.html:384
+msgid "url"
+msgstr "url"
+
+#: openspending/templates/editor/dimensions.html:310
+msgid "Default Value"
+msgstr "Значение по умолчанию"
+
+#: openspending/templates/editor/dimensions.html:331
+msgid "Label"
+msgstr "Метка"
+
+#: openspending/templates/editor/dimensions.html:335
+msgid ""
+"A human-readable title for this\n"
+"                          dimension."
+msgstr ""
+"Человекочитаемый заголовок \n"
+"для этого  измерения."
+
+#: openspending/templates/editor/dimensions.html:344
+msgid "Include in unique key"
+msgstr "Включить в уникальный ключ"
+
+#: openspending/templates/editor/dimensions.html:347
+msgid ""
+"Make this dimension part of the set of\n"
+"                          uniquely identifying values for each\n"
+"                          column."
+msgstr ""
+"Сделать это измерение частью множества\n"
+"значений уникального идентификатора \n"
+"для каждого столбца."
+
+#: openspending/templates/editor/dimensions.html:356
+#: openspending/templates/editor/dimensions.html:414
+#: openspending/templates/run/view.html:51
+msgid "Column"
+msgstr "Колонка"
+
+#: openspending/templates/editor/dimensions.html:360
+msgid "Source column in the source CSV file."
+msgstr "Исходный столбец в CSV-файле источника данных."
+
+#: openspending/templates/editor/dimensions.html:366
+msgid "Default value"
+msgstr "Значение по умолчанию"
+
+#: openspending/templates/editor/dimensions.html:370
+msgid ""
+"Empty cells will be padded with this\n"
+"                          value."
+msgstr ""
+"Пустые ячейки будут заполненны этим\n"
+"значением."
+
+#: openspending/templates/editor/dimensions.html:377
+msgid "Data type"
+msgstr "Тип данных"
+
+#: openspending/templates/editor/dimensions.html:400
+msgid "Use as facet in entries browser"
+msgstr "Использовать как фасет при просмотре транзакций"
+
+#: openspending/templates/editor/dimensions.html:403
+msgid ""
+"Select a few dimensions which are useful\n"
+"                          to slice the dataset by."
+msgstr ""
+"Выберите несколько измерений, которые полезны\n"
+"для представления наборов данных."
+
+#: openspending/templates/editor/dimensions.html:413
+msgid "Field"
+msgstr "Поле"
+
+#: openspending/templates/editor/dimensions.html:416
+msgid "Default"
+msgstr "По умолчанию"
+
+#: openspending/templates/editor/dimensions.html:426
+msgid "Add a field"
+msgstr "Добавить поле"
+
+#: openspending/templates/editor/dimensions.html:442
+msgid "Save Dimensions"
+msgstr "Сохранить измерения"
+
+#: openspending/templates/editor/dimensions.html:444
+msgid "Delete All Dimensions"
+msgstr "Удалить все измерения"
+
+#: openspending/templates/editor/dimensions_errors.html:15
+msgid "You cannot edit dimensions while data is loaded."
+msgstr "Вы не можете редактировать измерения, пока данные загружаются."
+
+#: openspending/templates/editor/dimensions_errors.html:16
+msgid ""
+"In order to modify the dimensions model, you'll have to \n"
+"        delete all the data that is currently loaded from the database."
+msgstr ""
+"Чтобы изменить модель, вы должны\n"
+"удалить все данные, которые загружены в базу данных."
+
+#: openspending/templates/editor/dimensions_errors.html:20
+msgid "Go to dashboard"
+msgstr "Перейти в панель управления"
+
+#: openspending/templates/editor/dimensions_errors.html:23
+msgid "See dimensions"
+msgstr "Посмотреть измерения"
+
+#: openspending/templates/editor/dimensions_errors.html:31
+msgid "You need to define at least one data source."
+msgstr "Вы должны определить как минимум один источник данных."
+
+#: openspending/templates/editor/dimensions_errors.html:32
+msgid ""
+"In order to create a dimensions model, at least on data source\n"
+"        needs to be available."
+msgstr "Чтобы создать модель измерений необходим хотя бы один источник данных."
+
+#: openspending/templates/editor/team.html:70
+#, fuzzy
+msgid ""
+"Here, you can select the users who will be authorized to \n"
+"      manage this dataset."
+msgstr ""
+"Здесь вы можете выбрать пользователей, у которых будут права для\n"
+"управления этим набором данных."
+
+#: openspending/templates/editor/team.html:84
+msgid "Current team"
+msgstr "Текущая команда"
+
+#: openspending/templates/editor/team.html:88
+msgid "Add someone"
+msgstr "Добавить участника"
+
+#: openspending/templates/editor/team.html:98
+#: openspending/templates/view/new.html:76
+msgid "Save"
+msgstr "Сохранить"
+
+#: openspending/templates/entry/index.html:32
+msgid "Time"
+msgstr "Время"
+
+#: openspending/templates/entry/index.html:34
+msgid "From"
+msgstr ""
+
+#: openspending/templates/entry/index.html:36
+msgid "To"
+msgstr ""
+
+#: openspending/templates/entry/index.html:66
+msgid "details"
+msgstr ""
+
+#: openspending/templates/entry/index.html:112
+msgid "Time range for dataset:"
+msgstr "Временной диапазон для набора данных:"
+
+#: openspending/templates/entry/search.html:11
+msgid "Search OpenSpending"
+msgstr "Поиск по OpenSpending"
+
+#: openspending/templates/entry/search.html:19
+msgid "e.g."
+msgstr "например,"
+
+#: openspending/templates/entry/search.html:21
+msgid ""
+"Transactional data is often more detailed than\n"
+"            information from budgets."
+msgstr ""
+"Данные о транзакциях часто более детализированы, чем\n"
+"информация из бюджетов."
+
+#: openspending/templates/entry/search.html:27
+msgid "Transactions"
+msgstr "Транзакции"
+
+#: openspending/templates/entry/search.html:32
+msgid "All data"
+msgstr "Все данные"
+
+#: openspending/templates/entry/search.html:43
+msgid ""
+"Type a search term to find government expenditure transactions\n"
+"            from across the globe."
+msgstr ""
+"Введите поисковый запрос, чтобы найти информацию о государственных "
+"расходах\n"
+"со всего мира."
+
+#: openspending/templates/entry/view.html:35
+#, python-format
+msgid "%(currency)s %(amount)s on %(time)s"
+msgstr "%(currency)s %(amount)s за %(time)s"
+
+#: openspending/templates/entry/view.html:45
+#, python-format
+msgid "Entry in %(dataset)s"
+msgstr "Запись в %(dataset)s"
+
+#: openspending/templates/entry/view.html:46
+msgid "Detailed View of Transaction"
+msgstr "Подробный вид транзакции"
+
+#: openspending/templates/entry/view.html:100
+msgid "Adjusted for inflation"
+msgstr "С учетом инфляции"
+
+#: openspending/templates/entry/view.html:101
+#, python-format
+msgid ""
+"(from <span title=\"%(reference)s\">%(reference_year)s</span> \n"
+"             to <span title=\"%(target)s\">%(target_year)s</span>)"
+msgstr ""
+"(от <span title=\"%(reference)s\">%(reference_year)s</span> \n"
+"к <span title=\"%(target)s\">%(target_year)s</span>)"
+
+#: openspending/templates/entry/view.html:103
+#, python-format
+msgid "Original amount: %(original)s"
+msgstr "Исходное количество: %(original)s"
+
+#: openspending/templates/entry/view.html:119
+#: openspending/templates/run/view.html:53
+msgid "Value"
+msgstr "Значение"
+
+#: openspending/templates/entry/view.html:156
+msgid "Notes"
+msgstr "Заметки"
+
+#: openspending/templates/home/index.html:18
+msgid "It's our money!"
+msgstr ""
+
+#: openspending/templates/home/index.html:19
+msgid ""
+"By understanding how governments spend money <strong>in our name</strong>"
+" can we have a say in how that money will affect our own lives."
+msgstr ""
+
+#: openspending/templates/home/index.html:19
+msgid "The journey starts here."
+msgstr ""
+
+#: openspending/templates/home/index.html:22
+#, python-format
+msgid "%(territory_count)s countries"
+msgstr ""
+
+#: openspending/templates/home/index.html:23
+#, python-format
+msgid "%(dataset_count)s datasets"
+msgstr ""
+
+#: openspending/templates/home/index.html:24
+#, python-format
+msgid "%(entry_count)s entries"
+msgstr ""
+
+#: openspending/templates/home/index.html:35
+msgid "Featured Application"
+msgstr ""
+
+#: openspending/templates/home/index.html:36
+msgid ""
+"How much is that really? &mdash; See the stories behind the numbers in "
+"the news with the <a href=\"http://spendingstories.org\" "
+"target=\"_blank\">Spending Stories application</a>."
+msgstr ""
+
+#: openspending/templates/home/index.html:50
+msgid "Upload"
+msgstr ""
+
+#: openspending/templates/home/index.html:52
+msgid ""
+"Upload any kind of financial data to OpenSpending and explore it with our"
+" built-in interactive visualizations."
+msgstr ""
+"Загрузите любые финансовые данные на OpenSpending и изучите их с помощью "
+"наших встроенных интерактивных визуализаций."
+
+#: openspending/templates/home/index.html:52
+msgid ""
+"Users publish <a "
+"href=\"https://openspending.org/budgetmarocain\">budgets</a>, <a "
+"href=\"https://openspending.org/marches-publics-senegal/views/liste-des-"
+"attributaires\">procurements</a>, <a href=\"https://openspending.org"
+"/ukgov-25k-spending\">spending data</a> and even <a "
+"href=\"https://openspending.org/senadofederal/entries\">public employee "
+"salaries</a>."
+msgstr ""
+"Пользователи публикуют <a "
+"href=\"https://openspending.org/budgetmarocain\">бюджеты</a>, <a "
+"href=\"https://openspending.org/marches-publics-senegal/views/liste-des-"
+"attributaires\">данные о закупках</a>, <a href=\"https://openspending.org"
+"/ukgov-25k-spending\">расходах</a> и даже <a "
+"href=\"https://openspending.org/senadofederal/entries\">о зарплатах "
+"государственных служащих</a>."
+
+#: openspending/templates/home/index.html:54
+msgid ""
+"Use our <a href=\"http://www.pbs.org/idealab/2013/03/how-to-embed-open-"
+"spending-visualizations-in-your-own-website078\">widgets</a> to embed "
+"your visualization on your own website."
+msgstr ""
+"Используйте наш <a href=\"http://www.pbs.org/idealab/2013/03/how-to-"
+"embed-open-spending-visualizations-in-your-own-website078\">виджет</a>, "
+"встроив нашу визуализацию в свой сайт."
+
+#: openspending/templates/home/index.html:56
+msgid "Create a dataset"
+msgstr "Создать набор данных"
+
+#: openspending/templates/home/index.html:56
+msgid "Upload a dataset"
+msgstr "Загрузить набор данных"
+
+#: openspending/templates/home/index.html:59
+msgid "Explore"
+msgstr "Просмотреть."
+
+#: openspending/templates/home/index.html:61
+#, python-format
+msgid ""
+"OpenSpending holds more than %(transactions)s mio. transactions from "
+"%(datasets)s datasets across %(territories)s countries."
+msgstr ""
+
+#: openspending/templates/home/index.html:63
+#, python-format
+msgid ""
+"Browse the <a href=\"%(indexurl)s\">list of datasets</a> and learn about "
+"public finances from around the world, or browse <a "
+"href=\"http://apps.openspending.org/maps/\">our map of cities</a> on "
+"OpenSpending."
+msgstr ""
+"Просмотрите <a href=\"%(indexurl)s\">список наборов данных</a> и узнайте "
+"о государственных финансах всего мира, или посмотрите <a "
+"href=\"http://apps.openspending.org/maps/\">нашу карту городов, данные "
+"которых загружены</a> на OpenSpending."
+
+#: openspending/templates/home/index.html:65
+msgid "Search the datasets"
+msgstr "Поиск наборов данных"
+
+#: openspending/templates/home/index.html:65
+msgid "Search transactions"
+msgstr "Поиск транзакций"
+
+#: openspending/templates/home/index.html:65
+msgid "List of datasets"
+msgstr "Список наборов данных"
+
+#: openspending/templates/home/index.html:65
+msgid "...or look at the datasets"
+msgstr "... или посмотрите наборы данных"
+
+#: openspending/templates/home/index.html:68
+msgid "Visualize"
+msgstr ""
+
+#: openspending/templates/home/index.html:70
+msgid ""
+"Create your own visualizations with the <a "
+"href=\"http://community.openspending.org/help/api/aggregate/\">OpenSpending"
+" API</a> using libraries like <a "
+"href=\"http://community.openspending.org/2013/08/20/okfb-"
+"inesc/\">D3.js</a>, jit, and Raphael."
+msgstr ""
+"Создайте свои собственные визуализации с использованием <a "
+"href=\"http://community.openspending.org/help/api/aggregate/\">OpenSpending"
+" API</a> и таких библиотек, как <a "
+"href=\"http://community.openspending.org/2013/08/20/okfb-"
+"inesc/\">D3.js</a>, jit и Raphael."
+
+#: openspending/templates/home/index.html:72
+msgid ""
+"You can even create a satellite site while still using OpenSpending as a "
+"backend."
+msgstr ""
+"Вы даже можете создать вспомогательный сайт, используя OpenSpending в "
+"качестве движка."
+
+#: openspending/templates/home/index.html:74
+msgid "API documentation"
+msgstr "API документация"
+
+#: openspending/templates/home/index.html:74
+msgid "Look at the API"
+msgstr "Взгляните на API"
+
+#: openspending/templates/home/index.html:77
+msgid "Contribute"
+msgstr "Внести свой вклад"
+
+#: openspending/templates/home/index.html:79
+msgid ""
+"OpenSpending is a community run project and all material is open - open-"
+"source code and open data."
+msgstr ""
+"OpenSpending - это краудсорсинговый проект, все материалы которого "
+"являются открытыми: открытый исходный код и открытые данные."
+
+#: openspending/templates/home/index.html:81
+msgid ""
+"Get involved in loading data, developing the technology, doing analysis "
+"or writing news stories!"
+msgstr ""
+"Примите участие в загрузке данных, разработке технологии, аналитике или "
+"подготовке новостей!"
+
+#: openspending/templates/home/index.html:83
+msgid "Community introduction"
+msgstr "Представление сообщества"
+
+#: openspending/templates/home/index.html:83
+msgid "Join the spending community"
+msgstr "Присоединиться к нашему сообществу"
+
+#: openspending/templates/home/index.html:88
+msgid "Join our discussion list!"
+msgstr "Присоединитесь к нашей рассылке для обсуждения!"
+
+#: openspending/templates/home/index.html:91
+#: openspending/templates/home/index.html:98
+msgid "Sign up"
+msgstr "Зарегистрироваться"
+
+#: openspending/templates/home/index.html:95
+msgid "Join our developer list!"
+msgstr "Присоединиться к нашей рассылке для разработчиков!"
+
+#: openspending/templates/run/view.html:4
+#: openspending/templates/run/view.html:10
+msgid "Report"
+msgstr "Отчет"
+
+#: openspending/templates/run/view.html:12
+#: openspending/templates/source/_list.html:82
+msgid "errors"
+msgstr "ошибки"
+
+#: openspending/templates/run/view.html:16
+msgid "Nothing to report!"
+msgstr "Нет данных для отчета!"
+
+#: openspending/templates/run/view.html:16
+msgid ""
+"The source has been loaded\n"
+"  successfully. This does not mean the data is stored in a form \n"
+"  which is semantically useful, though, so don't forget to \n"
+"  sanity-check a few entries!"
+msgstr ""
+"Исходные данные успешно загружены.\n"
+"Однако это не означает, что данные сохранены в форме, которая \n"
+"является наиболее полезной с точки зрения пользователя, так что проверьте"
+" разумность полученных результатов вручную."
+
+#: openspending/templates/run/view.html:28
+msgid "Level"
+msgstr "Уровень"
+
+#: openspending/templates/run/view.html:29
+msgid "Message"
+msgstr "Сообщение"
+
+#: openspending/templates/run/view.html:50
+msgid "Row"
+msgstr "Строка"
+
+#: openspending/templates/source/_list.html:6
+msgid "Link"
+msgstr "Ссылка"
+
+#: openspending/templates/source/_list.html:7
+msgid "Operations"
+msgstr "Операции"
+
+#: openspending/templates/source/_list.html:15
+msgid "OK"
+msgstr "ОК"
+
+#: openspending/templates/source/_list.html:24
+msgid "columns"
+msgstr "колонки"
+
+#: openspending/templates/source/_list.html:30
+msgid "Successfully loaded"
+msgstr "Загрузка успешно завершена"
+
+#: openspending/templates/source/_list.html:34
+msgid "Running..."
+msgstr "Идет обработка..."
+
+#: openspending/templates/source/_list.html:37
+msgid "Load source into OpenSpending"
+msgstr "Загрузка источника в OpenSpending"
+
+#: openspending/templates/source/_list.html:39
+msgid "Load"
+msgstr "Загрузить"
+
+#: openspending/templates/source/_list.html:45
+msgid "Test a sample"
+msgstr "Протестировать образец"
+
+#: openspending/templates/source/_list.html:47
+msgid "Test"
+msgstr "Тест"
+
+#: openspending/templates/source/_list.html:53
+msgid "Delete source"
+msgstr "Удалить источник"
+
+#: openspending/templates/source/_list.html:55
+#: openspending/templates/view/view.html:72
+msgid "Delete"
+msgstr "Удалить"
+
+#: openspending/templates/source/_list.html:62
+msgid "Reports"
+msgstr "Отчеты"
+
+#: openspending/templates/source/_list.html:71
+msgid "Running"
+msgstr "Идет обработка"
+
+#: openspending/templates/source/_list.html:73
+msgid "Complete"
+msgstr "Завершено"
+
+#: openspending/templates/source/_list.html:75
+msgid "Errors"
+msgstr "Ошибки"
+
+#: openspending/templates/source/_list.html:77
+msgid "Removed"
+msgstr "Удален"
+
+#: openspending/templates/source/_list.html:88
+msgid "Analysis"
+msgstr "Исследование"
+
+#: openspending/templates/source/_list.html:91
+msgid "We found these columns in the CSV file:"
+msgstr "Мы нашли эти столбцы в CSV-файле:"
+
+#: openspending/templates/source/_list.html:98
+msgid "Warning"
+msgstr "Предупреждение"
+
+#: openspending/templates/source/_list.html:98
+msgid "No columns found."
+msgstr "Столбцы не найдены."
+
+#: openspending/templates/source/_list.html:100
+msgid "Still analysing"
+msgstr "Все еще анализируется"
+
+#: openspending/templates/source/_list.html:100
+msgid "Try refreshing in a moment."
+msgstr "Попробуйте обновить через некоторое время."
+
+#: openspending/templates/source/_new_form.html:4
+msgid "URL"
+msgstr "URL"
+
+#: openspending/templates/source/_new_form.html:7
+msgid ""
+"This must point directly at a\n"
+"        valid CSV file. HTML landing pages or other formats, such as\n"
+"        Excel, will not work."
+msgstr ""
+"Это должно указывать непосредственно на\n"
+"правильный CSV-файл. Посадочные HTML-страницы и страницы в других "
+"форматах, такие как\n"
+"Excel, работать не будут."
+
+#: openspending/templates/source/_new_form.html:10
+msgid ""
+"We recommend using <strong>,</strong> as delimiter and wrapping values in"
+" double quotes (especially amounts). The first line will always be "
+"regarded as a header row. <a "
+"href=\"http://community.openspending.org/help/guide/en/formatting-"
+"data/\">Want to know more?</a>"
+msgstr ""
+"Мы рекомендуем использовать <strong>,</strong> в качестве разделителя, в "
+"том числе для значений в двойных кавычках (особенно для сумм). Первая "
+"строка всегда рассматривается в качестве заголовка. "
+"href=\"http://community.openspending.org/help/guide/en/formatting-"
+"data/\">Хотите узнать больше?</a>"
+
+#: openspending/templates/view/embed.html:6
+msgid "Embedded Visualisation"
+msgstr "Встроенная визуализация"
+
+#: openspending/templates/view/embed.html:68
+msgid "Visualised with OpenSpending"
+msgstr "Визуализировано в OpenSpending"
+
+#: openspending/templates/view/index.html:5
+msgid "Library of visualisations"
+msgstr "Библиотека визуализаций"
+
+#: openspending/templates/view/index.html:27
+#, python-format
+msgid "by %(user)s"
+msgstr "пользователем %(user)s"
+
+#: openspending/templates/view/new.html:5
+msgid "Create a visualisation"
+msgstr "Создать визуализацию"
+
+#: openspending/templates/view/new.html:62
+msgid "Name your visualisation"
+msgstr "Название вашей визуализации"
+
+#: openspending/templates/view/new.html:64
+msgid ""
+"You can store your visualisation with a name so that you can come back to"
+" it later and it will become visible to others."
+msgstr ""
+"Вы можете сохранить визуализацию с названием, чтобы вернуться к ней "
+"позже, и она станет видимой для других пользователей."
+
+#: openspending/templates/view/new.html:68
+msgid "Title"
+msgstr "Название"
+
+#: openspending/templates/view/new.html:83
+msgid "You need to be signed in to save a view."
+msgstr "Вы должны войти в свою учетную запись, чтобы сохранить визуализацию."
+
+#: openspending/templates/view/new.html:91
+msgid "Embed in another website"
+msgstr "Встроить на другой сайт"
+
+#: openspending/templates/view/new.html:93
+msgid ""
+"If you don't save this visualisation, you can still copy and paste the "
+"embed code below, to embed the widget in another website, such as a blog "
+"or article."
+msgstr ""
+"Если вы не сохраните эту визуализацию, вы все равно сможете использовать "
+"код, представленный ниже, для встраивания виджета на другой сайт, "
+"например, в блог или какую-то статью."
+
+#: openspending/templates/view/new.html:97
+msgid "Width"
+msgstr "Ширина"
+
+#: openspending/templates/view/new.html:101
+msgid "Height"
+msgstr "Высота"
+
+#: openspending/templates/view/view.html:41
+msgid ""
+"Here you can rename your widget and/or update the description.\n"
+"              You can also modify the widget itself, but keep in mind "
+"that others might be \n"
+"              using and embedding the widget as it is now on their sites."
+" \n"
+"              <strong>Changing the widget here will change it "
+"everywhere.</strong> \n"
+"              This might then create a discrepancy between the widget and"
+" the context of \n"
+"              a page in which it's embedded."
+msgstr ""
+
+#: openspending/templates/view/view.html:51
+msgid "Update widget"
+msgstr "Обновить виджет"
+
+#: openspending/views/account.py:58
+#, fuzzy, python-format
+msgid "Welcome back, %(name)s!"
+msgstr "Приветствуем, %s!"
+
+#: openspending/views/account.py:60
+msgid "Incorrect user name or password!"
+msgstr "Неверное имя пользователя или пароль."
+
+#: openspending/views/account.py:79
+msgid "Login name already exists, please choose a different one"
+msgstr "Такое имя пользователя уже зарегистрировано. Пожалуйста, выберите другое."
+
+#: openspending/views/account.py:85 openspending/views/account.py:142
+msgid "Passwords don't match!"
+msgstr "Введенные пароли не совпадают!"
+
+#: openspending/views/account.py:106
+#, fuzzy, python-format
+msgid "Subscription to the following mailing lists probably failed: %(errors)s."
+msgstr "Подписка на следующие списки рассылок, возможно, не удалась: %s."
+
+#: openspending/views/account.py:161
+msgid "Your settings have been updated."
+msgstr "Обновление ваших настроек завершено."
+
+#: openspending/views/account.py:232
+msgid "You are not authorized to see that page"
+msgstr "У вас нет прав на просмотр этой страницы"
+
+#: openspending/views/account.py:255
+msgid "You have been logged out."
+msgstr "Вы вышли из системы."
+
+#: openspending/views/account.py:274
+msgid "Please enter an email address!"
+msgstr "Введите, пожалуйста, адрес электронной почты!"
+
+#: openspending/views/account.py:282 openspending/views/account.py:305
+msgid "No user is registered under this address!"
+msgstr "Нет пользователей, зарегистрированных по этому адресу!"
+
+#: openspending/views/account.py:289
+msgid ""
+"You've received an email with a link to reset your password. Please check"
+" your inbox."
+msgstr ""
+"Вы получили письмо со ссылкой для восстановления пароля. Пожалуйста, "
+"проверьте свой почтовый ящик."
+
+#: openspending/views/account.py:300 openspending/views/account.py:309
+msgid "The reset link is invalid!"
+msgstr "Ссылка на страницу сброса пароля является недействительной!"
+
+#: openspending/views/account.py:314
+msgid "Thanks! You have now been signed in - please change your password!"
+msgstr ""
+"Спасибо! Вы уже вошли в свою учетную запись, пожалуйста, измените свой "
+"пароль!"
+
+#: openspending/views/badge.py:91
+msgid "Badge not found."
+msgstr "Бейдж не найден."
+
+#: openspending/views/dataset.py:51
+#, fuzzy, python-format
+msgid "Parameter values not supported: %(errors)s"
+msgstr "Значения параметров не поддерживаются: %s"
+
+#: openspending/views/dataset.py:160
+msgid "A dataset with this identifer already exists!"
+msgstr "Набор данных с таким идентификатором уже существует!"
+
+#: openspending/views/dataset.py:264
+msgid "Recently created datasets in the OpenSpending Platform"
+msgstr "Недавно созданные наборы данных в платформе OpenSpending"
+
+#: openspending/views/dataset.py:265
+msgid "Recently Created Datasets"
+msgstr "Недавно созданные наборы данных"
+
+#: openspending/views/dimension.py:30 openspending/views/dimension.py:33
+msgid "This is not a dimension"
+msgstr "Это не измерение."
+
+#: openspending/views/dimension.py:43
+#, fuzzy, python-format
+msgid "Sorry, there is no member named %(name)s"
+msgstr "К сожалению, пользователь с именем %r не зарегистрирован."
+
+#: openspending/views/dimension.py:49
+#, fuzzy
+msgid "Sorry, there is no dimension named %(name)"
+msgstr "К сожалению, измерение %r не указано."
+
+#: openspending/views/editor.py:105
+msgid "The dataset has been updated."
+msgstr "Набор данных был обновлен."
+
+#: openspending/views/editor.py:144
+msgid "You cannot edit the dimensions model when data is loaded for the dataset."
+msgstr "После загрузки набора данных вы не сможете отредактировать его структуру."
+
+#: openspending/views/editor.py:162
+msgid "The mapping data could not be decoded as JSON!"
+msgstr "Данные не удалось интерпретировать в JSON!"
+
+#: openspending/views/editor.py:191
+msgid "The templates have been updated."
+msgstr "Шаблоны были обновлены."
+
+#: openspending/views/editor.py:221
+msgid "The views have been updated."
+msgstr "Представления обновлены."
+
+#: openspending/views/editor.py:223
+msgid "The views could not be decoded as JSON!"
+msgstr "Схему визуализации не удалось распознать в JSON!"
+
+#: openspending/views/editor.py:251
+msgid "User account cannot be found."
+msgstr "Аккаунт пользователя не найден."
+
+#: openspending/views/editor.py:261
+msgid "The team has been updated."
+msgstr "Состав команды обновлен"
+
+#: openspending/views/editor.py:283
+msgid "The dataset has been cleared."
+msgstr "Набор данных стерт."
+
+#: openspending/views/editor.py:292
+msgid "This dataset is already public!"
+msgstr "Этот набор данных уже находится в открытом доступе!"
+
+#: openspending/views/editor.py:303
+#, fuzzy, python-format
+msgid ""
+"Congratulations, the dataset has been published. It is now available at: "
+"%(url)s"
+msgstr "Поздравляем! Набор данных опубликован и доступен под именем: %s."
+
+#: openspending/views/editor.py:313
+msgid "This dataset is already private!"
+msgstr "Этот набор данных уже находится в закрытом доступе!"
+
+#: openspending/views/editor.py:324
+msgid "The dataset has been retracted. It is no longer visible to others."
+msgstr "Набор данных изъят из открытого доступа. Теперь он доступен только вам."
+
+#: openspending/views/editor.py:338
+msgid "The dataset has been deleted."
+msgstr "Набор данных удален."
+
+#: openspending/views/entry.py:94
+#, fuzzy, python-format
+msgid "Sorry, there is no entry %(id)s"
+msgstr "К сожалению, запись с именем %r отсутствует"
+
+#: openspending/views/entry.py:134
+msgid "Unable to adjust for inflation"
+msgstr "Невозможно установить с учетом инфляции"
+
+#: openspending/views/home.py:49
+msgid "Sent ping!"
+msgstr "Оправлен пинг-запрос!"
+
+#: openspending/views/run.py:24
+#, fuzzy, python-format
+msgid "There is no source '%(source)s'"
+msgstr "Источник '%s' не существует."
+
+#: openspending/views/run.py:27
+#, fuzzy, python-format
+msgid "There is no run '%(run)s'"
+msgstr "Нет запущенных '%s'"
+
+#: openspending/views/source.py:28
+#, fuzzy, python-format
+msgid "There is no source '%(id)s'"
+msgstr "Источник '%s' не существует."
+
+#: openspending/views/source.py:52
+msgid "The source has been created."
+msgstr "Источник создан."
+
+#: openspending/views/source.py:86
+msgid "Already running!"
+msgstr "Уже запущено!"
+
+#: openspending/views/source.py:94
+msgid "Now loading..."
+msgstr "Идет загрузка..."
+
+#: openspending/views/view.py:40
+#, fuzzy, python-format
+msgid "Invalid widget type: %(widget)s"
+msgstr "Неверный тип виджета: %r"
+
+#: openspending/views/view.py:175
+#, fuzzy, python-format
+msgid "'%(name)s' has been deleted."
+msgstr "'%s' удален."
+
+#: openspending/views/view.py:187
+msgid "No widget type has been specified."
+msgstr "Тип виджета не определен."
+
+#~ msgid "%s <%s>"
+#~ msgstr "%s <%s>"
+
+#~ msgid "No recipient email address available!"
+#~ msgstr "Электронный адрес получателя не доступен."
+
+#~ msgid "Sign in to OpenSpending"
+#~ msgstr "Войти"
+
+#~ msgid "Login"
+#~ msgstr "Логин"
+
+#~ msgid "Password"
+#~ msgstr "Пароль"
+
+#~ msgid "Forgot your password?"
+#~ msgstr "Забыли пароль?"
+
+#~ msgid "Request a password reset."
+#~ msgstr "Запрос на изменение пароля."
+
+#~ msgid "Create an account"
+#~ msgstr "Создать учетную запись"
+
+#~ msgid "Fullname"
+#~ msgstr "Полное имя"
+
+#~ msgid "Visible to other users"
+#~ msgstr "Видимый для других пользователей"
+
+#~ msgid "Password (repeat)"
+#~ msgstr "Пароль (повторно)"
+
+#~ msgid ""
+#~ msgstr ""
+
+#~ msgid "Add me to the OpenSpending community mailing list"
+#~ msgstr "Подписаться на рассылку сообщества OpenSpending"
+
+#~ msgid "Sign me up for the OpenSpending developer mailing list"
+#~ msgstr "Подписаться на рассылку для разработчиков OpenSpending"
+
+#~ msgid "Create new account"
+#~ msgstr "Создать новую учетную запись"
+
+#~ msgid "Settings for:"
+#~ msgstr "Настройки:"
+
+#~ msgid "Account Settings"
+#~ msgstr "Настройки учетной записи"
+
+#~ msgid "Visible to users"
+#~ msgstr "Видно всем пользователям"
+
+#~ msgid "Leave both fields blank to keep your current password."
+#~ msgstr "Оставьте оба поля пустыми, чтобы сохранить ваш текущий пароль."
+
+#~ msgid "API Key"
+#~ msgstr "Ключ API"
+
+#~ msgid "Use this key to access the OpenSpending API programmatically."
+#~ msgstr ""
+
+#~ msgid "Script Location"
+#~ msgstr "Местоположение скрипта"
+
+#~ msgid "Set a different location for JavaScript imports to develop new widgets."
+#~ msgstr ""
+
+#~ msgid "Password reset"
+#~ msgstr "Восстановление пароля"
+
+#~ msgid "Please enter the email address you used to register your account"
+#~ msgstr ""
+
+#~ msgid "Request a reset"
+#~ msgstr "Запросить восстановление"
+
+#~ msgid "Badges in OpenSpending"
+#~ msgstr "Бейджи в OpenSpending"
+
+#~ msgid "Create a new badge"
+#~ msgstr "Создать новый бейдж"
+
+#~ msgid "e.g. 'Cleaned by Shakespeare's typewriter crew'"
+#~ msgstr "например, \"Очищено командой машинисток Шекспира\""
+
+#~ msgid "e.g. 'Awarded to datasets cleaned by a team of highly skilled monkeys.'"
+#~ msgstr ""
+
+#~ msgid "Create badge"
+#~ msgstr "Создать бейдж"
+
+#~ msgid "My Dataset"
+#~ msgstr "Мой набор данных"
+
+#~ msgid "Identifier"
+#~ msgstr "Идентификатор"
+
+#~ msgid "my_dataset"
+#~ msgstr "my_dataset"
+
+#~ msgid "Category"
+#~ msgstr "Категория"
+
+#~ msgid "Currency"
+#~ msgstr "Валюта"
+
+#~ msgid "Commonly used currencies"
+#~ msgstr "Часто используемые валюты"
+
+#~ msgid "All currencies"
+#~ msgstr "Все валюты"
+
+#~ msgid "Next Step"
+#~ msgstr "Следующий шаг"
+
+#~ msgid "%(member)s on OpenCorporates"
+#~ msgstr "%(member)s на OpenCorporates"
+
+#~ msgid "%(member)s on PublicBodies.org"
+#~ msgstr "%(member)s на PublicBodies.org"
+
+#~ msgid "Congratulations, your dataset is now created."
+#~ msgstr "Поздравляем, ваш набор данных создан."
+
+#~ msgid "Add a source"
+#~ msgstr "Добавить источник"
+
+#~ msgid "Let me see..."
+#~ msgstr "Позвольте мне посмотреть..."
+
+#~ msgid "Refresh"
+#~ msgstr "Обновить"
+
+#~ msgid "Good stuff!"
+#~ msgstr "Отличный материал!"
+
+#~ msgid "Create a model"
+#~ msgstr "Создать модель"
+
+#~ msgid "Source files"
+#~ msgstr "Исходные файлы"
+
+#~ msgid "Summary"
+#~ msgstr "Резюме"
+
+#~ msgid "Entries loaded:"
+#~ msgstr "Загруженные записи:"
+
+#~ msgid "Searchable:"
+#~ msgstr "Доступно для поиска:"
+
+#~ msgid "Dataset Actions"
+#~ msgstr "Действия с набором данных"
+
+#~ msgid "Delete loaded data"
+#~ msgstr "Удалить загруженные данные"
+
+#~ msgid "Make public"
+#~ msgstr "Опубликовать"
+
+#~ msgid "Retract"
+#~ msgstr "Отслеживать"
+
+#~ msgid "Delete entire dataset"
+#~ msgstr "Удалить весь набор данных"
+
+#~ msgid "This action cannot be undone."
+#~ msgstr "Это действие нельзя будет отменить."
+
+#~ msgid "Create a new data source"
+#~ msgstr "Создать новый источник данных."
+
+#~ msgid "Create"
+#~ msgstr "Создать"
+
+#~ msgid "Invalid request."
+#~ msgstr "Неверный запрос."
+
+#~ msgid "Access denied."
+#~ msgstr "Доступ запрещен."
+
+#~ msgid "You may not have the relevant rights."
+#~ msgstr "Возможно, у вас недостаточно прав."
+
+#~ msgid "You may need to login."
+#~ msgstr "Вам следует войти в систему."
+
+#~ msgid "Resource not found"
+#~ msgstr "Источники данных не найдены."
+
+#~ msgid "Maybe the URL is misspelled or the data has been deleted."
+#~ msgstr "Вероятно, адрес неверный или данные удалены."
+
+#~ msgid "Something went wrong."
+#~ msgstr "Что-то пошло не так."
+
+#~ msgid "Internal Server Error"
+#~ msgstr "Внутренняя ошибка сервера"
+
+#~ msgid "REST API"
+#~ msgstr "REST API"
+
+#~ msgid "The Store's REST API"
+#~ msgstr "Хранилище REST API"
+
+#~ msgid "Here are some examples"
+#~ msgstr "Вот некоторые примеры"
+
+#~ msgid "You are not authorized to view this page"
+#~ msgstr ""
+
+#~ msgid "Uploading files not supported at the moment."
+#~ msgstr "Загрузка файлов в данный момент не поддерживается."
+
+#~ msgid "Sorry, there is no view %r"
+#~ msgstr "Извините, нет соответствующего вида %r"
+
+#~ msgid "You are not authorized to delete this view."
+#~ msgstr "Вы не авторизованы для удаления этого вида."
+
+#~ msgid "Sorry, there is no dataset named %r"
+#~ msgstr "К сожалению, набор данных %r отсутствует"
+

@@ -1,6 +1,5 @@
 import inspect
-
-from pylons.controllers.util import abort
+from werkzeug.exceptions import Forbidden
 
 # These have to be imported for the permission system to work
 import account  # NOQA
@@ -24,7 +23,7 @@ class Requirement(object):
     def __call__(self, *args, **kwargs):
         fc = self.wrapped(*args, **kwargs)
         if fc is not True:
-            raise abort(403, 'Sorry, you\'re not permitted to do this.')
+            raise Forbidden('Sorry, you\'re not permitted to do this.')
         return fc
 
     @classmethod

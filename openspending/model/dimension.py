@@ -4,6 +4,7 @@ from sqlalchemy.sql.expression import select, func
 
 from openspending.model.attribute import Attribute
 from openspending.model.common import TableHandler, ALIAS_PLACEHOLDER
+from openspending.model.constants import DATE_CUBES_TEMPLATE
 
 
 class Dimension(object):
@@ -11,9 +12,9 @@ class Dimension(object):
     """ A base class for dimensions. A dimension is any property of an entry
     that can serve to describe it beyond its purely numeric ``Measure``.  """
 
-    def __init__(self, dataset, name, data):
+    def __init__(self, model, name, data):
         self._data = data
-        self.dataset = dataset
+        self.model = model
         self.name = name
         self.key = data.get('key', False)
         self.label = data.get('label', name)
@@ -23,9 +24,6 @@ class Dimension(object):
 
     def join(self, from_clause):
         return from_clause
-
-    def flush(self, bind):
-        pass
 
     def drop(self, bind):
         del self.column
@@ -66,9 +64,9 @@ class AttributeDimension(Dimension, Attribute):
     table.
     """
 
-    def __init__(self, dataset, name, data):
-        Attribute.__init__(self, dataset, name, data)
-        Dimension.__init__(self, dataset, name, data)
+    def __init__(self, model, name, data):
+        Attribute.__init__(self, model, name, data)
+        Dimension.__init__(self, model, name, data)
 
     def __repr__(self):
         return "<AttributeDimension(%s)>" % self.name
@@ -78,7 +76,7 @@ class AttributeDimension(Dimension, Attribute):
         distinct values) matching the filter in ``conditions``. """
         query = select([self.column_alias], conditions,
                        limit=limit, offset=offset, distinct=True)
-        rp = self.dataset.bind.execute(query)
+        rp = self.model.bind.execute(query)
         while True:
             row = rp.fetchone()
             if row is None:
@@ -86,13 +84,25 @@ class AttributeDimension(Dimension, Attribute):
             yield row[0]
 
     def num_entries(self, conditions="1=1"):
-        """ Return the count of entries on the dataset fact table having the
+        """ Return the count of entries on the model fact table having the
         dimension set to a value matching the filter given by ``conditions``.
         """
         query = select([func.count(func.distinct(self.column_alias))],
                        conditions)
-        rp = self.dataset.bind.execute(query)
+        rp = self.model.bind.execute(query)
         return rp.fetchone()[0]
+
+    def to_cubes(self, mappings, joins):
+        """ Convert this dimension to a ``cubes`` dimension. """
+        mappings['%s.%s' % (self.name, self.name)] = unicode(self.column)
+        return {
+            'levels': [{
+                'name': self.name,
+                'label': self.label,
+                'key': self.name,
+                'attributes': [self.name]
+            }]
+        }
 
 
 class Measure(Attribute):
@@ -102,8 +112,8 @@ class Measure(Attribute):
     financial unit, i.e. the amount associated with the transaction or
     a specific portion thereof (i.e. co-financed amounts). """
 
-    def __init__(self, dataset, name, data):
-        Attribute.__init__(self, dataset, name, data)
+    def __init__(self, model, name, data):
+        Attribute.__init__(self, model, name, data)
         self.label = data.get('label', name)
 
     def __getitem__(self, name):
@@ -124,8 +134,8 @@ class CompoundDimension(Dimension, TableHandler):
     have sub-dimensions (i.e. snowflake schema).
     """
 
-    def __init__(self, dataset, name, data):
-        Dimension.__init__(self, dataset, name, data)
+    def __init__(self, model, name, data):
+        Dimension.__init__(self, model, name, data)
         self.taxonomy = data.get('taxonomy', name)
 
         self.attributes = []
@@ -142,11 +152,6 @@ class CompoundDimension(Dimension, TableHandler):
         return from_clause.join(
             self.alias, self.alias.c.id == self.column_alias)
 
-    def flush(self, bind):
-        """ Clear all data in the dimension table but keep the table structure
-        intact. """
-        self._flush(bind)
-
     def drop(self, bind):
         """ Drop the dimension table and all data within it. """
         self._drop(bind)
@@ -155,7 +160,7 @@ class CompoundDimension(Dimension, TableHandler):
     @property
     def column_alias(self):
         """ This an aliased pointer to the FK column on the fact table. """
-        return self.dataset.alias.c[self.column.name]
+        return self.model.alias.c[self.column.name]
 
     @property
     def selectable(self):
@@ -171,7 +176,7 @@ class CompoundDimension(Dimension, TableHandler):
         column = Column(self.name + '_id', Integer, index=True)
         fact_table.append_column(column)
         if make_table is True:
-            self._init_table(meta, self.dataset.name, self.name)
+            self._init_table(meta, self.model.dataset.name, self.name)
             for attr in self.attributes:
                 attr.column = attr.init(meta, self.table)
             alias_name = self.name.replace('_', ALIAS_PLACEHOLDER)
@@ -210,7 +215,7 @@ class CompoundDimension(Dimension, TableHandler):
         query = select([self.alias], conditions,
                        limit=limit, offset=offset,
                        distinct=True)
-        rp = self.dataset.bind.execute(query)
+        rp = self.model.bind.execute(query)
         while True:
             row = rp.fetchone()
             if row is None:
@@ -220,17 +225,37 @@ class CompoundDimension(Dimension, TableHandler):
             yield member
 
     def num_entries(self, conditions="1=1"):
-        """ Return the count of entries on the dataset fact table having the
+        """ Return the count of entries on the model fact table having the
         dimension set to a value matching the filter given by ``conditions``.
         """
-        joins = self.join(self.dataset.alias)
+        joins = self.join(self.model.alias)
         query = select([func.count(func.distinct(self.column_alias))],
                        conditions, joins)
-        rp = self.dataset.bind.execute(query)
+        rp = self.model.bind.execute(query)
         return rp.fetchone()[0]
 
+    def to_cubes(self, mappings, joins):
+        """ Convert this dimension to a ``cubes`` dimension. """
+        attributes = ['id'] + [a.name for a in self.attributes]
+        fact_table = self.model.table.name
+        joins.append({
+            'master': '%s.%s' % (fact_table, self.name + '_id'),
+            'detail': '%s.id' % self.table.name
+        })
+        for a in attributes:
+            mappings['%s.%s' % (self.name, a)] = '%s.%s' % (self.table.name, a)
+
+        return {
+            'levels': [{
+                'name': self.name,
+                'label': self.label,
+                'key': 'name',
+                'attributes': attributes
+            }]
+        }
+
     def __len__(self):
-        rp = self.dataset.bind.execute(self.alias.count())
+        rp = self.model.bind.execute(self.alias.count())
         return rp.fetchone()[0]
 
     def __repr__(self):
@@ -256,8 +281,8 @@ class DateDimension(CompoundDimension):
         'yearmonth': {'datatype': 'string'},
     }
 
-    def __init__(self, dataset, name, data):
-        Dimension.__init__(self, dataset, name, data)
+    def __init__(self, model, name, data):
+        Dimension.__init__(self, model, name, data)
         self.taxonomy = name
 
         self.attributes = []
@@ -289,6 +314,17 @@ class DateDimension(CompoundDimension):
             'yearmonth': value.strftime('%Y%m')
         }
         return super(DateDimension, self).load(bind, data)
+
+    def to_cubes(self, mappings, joins):
+        """ Convert this dimension to a ``cubes`` dimension. """
+        fact_table = self.model.table.name
+        joins.append({
+            'master': '%s.%s' % (fact_table, self.name + '_id'),
+            'detail': '%s.id' % self.table.name
+        })
+        for a in ['name', 'year', 'quarter', 'month', 'week', 'day']:
+            mappings['%s.%s' % (self.name, a)] = '%s.%s' % (self.table.name, a)
+        return DATE_CUBES_TEMPLATE.copy()
 
     def __repr__(self):
         return "<DateDimension(%s:%s)>" % (self.name, self.attributes)

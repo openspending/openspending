@@ -4,7 +4,8 @@ from sqlalchemy.types import Text, TypeDecorator, Integer
 from sqlalchemy.schema import Table, Column
 from sqlalchemy.sql.expression import and_, select, func
 from sqlalchemy.ext.mutable import Mutable
-from openspending.model import meta as db
+
+from openspending.core import db
 
 ALIAS_PLACEHOLDER = u'‽'
 
@@ -94,8 +95,7 @@ class JSONType(TypeDecorator):
 
 
 class TableHandler(object):
-
-    """ Used by automatically generated objects such as datasets
+    """ Used by automatically generated objects such as models
     and dimensions to generate, write and clear the table under
     its management. """
 
@@ -131,11 +131,6 @@ class TableHandler(object):
             q = self.table.select(key)
             row = bind.execute(q).fetchone()
             return row['id']
-
-    def _flush(self, bind):
-        """ Delete all rows in the table. """
-        q = self.table.delete()
-        bind.execute(q)
 
     def _drop(self, bind):
         """ Drop the table and the local reference to it. """

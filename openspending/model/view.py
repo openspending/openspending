@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship, backref
 from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.types import Integer, Unicode, Boolean, DateTime
 
-from openspending.model import meta as db
+from openspending.core import db
 from openspending.model.dataset import Dataset
 from openspending.model.account import Account
 from openspending.model.common import MutableDict, JSONType
@@ -70,4 +70,4 @@ class View(db.Model):
         }
 
     def __repr__(self):
-        return "<View(%s,%s)>" % (self.dataset.name, self.name)
+        return "<View(%r,%r)>" % (self.id, self.name)

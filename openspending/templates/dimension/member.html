@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block page_title %}{{ member['label'] }}{% endblock %}
+{% block page_desc %}{{ member | entry_description }}{% endblock %}
+
+{% block optional_head %}
+    <!-- TODO: Load this from the widget itself. -->
+	{% if widget %}
+	  <link rel="stylesheet" href="{{c.widget.base}}/css/{{c.widget.name}}.css" type="text/css" />
+	{% endif %}
+{% endblock %}
+
+{% from "dimension/_nav.html" import member_nav with context %}
+{% from "dimension/_widgets.html" import widget_js with context %}
+{% from "_util.html" import share_scripts as share_scripts %}
+{% from "_util.html" import share_body as share_body %}
+
+{% block scripts %}
+	{% if legacy_views.active %}
+    {{widget_js(dataset, 'vis_widget', legacy_views.active.vis_widget, legacy_views.active.vis_state, handles=True)}}
+    {{widget_js(dataset, 'table_widget', legacy_views.active.table_widget, legacy_views.active.table_state, handles=False)}}
+	{% endif %}
+  
+  {{share_scripts()}}
+{% endblock %}
+
+{% block content %}
+  {{ member_nav(dataset, dimension, member, legacy_views, legacy_views.active.name if legacy_views.active else 'search') }}
+
+	{% if legacy_views.active %}
+    <div class="row">
+      <div class="span12"><div id="vis_widget" style="width: auto; height: 400px"/></div>
+    </div>
+  {% endif %}
+
+  <div class="well widget-context">
+    <div class="pull-right">
+      <a href="#" class="btn btn-mini" id="widget-embed-link">
+        <i class="icon-share"></i>
+        {% trans %}Embed{% endtrans %}
+      </a>
+      <a href="#" class="btn btn-mini hidden" id="widget-edit-link">
+        <i class="icon-cog"></i>
+        {% trans %}Change{% endtrans %}
+        </a>
+      <a href="#" class="btn btn-mini hidden" id="widget-download-link">
+        <i class="icon-download"></i>
+        {% trans %}Data{% endtrans %}
+      </a>
+    </div>
+    
+    <p>
+  		{% if member.get('description') and member.get('description')|length %}
+            {{ member.get('description') | markdown }}
+          &nbsp;
+  		{% endif %}
+    </p>
+  </div>
+
+	{% if legacy_views.active %}
+    <div class="row">
+      <div class="span12"><div id="table_widget"/></div>
+    </div>
+	{% endif %}
+
+  {{share_body()}}
+
+{% endblock %}

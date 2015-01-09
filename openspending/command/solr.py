@@ -1,71 +1,37 @@
 from openspending.lib import solr_util as solr
 
+from openspending.command.util import create_submanager
 
+manager = create_submanager(description='Solr index operations')
+
+
+@manager.command
 def load(dataset):
+    """ Load data for dataset into Solr """
     solr.build_index(dataset)
-    return 0
 
 
+@manager.command
 def loadall():
+    """ Load data for all datasets into Solr """
     solr.build_all_index()
-    return 0
 
 
+@manager.command
 def delete(dataset):
+    """ Delete data for dataset from Solr """
     solr.drop_index(dataset)
-    return 0
 
 
+@manager.command
 def optimize():
+    """ Optimize the Solr index """
     solr.get_connection().optimize()
-    return 0
 
 
+@manager.command
 def clean():
+    """ Empty/reset the Solr index """
     s = solr.get_connection()
     s.delete_query('*:*')
     s.commit()
-    return 0
-
-
-def _load(args):
-    return load(args.dataset)
-
-
-def _loadall(args):
-    return loadall()
-
-
-def _delete(args):
-    return delete(args.dataset)
-
-
-def _optimize(args):
-    return optimize()
-
-
-def _clean(args):
-    return clean()
-
-
-def configure_parser(subparsers):
-    parser = subparsers.add_parser('solr',
-                                   help='Solr index operations')
-    sp = parser.add_subparsers(title='subcommands')
-
-    p = sp.add_parser('load', help='Load data for dataset into Solr')
-    p.add_argument('dataset')
-    p.set_defaults(func=_load)
-
-    p = sp.add_parser('loadall', help='Load data for all datasets into Solr')
-    p.set_defaults(func=_loadall)
-
-    p = sp.add_parser('delete', help='Delete data for dataset from Solr')
-    p.add_argument('dataset')
-    p.set_defaults(func=_delete)
-
-    p = sp.add_parser('optimize', help='Optimize the Solr index')
-    p.set_defaults(func=_optimize)
-
-    p = sp.add_parser('clean', help='Empty/reset the Solr index')
-    p.set_defaults(func=_clean)

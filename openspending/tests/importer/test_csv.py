@@ -1,6 +1,8 @@
+import urllib, urlparse
+
+from openspending.core import db
 from openspending.model.dataset import Dataset
 from openspending.model.source import Source
-from openspending.model import meta as db
 from openspending.lib import json
 
 from openspending.importer import CSVImporter
@@ -10,12 +12,12 @@ from openspending.tests.helpers import fixture_path, make_account
 
 
 def csvimport_fixture_path(name, path):
-    return fixture_path('csv_import/%s/%s' % (name, path))
+    return urlparse.urljoin('file:', urllib.pathname2url(fixture_path('csv_import/%s/%s' % (name, path))))
 
 
 def csvimport_fixture_file(name, path):
     try:
-        fp = open(csvimport_fixture_path(name, path))
+        fp = urllib.urlopen(csvimport_fixture_path(name, path))
     except IOError:
         if name == 'default':
             fp = None
@@ -32,7 +34,7 @@ def csvimport_fixture(name):
     if mapping_fp:
         model['mapping'] = json.load(mapping_fp)
     dataset = Dataset(model)
-    dataset.generate()
+    dataset.model.generate()
     db.session.add(dataset)
     data_path = csvimport_fixture_path(name, 'data.csv')
     user = make_account()
@@ -53,11 +55,11 @@ class TestCSVImporter(DatabaseTestCase):
         assert dataset is not None, "Dataset should not be None"
         assert dataset.name == "test-csv"
 
-        entries = dataset.entries()
-        assert len(list(entries)) == 4
+        entries = dataset.model.entries()
+        assert len(list(entries)) == 4, len(list(entries))
 
         # TODO: provenance
-        entry = list(dataset.entries(limit=1, offset=1)).pop()
+        entry = list(dataset.model.entries(limit=1, offset=1)).pop()
         assert entry is not None, "Entry with name could not be found"
         assert entry['amount'] == 66097.77
 
@@ -67,19 +69,19 @@ class TestCSVImporter(DatabaseTestCase):
         importer.run()
         dataset = db.session.query(Dataset).first()
 
-        dimensions = [str(d.name) for d in dataset.dimensions]
+        dimensions = [str(d.name) for d in dataset.model.dimensions]
         assert sorted(dimensions) == ['entry_id', 'from', 'time', 'to']
 
     def test_successful_import_with_simple_testdata(self):
         source = csvimport_fixture('simple')
         importer = CSVImporter(source)
         importer.run()
-        assert importer.errors == 0
+        assert importer.errors == 0, importer.errors
 
         dataset = db.session.query(Dataset).first()
         assert dataset is not None, "Dataset should not be None"
 
-        entries = list(dataset.entries())
+        entries = list(dataset.model.entries())
         assert len(entries) == 5
 
         entry = entries[0]

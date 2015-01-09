@@ -1,10 +1,11 @@
-from openspending.model import meta as db
-from openspending.model.dataset import Dataset
-from openspending.model.source import Source
-from budgetdatapackage import BudgetDataPackage
-
 import urlparse
 import logging
+
+from budgetdatapackage import BudgetDataPackage
+
+from openspending.core import db
+from openspending.model import Dataset, Source
+
 log = logging.getLogger(__name__)
 
 

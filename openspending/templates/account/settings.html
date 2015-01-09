@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block page_title %}{% trans %}Settings for:{% endtrans %} {{ current_user.name }}{% endblock %}
+
+{% block content %}
+<h2 class="page-header">{% trans %}Account Settings{% endtrans %} <small>{{ current_user.fullname }}</small></h2>
+
+<div class="row">
+  <div class="offset2 span10">
+    {% formfill form_fill with form_errors %}
+    <form class="basic settings form-horizontal" id="settings" action="{{ url_for('account.settings_save') }}" method="POST">
+      <div class="control-group">
+        <label for="fullname">{% trans %}Fullname{% endtrans %}</label>
+        <div class="controls">
+          <input name="fullname">
+        </div>
+      </div>
+      <div class="control-group form-inline">
+        <label for="email">{% trans %}Email{% endtrans %}</label>
+        <div class="controls">
+          <input name="email">
+	  <label class="checkbox">
+	    <input name="public_email" type="checkbox"> {% trans %}Visible to users{% endtrans %}
+	  </label>
+        </div>
+      </div>
+      <div class="control-group form-inline">
+        <label for="email">Twitter</label>
+        <div class="controls">
+          <input name="twitter">
+	  <label class="checkbox">
+	    <input name="public_twitter" type="checkbox"> {% trans %}Visible to users{% endtrans %}
+	  </label>
+        </div>
+      </div>
+      <div class="control-group">
+        <label for="password1">{% trans %}Password{% endtrans %}</label>
+        <div class="controls">
+          <input name="password1" type="password" autocomplete="off" />
+        </div>
+      </div>
+      <div class="control-group">
+        <label for="password2">{% trans %}Password (repeat){% endtrans %}</label>
+        <div class="controls">
+          <input name="password2" type="password" autocomplete="off" />
+          <p class="help-block">{% trans %}Leave both fields blank to keep your current password.{% endtrans %}</p>
+        </div>
+      </div>
+      <div class="control-group">
+        <label for="api_key">{% trans %}API Key{% endtrans %}</label>
+        <div class="controls">
+          <span class="uneditable-input" style="width: 25em;">{{ current_user.api_key }}</span>
+          <p class="help-block">{% trans %}Use this key to access the OpenSpending API programmatically.{% endtrans %}</p>
+        </div>
+      </div>
+      
+      <div class="form-actions">
+        <input value="{% trans %}Save{% endtrans %}" type="submit" class="btn btn-primary" />
+      </div>
+    </form>
+    {% endformfill %}
+  </div>
+</div>
+
+{% endblock %}

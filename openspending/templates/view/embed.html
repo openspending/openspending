@@ -1,0 +1,47 @@
+{% from "view/_widgets.html" import widget_js with context %}
+{% from "_util.html" import google_analytics with context %}
+
+<!DOCTYPE html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans %}Embedded Visualisation{% endtrans %} - {{site_title}}</title>
+    <link rel="shortcut icon" href="{{ static_path('img/favicon.ico') }}" type="image/x-icon" />
+
+    {% assets "css_embed" %}
+      <link href="{{ ASSET_URL }}" rel="stylesheet" />
+    {% endassets %}
+
+    {% if optional_head %}
+      {{optional_head}}
+    {% endif %}
+  </head>
+
+  <!-- templates/dataset/embed.html body -->
+  <body>
+    {% if widget %}
+      <div id="widget"></div>
+    {% endif %}
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="{{ static_path('js/json2.js') }}"></script>
+    <script src="{{ static_path('openspendingjs/prod/boot.js') }}"></script>
+
+    <script defer="defer">
+		  OpenSpending.scriptRoot = "{{ static_path('openspendingjs') }}";
+		  OpenSpending.localeGroupSeparator = "{{ number_symbols_group }}";
+		  OpenSpending.localeDecimalSeparator = "{{ number_symbols_decimal }}";
+    </script>
+
+    {{widget_js('widget', widget, state, handles=False, embed=True)}}
+    
+    <a id="credit" target="_blank" href="https://openspending.org/">
+      {% trans %}Visualised with OpenSpending{% endtrans %}
+    </a>
+
+    {{ google_analytics() }}
+  </body>
+</html>
+
+
+

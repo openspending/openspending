@@ -1,6 +1,6 @@
-from account import logged_in
-from pylons import tmpl_context
+from flask.ext.login import current_user
 
+from account import logged_in
 import dataset as ds
 
 
@@ -13,7 +13,7 @@ def read(dataset, view):
 
 
 def update(dataset, view):
-    if logged_in() and tmpl_context.account == view.account:
+    if logged_in() and current_user == view.account:
         return True
     return ds.update(dataset)
 

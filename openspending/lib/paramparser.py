@@ -131,7 +131,7 @@ class DatasetIndexParamParser(ParamParser):
         """
         # We force the language codes to lowercase and strip whitespace
         languages = [l.lower().strip()
-                     for l in self.request_params.getall('languages')]
+                     for l in self.request_params.getlist('languages')]
         # Check if this language is supported by OpenSpending
         # If not we add an error
         for lang in languages:
@@ -150,7 +150,7 @@ class DatasetIndexParamParser(ParamParser):
         # Isn't it great that we're so consistent with uppercase and lowercase
         # (uppercase here, lowercase in languages and categories)
         territories = [t.upper().strip()
-                       for t in self.request_params.getall('territories')]
+                       for t in self.request_params.getlist('territories')]
 
         # Check if this territory is supported by OpenSpending
         # If not we add an error
@@ -246,7 +246,7 @@ class AggregateParamParser(ParamParser):
             return
 
         # Get a list of all measurement names for the given dataset
-        measure_names = [m.name for m in self._output['dataset'].measures]
+        measure_names = [m.name for m in self._output['dataset'].model.measures]
 
         result = []
 

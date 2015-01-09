@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block page_title %}{{ profile.fullname }}{% endblock %}
+
+{% block content %}
+<h2 class="page-header">{{ profile.fullname }}</h2>
+
+<div class="row">
+  <div class="span2">
+  <img src="{{ profile.email | gravatar(size=200) }}" alt="Gravatar for {{profile.name}}">
+  </div>
+  <div class="span4">
+    <h3>{% trans %}Information{% endtrans %}{% if current_user == profile %} <small><a href="{{ url_for('account.settings') }}">{% trans %}(change){% endtrans %}</a></small>{% endif %}</h3>
+    <dl class="dl-horizontal">
+      {% if profile.fullname %}
+      <dt>{% trans %}Name{% endtrans %}</dt>
+      <dd>{{profile.fullname}}</dd>
+      {% endif %}
+      <dt>{% trans %}Username{% endtrans %}</dt>
+      <dd>{{profile.name}}</dd>
+      {% if show_email %}
+      <dt>{% trans %}Email{% endtrans %}</dt>
+      <dd>{{profile.email}}</dd>
+      {% endif %}
+      {% if profile.twitter_handle and show_twitter %}
+      <dt>Twitter</dt>
+      <dd><a href="https://twitter.com/{{ profile.twitter_handle }}">@{{ profile.twitter_handle }}</a></dd>
+      {% endif %}
+    </dl>
+  </div>
+  <div class="span6">
+    <h3>{% trans %}Datasets{% endtrans %}</h3>
+    <div class="row">
+      <div class="span3">
+	{% if profile_datasets|length %}
+	<ul>{% for dataset in profile_datasets %}
+	  <li>
+            <a href="{{ url_for('dataset.view', dataset=dataset.name) }}">{{ dataset.label }}</a>
+	  </li>
+	  {% endfor %}</ul>
+	{% else %}
+	<p>{% trans %}It looks like you haven't uploaded any datasets.{% endtrans %}</p>
+	{% endif %}
+      </div>
+      
+      {% if current_user == profile %}<div class="span3">
+	<a href="{{url_for('dataset.new') }}" class="btn btn-primary">{% trans %}Import a dataset{% endtrans %}</a>
+      </div>{% endif %}
+    </div>
+
+    {% if profile_views|length %}
+    <h3>{% trans %}Views{% endtrans %}</h3>
+    <ul>{% for view in profile_views %}
+      <li>
+        <a href="{{ url_for('view.view', dataset=view.dataset.name, name=view.name) }}">{{view.label}}</a> 
+        on
+	<a href="{{ url_for('dataset.view', dataset=view.dataset.name) }}">{{ view.dataset.label }}</a>
+      </li>
+      {% endfor %}</ul>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+

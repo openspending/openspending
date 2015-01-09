@@ -1,0 +1,100 @@
+
+{% macro dataset_nav(dataset, can, views, section) -%}
+    <!-- templates/dataset/_nav.html -->
+
+    {% if dataset.has_badges %}
+      <div class="row-fluid">
+        <div class="span8">
+  	      <h2 class="page-header">
+  	        {{dataset.label}}
+        	</h2>
+        </div>
+        <div class="span4">
+	        <div class="well">
+	          <h3>
+              {% trans %}Badges{% endtrans %}
+            </h3>
+	          {% for badge in dataset.badges %}
+              <a href="{{ url_for('badge.information', id=badge.id) }}" title="{{ badge.label }}">
+                <img src="{{ badge.image }}" alt="{{ badge.label }}">
+              </a>
+            {% endfor %}
+	          <p>
+              <small>
+                <a href="{{ url_for('badge.index') }}">
+                  {% trans %}What are badges?{% endtrans %}
+                </a>
+              </small>
+            </p>
+	        </div>
+        </div>
+      </div>
+    {% else %}
+      <h2 class="page-header">
+        {{dataset.label}}
+      </h2>
+    {% endif %}
+    
+
+    <div class="tabbable">
+      <ul class="nav nav-tabs">
+
+    		{% for view in views.available %}
+    		  {% if view.name == section %}
+            <li class="active"><a>{{view.label}}</a></li>
+    		  {% else %}
+            <li>
+              <a href="{{url_for('dataset.view', dataset=dataset.name, _view=view.name)}}">
+                {{view.label}}
+              </a>
+            </li>
+    		  {% endif %}
+    		{% endfor %}
+
+        <li class="{% if section == 'search' %}active{% endif %}">
+          <a href="{{url_for('entry.index', dataset=dataset.name)}}">
+            {% trans %}Search{% endtrans %}
+          </a>
+        </li>
+        <li class="{% if section == 'about' %}active{% endif %}">
+          <a href="{{url_for('dataset.about', dataset=dataset.name)}}">
+            {% trans %}About{% endtrans %}
+          </a>
+        </li>
+        <li class="dropdown {% if section == 'views' %}active{% endif %}">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+             {% trans %}Visualisations{% endtrans %}
+             <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+			      {% for view in dataset.views %}
+              <li>
+                <a href="{{ url_for('view.view', dataset=dataset.name, name=view.name)}}">
+                  {{view.label}}
+                </a>
+              </li>
+			      {% endfor %}
+
+			      {% if dataset.views.count() %}
+              <li class='divider'></li>
+			      {% endif %}
+
+            <li>
+              <a href="{{url_for('view.new', dataset=dataset.name)}}">
+                {% trans %}Create a visualisation...{% endtrans %}
+              </a>
+            </li>
+          </ul>
+        </li>
+		    
+        {% if can.dataset.update(dataset) %}
+          <li class="admin">
+            <a href="{{url_for('editor.index', dataset=dataset.name)}}">
+              {% trans %}Manage{% endtrans %}
+            </a>
+          </li>
+		    {% endif %}
+      </ul>
+    </div>
+
+{%- endmacro %}

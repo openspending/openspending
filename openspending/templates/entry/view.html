@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+{% from "_util.html" import share_scripts as share_scripts %}
+{% from "_util.html" import share_body as share_body %}
+
+{% block page_title %}
+	{% if 'to' in desc %}
+	  {{entry.to.get('label')}} - 
+	{% endif %}
+  {{dataset.currency}} {{ amount | format_currency(dataset) }} - {{dataset.label}}
+{% endblock %}
+
+{% block page_desc %}{{ entry | entry_description }}{% endblock %}
+
+{% block scripts %}
+    <!-- templates/dimension/view.html scripts -->
+    {{share_scripts()}}
+{% endblock %}
+
+{% block content %}
+  <div class="entry-page">
+    <!-- templates/entry/view.html -->
+    <ul class="breadcrumb">
+      <li>
+        <i class="icon-home"></i>
+        <a href="{{url_for('dataset.view', dataset=dataset.name)}}">
+          {{dataset.label}}</a>
+        <span class="divider">/</span>
+      </li>
+      <li>
+        <a href="{{url_for('entry.index', dataset=dataset.name)}}">
+          {% trans %}Entries{% endtrans %}</a>
+        <span class="divider">/</span>
+      </li>
+      <li class="active">
+        {% trans currency=dataset.currency, amount=amount | format_currency(dataset), time=entry.time.get('label') %}{{currency}} {{amount}} on {{time}}{% endtrans %}
+      </li>
+      <div class="representations">
+        <a href="{{url_for('entry.view', dataset=dataset.name, id=entry.id, format='json')}}">
+          <img src="{{ static_path('img/icons/json.png') }}" alt="JSON"/>
+        </a>
+      </div>
+    </ul>
+    <h2 class="page-header">
+      
+      {% trans dataset=dataset.label %}Entry in {{dataset}}{% endtrans %}
+      <small>{% trans %}Detailed View of Transaction{% endtrans %}</small>
+    </h2>
+    
+    <div class="row">
+      <div class="entities span4">
+        {% if 'from' in desc %}
+        <span>
+          {{desc.get('from', {}).label or '{% trans %}Recipient{% endtrans %}'}}:
+        </span>
+        <div>
+          <img src="{{ static_path('img/icons/arrow_left_12x12.png') }}" />
+          
+	        {% if entry['from'] %}
+            <a href="{{url_for('dimension.member',
+                               dataset=dataset.name,
+                               dimension='from',
+                               name=entry['from'].get('name'))}}">
+              {{ entry.from | render_value }}
+            </a>
+	        {% endif %}
+        </div>
+        {% endif %}
+        
+        {% if 'to' in desc %}
+        <span>
+          {{desc.get('to', {}).label or '{% trans %}Spender{% endtrans %}'}}:
+        </span>
+        <div>
+          <img src="{{ static_path('img/icons/arrow_right_12x12.png') }}" />
+          
+      	  {% if entry.to %}
+        	  <a href="{{url_for('dimension.member',
+                           dataset=dataset.name, dimension='to',
+                           name=entry.to.get('name'))}}">
+              {{ entry.to | render_value }}
+            </a>
+      	  {% endif %}
+          </div>
+        {% endif %}
+      </div><!-- /.entities -->
+
+      <div class="amount span7">
+        <div class="number">
+          <img src="{{ static_path('img/icons/cd_16x16.png') }}" />
+          
+          {{ amount | format_currency(dataset) }}
+          <div class="date">
+            <img src="{{ static_path('img/icons/calendar_alt_stroke_16x16.png') }}" />
+            {{entry.time.get('label')}}
+          </div>
+
+         {% if inflation -%}
+         <div>
+           <p class="help-block">
+             {% trans %}Adjusted for inflation{% endtrans %}
+             {% trans reference=inflation.reference, reference_year=inflation.reference.year, target=inflation.target, target_year=inflation.target.year %}(from <span title="{{reference}}">{{reference_year}}</span> 
+             to <span title="{{target}}">{{target_year}}</span>){% endtrans %}
+             - {% trans original=inflation.original | format_currency(dataset) %}Original amount: {{original}}{% endtrans %}
+           </p>
+         </div>
+         {%- endif %}
+        </div><!-- /.number -->
+      </div><!-- /.amount -->
+    </div>
+
+    <br/>
+	{% if extras %}
+    <div class="row">
+      <div class="span12">
+        <table class="table table-striped table-condensed" width="100%">
+          <thead>
+            <tr>
+              <th>{% trans %}Dimension{% endtrans %}</th>
+              <th>{% trans %}Value{% endtrans %}</th>
+            </tr>
+          </thead>
+          <tbody>
+			      {% for key, value in extras.items() | sort %}
+            <tr>
+              <td>
+				        {% if desc.get(key) %}
+                  <a href="{{url_for('dimension.view', dataset=dataset.name, dimension=key)}}">
+                    {{desc.get(key).label or desc.get(key).name}}
+                  </a>
+				        {% else %}
+                  {{key}}
+				        {% endif %}
+              </td>
+              <td>
+				        {% if desc.get(key, {}).datatype == 'url' %}
+                  <a href="{{value}}">{{ value | readable_url }}</a>
+                {% else %}
+                  {% if value.name %}
+                    <a href="{{url_for('dimension.member', dataset=dataset.name, dimension=key, name=value.name)}}">
+                      {{ value | render_value }}
+                    </a>
+                  {% else %}
+                    {{ value | render_value }}
+                  {% endif %}
+				        {% endif %}
+              </td>
+            </tr>
+			      {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+	{% endif %}
+
+	{% if entry.get('description') %}
+      <h3>{% trans %}Notes{% endtrans %}:</h3>
+      <dd>{{ entry.get('description') | markdown }}</dd>
+	{% endif %}
+
+  {{share_body()}}
+
+{% endblock %}

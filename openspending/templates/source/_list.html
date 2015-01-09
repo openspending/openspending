@@ -1,0 +1,107 @@
+{% macro sources_list(dataset) -%}
+
+<!-- templates/source/_list.html -->
+<table class="sources table table-striped table-condensed">
+  <tr>
+    <th colspan="2">{% trans %}Link{% endtrans %}</th>
+    <th>{% trans %}Operations{% endtrans %}</th>
+  </tr>
+  {% for source in dataset.sources %}
+  <tr>
+    <td colspan="2">
+      {% if 'error' in source.analysis %}
+      <span class="label label-important">{% trans %}Error{% endtrans %}</span>
+      {% elif 'columns' in source.analysis %}
+      <span class="label label-info">{% trans %}OK{% endtrans %}</span>
+      {% endif %}
+
+      <a href="{{ source.url }}">{{ source.url | readable_url }}</a>
+
+      {% if 'error' in source.analysis %}
+      &mdash; <strong>{{ source.analysis.error }}</strong>
+      {% elif 'columns' in source.analysis %}
+      <span class="help-inline">
+        {{ source.analysis.columns|length }} {% trans %}columns{% endtrans %}
+      </span>
+      {% endif %}
+    </td>
+    <td class="ops">
+      {% if source.successfully_loaded %}
+      <a href="#" class="btn btn-success btn-small disabled">{% trans %}Successfully loaded{% endtrans %}</a>
+      {% else %}
+      {% if source.loadable %}
+      {% if source.is_running %}
+      <a href="#" class="btn btn-info btn-small disabled">{% trans %}Running...{% endtrans %}</a>
+      {% elif source.successfully_sampled %}
+      <form method="POST" action="{{url_for('source.load', dataset=dataset.name, id=source.id) }}">
+      	<button class="btn btn-success btn-small" title="{% trans %}Load source into OpenSpending{% endtrans %}">
+          <i class="icon-upload icon-white"></i>
+          {% trans %}Load{% endtrans %}
+        </button>
+      </form>
+      {% else %}
+      <form method="POST" action="{{ url_for('source.load', dataset=dataset.name, id=source.id) }}">
+	      <input type="hidden" name="sample" value="true" />
+	      <button class="btn btn-small" title="{% trans %}Test a sample{% endtrans %}">
+          <i class="icon-eye-open"></i>
+          {% trans %}Test{% endtrans %}
+        </button>
+      </form>
+      {%- endif %}
+      {%- endif %}
+      <form method="POST" action="{{ url_for('source.delete', dataset=dataset.name, id=source.id) }}">
+        <button class="btn btn-danger btn-small" title="{% trans %}Delete source{% endtrans %}">
+          <i class="icon-remove icon-white"></i>
+          {% trans %}Delete{% endtrans %}</button>
+      </form>
+      {%- endif %}
+    </td>
+  </tr>
+  <tr>
+    {% if source.runs.count() %}
+    <td class="top" width="5%"><strong>{% trans %}Reports{% endtrans %}</strong>:</td>
+    <td colspan="2">
+      <ul class="runs">
+        {% for run in source.runs[:5] %}
+        <li>
+          <a href="{{ url_for('run.view', dataset=dataset.name, source=source.id, id=run.id) }}">
+            {{ run.time_start | format_date }}</a>
+
+          {% if run.status == 'running'%}
+          <span class="label label-info">{% trans %}Running{% endtrans %}</span>
+          {% elif run.status == 'complete' %}
+          <span class="label label-success">{% trans %}Complete{% endtrans %}</span>
+          {% elif run.status == 'failed' %}
+          <span class="label label-important">{% trans %}Errors{% endtrans %}</span>
+          {% elif run.status == 'removed' %}
+      	  <span class="label">{% trans %}Removed{% endtrans %}</span>
+      	  {% else %}
+      	  <span class="label">{{ run.status }}</span>
+          {% endif %}
+
+          <span>({{ run.records.count() }} {% trans %}errors{% endtrans %})</span>
+        </li>
+        {% endfor %}
+      </ul>
+    </td>
+    {% elif 'error' not in source.analysis %}
+    <td class="top" width="5%"><strong>{% trans %}Analysis{% endtrans %}</strong>:</td>
+    <td colspan="2">
+      {% if 'columns' in source.analysis and source.analysis.columns|length%}
+      {% trans %}We found these columns in the CSV file:{% endtrans %}
+      <ul>
+        {% for column in source.analysis.columns %}
+	        <li>{{ column }}</li>
+        {% endfor %}
+      </ul>
+      {% elif 'columns' in source.analysis %}
+      <span class="label label-warning">{% trans %}Warning{% endtrans %}</span> {% trans %}No columns found.{% endtrans %}
+      {% else %}
+      <span class="label label-info">{% trans %}Still analysing{% endtrans %}</span> {% trans %}Try refreshing in a moment.{% endtrans %}
+      {% endif %}
+    </td>
+    {% endif %}
+  </tr>
+  {% endfor %}
+</table>
+{%- endmacro%}

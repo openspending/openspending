@@ -41,9 +41,9 @@ if [ ! -d /vagrant/openspendingjs ]
 then
   git clone http://github.com/openspending/openspendingjs.git
 fi
-if [ ! -L /vagrant/openspending/ui/public/static/openspendingjs ]
+if [ ! -L /vagrant/openspending/static/openspendingjs ]
 then
-  ln -s openspendingjs openspending/ui/public/static/openspendingjs
+  ln -s openspendingjs openspending/static/openspendingjs
 fi
 
 #prepare vagrant file and init db with it.

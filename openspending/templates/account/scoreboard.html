@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block page_title %}{% trans %}User scoreboard{% endtrans %}{% endblock %}
+
+{% block content %}
+<h2 class="page-header">{% trans %}OpenSpending Dataset Maintainers{% endtrans %}</h2>
+
+{% for row in page|batch(6) %}
+<div class="row" style="text-align:center">
+  {% for user in row %}
+  <div class="span2">
+    <img src="{{ user.email | gravatar(size=120) }}">
+    <h4><a href="{{ url_for('account.profile', name=user.name) }}">{{ user.name }}</a></h4>
+    <p>{{ user.score }}</p>
+  </div>
+  {% endfor %}
+</div>
+{% endfor %}
+{{ page.pager() }}
+
+{% endblock %}
