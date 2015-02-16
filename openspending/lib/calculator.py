@@ -27,8 +27,8 @@ income_table = [[(float(income)) for income in row] for row in income_table]
 
 class TaxCalculator2010(object):
 
-    def total_tax(self,
-                  income,
+    @staticmethod
+    def total_tax(income,
                   spending=None,
                   is_smoker=True,
                   is_drinker=True,
@@ -132,7 +132,7 @@ indirect taxes).'''
                     (income_table[6][-1] / income_table[1][-1])
             else:
                 tax_results['alcohol_tax'] = 0
-            if is_drinker:
+            if is_driver:
                 tax_results['car_related_tax'] = income * \
                     (income_table[7][-1] / income_table[1][-1])
             else:
@@ -152,7 +152,7 @@ the average for the top decile.''')
         if not is_smoker:
             explanation_text += ' non-smoking'
         if not is_drinker:
-            explanation_text += ' non-driving'
+            explanation_text += ' non-drinking'
         if not is_driver:
             explanation_text += ' non-driving'
         explanation_text += ' household with an income of %.2f pays '\
