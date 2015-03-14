@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# This file is intended to be used as a wrapper for "paster serve..." when the
+# container is started. It will provide more helpful error messages than
+# OpenSpending itself if the required configuration environment variables are
+# not set.
+#
+#     envexec paster serve --reload development.ini
+#
+
+set -eu
+
+: $DATABASE_URL
+: $SOLR_URL
+: $BROKER_URL
+
+exec "$@"

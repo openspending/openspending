@@ -1,6 +1,8 @@
 """Pylons environment configuration"""
 import logging
 import os
+from os import environ as env
+import urlparse
 
 from pylons import config
 
@@ -38,6 +40,18 @@ def load_environment(global_conf, app_conf):
     config['routes.map'] = routing.make_map()
     config['pylons.app_globals'] = app_globals.Globals()
     config['pylons.h'] = helpers
+
+    # Import config from environment if present
+    if env.get('DATABASE_URL') is not None:
+        config['openspending.db.url'] = env.get('DATABASE_URL')
+    if env.get('SOLR_URL') is not None:
+        config['openspending.solr.url'] = env.get('SOLR_URL')
+    if env.get('BROKER_URL') is not None:
+        url = urlparse.urlparse(env.get('BROKER_URL'))
+        config['broker.host'] = url.hostname
+        config['broker.port'] = url.port
+        config['broker.user'] = url.username
+        config['broker.password'] = url.password
 
     # set log level in markdown
     markdown.logger.setLevel(logging.WARN)
