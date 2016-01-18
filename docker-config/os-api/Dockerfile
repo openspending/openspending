@@ -7,6 +7,7 @@ RUN python3 --version
 RUN pip --version
 RUN pip install --upgrade pip
 RUN pip install gunicorn
+RUN pip install python-memcached
 RUN pip install git+git://github.com/okfn/tabulator-py.git
 RUN pip install git+git://github.com/okfn/datapackage-py.git
 RUN pip install git+git://github.com/openspending/babbage.fiscal-data-package.git
@@ -16,6 +17,10 @@ RUN cd app && ls && pip install -e .
 RUN rm -rf /var/cache/apk/*
 RUN du -d1 -h /usr/lib/python2.7
 
+ENV OS_API_CACHE=cache:11211
+ENV CELERY_CONFIG=amqp://guest:guest@mq:5672//
+ENV CELERY_BACKEND_CONFIG=amqp://guest:guest@mq:5672//
+
 EXPOSE 8000
 
-CMD cd app && echo $OS_API_ENGINE && gunicorn -w 4 os_api.app:app -b 0.0.0.0:8000
+CMD cd app && echo $OS_API_ENGINE && python -m celery -A babbage_fiscal.tasks worker & gunicorn -w 4 os_api.app:app -b 0.0.0.0:8000

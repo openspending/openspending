@@ -1,6 +1,46 @@
+cache:
+  build: cache/
+  container_name: "cache"
+  expose:
+      - "11211"
+  ports:
+      - "11211:11211"
 os-api:
   build: os-api/
-  ports:
-    - "8000:8000"
   environment:
     - OS_API_ENGINE
+  container_name: "os-api"
+  expose:
+      - "8000"
+  ports:
+      - "9000:8000"
+os-packager:
+  build: os-packager/
+  container_name: "os-packager"
+  expose:
+      - "8000"
+  ports:
+      - "9001:8000"
+  environment:
+      - OS_EXTERNAL_ADDRESS
+os-conductor:
+  build: os-conductor/
+  container_name: "os-conductor"
+  expose:
+      - "8000"
+  ports:
+      - "9002:8000"
+  environment:
+      - API_KEY_WHITELIST
+      - OPENSPENDING_ACCESS_KEY_ID
+      - OPENSPENDING_SECRET_ACCESS_KEY
+      - OPENSPENDING_STORAGE_BUCKET_NAME
+frontend:
+  build: frontend/
+  ports:
+      - "80:80"
+mq:
+  build: mq/
+  container_name: "mq"
+  expose:
+      - "5672"
