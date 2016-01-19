@@ -3,99 +3,29 @@
 {% block page_title %}Login{% endblock %}
 
 {% block content %}
-<h2 class="page-header">{% trans %}Sign in to OpenSpending{% endtrans %}</h2>
+<h2 class="page-header">OpenSpending is now in read-only mode.</h2>
 
 <div class="row">
-  <div class="span6">
-    <h3>{% trans %}Login{% endtrans %}</h3>
-    <form class="basic login form-horizontal" id="login" action="/perform_login" method="POST">
-      <fieldset>
-        <div class="control-group">
-          <label for="login">{% trans %}Login{% endtrans %}</label>
-          <div class="controls">
-            <input name="login" />
-          </div>
-        </div>
-        <div class="control-group">
-          <label for="password">{% trans %}Password{% endtrans %}</label>
-          <div class="controls">
-            <input name="password" type="password" />
-          </div>
-        </div>
-      </fieldset>
-      <div class="form-actions">
-        <input value="{% trans %}Login{% endtrans %}" class="btn btn-primary" type="submit" />
-      </div>
-    </form>
-    <p class="help-block">{% trans %}Forgot your password?{% endtrans %} <a href="{{ h.url_for(controller='account', action='trigger_reset') }}">{% trans %}Request a password reset.{% endtrans %}</a></p>
-  </div>
-  <div class="span6">
-    <h3>{% trans %}Create an account{% endtrans %}</h3>
-    {% formfill form_fill with form_errors %}
-    <form class="basic register form-horizontal" id="register" action="{{ h.url_for(controller='account', action='register') }}" method="POST">
-      <fieldset>
-        <div class="control-group">
-          <label for="name">{% trans %}Login{% endtrans %}</label>
-          <div class="controls">
-            <input name="name">
-          </div>
-        </div>
-        <div class="control-group">
-          <label for="fullname">{% trans %}Fullname{% endtrans %}</label>
-          <div class="controls">
-            <input name="fullname">
-          </div>
-        </div>
-        <div class="control-group form-inline">
-          <label for="email">{% trans %}Email{% endtrans %}</label>
-          <div class="controls">
-            <input name="email">
-	    <label class="checkbox">
-	      <input name="public_email" type="checkbox"> {% trans %}Visible to other users{% endtrans %}
-	    </label>
-          </div>
-        </div>
-        <div class="control-group">
-          <label for="password1">{% trans %}Password{% endtrans %}</label>
-          <div class="controls">
-            <input name="password1" type="password" autocomplete="off" />
-          </div>
-        </div>
-        <div class="control-group">
-          <label for="password2">{% trans %}Password (repeat){% endtrans %}</label>
-          <div class="controls">
-            <input name="password2" type="password" autocomplete="off" />
-          </div>
-        </div>
-        <div class="control-group">
-          <div class="controls">
-            <label for="terms" class="checkbox">
-              <input name="terms" type="checkbox" />
-              {% trans %}I agree to the <a href="http://okfn.org/terms-of-use/">Terms of Use</a>
-              and <a href="http://okfn.org/privacy-policy/">Privacy Policy</a>.{% endtrans %}
-            </label>
-	    {% if c.config.get('openspending.subscribe_community') %}
-            <label class="checkbox">
-              <input type="checkbox" name="subscribe_community" checked="checked"/>
-              {% trans %}Add me to the OpenSpending community mailing list{% endtrans %}
-            </label>
-            {% endif %}
-            {% if c.config.get('openspending.subscribe_developer') %}
-            <label class="checkbox">
-              <input type="checkbox" name="subscribe_developer">
-              {% trans %}Sign me up for the OpenSpending developer mailing list{% endtrans %}
-            </label>
-	    {% endif %}
-          </div>
-        </div>
-      </fieldset>
-      
-      <div class="form-actions">
-        <input value="{% trans %}Create new account{% endtrans %}" class="btn btn-primary" type="submit" />
-      </div>
-    </form>
-    {% endformfill %}
-  </div>
+	<div class="span6">
+	<p>
+	First, thanks for being a part of the OpenSpending community. It's an exciting time to be involved with lots of changes to come!
+	</p>
+	<p>
+	We're hard at work on OpenSpending Next. During this process, we are putting the old OpenSpending into read-only mode for up to two months. During this period, no new datasets will be able to be created on openspending.org. While we still want you to be able to access existing public datasets, we don't want to risk losing any new datasets created during the transition.
+	</p>
+	<p>
+	One major motivation for this move is that users encountering the old OpenSpending site periodically run into issues when they try to import new datasets. Unfortunately, we don't have the resources to support and fix these issues on the old site while we build the new one, so we have decided to move to read-only mode so we can focus all our effort on making the new site great!
+	</p>
+	<p>
+	If you would like to get involved in the development of OpenSpending Next, please visit <a href="http://community.openspending.org/get-involved/">our community site</a>.
+	</p>
+	<p>
+	For more information or to give feedback, please visit <a href="https://discuss.okfn.org/t/openspending-org-moving-to-read-only-mode/1793">this post</a> on our discussion forum.
+	</p>
+	</div>
+
+	<div class="span6">
+	</span>
 </div>
 
 {% endblock %}
