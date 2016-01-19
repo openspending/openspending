@@ -13,15 +13,15 @@ class UsernamePasswordAuthenticator(object):
     implements(IAuthenticator)
 
     def authenticate(self, environ, identity):
-        if 'login' not in identity or 'password' not in identity:
-            return None
-        account = Account.by_name(identity['login'])
-        if account is None:
-            return None
-        if account.password is None:
-            return None
-        if check_password_hash(account.password, identity['password']):
-            return account.name
+        # if 'login' not in identity or 'password' not in identity:
+        #    return None
+        # account = Account.by_name(identity['login'])
+        # if account is None:
+        #    return None
+        # if account.password is None:
+        #    return None
+        # if check_password_hash(account.password, identity['password']):
+        #    return account.name
         return None
 
 
@@ -34,18 +34,18 @@ class ApiKeyIdentifier(object):
         """
 
         # Get the authorization header as passed through paster
-        authorization = AUTHORIZATION(environ)
-        log.debug(authorization)
+        # authorization = AUTHORIZATION(environ)
+        # log.debug(authorization)
         # Split the authorization header value by whitespace
-        try:
-            method, auth = authorization.split(' ', 1)
-        except ValueError:
+        # try:
+        #    method, auth = authorization.split(' ', 1)
+        # except ValueError:
             # not enough values to unpack
-            return None
+            # return None
 
         # If authentication method is apikey we return the identity
-        if method.lower() == 'apikey':
-            return {'apikey': auth.strip()}
+        # if method.lower() == 'apikey':
+        #    return {'apikey': auth.strip()}
 
         # Return None if we get here (identity not found)
         return None
@@ -81,9 +81,9 @@ class ApiKeyAuthenticator(object):
 
         # If identity has apikey we get the account by the api key
         # and return none if no account or apikey is found is found
-        if 'apikey' in identity:
-            acc = Account.by_api_key(identity.get('apikey'))
-            if acc is not None:
-                return acc.name
+        # if 'apikey' in identity:
+        #    acc = Account.by_api_key(identity.get('apikey'))
+        #    if acc is not None:
+        #        return acc.name
 
         return None
