@@ -1,0 +1,31 @@
+cache:
+    extends:
+        file: common.yml
+        service: cache
+os-api:
+    extends:
+        file: common.yml
+        service: os-api
+    environment:
+        - WORKDIR=app
+os-packager:
+    extends:
+        file: common.yml
+        service: os-packager
+    environment:
+        - WORKDIR=app
+        - OS_EXTERNAL_ADDRESS=s145.okserver.org
+os-conductor:
+    extends:
+        file: common.yml
+        service: os-conductor
+    environment:
+        - WORKDIR=app
+frontend:
+    extends:
+        file: common.yml
+        service: frontend
+mq:
+    extends:
+        file: common.yml
+        service: mq

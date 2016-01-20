@@ -31,7 +31,6 @@ os-conductor:
   ports:
       - "9002:8000"
   environment:
-      - API_KEY_WHITELIST
       - OPENSPENDING_ACCESS_KEY_ID
       - OPENSPENDING_SECRET_ACCESS_KEY
       - OPENSPENDING_STORAGE_BUCKET_NAME

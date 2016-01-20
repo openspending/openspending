@@ -13,4 +13,4 @@ ADD settings.json /app/settings.json
 
 EXPOSE 8000
 
-CMD cd app && OS_CONDUCTOR="http://${OS_EXTERNAL_ADDRESS}" npm start
+CMD echo working from $WORKDIR && cd $WORKDIR && OS_CONDUCTOR="http://${OS_EXTERNAL_ADDRESS}" npm start

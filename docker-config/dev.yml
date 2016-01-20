@@ -1,0 +1,58 @@
+cache:
+    extends:
+        file: common.yml
+        service: cache
+os-api:
+    extends:
+        file: common.yml
+        service: os-api
+    volumes:
+        - ../repos/tabulator-py:/repos/tabulator-py
+        - ../repos/datapackage-py:/repos/datapackage-py
+        - ../repos/babbage.fiscal-data-package:/repos/babbage.fiscal-data-package
+        - ../repos/babbage:/repos/babbage
+        - ../repos/os-api:/repos/os-api
+    environment:
+        - WORKDIR=/repos/os-api
+        - OS_API_ENGINE=postgresql://postgres@db/postgres
+os-packager:
+    extends:
+        file: common.yml
+        service: os-packager
+    volumes:
+        - ../repos/os-packager:/repos/os-packager
+    environment:
+        - DEBUG=true
+        - PORT=8000
+        - WORKDIR=/repos/os-packager
+        - OS_EXTERNAL_ADDRESS=conductor.openspending.dev
+os-conductor:
+    extends:
+        file: common.yml
+        service: os-conductor
+    volumes:
+        - ../repos/os-conductor:/repos/os-conductor
+    environment:
+        - WORKDIR=/repos/os-conductor
+        - OPENSPENDING_S3_HOSTNAME=fakes3
+        - OPENSPENDING_STORAGE_BUCKET_NAME=fake-bucket
+frontend:
+    extends:
+        file: common.yml
+        service: frontend
+    volumes:
+        - "./frontend/dev-nginx.conf:/etc/nginx/conf.d/dev.conf"
+mq:
+    extends:
+        file: common.yml
+        service: mq
+fakes3:
+    build: fakes3/
+    container_name: "fakes3"
+    expose:
+      - "80"
+db:
+    build: db/
+    container_name: "db"
+    expose:
+      - "5432"

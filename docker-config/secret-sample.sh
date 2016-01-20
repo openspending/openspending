@@ -1,5 +1,0 @@
-declare -x OS_API_ENGINE=<connection string to the DB>
-declare -x API_KEY_WHITELIST=
-declare -x OPENSPENDING_ACCESS_KEY_ID=
-declare -x OPENSPENDING_SECRET_ACCESS_KEY=
-declare -x OPENSPENDING_STORAGE_BUCKET_NAME=
