@@ -8,5 +8,5 @@ set -e
 
 FISCAL_PACKAGE_ENGINE=$OS_API_ENGINE bb-fdp-cli create-tables && echo "CREATED TABLES"
 
-python -m celery -A babbage_fiscal.tasks worker &
+python -m celery -A babbage_fiscal.tasks --concurrency=1 worker &
 gunicorn -w 4 os_api.app:app -b 0.0.0.0:8000
