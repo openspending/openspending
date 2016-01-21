@@ -1,8 +1,9 @@
 FROM nginx
 
-COPY nginx.conf /etc/nginx/nginx.conf
+ADD nginx.conf /etc/nginx/nginx.conf
+ADD startup.sh /startup.sh
 
 EXPOSE 80
 
 # We need to wait for the internal dns resolving to kick in
-CMD sleep 20 && echo "NGINX STARTING" && nginx -g "daemon off;"
+CMD ./startup.sh
