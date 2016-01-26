@@ -32,9 +32,9 @@ In order to simplify set-up and provisioning of these services, we use the *Dock
  - Check the IP address for the `default` machine: `docker-machine ip default`
  - Edit the `/etc/hosts` file on your machine and add the following entries:
    ```
-192.168.99.100  api.openspending.dev
-192.168.99.100  packager.openspending.dev
-192.168.99.100  conductor.openspending.dev
+192.168.99.100  api.dev.openspending.org
+192.168.99.100  packager.dev.openspending.org
+192.168.99.100  conductor.dev.openspending.org
    ```
    You should replace `192.168.99.100` with the actual IP address of machine which you found in the previous step.
    (see [this discussion](http://superuser.com/questions/525688/whats-the-windows-equivalent-of-etc-hosts) for Windows machines)
@@ -55,6 +55,7 @@ You can modify the code under `repos/` and rerun `./docker-start-dev.sh` to see 
     - `OS_DB_HOST` - the OpenSpending DB host name
     - `OS_DB_PWD` - the OpenSpending DB connection password
     - `OS_API_ENGINE` - the OpenSpending DB connection string
+    - `OS_CONDUCTOR_ENGINE` - the OpenSpending DB connection string
     - `API_KEY_WHITELIST` - Allowed API keys in the conductor
     - `OPENSPENDING_ACCESS_KEY_ID`, `OPENSPENDING_SECRET_ACCESS_KEY` and `OPENSPENDING_STORAGE_BUCKET_NAME` - S3 Bucket info
 
