@@ -1,7 +1,7 @@
 FROM gliderlabs/alpine:3.3
 
 RUN apk add --update python3
-RUN apk add --virtual=build-dependencies wget ca-certificates python3-dev postgresql-dev build-base
+RUN apk add --update --virtual=build-dependencies wget libffi libffi-dev ca-certificates python3-dev postgresql-dev build-base
 RUN wget "https://bootstrap.pypa.io/get-pip.py" -O /dev/stdout | python3
 RUN python3 --version
 RUN pip3 --version
@@ -11,6 +11,7 @@ RUN pip3 install psycopg2
 RUN pip3 install --upgrade pip
 RUN pip3 install gunicorn
 RUN pip3 install python-memcached
+RUN pip3 install cryptography
 RUN ls -la && ls -la / && mount
 RUN git clone http://github.com/openspending/os-conductor.git app
 RUN cd app && pip install -r requirements.txt
@@ -23,6 +24,7 @@ ENV OS_CONDUCTOR=os-conductor:8000
 ENV API_KEY_WHITELIST=openspending-next
 
 ADD startup.sh /startup.sh
+ADD secrets /secrets
 
 EXPOSE 8000
 

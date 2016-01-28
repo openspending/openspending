@@ -31,9 +31,11 @@ os-conductor:
   ports:
       - "9002:8000"
   environment:
+      - OS_CONDUCTOR_ENGINE
       - OPENSPENDING_ACCESS_KEY_ID
       - OPENSPENDING_SECRET_ACCESS_KEY
       - OPENSPENDING_STORAGE_BUCKET_NAME
+      - SECRETS_PATH
 frontend:
   build: frontend/
   ports:

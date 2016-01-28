@@ -21,6 +21,8 @@ os-conductor:
         service: os-conductor
     environment:
         - WORKDIR=app
+        - OS_EXTERNAL_ADDRESS=s145.okserver.org
+        - SECRETS_PATH=prod-secrets
 frontend:
     extends:
         file: common.yml

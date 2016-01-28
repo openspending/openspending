@@ -37,6 +37,8 @@ os-conductor:
         - OPENSPENDING_S3_HOSTNAME=fakes3
         - OPENSPENDING_STORAGE_BUCKET_NAME=fake-bucket
         - OS_CONDUCTOR_ENGINE=postgresql://postgres@db/postgres
+        - OS_EXTERNAL_ADDRESS=conductor.dev.openspending.org
+        - SECRETS_PATH=dev-secrets
 frontend:
     extends:
         file: common.yml
