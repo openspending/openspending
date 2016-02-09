@@ -31,18 +31,19 @@ In order to simplify set-up and provisioning of these services, we use the *Dock
      - The `default` machine is started: `docker-machine start default`
  - Check the IP address for the `default` machine: `docker-machine ip default`
  - Edit the `/etc/hosts` file on your machine and add the following entries:
+
    ```
-192.168.99.100  api.dev.openspending.org
-192.168.99.100  packager.dev.openspending.org
-192.168.99.100  conductor.dev.openspending.org
+192.168.99.100  fakes3
+192.168.99.100  dev.openspending.org
    ```
+
    You should replace `192.168.99.100` with the actual IP address of machine which you found in the previous step.
    (see [this discussion](http://superuser.com/questions/525688/whats-the-windows-equivalent-of-etc-hosts) for Windows machines)
  - Clone this repo into a directory in your local machine: `git clone https://github.com/openspending/openspending`
  - Run `repos/clone_all.sh` - this will create local copies for all OpenSpending related code bases.
  - Now go into the `docker-config` folder, and start the docker containers: `./docker-start-dev.sh`
  - Wait for all containers to finish build and start. If there are any errors, just restart the process (we'll iron them out later on)
- - Open your browser at `http://packager.openspending.dev/` - you should be able to see OS-Packager web UI.
+ - Open your browser at `http://dev.openspending.org/` - you should be able to see OS-Packager web UI.
 
 ### Editing the code
 

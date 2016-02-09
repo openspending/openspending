@@ -25,7 +25,7 @@ os-packager:
         - DEBUG=true
         - PORT=8000
         - WORKDIR=/repos/os-packager
-        - OS_EXTERNAL_ADDRESS=conductor.dev.openspending.org
+        - OS_EXTERNAL_ADDRESS=dev.openspending.org
 os-conductor:
     extends:
         file: common.yml
@@ -37,7 +37,7 @@ os-conductor:
         - OPENSPENDING_S3_HOSTNAME=fakes3
         - OPENSPENDING_STORAGE_BUCKET_NAME=fake-bucket
         - OS_CONDUCTOR_ENGINE=postgresql://postgres@db/postgres
-        - OS_EXTERNAL_ADDRESS=conductor.dev.openspending.org
+        - OS_EXTERNAL_ADDRESS=dev.openspending.org
         - SECRETS_PATH=dev-secrets
 frontend:
     extends:
