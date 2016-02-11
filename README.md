@@ -29,6 +29,7 @@ In order to simplify set-up and provisioning of these services, we use the *Dock
      - You have a `default` machine installed - the toolbox installation should create one automatically (you can verify this by using the `docker-machine ls` command).
      - You're working against the `default` machine by loadin its settings to the shell: `eval $(docker-machine env default)`.
      - The `default` machine is started: `docker-machine start default`
+     - In some cases the local virtual machine may have DNS issues - in which case add `nameserver 8.8.8.8` to the guest `/etc/hosts` (i.e. after logging into the guest by `docker-machine ssh default`)
  - Check the IP address for the `default` machine: `docker-machine ip default`
  - Edit the `/etc/hosts` file on your machine and add the following entries:
 
@@ -42,7 +43,7 @@ In order to simplify set-up and provisioning of these services, we use the *Dock
  - Clone this repo into a directory in your local machine: `git clone https://github.com/openspending/openspending`
  - Run `repos/clone_all.sh` - this will create local copies for all OpenSpending related code bases.
  - Now go into the `docker-config` folder, and start the docker containers: `./docker-start-dev.sh`
- - Wait for all containers to finish build and start. If there are any errors, just restart the process (we'll iron them out later on)
+ - Wait for all containers to finish build and start. Be patient, this may take 10-15 minutes! If there are any errors, just restart the process (we'll iron them out later on)
  - Open your browser at `http://dev.openspending.org/` - you should be able to see OS-Packager web UI.
 
 ### Editing the code
@@ -57,7 +58,6 @@ You can modify the code under `repos/` and rerun `./docker-start-dev.sh` to see 
     - `OS_DB_PWD` - the OpenSpending DB connection password
     - `OS_API_ENGINE` - the OpenSpending DB connection string
     - `OS_CONDUCTOR_ENGINE` - the OpenSpending DB connection string
-    - `API_KEY_WHITELIST` - Allowed API keys in the conductor
     - `OPENSPENDING_ACCESS_KEY_ID`, `OPENSPENDING_SECRET_ACCESS_KEY` and `OPENSPENDING_STORAGE_BUCKET_NAME` - S3 Bucket info
 
   - Run `./forward-ports.sh` to create a connection to the server and tunnel some of your local ports to it
