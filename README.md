@@ -25,7 +25,7 @@ In order to simplify set-up and provisioning of these services, we use the *Dock
 
  - We start by making sure we have `docker-machine` and `docker-compose` installed on our local machine. For OSX and Windows users, these can be installed using the *Docker Toolbox* - a utility package available from Docker's website.
  - Make sure that:
-     - You're using Docker version 1.9 or newer (`docker -v`) and docker-compose version 1.5.2 or newer (`docker-compose -v`)
+     - You're using Docker version 1.10 or newer (`docker -v`) and docker-compose version 1.6 or newer (`docker-compose -v`)
      - You have a `default` machine installed - the toolbox installation should create one automatically (you can verify this by using the `docker-machine ls` command).
      - You're working against the `default` machine by loadin its settings to the shell: `eval $(docker-machine env default)`.
      - The `default` machine is started: `docker-machine start default`

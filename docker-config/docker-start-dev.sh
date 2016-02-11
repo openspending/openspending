@@ -1,3 +1,3 @@
 #!/bin/bash
-docker-compose --x-networking -f dev.yml up
+docker-compose -f dev.yml up
 ./sync-shared-folders.sh
