@@ -1,0 +1,31 @@
+language: python
+sudo: required
+
+services:
+  - docker
+
+addons:
+  hosts:
+    - dev.openspending.org
+
+env:
+  DOCKER_COMPOSE_VERSION: 1.6.0
+
+before_install:
+before_install:
+    - sudo apt-get update -y -qq
+    - sudo apt-get install -o Dpkg::Options::="--force-confnew" -y -qq docker-engine
+    - sudo rm /usr/local/bin/docker-compose
+    - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+    - chmod +x docker-compose
+    - sudo mv docker-compose /usr/local/bin
+    - docker -v
+    - docker-compose -v
+script:
+    - cd docker-config
+    - docker-compose -f dev.yml build
+    - docker-compose -f dev.yml up -d
+    - sleep 60
+    - curl -v http://dev.openspending.org:8080/api/3/cubes
+    - curl -v http://dev.openspending.org:8080/packager/
+
