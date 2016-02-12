@@ -6,7 +6,7 @@ services:
       expose:
           - "11211"
       ports:
-          - "11211:11211"
+          - "9010:11211"
     os-api:
       build: os-api/
       environment:
