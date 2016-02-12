@@ -1,16 +1,20 @@
 FROM gliderlabs/alpine:latest
 
 RUN apk add --update python
+RUN apk add --update --virtual=build-dependencies ca-certificates build-base
 RUN apk add git
 RUN apk add nodejs
 RUN git clone http://github.com/openspending/os-viewer.git app
-RUN cd app && npm install 
+RUN cd app && npm install
 RUN cd app && node node_modules/gulp/bin/gulp.js
+RUN apk del build-dependencies
 RUN rm -rf /var/cache/apk/*
+
+ENV OS_VIEWER_BASE_PATH=viewer/
 
 ADD settings.json /app/settings.json
 ADD startup.sh /startup.sh
 
 EXPOSE 8000
 
-CMD echo working from $WORKDIR && cd $WORKDIR && OS_API="http://${OS_EXTERNAL_ADDRESS}" /startup.sh
+CMD echo working from $WORKDIR && cd $WORKDIR && API_URL="${OS_EXTERNAL_ADDRESS}" /startup.sh

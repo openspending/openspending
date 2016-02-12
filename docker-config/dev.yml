@@ -29,17 +29,18 @@ services:
             - PORT=8000
             - WORKDIR=/repos/os-packager
             - OS_EXTERNAL_ADDRESS=dev.openspending.org
-    # os-viewer:
-    #     extends:
-    #         file: common.yml
-    #         service: os-viewer
-    #     volumes:
-    #         - ../repos/os-viewer:/repos/os-viewer
-    #     environment:
-    #         - DEBUG=true
-    #         - PORT=8000
-    #         - WORKDIR=/repos/os-viewer
-    #         - OS_EXTERNAL_ADDRESS=dev.openspending.org
+    os-viewer:
+        extends:
+            file: common.yml
+            service: os-viewer
+        volumes:
+            - ../repos/os-viewer:/repos/os-viewer
+        environment:
+            - DEBUG=true
+            - PORT=8000
+            - WORKDIR=/repos/os-viewer
+            - OS_EXTERNAL_ADDRESS=dev.openspending.org
+            - OS_VIEWER_API_HOST=dev.openspending.org
     os-conductor:
         extends:
             file: common.yml
@@ -59,6 +60,8 @@ services:
             service: frontend
         volumes:
             - "./frontend/dev-nginx.conf:/etc/nginx/conf.d/dev.conf"
+        ports:
+            - "8080:8080"
     mq:
         extends:
             file: common.yml

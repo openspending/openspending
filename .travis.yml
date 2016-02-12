@@ -4,10 +4,6 @@ sudo: required
 services:
   - docker
 
-addons:
-  hosts:
-    - dev.openspending.org
-
 env:
   DOCKER_COMPOSE_VERSION: 1.6.0
 
@@ -26,6 +22,5 @@ script:
     - docker-compose -f dev.yml build
     - docker-compose -f dev.yml up -d
     - sleep 60
-    - curl -v http://dev.openspending.org:8080/api/3/cubes
-    - curl -v http://dev.openspending.org:8080/packager/
+    - docker ps
 
