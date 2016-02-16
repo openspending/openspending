@@ -31,6 +31,7 @@ services:
           - "9003:8000"
       environment:
           - OS_EXTERNAL_ADDRESS
+          - OS_VIEWER_API_HOST
     os-conductor:
       build: os-conductor/
       expose:
