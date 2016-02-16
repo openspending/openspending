@@ -23,6 +23,7 @@ services:
             file: common.yml
             service: os-viewer
         environment:
+            - WORKDIR=app
             - PORT=8000
             - OS_EXTERNAL_ADDRESS=s145.okserver.org
             - OS_VIEWER_API_HOST=s145.okserver.org
