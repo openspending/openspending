@@ -28,4 +28,4 @@ ADD secrets /secrets
 
 EXPOSE 8000
 
-CMD echo working from $WORKDIR && cd $WORKDIR && echo OS-CONDUCTOR DB: $OS_CONDUCTOR_ENGINE && /startup.sh
+CMD echo working from $WORKDIR && ls app/conductor/blueprints && ls app/conductor/blueprints/authorization && ls app/conductor/blueprints/authorization/lib && cd $WORKDIR && echo OS-CONDUCTOR DB: $OS_CONDUCTOR_ENGINE && /startup.sh

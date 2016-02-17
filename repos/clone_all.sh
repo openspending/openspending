@@ -7,4 +7,5 @@ git clone https://github.com/openspending/babbage.git && \
 git clone https://github.com/openspending/os-api.git && \
 git clone https://github.com/openspending/os-conductor.git && \
 git clone https://github.com/openspending/os-packager.git && \
+git clone https://github.com/openspending/os-viewer.git && \
 cd ..)
