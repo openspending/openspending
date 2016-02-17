@@ -1,10 +1,12 @@
-FROM gliderlabs/alpine:latest
+FROM gliderlabs/alpine:3.3
 
 RUN apk add --update python
 RUN apk add --update --virtual=build-dependencies ca-certificates build-base
 RUN apk add git
 RUN apk add nodejs
 RUN git clone http://github.com/openspending/os-viewer.git app
+RUN npm install npm -g
+RUN npm --version
 RUN cd app && npm install
 RUN cd app && node node_modules/gulp/bin/gulp.js
 RUN apk del build-dependencies
