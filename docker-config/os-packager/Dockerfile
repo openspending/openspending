@@ -16,4 +16,4 @@ ADD startup.sh /startup.sh
 
 EXPOSE 8000
 
-CMD echo working from $WORKDIR && cd $WORKDIR && OS_CONDUCTOR="http://${OS_EXTERNAL_ADDRESS}" /startup.sh
+CMD echo working from $WORKDIR && cd $WORKDIR && chmod +x /startup.sh && OS_CONDUCTOR="http://${OS_EXTERNAL_ADDRESS}" /startup.sh

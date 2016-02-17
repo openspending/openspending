@@ -19,4 +19,4 @@ ADD startup.sh /startup.sh
 
 EXPOSE 8000
 
-CMD echo working from $WORKDIR && cd $WORKDIR && API_URL="${OS_EXTERNAL_ADDRESS}" /startup.sh
+CMD echo working from $WORKDIR && cd $WORKDIR && chmod +x /startup.sh && API_URL="${OS_EXTERNAL_ADDRESS}" /startup.sh

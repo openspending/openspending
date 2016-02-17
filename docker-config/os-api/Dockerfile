@@ -32,4 +32,4 @@ ADD startup.sh /startup.sh
 
 EXPOSE 8000
 
-CMD echo working from $WORKDIR && cd $WORKDIR && echo OS-API DB: $OS_API_ENGINE && /startup.sh
+CMD echo working from $WORKDIR && cd $WORKDIR && echo OS-API DB: $OS_API_ENGINE && chmod +x /startup.sh && /startup.sh
