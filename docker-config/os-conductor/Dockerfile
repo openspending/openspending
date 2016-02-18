@@ -1,12 +1,10 @@
 FROM gliderlabs/alpine:3.3
 
-RUN apk add --update python3
+RUN apk add --update python3 git libpq
 RUN apk add --update --virtual=build-dependencies wget libffi libffi-dev ca-certificates python3-dev postgresql-dev build-base
 RUN wget "https://bootstrap.pypa.io/get-pip.py" -O /dev/stdout | python3
 RUN python3 --version
 RUN pip3 --version
-RUN apk add --update git
-RUN apk add libpq
 RUN pip3 install psycopg2
 RUN pip3 install --upgrade pip
 RUN pip3 install gunicorn
@@ -28,4 +26,4 @@ ADD secrets /secrets
 
 EXPOSE 8000
 
-CMD echo working from $WORKDIR && ls app/conductor/blueprints && ls app/conductor/blueprints/authorization && ls app/conductor/blueprints/authorization/lib && cd $WORKDIR && echo OS-CONDUCTOR DB: $OS_CONDUCTOR_ENGINE && chmod +x /startup.sh && /startup.sh
+CMD echo working from $WORKDIR && cd $WORKDIR && echo OS-CONDUCTOR DB: $OS_CONDUCTOR_ENGINE && chmod +x /startup.sh && sync && /startup.sh
