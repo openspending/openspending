@@ -1,12 +1,10 @@
 FROM gliderlabs/alpine:3.3
 
-RUN apk add --update python3
-RUN apk add --virtual=build-dependencies wget ca-certificates python3-dev postgresql-dev build-base
+RUN apk add --update python3 git libpq
+RUN apk add --update --virtual=build-dependencies wget ca-certificates python3-dev postgresql-dev build-base
 RUN wget "https://bootstrap.pypa.io/get-pip.py" -O /dev/stdout | python3
 RUN python3 --version
 RUN pip3 --version
-RUN apk add --update git
-RUN apk add libpq
 RUN pip3 install psycopg2
 RUN pip3 install --upgrade pip
 RUN pip3 install gunicorn
@@ -32,4 +30,4 @@ ADD startup.sh /startup.sh
 
 EXPOSE 8000
 
-CMD echo working from $WORKDIR && cd $WORKDIR && echo OS-API DB: $OS_API_ENGINE && chmod +x /startup.sh && /startup.sh
+CMD echo working from $WORKDIR && cd $WORKDIR && echo OS-API DB: $OS_API_ENGINE && chmod +x /startup.sh && sync && /startup.sh

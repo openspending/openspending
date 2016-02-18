@@ -8,4 +8,4 @@ EXPOSE 80
 EXPOSE 8080
 
 # We need to wait for the internal dns resolving to kick in
-CMD chmod +x /startup.sh && /startup.sh
+CMD chmod +x /startup.sh && sync && /startup.sh
