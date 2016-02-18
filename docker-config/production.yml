@@ -5,12 +5,22 @@ services:
         extends:
             file: common.yml
             service: cache
+        logging:
+            driver: awslogs
+            options:
+                awslogs-group: openspending
+                awslogs-stream: cache
     os-api:
         extends:
             file: common.yml
             service: os-api
         environment:
             - WORKDIR=app
+        logging:
+            driver: awslogs
+            options:
+                awslogs-group: openspending
+                awslogs-stream: os-api
     os-packager:
         extends:
             file: common.yml
@@ -18,6 +28,11 @@ services:
         environment:
             - WORKDIR=app
             - OS_EXTERNAL_ADDRESS=s145.okserver.org
+        logging:
+            driver: awslogs
+            options:
+                awslogs-group: openspending
+                awslogs-stream: os-packager
     os-viewer:
         extends:
             file: common.yml
@@ -27,6 +42,11 @@ services:
             - PORT=8000
             - OS_EXTERNAL_ADDRESS=s145.okserver.org
             - OS_VIEWER_API_HOST=s145.okserver.org
+        logging:
+            driver: awslogs
+            options:
+                awslogs-group: openspending
+                awslogs-stream: os-viewer
     os-conductor:
         extends:
             file: common.yml
@@ -35,11 +55,26 @@ services:
             - WORKDIR=app
             - OS_EXTERNAL_ADDRESS=s145.okserver.org
             - SECRETS_PATH=prod-secrets
+        logging:
+            driver: awslogs
+            options:
+                awslogs-group: openspending
+                awslogs-stream: os-conductor
     frontend:
         extends:
             file: common.yml
             service: frontend
+        logging:
+            driver: awslogs
+            options:
+                awslogs-group: openspending
+                awslogs-stream: frontend
     mq:
         extends:
             file: common.yml
             service: mq
+        logging:
+            driver: awslogs
+            options:
+                awslogs-group: openspending
+                awslogs-stream: mq
