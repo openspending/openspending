@@ -40,7 +40,8 @@ services:
             - PORT=8000
             - WORKDIR=/repos/os-viewer
             - OS_EXTERNAL_ADDRESS=dev.openspending.org
-            - OS_VIEWER_API_HOST=dev.openspending.org
+            - OS_VIEWER_API_HOST=http://dev.openspending.org
+            - OS_VIEWER_AUTH_HOST=http://dev.openspending.org
     os-conductor:
         extends:
             file: common.yml

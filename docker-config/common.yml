@@ -32,6 +32,7 @@ services:
       environment:
           - OS_EXTERNAL_ADDRESS
           - OS_VIEWER_API_HOST
+          - OS_VIEWER_AUTH_HOST
     os-conductor:
       build: os-conductor/
       expose:
