@@ -19,7 +19,6 @@ RUN rm -rf /var/cache/apk/*
 ENV OS_CONDUCTOR_CACHE=cache:11211
 ENV OS_API=os-api:8000
 ENV OS_CONDUCTOR=os-conductor:8000
-ENV API_KEY_WHITELIST=openspending-next
 
 ADD startup.sh /startup.sh
 ADD secrets /secrets

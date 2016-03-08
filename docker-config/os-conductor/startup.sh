@@ -11,4 +11,4 @@ python3 --version
 ls -la /secrets
 cp -f /secrets/$SECRETS_PATH/* /secrets
 ls -la /secrets
-gunicorn -w 2 conductor.server:app -b 0.0.0.0:8000
+gunicorn -w 4 conductor.server:app -b 0.0.0.0:8000
