@@ -1,5 +1,7 @@
 # OpenSpending
 
+[![Gitter](https://img.shields.io/gitter/room/openspending/chat.svg)](https://gitter.im/openspending/chat)
+
 OpenSpending is a project to make government finances easier to explore
 and understand. It started out as "Where does my money go", a platform
 to visualize the United Kingdom's state finance, but has been renamed
