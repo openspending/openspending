@@ -1,0 +1,48 @@
+version: '2'
+
+services:
+    cache:
+        build: cache/
+        extends:
+            file: dev.yml
+            service: cache
+    os-api:
+        build: os-api/
+        extends:
+            file: dev.yml
+            service: os-api
+    os-packager:
+        build: os-packager/
+        extends:
+            file: dev.yml
+            service: os-packager
+    os-viewer:
+        build: os-viewer/
+        extends:
+            file: dev.yml
+            service: os-viewer
+    os-conductor:
+        build: os-conductor/
+        extends:
+            file: dev.yml
+            service: os-conductor
+    frontend:
+        build: frontend/
+        extends:
+            file: dev.yml
+            service: frontend
+    mq:
+        build: mq/
+        extends:
+            file: dev.yml
+            service: mq
+    fakes3:
+        build: fakes3/
+        extends:
+            file: dev.yml
+            service: fakes3
+    db:
+        build: db/
+        extends:
+            file: dev.yml
+            service: db

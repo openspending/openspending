@@ -68,12 +68,12 @@ services:
             file: common.yml
             service: mq
     fakes3:
-        build: fakes3/
+        image: openspending/fakes3
         container_name: "fakes3"
         expose:
           - "80"
     db:
-        build: db/
+        image: openspending/db
         container_name: "db"
         expose:
           - "5432"

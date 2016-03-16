@@ -2,13 +2,13 @@ version: '2'
 
 services:
     cache:
-      build: cache/
+      image: openspending/cache
       expose:
           - "11211"
       ports:
           - "9010:11211"
     os-api:
-      build: os-api/
+      image: openspending/os-api
       environment:
         - OS_API_ENGINE
       expose:
@@ -16,7 +16,7 @@ services:
       ports:
           - "9000:8000"
     os-packager:
-      build: os-packager/
+      image: openspending/os-packager
       expose:
           - "8000"
       ports:
@@ -24,7 +24,7 @@ services:
       environment:
           - OS_EXTERNAL_ADDRESS
     os-viewer:
-      build: os-viewer/
+      image: openspending/os-viewer
       expose:
           - "8000"
       ports:
@@ -34,7 +34,7 @@ services:
           - OS_VIEWER_API_HOST
           - OS_VIEWER_AUTH_HOST
     os-conductor:
-      build: os-conductor/
+      image: openspending/os-conductor
       expose:
           - "8000"
       ports:
@@ -46,11 +46,11 @@ services:
           - OPENSPENDING_STORAGE_BUCKET_NAME
           - SECRETS_PATH
     frontend:
-      build: frontend/
+      image: openspending/frontend
       ports:
           - "80:80"
     mq:
-      build: mq/
+      image: openspending/mq
       container_name: "mq"
       expose:
           - "5672"
