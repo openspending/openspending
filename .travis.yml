@@ -8,7 +8,6 @@ env:
   DOCKER_COMPOSE_VERSION: 1.6.0
 
 before_install:
-before_install:
     - sudo apt-get update -y -qq
     - sudo apt-get install -o Dpkg::Options::="--force-confnew" -y -qq docker-engine
     - sudo rm /usr/local/bin/docker-compose
@@ -17,10 +16,19 @@ before_install:
     - sudo mv docker-compose /usr/local/bin
     - docker -v
     - docker-compose -v
-script:
+install:
     - cd docker-config
-    - docker-compose -f dev.yml build
-    - docker-compose -f dev.yml up -d
+    - docker-compose -f build.yml build
+script:
+    - docker-compose -f build.yml up -d
     - sleep 60
     - docker ps
-
+    - docker images
+    - docker login --username=${DOCKER_HUB_USERNAME} --email=${DOCKER_HUB_EMAIL} --password=${DOCKER_HUB_PASSWORD}
+deploy:
+    provider: script
+    script: ./deploy.sh
+    skip_cleanup: true
+    on:
+       branch: master
+    
