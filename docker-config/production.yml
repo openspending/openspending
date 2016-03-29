@@ -27,7 +27,7 @@ services:
             service: os-packager
         environment:
             - WORKDIR=app
-            - OS_EXTERNAL_ADDRESS=s145.okserver.org
+            - OS_EXTERNAL_ADDRESS=next.openspending.org
         logging:
             driver: awslogs
             options:
@@ -40,9 +40,9 @@ services:
         environment:
             - WORKDIR=app
             - PORT=8000
-            - OS_EXTERNAL_ADDRESS=s145.okserver.org
-            - OS_VIEWER_API_HOST=http://s145.okserver.org
-            - OS_VIEWER_AUTH_HOST=http://s145.okserver.org
+            - OS_EXTERNAL_ADDRESS=next.openspending.org
+            - OS_VIEWER_API_HOST=http://next.openspending.org
+            - OS_VIEWER_AUTH_HOST=http://next.openspending.org
         logging:
             driver: awslogs
             options:
@@ -55,7 +55,7 @@ services:
             service: os-conductor
         environment:
             - WORKDIR=app
-            - OS_EXTERNAL_ADDRESS=s145.okserver.org
+            - OS_EXTERNAL_ADDRESS=next.openspending.org
             - SECRETS_PATH=prod-secrets
         logging:
             driver: awslogs
