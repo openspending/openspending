@@ -19,11 +19,15 @@ before_install:
 install:
     - cd docker-config
     - docker-compose -f build.yml build
+script:
     - docker-compose -f build.yml up -d
     - sleep 60
     - docker ps
     - docker images
-script:
     - docker login --username=${DOCKER_HUB_USERNAME} --email=${DOCKER_HUB_EMAIL} --password=${DOCKER_HUB_PASSWORD}
-    - for x in `docker images --format "{{.Repository}}" | grep openspending/` ; do docker push $x ; done
-    
+deploy:
+    provider: script
+    script: ./deploy.sh
+    skip_cleanup: true
+    on:
+       branch: master

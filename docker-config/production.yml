@@ -49,6 +49,7 @@ services:
                 awslogs-group: openspending
                 awslogs-stream: os-viewer
     os-conductor:
+        build: os-conductor/
         extends:
             file: common.yml
             service: os-conductor
