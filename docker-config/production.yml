@@ -56,6 +56,7 @@ services:
         environment:
             - WORKDIR=app
             - OS_EXTERNAL_ADDRESS=next.openspending.org
+            - OS_S3_HOSTNAME=s3.amazonaws.com
             - SECRETS_PATH=prod-secrets
         logging:
             driver: awslogs
@@ -80,3 +81,12 @@ services:
             options:
                 awslogs-group: openspending
                 awslogs-stream: mq
+    landing:
+        extends:
+            file: common.yml
+            service: landing
+        logging:
+            driver: awslogs
+            options:
+                awslogs-group: openspending
+                awslogs-stream: landing
