@@ -15,9 +15,12 @@ services:
             - ../repos/babbage.fiscal-data-package:/repos/babbage.fiscal-data-package
             - ../repos/babbage:/repos/babbage
             - ../repos/os-api:/repos/os-api
+            - ../repos/jsontableschema-py:/repos/jsontableschema-py
+            - ../repos/jsontableschema-sql-py:/repos/jsontableschema-sql-py
         environment:
             - WORKDIR=/repos/os-api
             - OS_API_ENGINE=postgresql://postgres@db/postgres
+            - OS_ELASTICSEARCH_ADDRESS=es
     os-packager:
         extends:
             file: common.yml
@@ -29,6 +32,7 @@ services:
             - PORT=8000
             - WORKDIR=/repos/os-packager
             - OS_EXTERNAL_ADDRESS=dev.openspending.org
+            - OS_PACKAGER_CONDUCTOR_HOST=http://dev.openspending.org
     os-viewer:
         extends:
             file: common.yml
@@ -50,10 +54,11 @@ services:
             - ../repos/os-conductor:/repos/os-conductor
         environment:
             - WORKDIR=/repos/os-conductor
-            - OPENSPENDING_S3_HOSTNAME=fakes3
-            - OPENSPENDING_STORAGE_BUCKET_NAME=fake-bucket
+            - OS_S3_HOSTNAME=fakes3
+            - OS_STORAGE_BUCKET_NAME=fake-bucket
             - OS_CONDUCTOR_ENGINE=postgresql://postgres@db/postgres
             - OS_EXTERNAL_ADDRESS=dev.openspending.org
+            - OS_ELASTICSEARCH_ADDRESS=es
             - SECRETS_PATH=dev-secrets
     frontend:
         extends:
@@ -63,6 +68,10 @@ services:
             - "./frontend/dev-nginx.conf:/etc/nginx/conf.d/dev.conf"
         ports:
             - "8080:8080"
+    landing:
+      extends:
+          file: common.yml
+          service: landing
     mq:
         extends:
             file: common.yml
@@ -77,3 +86,13 @@ services:
         container_name: "db"
         expose:
           - "5432"
+        ports:
+          - "5432:5432"
+    es:
+        image: openspending/es
+        container_name: "es"
+        expose:
+          - "9200"
+          - "9300"
+        ports:
+          - "9200:9200"

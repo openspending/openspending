@@ -11,6 +11,7 @@ services:
       image: openspending/os-api
       environment:
         - OS_API_ENGINE
+        - OS_ELASTICSEARCH_ADDRESS
       expose:
           - "8000"
       ports:
@@ -41,14 +42,19 @@ services:
           - "9002:8000"
       environment:
           - OS_CONDUCTOR_ENGINE
-          - OPENSPENDING_ACCESS_KEY_ID
-          - OPENSPENDING_SECRET_ACCESS_KEY
-          - OPENSPENDING_STORAGE_BUCKET_NAME
+          - OS_ACCESS_KEY_ID
+          - OS_SECRET_ACCESS_KEY
+          - OS_STORAGE_BUCKET_NAME
+          - OS_ELASTICSEARCH_ADDRESS
           - SECRETS_PATH
     frontend:
       image: openspending/frontend
       ports:
           - "80:80"
+    landing:
+      image: openspending/landing
+      expose:
+          - "8000"
     mq:
       image: openspending/mq
       container_name: "mq"

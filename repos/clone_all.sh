@@ -16,4 +16,8 @@ rm -rf os-packager
 git clone https://github.com/openspending/os-packager.git && \
 rm -rf os-viewer
 git clone https://github.com/openspending/os-viewer.git && \
+rm -rf jsontableschema-py
+git clone https://github.com/frictionlessdata/jsontableschema-py.git && \
+rm -rf jsontableschema-sql-py
+git clone https://github.com/frictionlessdata/jsontableschema-sql-py.git && \
 cd ..)
