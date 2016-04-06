@@ -31,3 +31,7 @@ deploy:
     skip_cleanup: true
     on:
        branch: master
+
+notifications:
+  slack:
+    secure: TKPyvVSxr6x4BnNAK4j5/sWQhyScalgc13gOX0300TLqOtuw1bRvKm0XrUaK2n32XRzb9ZkOQDJvPo2cumXOYM16343No5NA2ekeDc6ULgtOFta8hY3Txc9ATkvLSnUfRr5mLQ1sknGLKfV2IFDFJiBz9ivMLivpaFR6gn7vcFM=
