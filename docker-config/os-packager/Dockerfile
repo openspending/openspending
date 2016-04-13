@@ -13,7 +13,7 @@ RUN cd app && node node_modules/gulp/bin/gulp.js
 RUN apk del build-dependencies
 RUN rm -rf /var/cache/apk/*
 
-ENV OS_PACKAGER_BASE_PATH=packager/
+ENV OS_PACKAGER_BASE_PATH=packager
 
 ADD settings.json /app/settings.json
 ADD startup.sh /startup.sh

@@ -7,6 +7,7 @@ services:
           - "11211"
       ports:
           - "9010:11211"
+      restart: always
     os-api:
       image: openspending/os-api
       environment:
@@ -16,6 +17,7 @@ services:
           - "8000"
       ports:
           - "9000:8000"
+      restart: always
     os-packager:
       image: openspending/os-packager
       expose:
@@ -24,6 +26,7 @@ services:
           - "9001:8000"
       environment:
           - OS_EXTERNAL_ADDRESS
+      restart: always
     os-viewer:
       image: openspending/os-viewer
       expose:
@@ -34,6 +37,8 @@ services:
           - OS_EXTERNAL_ADDRESS
           - OS_VIEWER_API_HOST
           - OS_VIEWER_AUTH_HOST
+          - OS_VIEWER_SEARCH_HOST
+      restart: always
     os-conductor:
       image: openspending/os-conductor
       expose:
@@ -47,16 +52,20 @@ services:
           - OS_STORAGE_BUCKET_NAME
           - OS_ELASTICSEARCH_ADDRESS
           - SECRETS_PATH
+      restart: always
     frontend:
       image: openspending/frontend
       ports:
           - "80:80"
+      restart: always
     landing:
       image: openspending/landing
       expose:
           - "8000"
+      restart: always
     mq:
       image: openspending/mq
       container_name: "mq"
       expose:
           - "5672"
+      restart: always
