@@ -1,0 +1,8 @@
+[[ $(git diff --shortstat 2> /dev/null | tail -n1) == "" ]] && \
+./forward-ports.sh && \
+eval $(docker-machine env oslocal) && \
+. secret.sh && \
+docker-compose -f production.yml pull && \
+docker-compose -f production.yml build os-conductor && \
+docker-compose -f production.yml kill && \
+./docker-start-prod.sh

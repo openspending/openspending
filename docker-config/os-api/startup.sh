@@ -15,5 +15,5 @@ echo OS-API DB: $OS_API_ENGINE
 FISCAL_PACKAGE_ENGINE=$OS_API_ENGINE bb-fdp-cli create-tables && echo "CREATED TABLES"
 
 python3 --version
-python3 -m celery -A babbage_fiscal.tasks --concurrency=1 worker &
+python3 -m celery -A babbage_fiscal.tasks --concurrency=4 worker &
 gunicorn -w 4 os_api.app:app -b 0.0.0.0:8000

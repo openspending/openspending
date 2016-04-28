@@ -10,6 +10,7 @@ RUN pip3 install psycopg2
 RUN pip3 install --upgrade pip
 RUN pip3 install gunicorn
 RUN pip3 install python-memcached
+RUN pip3 install awesome-slugify
 RUN pip3 install git+git://github.com/openspending/babbage.fiscal-data-package.git
 RUN pip3 install -U git+git://github.com/openspending/babbage.git
 RUN pip3 install -U git+git://github.com/akariv/tabulator-py.git
