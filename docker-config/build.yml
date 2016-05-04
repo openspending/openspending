@@ -36,6 +36,11 @@ services:
         extends:
             file: dev.yml
             service: landing
+    os-explorer:
+        build: os-explorer/
+        extends:
+            file: dev.yml
+            service: os-explorer
     mq:
         build: mq/
         extends:

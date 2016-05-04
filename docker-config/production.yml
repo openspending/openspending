@@ -90,3 +90,14 @@ services:
             options:
                 awslogs-group: openspending
                 awslogs-stream: landing
+    os-explorer:
+        extends:
+            file: common.yml
+            service: os-explorer
+        environment:
+            - WORKDIR=/app
+        logging:
+            driver: awslogs
+            options:
+                awslogs-group: openspending
+                awslogs-stream: os-explorer
