@@ -63,6 +63,11 @@ services:
       expose:
           - "8000"
       restart: always
+    os-explorer:
+      image: openspending/os-explorer
+      expose:
+          - "8000"
+      restart: always
     mq:
       image: openspending/mq
       container_name: "mq"

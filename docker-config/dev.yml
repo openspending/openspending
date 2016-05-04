@@ -73,6 +73,14 @@ services:
       extends:
           file: common.yml
           service: landing
+    os-explorer:
+      extends:
+          file: common.yml
+          service: os-explorer
+      environment:
+            - WORKDIR=/repos/os-explorer
+      volumes:
+            - ../repos/os-explorer:/repos/os-explorer
     mq:
         extends:
             file: common.yml
