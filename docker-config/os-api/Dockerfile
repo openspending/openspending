@@ -14,17 +14,17 @@ RUN pip3 install awesome-slugify
 RUN pip3 install git+git://github.com/openspending/babbage.fiscal-data-package.git
 RUN pip3 install -U git+git://github.com/openspending/babbage.git
 RUN pip3 install -U git+git://github.com/frictionlessdata/tabulator-py.git
-RUN pip3 install -U git+git://github.com/frictionlessdata/datapackage-py.git
+RUN pip3 install -U git+git://github.com/akariv/datapackage-py.git@fix/resoure-iter-to-use-schema
 RUN pip3 install -U git+git://github.com/frictionlessdata/jsontableschema-py.git
-RUN pip3 install -U git+git://github.com/frictionlessdata/jsontableschema-sql-py.git
+RUN pip3 install -U git+git://github.com/akariv/jsontableschema-sql-py.git@feature/auto-index
 RUN git clone http://github.com/openspending/os-api.git app
 RUN cd app && pip install -e .
 RUN pip3 install git+git://github.com/openspending/babbage.fiscal-data-package.git
 RUN pip3 install -U git+git://github.com/openspending/babbage.git
-RUN pip3 install -U git+git://github.com/frictionlessdata/datapackage-py.git
+RUN pip3 install -U git+git://github.com/akariv/datapackage-py.git@fix/resoure-iter-to-use-schema
 RUN pip3 install -U git+git://github.com/frictionlessdata/tabulator-py.git
 RUN pip3 install -U git+git://github.com/frictionlessdata/jsontableschema-py.git
-RUN pip3 install -U git+git://github.com/frictionlessdata/jsontableschema-sql-py.git
+RUN pip3 install -U git+git://github.com/akariv/jsontableschema-sql-py.git@feature/auto-index
 RUN apk del build-dependencies
 RUN rm -rf /var/cache/apk/*
 
