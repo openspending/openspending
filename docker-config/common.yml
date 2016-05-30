@@ -68,9 +68,27 @@ services:
       expose:
           - "8000"
       restart: always
+    redash:
+      image: openspending/redash
+      expose:
+          - "5000"
+      environment:
+          REDASH_STATIC_ASSETS_PATH: "../rd_ui/dist/"
+          REDASH_LOG_LEVEL: "INFO"
+          REDASH_REDIS_URL: "redis://redis:6379/0"
+          REDASH_COOKIE_SECRET: veryverysecret
+          REDASH_PASSWORD_LOGIN_ENABLED: "false"
+          REDASH_JWT_LOGIN_ENABLED: "true"
+          REDASH_JWT_AUTH_SERVER: "http://os-conductor:8000/oauth/check"
     mq:
       image: openspending/mq
       container_name: "mq"
       expose:
           - "5672"
+      restart: always
+    redis:
+      image: openspending/redis
+      container_name: "redis"
+      expose:
+          - "6379"
       restart: always

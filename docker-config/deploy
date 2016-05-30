@@ -1,6 +1,8 @@
 [[ $(git diff --shortstat 2> /dev/null | tail -n1) == "" ]] && \
 ./forward-ports.sh && \
 eval $(docker-machine env oslocal) && \
+PROMPT_COMMAND= && \
+PS1="[\u] \w <DEPLOY>$ " && \
 . secret.sh && \
 docker-compose -f production.yml pull && \
 docker-compose -f production.yml build os-conductor && \
