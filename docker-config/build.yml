@@ -41,11 +41,21 @@ services:
         extends:
             file: dev.yml
             service: os-explorer
+    redash:
+        build: redash/
+        extends:
+            file: dev.yml
+            service: redash
     mq:
         build: mq/
         extends:
             file: dev.yml
             service: mq
+    redis:
+        build: redis/
+        extends:
+            file: dev.yml
+            service: redis
     fakes3:
         build: fakes3/
         extends:

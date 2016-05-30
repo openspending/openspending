@@ -101,3 +101,13 @@ services:
             options:
                 awslogs-group: openspending
                 awslogs-stream: os-explorer
+    redash:
+      extends:
+          file: common.yml
+          service: redash
+      environment:
+          REDASH_SERVER_NAME: "rd.openspending.org"
+    redis:
+        extends:
+            file: common.yml
+            service: redis

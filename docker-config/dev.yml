@@ -81,10 +81,27 @@ services:
             - WORKDIR=/repos/os-explorer
       volumes:
             - ../repos/os-explorer:/repos/os-explorer
+    redash:
+      extends:
+          file: common.yml
+          service: redash
+      environment:
+          REDASH_DATABASE_URL: "postgresql://postgres@db/postgres"
+          DB_HOST: "db"
+          DB_NAME: "postgres"
+          DB_PWD: "null"
+          DB_USER: "postgres"
+          REDASH_SERVER_NAME: "rd.dev.openspending.org"
+          #REDASH_GOOGLE_CLIENT_ID: "791676150192-441k9uar5nca2245hv82161saorrc090.apps.googleusercontent.com"
+          #REDASH_GOOGLE_CLIENT_SECRET: "5uOZ1v-Rifg7zZVXPQ3ZwLk4"
     mq:
         extends:
             file: common.yml
             service: mq
+    redis:
+        extends:
+            file: common.yml
+            service: redis
     fakes3:
         image: openspending/fakes3
         container_name: "fakes3"

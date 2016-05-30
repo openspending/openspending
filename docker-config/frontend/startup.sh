@@ -6,6 +6,7 @@ while ! ping -c1 os-conductor &>/dev/null; do :; done && echo "OS-CONDUCTOR is U
 while ! ping -c1 os-packager &>/dev/null; do :; done && echo "OS-PACKAGER is UP"
 while ! ping -c1 os-viewer &>/dev/null; do :; done && echo "OS-VIEWER is UP"
 while ! ping -c1 landing &>/dev/null; do :; done && echo "LANDING is UP"
+while ! ping -c1 redash &>/dev/null; do :; done && echo "REDASH is UP"
 
 echo "NGINX STARTING"
 nginx -g "daemon off;"
