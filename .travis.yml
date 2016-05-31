@@ -8,6 +8,9 @@ env:
   DOCKER_COMPOSE_VERSION: 1.6.0
 
 before_install:
+    - wget https://github.com/jwilder/docker-squash/releases/download/v0.2.0/docker-squash-linux-amd64-v0.2.0.tar.gz
+    - sudo tar -C /usr/local/bin -xzvf docker-squash-linux-amd64-v0.2.0.tar.gz
+    - tar --version
     - sudo apt-get update -y -qq
     - sudo apt-get install -o Dpkg::Options::="--force-confnew" -y -qq docker-engine
     - sudo rm /usr/local/bin/docker-compose

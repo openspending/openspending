@@ -87,11 +87,11 @@ services:
           service: redash
       environment:
           REDASH_DATABASE_URL: "postgresql://postgres@db/postgres"
-          DB_HOST: "db"
-          DB_NAME: "postgres"
-          DB_PWD: "null"
-          DB_USER: "postgres"
           REDASH_SERVER_NAME: "rd.dev.openspending.org"
+          OS_DB_HOST: "db"
+          OS_DB_NAME: "postgres"
+          OS_DB_PWD: "null"
+          OS_DB_USER: "postgres"
     mq:
         extends:
             file: common.yml

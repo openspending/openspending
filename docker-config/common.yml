@@ -73,13 +73,18 @@ services:
       expose:
           - "5000"
       environment:
-          REDASH_STATIC_ASSETS_PATH: "../rd_ui/dist/"
-          REDASH_LOG_LEVEL: "INFO"
-          REDASH_REDIS_URL: "redis://redis:6379/0"
-          REDASH_COOKIE_SECRET: veryverysecret
-          REDASH_PASSWORD_LOGIN_ENABLED: "false"
-          REDASH_JWT_LOGIN_ENABLED: "true"
-          REDASH_JWT_AUTH_SERVER: "http://os-conductor:8000/oauth/check"
+          - REDASH_STATIC_ASSETS_PATH=../rd_ui/dist/
+          - REDASH_LOG_LEVEL=INFO
+          - REDASH_REDIS_URL=redis://redis:6379/0
+          - REDASH_COOKIE_SECRET=veryverysecret
+          - REDASH_PASSWORD_LOGIN_ENABLED=false
+          - REDASH_JWT_LOGIN_ENABLED=true
+          - REDASH_JWT_AUTH_SERVER=http://os-conductor:8000/oauth/check
+          - REDASH_DATABASE_URL
+          - OS_DB_HOST
+          - OS_DB_PWD
+          - OS_DB_USER
+          - OS_DB_NAME
     mq:
       image: openspending/mq
       container_name: "mq"
