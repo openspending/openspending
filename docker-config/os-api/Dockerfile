@@ -15,7 +15,7 @@ RUN pip3 install git+git://github.com/openspending/babbage.fiscal-data-package.g
 RUN pip3 install -U git+git://github.com/openspending/babbage.git
 RUN pip3 install -U git+git://github.com/frictionlessdata/tabulator-py.git
 RUN pip3 install -U git+git://github.com/akariv/datapackage-py.git@fix/resoure-iter-to-use-schema
-RUN pip3 install -U git+git://github.com/frictionlessdata/jsontableschema-py.git
+RUN pip3 install -U git+git://github.com/akariv/jsontableschema-py.git@fix/handle-percent-signs
 RUN pip3 install -U git+git://github.com/akariv/jsontableschema-sql-py.git@feature/auto-index
 RUN git clone http://github.com/openspending/os-api.git app
 RUN cd app && pip install -e .
@@ -23,7 +23,7 @@ RUN pip3 install git+git://github.com/openspending/babbage.fiscal-data-package.g
 RUN pip3 install -U git+git://github.com/openspending/babbage.git
 RUN pip3 install -U git+git://github.com/akariv/datapackage-py.git@fix/resoure-iter-to-use-schema
 RUN pip3 install -U git+git://github.com/frictionlessdata/tabulator-py.git
-RUN pip3 install -U git+git://github.com/frictionlessdata/jsontableschema-py.git
+RUN pip3 install -U git+git://github.com/akariv/jsontableschema-py.git@fix/handle-percent-signs
 RUN pip3 install -U git+git://github.com/akariv/jsontableschema-sql-py.git@feature/auto-index
 RUN apk del build-dependencies
 RUN rm -rf /var/cache/apk/*
