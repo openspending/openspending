@@ -4,8 +4,9 @@ RUN apk add --update python git nodejs
 RUN apk add --update --virtual=build-dependencies ca-certificates build-base
 RUN update-ca-certificates
 RUN git clone http://github.com/openspending/os-viewer.git app
-RUN npm install npm -g
+RUN npm install npm@latest -g
 RUN npm --version
+RUN cd app && npm install -g napa && napa eligrey/FileSaver.js:file-saver
 RUN cd app && npm install
 RUN cd app && node node_modules/gulp/bin/gulp.js
 RUN apk del build-dependencies

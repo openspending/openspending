@@ -5,10 +5,10 @@ RUN apk add --update python git nodejs
 RUN apk add --update --virtual=build-dependencies ca-certificates build-base
 RUN update-ca-certificates
 RUN git clone http://github.com/openspending/os-packager.git app
-RUN npm install npm -g
+RUN npm install npm@latest -g
 RUN npm --version
-RUN cd app && npm install --only=prod
-RUN cd app && npm install --only=dev
+RUN cd app && npm install
+RUN cd app && npm install
 RUN cd app && node node_modules/gulp/bin/gulp.js
 RUN apk del build-dependencies
 RUN rm -rf /var/cache/apk/*

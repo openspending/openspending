@@ -5,7 +5,7 @@ RUN rm /etc/nginx/nginx.conf /etc/nginx/mime.types
 RUN apk add --update git nodejs
 RUN update-ca-certificates
 RUN git clone http://github.com/openspending/os-explorer.git app
-RUN npm install npm -g
+RUN npm install npm@latest -g
 RUN npm --version
 RUN cd app && npm install
 RUN cd app && node node_modules/.bin/gulp
