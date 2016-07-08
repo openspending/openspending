@@ -6,8 +6,8 @@ echo working from `pwd`
 echo DB: $OS_CONDUCTOR_ENGINE
 
 ( cd /repos/os-conductor && pip install -r requirements.txt &&
-  cat conductor/blueprints/authorization/lib/lib.js | sed s/next.openspending.org/dev.openspending.org/ > lib.js.tmp &&
-  mv -f lib.js.tmp conductor/blueprints/authorization/lib/lib.js
+  cat conductor/blueprints/user/lib/lib.js | sed s/next.openspending.org/dev.openspending.org/ > lib.js.tmp &&
+  mv -f lib.js.tmp conductor/blueprints/user/lib/lib.js
 ) || true
 
 ls -la /secrets
