@@ -5,6 +5,6 @@ PROMPT_COMMAND= && \
 PS1="[\u] \w <DEPLOY>$ " && \
 . secret.sh && \
 docker-compose -f production.yml pull && \
-docker-compose -f production.yml build os-conductor && \
+docker-compose -f production.yml build --no-cache os-conductor && \
 docker-compose -f production.yml kill && \
 ./docker-start-prod.sh
