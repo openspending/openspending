@@ -10,7 +10,4 @@ echo DB: $OS_CONDUCTOR_ENGINE
   mv -f lib.js.tmp conductor/blueprints/user/lib/lib.js
 ) || true
 
-ls -la /secrets
-cp -f /secrets/$SECRETS_PATH/* /secrets
-
 gunicorn -w 4 conductor.server:app -b 0.0.0.0:8000

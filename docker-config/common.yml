@@ -51,7 +51,10 @@ services:
           - OS_SECRET_ACCESS_KEY
           - OS_STORAGE_BUCKET_NAME
           - OS_ELASTICSEARCH_ADDRESS
-          - SECRETS_PATH
+          - OS_CONDUCTOR_SECRETS_0
+          - OS_CONDUCTOR_SECRETS_1
+          - OS_CONDUCTOR_SECRETS_2
+          - OS_CONDUCTOR_SECRETS_3
       restart: always
     frontend:
       image: openspending/frontend

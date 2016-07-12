@@ -57,7 +57,6 @@ services:
             - WORKDIR=app
             - OS_EXTERNAL_ADDRESS=next.openspending.org
             - OS_S3_HOSTNAME=s3.amazonaws.com
-            - SECRETS_PATH=prod-secrets
         logging:
             driver: awslogs
             options:

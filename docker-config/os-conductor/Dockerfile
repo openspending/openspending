@@ -22,7 +22,6 @@ ENV OS_API=os-api:8000
 ENV OS_CONDUCTOR=os-conductor:8000
 
 ADD startup.sh /startup.sh
-ADD secrets /secrets
 
 EXPOSE 8000
 
