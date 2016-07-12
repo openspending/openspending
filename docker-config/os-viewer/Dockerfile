@@ -1,11 +1,14 @@
-FROM gliderlabs/alpine:3.3
+FROM gliderlabs/alpine:3.4
 
 RUN apk add --update python git nodejs
 RUN apk add --update --virtual=build-dependencies ca-certificates build-base
 RUN update-ca-certificates
-RUN git clone http://github.com/openspending/os-viewer.git app
+RUN cd $(npm root -g)/npm \
+ && npm install fs-extra \
+ && sed -i -e s/graceful-fs/fs-extra/ -e s/fs\.rename/fs.move/ ./lib/utils/rename.js
 RUN npm install npm@latest -g
 RUN npm --version
+RUN git clone http://github.com/openspending/os-viewer.git app
 RUN cd app && npm install -g napa && napa eligrey/FileSaver.js:file-saver
 RUN cd app && npm install
 RUN cd app && node node_modules/gulp/bin/gulp.js

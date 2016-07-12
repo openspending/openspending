@@ -1,4 +1,4 @@
-FROM nginx:alpine
+FROM sickp/alpine-nginx
 
 RUN rm /etc/nginx/nginx.conf /etc/nginx/mime.types
 

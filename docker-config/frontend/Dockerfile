@@ -1,4 +1,4 @@
-FROM nginx:alpine
+FROM sickp/alpine-nginx
 
 ADD nginx.conf /etc/nginx/nginx.conf
 ADD server-rules.conf /etc/nginx/server-rules.conf

@@ -1,4 +1,4 @@
-FROM gliderlabs/alpine:edge
+FROM gliderlabs/alpine:3.4
 
 # Packages and dependencies
 RUN apk add --update git libpq python bash sudo
