@@ -41,6 +41,11 @@ services:
         extends:
             file: dev.yml
             service: os-explorer
+    os-admin:
+        build: os-admin/
+        extends:
+            file: dev.yml
+            service: os-admin
     redash:
         build: redash/
         extends:

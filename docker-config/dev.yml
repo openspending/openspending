@@ -84,6 +84,14 @@ services:
             - WORKDIR=/repos/os-explorer
       volumes:
             - ../repos/os-explorer:/repos/os-explorer
+    os-admin:
+      extends:
+          file: common.yml
+          service: os-admin
+      environment:
+            - WORKDIR=/repos/os-admin
+      volumes:
+            - ../repos/os-admin:/repos/os-admin
     redash:
       extends:
           file: common.yml
