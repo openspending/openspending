@@ -76,6 +76,11 @@ services:
       expose:
           - "8000"
       restart: always
+    os-fdp-adapters:
+      image: openspending/os-fdp-adapters
+      expose:
+          - "8000"
+      restart: always
     redash:
       image: openspending/redash
       expose:

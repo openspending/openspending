@@ -13,7 +13,7 @@ if [ ! -z "$GIT_REPO" ]; then
     fi
     cd /remote && napa eligrey/FileSaver.js:file-saver && npm install && node node_modules/.bin/gulp
 else
-    ( cd /repos/os-viewer && npm install ) || true
+    ( cd /repos/os-viewer && npm install -g napa && napa eligrey/FileSaver.js:file-saver && npm install ) || true
     ( cd /repos/os-viewer && node node_modules/gulp/bin/gulp.js ) || true
 fi
 

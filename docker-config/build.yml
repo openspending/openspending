@@ -46,6 +46,11 @@ services:
         extends:
             file: dev.yml
             service: os-admin
+    os-fdp-adapters:
+        build: os-fdp-adapters/
+        extends:
+            file: dev.yml
+            service: os-fdp-adapters
     redash:
         build: redash/
         extends:

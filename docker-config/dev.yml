@@ -92,6 +92,15 @@ services:
             - WORKDIR=/repos/os-admin
       volumes:
             - ../repos/os-admin:/repos/os-admin
+    os-fdp-adapters:
+      extends:
+          file: common.yml
+          service: os-fdp-adapters
+      environment:
+            - WORKDIR=/repos/os-fdp-adapters
+            - OS_FDP_ADAPTER_ENDPOINT=http://dev.openspending.org/fdp-adapter/convert
+      volumes:
+            - ../repos/os-fdp-adapters:/repos/os-fdp-adapters
     redash:
       extends:
           file: common.yml
