@@ -61,6 +61,11 @@ services:
         extends:
             file: dev.yml
             service: mq
+    celery-flower:
+        build: celery-flower/
+        extends:
+            file: dev.yml
+            service: celery-flower
     redis:
         build: redis/
         extends:

@@ -4,7 +4,8 @@ FROM gliderlabs/alpine:3.4
 RUN apk add --update git libpq python bash sudo
 RUN apk add --no-cache --virtual=build-dependencies \
     python-dev build-base pwgen libffi-dev ca-certificates \
-    wget curl tar mariadb-dev postgresql-dev nodejs postgresql
+    wget curl tar mariadb-dev postgresql-dev nodejs postgresql \
+    libsasl cyrus-sasl-dev
 RUN curl -L https://npmjs.org/install.sh | sh
 
 # CA Certificates
