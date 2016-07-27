@@ -116,6 +116,10 @@ services:
         extends:
             file: common.yml
             service: mq
+    celery-flower:
+        extends:
+            file: common.yml
+            service: celery-flower
     redis:
         extends:
             file: common.yml

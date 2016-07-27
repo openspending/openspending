@@ -104,6 +104,12 @@ services:
       expose:
           - "5672"
       restart: always
+    celery-flower:
+      image: openspending/celery-flower
+      container_name: "celery-flower"
+      expose:
+          - "8000"
+      restart: always
     redis:
       image: openspending/redis
       container_name: "redis"
