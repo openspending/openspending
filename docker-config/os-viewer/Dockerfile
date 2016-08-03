@@ -9,7 +9,7 @@ RUN cd $(npm root -g)/npm \
 RUN npm install npm@latest -g
 RUN npm --version
 RUN git clone http://github.com/openspending/os-viewer.git app
-RUN cd app && npm install -g napa && napa eligrey/FileSaver.js:file-saver
+RUN cd app && npm install -g napa && napa eligrey/FileSaver.js:file-saver && napa d3/d3-plugins:d3-plugins
 RUN cd app && npm install
 RUN cd app && node node_modules/gulp/bin/gulp.js
 RUN apk del build-dependencies
