@@ -14,14 +14,14 @@ RUN pip3 install awesome-slugify regex
 RUN pip3 install git+git://github.com/openspending/babbage.fiscal-data-package.git
 RUN pip3 install -U git+git://github.com/openspending/babbage.git@feature/optimize-member-queries
 RUN pip3 install -U git+git://github.com/frictionlessdata/tabulator-py.git
-RUN pip3 install -U git+git://github.com/akariv/datapackage-py.git@fix/resoure-iter-to-use-schema
+RUN pip3 install -U git+git://github.com/frictionlessdata/datapackage-py.git
 RUN pip3 install -U git+git://github.com/akariv/jsontableschema-py.git@fix/handle-percent-signs
 RUN pip3 install -U git+git://github.com/akariv/jsontableschema-sql-py.git@feature/auto-index
 RUN git clone http://github.com/openspending/os-api.git app
 RUN cd app && pip install -e .
 RUN pip3 install git+git://github.com/openspending/babbage.fiscal-data-package.git
 RUN pip3 install -U git+git://github.com/openspending/babbage.git@feature/optimize-member-queries
-RUN pip3 install -U git+git://github.com/akariv/datapackage-py.git@fix/resoure-iter-to-use-schema
+RUN pip3 install -U git+git://github.com/frictionlessdata/datapackage-py.git
 RUN pip3 install -U git+git://github.com/frictionlessdata/tabulator-py.git
 RUN pip3 install -U git+git://github.com/akariv/jsontableschema-py.git@fix/handle-percent-signs
 RUN pip3 install -U git+git://github.com/akariv/jsontableschema-sql-py.git@feature/auto-index
