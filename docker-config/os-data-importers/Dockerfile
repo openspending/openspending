@@ -21,7 +21,6 @@ RUN apk del build-dependencies
 RUN rm -rf /var/cache/apk/*
 
 ENV DATAPIPELINES_REDIS_HOST="redis"
-ENV GOBBLE_AUTH_TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE0NzQyODgxNzcsInVzZXJpZCI6ImEwZjYyYTE3ZTFmYzllNmJlYTNlOTRhMmY0MWZiYmEyIn0.BUQV4TneexeHyjRqB-D0tQEgPvqHsRShb_5grnGyyhc"
 ENV CELERY_BROKER="amqp://guest:guest@mq:5672//"
 ENV CELERY_BACKEND="amqp://guest:guest@mq:5672//"
 ENV GIT_REPO=http://github.com/openspending/os-data-importers.git
