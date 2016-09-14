@@ -51,6 +51,11 @@ services:
         extends:
             file: dev.yml
             service: os-fdp-adapters
+    os-data-importers:
+        build: os-data-importers/
+        extends:
+            file: dev.yml
+            service: os-data-importers
     redash:
         build: redash/
         extends:

@@ -81,6 +81,11 @@ services:
       expose:
           - "8000"
       restart: always
+    os-data-importers:
+      image: openspending/os-data-importers
+      expose:
+          - "5000"
+      restart: always
     redash:
       image: openspending/redash
       expose:

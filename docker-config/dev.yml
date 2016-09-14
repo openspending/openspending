@@ -102,6 +102,14 @@ services:
             - OS_FDP_ADAPTER_ENDPOINT=http://dev.openspending.org/fdp-adapter/convert
       volumes:
             - ../repos/os-fdp-adapters:/repos/os-fdp-adapters
+    os-data-importers:
+      extends:
+          file: common.yml
+          service: os-data-importers
+      environment:
+            - WORKDIR=/repos/os-data-importers
+      volumes:
+            - ../repos/os-data-importers:/repos/os-data-importers
     redash:
       extends:
           file: common.yml
