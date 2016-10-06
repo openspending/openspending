@@ -14,7 +14,8 @@ RUN pip3 --version
 RUN pip3 install --upgrade pip
 RUN pip3 install os-gobble \
                  celery \
-                 git+git://github.com/frictionlessdata/datapackage-pipelines.git
+                 cchardet \
+                 datapackage-pipelines
 RUN git clone http://github.com/openspending/os-data-importers.git /app
 RUN mkdir /root/.gobble
 RUN apk del build-dependencies

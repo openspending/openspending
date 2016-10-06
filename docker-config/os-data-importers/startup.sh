@@ -19,5 +19,6 @@ fi
 rm celerybeat-schedule || ls -la
 pwd
 pip3 install -U git+git://github.com/frictionlessdata/datapackage-pipelines.git
+dpp
 celery -b amqp://guest:guest@mq:5672// --concurrency=4 -B -A datapackage_pipelines.app -Q datapackage-pipelines worker &
 dpp serve
