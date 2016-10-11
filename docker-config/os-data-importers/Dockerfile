@@ -1,7 +1,7 @@
 FROM gliderlabs/alpine:3.4
 
 RUN apk add --update python3 git libpq nodejs
-RUN apk add --update --virtual=build-dependencies wget libffi libffi-dev ca-certificates python3-dev  build-base
+RUN apk add --update wget libffi libffi-dev ca-certificates python3-dev  build-base libxml2-dev libxslt-dev
 RUN update-ca-certificates
 RUN wget "https://bootstrap.pypa.io/get-pip.py" -O /dev/stdout | python3
 RUN cd $(npm root -g)/npm \
@@ -15,10 +15,11 @@ RUN pip3 install --upgrade pip
 RUN pip3 install os-gobble \
                  celery \
                  cchardet \
-                 datapackage-pipelines
+                 datapackage-pipelines \
+                 datapackage-pipelines-fiscal \
+                 lxml
 RUN git clone http://github.com/openspending/os-data-importers.git /app
 RUN mkdir /root/.gobble
-RUN apk del build-dependencies
 RUN rm -rf /var/cache/apk/*
 
 ENV DATAPIPELINES_REDIS_HOST="redis"
