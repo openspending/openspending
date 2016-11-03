@@ -10,6 +10,7 @@ if [ ! -z "$GIT_REPO" ]; then
     if [ ! -z "$GIT_BRANCH" ]; then
         git checkout origin/$GIT_BRANCH
     fi
+    pip install -U -r requirements.txt
     pip install -U -e .
 else
     (cd /repos/babbage.fiscal-data-package && pip3 install -U -e . && echo using `pwd` dev version) || true
