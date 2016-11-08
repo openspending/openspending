@@ -1,7 +1,9 @@
 FROM gliderlabs/alpine:3.4
 
 RUN apk add --update python3 git libpq nodejs
-RUN apk add --update wget libffi libffi-dev ca-certificates python3-dev  build-base libxml2-dev libxslt-dev
+RUN apk add --update wget libffi libffi-dev ca-certificates python3-dev  \
+			  g++ build-base libxml2-dev libxslt-dev 
+RUN ln -s /usr/include/locale.h /usr/include/xlocale.h
 RUN update-ca-certificates
 RUN wget "https://bootstrap.pypa.io/get-pip.py" -O /dev/stdout | python3
 RUN cd $(npm root -g)/npm \
@@ -18,6 +20,7 @@ RUN pip3 install os-gobble \
                  datapackage-pipelines \
                  datapackage-pipelines-fiscal \
                  lxml
+RUN pip3 install numpy==1.11.2 cython==0.25.1 pandas
 RUN git clone http://github.com/openspending/os-data-importers.git /app
 RUN mkdir /root/.gobble
 RUN rm -rf /var/cache/apk/*
