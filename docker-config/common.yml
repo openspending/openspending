@@ -18,6 +18,16 @@ services:
       ports:
           - "9000:8000"
       restart: always
+    os-api-loader:
+      image: openspending/os-api
+      environment:
+        - OS_API_ENGINE
+        - OS_ELASTICSEARCH_ADDRESS
+      expose:
+          - "8000"
+      ports:
+          - "9004:8000"
+      restart: always
     os-packager:
       image: openspending/os-packager
       expose:
@@ -80,11 +90,6 @@ services:
       image: openspending/os-fdp-adapters
       expose:
           - "8000"
-      restart: always
-    os-data-importers:
-      image: openspending/os-data-importers
-      expose:
-          - "5000"
       restart: always
     redash:
       image: openspending/redash
