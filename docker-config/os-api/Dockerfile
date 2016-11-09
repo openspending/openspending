@@ -8,7 +8,7 @@ RUN python3 --version
 RUN pip3 --version
 RUN pip3 install --upgrade pip
 RUN git clone http://github.com/openspending/os-api.git app
-RUN cd app && pip install -r requirements.txt && pip install -e .
+RUN cd app && pip install -r requirements.txt
 RUN rm -rf /var/cache/apk/*
 
 ENV OS_API_CACHE=cache:11211

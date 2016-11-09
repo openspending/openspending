@@ -11,7 +11,6 @@ if [ ! -z "$GIT_REPO" ]; then
         git checkout origin/$GIT_BRANCH
     fi
     pip install -U -r requirements.txt
-    pip install -U -e .
 else
     (cd /repos/babbage.fiscal-data-package && pip3 install -U -e . && echo using `pwd` dev version) || true
     (cd /repos/babbage && pip3 install -U -e . && echo using `pwd` dev version) || true
@@ -24,6 +23,6 @@ fi
 python3 --version
 if [ ! -z "$OS_API_LOADER" ]; then
     FISCAL_PACKAGE_ENGINE=$OS_API_ENGINE bb-fdp-cli create-tables && echo "CREATED TABLES"
-    python3 -m celery -A babbage_fiscal.tasks --concurrency=4 worker &
+    python3 -m celery --concurrency=4 -A babbage_fiscal.tasks -l INFO worker &
 fi
 gunicorn -t 90 -w 4 os_api.app:app -b 0.0.0.0:8000
