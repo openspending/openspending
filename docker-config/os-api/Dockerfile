@@ -9,6 +9,7 @@ RUN pip3 --version
 RUN pip3 install --upgrade pip
 RUN git clone http://github.com/openspending/os-api.git app
 RUN cd app && pip install -r requirements.txt
+RUN pip install -U git+git://github.com/akariv/tabulator-py.git@feature/fake-user-agent
 RUN rm -rf /var/cache/apk/*
 
 ENV OS_API_CACHE=cache:11211
