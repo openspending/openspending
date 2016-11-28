@@ -65,6 +65,7 @@ services:
           - OS_CONDUCTOR_SECRETS_1
           - OS_CONDUCTOR_SECRETS_2
           - OS_CONDUCTOR_SECRETS_3
+          - OS_CONDUCTOR_MAINTENANCE
       restart: always
     frontend:
       image: openspending/frontend
