@@ -7,7 +7,7 @@
 
 OpenSpending is a project to make government finances easier to explore and understand. It started out as "Where does my money go", a platform to visualize the United Kingdom's state finance, but has been renamed and restructured to allow arbitrary financial data to be loaded and displayed. 
 
-The main use for the software is the site [http://openspending.org](openspending.org) which aims to track government finance around the world.
+The main use for the software is the site [openspending.org](http://openspending.org) which aims to track government finance around the world.
 
 OpenSpending's code is licensed under the GNU Affero Licence except where otherwise indicated. A copy of this licence is available in the file [LICENSE.txt](LICENSE.txt).
 
