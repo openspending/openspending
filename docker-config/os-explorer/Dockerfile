@@ -12,7 +12,7 @@ RUN npm --version
 RUN git clone http://github.com/openspending/os-explorer.git app
 RUN cd app && npm install
 RUN cd app && node node_modules/.bin/gulp
-RUN cd app && (find . -type f | grep -v /public/ | grep -v index.html | grep -v config.json | grep -v favicon.ico | tee | xargs rm)
+RUN cd app && (find . -type f | grep -v /public/ | grep -v index.html | grep -v config.json | grep -v favicon.ico | tee | xargs rm) | true
 
 RUN rm -rf /var/cache/apk/*
 
