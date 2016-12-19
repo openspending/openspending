@@ -10,14 +10,19 @@ if [ ! -z "$GIT_REPO" ]; then
         git checkout origin/$GIT_BRANCH
     fi
     cd /remote && npm install && npm run build
-    cat config.json | sed s/next.openspending.org/staging.openspending.org/ > config.json.tmp
-    mv -f config.json.tmp config.json
+    cat config.js | sed s/next.openspending.org/staging.openspending.org/ > config.js.tmp
+    mv -f config.js.tmp config.js
 else
     ( cd /repos/os-admin && npm install && npm run build  &&
-      cat config.json | sed s/next.openspending.org/dev.openspending.org/ > config.json.tmp &&
-      mv -f config.json.tmp config.json
+      cat config.js | sed s/next.openspending.org/dev.openspending.org/ > config.js.tmp &&
+      mv -f config.js.tmp config.js
     ) || true
 fi
+
+
+cat config.js | sed "s/ga: null/ga: \"$OS_SNIPPETS_GA\"/" > config.js.tmp &&
+      mv -f config.js.tmp config.js
+ga: null
 
 rm /www || true
 ln -s `pwd` /www

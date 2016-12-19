@@ -19,6 +19,6 @@ ln -s `pwd` /www
 chmod a+rwx /www
 ls -la /www/
 
-echo '{"baseUrl":""}' > /www/config.json
+echo "{\"baseUrl\":\"\", \"snippets\": {\"ga\": \"$OS_SNIPPETS_GA\"}}" > /www/config.json
 
 nginx
