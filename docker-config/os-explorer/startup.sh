@@ -9,16 +9,13 @@ if [ ! -z "$GIT_REPO" ]; then
     if [ ! -z "$GIT_BRANCH" ]; then
         git checkout origin/$GIT_BRANCH
     fi
-    cd /remote && npm install && node_modules/.bin/gulp
+    cd /remote && npm install && npm run build
 else
-    ( cd /repos/os-explorer && npm install && node_modules/.bin/gulp  ) || true
+    ( cd /repos/os-explorer && npm install && npm run build  ) || true
 fi
 
-rm /www || true
-ln -s `pwd` /www
-chmod a+rwx /www
-ls -la /www/
+echo "{\"baseUrl\":\"\", \"snippets\": {\"ga\": \"$OS_SNIPPETS_GA\"}}" > config.json
 
-echo "{\"baseUrl\":\"\", \"snippets\": {\"ga\": \"$OS_SNIPPETS_GA\"}}" > /www/config.json
-
-nginx
+ls -la
+find public
+node server.js
