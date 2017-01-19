@@ -20,8 +20,8 @@ else
 fi
 
 
-cat config.js | sed "s/ga: null/ga: \"$OS_SNIPPETS_GA\"/" > config.js.tmp &&
-      mv -f config.js.tmp config.js
+#cat config.js | sed "s/ga: null/ga: \"$OS_SNIPPETS_GA\"/" > config.js.tmp &&
+#      mv -f config.js.tmp config.js
 
 rm /www || true
 ln -s `pwd` /www
