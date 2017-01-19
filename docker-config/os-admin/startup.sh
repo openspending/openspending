@@ -22,7 +22,6 @@ fi
 
 cat config.js | sed "s/ga: null/ga: \"$OS_SNIPPETS_GA\"/" > config.js.tmp &&
       mv -f config.js.tmp config.js
-ga: null
 
 rm /www || true
 ln -s `pwd` /www
