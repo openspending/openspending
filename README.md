@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/openspending/openspending.png?label=ready&title=Ready)](https://waffle.io/openspending/openspending)
 # OpenSpending
 
 [![Issues in Ready](https://badge.waffle.io/openspending/openspending.png?label=ready&title=Ready)](https://waffle.io/openspending/openspending)
