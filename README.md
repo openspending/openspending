@@ -11,8 +11,72 @@ The main use for the software is the site [openspending.org](http://openspending
 
 OpenSpending's code is licensed under the GNU Affero Licence except where otherwise indicated. A copy of this licence is available in the file [LICENSE.txt](LICENSE.txt).
 
-**You can find the old OpenSpending v2, and the complete history for the codebase to that point, in the [`openspending-monolith` branch](https://github.com/openspending/openspending/tree/openspending-monolith).**
+OpenSpending is a microservices platform made up of a number of separate apps, orchestrated with [Docker Compose](https://docs.docker.com/compose/). This repository contains docker-compose files that can be used for production and development. It also acts as a central hub for managing [issues](https://github.com/openspending/openspending/issues) for the entire platform.
 
-## Quick start
+### What are these files?
 
-See the [docs](http://docs.openspending.org/en/latest/developers/platform/) for more information.
+Most applications that make up the OpenSpending platform are maintained in their own repositories, with their own Dockerfiles, built and pushed to the [OpenSpending organisation on Docker Hub](https://hub.docker.com/r/openspending):
+
+- [os-api](https://github.com/openspending/os-api)
+- [os-conductor](https://github.com/openspending/os-conductor)
+- [os-viewer](https://github.com/openspending/os-viewer)
+- [os-explorer](https://github.com/openspending/os-explorer)
+- [os-admin](https://github.com/openspending/os-admin)
+- [os-packager](https://github.com/openspending/os-packager)
+
+This repository maintains docker-compose files used to help get you started with the platform.
+
+`docker-compose.base.yml`: This is the main docker-compose file for OpenSpending specific services. All installations will use this as the basis for running the platform.
+
+`docker-compose.dev-services.yml`: This defines backing services used by the platform, such as Redis, ElasticSearch, PostgreSQL, and memcached. This file also includes fake-s3 in place of AWS S3, so you don't have to set up an S3 bucket.
+
+`docker-compose.local.yml`: Create this file to add additional services, or overrides for the base configuration. It is ignored by git.
+
+`Dockerfiles/*`: Most services are maintained in their own repositories, but a few small custom services used by the platform are maintained here. `os-nginx-frontend` is a basic frontend nginx server and configuration files to define resource locations for the platform. This will be build and run directly by `docker-compose.base.yml`.
+
+### I'm a developer, how can I start working on OpenSpending?
+
+1. Define the environmental variables that applications in the platform need. The easiest way to do this is to create a `.env` file (use `.env.example` as a template).
+
+2. Use `docker-compose up` to start the platform from the `base`, `dev-services`, and optionally `local` compose files:
+
+`$ docker-compose -f docker-compose.base.yml -f docker-compose.dev-services.yml [-f docker-compose.local.yml] up`
+
+3. Open `localhost` in your browser.
+
+### I'm a developer, how can I work on a specific OpenSpending application? Show me an example!
+
+You can use `volumes` to map local files from the host to application files in the docker containers. For example, say you're working on [OS-Conductor](https://github.com/openspending/os-conductor), you'll add an override service to `docker-compose.local.yml` (create this file if necessary).
+
+1. Checkout the os-conductor code from https://github.com/openspending/os-conductor into `~/src/dockerfiles/os-conductor` on your local machine.
+2. Add the following to `docker-compose.local.yml`:
+
+```yml
+version: "3"
+
+services:
+  os-conductor:
+    environment:
+      # Force python not to used cached bytecode
+      PYTHONDONTWRITEBYTECODE:
+    # Override CMD and send `--reload` flag for os-conductor's gunicorn server
+    command: /startup.sh --reload
+    # Map local os-conductor app files to /app in container
+    volumes:
+      - ~/src/dockerfiles/os-conductor:/app
+```
+
+3. Start up the platform with `base`, `dev-services`, and your `local` compose file:
+
+`$ docker-compose -f docker-compose.base.yml -f docker-compose.dev-services.yml -f docker-compose.local.yml up`
+
+### I have my own backing service I want to use for development
+
+That's fine, just add the relevant resource locator to the .env file. E.g., you're using a third-party ElasticSearch server:
+
+`OS_ELASTICSEARCH_ADDRESS=https://my-elasticsearch-provider.com/my-es-instance:9200`
+
+### What happened to the old version of OpenSpending?
+
+You can find the old OpenSpending v2, and the complete history for the codebase to that point, in the [`openspending-monolith` branch](https://github.com/openspending/openspending/tree/openspending-monolith).
+

@@ -1,0 +1,134 @@
+version: "3"
+
+services:
+
+  frontend:
+    build: ./Dockerfiles/os-nginx-frontend
+    depends_on:
+      - os-api
+      - os-api-loader
+      - os-conductor
+      - os-viewer
+      - os-explorer
+      - os-admin
+      - os-packager
+    ports:
+      - '80:80'
+
+  os-viewer:
+    image: 'openspending/os-viewer:latest'
+    environment:
+      OS_BASE_URL:
+      OS_SNIPPETS_GA:
+      OS_SNIPPETS_RAVEN:
+      SENTRY_DSN:
+      OS_VIEWER_DATAMINE_HOST: https://${REDASH_SERVER_NAME}
+      PORT: 8000
+      WORKDIR: /app
+    expose:
+      - 8000
+
+  os-explorer:
+    image: 'openspending/os-explorer:latest'
+    environment:
+      OS_BASE_URL:
+      OS_SNIPPETS_GA:
+      OS_SNIPPETS_RAVEN:
+      WORKDIR: /app
+    expose:
+      - 8000
+
+  os-admin:
+    image: 'openspending/os-admin:latest'
+    environment:
+      OS_BASE_URL:
+      OS_SNIPPETS_GA:
+      OS_SNIPPETS_RAVEN:
+      WORKDIR: /app
+    expose:
+      - 8000
+
+  os-packager:
+    image: 'openspending/os-packager:latest'
+    environment:
+      OS_BASE_URL:
+      OS_SNIPPETS_GA:
+      OS_SNIPPETS_RAVEN:
+      SENTRY_DSN:
+      PORT: 8000
+      WORKDIR: app
+    expose:
+      - 8000
+
+  os-fdp-adapters:
+    image: 'openspending/os-fdp-adapters:latest'
+    environment:
+      SENTRY_DSN:
+      OS_FDP_ADAPTER_ENDPOINT: ${OS_BASE_URL}/fdp-adapter/convert
+      WORKDIR: /app
+    expose:
+      - 8000
+
+  os-conductor:
+    image: 'openspending/os-conductor:debugging_stuff'
+    environment:
+      OS_BASE_URL:
+      OS_CONDUCTOR_URL: http://os-conductor:8000  # used for callbacks
+      OS_CONDUCTOR_ENGINE:
+      OS_CONDUCTOR_SECRETS_0:
+      OS_CONDUCTOR_SECRETS_1:
+      OS_CONDUCTOR_SECRETS_2:
+      OS_CONDUCTOR_SECRETS_3:
+      OS_ELASTICSEARCH_ADDRESS:
+      OS_S3_HOSTNAME:
+      OS_STORAGE_BUCKET_NAME:
+      OS_ACCESS_KEY_ID:
+      OS_SECRET_ACCESS_KEY:
+      SENTRY_DSN:
+      WEBHOOK_OBEU_URL:
+      OS_CONDUCTOR_CACHE: cache:11211
+      OS_API_URL: http://os-api-loader:8000
+      WORKDIR: /app
+    expose:
+      - 8000
+    depends_on:
+      - os-api-loader
+      - cache
+
+  cache:
+    image: 'memcached:alpine'
+    command: ["memcached","-m","2048"]
+    expose:
+      - 11211
+
+  os-api-loader:
+    image: 'openspending/os-api:latest'
+    environment:
+      OS_API_ENGINE:
+      OS_API_LOADER: 'True'
+      OS_ELASTICSEARCH_ADDRESS:
+      OS_MQ_ADDRESS:
+      OS_API_CACHE:
+      OS_API_CACHE_TIMEOUT: 86400
+      CELERY_CONFIG:
+      CELERY_BACKEND_CONFIG:
+      OS_STATSD_HOST: ${OS_BASE_URL}
+      WORKDIR: /app
+    expose:
+      - 8000
+
+  os-api:
+    image: 'openspending/os-api:latest'
+    environment:
+      OS_API_ENGINE:
+      OS_ELASTICSEARCH_ADDRESS:
+      OS_MQ_ADDRESS:
+      OS_API_CACHE:
+      OS_API_CACHE_TIMEOUT: 86400
+      CELERY_CONFIG:
+      CELERY_BACKEND_CONFIG:
+      SENTRY_DSN:
+      OS_STATSD_HOST: ${OS_BASE_URL}
+      WORKDIR: app
+    expose:
+      - 8000
