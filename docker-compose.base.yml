@@ -70,7 +70,7 @@ services:
       - 8000
 
   os-conductor:
-    image: 'openspending/os-conductor:debugging_stuff'
+    image: 'openspending/os-conductor:latest'
     environment:
       OS_BASE_URL:
       OS_CONDUCTOR_URL: http://os-conductor:8000  # used for callbacks
