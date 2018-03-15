@@ -56,7 +56,7 @@ services:
       OS_SNIPPETS_RAVEN:
       SENTRY_DSN:
       PORT: 8000
-      WORKDIR: app
+      WORKDIR: /app
     expose:
       - 8000
 
@@ -129,6 +129,6 @@ services:
       CELERY_BACKEND_CONFIG:
       SENTRY_DSN:
       OS_STATSD_HOST: ${OS_BASE_URL}
-      WORKDIR: app
+      WORKDIR: /app
     expose:
       - 8000

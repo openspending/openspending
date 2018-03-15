@@ -59,7 +59,7 @@ version: "3"
 services:
   os-conductor:
     environment:
-      # Force python not to used cached bytecode
+      # Force python not to use cached bytecode
       PYTHONDONTWRITEBYTECODE:
     # Override CMD and send `--reload` flag for os-conductor's gunicorn server
     command: /startup.sh --reload

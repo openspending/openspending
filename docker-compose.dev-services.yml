@@ -3,7 +3,7 @@ version: "3"
 services:
 
   db:
-    image: 'postgres:10-alpine'
+    image: 'postgres:9.4-alpine'
     expose:
       - 5432
     ports:
