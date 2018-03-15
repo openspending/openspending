@@ -1,40 +1,20 @@
-language: python
 sudo: required
 
-services:
-  - docker
+language: generic
 
-env:
-  DOCKER_COMPOSE_VERSION: 1.6.0
+services:
+    - docker
 
 before_install:
-    - wget https://github.com/jwilder/docker-squash/releases/download/v0.2.0/docker-squash-linux-amd64-v0.2.0.tar.gz
-    - sudo tar -C /usr/local/bin -xzvf docker-squash-linux-amd64-v0.2.0.tar.gz
-    - tar --version
-    - sudo apt-get update -y -qq
-    - sudo apt-get install -o Dpkg::Options::="--force-confnew" -y -qq docker-engine
-    - sudo rm -f /usr/local/bin/docker-compose
-    - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-    - chmod +x docker-compose
-    - sudo mv docker-compose /usr/local/bin
-    - docker -v
-    - docker-compose -v
-install:
-    - cd docker-config
-    - docker-compose -f build.yml build
-script:
-    - docker-compose -f build.yml up -d
-    - sleep 60
-    - docker ps
-    - docker images
-    - docker login --username=${DOCKER_HUB_USERNAME} --email=${DOCKER_HUB_EMAIL} --password=${DOCKER_HUB_PASSWORD}
-deploy:
-    provider: script
-    script: ./deploy.sh
-    skip_cleanup: true
-    on:
-       branch: master
+    - sudo /etc/init.d/postgresql stop
 
-notifications:
-  slack:
-    secure: TKPyvVSxr6x4BnNAK4j5/sWQhyScalgc13gOX0300TLqOtuw1bRvKm0XrUaK2n32XRzb9ZkOQDJvPo2cumXOYM16343No5NA2ekeDc6ULgtOFta8hY3Txc9ATkvLSnUfRr5mLQ1sknGLKfV2IFDFJiBz9ivMLivpaFR6gn7vcFM=
+install:
+    - sudo mv .env.example .env
+    - docker-compose -f docker-compose.base.yml -f docker-compose.dev-services.yml pull
+    - docker-compose -f docker-compose.base.yml -f docker-compose.dev-services.yml build
+
+script:
+    - docker-compose -f docker-compose.base.yml -f docker-compose.dev-services.yml up -d
+    - sleep 60
+    - docker ps -a
+    - docker images

@@ -26,3 +26,6 @@ build/*
 .vagrant
 .project
 .pydevproject
+
+.env
+docker-compose.local.yml

@@ -1,0 +1,55 @@
+version: "3"
+
+services:
+
+  db:
+    image: 'postgres:9.4-alpine'
+    expose:
+      - 5432
+    ports:
+      - "5432:5432"
+
+  es:
+    image: 'elasticsearch:1.5'
+    expose:
+      - 9200
+      - 9300
+    ports:
+      - "9200:9200"
+
+  redis:
+    image: 'redis:3.2-alpine'
+    expose:
+      - 6379
+    ports:
+      - "6379:6379"
+
+  mq:
+    image: 'rabbitmq:3.6.3-management'
+    expose:
+      - 5672
+      - 15672
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  fakes3:
+    image: openspending/fakes3:latest
+    expose:
+      - 4567
+    ports:
+      - "4567:4567"
+
+  os-conductor:
+    environment:
+      USE_FAKE_S3: 'True'
+      OS_S3_PORT:
+      OS_CHECK_ES_HEALTHY: 'True'
+
+  os-api-loader:
+    environment:
+      OS_CHECK_ES_HEALTHY: 'True'
+
+  os-api:
+    environment:
+      OS_CHECK_ES_HEALTHY: 'True'
