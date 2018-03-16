@@ -16,7 +16,7 @@ services:
       - '80:80'
 
   os-viewer:
-    image: 'openspending/os-viewer:latest'
+    image: 'openspending/os-viewer:8346867'
     environment:
       OS_BASE_URL:
       OS_SNIPPETS_GA:
@@ -29,7 +29,7 @@ services:
       - 8000
 
   os-explorer:
-    image: 'openspending/os-explorer:latest'
+    image: 'openspending/os-explorer:06a9658'
     environment:
       OS_BASE_URL:
       OS_SNIPPETS_GA:
@@ -39,7 +39,7 @@ services:
       - 8000
 
   os-admin:
-    image: 'openspending/os-admin:latest'
+    image: 'openspending/os-admin:dd6dee4'
     environment:
       OS_BASE_URL:
       OS_SNIPPETS_GA:
@@ -49,7 +49,7 @@ services:
       - 8000
 
   os-packager:
-    image: 'openspending/os-packager:latest'
+    image: 'openspending/os-packager:c26378e'
     environment:
       OS_BASE_URL:
       OS_SNIPPETS_GA:
@@ -61,7 +61,7 @@ services:
       - 8000
 
   os-fdp-adapters:
-    image: 'openspending/os-fdp-adapters:latest'
+    image: 'openspending/os-fdp-adapters:b97ab80'
     environment:
       SENTRY_DSN:
       OS_FDP_ADAPTER_ENDPOINT: ${OS_BASE_URL}/fdp-adapter/convert
@@ -70,7 +70,7 @@ services:
       - 8000
 
   os-conductor:
-    image: 'openspending/os-conductor:latest'
+    image: 'openspending/os-conductor:c584910'
     environment:
       OS_BASE_URL:
       OS_CONDUCTOR_URL: http://os-conductor:8000  # used for callbacks
@@ -102,7 +102,7 @@ services:
       - 11211
 
   os-api-loader:
-    image: 'openspending/os-api:latest'
+    image: 'openspending/os-api:81aa946'
     environment:
       OS_API_ENGINE:
       OS_API_LOADER: 'True'
@@ -118,7 +118,7 @@ services:
       - 8000
 
   os-api:
-    image: 'openspending/os-api:latest'
+    image: 'openspending/os-api:81aa946'
     environment:
       OS_API_ENGINE:
       OS_ELASTICSEARCH_ADDRESS:
