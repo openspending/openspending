@@ -39,7 +39,7 @@ services:
       - 8000
 
   os-admin:
-    image: 'openspending/os-admin:dd6dee4'
+    image: 'openspending/os-admin:bebe7c8'
     environment:
       OS_BASE_URL:
       OS_SNIPPETS_GA:
