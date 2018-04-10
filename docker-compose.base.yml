@@ -39,7 +39,7 @@ services:
       - 8000
 
   os-admin:
-    image: 'openspending/os-admin:bebe7c8'
+    image: 'openspending/os-admin:39a2264'
     environment:
       OS_BASE_URL:
       OS_SNIPPETS_GA:
@@ -70,7 +70,7 @@ services:
       - 8000
 
   os-conductor:
-    image: 'openspending/os-conductor:c584910'
+    image: 'openspending/os-conductor:36a75b0'
     environment:
       OS_BASE_URL:
       OS_CONDUCTOR_URL: http://os-conductor:8000  # used for callbacks
@@ -85,7 +85,6 @@ services:
       OS_ACCESS_KEY_ID:
       OS_SECRET_ACCESS_KEY:
       SENTRY_DSN:
-      WEBHOOK_OBEU_URL:
       OS_CONDUCTOR_CACHE: cache:11211
       OS_API_URL: http://os-api-loader:8000
       WORKDIR: /app
