@@ -16,7 +16,7 @@ services:
       - '80:80'
 
   os-viewer:
-    image: 'openspending/os-viewer:8346867'
+    image: 'openspending/os-viewer:955e9bc'
     environment:
       OS_BASE_URL:
       OS_SNIPPETS_GA:
@@ -70,7 +70,7 @@ services:
       - 8000
 
   os-conductor:
-    image: 'openspending/os-conductor:36a75b0'
+    image: 'openspending/os-conductor:423aef4'
     environment:
       OS_BASE_URL:
       OS_CONDUCTOR_URL: http://os-conductor:8000  # used for callbacks
@@ -87,6 +87,7 @@ services:
       SENTRY_DSN:
       OS_CONDUCTOR_CACHE: cache:11211
       OS_API_URL: http://os-api-loader:8000
+      OS_API_CACHE:
       WORKDIR: /app
     expose:
       - 8000
