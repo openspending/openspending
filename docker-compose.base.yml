@@ -28,7 +28,7 @@ services:
       - 8000
 
   os-explorer:
-    image: 'openspending/os-explorer:06a9658'
+    image: 'openspending/os-explorer:2eb5e0b'
     environment:
       OS_BASE_URL:
       OS_SNIPPETS_GA:
@@ -38,7 +38,7 @@ services:
       - 8000
 
   os-admin:
-    image: 'openspending/os-admin:39a2264'
+    image: 'openspending/os-admin:bd1b81d'
     environment:
       OS_BASE_URL:
       OS_SNIPPETS_GA:
