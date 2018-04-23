@@ -6,7 +6,6 @@ services:
     build: ./Dockerfiles/os-nginx-frontend
     depends_on:
       - os-api
-      - os-api-loader
       - os-conductor
       - os-viewer
       - os-explorer
@@ -70,10 +69,9 @@ services:
       - 8000
 
   os-conductor:
-    image: 'openspending/os-conductor:423aef4'
+    image: 'openspending/os-conductor:336ff89'
     environment:
       OS_BASE_URL:
-      OS_CONDUCTOR_URL: http://os-conductor:8000  # used for callbacks
       OS_CONDUCTOR_ENGINE:
       OS_CONDUCTOR_SECRETS_0:
       OS_CONDUCTOR_SECRETS_1:
@@ -86,13 +84,11 @@ services:
       OS_SECRET_ACCESS_KEY:
       SENTRY_DSN:
       OS_CONDUCTOR_CACHE: cache:11211
-      OS_API_URL: http://os-api-loader:8000
       OS_API_CACHE:
       WORKDIR: /app
     expose:
       - 8000
     depends_on:
-      - os-api-loader
       - cache
 
   cache:
@@ -101,24 +97,8 @@ services:
     expose:
       - 11211
 
-  os-api-loader:
-    image: 'openspending/os-api:81aa946'
-    environment:
-      OS_API_ENGINE:
-      OS_API_LOADER: 'True'
-      OS_ELASTICSEARCH_ADDRESS:
-      OS_MQ_ADDRESS:
-      OS_API_CACHE:
-      OS_API_CACHE_TIMEOUT: 86400
-      CELERY_CONFIG:
-      CELERY_BACKEND_CONFIG:
-      OS_STATSD_HOST: ${OS_BASE_URL}
-      WORKDIR: /app
-    expose:
-      - 8000
-
   os-api:
-    image: 'openspending/os-api:81aa946'
+    image: 'openspending/os-api:56c3803'
     environment:
       OS_API_ENGINE:
       OS_ELASTICSEARCH_ADDRESS:
@@ -130,5 +110,6 @@ services:
       SENTRY_DSN:
       OS_STATSD_HOST: ${OS_BASE_URL}
       WORKDIR: /app
+    restart: on-failure
     expose:
       - 8000
