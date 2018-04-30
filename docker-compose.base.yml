@@ -60,7 +60,7 @@ services:
       - 8000
 
   os-fdp-adapters:
-    image: 'openspending/os-fdp-adapters:b97ab80'
+    image: 'openspending/os-fdp-adapters:a851623'
     environment:
       SENTRY_DSN:
       OS_FDP_ADAPTER_ENDPOINT: ${OS_BASE_URL}/fdp-adapter/convert
@@ -69,7 +69,7 @@ services:
       - 8000
 
   os-conductor:
-    image: 'openspending/os-conductor:336ff89'
+    image: 'openspending/os-conductor:1687941'
     environment:
       OS_BASE_URL:
       OS_CONDUCTOR_ENGINE:
@@ -98,7 +98,7 @@ services:
       - 11211
 
   os-api:
-    image: 'openspending/os-api:56c3803'
+    image: 'openspending/os-api:da429ad'
     environment:
       OS_API_ENGINE:
       OS_ELASTICSEARCH_ADDRESS:
