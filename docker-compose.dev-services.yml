@@ -24,15 +24,6 @@ services:
     ports:
       - "6379:6379"
 
-  mq:
-    image: 'rabbitmq:3.6.3-management'
-    expose:
-      - 5672
-      - 15672
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-
   fakes3:
     image: openspending/fakes3:latest
     expose:

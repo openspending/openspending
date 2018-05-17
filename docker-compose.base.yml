@@ -102,11 +102,8 @@ services:
     environment:
       OS_API_ENGINE:
       OS_ELASTICSEARCH_ADDRESS:
-      OS_MQ_ADDRESS:
       OS_API_CACHE:
       OS_API_CACHE_TIMEOUT: 86400
-      CELERY_CONFIG:
-      CELERY_BACKEND_CONFIG:
       SENTRY_DSN:
       OS_STATSD_HOST: ${OS_BASE_URL}
       WORKDIR: /app
