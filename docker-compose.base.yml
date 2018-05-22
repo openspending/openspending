@@ -15,7 +15,7 @@ services:
       - '80:80'
 
   os-viewer:
-    image: 'openspending/os-viewer:955e9bc'
+    image: 'openspending/os-viewer:8f8d705'
     environment:
       OS_BASE_URL:
       OS_SNIPPETS_GA:
@@ -28,7 +28,7 @@ services:
       - 8000
 
   os-explorer:
-    image: 'openspending/os-explorer:2eb5e0b'
+    image: 'openspending/os-explorer:352af9b'
     environment:
       OS_BASE_URL:
       OS_SNIPPETS_GA:
@@ -38,7 +38,7 @@ services:
       - 8000
 
   os-admin:
-    image: 'openspending/os-admin:bd1b81d'
+    image: 'openspending/os-admin:6a19a0d'
     environment:
       OS_BASE_URL:
       OS_SNIPPETS_GA:
@@ -48,7 +48,7 @@ services:
       - 8000
 
   os-packager:
-    image: 'openspending/os-packager:c26378e'
+    image: 'openspending/os-packager:9781954'
     environment:
       OS_BASE_URL:
       OS_SNIPPETS_GA:
