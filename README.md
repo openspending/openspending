@@ -44,7 +44,7 @@ This repository maintains docker-compose files used to help get you started with
 
 `$ docker-compose -f docker-compose.base.yml -f docker-compose.dev-services.yml [-f docker-compose.local.yml] up`
 
-3. Open `localhost` in your browser.
+3. Open `localhost:8080` in your browser.
 
 ### I'm a developer, how can I work on a specific OpenSpending application? Show me an example!
 
