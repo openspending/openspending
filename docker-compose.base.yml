@@ -12,7 +12,7 @@ services:
       - os-admin
       - os-packager
     ports:
-      - '80:80'
+      - '8080:80'
 
   os-viewer:
     image: 'openspending/os-viewer:8f8d705'
