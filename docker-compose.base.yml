@@ -48,7 +48,7 @@ services:
       - 8000
 
   os-packager:
-    image: 'openspending/os-packager:9781954'
+    image: 'openspending/os-packager:907882f'
     environment:
       OS_BASE_URL:
       OS_SNIPPETS_GA:
@@ -60,7 +60,7 @@ services:
       - 8000
 
   os-fdp-adapters:
-    image: 'openspending/os-fdp-adapters:a851623'
+    image: 'openspending/os-fdp-adapters:e5f6991'
     environment:
       SENTRY_DSN:
       OS_FDP_ADAPTER_ENDPOINT: ${OS_BASE_URL}/fdp-adapter/convert
