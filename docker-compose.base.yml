@@ -38,7 +38,7 @@ services:
       - 8000
 
   os-admin:
-    image: 'openspending/os-admin:6a19a0d'
+    image: 'openspending/os-admin:f2c7d6e'
     environment:
       OS_BASE_URL:
       OS_SNIPPETS_GA:
@@ -48,7 +48,7 @@ services:
       - 8000
 
   os-packager:
-    image: 'openspending/os-packager:907882f'
+    image: 'openspending/os-packager:431e6e6'
     environment:
       OS_BASE_URL:
       OS_SNIPPETS_GA:
@@ -69,7 +69,7 @@ services:
       - 8000
 
   os-conductor:
-    image: 'openspending/os-conductor:4cf4a14'
+    image: 'openspending/os-conductor:40dec2b'
     environment:
       OS_BASE_URL:
       OS_CONDUCTOR_ENGINE:
@@ -98,7 +98,7 @@ services:
       - 11211
 
   os-api:
-    image: 'openspending/os-api:6e482ac'
+    image: 'openspending/os-api:1bc1eea'
     environment:
       OS_API_ENGINE:
       OS_ELASTICSEARCH_ADDRESS:
