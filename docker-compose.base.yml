@@ -15,7 +15,7 @@ services:
       - '8080:80'
 
   os-viewer:
-    image: 'openspending/os-viewer:c9cbd96'
+    image: 'openspending/os-viewer:68604ba'
     environment:
       OS_BASE_URL:
       OS_SNIPPETS_GA:
@@ -69,7 +69,7 @@ services:
       - 8000
 
   os-conductor:
-    image: 'openspending/os-conductor:7dada08'
+    image: 'openspending/os-conductor:584c22e'
     environment:
       OS_BASE_URL:
       OS_CONDUCTOR_ENGINE:
@@ -86,6 +86,7 @@ services:
       OS_CONDUCTOR_CACHE: cache:11211
       OS_API_CACHE:
       WORKDIR: /app
+    restart: on-failure
     expose:
       - 8000
     depends_on:
@@ -98,7 +99,7 @@ services:
       - 11211
 
   os-api:
-    image: 'openspending/os-api:1bc1eea'
+    image: 'openspending/os-api:6c8eee1'
     environment:
       OS_API_ENGINE:
       OS_ELASTICSEARCH_ADDRESS:
