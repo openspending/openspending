@@ -113,7 +113,7 @@ services:
       - 8000
 
   os-data-importers:
-    image: 'openspending/os-data-importers:8bd6f82'
+    image: 'openspending/os-data-importers:58e9a39'
     expose:
       - 5000
     environment:
