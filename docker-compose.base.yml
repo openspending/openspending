@@ -111,3 +111,29 @@ services:
     restart: on-failure
     expose:
       - 8000
+
+  os-data-importers:
+    image: 'openspending/os-data-importers:8bd6f82'
+    expose:
+      - 5000
+    environment:
+      # disabled by default
+      OS_DPP_DISABLE_PIPELINES: 'True'
+      DPP_BASE_PATH: "/"
+      DPP_BASIC_AUTH_USERNAME: openspending
+      DPP_BASIC_AUTH_PASSWORD: letmein
+      DPP_DB_ENGINE: postgresql://postgres@db/postgres
+      AWS_ACCESS_KEY_ID: ${OS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${OS_SECRET_ACCESS_KEY}
+      OS_S3_HOSTNAME: ${OS_S3_HOSTNAME}
+      OS_STORAGE_BUCKET_NAME:
+      ELASTICSEARCH_ADDRESS: es:9200
+      OS_ELASTICSEARCH_ADDRESS: es:9200
+      S3_BUCKET_NAME: ${OS_STORAGE_BUCKET_NAME}
+      OS_API_CACHE:
+      DPP_REDIS_HOST: redis
+      DPP_CELERY_BROKER: redis://redis:6379/10
+      # Following settings used to allow custom S3-like datastore
+      S3_ENDPOINT_URL: http://fakes3:4567
+      USE_FAKE_S3: 'True'
+      OS_S3_PORT: 4567

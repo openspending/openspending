@@ -25,6 +25,7 @@ Most applications that make up the OpenSpending platform are maintained in their
 - [os-admin](https://github.com/openspending/os-admin)
 - [os-packager](https://github.com/openspending/os-packager)
 - [os-fdp-adapters](https://github.com/openspending/os-fdp-adapters)
+- [os-data-importers](https://github.com/openspending/os-data-importers)
 
 This repository maintains docker-compose files used to help get you started with the platform.
 
