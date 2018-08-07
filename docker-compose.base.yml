@@ -28,7 +28,7 @@ services:
       - 8000
 
   os-explorer:
-    image: 'openspending/os-explorer:f439a9e'
+    image: 'openspending/os-explorer:1242e68'
     environment:
       OS_BASE_URL:
       OS_SNIPPETS_GA:
