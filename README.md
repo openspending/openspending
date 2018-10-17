@@ -31,7 +31,7 @@ This repository maintains docker-compose files used to help get you started with
 
 `docker-compose.base.yml`: This is the main docker-compose file for OpenSpending specific services. All installations will use this as the basis for running the platform.
 
-`docker-compose.dev-services.yml`: This defines backing services used by the platform, such as Redis, ElasticSearch, PostgreSQL, and memcached. This file also includes fake-s3 in place of AWS S3, so you don't have to set up an S3 bucket for development. It is not recommended to use this for production.
+`docker-compose.dev-services.yml`: This defines backing services used by the platform, such as Redis, ElasticSearch, and PostgreSQL. This file also includes fake-s3 in place of AWS S3, so you don't have to set up an S3 bucket for development. It is not recommended to use this for production.
 
 `docker-compose.local.yml`: Create this file to add additional services, or overrides for the base configuration. It is ignored by git.
 
@@ -71,9 +71,9 @@ services:
 
 3. Start up the platform with `base`, `dev-services`, and your `local` compose file:
 
-Now you can start working on os-conductor application files in `~/src/dockerfiles/os-conductor` and changes will reload the server in the Docker container.
-
 `$ docker-compose -f docker-compose.base.yml -f docker-compose.dev-services.yml -f docker-compose.local.yml up`
+
+Now you can start working on os-conductor application files in `~/src/dockerfiles/os-conductor` and changes will reload the server in the Docker container.
 
 ### I have my own backing service I want to use for development
 
