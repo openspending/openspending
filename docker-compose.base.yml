@@ -69,7 +69,7 @@ services:
       - 8000
 
   os-conductor:
-    image: 'openspending/os-conductor:d9a636e'
+    image: 'openspending/os-conductor:6d1155c'
     environment:
       OS_BASE_URL:
       OS_CONDUCTOR_ENGINE:
@@ -99,7 +99,7 @@ services:
       - 11211
 
   os-api:
-    image: 'openspending/os-api:b332740'
+    image: 'openspending/os-api:0902027'
     environment:
       OS_API_ENGINE:
       OS_ELASTICSEARCH_ADDRESS:
@@ -113,7 +113,7 @@ services:
       - 8000
 
   os-data-importers:
-    image: 'openspending/os-data-importers:cd43a7b'
+    image: 'openspending/os-data-importers:22f03f3'
     expose:
       - 5000
     environment:

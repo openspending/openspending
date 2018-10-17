@@ -10,7 +10,7 @@ services:
       - "5432:5432"
 
   es:
-    image: 'elasticsearch:1.5'
+    image: bitnami/elasticsearch:5.6.4
     expose:
       - 9200
       - 9300
