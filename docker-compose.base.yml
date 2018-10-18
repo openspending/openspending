@@ -69,7 +69,7 @@ services:
       - 8000
 
   os-conductor:
-    image: 'openspending/os-conductor:6d1155c'
+    image: 'openspending/os-conductor:df8a2ad'
     environment:
       OS_BASE_URL:
       OS_CONDUCTOR_ENGINE:
@@ -113,7 +113,7 @@ services:
       - 8000
 
   os-data-importers:
-    image: 'openspending/os-data-importers:22f03f3'
+    image: 'openspending/os-data-importers:275e74b'
     expose:
       - 5000
     environment:
