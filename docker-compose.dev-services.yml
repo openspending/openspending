@@ -42,3 +42,10 @@ services:
   os-api:
     environment:
       OS_CHECK_ES_HEALTHY: 'True'
+
+  os-data-importers:
+    environment:
+      # Following settings used to allow custom S3-like datastore
+      S3_ENDPOINT_URL: http://fakes3:4567
+      USE_FAKE_S3: 'True'
+      OS_S3_PORT: 4567

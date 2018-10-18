@@ -133,7 +133,3 @@ services:
       OS_API_CACHE:
       DPP_REDIS_HOST: redis
       DPP_CELERY_BROKER: redis://redis:6379/10
-      # Following settings used to allow custom S3-like datastore
-      S3_ENDPOINT_URL: http://fakes3:4567
-      USE_FAKE_S3: 'True'
-      OS_S3_PORT: 4567
