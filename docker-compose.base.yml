@@ -38,7 +38,7 @@ services:
       - 8000
 
   os-admin:
-    image: 'openspending/os-admin:f2c7d6e'
+    image: 'openspending/os-admin:c4d6ee8'
     environment:
       OS_BASE_URL:
       OS_SNIPPETS_GA:
@@ -69,7 +69,7 @@ services:
       - 8000
 
   os-conductor:
-    image: 'openspending/os-conductor:5e57bbb'
+    image: 'openspending/os-conductor:6ba7a1c'
     environment:
       OS_BASE_URL:
       OS_CONDUCTOR_ENGINE:
@@ -114,7 +114,7 @@ services:
       - 8000
 
   os-data-importers:
-    image: 'openspending/os-data-importers:275e74b'
+    image: 'openspending/os-data-importers:9990a1c'
     expose:
       - 5000
     environment:
