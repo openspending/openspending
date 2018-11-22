@@ -48,7 +48,7 @@ services:
       - 8000
 
   os-packager:
-    image: 'openspending/os-packager:920de11'
+    image: 'openspending/os-packager:3942b4b'
     environment:
       OS_BASE_URL:
       OS_SNIPPETS_GA:
