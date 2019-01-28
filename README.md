@@ -6,7 +6,7 @@
 [![Issues](https://img.shields.io/badge/issue-tracker-orange.svg)](https://github.com/openspending/openspending/issues)
 [![Docs](https://img.shields.io/badge/docs-latest-blue.svg)](http://docs.openspending.org/en/latest/developers/platform/)
 
-OpenSpending is a project to make government finances easier to explore and understand. It started out as "Where does my money go", a platform to visualize the United Kingdom's state finance, but has been renamed and restructured to allow arbitrary financial data to be loaded and displayed. 
+OpenSpending is a project to make government finances easier to explore and understand. It started out as "Where does my money go", a platform to visualize the United Kingdom's state finance, but has been renamed and restructured to allow arbitrary financial data to be loaded and displayed.
 
 The main use for the software is the site [openspending.org](http://openspending.org) which aims to track government finance around the world.
 
@@ -33,6 +33,8 @@ This repository maintains docker-compose files used to help get you started with
 
 `docker-compose.dev-services.yml`: This defines backing services used by the platform, such as Redis, ElasticSearch, and PostgreSQL. This file also includes fake-s3 in place of AWS S3, so you don't have to set up an S3 bucket for development. It is not recommended to use this for production.
 
+`docker-compose.data-importers.yml`: This defines the services used for the separate [os-data-importers](https://github.com/openspending/os-data-importers) application. They depend on services defined in `docker-compose.dev-services.yml`. Unless you are working on the data-importers or its associated source-spec files, it's not necessary to run this file.
+
 `docker-compose.local.yml`: Create this file to add additional services, or overrides for the base configuration. It is ignored by git.
 
 `Dockerfiles/*`: Most services are maintained in their own repositories, but a few small custom services used by the platform are maintained here. `os-nginx-frontend` is a basic frontend nginx server and configuration files to define resource locations for the platform. This will be build and run directly by `docker-compose.base.yml`.
@@ -55,7 +57,7 @@ You can use `volumes` to map local files from the host to application files in t
 2. Add the following to `docker-compose.local.yml`:
 
 ```yml
-version: "3"
+version: "3.4"
 
 services:
   os-conductor:

@@ -1,0 +1,48 @@
+version: "3.4"
+
+services:
+
+  os-data-importers:
+    image: 'openspending/os-data-importers:6926829'
+    depends_on:
+      - redis
+      - es
+      - db
+    environment:
+      OS_DPP_DISABLE_PIPELINES: 'False'
+      DPP_BASE_PATH: "/"
+      # DPP_BASIC_AUTH_USERNAME: openspending
+      # DPP_BASIC_AUTH_PASSWORD: letmein
+      DPP_DB_ENGINE: postgresql://postgres@db/postgres
+      AWS_ACCESS_KEY_ID: ${OS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${OS_SECRET_ACCESS_KEY}
+      OS_S3_HOSTNAME: ${OS_S3_HOSTNAME}
+      OS_STORAGE_BUCKET_NAME:
+      ELASTICSEARCH_ADDRESS: es:9200
+      OS_ELASTICSEARCH_ADDRESS: es:9200
+      S3_BUCKET_NAME: ${OS_STORAGE_BUCKET_NAME}
+      OS_API_CACHE:
+      DPP_REDIS_HOST: redis
+    volumes:
+      - source-specs:/app/source-specs
+
+  repository-agent:
+    image: 'openspending/repository-agent:ddd5473'
+    depends_on:
+      - redis
+    environment:
+      REPO_AGENT_CLEAN_ON_UPDATE: 'False'
+      REPO_AGENT_BASE_DIR: /app/source-specs
+      REPO_AGENT_UPDATE_FREQUENCY: 60
+      REPO_AGENT_BROKER: redis://redis:6379/11
+      REPO_AGENT_REPOS: https://github.com/openspending/os-source-specs#simple
+    volumes:
+      - source-specs:/app/source-specs
+
+volumes:
+  source-specs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/tmp/source-specs"
