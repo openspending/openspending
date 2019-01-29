@@ -23,8 +23,14 @@ services:
       S3_BUCKET_NAME: ${OS_STORAGE_BUCKET_NAME}
       OS_API_CACHE:
       DPP_REDIS_HOST: redis
+
+      # Following settings used to allow custom S3-like datastore (development)
+      S3_ENDPOINT_URL: http://fakes3:4567
+      USE_FAKE_S3: 'True'
+      OS_S3_PORT: 4567
     volumes:
       - source-specs:/app/source-specs
+
 
   repository-agent:
     image: 'openspending/repository-agent:ddd5473'
