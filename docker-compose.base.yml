@@ -48,7 +48,7 @@ services:
       - 8000
 
   os-packager:
-    image: 'openspending/os-packager:3942b4b'
+    image: 'openspending/os-packager:c6c1ffc'
     environment:
       OS_BASE_URL:
       OS_SNIPPETS_GA:
@@ -69,7 +69,7 @@ services:
       - 8000
 
   os-conductor:
-    image: 'openspending/os-conductor:88b1d01'
+    image: 'openspending/os-conductor:e6fbba5'
     environment:
       OS_BASE_URL:
       OS_CONDUCTOR_ENGINE:
