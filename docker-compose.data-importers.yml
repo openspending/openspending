@@ -3,7 +3,7 @@ version: "3.4"
 services:
 
   os-data-importers:
-    image: 'openspending/os-data-importers:6926829'
+    image: 'openspending/os-data-importers:473c413'
     depends_on:
       - redis
       - es

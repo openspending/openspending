@@ -15,7 +15,7 @@ services:
       - '8080:80'
 
   os-viewer:
-    image: 'openspending/os-viewer:c1593f0'
+    image: 'openspending/os-viewer:e4c9d2f'
     environment:
       OS_BASE_URL:
       OS_SNIPPETS_GA:
@@ -28,7 +28,7 @@ services:
       - 8000
 
   os-explorer:
-    image: 'openspending/os-explorer:1242e68'
+    image: 'openspending/os-explorer:75988f7'
     environment:
       OS_BASE_URL:
       OS_SNIPPETS_GA:
@@ -69,7 +69,7 @@ services:
       - 8000
 
   os-conductor:
-    image: 'openspending/os-conductor:e6fbba5'
+    image: 'openspending/os-conductor:f53580d'
     environment:
       OS_BASE_URL:
       OS_CONDUCTOR_ENGINE:
