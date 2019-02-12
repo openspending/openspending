@@ -15,7 +15,7 @@ services:
       - '8080:80'
 
   os-viewer:
-    image: 'openspending/os-viewer:e4c9d2f'
+    image: 'openspending/os-viewer:95a1f64'
     environment:
       OS_BASE_URL:
       OS_SNIPPETS_GA:
