@@ -12,7 +12,7 @@ The main use for the software is the site [openspending.org](http://openspending
 
 OpenSpending's code is licensed under the GNU Affero Licence except where otherwise indicated. A copy of this licence is available in the file [LICENSE.txt](LICENSE.txt).
 
-OpenSpending is a microservices platform made up of a number of separate apps, orchestrated with [Docker Compose](https://docs.docker.com/compose/). This repository contains docker-compose files that can be used for production and development. It also acts as a central hub for managing [issues](https://github.com/openspending/openspending/issues) for the entire platform.
+OpenSpending is a microservices platform made up of a number of separate apps, each maintained in their own git repository. This repository contains [docker-compose](https://docs.docker.com/compose/) files that can be used run an instance of Openspending for development, or as the basis for a production deployment. This repository also acts as a central hub for managing [issues](https://github.com/openspending/openspending/issues) for the entire platform.
 
 ### What are these files?
 
@@ -76,6 +76,14 @@ services:
 `$ docker-compose -f docker-compose.base.yml -f docker-compose.dev-services.yml -f docker-compose.local.yml up`
 
 Now you can start working on os-conductor application files in `~/src/dockerfiles/os-conductor` and changes will reload the server in the Docker container.
+
+### I want to work on the data-importers application. Show me how!
+
+In Openspending, the os-data-importers application provides a way to import data and create fiscal datapackages from [source-spec](https://github.com/openspending/os-source-specs) files. You can either work on the app independently, by following the [README in the os-data-importers repository](https://github.com/openspending/os-data-importers), or within the context of an Openspending instance, by using the included `docker-compose.data-importers.yml` file, and starting Openspending with:
+
+`$ docker-compose -f docker-compose.base.yml -f docker-compose.dev-services.yml -f docker-compose.data-importers.yml up`
+
+This will start Openspending locally as usual on port `:8080`, and the pipelines dashboard will be available on port `:5000`: http://localhost:5000.
 
 ### I have my own backing service I want to use for development
 

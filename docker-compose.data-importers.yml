@@ -28,6 +28,8 @@ services:
       S3_ENDPOINT_URL: http://fakes3:4567
       USE_FAKE_S3: 'True'
       OS_S3_PORT: 4567
+    ports:
+      - '5000:5000'
     volumes:
       - source-specs:/app/source-specs
 
