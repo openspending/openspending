@@ -100,7 +100,7 @@ services:
       - 11211
 
   os-api:
-    image: 'openspending/os-api:a35d3dd'
+    image: 'openspending/os-api:dc1a086'
     environment:
       OS_API_ENGINE:
       OS_ELASTICSEARCH_ADDRESS:
