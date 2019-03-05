@@ -21,7 +21,7 @@ services:
       OS_SNIPPETS_GA:
       OS_SNIPPETS_RAVEN:
       SENTRY_DSN:
-      OS_VIEWER_DATAMINE_HOST: https://${REDASH_SERVER_NAME}
+      # OS_VIEWER_DATAMINE_HOST: https://${REDASH_SERVER_NAME}
       PORT: 8000
       WORKDIR: /app
     expose:
