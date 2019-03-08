@@ -4,7 +4,7 @@
 [![Issues in Ready](https://badge.waffle.io/openspending/openspending.svg?columns=In%20Progress)](https://waffle.io/openspending/openspending)
 [![Gitter](https://img.shields.io/gitter/room/openspending/chat.svg)](https://gitter.im/openspending/chat)
 [![Issues](https://img.shields.io/badge/issue-tracker-orange.svg)](https://github.com/openspending/openspending/issues)
-[![Docs](https://img.shields.io/badge/docs-latest-blue.svg)](http://docs.openspending.org/en/latest/developers/platform/)
+[![Docs](https://img.shields.io/badge/docs-latest-blue.svg)](http://docs.openspending.org/)
 
 OpenSpending is a project to make government finances easier to explore and understand. It started out as "Where does my money go", a platform to visualize the United Kingdom's state finance, but has been renamed and restructured to allow arbitrary financial data to be loaded and displayed.
 
@@ -93,7 +93,7 @@ That's fine, just add the relevant resource locator to the .env file. E.g., you'
 
 ### I want to run my own instance of OpenSpending in production
 
-Great! Use the `docker-compose.base.yml` file as a base and add resource locators pointing to your backing services for Postgres, ElasticSearch, Redis, memcached, AWS S3 etc to your environment. See the `.env.example` file for the required env vars you'll need to set up.
+Great! There are many ways to orchestrate Docker containers in a network. E.g. for openspending.org we use [Kubernetes](https://kubernetes.io/). Use the `docker-compose.base.yml` file as a guide for networking the applications together, with their appropriate environment variables, and add resource locators pointing to your backing services for Postgres, ElasticSearch, Redis, memcached, AWS S3 etc. See the `.env.example` file for the required env vars you'll need to set up.
 
 You'll also need to set up OAuth credentials for OS-Conductor (see https://github.com/openspending/os-conductor#oauth-credentials), and AWS S3 bucket details.
 
