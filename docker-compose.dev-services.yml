@@ -22,6 +22,8 @@ services:
     image: openspending/fakes3:latest
     expose:
       - 4567
+    ports:
+      - "4567:4567"
 
   os-conductor:
     environment:
