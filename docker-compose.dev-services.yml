@@ -6,30 +6,22 @@ services:
     image: 'postgres:10-alpine'
     expose:
       - 5432
-    ports:
-      - "5432:5432"
 
   es:
     image: bitnami/elasticsearch:5.6.4
     expose:
       - 9200
       - 9300
-    ports:
-      - "9200:9200"
 
   redis:
     image: 'redis:3.2-alpine'
     expose:
       - 6379
-    ports:
-      - "6379:6379"
 
   fakes3:
     image: openspending/fakes3:latest
     expose:
       - 4567
-    ports:
-      - "4567:4567"
 
   os-conductor:
     environment:
