@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/openspending/openspending.svg?branch=master)](https://travis-ci.org/openspending/openspending)
 [![Issues](https://img.shields.io/badge/issue-tracker-orange.svg)](https://github.com/openspending/openspending/issues)
 [![Docs](https://img.shields.io/badge/docs-latest-blue.svg)](http://docs.openspending.org/)
+[![Discord](https://img.shields.io/discord/724381522966085712.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/xvS9hwj)
 
 OpenSpending is a project to make government finances easier to explore and understand. It started out as "Where does my money go", a platform to visualize the United Kingdom's state finance, but has been renamed and restructured to allow arbitrary financial data to be loaded and displayed.
 
@@ -98,4 +99,3 @@ You'll also need to set up OAuth credentials for OS-Conductor (see https://githu
 ### What happened to the old version of OpenSpending?
 
 You can find the old OpenSpending v2, and the complete history for the codebase to that point, in the [`openspending-monolith` branch](https://github.com/openspending/openspending/tree/openspending-monolith).
-
